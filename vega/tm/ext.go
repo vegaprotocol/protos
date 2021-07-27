@@ -41,7 +41,7 @@ func intoTMValidatorUpdates(ups []*ValidatorUpdate) []types.ValidatorUpdate {
 
 func (RequestInitChain) FromTM(t *types.RequestInitChain) *RequestInitChain {
 	return &RequestInitChain{
-		Time:          t.Time.unixNano(),
+		Time:          t.Time.UnixNano(),
 		ChainId:       t.ChainId,
 		Validators:    fromTMValidatorUpdates(t.Validators),
 		AppStateBytes: t.AppStateBytes,
@@ -61,7 +61,7 @@ func fromTMHeader(t htypes.Header) *Header {
 	return &Header{
 		ChainId: t.ChainID,
 		Height:  t.Height,
-		Time:    t.Time.unixNano(),
+		Time:    t.Time.UnixNano(),
 	}
 }
 

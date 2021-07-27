@@ -1,4 +1,4 @@
-package proto
+package vega
 
 import (
 	"github.com/golang/protobuf/proto"

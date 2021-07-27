@@ -1,7 +1,7 @@
 package v1
 
 import (
-	types "code.vegaprotocol.io/vega/proto"
+	types "code.vegaprotocol.io/protos/vega"
 
 	wrapperspb "github.com/golang/protobuf/ptypes/wrappers"
 )

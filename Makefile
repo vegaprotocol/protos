@@ -1,0 +1,61 @@
+# Makefile
+
+.PHONY: all
+all: build
+
+
+.PHONY: test
+test: ## Run unit tests
+	@go test ./...
+
+.PHONY: vet
+vet: ## Run go vet
+	@go vet ./...
+
+.PHONY: coverage
+coverage: ## Generate global code coverage report
+	@go test -cover ./...
+
+.PHONY: deps
+deps: ## Get the dependencies
+	@go get ./...
+
+.PHONY: proto
+proto: ## build proto definitions
+	@./vega/generate.sh
+
+.PHONY: proto_check
+proto_check: ## proto: Check committed files match just-generated files
+	@make proto_clean 1>/dev/null
+	@make proto 1>/dev/null
+	@files="$$(git diff --name-only vega/)" ; \
+	if test -n "$$files" ; then \
+		echo "Committed files do not match just-generated files:" $$files ; \
+		test -n "$(CI)" && git diff vega/ ; \
+		exit 1 ; \
+	fi
+
+.PHONY: proto_clean
+proto_clean:
+	@find vega -name '*.pb.go' -o -name '*.pb.gw.go' -o -name '*.validator.pb.go' -o -name '*.swagger.json' \
+		| xargs -r rm
+
+# Misc Targets
+
+.PHONY: buflint
+buflint: ## Run buf lint
+	@buf lint
+
+
+.PHONY: clean
+clean: SHELL:=/bin/bash
+clean: ## Remove previous build
+	@source ./script/build.sh && \
+	rm -f cmd/*/*.log && \
+	for app in "$${apps[@]}" ; do \
+		rm -f "$$app" "cmd/$$app/$$app" "cmd/$$app/$$app"-* ; \
+	done
+
+.PHONY: help
+help: ## Display this help screen
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

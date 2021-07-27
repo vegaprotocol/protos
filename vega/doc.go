@@ -18,4 +18,4 @@
 //         string someanswer = 1;
 //         repeated string somestringlist = 2;
 //     }
-package proto
+package vega

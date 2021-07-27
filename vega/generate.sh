@@ -1,11 +1,10 @@
 #!/bin/bash
 
-TARGET="proto"
-
+TARGET="vega"
 
 function check() {
 	if [[ ! -d "$TARGET" ]]; then
-		echo "Target directory \`$TARGET\` not found, run this script from Vega's repository root path"
+		echo "Target directory \`$TARGET\` not found, run this script from vega protos's repository root path"
 		exit 1
 	fi
 }
@@ -14,9 +13,7 @@ function gen_code() {
 	# generate code, grpc and validators code
 	buf generate
 
-	# Since ./proto/github/{grpc-ecosystem,mwitkow} are dependencies,
-	# buf will generate code for them to
-	rm -rf ./proto/github.com
+	pwd
 
 	# Make *.validator.pb.go files deterministic.
 	find proto -name '*.validator.pb.go' | sort | while read -r pbfile
@@ -25,11 +22,11 @@ function gen_code() {
 		&& ./script/fix_imports.sh "$pbfile"
 	done
 
-	chmod 0644 proto/*.go proto/api/*.go
+	chmod 0644 vega/*.go vega/api/*.go
 }
 
 function gen_swagger() {
-	buf generate --path=./proto/api --template=./proto/api/buf.gen.yaml # generate swagger
+	buf generate --path=./vega/api --template=./vega/api/buf.gen.yaml # generate swagger
 }
 check
 gen_code

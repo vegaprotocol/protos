@@ -1,4 +1,4 @@
-package proto
+package vega
 
 func (b BuiltinAsset) DeepClone() *BuiltinAsset {
 	return &b

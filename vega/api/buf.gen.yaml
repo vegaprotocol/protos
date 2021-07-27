@@ -3,4 +3,4 @@ version: v1beta1
 plugins:
   - name: swagger
     out: proto
-    opt: logtostderr=true,grpc_api_configuration=./gateway/rest/grpc-rest-bindings.yml
+    opt: logtostderr=true,grpc_api_configuration=grpc-rest-bindings.yml
