@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"encoding/hex"
 	"errors"
 
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
@@ -37,12 +38,30 @@ func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error)
 	if !errs.Empty() {
 		return nil, errs.ErrorOrNil()
 	}
+	errs.Merge(validateSignature(tx.InputData, tx.Signature, tx.GetPubKey()))
+	if !errs.Empty() {
+		return nil, errs.ErrorOrNil()
+	}
 
 	inputData, errs := checkInputData(tx.InputData)
 	if !errs.Empty() {
 		return nil, errs.ErrorOrNil()
 	}
 	return inputData, nil
+}
+
+func validateSignature(inputData []byte, signature *commandspb.Signature, pubKey string) Errors {
+	errs := NewErrors()
+	_, err := hex.DecodeString(signature.Value)
+	if err != nil {
+		return errs.FinalAddForProperty("tx.signature.value", ErrShouldBeHexEncoded)
+	}
+
+	_, err = hex.DecodeString(pubKey)
+	if err != nil {
+		return errs.FinalAddForProperty("tx.from.pub_key", ErrShouldBeHexEncoded)
+	}
+	return nil
 }
 
 func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {

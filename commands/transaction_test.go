@@ -3,8 +3,8 @@ package commands_test
 import (
 	"testing"
 
-	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 	"code.vegaprotocol.io/protos/commands"
+	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,10 +18,8 @@ func TestCheckTransaction(t *testing.T) {
 	t.Run("Submitting transaction without signature algo fails", testSubmittingTransactionWithoutSignatureAlgoFails)
 	t.Run("Submitting transaction without from fails", testSubmittingTransactionWithoutFromFails)
 	t.Run("Submitting transaction without public key fails", testSubmittingTransactionWithoutPubKeyFromFails)
-	t.Run("Submitting transaction with unsupported algo fails", testSubmittingTransactionWithUnsupportedAlgoFails)
 	t.Run("Submitting transaction with invalid encoding of bytes fails", testSubmittingTransactionWithInvalidEncodingOfValueFails)
 	t.Run("Submitting transaction with invalid encoding of bytes fails", testSubmittingTransactionWithInvalidEncodingOfPubKeyFails)
-	t.Run("Submitting transaction with invalid signature fails", testSubmittingTransactionWithInvalidSignatureFails)
 }
 
 func testSubmittingValidTransactionSucceeds(t *testing.T) {
@@ -116,15 +114,6 @@ func testSubmittingTransactionWithInvalidEncodingOfPubKeyFails(t *testing.T) {
 	err := checkTransaction(tx)
 
 	assert.Contains(t, err.Get("tx.from.pub_key"), commands.ErrShouldBeHexEncoded)
-}
-
-func testSubmittingTransactionWithInvalidSignatureFails(t *testing.T) {
-	tx := newValidTransaction()
-	tx.Signature.Value = "8ea1c9baab2919a73b6acd3dae15f515c9d9b191ac2a2cd9e7d7a2f9750da0793a88c8ee96a640e0de64c91d81770299769d4d4d93f81208e17573c836e3a810"
-
-	err := checkTransaction(tx)
-
-	assert.Contains(t, err.Get("tx.signature"), commands.ErrInvalidSignature)
 }
 
 func checkTransaction(cmd *commandspb.Transaction) commands.Errors {

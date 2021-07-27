@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"code.vegaprotocol.io/protos/vega"
-	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 	"code.vegaprotocol.io/protos/commands"
+	proto "code.vegaprotocol.io/protos/vega"
+	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 
 	"github.com/stretchr/testify/assert"
 )
