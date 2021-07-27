@@ -13,6 +13,10 @@ function gen_code() {
 	# generate code, grpc and validators code
 	buf generate
 
+	# Since ./proto/github/{grpc-ecosystem,mwitkow} are dependencies,
+	# buf will generate code for them to
+	rm -rf ./vega/github.com
+
 	# Make *.validator.pb.go files deterministic.
 	find vega -name '*.validator.pb.go' | sort | while read -r pbfile
 	do
