@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"errors"
 
+	"code.vegaprotocol.io/protos/crypto"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 
 	"github.com/golang/protobuf/proto"
@@ -13,6 +14,24 @@ var (
 	ErrInvalidSignature   = errors.New("invalid signature")
 	ErrShouldBeHexEncoded = errors.New("should be hex encoded")
 )
+
+func NewTransaction(pubKey string, data []byte, signature *commandspb.Signature) *commandspb.Transaction {
+	return &commandspb.Transaction{
+		InputData: data,
+		Signature: signature,
+		From: &commandspb.Transaction_PubKey{
+			PubKey: pubKey,
+		},
+		Version: 1,
+	}
+}
+
+func NewInputData(height uint64) *commandspb.InputData {
+	return &commandspb.InputData{
+		Nonce:       crypto.NewNonce(),
+		BlockHeight: height,
+	}
+}
 
 func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error) {
 	errs := NewErrors()
