@@ -13,10 +13,8 @@ function gen_code() {
 	# generate code, grpc and validators code
 	buf generate
 
-	pwd
-
 	# Make *.validator.pb.go files deterministic.
-	find proto -name '*.validator.pb.go' | sort | while read -r pbfile
+	find vega -name '*.validator.pb.go' | sort | while read -r pbfile
 	do
         sed -i -re 's/this\.Size_/this.Size/' "$pbfile" \
 		&& ./script/fix_imports.sh "$pbfile"

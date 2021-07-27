@@ -47,15 +47,6 @@ buflint: ## Run buf lint
 	@buf lint
 
 
-.PHONY: clean
-clean: SHELL:=/bin/bash
-clean: ## Remove previous build
-	@source ./script/build.sh && \
-	rm -f cmd/*/*.log && \
-	for app in "$${apps[@]}" ; do \
-		rm -f "$$app" "cmd/$$app/$$app" "cmd/$$app/$$app"-* ; \
-	done
-
 .PHONY: help
 help: ## Display this help screen
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

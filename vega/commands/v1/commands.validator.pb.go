@@ -6,8 +6,9 @@ package v1
 import (
 	fmt "fmt"
 	math "math"
-	proto "github.com/golang/protobuf/proto"
+
 	_ "code.vegaprotocol.io/protos/vega"
+	proto "github.com/golang/protobuf/proto"
 	_ "github.com/golang/protobuf/ptypes/wrappers"
 	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
@@ -22,8 +23,8 @@ func (this *OrderSubmission) Validate() error {
 	if this.MarketId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("MarketId", fmt.Errorf(`value '%v' must not be an empty string`, this.MarketId))
 	}
-	if !(this.Size_ > 0) {
-		return github_com_mwitkow_go_proto_validators.FieldError("Size_", fmt.Errorf(`value '%v' must be greater than '0'`, this.Size_))
+	if !(this.Size > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("Size_", fmt.Errorf(`value '%v' must be greater than '0'`, this.Size))
 	}
 	if this.PeggedOrder != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.PeggedOrder); err != nil {

@@ -6,9 +6,10 @@ package vega
 import (
 	fmt "fmt"
 	math "math"
+
+	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/mwitkow/go-proto-validators"
-	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
