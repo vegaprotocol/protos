@@ -1,0 +1,12 @@
+---
+version: v1beta1
+plugins:
+  - name: go
+    out: vega
+    opt: plugins=grpc,paths=source_relative
+  - name: govalidators
+    out: vega
+    opt: paths=source_relative
+  - name: grpc-gateway
+    out: vega
+    opt: logtostderr=true,grpc_api_configuration=grpc-rest-bindings.yml,paths=source_relative
