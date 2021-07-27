@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"code.vegaprotocol.io/vega/commands"
+	"code.vegaprotocol.io/protos/commands"
 	types "code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 	oraclespb "code.vegaprotocol.io/protos/vega/oracles/v1"

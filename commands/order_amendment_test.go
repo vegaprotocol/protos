@@ -4,10 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"code.vegaprotocol.io/vega/commands"
 	"code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
-	"code.vegaprotocol.io/vega/vegatime"
+	"code.vegaprotocol.io/protos/commands"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -65,7 +64,7 @@ func testAmendOrderJustIncreaseSuccess(t *testing.T) {
 }
 
 func testAmendOrderJustExpirySuccess(t *testing.T) {
-	now := vegatime.Now()
+	now := time.Now()
 	expires := now.Add(-2 * time.Hour)
 	arg := &commandspb.OrderAmendment{
 		OrderId:   "orderid",

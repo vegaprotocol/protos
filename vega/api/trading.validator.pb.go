@@ -7,11 +7,11 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
-	_ "code.vegaprotocol.io/vega/proto/oracles/v1"
-	_ "code.vegaprotocol.io/vega/proto/commands/v1"
+	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
+	_ "code.vegaprotocol.io/protos/vega/commands/v1"
 	_ "github.com/mwitkow/go-proto-validators"
-	_ "code.vegaprotocol.io/vega/proto"
-	_ "code.vegaprotocol.io/vega/proto/events/v1"
+	_ "code.vegaprotocol.io/protos/vega"
+	_ "code.vegaprotocol.io/protos/vega/events/v1"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 

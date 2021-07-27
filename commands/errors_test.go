@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"code.vegaprotocol.io/vega/commands"
+	"code.vegaprotocol.io/protos/commands"
 	"github.com/stretchr/testify/assert"
 )
 

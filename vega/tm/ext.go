@@ -1,7 +1,7 @@
 package tm
 
 import (
-	"code.vegaprotocol.io/vega/vegatime"
+	"time"
 
 	"github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/proto/tendermint/crypto"
@@ -41,7 +41,7 @@ func intoTMValidatorUpdates(ups []*ValidatorUpdate) []types.ValidatorUpdate {
 
 func (RequestInitChain) FromTM(t *types.RequestInitChain) *RequestInitChain {
 	return &RequestInitChain{
-		Time:          t.Time.UnixNano(),
+		Time:          t.Time.unixNano(),
 		ChainId:       t.ChainId,
 		Validators:    fromTMValidatorUpdates(t.Validators),
 		AppStateBytes: t.AppStateBytes,
@@ -50,7 +50,7 @@ func (RequestInitChain) FromTM(t *types.RequestInitChain) *RequestInitChain {
 
 func (r *RequestInitChain) IntoTM() types.RequestInitChain {
 	return types.RequestInitChain{
-		Time:          vegatime.UnixNano(r.Time),
+		Time:          unixNano(r.Time),
 		ChainId:       r.ChainId,
 		Validators:    intoTMValidatorUpdates(r.Validators),
 		AppStateBytes: r.AppStateBytes,
@@ -61,7 +61,7 @@ func fromTMHeader(t htypes.Header) *Header {
 	return &Header{
 		ChainId: t.ChainID,
 		Height:  t.Height,
-		Time:    t.Time.UnixNano(),
+		Time:    t.Time.unixNano(),
 	}
 }
 
@@ -69,7 +69,7 @@ func intoTMHeader(t *Header) htypes.Header {
 	return htypes.Header{
 		ChainID: t.ChainId,
 		Height:  t.Height,
-		Time:    vegatime.UnixNano(t.Time),
+		Time:    unixNano(t.Time),
 	}
 }
 
@@ -97,4 +97,8 @@ func (r *RequestDeliverTx) IntoTM() types.RequestDeliverTx {
 	return types.RequestDeliverTx{
 		Tx: r.Tx,
 	}
+}
+
+func unixNano(nsec int64) time.Time {
+	return time.Unix(nsec/int64(time.Second), nsec%int64(time.Second)).UTC()
 }
