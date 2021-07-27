@@ -1,6 +1,6 @@
 package commands
 
-import commandspb "code.vegaprotocol.io/vega/proto/commands/v1"
+import commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 
 func CheckOracleDataSubmission(cmd *commandspb.OracleDataSubmission) error {
 	return checkOracleDataSubmission(cmd).ErrorOrNil()

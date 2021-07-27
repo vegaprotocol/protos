@@ -3,9 +3,8 @@ package commands_test
 import (
 	"testing"
 
+	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 	"code.vegaprotocol.io/vega/commands"
-	commandspb "code.vegaprotocol.io/vega/proto/commands/v1"
-	"code.vegaprotocol.io/vega/wallet/crypto"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -97,15 +96,6 @@ func testSubmittingTransactionWithoutPubKeyFromFails(t *testing.T) {
 	err := checkTransaction(tx)
 
 	assert.Contains(t, err.Get("tx.from.pub_key"), commands.ErrIsRequired)
-}
-
-func testSubmittingTransactionWithUnsupportedAlgoFails(t *testing.T) {
-	tx := newValidTransaction()
-	tx.Signature.Algo = "unsupported-algo"
-
-	err := checkTransaction(tx)
-
-	assert.Contains(t, err.Get("tx.signature.algo"), crypto.ErrUnsupportedSignatureAlgorithm)
 }
 
 func testSubmittingTransactionWithInvalidEncodingOfValueFails(t *testing.T) {

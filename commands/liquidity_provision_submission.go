@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
-	types "code.vegaprotocol.io/vega/proto"
-	commandspb "code.vegaprotocol.io/vega/proto/commands/v1"
+	types "code.vegaprotocol.io/protos/vega"
+	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 )
 
 var (

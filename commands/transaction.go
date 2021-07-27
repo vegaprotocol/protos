@@ -1,11 +1,9 @@
 package commands
 
 import (
-	"encoding/hex"
 	"errors"
 
-	commandspb "code.vegaprotocol.io/vega/proto/commands/v1"
-	"code.vegaprotocol.io/vega/wallet/crypto"
+	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 
 	"github.com/golang/protobuf/proto"
 )
@@ -40,44 +38,11 @@ func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error)
 		return nil, errs.ErrorOrNil()
 	}
 
-	errs.Merge(validateSignature(tx.InputData, tx.Signature, tx.GetPubKey()))
-	if !errs.Empty() {
-		return nil, errs.ErrorOrNil()
-	}
-
 	inputData, errs := checkInputData(tx.InputData)
 	if !errs.Empty() {
 		return nil, errs.ErrorOrNil()
 	}
 	return inputData, nil
-}
-
-func validateSignature(inputData []byte, signature *commandspb.Signature, pubKey string) Errors {
-	errs := NewErrors()
-
-	validator, err := crypto.NewSignatureAlgorithm(signature.Algo)
-	if err != nil {
-		return errs.FinalAddForProperty("tx.signature.algo", err)
-	}
-
-	decodedSig, err := hex.DecodeString(signature.Value)
-	if err != nil {
-		return errs.FinalAddForProperty("tx.signature.value", ErrShouldBeHexEncoded)
-	}
-
-	decodedPubKey, err := hex.DecodeString(pubKey)
-	if err != nil {
-		return errs.FinalAddForProperty("tx.from.pub_key", ErrShouldBeHexEncoded)
-	}
-
-	ok, err := validator.Verify(decodedPubKey, inputData, decodedSig)
-	if err != nil {
-		return errs.FinalAdd(err)
-	}
-	if !ok {
-		return errs.FinalAddForProperty("tx.signature", ErrInvalidSignature)
-	}
-	return errs
 }
 
 func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {

@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"code.vegaprotocol.io/vega/commands"
-	"code.vegaprotocol.io/vega/proto"
-	commandspb "code.vegaprotocol.io/vega/proto/commands/v1"
+	"code.vegaprotocol.io/protos/vega"
+	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 	"code.vegaprotocol.io/vega/vegatime"
 
 	"github.com/stretchr/testify/assert"
