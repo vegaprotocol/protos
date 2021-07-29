@@ -2,5 +2,5 @@
 version: v1beta1
 plugins:
   - name: swagger
-    out: vega
+    out: swagger
     opt: logtostderr=true,grpc_api_configuration=sources/vega/grpc-rest-bindings.yml
