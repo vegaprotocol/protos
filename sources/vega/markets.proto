@@ -5,7 +5,7 @@ option go_package = "code.vegaprotocol.io/protos/vega";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
-import "oracles/v1/spec.proto";
+import "vega/oracles/v1/spec.proto";
 
 // An auction duration is used to configure 3 auction periods:
 // 1. `duration > 0`, `volume == 0`:
@@ -45,7 +45,7 @@ message Future {
   string quote_name = 4;
   // The oracle spec describing the settlement price oracle filter
   oracles.v1.OracleSpec oracle_spec_for_settlement_price = 5;
-  
+
   // the oracle spec describing the trading termination oracle filter
   oracles.v1.OracleSpec oracle_spec_for_trading_termination = 6;
 
