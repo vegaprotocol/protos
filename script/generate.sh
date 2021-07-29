@@ -23,8 +23,6 @@ function gen_code() {
         sed -i -re 's/this\.Size_/this.Size/' "$pbfile" \
 		&& ./script/fix_imports.sh "$pbfile"
 	done
-
-	#chmod 0644 vega/*.go vega/api/*.go
 }
 
 function gen_swagger() {
