@@ -3,7 +3,7 @@ syntax = "proto3";
 package vega.commands.v1;
 option go_package = "code.vegaprotocol.io/protos/vega/commands/v1";
 
-import "chain_events.proto";
+import "vega/chain_events.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 // Used to Register a node as a validator during network start-up

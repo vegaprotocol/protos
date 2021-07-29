@@ -3,7 +3,9 @@ version: v1beta1
 
 build:
   roots:
+    - sources
     - vega
+    - data-node
     - third_party/proto
 lint:
   use:

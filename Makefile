@@ -22,7 +22,7 @@ deps: ## Get the dependencies
 
 .PHONY: proto
 proto: ## build proto definitions
-	@./vega/generate.sh
+	@./script/generate.sh
 
 .PHONY: proto_check
 proto_check: ## proto: Check committed files match just-generated files

@@ -3,9 +3,9 @@ syntax = "proto3";
 package vega.commands.v1;
 option go_package = "code.vegaprotocol.io/protos/vega/commands/v1";
 
-import "commands/v1/commands.proto";
-import "commands/v1/validator_commands.proto";
-import "commands/v1/oracles.proto";
+import "vega/commands/v1/commands.proto";
+import "vega/commands/v1/validator_commands.proto";
+import "vega/commands/v1/oracles.proto";
 
 message InputData {
   // A random number used to provided uniqueness and prevents against replay
