@@ -742,6 +742,7 @@ enum AccountType {
   // Global reward account for the asset
   ACCOUNT_TYPE_GLOBAL_REWARD = 12;
 
+  ACCOUNT_TYPE_STAKING = 13;
   // Note: If adding an enum value, add a matching entry in:
   //       - gateway/graphql/helpers_enum.go
   //       - gateway/graphql/schema.graphql (enum AccountType)
