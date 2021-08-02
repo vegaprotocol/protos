@@ -20,11 +20,13 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+// Snapshot is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
 type Snapshot struct {
-	Data                 map[string][]byte `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
-	XXX_unrecognized     []byte            `json:"-"`
-	XXX_sizecache        int32             `json:"-"`
+	Hash                 string   `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
+	State                []byte   `protobuf:"bytes,2,opt,name=state,proto3" json:"state,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *Snapshot) Reset()         { *m = Snapshot{} }
@@ -52,20 +54,29 @@ func (m *Snapshot) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Snapshot proto.InternalMessageInfo
 
-func (m *Snapshot) GetData() map[string][]byte {
+func (m *Snapshot) GetHash() string {
 	if m != nil {
-		return m.Data
+		return m.Hash
+	}
+	return ""
+}
+
+func (m *Snapshot) GetState() []byte {
+	if m != nil {
+		return m.State
 	}
 	return nil
 }
 
-// Checkpoint is similar to Snapshot, only it doesn't contain independently serialised data
-// but instead uses a oneof field
+// Checkpoint aggregates the various engine snapshots
 type Checkpoint struct {
-	States               []*EngineState `protobuf:"bytes,1,rep,name=states,proto3" json:"states,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
-	XXX_unrecognized     []byte         `json:"-"`
-	XXX_sizecache        int32          `json:"-"`
+	Governance           []byte   `protobuf:"bytes,1,opt,name=governance,proto3" json:"governance,omitempty"`
+	Assets               []byte   `protobuf:"bytes,2,opt,name=assets,proto3" json:"assets,omitempty"`
+	Collateral           []byte   `protobuf:"bytes,3,opt,name=collateral,proto3" json:"collateral,omitempty"`
+	NetworkParameters    []byte   `protobuf:"bytes,4,opt,name=network_parameters,json=networkParameters,proto3" json:"network_parameters,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *Checkpoint) Reset()         { *m = Checkpoint{} }
@@ -93,131 +104,88 @@ func (m *Checkpoint) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Checkpoint proto.InternalMessageInfo
 
-func (m *Checkpoint) GetStates() []*EngineState {
+func (m *Checkpoint) GetGovernance() []byte {
 	if m != nil {
-		return m.States
+		return m.Governance
 	}
 	return nil
 }
 
-// EngineState is a oneof wrapper type to facilitate serializing snapshots
-type EngineState struct {
-	// Types that are valid to be assigned to Engine:
-	//	*EngineState_Asset
-	//	*EngineState_Collateral
-	//	*EngineState_NetParams
-	//	*EngineState_Proposals
-	Engine               isEngineState_Engine `protobuf_oneof:"engine"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+func (m *Checkpoint) GetAssets() []byte {
+	if m != nil {
+		return m.Assets
+	}
+	return nil
 }
 
-func (m *EngineState) Reset()         { *m = EngineState{} }
-func (m *EngineState) String() string { return proto.CompactTextString(m) }
-func (*EngineState) ProtoMessage()    {}
-func (*EngineState) Descriptor() ([]byte, []int) {
+func (m *Checkpoint) GetCollateral() []byte {
+	if m != nil {
+		return m.Collateral
+	}
+	return nil
+}
+
+func (m *Checkpoint) GetNetworkParameters() []byte {
+	if m != nil {
+		return m.NetworkParameters
+	}
+	return nil
+}
+
+// AssetEntrty is a single (enabled) asset
+type AssetEntry struct {
+	Id                   string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	AssetDetails         *AssetDetails `protobuf:"bytes,2,opt,name=asset_details,json=assetDetails,proto3" json:"asset_details,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *AssetEntry) Reset()         { *m = AssetEntry{} }
+func (m *AssetEntry) String() string { return proto.CompactTextString(m) }
+func (*AssetEntry) ProtoMessage()    {}
+func (*AssetEntry) Descriptor() ([]byte, []int) {
 	return fileDescriptor_6ef1468f19ab6b2e, []int{2}
 }
 
-func (m *EngineState) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EngineState.Unmarshal(m, b)
+func (m *AssetEntry) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssetEntry.Unmarshal(m, b)
 }
-func (m *EngineState) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EngineState.Marshal(b, m, deterministic)
+func (m *AssetEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssetEntry.Marshal(b, m, deterministic)
 }
-func (m *EngineState) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EngineState.Merge(m, src)
+func (m *AssetEntry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssetEntry.Merge(m, src)
 }
-func (m *EngineState) XXX_Size() int {
-	return xxx_messageInfo_EngineState.Size(m)
+func (m *AssetEntry) XXX_Size() int {
+	return xxx_messageInfo_AssetEntry.Size(m)
 }
-func (m *EngineState) XXX_DiscardUnknown() {
-	xxx_messageInfo_EngineState.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EngineState proto.InternalMessageInfo
-
-type isEngineState_Engine interface {
-	isEngineState_Engine()
+func (m *AssetEntry) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssetEntry.DiscardUnknown(m)
 }
 
-type EngineState_Asset struct {
-	Asset *Assets `protobuf:"bytes,1,opt,name=asset,proto3,oneof"`
-}
+var xxx_messageInfo_AssetEntry proto.InternalMessageInfo
 
-type EngineState_Collateral struct {
-	Collateral *Collateral `protobuf:"bytes,2,opt,name=collateral,proto3,oneof"`
-}
-
-type EngineState_NetParams struct {
-	NetParams *NetParams `protobuf:"bytes,3,opt,name=netParams,proto3,oneof"`
-}
-
-type EngineState_Proposals struct {
-	Proposals *Proposals `protobuf:"bytes,4,opt,name=proposals,proto3,oneof"`
-}
-
-func (*EngineState_Asset) isEngineState_Engine() {}
-
-func (*EngineState_Collateral) isEngineState_Engine() {}
-
-func (*EngineState_NetParams) isEngineState_Engine() {}
-
-func (*EngineState_Proposals) isEngineState_Engine() {}
-
-func (m *EngineState) GetEngine() isEngineState_Engine {
+func (m *AssetEntry) GetId() string {
 	if m != nil {
-		return m.Engine
+		return m.Id
+	}
+	return ""
+}
+
+func (m *AssetEntry) GetAssetDetails() *AssetDetails {
+	if m != nil {
+		return m.AssetDetails
 	}
 	return nil
 }
 
-func (m *EngineState) GetAsset() *Assets {
-	if x, ok := m.GetEngine().(*EngineState_Asset); ok {
-		return x.Asset
-	}
-	return nil
-}
-
-func (m *EngineState) GetCollateral() *Collateral {
-	if x, ok := m.GetEngine().(*EngineState_Collateral); ok {
-		return x.Collateral
-	}
-	return nil
-}
-
-func (m *EngineState) GetNetParams() *NetParams {
-	if x, ok := m.GetEngine().(*EngineState_NetParams); ok {
-		return x.NetParams
-	}
-	return nil
-}
-
-func (m *EngineState) GetProposals() *Proposals {
-	if x, ok := m.GetEngine().(*EngineState_Proposals); ok {
-		return x.Proposals
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*EngineState) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*EngineState_Asset)(nil),
-		(*EngineState_Collateral)(nil),
-		(*EngineState_NetParams)(nil),
-		(*EngineState_Proposals)(nil),
-	}
-}
-
-// Assets lists the enabled asset details by ID
+// Assets contains all the enabled assets as AssetEntries
 type Assets struct {
-	Enabled              map[string]*AssetDetails `protobuf:"bytes,1,rep,name=enabled,proto3" json:"enabled,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Pending              map[string]*AssetDetails `protobuf:"bytes,2,rep,name=pending,proto3" json:"pending,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
-	XXX_unrecognized     []byte                   `json:"-"`
-	XXX_sizecache        int32                    `json:"-"`
+	Assets               []*AssetEntry `protobuf:"bytes,1,rep,name=assets,proto3" json:"assets,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
 }
 
 func (m *Assets) Reset()         { *m = Assets{} }
@@ -245,66 +213,75 @@ func (m *Assets) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Assets proto.InternalMessageInfo
 
-func (m *Assets) GetEnabled() map[string]*AssetDetails {
+func (m *Assets) GetAssets() []*AssetEntry {
 	if m != nil {
-		return m.Enabled
+		return m.Assets
 	}
 	return nil
 }
 
-func (m *Assets) GetPending() map[string]*AssetDetails {
-	if m != nil {
-		return m.Pending
-	}
-	return nil
+// AssetBalance represents the total balance of a given asset for a party
+type AssetBalance struct {
+	Party                string   `protobuf:"bytes,1,opt,name=party,proto3" json:"party,omitempty"`
+	Asset                string   `protobuf:"bytes,2,opt,name=asset,proto3" json:"asset,omitempty"`
+	Balance              string   `protobuf:"bytes,3,opt,name=balance,proto3" json:"balance,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-// Balance represents the balances per asset
-type Balance struct {
-	Balance              map[string][]byte `protobuf:"bytes,1,rep,name=balance,proto3" json:"balance,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
-	XXX_unrecognized     []byte            `json:"-"`
-	XXX_sizecache        int32             `json:"-"`
-}
-
-func (m *Balance) Reset()         { *m = Balance{} }
-func (m *Balance) String() string { return proto.CompactTextString(m) }
-func (*Balance) ProtoMessage()    {}
-func (*Balance) Descriptor() ([]byte, []int) {
+func (m *AssetBalance) Reset()         { *m = AssetBalance{} }
+func (m *AssetBalance) String() string { return proto.CompactTextString(m) }
+func (*AssetBalance) ProtoMessage()    {}
+func (*AssetBalance) Descriptor() ([]byte, []int) {
 	return fileDescriptor_6ef1468f19ab6b2e, []int{4}
 }
 
-func (m *Balance) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Balance.Unmarshal(m, b)
+func (m *AssetBalance) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssetBalance.Unmarshal(m, b)
 }
-func (m *Balance) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Balance.Marshal(b, m, deterministic)
+func (m *AssetBalance) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssetBalance.Marshal(b, m, deterministic)
 }
-func (m *Balance) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Balance.Merge(m, src)
+func (m *AssetBalance) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssetBalance.Merge(m, src)
 }
-func (m *Balance) XXX_Size() int {
-	return xxx_messageInfo_Balance.Size(m)
+func (m *AssetBalance) XXX_Size() int {
+	return xxx_messageInfo_AssetBalance.Size(m)
 }
-func (m *Balance) XXX_DiscardUnknown() {
-	xxx_messageInfo_Balance.DiscardUnknown(m)
+func (m *AssetBalance) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssetBalance.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Balance proto.InternalMessageInfo
+var xxx_messageInfo_AssetBalance proto.InternalMessageInfo
 
-func (m *Balance) GetBalance() map[string][]byte {
+func (m *AssetBalance) GetParty() string {
+	if m != nil {
+		return m.Party
+	}
+	return ""
+}
+
+func (m *AssetBalance) GetAsset() string {
+	if m != nil {
+		return m.Asset
+	}
+	return ""
+}
+
+func (m *AssetBalance) GetBalance() string {
 	if m != nil {
 		return m.Balance
 	}
-	return nil
+	return ""
 }
 
 // Collateral contains the balances per party
 type Collateral struct {
-	Parties              map[string]*Balance `protobuf:"bytes,1,rep,name=parties,proto3" json:"parties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
-	XXX_unrecognized     []byte              `json:"-"`
-	XXX_sizecache        int32               `json:"-"`
+	Balances             []*AssetBalance `protobuf:"bytes,1,rep,name=balances,proto3" json:"balances,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
 }
 
 func (m *Collateral) Reset()         { *m = Collateral{} }
@@ -332,9 +309,9 @@ func (m *Collateral) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Collateral proto.InternalMessageInfo
 
-func (m *Collateral) GetParties() map[string]*Balance {
+func (m *Collateral) GetBalances() []*AssetBalance {
 	if m != nil {
-		return m.Parties
+		return m.Balances
 	}
 	return nil
 }
@@ -421,16 +398,11 @@ func (m *Proposals) GetProposals() []*Proposal {
 
 func init() {
 	proto.RegisterType((*Snapshot)(nil), "vega.Snapshot")
-	proto.RegisterMapType((map[string][]byte)(nil), "vega.Snapshot.DataEntry")
 	proto.RegisterType((*Checkpoint)(nil), "vega.Checkpoint")
-	proto.RegisterType((*EngineState)(nil), "vega.EngineState")
+	proto.RegisterType((*AssetEntry)(nil), "vega.AssetEntry")
 	proto.RegisterType((*Assets)(nil), "vega.Assets")
-	proto.RegisterMapType((map[string]*AssetDetails)(nil), "vega.Assets.EnabledEntry")
-	proto.RegisterMapType((map[string]*AssetDetails)(nil), "vega.Assets.PendingEntry")
-	proto.RegisterType((*Balance)(nil), "vega.Balance")
-	proto.RegisterMapType((map[string][]byte)(nil), "vega.Balance.BalanceEntry")
+	proto.RegisterType((*AssetBalance)(nil), "vega.AssetBalance")
 	proto.RegisterType((*Collateral)(nil), "vega.Collateral")
-	proto.RegisterMapType((map[string]*Balance)(nil), "vega.Collateral.PartiesEntry")
 	proto.RegisterType((*NetParams)(nil), "vega.NetParams")
 	proto.RegisterType((*Proposals)(nil), "vega.Proposals")
 }
@@ -438,38 +410,31 @@ func init() {
 func init() { proto.RegisterFile("vega/snapshot.proto", fileDescriptor_6ef1468f19ab6b2e) }
 
 var fileDescriptor_6ef1468f19ab6b2e = []byte{
-	// 527 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0x4f, 0x6f, 0xd3, 0x30,
-	0x14, 0x5f, 0xda, 0x2e, 0x5d, 0x5e, 0x02, 0xdb, 0xcc, 0x1f, 0x85, 0x48, 0x48, 0x55, 0xe0, 0x50,
-	0xa4, 0x29, 0x95, 0x32, 0xa4, 0xc2, 0x38, 0xb1, 0xad, 0x52, 0xb9, 0x4c, 0x55, 0x76, 0xe3, 0xe6,
-	0xa6, 0x56, 0x17, 0x35, 0xd8, 0x21, 0x36, 0x45, 0x13, 0x5f, 0x02, 0xf1, 0xd5, 0xf8, 0x42, 0x28,
-	0x7e, 0x4e, 0xe6, 0xa2, 0x5e, 0x10, 0x97, 0xd6, 0xfe, 0xfd, 0x79, 0x7e, 0xcf, 0xfe, 0x29, 0xf0,
-	0x64, 0xcb, 0xd6, 0x74, 0x22, 0x39, 0xad, 0xe4, 0x9d, 0x50, 0x49, 0x55, 0x0b, 0x25, 0xc8, 0xa0,
-	0x01, 0xa3, 0x63, 0x4d, 0x35, 0x3f, 0x08, 0x47, 0xa7, 0x1a, 0xa0, 0x52, 0x32, 0x25, 0x0d, 0xf4,
-	0x4c, 0x43, 0x6b, 0xb1, 0x65, 0x35, 0xa7, 0x3c, 0x67, 0x08, 0xc7, 0x5f, 0xe1, 0xe8, 0xd6, 0x94,
-	0x24, 0x67, 0x30, 0x58, 0x51, 0x45, 0x43, 0x67, 0xd4, 0x1f, 0xfb, 0x69, 0x98, 0xe8, 0x82, 0x2d,
-	0x9b, 0x5c, 0x53, 0x45, 0x67, 0x5c, 0xd5, 0xf7, 0x99, 0x56, 0x45, 0x53, 0xf0, 0x3a, 0x88, 0x9c,
-	0x40, 0x7f, 0xc3, 0xee, 0x43, 0x67, 0xe4, 0x8c, 0xbd, 0xac, 0x59, 0x92, 0xa7, 0x70, 0xb8, 0xa5,
-	0xe5, 0x37, 0x16, 0xf6, 0x46, 0xce, 0x38, 0xc8, 0x70, 0x73, 0xd1, 0x7b, 0xe7, 0xc4, 0x53, 0x80,
-	0xab, 0x3b, 0x96, 0x6f, 0x2a, 0x51, 0x70, 0x45, 0xde, 0x80, 0x2b, 0x15, 0x55, 0x4c, 0x9a, 0x63,
-	0x4f, 0xf1, 0xd8, 0x19, 0x5f, 0x17, 0x9c, 0xdd, 0x36, 0x4c, 0x66, 0x04, 0xf1, 0x6f, 0x07, 0x7c,
-	0x0b, 0x27, 0xaf, 0xe1, 0x50, 0x8f, 0xa8, 0x8f, 0xf5, 0xd3, 0x00, 0x9d, 0x1f, 0xf5, 0xd4, 0xf3,
-	0x83, 0x0c, 0x49, 0x92, 0x02, 0xe4, 0xa2, 0x2c, 0xa9, 0x62, 0x35, 0x2d, 0x75, 0x37, 0x7e, 0x7a,
-	0x82, 0xd2, 0xab, 0x0e, 0x9f, 0x1f, 0x64, 0x96, 0x8a, 0x4c, 0xc0, 0xe3, 0x4c, 0x2d, 0x68, 0x4d,
-	0xbf, 0xc8, 0xb0, 0xaf, 0x2d, 0xc7, 0x68, 0xb9, 0x69, 0xe1, 0xf9, 0x41, 0xf6, 0xa0, 0x69, 0x0c,
-	0x55, 0x2d, 0x2a, 0x21, 0x69, 0x29, 0xc3, 0x81, 0x6d, 0x58, 0xb4, 0x70, 0x63, 0xe8, 0x34, 0x97,
-	0x47, 0xe0, 0x32, 0x3d, 0x4a, 0xfc, 0xab, 0x07, 0x2e, 0xf6, 0x4c, 0xce, 0x61, 0xc8, 0x38, 0x5d,
-	0x96, 0x6c, 0x65, 0x2e, 0xe3, 0x85, 0x3d, 0x52, 0x32, 0x43, 0x0e, 0x1f, 0xa1, 0x55, 0x36, 0xa6,
-	0x8a, 0xf1, 0x55, 0xc1, 0xd7, 0x61, 0x6f, 0x8f, 0x69, 0x81, 0x9c, 0x31, 0x19, 0x65, 0x74, 0x03,
-	0x81, 0x5d, 0x6d, 0xcf, 0xfb, 0x8d, 0xed, 0xf7, 0xf3, 0x53, 0x62, 0x15, 0xbd, 0x66, 0x8a, 0x16,
-	0xa5, 0xb4, 0xde, 0xb4, 0xa9, 0x67, 0x1f, 0xf4, 0xbf, 0xf5, 0xe2, 0x1f, 0x30, 0xbc, 0xa4, 0x65,
-	0x93, 0x53, 0xf2, 0x16, 0x86, 0x4b, 0x5c, 0x9a, 0x4b, 0x89, 0xd0, 0x6a, 0xf8, 0xf6, 0xdf, 0x0c,
-	0x68, 0xa4, 0xd1, 0x05, 0x04, 0x36, 0xf1, 0x4f, 0x01, 0xfd, 0xe9, 0x00, 0x3c, 0x44, 0x83, 0x4c,
-	0x61, 0x58, 0xd1, 0x5a, 0x15, 0x5d, 0x44, 0x5f, 0xfe, 0x9d, 0x9e, 0x64, 0x81, 0x7c, 0x7b, 0xc9,
-	0xb8, 0x8b, 0x3e, 0x41, 0x60, 0x13, 0x7b, 0x7a, 0x78, 0xb5, 0x7b, 0x29, 0x8f, 0x76, 0x26, 0xb3,
-	0x5b, 0xfa, 0x00, 0x5e, 0x97, 0x3c, 0x92, 0x80, 0x5b, 0x61, 0x34, 0xb1, 0x9f, 0xe7, 0x5d, 0x34,
-	0xbf, 0x8b, 0x7a, 0xa3, 0x45, 0x4c, 0xb1, 0x3a, 0x33, 0xaa, 0xf8, 0x3d, 0x78, 0x5d, 0x0a, 0xc9,
-	0x99, 0x9d, 0x54, 0xf4, 0x3f, 0xde, 0x4d, 0xaa, 0x1d, 0xd3, 0xf8, 0xf3, 0x28, 0x17, 0x2b, 0xa6,
-	0x05, 0xfa, 0x83, 0x91, 0x8b, 0x32, 0x29, 0xc4, 0x44, 0xaf, 0xa5, 0xfe, 0xe4, 0x2c, 0x5d, 0xbd,
-	0x39, 0xff, 0x13, 0x00, 0x00, 0xff, 0xff, 0x39, 0x01, 0xb6, 0xc8, 0xa1, 0x04, 0x00, 0x00,
+	// 403 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x5c, 0x52, 0x4d, 0xab, 0xd3, 0x40,
+	0x14, 0x25, 0x7d, 0x7d, 0xf1, 0xe5, 0x36, 0x56, 0x3b, 0xd6, 0x12, 0xba, 0x90, 0x30, 0xab, 0x2c,
+	0x34, 0x85, 0x2a, 0x88, 0xe8, 0xa6, 0xad, 0x6e, 0x4b, 0x19, 0x75, 0xe3, 0xa6, 0x4c, 0x93, 0xa1,
+	0x09, 0x8d, 0x99, 0x30, 0x33, 0x54, 0xfa, 0x3b, 0xfc, 0xc3, 0x92, 0x3b, 0x93, 0x26, 0xb8, 0x09,
+	0x39, 0xe7, 0x9e, 0x73, 0x3f, 0x0e, 0x03, 0xaf, 0xae, 0xe2, 0xcc, 0x57, 0xba, 0xe6, 0x8d, 0x2e,
+	0xa4, 0x49, 0x1b, 0x25, 0x8d, 0x24, 0xe3, 0x96, 0x5c, 0xbe, 0xc0, 0x52, 0xfb, 0xb1, 0xf4, 0x72,
+	0x86, 0x04, 0xd7, 0x5a, 0x18, 0xed, 0xa8, 0xd7, 0x48, 0x9d, 0xe5, 0x55, 0xa8, 0x9a, 0xd7, 0x99,
+	0xb0, 0x34, 0xfd, 0x00, 0x4f, 0xdf, 0x5d, 0x4b, 0x42, 0x60, 0x5c, 0x70, 0x5d, 0x44, 0x5e, 0xec,
+	0x25, 0x01, 0xc3, 0x7f, 0x32, 0x87, 0x47, 0x6d, 0xb8, 0x11, 0xd1, 0x28, 0xf6, 0x92, 0x90, 0x59,
+	0x40, 0xff, 0x7a, 0x00, 0xbb, 0x42, 0x64, 0x97, 0x46, 0x96, 0xb5, 0x21, 0x6f, 0x00, 0xfa, 0xc6,
+	0x68, 0x0f, 0xd9, 0x80, 0x21, 0x0b, 0xf0, 0xed, 0x2e, 0xae, 0x8b, 0x43, 0xad, 0x2f, 0x93, 0x55,
+	0xc5, 0x8d, 0x50, 0xbc, 0x8a, 0x1e, 0xac, 0xaf, 0x67, 0xc8, 0x3b, 0x20, 0xb5, 0x30, 0x7f, 0xa4,
+	0xba, 0x1c, 0x1b, 0xae, 0xf8, 0x6f, 0x61, 0x84, 0xd2, 0xd1, 0x18, 0x75, 0x33, 0x57, 0x39, 0xdc,
+	0x0b, 0xf4, 0x27, 0xc0, 0xa6, 0x6d, 0xfc, 0xad, 0x36, 0xea, 0x46, 0xa6, 0x30, 0x2a, 0x73, 0x77,
+	0xcb, 0xa8, 0xcc, 0xc9, 0x47, 0x78, 0x8e, 0x63, 0x8f, 0xb9, 0x30, 0xbc, 0xac, 0xec, 0x2e, 0x93,
+	0x35, 0x49, 0x31, 0x37, 0x34, 0x7e, 0xb5, 0x15, 0x16, 0xf2, 0x01, 0xa2, 0x6b, 0xf0, 0x37, 0x76,
+	0xdf, 0xe4, 0x7e, 0x87, 0x17, 0x3f, 0x24, 0x93, 0xf5, 0xcb, 0x81, 0x17, 0x87, 0x76, 0x97, 0xd1,
+	0x1f, 0x10, 0x22, 0xbb, 0xe5, 0x15, 0x26, 0x30, 0x87, 0xc7, 0x86, 0x2b, 0x73, 0x73, 0xfb, 0x58,
+	0xd0, 0xb2, 0xa8, 0xc7, 0x55, 0x02, 0x66, 0x01, 0x89, 0xe0, 0xd9, 0xc9, 0xda, 0x30, 0x92, 0x80,
+	0x75, 0x90, 0x7e, 0x01, 0xd8, 0xf5, 0xe9, 0xa4, 0xf0, 0xe4, 0x0a, 0xdd, 0x3e, 0xc3, 0x5b, 0xdc,
+	0x64, 0x76, 0xd7, 0xd0, 0xcf, 0x10, 0xec, 0x85, 0xc1, 0xbc, 0x34, 0x49, 0xc1, 0xc7, 0x48, 0x3b,
+	0xeb, 0xc2, 0x5a, 0xf7, 0xff, 0x85, 0xca, 0x9c, 0x8a, 0x7e, 0x82, 0xe0, 0xa0, 0x64, 0x23, 0x35,
+	0xaf, 0x34, 0x79, 0x0b, 0x41, 0xd3, 0x01, 0xe7, 0x9f, 0x5a, 0x7f, 0xa7, 0x61, 0xbd, 0x60, 0x4b,
+	0x7f, 0xc5, 0x99, 0xcc, 0x05, 0x0a, 0xf0, 0xd1, 0x65, 0xb2, 0x4a, 0x4b, 0xb9, 0xc2, 0x7f, 0x8d,
+	0xcf, 0xf6, 0xe4, 0x23, 0x78, 0xff, 0x2f, 0x00, 0x00, 0xff, 0xff, 0x15, 0x80, 0x66, 0x70, 0xe5,
+	0x02, 0x00, 0x00,
 }

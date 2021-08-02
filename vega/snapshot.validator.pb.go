@@ -17,61 +17,40 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 func (this *Snapshot) Validate() error {
-	// Validation of proto3 map<> fields is unsupported.
 	return nil
 }
 func (this *Checkpoint) Validate() error {
-	for _, item := range this.States {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("States", err)
-			}
-		}
-	}
 	return nil
 }
-func (this *EngineState) Validate() error {
-	if oneOfNester, ok := this.GetEngine().(*EngineState_Asset); ok {
-		if oneOfNester.Asset != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Asset); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Asset", err)
-			}
-		}
-	}
-	if oneOfNester, ok := this.GetEngine().(*EngineState_Collateral); ok {
-		if oneOfNester.Collateral != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Collateral); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Collateral", err)
-			}
-		}
-	}
-	if oneOfNester, ok := this.GetEngine().(*EngineState_NetParams); ok {
-		if oneOfNester.NetParams != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.NetParams); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("NetParams", err)
-			}
-		}
-	}
-	if oneOfNester, ok := this.GetEngine().(*EngineState_Proposals); ok {
-		if oneOfNester.Proposals != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Proposals); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Proposals", err)
-			}
+func (this *AssetEntry) Validate() error {
+	if this.AssetDetails != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.AssetDetails); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("AssetDetails", err)
 		}
 	}
 	return nil
 }
 func (this *Assets) Validate() error {
-	// Validation of proto3 map<> fields is unsupported.
-	// Validation of proto3 map<> fields is unsupported.
+	for _, item := range this.Assets {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Assets", err)
+			}
+		}
+	}
 	return nil
 }
-func (this *Balance) Validate() error {
-	// Validation of proto3 map<> fields is unsupported.
+func (this *AssetBalance) Validate() error {
 	return nil
 }
 func (this *Collateral) Validate() error {
-	// Validation of proto3 map<> fields is unsupported.
+	for _, item := range this.Balances {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Balances", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *NetParams) Validate() error {
