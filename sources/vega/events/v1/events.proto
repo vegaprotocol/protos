@@ -165,6 +165,18 @@ message AuctionEvent {
   AuctionTrigger extension_trigger = 7;
 }
 
+// A validator update event contains information about validator node
+message ValidatorUpdate {
+  // Public key of validator node
+  string pub_key = 1;
+  // Public key of Tendermint
+  string tm_pub_key = 2;
+  // URL with more info on the node
+  string info_url = 3;
+  // Country code (ISO 3166-1 alpha-2) for the location of the node
+  string country = 4;
+}
+
 // An (event) bus event type is used to specify a type of event
 // It has 2 styles of event:
 // Single values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item
@@ -234,6 +246,8 @@ enum BusEventType {
     BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE = 30;
     // Event indicating the start or end of an epoch
     BUS_EVENT_TYPE_EPOCH_UPDATE = 31;
+    // Event indicating that validator node has been updated
+    BUS_EVENT_TYPE_VALIDATOR_UPDATE = 32;
     // Event indicating a market related event, for example when a market opens
     BUS_EVENT_TYPE_MARKET = 101;
     // Event used to report failed transactions back to a user, this is excluded from the ALL type
@@ -309,6 +323,8 @@ message BusEvent {
     PendingDelegationBalanceEvent pending_delegation_balance = 130;
     // Epoch update events - See [Epoch](#vega.Epoch)
     EpochEvent epoch_event = 131;    
+    // Validator update events
+    ValidatorUpdate validator_update = 132;
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type

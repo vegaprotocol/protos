@@ -4694,7 +4694,9 @@ func init() {
 	proto.RegisterType((*EthereumConfig)(nil), "vega.EthereumConfig")
 }
 
-func init() { proto.RegisterFile("vega/vega.proto", fileDescriptor_ee8879d05d97612a) }
+func init() {
+	proto.RegisterFile("vega/vega.proto", fileDescriptor_ee8879d05d97612a)
+}
 
 var fileDescriptor_ee8879d05d97612a = []byte{
 	// 5457 bytes of a gzipped FileDescriptorProto
