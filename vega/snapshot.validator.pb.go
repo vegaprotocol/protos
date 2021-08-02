@@ -63,6 +63,7 @@ func (this *EngineState) Validate() error {
 }
 func (this *Assets) Validate() error {
 	// Validation of proto3 map<> fields is unsupported.
+	// Validation of proto3 map<> fields is unsupported.
 	return nil
 }
 func (this *Balance) Validate() error {

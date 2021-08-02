@@ -29,7 +29,8 @@ message EngineState {
 
 // Assets lists the enabled asset details by ID
 message Assets {
-  map<string, AssetDetails> assets = 1;
+  map<string, AssetDetails> enabled = 1;
+  map<string, AssetDetails> pending = 2;
 }
 
 // Balance represents the balances per asset
