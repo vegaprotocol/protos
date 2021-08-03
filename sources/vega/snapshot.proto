@@ -9,7 +9,7 @@ import "vega/governance.proto";
 
 // Snapshot is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
 message Snapshot {
-  string hash = 1;
+  bytes hash = 1;
   bytes state = 2;
 }
 
