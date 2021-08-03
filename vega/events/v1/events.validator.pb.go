@@ -19,6 +19,12 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+func (this *DelegationBalanceEvent) Validate() error {
+	return nil
+}
+func (this *PendingDelegationBalanceEvent) Validate() error {
+	return nil
+}
 func (this *MarketEvent) Validate() error {
 	return nil
 }
@@ -305,6 +311,20 @@ func (this *BusEvent) Validate() error {
 		if oneOfNester.OracleData != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.OracleData); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("OracleData", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_DelegationBalance); ok {
+		if oneOfNester.DelegationBalance != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.DelegationBalance); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("DelegationBalance", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_PendingDelegationBalance); ok {
+		if oneOfNester.PendingDelegationBalance != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.PendingDelegationBalance); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PendingDelegationBalance", err)
 			}
 		}
 	}

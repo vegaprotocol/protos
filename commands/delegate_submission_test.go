@@ -50,31 +50,50 @@ func checkDelegateSubmission(cmd *commandspb.DelegateSubmission) commands.Errors
 /*                                  UNDELEGATION                                  */
 /**********************************************************************************/
 func TestSubmittingNoUndelegateCommandFails(t *testing.T) {
-	err := checkUndelegateAtEpochEndSubmission(nil)
+	err := checkUndelegateSubmission(nil)
 
-	assert.Contains(t, err.Get("undelegateAtEpochEnd_submission"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("undelegate_submission"), commands.ErrIsRequired)
 }
 
 func TestSubmittingNoUndelegateNodeIdFails(t *testing.T) {
-	cmd := &commandspb.UndelegateAtEpochEndSubmission{
+	cmd := &commandspb.UndelegateSubmission{
 		Amount: 1000,
 	}
-	err := checkUndelegateAtEpochEndSubmission(cmd)
+	err := checkUndelegateSubmission(cmd)
 
-	assert.Contains(t, err.Get("undelegateAtEpochEnd_submission.node_id"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("undelegate_submission.node_id"), commands.ErrIsRequired)
 }
 
-func TestSubmittingNoUndelegateAtEpochEndAmountFails(t *testing.T) {
-	cmd := &commandspb.UndelegateAtEpochEndSubmission{
+func TestSubmittingInvalidUndelegateMethod(t *testing.T) {
+	invalidMethod := len(commandspb.UndelegateSubmission_Method_value)
+	cmd := &commandspb.UndelegateSubmission{
+		NodeId: "TestingNodeID",
+		Method: commandspb.UndelegateSubmission_Method(invalidMethod),
+	}
+	err := checkUndelegateSubmission(cmd)
+
+	assert.Contains(t, err.Get("undelegate_submission.method"), commands.ErrIsRequired)
+
+	cmd = &commandspb.UndelegateSubmission{
 		NodeId: "TestingNodeID",
 	}
-	err := checkUndelegateAtEpochEndSubmission(cmd)
+	err = checkUndelegateSubmission(cmd)
 
-	assert.Contains(t, err.Get("undelegateAtEpochEnd_submission.amount"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("undelegate_submission.method"), commands.ErrIsRequired)
 }
 
-func checkUndelegateAtEpochEndSubmission(cmd *commandspb.UndelegateAtEpochEndSubmission) commands.Errors {
-	err := commands.CheckUndelegateAtEpochEndSubmission(cmd)
+func TestSubmittingNoUndelegateAmountSucceeds(t *testing.T) {
+	cmd := &commandspb.UndelegateSubmission{
+		NodeId: "TestingNodeID",
+		Method: 1,
+	}
+	err := checkUndelegateSubmission(cmd)
+
+	assert.Equal(t, 0, len(err))
+}
+
+func checkUndelegateSubmission(cmd *commandspb.UndelegateSubmission) commands.Errors {
+	err := commands.CheckUndelegateSubmission(cmd)
 
 	e, ok := err.(commands.Errors)
 	if !ok {

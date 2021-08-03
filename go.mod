@@ -11,4 +11,5 @@ require (
 	github.com/tendermint/tendermint v0.34.11
 	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9
 	google.golang.org/grpc v1.37.0
+	google.golang.org/protobuf v1.25.0 // indirect
 )
