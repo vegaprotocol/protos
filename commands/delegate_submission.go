@@ -37,7 +37,7 @@ func checkUndelegateSubmission(cmd *commandspb.UndelegateSubmission) Errors {
 		return errs.FinalAddForProperty("undelegate_submission", ErrIsRequired)
 	}
 
-	if cmd.Method > commandspb.UndelegateSubmission_InAnger {
+	if _, ok := commandspb.UndelegateSubmission_Method_value[cmd.Method.String()]; !ok || cmd.Method == commandspb.UndelegateSubmission_METHOD_UNSPECIFIED {
 		errs.AddForProperty("undelegate_submission.method", ErrIsRequired)
 	}
 
