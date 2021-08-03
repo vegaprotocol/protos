@@ -201,6 +201,8 @@ enum BusEventType {
     BUS_EVENT_TYPE_ORACLE_SPEC = 27;
     // Event indicating that an oracle data has been broadcast
     BUS_EVENT_TYPE_ORACLE_DATA = 28;
+    // Evetn indicating the start or end of an epoch
+    BUS_EVENT_TYPE_EPOCH_UPDATE = 29;
     // Event indicating a market related event, for example when a market opens
     BUS_EVENT_TYPE_MARKET = 101;
     // Event used to report failed transactions back to a user, this is excluded from the ALL type
@@ -270,6 +272,8 @@ message BusEvent {
     oracles.v1.OracleSpec oracle_spec = 126;
     // OracleData events
     oracles.v1.OracleData oracle_data = 127;
+    // Epoch update events - See [Epoch](#vega.Epoch)
+    Epoch epoch_update = 128;    
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type

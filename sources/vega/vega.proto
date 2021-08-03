@@ -1124,3 +1124,15 @@ message EthereumConfig {
   // Number of confirmations
   uint32 confirmations = 4;
 }
+
+// Epoch details
+message Epoch {
+	// Unique identifier that increases by one each epoch
+	uint64 unique_id = 1;
+	// What time did this epoch start
+	int64  start_time = 2;
+	// What time should this epoch end
+	int64  expire_time = 3;
+	// What time did it actually end
+	int64  end_time = 4;
+}
