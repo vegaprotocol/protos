@@ -2134,10 +2134,10 @@
     "v1EpochEvent": {
       "type": "object",
       "properties": {
-        "unique_id": {
+        "seq": {
           "type": "string",
           "format": "uint64",
-          "title": "Unique identifier that increases by one each epoch"
+          "title": "Sequence number that increases by one each epoch"
         },
         "start_time": {
           "type": "string",

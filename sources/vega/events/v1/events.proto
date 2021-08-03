@@ -46,8 +46,8 @@ message TimeUpdate {
 
 // Epoch details
 message EpochEvent {
-	// Unique identifier that increases by one each epoch
-	uint64 unique_id = 1;
+	// Sequence number that increases by one each epoch
+	uint64 seq = 1;
 	// What time did this epoch start
 	int64  start_time = 2;
 	// What time should this epoch end
