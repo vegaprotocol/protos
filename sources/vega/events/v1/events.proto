@@ -12,6 +12,21 @@ import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/validator_commands.proto";
 
+//DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect 
+message DelegationBalanceEvent {
+  string party = 1;
+  string node_id = 2;
+  uint64 amount = 3;
+}
+
+//PendingDelegationBalanceEvent - updates on the delegation/undelegation balance of a party to a node for the next epoch
+message PendingDelegationBalanceEvent {
+  string party = 1;
+  string node_id = 2;
+  uint64 delegation_amount = 3;
+  uint64 undelegation_amount = 4;
+}
+
 // MarketEvent - the common denominator for all market events
 // interface has a method to return a string for logging
 message MarketEvent {
@@ -201,6 +216,10 @@ enum BusEventType {
     BUS_EVENT_TYPE_ORACLE_SPEC = 27;
     // Event indicating that an oracle data has been broadcast
     BUS_EVENT_TYPE_ORACLE_DATA = 28;
+    // Event indicating that an delegation balance of a party to a node for current epoch has changed
+    BUS_EVENT_TYPE_DELEGATION_BALANCE = 29;
+    // Event indicating that an delegation balance of a party to a node for next epoch has changed
+    BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE = 30;
     // Event indicating a market related event, for example when a market opens
     BUS_EVENT_TYPE_MARKET = 101;
     // Event used to report failed transactions back to a user, this is excluded from the ALL type
@@ -270,6 +289,10 @@ message BusEvent {
     oracles.v1.OracleSpec oracle_spec = 126;
     // OracleData events
     oracles.v1.OracleData oracle_data = 127;
+    // Delegation balance events
+    DelegationBalanceEvent delegation_balance = 129;
+    // Pending delegation balance events
+    PendingDelegationBalanceEvent pending_delegation_balance = 130;
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type
