@@ -321,6 +321,3 @@ func (this *LiquidityProvision) Validate() error {
 func (this *EthereumConfig) Validate() error {
 	return nil
 }
-func (this *Epoch) Validate() error {
-	return nil
-}

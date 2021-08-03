@@ -77,6 +77,9 @@ func (this *TxErrorEvent) Validate() error {
 func (this *TimeUpdate) Validate() error {
 	return nil
 }
+func (this *EpochEvent) Validate() error {
+	return nil
+}
 func (this *TransferResponses) Validate() error {
 	for _, item := range this.Responses {
 		if item != nil {
@@ -305,10 +308,10 @@ func (this *BusEvent) Validate() error {
 			}
 		}
 	}
-	if oneOfNester, ok := this.GetEvent().(*BusEvent_EpochUpdate); ok {
-		if oneOfNester.EpochUpdate != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.EpochUpdate); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("EpochUpdate", err)
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_EpochEvent); ok {
+		if oneOfNester.EpochEvent != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.EpochEvent); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("EpochEvent", err)
 			}
 		}
 	}

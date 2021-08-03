@@ -1680,8 +1680,8 @@
           "$ref": "#/definitions/v1OracleData",
           "title": "OracleData events"
         },
-        "epoch_update": {
-          "$ref": "#/definitions/vegaEpoch",
+        "epoch_event": {
+          "$ref": "#/definitions/v1EpochEvent",
           "title": "Epoch update events - See [Epoch](#vega.Epoch)"
         },
         "market": {
@@ -1819,6 +1819,32 @@
         }
       },
       "title": "The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge\nfunction withdraw_asset(address asset_source, uint256 asset_id, uint256 amount, uint256 expiry, uint256 nonce, bytes memory signatures)"
+    },
+    "v1EpochEvent": {
+      "type": "object",
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Unique identifier that increases by one each epoch"
+        },
+        "start_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "What time did this epoch start"
+        },
+        "expire_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "What time should this epoch end"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "What time did it actually end"
+        }
+      },
+      "title": "Epoch details"
     },
     "v1EstimateFeeRequest": {
       "type": "object",
@@ -3362,32 +3388,6 @@
         }
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
-    },
-    "vegaEpoch": {
-      "type": "object",
-      "properties": {
-        "unique_id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "Unique identifier that increases by one each epoch"
-        },
-        "start_time": {
-          "type": "string",
-          "format": "int64",
-          "title": "What time did this epoch start"
-        },
-        "expire_time": {
-          "type": "string",
-          "format": "int64",
-          "title": "What time should this epoch end"
-        },
-        "end_time": {
-          "type": "string",
-          "format": "int64",
-          "title": "What time did it actually end"
-        }
-      },
-      "title": "Epoch details"
     },
     "vegaErc20WithdrawExt": {
       "type": "object",

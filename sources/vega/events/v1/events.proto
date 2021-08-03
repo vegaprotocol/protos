@@ -44,6 +44,18 @@ message TimeUpdate {
   int64 timestamp = 1;
 }
 
+// Epoch details
+message EpochEvent {
+	// Unique identifier that increases by one each epoch
+	uint64 unique_id = 1;
+	// What time did this epoch start
+	int64  start_time = 2;
+	// What time should this epoch end
+	int64  expire_time = 3;
+	// What time did it actually end
+	int64  end_time = 4;
+}
+
 // A transfer responses event contains a collection of transfer information
 message TransferResponses {
   // One or more entries containing internal transfer information
@@ -273,7 +285,7 @@ message BusEvent {
     // OracleData events
     oracles.v1.OracleData oracle_data = 127;
     // Epoch update events - See [Epoch](#vega.Epoch)
-    Epoch epoch_update = 128;    
+    EpochEvent epoch_event = 128;    
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type
