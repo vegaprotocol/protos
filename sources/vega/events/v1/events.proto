@@ -59,6 +59,18 @@ message TimeUpdate {
   int64 timestamp = 1;
 }
 
+// Epoch details
+message EpochEvent {
+	// Sequence number that increases by one each epoch
+	uint64 seq = 1;
+	// What time did this epoch start
+	int64  start_time = 2;
+	// What time should this epoch end
+	int64  expire_time = 3;
+	// What time did it actually end
+	int64  end_time = 4;
+}
+
 // A transfer responses event contains a collection of transfer information
 message TransferResponses {
   // One or more entries containing internal transfer information
@@ -220,6 +232,8 @@ enum BusEventType {
     BUS_EVENT_TYPE_DELEGATION_BALANCE = 29;
     // Event indicating that an delegation balance of a party to a node for next epoch has changed
     BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE = 30;
+    // Event indicating the start or end of an epoch
+    BUS_EVENT_TYPE_EPOCH_UPDATE = 31;
     // Event indicating a market related event, for example when a market opens
     BUS_EVENT_TYPE_MARKET = 101;
     // Event used to report failed transactions back to a user, this is excluded from the ALL type
@@ -293,6 +307,8 @@ message BusEvent {
     DelegationBalanceEvent delegation_balance = 129;
     // Pending delegation balance events
     PendingDelegationBalanceEvent pending_delegation_balance = 130;
+    // Epoch update events - See [Epoch](#vega.Epoch)
+    EpochEvent epoch_event = 131;    
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type
