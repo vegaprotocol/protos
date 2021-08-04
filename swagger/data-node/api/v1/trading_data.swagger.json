@@ -1440,6 +1440,16 @@
       "description": "- TIME_IN_FORCE_UNSPECIFIED: Default value for TimeInForce, can be valid for an amend\n - TIME_IN_FORCE_GTC: Good until cancelled\n - TIME_IN_FORCE_GTT: Good until specified time\n - TIME_IN_FORCE_IOC: Immediate or cancel\n - TIME_IN_FORCE_FOK: Fill or kill\n - TIME_IN_FORCE_GFA: Good for auction\n - TIME_IN_FORCE_GFN: Good for normal",
       "title": "Time In Force for an order\nSee [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
     },
+    "StakingEventKind": {
+      "type": "string",
+      "enum": [
+        "KIND_UNSPECIFIED",
+        "KIND_DEPOSIT",
+        "KIND_REMOVE"
+      ],
+      "default": "KIND_UNSPECIFIED",
+      "title": "- KIND_UNSPECIFIED: Default value\n - KIND_DEPOSIT: Indicate of a stake deposit instruction\n - KIND_REMOVE: Indicate of a stake remove instruction"
+    },
     "VoteValue": {
       "type": "string",
       "enum": [
@@ -1697,7 +1707,7 @@
           "title": "Validator update events"
         },
         "staking_event": {
-          "$ref": "#/definitions/v1EpochEvent",
+          "$ref": "#/definitions/v1StakingEvent",
           "title": "Staking event"
         },
         "market": {
@@ -2983,6 +2993,33 @@
         }
       },
       "title": "A settle position event contains position settlement information for a party"
+    },
+    "v1StakingEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "The internal ID for this staking event"
+        },
+        "kind": {
+          "$ref": "#/definitions/StakingEventKind",
+          "title": "The king of event"
+        },
+        "ts": {
+          "type": "string",
+          "format": "int64",
+          "title": "The timestamps at which the event was emitted by ethereum"
+        },
+        "party": {
+          "type": "string",
+          "description": "The party to whom the event is directed at."
+        },
+        "amount": {
+          "type": "string",
+          "title": "The amount of stake deposited or removed"
+        }
+      },
+      "title": "StakingEvent - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
     },
     "v1TimeUpdate": {
       "type": "object",

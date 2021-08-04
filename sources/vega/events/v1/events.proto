@@ -352,7 +352,7 @@ message BusEvent {
     // Validator update events
     ValidatorUpdate validator_update = 132;
     // Staking event
-    EpochEvent staking_event = 133;
+    StakingEvent staking_event = 133;
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type
