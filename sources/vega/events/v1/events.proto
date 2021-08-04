@@ -12,7 +12,31 @@ import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/validator_commands.proto";
 
-//DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect 
+// StakingEvent - an event notifying of stake being deposited or removed for a given party
+// These events are emitted for every Staking deposit or removed accepted by the network
+message StakingEvent {
+  enum Kind {
+    // Default value
+    KIND_UNSPECIFIED = 0;
+    // Indicate of a stake deposit instruction
+    KIND_DEPOSIT = 1;
+    // Indicate of a stake remove instruction
+    KIND_REMOVE = 2;
+  }
+
+  // The internal ID for this staking event
+  string id = 1;
+  // The king of event
+  Kind kind = 2;
+  // The timestamps at which the event was emitted by ethereum
+  int64 ts = 3;
+  // The party to whom the event is directed at.
+  string party = 4;
+  // The amount of stake deposited or removed
+  string amount = 5;
+}
+
+//DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect
 message DelegationBalanceEvent {
   string party = 1;
   string node_id = 2;
@@ -248,6 +272,8 @@ enum BusEventType {
     BUS_EVENT_TYPE_EPOCH_UPDATE = 31;
     // Event indicating that validator node has been updated
     BUS_EVENT_TYPE_VALIDATOR_UPDATE = 32;
+    // Event indicating a new staking event have been processed by the network
+    BUS_EVENT_TYPE_STAKING_EVENT = 33;
     // Event indicating a market related event, for example when a market opens
     BUS_EVENT_TYPE_MARKET = 101;
     // Event used to report failed transactions back to a user, this is excluded from the ALL type
@@ -322,9 +348,11 @@ message BusEvent {
     // Pending delegation balance events
     PendingDelegationBalanceEvent pending_delegation_balance = 130;
     // Epoch update events - See [Epoch](#vega.Epoch)
-    EpochEvent epoch_event = 131;    
+    EpochEvent epoch_event = 131;
     // Validator update events
     ValidatorUpdate validator_update = 132;
+    // Staking event
+    EpochEvent staking_event = 133;
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type

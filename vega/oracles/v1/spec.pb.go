@@ -456,9 +456,7 @@ func init() {
 	proto.RegisterType((*Condition)(nil), "oracles.v1.Condition")
 }
 
-func init() {
-	proto.RegisterFile("vega/oracles/v1/spec.proto", fileDescriptor_d32b16476596a77e)
-}
+func init() { proto.RegisterFile("vega/oracles/v1/spec.proto", fileDescriptor_d32b16476596a77e) }
 
 var fileDescriptor_d32b16476596a77e = []byte{
 	// 604 bytes of a gzipped FileDescriptorProto
