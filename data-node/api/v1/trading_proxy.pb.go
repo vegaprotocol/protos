@@ -9,6 +9,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -234,11 +236,11 @@ var fileDescriptor_c134d37351a048e1 = []byte{
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ grpc.ClientConn
+var _ grpc.ClientConnInterface
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
+const _ = grpc.SupportPackageIsVersion6
 
 // TradingProxyServiceClient is the client API for TradingProxyService service.
 //
@@ -249,10 +251,10 @@ type TradingProxyServiceClient interface {
 }
 
 type tradingProxyServiceClient struct {
-	cc *grpc.ClientConn
+	cc grpc.ClientConnInterface
 }
 
-func NewTradingProxyServiceClient(cc *grpc.ClientConn) TradingProxyServiceClient {
+func NewTradingProxyServiceClient(cc grpc.ClientConnInterface) TradingProxyServiceClient {
 	return &tradingProxyServiceClient{cc}
 }
 
@@ -269,6 +271,14 @@ func (c *tradingProxyServiceClient) SubmitTransaction(ctx context.Context, in *S
 type TradingProxyServiceServer interface {
 	// Submit a signed transaction
 	SubmitTransaction(context.Context, *SubmitTransactionRequest) (*SubmitTransactionResponse, error)
+}
+
+// UnimplementedTradingProxyServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedTradingProxyServiceServer struct {
+}
+
+func (*UnimplementedTradingProxyServiceServer) SubmitTransaction(ctx context.Context, req *SubmitTransactionRequest) (*SubmitTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitTransaction not implemented")
 }
 
 func RegisterTradingProxyServiceServer(s *grpc.Server, srv TradingProxyServiceServer) {
