@@ -4,8 +4,6 @@ version: v1beta1
 build:
   roots:
     - sources
-    - vega
-    - data-node
     - third_party/proto
 lint:
   use:
@@ -15,9 +13,9 @@ lint:
     - PACKAGE_VERSION_SUFFIX
   ignore_only:
     ENUM_VALUE_PREFIX:
-      - tm/replay.proto
+      - vega/tm/replay.proto
     ENUM_ZERO_VALUE_SUFFIX:
-      - tm/replay.proto
+      - vega/tm/replay.proto
 breaking:
   use:
     - WIRE_JSON
