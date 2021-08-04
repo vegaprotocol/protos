@@ -15,19 +15,19 @@ import "vega/commands/v1/validator_commands.proto";
 // StakingEvent - an event notifying of stake being deposited or removed for a given party
 // These events are emitted for every Staking deposit or removed accepted by the network
 message StakingEvent {
-  enum Kind {
+  enum Type {
     // Default value
-    KIND_UNSPECIFIED = 0;
+    TYPE_UNSPECIFIED = 0;
     // Indicate of a stake deposit instruction
-    KIND_DEPOSIT = 1;
+    TYPE_DEPOSIT = 1;
     // Indicate of a stake remove instruction
-    KIND_REMOVE = 2;
+    TYPE_REMOVE = 2;
   }
 
   // The internal ID for this staking event
   string id = 1;
-  // The king of event
-  Kind kind = 2;
+  // The type of event
+  Type type = 2;
   // The timestamps at which the event was emitted by ethereum
   int64 ts = 3;
   // The party to whom the event is directed at.

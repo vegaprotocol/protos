@@ -1673,16 +1673,6 @@
       "description": "- TIME_IN_FORCE_UNSPECIFIED: Default value for TimeInForce, can be valid for an amend\n - TIME_IN_FORCE_GTC: Good until cancelled\n - TIME_IN_FORCE_GTT: Good until specified time\n - TIME_IN_FORCE_IOC: Immediate or cancel\n - TIME_IN_FORCE_FOK: Fill or kill\n - TIME_IN_FORCE_GFA: Good for auction\n - TIME_IN_FORCE_GFN: Good for normal",
       "title": "Time In Force for an order\nSee [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
     },
-    "StakingEventKind": {
-      "type": "string",
-      "enum": [
-        "KIND_UNSPECIFIED",
-        "KIND_DEPOSIT",
-        "KIND_REMOVE"
-      ],
-      "default": "KIND_UNSPECIFIED",
-      "title": "- KIND_UNSPECIFIED: Default value\n - KIND_DEPOSIT: Indicate of a stake deposit instruction\n - KIND_REMOVE: Indicate of a stake remove instruction"
-    },
     "VoteValue": {
       "type": "string",
       "enum": [
@@ -3481,9 +3471,9 @@
           "type": "string",
           "title": "The internal ID for this staking event"
         },
-        "kind": {
-          "$ref": "#/definitions/StakingEventKind",
-          "title": "The king of event"
+        "type": {
+          "$ref": "#/definitions/v1StakingEventType",
+          "title": "The type of event"
         },
         "ts": {
           "type": "string",
@@ -3500,6 +3490,16 @@
         }
       },
       "title": "StakingEvent - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
+    },
+    "v1StakingEventType": {
+      "type": "string",
+      "enum": [
+        "TYPE_UNSPECIFIED",
+        "TYPE_DEPOSIT",
+        "TYPE_REMOVE"
+      ],
+      "default": "TYPE_UNSPECIFIED",
+      "title": "- TYPE_UNSPECIFIED: Default value\n - TYPE_DEPOSIT: Indicate of a stake deposit instruction\n - TYPE_REMOVE: Indicate of a stake remove instruction"
     },
     "v1StatisticsResponse": {
       "type": "object",
