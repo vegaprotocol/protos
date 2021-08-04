@@ -1307,9 +1307,7 @@ func init() {
 	proto.RegisterType((*PublicKey)(nil), "tm.PublicKey")
 }
 
-func init() {
-	proto.RegisterFile("vega/tm/replay.proto", fileDescriptor_ecdd596c94eb5392)
-}
+func init() { proto.RegisterFile("vega/tm/replay.proto", fileDescriptor_ecdd596c94eb5392) }
 
 var fileDescriptor_ecdd596c94eb5392 = []byte{
 	// 1267 bytes of a gzipped FileDescriptorProto

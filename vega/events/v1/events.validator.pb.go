@@ -19,6 +19,9 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+func (this *StakingEvent) Validate() error {
+	return nil
+}
 func (this *DelegationBalanceEvent) Validate() error {
 	return nil
 }
@@ -342,6 +345,13 @@ func (this *BusEvent) Validate() error {
 		if oneOfNester.ValidatorUpdate != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ValidatorUpdate); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("ValidatorUpdate", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_StakingEvent); ok {
+		if oneOfNester.StakingEvent != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StakingEvent); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakingEvent", err)
 			}
 		}
 	}

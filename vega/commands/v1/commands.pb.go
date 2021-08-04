@@ -700,9 +700,7 @@ func init() {
 	proto.RegisterType((*UndelegateSubmission)(nil), "vega.commands.v1.UndelegateSubmission")
 }
 
-func init() {
-	proto.RegisterFile("vega/commands/v1/commands.proto", fileDescriptor_9c3a53c66a940c51)
-}
+func init() { proto.RegisterFile("vega/commands/v1/commands.proto", fileDescriptor_9c3a53c66a940c51) }
 
 var fileDescriptor_9c3a53c66a940c51 = []byte{
 	// 923 bytes of a gzipped FileDescriptorProto
