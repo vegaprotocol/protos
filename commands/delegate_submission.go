@@ -26,23 +26,23 @@ func checkDelegateSubmission(cmd *commandspb.DelegateSubmission) Errors {
 	return errs
 }
 
-func CheckUndelegateAtEpochEndSubmission(cmd *commandspb.UndelegateAtEpochEndSubmission) error {
-	return checkUndelegateAtEpochEndSubmission(cmd).ErrorOrNil()
+func CheckUndelegateSubmission(cmd *commandspb.UndelegateSubmission) error {
+	return checkUndelegateSubmission(cmd).ErrorOrNil()
 }
 
-func checkUndelegateAtEpochEndSubmission(cmd *commandspb.UndelegateAtEpochEndSubmission) Errors {
+func checkUndelegateSubmission(cmd *commandspb.UndelegateSubmission) Errors {
 	errs := NewErrors()
 
 	if cmd == nil {
-		return errs.FinalAddForProperty("undelegateAtEpochEnd_submission", ErrIsRequired)
+		return errs.FinalAddForProperty("undelegate_submission", ErrIsRequired)
 	}
 
-	if cmd.Amount <= 0 {
-		errs.AddForProperty("undelegateAtEpochEnd_submission.amount", ErrIsRequired)
+	if _, ok := commandspb.UndelegateSubmission_Method_value[cmd.Method.String()]; !ok || cmd.Method == commandspb.UndelegateSubmission_METHOD_UNSPECIFIED {
+		errs.AddForProperty("undelegate_submission.method", ErrIsRequired)
 	}
 
 	if len(cmd.NodeId) <= 0 {
-		errs.AddForProperty("undelegateAtEpochEnd_submission.node_id", ErrIsRequired)
+		errs.AddForProperty("undelegate_submission.node_id", ErrIsRequired)
 	}
 
 	return errs

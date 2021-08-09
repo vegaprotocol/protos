@@ -15,7 +15,7 @@ function gen_code() {
 
 	# Since ./proto/github/{grpc-ecosystem,mwitkow} are dependencies,
 	# buf will generate code for them to
-	rm -rf ./vega/github.com
+	rm -rf ./github.com
 
 	# Make *.validator.pb.go files deterministic.
 	find vega -name '*.validator.pb.go' | sort | while read -r pbfile
@@ -23,12 +23,11 @@ function gen_code() {
         sed -i -re 's/this\.Size_/this.Size/' "$pbfile" \
 		&& ./script/fix_imports.sh "$pbfile"
 	done
-
-	chmod 0644 vega/*.go vega/api/*.go
 }
 
 function gen_swagger() {
-	buf generate --path=./vega/api --template=./vega/api/buf.gen.yaml # generate swagger
+	buf generate --path=./sources/vega/api --template=./sources/vega/api/buf.gen.yaml # generate swagger
+	buf generate --path=./sources/data-node/api/v1 --template=./sources/data-node/api/v1/buf.gen.yaml # generate swagger
 }
 check
 gen_code

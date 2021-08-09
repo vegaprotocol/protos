@@ -3,9 +3,9 @@ syntax = "proto3";
 package vega.wallet.v1;
 option go_package = "code.vegaprotocol.io/protos/vega/wallet/v1";
 
-import "commands/v1/commands.proto";
-import "commands/v1/validator_commands.proto";
-import "commands/v1/oracles.proto";
+import "vega/commands/v1/commands.proto";
+import "vega/commands/v1/validator_commands.proto";
+import "vega/commands/v1/oracles.proto";
 
 message SubmitTransactionRequest {
   string pub_key = 1;
@@ -21,7 +21,7 @@ message SubmitTransactionRequest {
     commands.v1.VoteSubmission vote_submission = 1006;
     commands.v1.LiquidityProvisionSubmission liquidity_provision_submission = 1007;
     commands.v1.DelegateSubmission delegate_submission = 1008;
-    commands.v1.UndelegateAtEpochEndSubmission undelegate_at_epoch_end_submission = 1009;
+    commands.v1.UndelegateSubmission undelegate_submission = 1009;
 
     // Validator commands
     commands.v1.NodeRegistration node_registration = 2001;
