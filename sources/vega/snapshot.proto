@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package vega;
+option go_package = "code.vegaprotocol.io/protos/vega";
+
+import "vega/vega.proto";
+import "vega/assets.proto";
+import "vega/governance.proto";
+
+message Snapshot {
+  map<string, bytes> data = 1;
+}
+
+// Checkpoint is similar to Snapshot, only it doesn't contain independently serialised data
+// but instead uses a oneof field
+message Checkpoint {
+  repeated EngineState states= 1;
+}
+
+// EngineState is a oneof wrapper type to facilitate serializing snapshots
+message EngineState {
+  oneof engine {
+    Assets asset = 1;
+    Collateral collateral = 2;
+    NetParams netParams = 3;
+    Proposals proposals = 4;
+  }
+}
+
+// Assets lists the enabled asset details by ID
+message Assets {
+  map<string, AssetDetails> assets = 1;
+}
+
+// Balance represents the balances per asset
+message Balance {
+  map<string, bytes> balance = 1;
+}
+
+// Collateral contains the balances per party
+message Collateral {
+  map<string, Balance> parties = 1;
+}
+
+// NetParams contains all network parameters
+message NetParams {
+  repeated NetworkParameter params = 1;
+}
+
+// Proposals will contain all accepted proposals
+message Proposals {
+  repeated Proposal proposals = 1;
+}
