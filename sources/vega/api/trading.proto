@@ -18,8 +18,6 @@ package api.v1;
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 service TradingService {
-  // Submit a signed transaction
-  rpc SubmitTransaction(SubmitTransactionRequest) returns (SubmitTransactionResponse);
   // Submit a signed transaction (v2)
   rpc SubmitTransactionV2(SubmitTransactionV2Request) returns (SubmitTransactionV2Response);
   // Propagate a chain event
@@ -39,34 +37,6 @@ message PropagateChainEventRequest {
 // Response for a new event sent by the blockchain queue to be propagated on Vega
 message PropagateChainEventResponse {
   // Success will be true if the event was accepted by the node,
-  // **Important** - success does not mean that the event is confirmed by consensus
-  bool success = 1;
-}
-
-// Request for submitting a transaction on Vega
-message SubmitTransactionRequest {
-  // Blockchain transaction type
-  enum Type {
-    TYPE_UNSPECIFIED = 0;
-    // The transaction will be submitted without waiting for response
-    TYPE_ASYNC = 1;
-    // The transaction will be submitted, and blocking until the
-    // tendermint mempool return a response
-    TYPE_SYNC = 2;
-    // The transaction will submitted, and blocking until the tendermint
-    // network will have committed it into a block
-    TYPE_COMMIT = 3;
-  }
-
-  // A bundle of signed payload and signature, to form a transaction that will be submitted to the Vega blockchain
-  vega.SignedBundle tx = 1;
-  // Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response
-  Type type = 2;
-}
-
-// Response for submitting a transaction on Vega
-message SubmitTransactionResponse {
-  // Success will be true if the transaction was accepted by the node,
   // **Important** - success does not mean that the event is confirmed by consensus
   bool success = 1;
 }
