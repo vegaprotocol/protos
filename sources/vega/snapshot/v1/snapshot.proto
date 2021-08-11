@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package vega;
-option go_package = "code.vegaprotocol.io/protos/vega";
+package snapshot.v1;
+option go_package = "code.vegaprotocol.io/protos/vega/snapshot/v1";
 
 import "vega/vega.proto";
 import "vega/assets.proto";
@@ -24,7 +24,7 @@ message Checkpoint {
 // AssetEntrty is a single (enabled) asset
 message AssetEntry {
   string id = 1;
-  AssetDetails asset_details = 2;
+  vega.AssetDetails asset_details = 2;
 }
 
 // Assets contains all the enabled assets as AssetEntries
@@ -46,10 +46,10 @@ message Collateral {
 
 // NetParams contains all network parameters
 message NetParams {
-  repeated NetworkParameter params = 1;
+  repeated vega.NetworkParameter params = 1;
 }
 
 // Proposals will contain all accepted proposals
 message Proposals {
-  repeated Proposal proposals = 1;
+  repeated vega.Proposal proposals = 1;
 }
