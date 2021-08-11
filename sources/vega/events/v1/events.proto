@@ -36,6 +36,16 @@ message StakingEvent {
   string amount = 5;
 }
 
+message RewardPayoutEvent {
+  string from_account = 1;
+  string to_account = 2;
+  string epoch_seq = 3;
+  string asset = 4;
+  uint64 amount = 5;
+  string percent_of_total_reward = 6;
+}
+
+
 //DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect
 message DelegationBalanceEvent {
   string party = 1;
@@ -274,6 +284,8 @@ enum BusEventType {
     BUS_EVENT_TYPE_VALIDATOR_UPDATE = 32;
     // Event indicating a new staking event have been processed by the network
     BUS_EVENT_TYPE_STAKING_EVENT = 33;
+    // Event indicating the payout of a reward has been initiated
+    BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT = 34;
     // Event indicating a market related event, for example when a market opens
     BUS_EVENT_TYPE_MARKET = 101;
     // Event used to report failed transactions back to a user, this is excluded from the ALL type
