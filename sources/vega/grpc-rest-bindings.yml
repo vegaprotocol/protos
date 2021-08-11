@@ -47,8 +47,8 @@ http:
       get: '/markets-data/{market_id}'
 
 
-    # transaction bundles
-    - selector: api.v1.TradingService.SubmitTransaction
+    # transaction
+    - selector: api.v1.TradingService.SubmitTransactionV2
       post: '/transaction'
       body: "*"
 
