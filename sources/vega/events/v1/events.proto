@@ -24,6 +24,17 @@ message StakingEvent {
     TYPE_REMOVE = 2;
   }
 
+  enum Status {
+    // Default value
+    STATUS_UNSPECIFIED = 0;
+    // Indicate an event waiting for confirmation from the vega network
+    STATUS_PENDING = 1;
+    // Indicate of an event accepted by the vega network
+    STATUS_ACCEPTED = 2;
+    // Indaicate of an event rejected by the vega network
+    STATUS_REJECTED = 3;
+  }
+
   // The internal ID for this staking event
   string id = 1;
   // The type of event
@@ -34,6 +45,12 @@ message StakingEvent {
   string party = 4;
   // The amount of stake deposited or removed
   string amount = 5;
+  // The status of the event
+  Status status = 6;
+  // The time at which the vega network finalized the state of the event
+  int64 finalized_at = 7;
+  // The hash of the transaction from which the events happen
+  string tx_hash = 8;
 }
 
 message CheckpointEvent {

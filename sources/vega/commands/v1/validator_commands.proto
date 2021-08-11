@@ -65,5 +65,7 @@ message ChainEvent {
     vega.BTCEvent btc = 1003;
     // Validator event
     vega.ValidatorEvent validator = 1004;
+    // Ethereum Staking event
+    vega.StakingEvent staking_event = 1005;
   }
 }

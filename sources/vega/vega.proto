@@ -1086,6 +1086,8 @@ message EthereumConfig {
   string bridge_address = 3;
   // Number of confirmations
   uint32 confirmations = 4;
+  // Staking Bridge addresses for the ethereum network
+  repeated string staking_bridge_addresses = 5;
 }
 
 // Node status type

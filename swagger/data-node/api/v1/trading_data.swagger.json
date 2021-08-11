@@ -1563,6 +1563,46 @@
       "description": "- VALUE_UNSPECIFIED: Default value, always invalid\n - VALUE_NO: A vote against the proposal\n - VALUE_YES: A vote in favour of the proposal",
       "title": "Vote value"
     },
+    "eventsv1StakingEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "The internal ID for this staking event"
+        },
+        "type": {
+          "$ref": "#/definitions/v1StakingEventType",
+          "title": "The type of event"
+        },
+        "ts": {
+          "type": "string",
+          "format": "int64",
+          "title": "The timestamps at which the event was emitted by ethereum"
+        },
+        "party": {
+          "type": "string",
+          "description": "The party to whom the event is directed at."
+        },
+        "amount": {
+          "type": "string",
+          "title": "The amount of stake deposited or removed"
+        },
+        "status": {
+          "$ref": "#/definitions/v1StakingEventStatus",
+          "title": "The status of the event"
+        },
+        "finalized_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "The time at which the vega network finalized the state of the event"
+        },
+        "tx_hash": {
+          "type": "string",
+          "title": "The hash of the transaction from which the events happen"
+        }
+      },
+      "title": "StakingEvent - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -1809,7 +1849,7 @@
           "title": "Validator update events"
         },
         "staking_event": {
-          "$ref": "#/definitions/v1StakingEvent",
+          "$ref": "#/definitions/eventsv1StakingEvent",
           "title": "Staking event"
         },
         "reward_payout": {
@@ -3240,32 +3280,16 @@
       },
       "title": "A settle position event contains position settlement information for a party"
     },
-    "v1StakingEvent": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "title": "The internal ID for this staking event"
-        },
-        "type": {
-          "$ref": "#/definitions/v1StakingEventType",
-          "title": "The type of event"
-        },
-        "ts": {
-          "type": "string",
-          "format": "int64",
-          "title": "The timestamps at which the event was emitted by ethereum"
-        },
-        "party": {
-          "type": "string",
-          "description": "The party to whom the event is directed at."
-        },
-        "amount": {
-          "type": "string",
-          "title": "The amount of stake deposited or removed"
-        }
-      },
-      "title": "StakingEvent - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
+    "v1StakingEventStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_PENDING",
+        "STATUS_ACCEPTED",
+        "STATUS_REJECTED"
+      ],
+      "default": "STATUS_UNSPECIFIED",
+      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate an event waiting for confirmation from the vega network\n - STATUS_ACCEPTED: Indicate of an event accepted by the vega network\n - STATUS_REJECTED: Indaicate of an event rejected by the vega network"
     },
     "v1StakingEventType": {
       "type": "string",

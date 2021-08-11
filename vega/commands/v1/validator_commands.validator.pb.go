@@ -74,5 +74,12 @@ func (this *ChainEvent) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetEvent().(*ChainEvent_StakingEvent); ok {
+		if oneOfNester.StakingEvent != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StakingEvent); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakingEvent", err)
+			}
+		}
+	}
 	return nil
 }
