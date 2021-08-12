@@ -2062,12 +2062,10 @@
           "type": "string"
         },
         "total_reward": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "last_reward": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "last_reward_percentage": {
           "type": "string"

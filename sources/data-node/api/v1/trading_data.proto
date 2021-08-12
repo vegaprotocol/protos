@@ -1128,7 +1128,7 @@ message GetRewardDetailsRequest {
 // The return message with reward details in
 message GetRewardDetailsResponse {
   string asset_id = 1;
-  uint64 total_reward = 2;
-  uint64 last_reward = 3;
+  string total_reward = 2;
+  string last_reward = 3;
   string last_reward_percentage = 4;
 }
