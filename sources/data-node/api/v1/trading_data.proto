@@ -279,12 +279,12 @@ message GetNodeByIDResponse {
 
 message GetEpochRequest {
   // Optional - if id omitted it gets the current epoch
-  string id = 1;
+  uint64 id = 1;
 }
 
 message GetEpochResponse {
-  // Presumably this is an integer or something. If there's no such thing, disregard
-  string id = 1;
+  // Id of epoch
+  uint64 id = 1;
   // Timestamps for start/end etc
   vega.EpochTimestamps timestamps = 2;
   // Validators that participated in this epoch
