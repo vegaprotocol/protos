@@ -233,7 +233,7 @@ service TradingDataService {
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
 
   // Get Rewards data
-  rpc GetRewardsDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
+  rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
 }
 
 // Request for a list of all assets enabled on Vega
