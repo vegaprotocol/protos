@@ -231,6 +231,9 @@ service TradingDataService {
 
   // Get all oracle data
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
+
+  // Get Rewards data
+  rpc GetRewardsDetails(RewardDetailsRequest) returns (RewardDetailsResponse);
 }
 
 // Request for a list of all assets enabled on Vega
@@ -1115,4 +1118,17 @@ message LastBlockHeightRequest {}
 // tendermint
 message LastBlockHeightResponse {
   uint64 height = 1;
+}
+
+// A request to get reward details for a party
+message RewardDetailsRequest {
+  string party_id = 1;
+}
+
+// The return message with reward details in
+message RewardDetailsResponse {
+  string asset_id = 1;
+  uint64 total_reward = 2;
+  uint64 last_reward = 3;
+  string last_reward_percentage = 4;
 }
