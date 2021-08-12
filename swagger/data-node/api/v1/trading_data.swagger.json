@@ -2055,6 +2055,24 @@
       },
       "title": "Response for a list of proposals"
     },
+    "v1GetRewardDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "total_reward": {
+          "type": "string"
+        },
+        "last_reward": {
+          "type": "string"
+        },
+        "last_reward_percentage": {
+          "type": "string"
+        }
+      },
+      "title": "The return message with reward details in"
+    },
     "v1GetUpdateMarketProposalsResponse": {
       "type": "object",
       "properties": {

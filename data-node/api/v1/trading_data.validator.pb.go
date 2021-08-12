@@ -1017,3 +1017,9 @@ func (this *LastBlockHeightRequest) Validate() error {
 func (this *LastBlockHeightResponse) Validate() error {
 	return nil
 }
+func (this *GetRewardDetailsRequest) Validate() error {
+	return nil
+}
+func (this *GetRewardDetailsResponse) Validate() error {
+	return nil
+}
