@@ -2036,7 +2036,9 @@ func init() {
 	proto.RegisterType((*BusEvent)(nil), "vega.events.v1.BusEvent")
 }
 
-func init() { proto.RegisterFile("vega/events/v1/events.proto", fileDescriptor_2565b4e8491d341a) }
+func init() {
+	proto.RegisterFile("vega/events/v1/events.proto", fileDescriptor_2565b4e8491d341a)
+}
 
 var fileDescriptor_2565b4e8491d341a = []byte{
 	// 2558 bytes of a gzipped FileDescriptorProto

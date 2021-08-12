@@ -287,7 +287,9 @@ func init() {
 	proto.RegisterType((*ERC20)(nil), "vega.ERC20")
 }
 
-func init() { proto.RegisterFile("vega/assets.proto", fileDescriptor_6fa9a099d51ec55d) }
+func init() {
+	proto.RegisterFile("vega/assets.proto", fileDescriptor_6fa9a099d51ec55d)
+}
 
 var fileDescriptor_6fa9a099d51ec55d = []byte{
 	// 355 bytes of a gzipped FileDescriptorProto
