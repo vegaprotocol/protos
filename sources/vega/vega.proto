@@ -1089,10 +1089,11 @@ message EthereumConfig {
 
 // Node status type
 enum NodeStatus {
+  NODE_STATUS_UNSPECIFIED = 0;
   // The node is validating
-  NODE_STATUS_VALIDATOR = 0;
+  NODE_STATUS_VALIDATOR = 1;
   // The node is non-validating
-  NODE_STATUS_NON_VALIDATOR = 1;
+  NODE_STATUS_NON_VALIDATOR = 2;
 }
 
 // Describes in both human readable and block time when an epoch spans
