@@ -59,23 +59,9 @@ func (this *GetEpochRequest) Validate() error {
 	return nil
 }
 func (this *GetEpochResponse) Validate() error {
-	if this.Timestamps != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Timestamps); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Timestamps", err)
-		}
-	}
-	for _, item := range this.Validators {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Validators", err)
-			}
-		}
-	}
-	for _, item := range this.Delagations {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Delagations", err)
-			}
+	if this.Epoch != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Epoch); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Epoch", err)
 		}
 	}
 	return nil

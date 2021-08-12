@@ -1960,27 +1960,8 @@
     "v1GetEpochResponse": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "Id of epoch"
-        },
-        "timestamps": {
-          "$ref": "#/definitions/vegaEpochTimestamps",
-          "title": "Timestamps for start/end etc"
-        },
-        "validators": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/vegaNode"
-          },
-          "title": "Validators that participated in this epoch"
-        },
-        "delagations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/vegaDelegation"
-          }
+        "epoch": {
+          "$ref": "#/definitions/vegaEpoch"
         }
       }
     },
@@ -3633,6 +3614,34 @@
         }
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
+    },
+    "vegaEpoch": {
+      "type": "object",
+      "properties": {
+        "seq": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Sequence is used as epoch indentifier"
+        },
+        "timestamps": {
+          "$ref": "#/definitions/vegaEpochTimestamps",
+          "title": "Timestamps for start/end etc"
+        },
+        "validators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaNode"
+          },
+          "title": "Validators that participated in this epoch"
+        },
+        "delagations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          },
+          "title": "List of all delegations in epoch"
+        }
+      }
     },
     "vegaEpochData": {
       "type": "object",
