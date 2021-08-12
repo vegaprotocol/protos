@@ -5082,9 +5082,7 @@ func init() {
 	proto.RegisterType((*Delegation)(nil), "vega.Delegation")
 }
 
-func init() {
-	proto.RegisterFile("vega/vega.proto", fileDescriptor_ee8879d05d97612a)
-}
+func init() { proto.RegisterFile("vega/vega.proto", fileDescriptor_ee8879d05d97612a) }
 
 var fileDescriptor_ee8879d05d97612a = []byte{
 	// 5869 bytes of a gzipped FileDescriptorProto
