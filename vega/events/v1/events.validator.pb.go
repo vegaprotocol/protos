@@ -22,6 +22,9 @@ var _ = math.Inf
 func (this *StakingEvent) Validate() error {
 	return nil
 }
+func (this *RewardPayoutEvent) Validate() error {
+	return nil
+}
 func (this *DelegationBalanceEvent) Validate() error {
 	return nil
 }
