@@ -1962,7 +1962,8 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "Presumably this is an integer or something. If there's no such thing, disregard"
+          "format": "uint64",
+          "title": "Id of epoch"
         },
         "timestamps": {
           "$ref": "#/definitions/vegaEpochTimestamps",
@@ -4689,10 +4690,11 @@
     "vegaNodeStatus": {
       "type": "string",
       "enum": [
+        "NODE_STATUS_UNSPECIFIED",
         "NODE_STATUS_VALIDATOR",
         "NODE_STATUS_NON_VALIDATOR"
       ],
-      "default": "NODE_STATUS_VALIDATOR",
+      "default": "NODE_STATUS_UNSPECIFIED",
       "description": "- NODE_STATUS_VALIDATOR: The node is validating\n - NODE_STATUS_NON_VALIDATOR: The node is non-validating",
       "title": "Node status type"
     },
