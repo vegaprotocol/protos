@@ -283,13 +283,7 @@ message GetEpochRequest {
 }
 
 message GetEpochResponse {
-  // Id of epoch
-  uint64 id = 1;
-  // Timestamps for start/end etc
-  vega.EpochTimestamps timestamps = 2;
-  // Validators that participated in this epoch
-  repeated vega.Node validators = 3;
-  repeated vega.Delegation delagations = 4;
+  vega.Epoch epoch = 1;
 }
 
 // Request for a list of all assets enabled on Vega
