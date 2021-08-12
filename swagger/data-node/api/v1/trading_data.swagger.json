@@ -2055,6 +2055,26 @@
       },
       "title": "Response for a list of proposals"
     },
+    "v1GetRewardDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "total_reward": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "last_reward": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "last_reward_percentage": {
+          "type": "string"
+        }
+      },
+      "title": "The return message with reward details in"
+    },
     "v1GetUpdateMarketProposalsResponse": {
       "type": "object",
       "properties": {
@@ -2938,26 +2958,6 @@
         }
       },
       "title": "A command to submit a new proposal for the\nvega network governance"
-    },
-    "v1RewardDetailsResponse": {
-      "type": "object",
-      "properties": {
-        "asset_id": {
-          "type": "string"
-        },
-        "total_reward": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "last_reward": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "last_reward_percentage": {
-          "type": "string"
-        }
-      },
-      "title": "The return message with reward details in"
     },
     "v1RewardPayoutEvent": {
       "type": "object",

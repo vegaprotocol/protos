@@ -233,7 +233,7 @@ service TradingDataService {
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
 
   // Get Rewards data
-  rpc GetRewardsDetails(RewardDetailsRequest) returns (RewardDetailsResponse);
+  rpc GetRewardsDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
 }
 
 // Request for a list of all assets enabled on Vega
@@ -1121,12 +1121,12 @@ message LastBlockHeightResponse {
 }
 
 // A request to get reward details for a party
-message RewardDetailsRequest {
+message GetRewardDetailsRequest {
   string party_id = 1;
 }
 
 // The return message with reward details in
-message RewardDetailsResponse {
+message GetRewardDetailsResponse {
   string asset_id = 1;
   uint64 total_reward = 2;
   uint64 last_reward = 3;
