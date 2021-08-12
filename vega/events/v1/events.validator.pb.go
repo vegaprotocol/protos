@@ -358,6 +358,13 @@ func (this *BusEvent) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_RewardPayout); ok {
+		if oneOfNester.RewardPayout != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.RewardPayout); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardPayout", err)
+			}
+		}
+	}
 	if oneOfNester, ok := this.GetEvent().(*BusEvent_Market); ok {
 		if oneOfNester.Market != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Market); err != nil {

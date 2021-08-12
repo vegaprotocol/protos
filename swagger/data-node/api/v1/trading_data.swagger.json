@@ -1700,6 +1700,10 @@
           "$ref": "#/definitions/v1StakingEvent",
           "title": "Staking event"
         },
+        "reward_payout": {
+          "$ref": "#/definitions/v1RewardPayoutEvent",
+          "title": "Reward payout event"
+        },
         "market": {
           "$ref": "#/definitions/v1MarketEvent",
           "title": "Market tick events - See [MarketEvent](#vega.MarketEvent)"
@@ -2934,6 +2938,30 @@
         }
       },
       "title": "A command to submit a new proposal for the\nvega network governance"
+    },
+    "v1RewardPayoutEvent": {
+      "type": "object",
+      "properties": {
+        "from_account": {
+          "type": "string"
+        },
+        "to_account": {
+          "type": "string"
+        },
+        "epoch_seq": {
+          "type": "string"
+        },
+        "asset": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "percent_of_total_reward": {
+          "type": "string"
+        }
+      }
     },
     "v1SettleDistressed": {
       "type": "object",
