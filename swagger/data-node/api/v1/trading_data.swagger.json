@@ -2942,7 +2942,7 @@
     "v1RewardPayoutEvent": {
       "type": "object",
       "properties": {
-        "party_id": {
+        "party": {
           "type": "string"
         },
         "from_account": {

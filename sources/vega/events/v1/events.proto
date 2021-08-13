@@ -37,7 +37,7 @@ message StakingEvent {
 }
 
 message RewardPayoutEvent {
-  string party_id = 1;
+  string party = 1;
   string from_account = 2;
   string to_account = 3;
   string epoch_seq = 4;
