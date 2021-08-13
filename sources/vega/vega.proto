@@ -846,7 +846,7 @@ message MarketData {
   // formatted price of `1.23456` assuming market configured to 5 decimal places
   string best_bid_price = 2;
   // Aggregated volume being bid at the best bid price
-  string best_bid_volume = 3;
+  uint64 best_bid_volume = 3;
   // Lowest price level on an order book for offer orders
   string best_offer_price = 4;
   // Aggregated volume being offered at the best offer price, as an integer, for example `123456` is a correctly

@@ -4573,6 +4573,7 @@
         },
         "best_bid_volume": {
           "type": "string",
+          "format": "uint64",
           "title": "Aggregated volume being bid at the best bid price"
         },
         "best_offer_price": {
