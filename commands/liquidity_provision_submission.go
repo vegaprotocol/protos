@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"math/big"
 	"strconv"
 
 	types "code.vegaprotocol.io/protos/vega"
@@ -43,8 +44,14 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 	// A cancellation is only valid if a market is specified, and the commitment is
 	// 0. In any case the core will consider that as a cancellation, so we return
 	// the error that we go from the market id check.
-	if cmd.CommitmentAmount == 0 {
-		return errs
+	if len(cmd.CommitmentAmount) > 0 {
+		if commitment, ok := big.NewInt(0).SetString(cmd.CommitmentAmount, 10); !ok {
+			errs.AddForProperty("liquidity_provision_subission.commitment_amount", ErrNotAValidInteger)
+		} else {
+			if commitment.Cmp(big.NewInt(0)) == 0 {
+				return errs
+			}
+		}
 	}
 
 	if len(cmd.Fee) <= 0 {

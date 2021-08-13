@@ -2,6 +2,7 @@ package commands
 
 import (
 	"errors"
+	"math/big"
 
 	types "code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
@@ -118,7 +119,8 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 	}
 
 	if cmd.Type == types.Order_TYPE_MARKET {
-		if cmd.Price != 0 {
+
+		if len(cmd.Price) > 0 {
 			errs.AddForProperty("order_submission.price",
 				errors.New("is unavailable when the order is of type MARKET"),
 			)
@@ -129,10 +131,23 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 				errors.New("is expected to be of type FOK or IOC when order is of type MARKET"),
 			)
 		}
-	} else if cmd.Type == types.Order_TYPE_LIMIT && cmd.Price == 0 {
-		errs.AddForProperty("order_submission.price",
-			errors.New("is required when the order is of type LIMIT"),
-		)
+	} else if cmd.Type == types.Order_TYPE_LIMIT {
+		if len(cmd.Price) <= 0 {
+			errs.AddForProperty("order_submission.price",
+				errors.New("is required when the order is of type LIMIT"),
+			)
+		} else {
+			price, ok := big.NewInt(0).SetString(cmd.Price, 10)
+			if !ok {
+				errs.AddForProperty("order_submission.price", ErrNotAValidInteger)
+			}
+
+			if price.Cmp(big.NewInt(0)) == 0 {
+				errs.AddForProperty("order_submission.price",
+					errors.New("is required when the order is of type LIMIT"),
+				)
+			}
+		}
 	}
 
 	return errs

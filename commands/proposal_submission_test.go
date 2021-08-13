@@ -2,6 +2,7 @@ package commands_test
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"testing"
 
@@ -3083,7 +3084,7 @@ func testNewMarketSubmissionWithCommitmentAmountSucceeds(t *testing.T) {
 			Change: &types.ProposalTerms_NewMarket{
 				NewMarket: &types.NewMarket{
 					LiquidityCommitment: &types.NewMarketCommitment{
-						CommitmentAmount: RandomPositiveU64(),
+						CommitmentAmount: fmt.Sprintf("%d", RandomPositiveU64()),
 					},
 				},
 			},

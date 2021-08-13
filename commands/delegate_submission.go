@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"math/big"
+
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 )
 
@@ -15,8 +17,16 @@ func checkDelegateSubmission(cmd *commandspb.DelegateSubmission) Errors {
 		return errs.FinalAddForProperty("delegate_submission", ErrIsRequired)
 	}
 
-	if cmd.Amount <= 0 {
+	if len(cmd.Amount) <= 0 {
 		errs.AddForProperty("delegate_submission.amount", ErrIsRequired)
+	} else {
+		if amount, ok := big.NewInt(0).SetString(cmd.Amount, 10); !ok {
+			errs.AddForProperty("delegate_submission.amount", ErrNotAValidInteger)
+		} else {
+			if amount.Cmp(big.NewInt(0)) <= 0 {
+				errs.AddForProperty("delegate_submission.amount", ErrIsRequired)
+			}
+		}
 	}
 
 	if len(cmd.NodeId) <= 0 {

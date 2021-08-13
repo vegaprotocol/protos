@@ -23,13 +23,13 @@ func TestWithdrawSubmission(t *testing.T) {
 	}{
 		{
 			withdraw: commandspb.WithdrawSubmission{
-				Amount: 100,
+				Amount: "100",
 				Asset:  "OKASSETID",
 			},
 		},
 		{
 			withdraw: commandspb.WithdrawSubmission{
-				Amount: 100,
+				Amount: "100",
 				Asset:  "OKASSETID",
 				Ext: &types.WithdrawExt{
 					Ext: &types.WithdrawExt_Erc20{
@@ -48,7 +48,7 @@ func TestWithdrawSubmission(t *testing.T) {
 		},
 		{
 			withdraw: commandspb.WithdrawSubmission{
-				Amount: 100,
+				Amount: "100",
 			},
 			errString: "withdraw_submission.asset (is required)",
 		},
@@ -64,7 +64,7 @@ func TestWithdrawSubmission(t *testing.T) {
 		},
 		{
 			withdraw: commandspb.WithdrawSubmission{
-				Amount: 100,
+				Amount: "100",
 				Asset:  "OKASSETID",
 				Ext: &types.WithdrawExt{
 					Ext: &types.WithdrawExt_Erc20{

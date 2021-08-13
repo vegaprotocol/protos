@@ -576,7 +576,6 @@
         },
         "commitment_amount": {
           "type": "string",
-          "format": "uint64",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
         "fee": {
@@ -859,7 +858,6 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price for the order, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places,\n, required field for limit orders, however it is not required for market orders"
         },
         "size": {
@@ -1543,7 +1541,6 @@
       "properties": {
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "The amount to be withdrawn"
         },
         "asset": {
@@ -1570,7 +1567,6 @@
         },
         "balance": {
           "type": "string",
-          "format": "uint64",
           "title": "Balance of the asset, the balance is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places\nand importantly balances cannot be negative"
         },
         "asset": {
@@ -1832,17 +1828,14 @@
       "properties": {
         "maker_fee": {
           "type": "string",
-          "format": "uint64",
           "title": "Fee amount paid to the non-aggressive party of the trade"
         },
         "infrastructure_fee": {
           "type": "string",
-          "format": "uint64",
           "title": "Fee amount paid for maintaining the Vega infrastructure"
         },
         "liquidity_fee": {
           "type": "string",
-          "format": "uint64",
           "title": "Fee amount paid to market makers"
         }
       },
@@ -2006,7 +1999,6 @@
         },
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "An amount to transfer"
         },
         "reference": {
@@ -2124,7 +2116,6 @@
         },
         "commitment_amount": {
           "type": "string",
-          "format": "uint64",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
         "fee": {
@@ -2231,22 +2222,18 @@
       "properties": {
         "maintenance_margin": {
           "type": "string",
-          "format": "uint64",
           "title": "Maintenance margin value"
         },
         "search_level": {
           "type": "string",
-          "format": "uint64",
           "title": "Search level value"
         },
         "initial_margin": {
           "type": "string",
-          "format": "uint64",
           "title": "Initial margin value"
         },
         "collateral_release_level": {
           "type": "string",
-          "format": "uint64",
           "title": "Collateral release level value"
         },
         "party_id": {
@@ -2329,22 +2316,18 @@
       "properties": {
         "mark_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Mark price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "best_bid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Highest price level on an order book for buy orders, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "best_bid_volume": {
           "type": "string",
-          "format": "uint64",
           "title": "Aggregated volume being bid at the best bid price"
         },
         "best_offer_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Lowest price level on an order book for offer orders"
         },
         "best_offer_volume": {
@@ -2354,7 +2337,6 @@
         },
         "best_static_bid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Highest price on the order book for buy orders not including pegged orders"
         },
         "best_static_bid_volume": {
@@ -2364,7 +2346,6 @@
         },
         "best_static_offer_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Lowest price on the order book for sell orders not including pegged orders"
         },
         "best_static_offer_volume": {
@@ -2374,12 +2355,10 @@
         },
         "mid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Arithmetic average of the best bid price and best offer price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "static_mid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Arithmetic average of the best static bid price and best static offer price"
         },
         "market": {
@@ -2408,7 +2387,6 @@
         },
         "indicative_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Indicative price (zero if not in auction)"
         },
         "indicative_volume": {
@@ -2544,7 +2522,6 @@
       "properties": {
         "commitment_amount": {
           "type": "string",
-          "format": "uint64",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
         "fee": {
@@ -2653,7 +2630,6 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price for the order, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "size": {
@@ -2854,7 +2830,6 @@
       "properties": {
         "value": {
           "type": "string",
-          "format": "uint64",
           "title": "Price value, given as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         }
       }
@@ -2864,12 +2839,10 @@
       "properties": {
         "min_valid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Minimum price that isn't currently breaching the specified price monitoring trigger"
         },
         "max_valid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Maximum price that isn't currently breaching the specified price monitoring trigger"
         },
         "trigger": {
@@ -3221,7 +3194,6 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price for the trade, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "size": {
@@ -3300,7 +3272,6 @@
         },
         "balance": {
           "type": "string",
-          "format": "uint64",
           "title": "The balance relating to the transfer"
         }
       },
@@ -3362,7 +3333,6 @@
         },
         "total_governance_token_balance": {
           "type": "string",
-          "format": "uint64",
           "title": "Total number of governance token for the party that casted the vote"
         },
         "total_governance_token_weight": {
@@ -3395,7 +3365,6 @@
         },
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "The amount to be withdrawn"
         },
         "asset": {
