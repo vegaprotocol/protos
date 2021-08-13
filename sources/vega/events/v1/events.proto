@@ -37,12 +37,13 @@ message StakingEvent {
 }
 
 message RewardPayoutEvent {
-  string from_account = 1;
-  string to_account = 2;
-  string epoch_seq = 3;
-  string asset = 4;
-  uint64 amount = 5;
-  string percent_of_total_reward = 6;
+  string party = 1;
+  string from_account = 2;
+  string to_account = 3;
+  string epoch_seq = 4;
+  string asset = 5;
+  uint64 amount = 6;
+  string percent_of_total_reward = 7;
 }
 
 

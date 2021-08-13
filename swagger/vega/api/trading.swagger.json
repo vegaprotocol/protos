@@ -3028,6 +3028,9 @@
     "v1RewardPayoutEvent": {
       "type": "object",
       "properties": {
+        "party": {
+          "type": "string"
+        },
         "from_account": {
           "type": "string"
         },
