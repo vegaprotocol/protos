@@ -1957,6 +1957,14 @@
       },
       "description": "Filter describes the conditions under which an oracle data is considered of\ninterest or not."
     },
+    "v1GetEpochResponse": {
+      "type": "object",
+      "properties": {
+        "epoch": {
+          "$ref": "#/definitions/vegaEpoch"
+        }
+      }
+    },
     "v1GetNetworkParametersProposalsResponse": {
       "type": "object",
       "properties": {
@@ -1996,6 +2004,24 @@
       },
       "title": "Response for a list of new market proposals"
     },
+    "v1GetNodeByIDResponse": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/vegaNode"
+        }
+      },
+      "title": "Response with all nodes"
+    },
+    "v1GetNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "node_data": {
+          "$ref": "#/definitions/vegaNodeData"
+        }
+      },
+      "title": "Response with node data"
+    },
     "v1GetNodeSignaturesAggregateResponse": {
       "type": "object",
       "properties": {
@@ -2008,6 +2034,18 @@
         }
       },
       "title": "Response to specify the identifier of the resource we want to retrieve aggregated signatures for"
+    },
+    "v1GetNodesResponse": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaNode"
+          }
+        }
+      },
+      "title": "Response with all nodes"
     },
     "v1GetProposalByIDResponse": {
       "type": "object",
@@ -3474,6 +3512,32 @@
       },
       "title": "Continuous trading"
     },
+    "vegaDelegation": {
+      "type": "object",
+      "properties": {
+        "tx_hash": {
+          "type": "string",
+          "title": "Transaction hash"
+        },
+        "amount": {
+          "type": "string",
+          "title": "Amount delagated"
+        },
+        "party_id": {
+          "type": "string",
+          "title": "Party which is delagating"
+        },
+        "node": {
+          "type": "string",
+          "title": "URL of node you are delagating to"
+        },
+        "epoch": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Epoch of delagation"
+        }
+      }
+    },
     "vegaDeposit": {
       "type": "object",
       "properties": {
@@ -3550,6 +3614,80 @@
         }
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
+    },
+    "vegaEpoch": {
+      "type": "object",
+      "properties": {
+        "seq": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Sequence is used as epoch indentifier"
+        },
+        "timestamps": {
+          "$ref": "#/definitions/vegaEpochTimestamps",
+          "title": "Timestamps for start/end etc"
+        },
+        "validators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaNode"
+          },
+          "title": "Validators that participated in this epoch"
+        },
+        "delagations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          },
+          "title": "List of all delegations in epoch"
+        }
+      }
+    },
+    "vegaEpochData": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total number of epochs since node was created"
+        },
+        "offline": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total number of offline epochs since node was created"
+        },
+        "online": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total number of online epochs since node was created"
+        }
+      }
+    },
+    "vegaEpochTimestamps": {
+      "type": "object",
+      "properties": {
+        "start_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp of epoch start in nanoseconds, empty if not started\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp of epoch end in nanoseconds, empty if not started\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+        },
+        "first_block": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Height of first block in the epoch"
+        },
+        "last_block": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Height of last block in the epoch, empty if not ended"
+        }
+      },
+      "title": "Describes in both human readable and block time when an epoch spans"
     },
     "vegaErc20WithdrawExt": {
       "type": "object",
@@ -4463,6 +4601,112 @@
       },
       "title": "Configuration for a new market on Vega"
     },
+    "vegaNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "The node url eg n01.vega.xyz"
+        },
+        "pub_key": {
+          "type": "string",
+          "title": "Pub key of the node operator"
+        },
+        "info_url": {
+          "type": "string",
+          "title": "URL where I can find out more info on the node"
+        },
+        "location": {
+          "type": "string",
+          "title": "Country code for the location of the node"
+        },
+        "fee": {
+          "type": "number",
+          "format": "float",
+          "title": "Value between 0 and 1 for percentage"
+        },
+        "staked_by_operator": {
+          "type": "string",
+          "title": "The amount the node has put up themselves"
+        },
+        "staked_by_delegates": {
+          "type": "string",
+          "title": "The amount of stake that has been delagated by token holders"
+        },
+        "staked_total": {
+          "type": "string",
+          "title": "Total amount staked on node"
+        },
+        "max_intended_stake": {
+          "type": "string",
+          "title": "Max amount of (wanted) stake, is this a network param or a node param"
+        },
+        "pending_stake": {
+          "type": "string",
+          "title": "Amount of stake on the next epoch"
+        },
+        "epoch_data": {
+          "$ref": "#/definitions/vegaEpochData",
+          "title": "Informantion about epoch"
+        },
+        "status": {
+          "$ref": "#/definitions/vegaNodeStatus",
+          "title": "Node status"
+        },
+        "delagations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          },
+          "title": "Node's delegations"
+        }
+      }
+    },
+    "vegaNodeData": {
+      "type": "object",
+      "properties": {
+        "staked_total": {
+          "type": "string",
+          "title": "Total staked amount across all nodes"
+        },
+        "total_nodes": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Total number of nodes"
+        },
+        "inactive_nodes": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Number of inactive nodes"
+        },
+        "validating_nodes": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Number of nodes validating"
+        },
+        "average_fee": {
+          "type": "number",
+          "format": "float",
+          "title": "Average percentage fee across all nodes"
+        },
+        "uptime": {
+          "type": "number",
+          "format": "float",
+          "title": "Total uptime for all epochs across all nodes"
+        }
+      }
+    },
+    "vegaNodeStatus": {
+      "type": "string",
+      "enum": [
+        "NODE_STATUS_UNSPECIFIED",
+        "NODE_STATUS_VALIDATOR",
+        "NODE_STATUS_NON_VALIDATOR"
+      ],
+      "default": "NODE_STATUS_UNSPECIFIED",
+      "description": "- NODE_STATUS_VALIDATOR: The node is validating\n - NODE_STATUS_NON_VALIDATOR: The node is non-validating",
+      "title": "Node status type"
+    },
     "vegaOracleSpecToFutureBinding": {
       "type": "object",
       "properties": {
@@ -4657,6 +4901,12 @@
         "id": {
           "type": "string",
           "title": "A unique identifier for the party, typically represented by a public key"
+        },
+        "delegations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          }
         }
       },
       "title": "A party represents an entity who wishes to trade on or query a Vega network"

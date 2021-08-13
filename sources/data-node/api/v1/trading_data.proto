@@ -149,6 +149,20 @@ service TradingDataService {
   // Subscribe to a stream of events from the core
   rpc ObserveEventBus(stream ObserveEventBusRequest) returns (stream ObserveEventBusResponse);
 
+  // -- Validators --
+
+  // Get data of current node
+  rpc GetNodeData(GetNodeDataRequest) returns (GetNodeDataResponse);
+
+  // List all known network nodes
+  rpc GetNodes(GetNodesRequest) returns (GetNodesResponse);
+
+  // Get a specific node by ID
+  rpc GetNodeByID(GetNodeByIDRequest) returns (GetNodeByIDResponse);
+
+  // Get data for a specific epoch, if id omitted it gets the current epoch
+  rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
+
   // -- Misc --
 
   rpc LastBlockHeight(LastBlockHeightRequest) returns (LastBlockHeightResponse);
@@ -234,6 +248,42 @@ service TradingDataService {
 
   // Get Rewards data
   rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
+}
+
+// Request for current Node data
+message GetNodeDataRequest{}
+
+// Response with node data
+message GetNodeDataResponse{
+  vega.NodeData node_data = 1;
+}
+
+// Request to list all nodes
+message GetNodesRequest {}
+
+// Response with all nodes
+message GetNodesResponse {
+  repeated vega.Node nodes = 1;
+}
+
+// Request to list all nodes
+message GetNodeByIDRequest {
+  // Required id of node
+  string id = 1;
+}
+
+// Response with all nodes
+message GetNodeByIDResponse {
+  vega.Node node = 1;
+}
+
+message GetEpochRequest {
+  // Optional - if id omitted it gets the current epoch
+  uint64 id = 1;
+}
+
+message GetEpochResponse {
+  vega.Epoch epoch = 1;
 }
 
 // Request for a list of all assets enabled on Vega

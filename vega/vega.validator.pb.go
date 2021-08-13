@@ -24,6 +24,13 @@ func (this *Timestamp) Validate() error {
 	return nil
 }
 func (this *Party) Validate() error {
+	for _, item := range this.Delegations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Delegations", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *RiskFactor) Validate() error {
@@ -305,5 +312,71 @@ func (this *LiquidityProvision) Validate() error {
 	return nil
 }
 func (this *EthereumConfig) Validate() error {
+	return nil
+}
+func (this *EpochTimestamps) Validate() error {
+	return nil
+}
+func (this *Epoch) Validate() error {
+	if nil == this.Timestamps {
+		return github_com_mwitkow_go_proto_validators.FieldError("Timestamps", fmt.Errorf("message must exist"))
+	}
+	if this.Timestamps != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Timestamps); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Timestamps", err)
+		}
+	}
+	for _, item := range this.Validators {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Validators", err)
+			}
+		}
+	}
+	for _, item := range this.Delagations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Delagations", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *EpochParticipation) Validate() error {
+	if this.Epoch != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Epoch); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Epoch", err)
+		}
+	}
+	return nil
+}
+func (this *EpochData) Validate() error {
+	return nil
+}
+func (this *Node) Validate() error {
+	if this.PubKey == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PubKey", fmt.Errorf(`value '%v' must not be an empty string`, this.PubKey))
+	}
+	if nil == this.EpochData {
+		return github_com_mwitkow_go_proto_validators.FieldError("EpochData", fmt.Errorf("message must exist"))
+	}
+	if this.EpochData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.EpochData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("EpochData", err)
+		}
+	}
+	for _, item := range this.Delagations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Delagations", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *NodeData) Validate() error {
+	return nil
+}
+func (this *Delegation) Validate() error {
 	return nil
 }

@@ -60,6 +60,7 @@ message Timestamp {
 message Party {
   // A unique identifier for the party, typically represented by a public key
   string id = 1 [(validator.field) = {msg_exists : true}];
+  repeated Delegation delegations = 2;
 }
 
 // Risk factors are used to calculate the current risk associated with orders trading on a given market
@@ -1084,4 +1085,111 @@ message EthereumConfig {
   string bridge_address = 3;
   // Number of confirmations
   uint32 confirmations = 4;
+}
+
+// Node status type
+enum NodeStatus {
+  NODE_STATUS_UNSPECIFIED = 0;
+  // The node is validating
+  NODE_STATUS_VALIDATOR = 1;
+  // The node is non-validating
+  NODE_STATUS_NON_VALIDATOR = 2;
+}
+
+// Describes in both human readable and block time when an epoch spans
+message EpochTimestamps {
+  // Timestamp of epoch start in nanoseconds, empty if not started
+  // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+  int64 start_time = 1;
+  // Timestamp of epoch end in nanoseconds, empty if not started
+  // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+  int64 end_time = 2;
+  // Height of first block in the epoch
+  uint64 first_block = 3;
+  // Height of last block in the epoch, empty if not ended
+  uint64 last_block = 4;
+}
+
+message Epoch {
+  // Sequence is used as epoch indentifier
+  uint64 seq = 1;
+  // Timestamps for start/end etc
+  EpochTimestamps timestamps = 2 [(validator.field) = {msg_exists : true}];
+  // Validators that participated in this epoch
+  repeated Node validators = 3;
+  // List of all delegations in epoch
+  repeated Delegation delagations = 4;
+}
+
+message EpochParticipation {
+  Epoch epoch = 1 [(validator.field) = {string_not_empty : true}];
+  uint64 offline = 2;
+  uint64 online = 3;
+  double total_rewards = 4;
+}
+
+message EpochData {
+  // Total number of epochs since node was created
+  int32 total = 1;
+  // Total number of offline epochs since node was created
+  int32 offline = 2;
+  // Total number of online epochs since node was created
+  int32 online = 3;
+}
+
+message Node {
+  // The node url eg n01.vega.xyz
+  string id = 1;
+  // Pub key of the node operator
+  string pub_key = 2 [(validator.field) = {string_not_empty : true}];
+  // URL where I can find out more info on the node
+  string info_url = 3;
+  // Country code for the location of the node
+  string location = 4;
+  // Value between 0 and 1 for percentage
+  float fee = 5;
+  // The amount the node has put up themselves
+  string staked_by_operator = 6;
+  // The amount of stake that has been delagated by token holders
+  string staked_by_delegates = 7;;
+  // Total amount staked on node
+  string staked_total = 8;
+  // Max amount of (wanted) stake, is this a network param or a node param
+  string max_intended_stake = 9;
+  // Amount of stake on the next epoch
+  string pending_stake = 10;
+  // Informantion about epoch
+  EpochData epoch_data = 11 [(validator.field) = {msg_exists : true}];
+  // Node status
+  NodeStatus status = 12 [(validator.field) = {msg_exists : true}];
+  // Node's delegations
+  repeated Delegation delagations = 13;
+}
+
+message NodeData {
+  // Total staked amount across all nodes
+  string staked_total = 1;
+  // Total number of nodes
+  uint32 total_nodes = 2;
+  // Number of inactive nodes
+  uint32 inactive_nodes = 3;
+  // Number of nodes validating
+  uint32 validating_nodes = 4;
+  // Average percentage fee across all nodes
+  float average_fee = 5;
+  // Total uptime for all epochs across all nodes
+  float uptime = 6;
+}
+
+message Delegation {
+  // Transaction hash
+  string tx_hash = 1;
+  // Amount delagated
+  string amount = 2;
+  // Party which is delagating
+  string party_id = 3;
+  // URL of node you are delagating to
+  string node = 4;
+  // Epoch of delagation
+  int32 epoch = 5;
 }
