@@ -913,45 +913,6 @@ message FeeInfrastructureAccountsResponse {
   repeated vega.Account accounts = 1;
 }
 
-// Request to prepare a governance proposal
-message PrepareProposalSubmissionRequest {
-  vega.commands.v1.ProposalSubmission submission = 1;
-}
-
-// Response to prepare a governance proposal
-message PrepareProposalSubmissionResponse {
-  // A blob is an encoded representation of the proposal ready to sign using the Vega Wallet and then submit as a transaction
-  bytes blob = 1;
-  // A copy of the prepared proposal
-  vega.commands.v1.ProposalSubmission submission = 2;
-}
-
-// Request to prepare a governance vote
-message PrepareVoteSubmissionRequest {
-  // Vote, required field
-  vega.commands.v1.VoteSubmission submission = 1 [(validator.field) = {msg_exists: true}];
-}
-
-// Response to prepare a governance vote
-message PrepareVoteSubmissionResponse {
-  // A blob is an encoded representation of the vote ready to sign using the Vega Wallet and then submit as a transaction
-  bytes blob = 1;
-  // A copy of the prepared vote
-  vega.commands.v1.VoteSubmission submission = 2;
-}
-
-// Request to prepare liquiditity provision
-message PrepareLiquidityProvisionRequest {
-  // Submission, required field
-  vega.commands.v1.LiquidityProvisionSubmission submission = 1 [(validator.field) = {msg_exists: true}];
-}
-
-// Response to a liquidity provision request
-message PrepareLiquidityProvisionResponse {
- // A blob is an encoded representation of the liquidity provision message ready to sign using the Vega Wallet and then submit as a transaction
- bytes blob = 1;
-}
-
 // Request for an order with the specified order identifier
 // Optionally, return a specific version of the order with the `version` field
 message OrderByIDRequest {
