@@ -39,9 +39,3 @@ message SubmitTransactionResponse {
     // **Important** - success does not mean that the event is confirmed by consensus
     bool success = 1;
 }
-
-// Request for preparing a withdrawal
-message PrepareWithdrawRequest {
-    // An asset withdrawal
-    vega.commands.v1.WithdrawSubmission withdraw = 1;
-}
