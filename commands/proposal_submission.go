@@ -14,6 +14,7 @@ import (
 
 const (
 	MaxDuration30DaysNs int64 = 2592000000000000
+	ReferenceMaxLen     int   = 100
 )
 
 func CheckProposalSubmission(cmd *commandspb.ProposalSubmission) error {
@@ -25,6 +26,10 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) Errors {
 
 	if cmd == nil {
 		return errs.FinalAddForProperty("proposal_submission", ErrIsRequired)
+	}
+
+	if len(cmd.Reference) > ReferenceMaxLen {
+		errs.AddForProperty("proposal_submission.reference", ErrReferenceTooLong)
 	}
 
 	if cmd.Terms == nil {
