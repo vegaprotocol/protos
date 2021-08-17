@@ -1020,3 +1020,19 @@ func (this *GetRewardDetailsRequest) Validate() error {
 func (this *GetRewardDetailsResponse) Validate() error {
 	return nil
 }
+func (this *Checkpoint) Validate() error {
+	return nil
+}
+func (this *CheckpointsRequest) Validate() error {
+	return nil
+}
+func (this *CheckpointsResponse) Validate() error {
+	for _, item := range this.Checkpoints {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Checkpoints", err)
+			}
+		}
+	}
+	return nil
+}

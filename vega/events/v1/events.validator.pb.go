@@ -22,6 +22,9 @@ var _ = math.Inf
 func (this *StakingEvent) Validate() error {
 	return nil
 }
+func (this *CheckpointEvent) Validate() error {
+	return nil
+}
 func (this *RewardPayoutEvent) Validate() error {
 	return nil
 }
@@ -362,6 +365,13 @@ func (this *BusEvent) Validate() error {
 		if oneOfNester.RewardPayout != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.RewardPayout); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("RewardPayout", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_Checkpoint); ok {
+		if oneOfNester.Checkpoint != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Checkpoint); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Checkpoint", err)
 			}
 		}
 	}
