@@ -36,6 +36,12 @@ message StakingEvent {
   string amount = 5;
 }
 
+message CheckpointEvent {
+  string hash = 1;
+  string block_hash = 2;
+  uint64 block_height = 3;
+}
+
 message RewardPayoutEvent {
   string party = 1;
   string from_account = 2;
@@ -368,6 +374,8 @@ message BusEvent {
     StakingEvent staking_event = 133;
     // Reward payout event
     RewardPayoutEvent reward_payout = 134;
+    // Checkpoint was created
+    CheckpointEvent checkpoint = 135;
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type

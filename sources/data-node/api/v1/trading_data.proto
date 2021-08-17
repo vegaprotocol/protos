@@ -248,6 +248,8 @@ service TradingDataService {
 
   // Get Rewards data
   rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
+
+  rpc Checkpoints(CheckpointsRequest) returns (CheckpointsResponse);
 }
 
 // Request for current Node data
@@ -1142,4 +1144,19 @@ message GetRewardDetailsResponse {
   string total_reward = 2;
   string last_reward = 3;
   string last_reward_percentage = 4;
+}
+
+// The actual data regarding a checkpoint
+message Checkpoint {
+  string hash = 1;
+  string block_hash = 2;
+  uint64 at_block = 3;
+}
+
+// Request to get all checkpoints. Currently no fields, probably will be expanded to allow filtering data
+message CheckpointsRequest {}
+
+// Response message containing all checkpoints requested
+message CheckpointsResponse {
+  repeated Checkpoint checkpoints = 1;
 }

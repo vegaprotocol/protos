@@ -1729,6 +1729,10 @@
           "$ref": "#/definitions/v1RewardPayoutEvent",
           "title": "Reward payout event"
         },
+        "checkpoint": {
+          "$ref": "#/definitions/v1CheckpointEvent",
+          "title": "Checkpoint was created"
+        },
         "market": {
           "$ref": "#/definitions/v1MarketEvent",
           "title": "Market tick events - See [MarketEvent](#vega.MarketEvent)"
@@ -1805,6 +1809,49 @@
           "$ref": "#/definitions/vegaCandle"
         }
       }
+    },
+    "v1Checkpoint": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "block_hash": {
+          "type": "string"
+        },
+        "at_block": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "The actual data regarding a checkpoint"
+    },
+    "v1CheckpointEvent": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "block_hash": {
+          "type": "string"
+        },
+        "block_height": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1CheckpointsResponse": {
+      "type": "object",
+      "properties": {
+        "checkpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Checkpoint"
+          }
+        }
+      },
+      "title": "Response message containing all checkpoints requested"
     },
     "v1Condition": {
       "type": "object",
