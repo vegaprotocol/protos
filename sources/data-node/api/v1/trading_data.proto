@@ -1149,7 +1149,8 @@ message GetRewardDetailsResponse {
 // The actual data regarding a checkpoint
 message Checkpoint {
   string hash = 1;
-  uint64 at_block = 2;
+  string block_hash = 2;
+  uint64 at_block = 3;
 }
 
 // Request to get all checkpoints. Currently no fields, probably will be expanded to allow filtering data

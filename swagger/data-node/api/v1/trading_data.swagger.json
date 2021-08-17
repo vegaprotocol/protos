@@ -1816,6 +1816,9 @@
         "hash": {
           "type": "string"
         },
+        "block_hash": {
+          "type": "string"
+        },
         "at_block": {
           "type": "string",
           "format": "uint64"
