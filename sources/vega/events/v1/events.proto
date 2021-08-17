@@ -293,6 +293,8 @@ enum BusEventType {
     BUS_EVENT_TYPE_STAKING_EVENT = 33;
     // Event indicating the payout of a reward has been initiated
     BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT = 34;
+    // Event indicating a new checkpoint was created
+    BUS_EVENT_TYPE_CHECKPOINT = 35;
     // Event indicating a market related event, for example when a market opens
     BUS_EVENT_TYPE_MARKET = 101;
     // Event used to report failed transactions back to a user, this is excluded from the ALL type
