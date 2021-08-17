@@ -1219,6 +1219,31 @@
         ]
       }
     },
+    "/parties/{party_id}/rewards": {
+      "get": {
+        "summary": "Get Rewards data",
+        "operationId": "GetRewardDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRewardDetailsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "party_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/parties/{party_id}/trades": {
       "get": {
         "summary": "Get a list of Trades by Party",
