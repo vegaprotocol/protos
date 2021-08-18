@@ -1185,7 +1185,7 @@ message Delegation {
   // Party which is delegating
   string party = 1;
   // Node ID
-  string nodeID = 2;
+  string node_id = 2;
   // Amount delegated
   string amount = 3;
   // Epoch of delegation

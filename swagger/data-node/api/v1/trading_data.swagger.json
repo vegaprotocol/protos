@@ -3890,7 +3890,7 @@
           "type": "string",
           "title": "Party which is delegating"
         },
-        "nodeID": {
+        "node_id": {
           "type": "string",
           "title": "Node ID"
         },
