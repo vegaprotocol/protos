@@ -1427,14 +1427,16 @@ func (m *AuctionEvent) GetExtensionTrigger() vega.AuctionTrigger {
 
 // A validator update event contains information about validator node
 type ValidatorUpdate struct {
-	// Public key of validator node
-	PubKey string `protobuf:"bytes,1,opt,name=pub_key,json=pubKey,proto3" json:"pub_key,omitempty"`
+	// Vega public key of validator node
+	VegaPubKey string `protobuf:"bytes,1,opt,name=vega_pub_key,json=vegaPubKey,proto3" json:"vega_pub_key,omitempty"`
+	// Ethereum public key of validator node
+	EthereumAddress string `protobuf:"bytes,2,opt,name=ethereum_address,json=ethereumAddress,proto3" json:"ethereum_address,omitempty"`
 	// Public key of Tendermint
-	TmPubKey string `protobuf:"bytes,2,opt,name=tm_pub_key,json=tmPubKey,proto3" json:"tm_pub_key,omitempty"`
+	TmPubKey string `protobuf:"bytes,3,opt,name=tm_pub_key,json=tmPubKey,proto3" json:"tm_pub_key,omitempty"`
 	// URL with more info on the node
-	InfoUrl string `protobuf:"bytes,3,opt,name=info_url,json=infoUrl,proto3" json:"info_url,omitempty"`
+	InfoUrl string `protobuf:"bytes,4,opt,name=info_url,json=infoUrl,proto3" json:"info_url,omitempty"`
 	// Country code (ISO 3166-1 alpha-2) for the location of the node
-	Country              string   `protobuf:"bytes,4,opt,name=country,proto3" json:"country,omitempty"`
+	Country              string   `protobuf:"bytes,5,opt,name=country,proto3" json:"country,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -1465,9 +1467,16 @@ func (m *ValidatorUpdate) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ValidatorUpdate proto.InternalMessageInfo
 
-func (m *ValidatorUpdate) GetPubKey() string {
+func (m *ValidatorUpdate) GetVegaPubKey() string {
 	if m != nil {
-		return m.PubKey
+		return m.VegaPubKey
+	}
+	return ""
+}
+
+func (m *ValidatorUpdate) GetEthereumAddress() string {
+	if m != nil {
+		return m.EthereumAddress
 	}
 	return ""
 }

@@ -3325,9 +3325,13 @@
     "v1ValidatorUpdate": {
       "type": "object",
       "properties": {
-        "pub_key": {
+        "vega_pub_key": {
           "type": "string",
-          "title": "Public key of validator node"
+          "title": "Vega public key of validator node"
+        },
+        "ethereum_address": {
+          "type": "string",
+          "title": "Ethereum public key of validator node"
         },
         "tm_pub_key": {
           "type": "string",
