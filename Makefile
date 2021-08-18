@@ -1,8 +1,7 @@
 # Makefile
 
 .PHONY: all
-all: build
-
+all: proto test
 
 .PHONY: test
 test: ## Run unit tests

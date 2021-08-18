@@ -11,7 +11,6 @@ import (
 )
 
 var (
-	ErrInvalidSignature   = errors.New("invalid signature")
 	ErrShouldBeHexEncoded = errors.New("should be hex encoded")
 )
 
@@ -57,7 +56,7 @@ func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error)
 	if !errs.Empty() {
 		return nil, errs.ErrorOrNil()
 	}
-	errs.Merge(validateSignature(tx.InputData, tx.Signature, tx.GetPubKey()))
+	errs.Merge(validateSignature(tx.Signature, tx.GetPubKey()))
 	if !errs.Empty() {
 		return nil, errs.ErrorOrNil()
 	}
@@ -69,7 +68,7 @@ func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error)
 	return inputData, nil
 }
 
-func validateSignature(inputData []byte, signature *commandspb.Signature, pubKey string) Errors {
+func validateSignature(signature *commandspb.Signature, pubKey string) Errors {
 	errs := NewErrors()
 	_, err := hex.DecodeString(signature.Value)
 	if err != nil {
