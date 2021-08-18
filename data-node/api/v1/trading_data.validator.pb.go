@@ -7,11 +7,11 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
-	_ "code.vegaprotocol.io/protos/vega"
 	_ "code.vegaprotocol.io/protos/vega/events/v1"
 	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
 	_ "code.vegaprotocol.io/protos/vega/commands/v1"
 	_ "github.com/mwitkow/go-proto-validators"
+	_ "code.vegaprotocol.io/protos/vega"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -20,6 +20,19 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+func (this *DelegationsRequest) Validate() error {
+	return nil
+}
+func (this *DelegationsResponse) Validate() error {
+	for _, item := range this.Delegations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Delegations", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *GetNodeDataRequest) Validate() error {
 	return nil
 }

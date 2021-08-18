@@ -1887,6 +1887,17 @@
       },
       "title": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
     },
+    "v1DelegationsResponse": {
+      "type": "object",
+      "properties": {
+        "delegations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          }
+        }
+      }
+    },
     "v1DepositResponse": {
       "type": "object",
       "properties": {
