@@ -12,16 +12,16 @@ import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/validator_commands.proto";
 
-// StakingEvent - an event notifying of stake being deposited or removed for a given party
+// StakeLinking - an event notifying of stake being deposited or removed for a given party
 // These events are emitted for every Staking deposit or removed accepted by the network
-message StakingEvent {
+message StakeLinking {
   enum Type {
     // Default value
     TYPE_UNSPECIFIED = 0;
     // Indicate of a stake deposit instruction
-    TYPE_DEPOSIT = 1;
+    TYPE_LINK = 1;
     // Indicate of a stake remove instruction
-    TYPE_REMOVE = 2;
+    TYPE_UNLINK = 2;
   }
 
   enum Status {
@@ -309,12 +309,12 @@ enum BusEventType {
   // Event indicating that validator node has been updated
   BUS_EVENT_TYPE_VALIDATOR_UPDATE = 32;
   // Event indicating a new staking event have been processed by the network
-  BUS_EVENT_TYPE_STAKING_EVENT = 33;
+  BUS_EVENT_TYPE_STAKE_LINKING = 33;
   // Event indicating the payout of a reward has been initiated
-    BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT = 34;
-    // Event indicating a new checkpoint was created
-    BUS_EVENT_TYPE_CHECKPOINT = 35;
-    // Event indicating a market related event, for example when a market opens
+  BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT = 34;
+  // Event indicating a new checkpoint was created
+  BUS_EVENT_TYPE_CHECKPOINT = 35;
+  // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
   // Event used to report failed transactions back to a user, this is excluded from the ALL type
   BUS_EVENT_TYPE_TX_ERROR = 201;
@@ -392,7 +392,7 @@ message BusEvent {
     // Validator update events
     ValidatorUpdate validator_update = 132;
     // Staking event
-    StakingEvent staking_event = 133;
+    StakeLinking stake_linking = 133;
     // Reward payout event
     RewardPayoutEvent reward_payout = 134;
     // Checkpoint was created
