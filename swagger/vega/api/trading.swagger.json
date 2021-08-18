@@ -1506,7 +1506,7 @@
           "format": "byte"
         }
       }
-    },
+    },    
     "runtimeStreamError": {
       "type": "object",
       "properties": {
@@ -1902,9 +1902,23 @@
         "amount": {
           "type": "string",
           "format": "uint64"
+        },
+        "epoch_seq": {
+          "type": "string"
         }
       },
       "title": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
+    },
+    "v1DelegationsResponse": {
+      "type": "object",
+      "properties": {
+        "delegations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          }
+        }
+      }
     },
     "v1DepositResponse": {
       "type": "object",
@@ -2928,6 +2942,9 @@
         "undelegation_amount": {
           "type": "string",
           "format": "uint64"
+        },
+        "epoch_seq": {
+          "type": "string"
         }
       },
       "title": "PendingDelegationBalanceEvent - updates on the delegation/undelegation balance of a party to a node for the next epoch"
@@ -3812,26 +3829,21 @@
     "vegaDelegation": {
       "type": "object",
       "properties": {
-        "tx_hash": {
+        "party": {
           "type": "string",
-          "title": "Transaction hash"
+          "title": "Party which is delegating"
+        },
+        "node_id": {
+          "type": "string",
+          "title": "Node ID"
         },
         "amount": {
           "type": "string",
-          "title": "Amount delagated"
+          "title": "Amount delegated"
         },
-        "party_id": {
+        "epoch_seq": {
           "type": "string",
-          "title": "Party which is delagating"
-        },
-        "node": {
-          "type": "string",
-          "title": "URL of node you are delagating to"
-        },
-        "epoch": {
-          "type": "integer",
-          "format": "int32",
-          "title": "Epoch of delagation"
+          "title": "Epoch of delegation"
         }
       }
     },
@@ -6015,6 +6027,7 @@
       "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The withdrawal is open and being processed by the network\n - STATUS_CANCELLED: The withdrawal have been cancelled\n - STATUS_FINALIZED: The withdrawal went through and is fully finalised, the funds are removed from the\nVega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network",
       "title": "The status of the withdrawal"
     }
+  
   },
   "x-stream-definitions": {
     "v1AccountsSubscribeResponse": {

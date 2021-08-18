@@ -1118,7 +1118,7 @@ message Epoch {
   // Validators that participated in this epoch
   repeated Node validators = 3;
   // List of all delegations in epoch
-  repeated Delegation delagations = 4;
+  repeated Delegation delegations = 4;
 }
 
 message EpochParticipation {
@@ -1150,7 +1150,7 @@ message Node {
   float fee = 5;
   // The amount the node has put up themselves
   string staked_by_operator = 6;
-  // The amount of stake that has been delagated by token holders
+  // The amount of stake that has been delegated by token holders
   string staked_by_delegates = 7;;
   // Total amount staked on node
   string staked_total = 8;
@@ -1182,14 +1182,12 @@ message NodeData {
 }
 
 message Delegation {
-  // Transaction hash
-  string tx_hash = 1;
-  // Amount delagated
-  string amount = 2;
-  // Party which is delagating
-  string party_id = 3;
-  // URL of node you are delagating to
-  string node = 4;
-  // Epoch of delagation
-  int32 epoch = 5;
+  // Party which is delegating
+  string party = 1;
+  // Node ID
+  string node_id = 2;
+  // Amount delegated
+  string amount = 3;
+  // Epoch of delegation
+  string epoch_seq = 4;
 }

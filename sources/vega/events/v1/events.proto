@@ -58,6 +58,7 @@ message DelegationBalanceEvent {
   string party = 1;
   string node_id = 2;
   uint64 amount = 3;
+  string epoch_seq = 4;
 }
 
 //PendingDelegationBalanceEvent - updates on the delegation/undelegation balance of a party to a node for the next epoch
@@ -66,6 +67,7 @@ message PendingDelegationBalanceEvent {
   string node_id = 2;
   uint64 delegation_amount = 3;
   uint64 undelegation_amount = 4;
+  string epoch_seq = 5;
 }
 
 // MarketEvent - the common denominator for all market events

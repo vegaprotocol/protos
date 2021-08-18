@@ -1880,6 +1880,9 @@
         "amount": {
           "type": "string",
           "format": "uint64"
+        },
+        "epoch_seq": {
+          "type": "string"
         }
       },
       "title": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
@@ -2962,6 +2965,9 @@
         "undelegation_amount": {
           "type": "string",
           "format": "uint64"
+        },
+        "epoch_seq": {
+          "type": "string"
         }
       },
       "title": "PendingDelegationBalanceEvent - updates on the delegation/undelegation balance of a party to a node for the next epoch"
@@ -3595,26 +3601,21 @@
     "vegaDelegation": {
       "type": "object",
       "properties": {
-        "tx_hash": {
+        "party": {
           "type": "string",
-          "title": "Transaction hash"
+          "title": "Party which is delegating"
+        },
+        "node_id": {
+          "type": "string",
+          "title": "Node ID"
         },
         "amount": {
           "type": "string",
-          "title": "Amount delagated"
+          "title": "Amount delegated"
         },
-        "party_id": {
+        "epoch_seq": {
           "type": "string",
-          "title": "Party which is delagating"
-        },
-        "node": {
-          "type": "string",
-          "title": "URL of node you are delagating to"
-        },
-        "epoch": {
-          "type": "integer",
-          "format": "int32",
-          "title": "Epoch of delagation"
+          "title": "Epoch of delegation"
         }
       }
     },
@@ -3714,7 +3715,7 @@
           },
           "title": "Validators that participated in this epoch"
         },
-        "delagations": {
+        "delegations": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/vegaDelegation"
@@ -4711,7 +4712,7 @@
         },
         "staked_by_delegates": {
           "type": "string",
-          "title": "The amount of stake that has been delagated by token holders"
+          "title": "The amount of stake that has been delegated by token holders"
         },
         "staked_total": {
           "type": "string",
