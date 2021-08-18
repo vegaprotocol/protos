@@ -1015,6 +1015,3 @@ func (this *DelegationsResponse) Validate() error {
 	}
 	return nil
 }
-func (this *Delegation) Validate() error {
-	return nil
-}

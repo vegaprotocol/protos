@@ -1145,21 +1145,14 @@ message LastBlockHeightResponse {
 }
 
 // both fields optional but 1 of them required at least
-// party_id = all delegation for a party
+// party = all delegation for a party
 // node_id = all delegation for a node
 // party_id + node_id = all delegation for a node for a given party
 message DelegationsRequest {
-  string party_id = 1; 
+  string party = 1; 
   string node_id = 2;
 }
 
 message DelegationsResponse {
-  repeated Delegation delegations = 1;
-}
-
-message Delegation {
-  string amount = 1;
-  string party = 2;
-  string node = 3;
-  string epoch_seq = 4;
+  repeated vega.Delegation delegations = 1;
 }

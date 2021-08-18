@@ -1495,23 +1495,6 @@
       "description": "- VALUE_UNSPECIFIED: Default value, always invalid\n - VALUE_NO: A vote against the proposal\n - VALUE_YES: A vote in favour of the proposal",
       "title": "Vote value"
     },
-    "apiv1Delegation": {
-      "type": "object",
-      "properties": {
-        "amount": {
-          "type": "string"
-        },
-        "party": {
-          "type": "string"
-        },
-        "node": {
-          "type": "string"
-        },
-        "epoch_seq": {
-          "type": "string"
-        }
-      }
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -1932,7 +1915,7 @@
         "delegations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/apiv1Delegation"
+            "$ref": "#/definitions/vegaDelegation"
           }
         }
       }
@@ -3846,26 +3829,21 @@
     "vegaDelegation": {
       "type": "object",
       "properties": {
-        "tx_hash": {
+        "party": {
           "type": "string",
-          "title": "Transaction hash"
+          "title": "Party which is delegating"
+        },
+        "nodeID": {
+          "type": "string",
+          "title": "Node ID"
         },
         "amount": {
           "type": "string",
-          "title": "Amount delagated"
+          "title": "Amount delegated"
         },
-        "party_id": {
+        "epoch_seq": {
           "type": "string",
-          "title": "Party which is delagating"
-        },
-        "node": {
-          "type": "string",
-          "title": "URL of node you are delagating to"
-        },
-        "epoch": {
-          "type": "integer",
-          "format": "int32",
-          "title": "Epoch of delagation"
+          "title": "Epoch of delegation"
         }
       }
     },
