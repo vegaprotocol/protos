@@ -1002,3 +1002,19 @@ func (this *LastBlockHeightRequest) Validate() error {
 func (this *LastBlockHeightResponse) Validate() error {
 	return nil
 }
+func (this *DelegationsRequest) Validate() error {
+	return nil
+}
+func (this *DelegationsResponse) Validate() error {
+	for _, item := range this.Delegations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Delegations", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Delegation) Validate() error {
+	return nil
+}

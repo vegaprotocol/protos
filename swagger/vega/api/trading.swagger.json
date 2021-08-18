@@ -1495,6 +1495,23 @@
       "description": "- VALUE_UNSPECIFIED: Default value, always invalid\n - VALUE_NO: A vote against the proposal\n - VALUE_YES: A vote in favour of the proposal",
       "title": "Vote value"
     },
+    "apiv1Delegation": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string"
+        },
+        "party": {
+          "type": "string"
+        },
+        "node": {
+          "type": "string"
+        },
+        "epoch_seq": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -1902,9 +1919,23 @@
         "amount": {
           "type": "string",
           "format": "uint64"
+        },
+        "epoch_seq": {
+          "type": "string"
         }
       },
       "title": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
+    },
+    "v1DelegationsResponse": {
+      "type": "object",
+      "properties": {
+        "delegations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiv1Delegation"
+          }
+        }
+      }
     },
     "v1DepositResponse": {
       "type": "object",
@@ -2928,6 +2959,9 @@
         "undelegation_amount": {
           "type": "string",
           "format": "uint64"
+        },
+        "epoch_seq": {
+          "type": "string"
         }
       },
       "title": "PendingDelegationBalanceEvent - updates on the delegation/undelegation balance of a party to a node for the next epoch"
@@ -6010,188 +6044,6 @@
       "default": "STATUS_UNSPECIFIED",
       "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The withdrawal is open and being processed by the network\n - STATUS_CANCELLED: The withdrawal have been cancelled\n - STATUS_FINALIZED: The withdrawal went through and is fully finalised, the funds are removed from the\nVega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network",
       "title": "The status of the withdrawal"
-    }
-  },
-  "x-stream-definitions": {
-    "v1AccountsSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1AccountsSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1AccountsSubscribeResponse"
-    },
-    "v1CandlesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1CandlesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1CandlesSubscribeResponse"
-    },
-    "v1MarginLevelsSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarginLevelsSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarginLevelsSubscribeResponse"
-    },
-    "v1MarketDepthSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarketDepthSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarketDepthSubscribeResponse"
-    },
-    "v1MarketDepthUpdatesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarketDepthUpdatesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarketDepthUpdatesSubscribeResponse"
-    },
-    "v1MarketsDataSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarketsDataSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarketsDataSubscribeResponse"
-    },
-    "v1ObserveEventBusResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObserveEventBusResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObserveEventBusResponse"
-    },
-    "v1ObserveGovernanceResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObserveGovernanceResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObserveGovernanceResponse"
-    },
-    "v1ObservePartyProposalsResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObservePartyProposalsResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObservePartyProposalsResponse"
-    },
-    "v1ObservePartyVotesResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObservePartyVotesResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObservePartyVotesResponse"
-    },
-    "v1ObserveProposalVotesResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObserveProposalVotesResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObserveProposalVotesResponse"
-    },
-    "v1OrdersSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1OrdersSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1OrdersSubscribeResponse"
-    },
-    "v1PositionsSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1PositionsSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1PositionsSubscribeResponse"
-    },
-    "v1TradesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1TradesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1TradesSubscribeResponse"
-    },
-    "v1TransferResponsesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1TransferResponsesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1TransferResponsesSubscribeResponse"
     }
   }
 }

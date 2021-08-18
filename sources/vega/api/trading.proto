@@ -287,6 +287,9 @@ service TradingDataService {
 
   // Get all oracle data
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
+
+  // Get delegation data
+  rpc Delegations(DelegationsRequest) returns (DelegationsResponse);
 }
 
 // Request for a list of all assets enabled on Vega
@@ -1139,4 +1142,24 @@ message LastBlockHeightRequest {}
 // tendermint
 message LastBlockHeightResponse {
   uint64 height = 1;
+}
+
+// both fields optional but 1 of them required at least
+// party_id = all delegation for a party
+// node_id = all delegation for a node
+// party_id + node_id = all delegation for a node for a given party
+message DelegationsRequest {
+  string party_id = 1; 
+  string node_id = 2;
+}
+
+message DelegationsResponse {
+  repeated Delegation delegations = 1;
+}
+
+message Delegation {
+  string amount = 1;
+  string party = 2;
+  string node = 3;
+  string epoch_seq = 4;
 }
