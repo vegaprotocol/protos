@@ -650,7 +650,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -891,7 +892,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -1131,7 +1133,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -1264,7 +1267,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -1335,7 +1339,7 @@
     "/transaction": {
       "post": {
         "summary": "Submit a signed transaction (v2)",
-        "operationId": "TradingService_SubmitTransactionV2",
+        "operationId": "SubmitTransactionV2",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1502,28 +1506,7 @@
           "format": "byte"
         }
       }
-    },
-    "runtimeError": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "string"
-        },
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          }
-        }
-      }
-    },
+    },    
     "runtimeStreamError": {
       "type": "object",
       "properties": {

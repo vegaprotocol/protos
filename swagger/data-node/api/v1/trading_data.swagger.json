@@ -567,7 +567,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -649,7 +650,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -890,7 +892,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -1130,7 +1133,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -1288,7 +1292,8 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
