@@ -1506,7 +1506,7 @@
           "format": "byte"
         }
       }
-    },    
+    },
     "runtimeStreamError": {
       "type": "object",
       "properties": {
@@ -1908,17 +1908,6 @@
         }
       },
       "title": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
-    },
-    "v1DelegationsResponse": {
-      "type": "object",
-      "properties": {
-        "delegations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/vegaDelegation"
-          }
-        }
-      }
     },
     "v1DepositResponse": {
       "type": "object",
@@ -6027,7 +6016,6 @@
       "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The withdrawal is open and being processed by the network\n - STATUS_CANCELLED: The withdrawal have been cancelled\n - STATUS_FINALIZED: The withdrawal went through and is fully finalised, the funds are removed from the\nVega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network",
       "title": "The status of the withdrawal"
     }
-  
   },
   "x-stream-definitions": {
     "v1AccountsSubscribeResponse": {

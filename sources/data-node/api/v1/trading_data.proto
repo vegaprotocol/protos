@@ -250,6 +250,23 @@ service TradingDataService {
   rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
 
   rpc Checkpoints(CheckpointsRequest) returns (CheckpointsResponse);
+
+    // Get delegation data
+  rpc Delegations(DelegationsRequest) returns (DelegationsResponse);
+
+}
+
+// both fields optional but 1 of them required at least
+// party = all delegation for a party
+// node_id = all delegation for a node
+// party_id + node_id = all delegation for a node for a given party
+message DelegationsRequest {
+  string party = 1;
+  string node_id = 2;
+}
+
+message DelegationsResponse {
+  repeated vega.Delegation delegations = 1;
 }
 
 // Request for current Node data
