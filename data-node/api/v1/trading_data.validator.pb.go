@@ -7,11 +7,11 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "code.vegaprotocol.io/protos/vega"
 	_ "code.vegaprotocol.io/protos/vega/events/v1"
 	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
 	_ "code.vegaprotocol.io/protos/vega/commands/v1"
 	_ "github.com/mwitkow/go-proto-validators"
-	_ "code.vegaprotocol.io/protos/vega"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -1028,9 +1028,19 @@ func (this *LastBlockHeightResponse) Validate() error {
 	return nil
 }
 func (this *GetRewardDetailsRequest) Validate() error {
+	if this.PartyId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PartyId", fmt.Errorf(`value '%v' must not be an empty string`, this.PartyId))
+	}
 	return nil
 }
 func (this *GetRewardDetailsResponse) Validate() error {
+	for _, item := range this.RewardDetails {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *Checkpoint) Validate() error {

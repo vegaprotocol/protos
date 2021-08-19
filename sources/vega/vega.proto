@@ -1191,3 +1191,23 @@ message Delegation {
   // Epoch of delegation
   string epoch_seq = 4;
 }
+
+// Details for a single reward payment
+message RewardDetails {
+   string asset_id = 1;
+   string party_id = 2;
+   uint64 epoch = 3;
+   string amount = 4;
+   string percentage_of_total = 5;
+   int64 received_at = 6;
+}
+
+// Details for rewards for a single asset
+message RewardPerAssetDetail {
+  // asset name 
+  string asset_id = 1;
+  // rewards ordered by received_at
+  repeated RewardDetails details = 2;
+  // Total amount of rewards for the asset
+  string total_for_asset = 3;
+}

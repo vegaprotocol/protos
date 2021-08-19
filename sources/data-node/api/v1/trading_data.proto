@@ -1152,15 +1152,12 @@ message LastBlockHeightResponse {
 
 // A request to get reward details for a party
 message GetRewardDetailsRequest {
-  string party_id = 1;
+  string party_id = 1 [(validator.field) = {string_not_empty : true }];
 }
 
-// The return message with reward details in
+// The return message with reward details in for a single party
 message GetRewardDetailsResponse {
-  string asset_id = 1;
-  string total_reward = 2;
-  string last_reward = 3;
-  string last_reward_percentage = 4;
+  repeated vega.RewardPerAssetDetail reward_details = 1;
 }
 
 // The actual data regarding a checkpoint

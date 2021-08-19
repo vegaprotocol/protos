@@ -2183,20 +2183,14 @@
     "v1GetRewardDetailsResponse": {
       "type": "object",
       "properties": {
-        "asset_id": {
-          "type": "string"
-        },
-        "total_reward": {
-          "type": "string"
-        },
-        "last_reward": {
-          "type": "string"
-        },
-        "last_reward_percentage": {
-          "type": "string"
+        "reward_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaRewardPerAssetDetail"
+          }
         }
       },
-      "title": "The return message with reward details in"
+      "title": "The return message with reward details in for a single party"
     },
     "v1GetUpdateMarketProposalsResponse": {
       "type": "object",
@@ -5306,6 +5300,53 @@
         }
       },
       "title": "Terms for a governance proposal on Vega"
+    },
+    "vegaRewardDetails": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "party_id": {
+          "type": "string"
+        },
+        "epoch": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "percentage_of_total": {
+          "type": "string"
+        },
+        "received_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Details for a single reward payment"
+    },
+    "vegaRewardPerAssetDetail": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "title": "asset name"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaRewardDetails"
+          },
+          "title": "rewards ordered by received_at"
+        },
+        "total_for_asset": {
+          "type": "string",
+          "title": "Total amount of rewards for the asset"
+        }
+      },
+      "title": "Details for rewards for a single asset"
     },
     "vegaRiskFactor": {
       "type": "object",
