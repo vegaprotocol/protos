@@ -3309,6 +3309,9 @@
           "items": {
             "$ref": "#/definitions/v1StakeLinking"
           }
+        },
+        "current_stake_available": {
+          "type": "string"
         }
       }
     },

@@ -277,6 +277,7 @@ message StakeLinkingsRequest {
 
 message StakeLinkingsResponse {
   repeated vega.events.v1.StakeLinking stake_linkings = 1;
+  string current_stake_available = 2;
 }
 
 // Request for current Node data
