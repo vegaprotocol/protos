@@ -1152,15 +1152,33 @@ message LastBlockHeightResponse {
 
 // A request to get reward details for a party
 message GetRewardDetailsRequest {
-  string party_id = 1;
+  string party_id = 1 [(validator.field) = {string_not_empty : true }];
 }
 
-// The return message with reward details in
-message GetRewardDetailsResponse {
+// Details for a single reward payment
+message RewardDetails {
+   string asset_id = 1;
+   string party_id = 2;
+   uint64 epoch = 3;
+   string amount = 4;
+   string percentage_of_total = 5;
+   int64 received_at = 6;
+}
+
+// Details for rewards for a single asset
+message RewardPerAssetDetail {
+  // asset name 
   string asset_id = 1;
-  string total_reward = 2;
-  string last_reward = 3;
-  string last_reward_percentage = 4;
+  // rewards ordered by received_at
+  repeated RewardDetails details = 2;
+  // Total amount of rewards for the asset
+  string total_for_asset = 3;
+}
+
+
+// The return message with reward details in for a single party
+message GetRewardDetailsResponse {
+  repeated RewardPerAssetDetail reward_details = 1;
 }
 
 // The actual data regarding a checkpoint

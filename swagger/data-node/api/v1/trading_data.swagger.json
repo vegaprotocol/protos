@@ -2183,20 +2183,14 @@
     "v1GetRewardDetailsResponse": {
       "type": "object",
       "properties": {
-        "asset_id": {
-          "type": "string"
-        },
-        "total_reward": {
-          "type": "string"
-        },
-        "last_reward": {
-          "type": "string"
-        },
-        "last_reward_percentage": {
-          "type": "string"
+        "reward_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1RewardPerAssetDetail"
+          }
         }
       },
-      "title": "The return message with reward details in"
+      "title": "The return message with reward details in for a single party"
     },
     "v1GetUpdateMarketProposalsResponse": {
       "type": "object",
@@ -3085,6 +3079,32 @@
       },
       "title": "A command to submit a new proposal for the\nvega network governance"
     },
+    "v1RewardDetails": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "party_id": {
+          "type": "string"
+        },
+        "epoch": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "percentage_of_total": {
+          "type": "string"
+        },
+        "received_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Details for a single reward payment"
+    },
     "v1RewardPayoutEvent": {
       "type": "object",
       "properties": {
@@ -3111,6 +3131,27 @@
           "type": "string"
         }
       }
+    },
+    "v1RewardPerAssetDetail": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "title": "asset name"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1RewardDetails"
+          },
+          "title": "rewards ordered by received_at"
+        },
+        "total_for_asset": {
+          "type": "string",
+          "title": "Total amount of rewards for the asset"
+        }
+      },
+      "title": "Details for rewards for a single asset"
     },
     "v1SettleDistressed": {
       "type": "object",

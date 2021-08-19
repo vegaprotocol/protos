@@ -1028,9 +1028,32 @@ func (this *LastBlockHeightResponse) Validate() error {
 	return nil
 }
 func (this *GetRewardDetailsRequest) Validate() error {
+	if this.PartyId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PartyId", fmt.Errorf(`value '%v' must not be an empty string`, this.PartyId))
+	}
+	return nil
+}
+func (this *RewardDetails) Validate() error {
+	return nil
+}
+func (this *RewardPerAssetDetail) Validate() error {
+	for _, item := range this.Details {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Details", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *GetRewardDetailsResponse) Validate() error {
+	for _, item := range this.RewardDetails {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *Checkpoint) Validate() error {

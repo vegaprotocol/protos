@@ -6070,12 +6070,14 @@ func (m *GetRewardDetailsRequest) GetPartyId() string {
 	return ""
 }
 
-// The return message with reward details in
-type GetRewardDetailsResponse struct {
+// Details for a single reward payment
+type RewardDetails struct {
 	AssetId              string   `protobuf:"bytes,1,opt,name=asset_id,json=assetId,proto3" json:"asset_id,omitempty"`
-	TotalReward          string   `protobuf:"bytes,2,opt,name=total_reward,json=totalReward,proto3" json:"total_reward,omitempty"`
-	LastReward           string   `protobuf:"bytes,3,opt,name=last_reward,json=lastReward,proto3" json:"last_reward,omitempty"`
-	LastRewardPercentage string   `protobuf:"bytes,4,opt,name=last_reward_percentage,json=lastRewardPercentage,proto3" json:"last_reward_percentage,omitempty"`
+	PartyId              string   `protobuf:"bytes,2,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
+	Epoch                uint64   `protobuf:"varint,3,opt,name=epoch,proto3" json:"epoch,omitempty"`
+	Amount               string   `protobuf:"bytes,4,opt,name=amount,proto3" json:"amount,omitempty"`
+	PercentageOfTotal    string   `protobuf:"bytes,5,opt,name=percentage_of_total,json=percentageOfTotal,proto3" json:"percentage_of_total,omitempty"`
+	ReceivedAt           int64    `protobuf:"varint,6,opt,name=received_at,json=receivedAt,proto3" json:"received_at,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -6088,48 +6090,55 @@ func (*GetRewardDetailsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_38c504114feac412, []int{141}
 }
 
-func (m *GetRewardDetailsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetRewardDetailsResponse.Unmarshal(m, b)
+func (m *RewardDetails) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RewardDetails.Unmarshal(m, b)
 }
-func (m *GetRewardDetailsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetRewardDetailsResponse.Marshal(b, m, deterministic)
+func (m *RewardDetails) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RewardDetails.Marshal(b, m, deterministic)
 }
-func (m *GetRewardDetailsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetRewardDetailsResponse.Merge(m, src)
+func (m *RewardDetails) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RewardDetails.Merge(m, src)
 }
-func (m *GetRewardDetailsResponse) XXX_Size() int {
-	return xxx_messageInfo_GetRewardDetailsResponse.Size(m)
+func (m *RewardDetails) XXX_Size() int {
+	return xxx_messageInfo_RewardDetails.Size(m)
 }
-func (m *GetRewardDetailsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetRewardDetailsResponse.DiscardUnknown(m)
+func (m *RewardDetails) XXX_DiscardUnknown() {
+	xxx_messageInfo_RewardDetails.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetRewardDetailsResponse proto.InternalMessageInfo
+var xxx_messageInfo_RewardDetails proto.InternalMessageInfo
 
-func (m *GetRewardDetailsResponse) GetAssetId() string {
+func (m *RewardDetails) GetAssetId() string {
 	if m != nil {
 		return m.AssetId
 	}
 	return ""
 }
 
-func (m *GetRewardDetailsResponse) GetTotalReward() string {
+func (m *RewardDetails) GetPartyId() string {
 	if m != nil {
-		return m.TotalReward
+		return m.PartyId
 	}
 	return ""
 }
 
-func (m *GetRewardDetailsResponse) GetLastReward() string {
+func (m *RewardDetails) GetEpoch() uint64 {
 	if m != nil {
-		return m.LastReward
+		return m.Epoch
+	}
+	return 0
+}
+
+func (m *RewardDetails) GetAmount() string {
+	if m != nil {
+		return m.Amount
 	}
 	return ""
 }
 
-func (m *GetRewardDetailsResponse) GetLastRewardPercentage() string {
+func (m *RewardDetails) GetPercentageOfTotal() string {
 	if m != nil {
-		return m.LastRewardPercentage
+		return m.PercentageOfTotal
 	}
 	return ""
 }
@@ -6404,6 +6413,8 @@ func init() {
 	proto.RegisterType((*LastBlockHeightRequest)(nil), "datanode.api.v1.LastBlockHeightRequest")
 	proto.RegisterType((*LastBlockHeightResponse)(nil), "datanode.api.v1.LastBlockHeightResponse")
 	proto.RegisterType((*GetRewardDetailsRequest)(nil), "datanode.api.v1.GetRewardDetailsRequest")
+	proto.RegisterType((*RewardDetails)(nil), "datanode.api.v1.RewardDetails")
+	proto.RegisterType((*RewardPerAssetDetail)(nil), "datanode.api.v1.RewardPerAssetDetail")
 	proto.RegisterType((*GetRewardDetailsResponse)(nil), "datanode.api.v1.GetRewardDetailsResponse")
 	proto.RegisterType((*Checkpoint)(nil), "datanode.api.v1.Checkpoint")
 	proto.RegisterType((*CheckpointsRequest)(nil), "datanode.api.v1.CheckpointsRequest")
