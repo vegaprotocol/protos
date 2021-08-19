@@ -1414,6 +1414,30 @@
         ]
       }
     },
+    "/parties/{party}/stake": {
+      "get": {
+        "operationId": "PartyStake",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PartyStakeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "party",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/time": {
       "get": {
         "summary": "Get Time",
@@ -3041,6 +3065,20 @@
       },
       "title": "Response for a party given a party identifier"
     },
+    "v1PartyStakeResponse": {
+      "type": "object",
+      "properties": {
+        "current_stake_available": {
+          "type": "string"
+        },
+        "stake_linkings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1StakeLinking"
+          }
+        }
+      }
+    },
     "v1PendingDelegationBalanceEvent": {
       "type": "object",
       "properties": {
@@ -3300,20 +3338,6 @@
       ],
       "default": "TYPE_UNSPECIFIED",
       "title": "- TYPE_UNSPECIFIED: Default value\n - TYPE_LINK: Indicate of a stake deposit instruction\n - TYPE_UNLINK: Indicate of a stake remove instruction"
-    },
-    "v1StakeLinkingsResponse": {
-      "type": "object",
-      "properties": {
-        "stake_linkings": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1StakeLinking"
-          }
-        },
-        "current_stake_available": {
-          "type": "string"
-        }
-      }
     },
     "v1TimeUpdate": {
       "type": "object",

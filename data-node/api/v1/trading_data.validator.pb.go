@@ -34,10 +34,10 @@ func (this *DelegationsResponse) Validate() error {
 	}
 	return nil
 }
-func (this *StakeLinkingsRequest) Validate() error {
+func (this *PartyStakeRequest) Validate() error {
 	return nil
 }
-func (this *StakeLinkingsResponse) Validate() error {
+func (this *PartyStakeResponse) Validate() error {
 	for _, item := range this.StakeLinkings {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {

@@ -254,7 +254,7 @@ service TradingDataService {
   // Get delegation data
   rpc Delegations(DelegationsRequest) returns (DelegationsResponse);
 
-  rpc StakeLinkings(StakeLinkingsRequest) returns (StakeLinkingsResponse);
+  rpc PartyStake(PartyStakeRequest) returns (PartyStakeResponse);
 }
 
 // both fields optional but 1 of them required at least
@@ -271,13 +271,13 @@ message DelegationsResponse {
   repeated vega.Delegation delegations = 1;
 }
 
-message StakeLinkingsRequest {
+message PartyStakeRequest {
   string party = 1;
 }
 
-message StakeLinkingsResponse {
-  repeated vega.events.v1.StakeLinking stake_linkings = 1;
-  string current_stake_available = 2;
+message PartyStakeResponse {
+  string current_stake_available = 1;
+  repeated vega.events.v1.StakeLinking stake_linkings = 2;
 }
 
 // Request for current Node data
