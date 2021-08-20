@@ -384,11 +384,6 @@ func (this *RewardDetails) Validate() error {
 	return nil
 }
 func (this *RewardPerAssetDetail) Validate() error {
-	if this.Asset != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Asset); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Asset", err)
-		}
-	}
 	for _, item := range this.Details {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {

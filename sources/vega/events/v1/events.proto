@@ -45,7 +45,7 @@ message CheckpointEvent {
 message RewardPayoutEvent {
   string party = 1;
   string epoch_seq = 2;
-  vega.Asset asset = 3;
+  string asset = 3;
   string amount = 4;
   string percent_of_total_reward = 5;
   int64  timestamp = 6;
