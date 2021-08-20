@@ -25,6 +25,7 @@ var (
 	ErrNonGTTOrderWithExpiry = errors.New("non GTT order with expiry")
 	ErrGTTOrderWithNoExpiry  = errors.New("GTT order without expiry")
 	ErrIsMismatching         = errors.New("is mismatching")
+	ErrReferenceTooLong      = errors.New("reference is too long")
 )
 
 type Errors map[string][]error

@@ -171,6 +171,7 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a new market with sell side and best ask reference and non negative offset succeeds", testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetSucceeds)
 	t.Run("Submitting a new market with sell side and mid reference and non-positive offset fails", testNewMarketSubmissionWithSellSideAndMidReferenceAndNonPositiveOffsetFails)
 	t.Run("Submitting a new market with sell side and mid reference and positive offset succeeds", testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds)
+	t.Run("Submitting a new market with a too long reference fails", testNewMarketSubmissionWithTooLongReferenceFails)
 }
 
 func testProposalSubmissionWithoutTermsFails(t *testing.T) {
@@ -3841,6 +3842,14 @@ func testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds
 
 	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositive)
 	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositive)
+}
+
+func testNewMarketSubmissionWithTooLongReferenceFails(t *testing.T) {
+	ref := make([]byte, 101)
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Reference: string(ref),
+	})
+	assert.Contains(t, err.Get("proposal_submission.reference"), commands.ErrReferenceTooLong)
 }
 
 func checkProposalSubmission(cmd *commandspb.ProposalSubmission) commands.Errors {
