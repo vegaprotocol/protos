@@ -3061,7 +3061,7 @@
           "type": "string"
         },
         "asset": {
-          "type": "string"
+          "$ref": "#/definitions/vegaAsset"
         },
         "amount": {
           "type": "string"

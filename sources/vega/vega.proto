@@ -5,6 +5,7 @@ option go_package = "code.vegaprotocol.io/protos/vega";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "vega/markets.proto";
+import "vega/assets.proto";
 
 
 // A side relates to the direction of an order, to Buy, or Sell
@@ -1204,8 +1205,8 @@ message RewardDetails {
 
 // Details for rewards for a single asset
 message RewardPerAssetDetail {
-  // asset name 
-  string asset_id = 1;
+  // asset details
+  Asset asset = 1;
   // rewards ordered by received_at
   repeated RewardDetails details = 2;
   // Total amount of rewards for the asset
