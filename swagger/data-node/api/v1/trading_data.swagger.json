@@ -3085,12 +3085,6 @@
         "party": {
           "type": "string"
         },
-        "from_account": {
-          "type": "string"
-        },
-        "to_account": {
-          "type": "string"
-        },
         "epoch_seq": {
           "type": "string"
         },
@@ -3098,11 +3092,14 @@
           "type": "string"
         },
         "amount": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "percent_of_total_reward": {
           "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
