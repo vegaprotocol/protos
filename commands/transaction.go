@@ -32,6 +32,14 @@ func NewInputData(height uint64) *commandspb.InputData {
 	}
 }
 
+func NewSignature(sig []byte, algo string, version uint32) *commandspb.Signature {
+	return &commandspb.Signature{
+		Value:   hex.EncodeToString(sig),
+		Algo:    algo,
+		Version: version,
+	}
+}
+
 func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error) {
 	errs := NewErrors()
 
