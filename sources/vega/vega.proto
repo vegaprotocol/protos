@@ -1206,7 +1206,7 @@ message RewardDetails {
 // Details for rewards for a single asset
 message RewardPerAssetDetail {
   // asset details
-  Asset asset = 1;
+  string asset = 1;
   // rewards ordered by received_at
   repeated RewardDetails details = 2;
   // Total amount of rewards for the asset
