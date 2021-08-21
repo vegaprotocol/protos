@@ -1,0 +1,34 @@
+ syntax = "proto3";
+
+ package vega.coreapi.v1;
+ option go_package = "code.vegaprotocol.io/vega/proto/coreapi/v1";
+
+import "vega/assets.proto";
+
+ service CoreApiService {
+   rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
+   rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
+ }
+
+ message Account {
+   string party = 1;
+   string market = 2;
+   string balance = 3;
+   string asset = 5;
+   string type = 6;
+ }
+
+ message ListAccountsRequest {
+   string party = 1;
+   string market = 2;
+ }
+
+ message ListAccountsResponse {
+   repeated Account accounts = 1;
+ }
+
+message ListAssetsRequest {}
+
+message ListAssetsResponse {
+  repeated vega.Asset assets = 1;
+}
