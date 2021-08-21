@@ -68,6 +68,9 @@ func (this *StatisticsResponse) Validate() error {
 	}
 	return nil
 }
+func (this *Statistics) Validate() error {
+	return nil
+}
 func (this *LastBlockHeightRequest) Validate() error {
 	return nil
 }

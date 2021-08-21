@@ -114,7 +114,76 @@ message ObserveEventBusResponse {
 message StatisticsRequest {}
 
 message StatisticsResponse {
-  vega.Statistics statistics = 1;
+  Statistics statistics = 1;
+}
+
+// Vega domain specific statistics as reported by the node the caller is connected to
+message Statistics {
+  // Current block height as reported by the Vega blockchain
+  uint64 block_height = 1;
+  // Current backlog length (number of transactions) that are waiting to be included in a block
+  uint64 backlog_length = 2;
+  // Total number of connected peers to this node
+  uint64 total_peers = 3;
+  // Genesis block date and time formatted in ISO-8601 datetime format with nanosecond precision
+  string genesis_time = 4;
+  // Current system date and time formatted in ISO-8601 datetime format with nanosecond precision
+  string current_time = 5;
+  // Current Vega date and time formatted in ISO-8601 datetime format with nanosecond precision
+  string vega_time = 6;
+  // Status of the connection to the Vega blockchain
+  // - See [`ChainStatus`](#vega.ChainStatus)
+  vega.ChainStatus status = 7;
+  // Transactions per block
+  uint64 tx_per_block = 8;
+  // Average transaction size in bytes
+  uint64 average_tx_bytes = 9;
+  // Average orders per block
+  uint64 average_orders_per_block = 10;
+  // Trades emitted per second
+  uint64 trades_per_second = 11;
+  // Orders processed per second
+  uint64 orders_per_second = 12;
+  // Total markets on this Vega network
+  uint64 total_markets = 13;
+  // Total number of order amendments since genesis (on all markets)
+  uint64 total_amend_order = 16;
+  // Total number of order cancellations since genesis (on all markets)
+  uint64 total_cancel_order = 17;
+  // Total number of order submissions since genesis (on all markets)
+  uint64 total_create_order = 18;
+  // Total number of orders processed since genesis (on all markets)
+  uint64 total_orders = 19;
+  // Total number of trades emitted since genesis (on all markets)
+  uint64 total_trades = 20;
+  // Current number of stream subscribers to order data
+  uint32 order_subscriptions = 21;
+  // Current number of stream subscribers to trade data
+  uint32 trade_subscriptions = 22;
+  // Current number of stream subscribers to candle-stick data
+  uint32 candle_subscriptions = 23;
+  // Current number of stream subscribers to market depth data
+  uint32 market_depth_subscriptions = 24;
+  // Current number of stream subscribers to positions data
+  uint32 positions_subscriptions = 25;
+  // Current number of stream subscribers to account data
+  uint32 account_subscriptions = 26;
+  // Current number of stream subscribers to market data
+  uint32 market_data_subscriptions = 27;
+  // The version hash of the Vega node software
+  string app_version_hash = 28;
+  // The version of the Vega node software
+  string app_version = 29;
+  // The version of the underlying Vega blockchain
+  string chain_version = 30;
+  // Current block duration, in nanoseconds
+  uint64 block_duration = 31;
+  // Total uptime for this node formatted in ISO-8601 datetime format with nanosecond precision
+  string uptime = 32;
+  // Unique identifier for the underlying Vega blockchain
+  string chain_id = 33;
+  // Current number of stream subscribers to market depth update data
+  uint32 market_depth_updates_subscriptions = 34;
 }
 
 // A request to get the height of the very last block processed

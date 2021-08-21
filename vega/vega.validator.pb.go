@@ -157,9 +157,6 @@ func (this *Position) Validate() error {
 func (this *PositionTrade) Validate() error {
 	return nil
 }
-func (this *Statistics) Validate() error {
-	return nil
-}
 func (this *Deposit) Validate() error {
 	return nil
 }
