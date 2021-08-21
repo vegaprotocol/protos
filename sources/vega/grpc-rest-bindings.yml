@@ -17,9 +17,9 @@ http:
       body: "*"
 
     # Miscellaneous
-    - selector: api.v1.TradingDataService.Statistics
+    - selector: api.v1.TradingService.Statistics
       get: '/statistics'
-    - selector: api.v1.TradingDataService.LastBlockHeight
+    - selector: api.v1.TradingService.LastBlockHeight
       get: '/blockchain/height'
-    - selector: api.v1.TradingDataService.GetVegaTime
+    - selector: api.v1.TradingService.GetVegaTime
       get: '/time'

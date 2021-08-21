@@ -45,6 +45,33 @@ func request_TradingService_SubmitTransactionV2_0(ctx context.Context, marshaler
 
 }
 
+func request_TradingService_Statistics_0(ctx context.Context, marshaler runtime.Marshaler, client TradingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq StatisticsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.Statistics(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func request_TradingService_LastBlockHeight_0(ctx context.Context, marshaler runtime.Marshaler, client TradingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq LastBlockHeightRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.LastBlockHeight(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func request_TradingService_GetVegaTime_0(ctx context.Context, marshaler runtime.Marshaler, client TradingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetVegaTimeRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.GetVegaTime(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
 // RegisterTradingServiceHandlerFromEndpoint is same as RegisterTradingServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterTradingServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
@@ -103,13 +130,85 @@ func RegisterTradingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("GET", pattern_TradingService_Statistics_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TradingService_Statistics_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TradingService_Statistics_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TradingService_LastBlockHeight_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TradingService_LastBlockHeight_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TradingService_LastBlockHeight_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TradingService_GetVegaTime_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TradingService_GetVegaTime_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TradingService_GetVegaTime_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
 var (
 	pattern_TradingService_SubmitTransactionV2_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"transaction"}, ""))
+
+	pattern_TradingService_Statistics_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"statistics"}, ""))
+
+	pattern_TradingService_LastBlockHeight_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"blockchain", "height"}, ""))
+
+	pattern_TradingService_GetVegaTime_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"time"}, ""))
 )
 
 var (
 	forward_TradingService_SubmitTransactionV2_0 = runtime.ForwardResponseMessage
+
+	forward_TradingService_Statistics_0 = runtime.ForwardResponseMessage
+
+	forward_TradingService_LastBlockHeight_0 = runtime.ForwardResponseMessage
+
+	forward_TradingService_GetVegaTime_0 = runtime.ForwardResponseMessage
 )

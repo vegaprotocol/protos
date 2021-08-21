@@ -15,6 +15,57 @@
     "application/json"
   ],
   "paths": {
+    "/blockchain/height": {
+      "get": {
+        "summary": "Get the height of the last tendermint block",
+        "operationId": "LastBlockHeight",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LastBlockHeightResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingService"
+        ]
+      }
+    },
+    "/statistics": {
+      "get": {
+        "summary": "Get Statistics on Vega",
+        "operationId": "Statistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1StatisticsResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingService"
+        ]
+      }
+    },
+    "/time": {
+      "get": {
+        "summary": "Get Time",
+        "operationId": "GetVegaTime",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetVegaTimeResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingService"
+        ]
+      }
+    },
     "/transaction": {
       "post": {
         "summary": "Submit a signed transaction (v2)",
