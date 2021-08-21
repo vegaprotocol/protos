@@ -27,7 +27,9 @@ import "vega/assets.proto";
    repeated Account accounts = 1;
  }
 
-message ListAssetsRequest {}
+message ListAssetsRequest {
+  string asset = 1; // optional ID
+}
 
 message ListAssetsResponse {
   repeated vega.Asset assets = 1;
