@@ -301,7 +301,9 @@ func init() {
 	proto.RegisterType((*SubmitTransactionRequest)(nil), "vega.wallet.v1.SubmitTransactionRequest")
 }
 
-func init() { proto.RegisterFile("vega/wallet/v1/wallet.proto", fileDescriptor_815617b49d13b225) }
+func init() {
+	proto.RegisterFile("vega/wallet/v1/wallet.proto", fileDescriptor_815617b49d13b225)
+}
 
 var fileDescriptor_815617b49d13b225 = []byte{
 	// 601 bytes of a gzipped FileDescriptorProto

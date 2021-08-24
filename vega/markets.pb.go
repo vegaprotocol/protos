@@ -1625,7 +1625,9 @@ func init() {
 	proto.RegisterType((*MarketTimestamps)(nil), "vega.MarketTimestamps")
 }
 
-func init() { proto.RegisterFile("vega/markets.proto", fileDescriptor_90832fb6658c8dcc) }
+func init() {
+	proto.RegisterFile("vega/markets.proto", fileDescriptor_90832fb6658c8dcc)
+}
 
 var fileDescriptor_90832fb6658c8dcc = []byte{
 	// 1964 bytes of a gzipped FileDescriptorProto
