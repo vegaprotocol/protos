@@ -147,7 +147,7 @@ http:
 
     # Nodes
     - selector: api.v1.TradingDataService.GetNodeData
-      get: '/nodes/data'
+      get: '/nodes-data'
     - selector: api.v1.TradingDataService.GetNodes
       get: '/nodes'
     - selector: api.v1.TradingDataService.GetNodeByID
