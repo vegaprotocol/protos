@@ -741,7 +741,9 @@ func init() {
 	proto.RegisterType((*RestoreSnapshot)(nil), "vega.commands.v1.RestoreSnapshot")
 }
 
-func init() { proto.RegisterFile("vega/commands/v1/commands.proto", fileDescriptor_9c3a53c66a940c51) }
+func init() {
+	proto.RegisterFile("vega/commands/v1/commands.proto", fileDescriptor_9c3a53c66a940c51)
+}
 
 var fileDescriptor_9c3a53c66a940c51 = []byte{
 	// 947 bytes of a gzipped FileDescriptorProto
