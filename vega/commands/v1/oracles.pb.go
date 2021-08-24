@@ -103,9 +103,7 @@ func init() {
 	proto.RegisterType((*OracleDataSubmission)(nil), "vega.commands.v1.OracleDataSubmission")
 }
 
-func init() {
-	proto.RegisterFile("vega/commands/v1/oracles.proto", fileDescriptor_4d80a2283bd5a206)
-}
+func init() { proto.RegisterFile("vega/commands/v1/oracles.proto", fileDescriptor_4d80a2283bd5a206) }
 
 var fileDescriptor_4d80a2283bd5a206 = []byte{
 	// 219 bytes of a gzipped FileDescriptorProto
