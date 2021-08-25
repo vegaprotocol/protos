@@ -408,9 +408,7 @@ func init() {
 	proto.RegisterType((*Proposals)(nil), "vega.snapshot.v1.Proposals")
 }
 
-func init() {
-	proto.RegisterFile("vega/snapshot/v1/snapshot.proto", fileDescriptor_cee6f703c00de307)
-}
+func init() { proto.RegisterFile("vega/snapshot/v1/snapshot.proto", fileDescriptor_cee6f703c00de307) }
 
 var fileDescriptor_cee6f703c00de307 = []byte{
 	// 421 bytes of a gzipped FileDescriptorProto

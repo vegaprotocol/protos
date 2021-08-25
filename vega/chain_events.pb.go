@@ -1146,9 +1146,7 @@ func init() {
 	proto.RegisterType((*ValidatorEvent)(nil), "vega.ValidatorEvent")
 }
 
-func init() {
-	proto.RegisterFile("vega/chain_events.proto", fileDescriptor_5269c2ee1b00a4bc)
-}
+func init() { proto.RegisterFile("vega/chain_events.proto", fileDescriptor_5269c2ee1b00a4bc) }
 
 var fileDescriptor_5269c2ee1b00a4bc = []byte{
 	// 753 bytes of a gzipped FileDescriptorProto
