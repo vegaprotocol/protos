@@ -91,6 +91,8 @@ http:
       get: '/parties/{party_id}/markets/{market_id}/margin'
     - selector: datanode.api.v1.TradingDataService.GetRewardDetails
       get: '/parties/{party_id}/rewards'
+    - selector: datanode.api.v1.TradingDataService.PartyStake
+      get: '/parties/{party}/stake'
 
     # governance stuff by party
     - selector: datanode.api.v1.TradingDataService.GetProposalsByParty

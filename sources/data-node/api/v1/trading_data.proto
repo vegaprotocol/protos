@@ -251,9 +251,10 @@ service TradingDataService {
 
   rpc Checkpoints(CheckpointsRequest) returns (CheckpointsResponse);
 
-    // Get delegation data
+  // Get delegation data
   rpc Delegations(DelegationsRequest) returns (DelegationsResponse);
 
+  rpc PartyStake(PartyStakeRequest) returns (PartyStakeResponse);
 }
 
 // both fields optional but 1 of them required at least
@@ -268,6 +269,15 @@ message DelegationsRequest {
 
 message DelegationsResponse {
   repeated vega.Delegation delegations = 1;
+}
+
+message PartyStakeRequest {
+  string party = 1;
+}
+
+message PartyStakeResponse {
+  string current_stake_available = 1;
+  repeated vega.events.v1.StakeLinking stake_linkings = 2;
 }
 
 // Request for current Node data

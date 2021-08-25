@@ -27,7 +27,7 @@ service TradingService {
 // Request for a new event sent by the blockchain queue to be propagated on Vega
 message PropagateChainEventRequest {
   // Chain event
-  vega.commands.v1.ChainEvent evt = 1;
+  bytes event = 1;
   // Public key
   string pub_key = 2;
   // Signature

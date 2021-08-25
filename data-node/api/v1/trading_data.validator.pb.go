@@ -34,6 +34,19 @@ func (this *DelegationsResponse) Validate() error {
 	}
 	return nil
 }
+func (this *PartyStakeRequest) Validate() error {
+	return nil
+}
+func (this *PartyStakeResponse) Validate() error {
+	for _, item := range this.StakeLinkings {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakeLinkings", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *GetNodeDataRequest) Validate() error {
 	return nil
 }

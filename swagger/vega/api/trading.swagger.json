@@ -1740,8 +1740,8 @@
           "$ref": "#/definitions/v1ValidatorUpdate",
           "title": "Validator update events"
         },
-        "staking_event": {
-          "$ref": "#/definitions/v1StakingEvent",
+        "stake_linking": {
+          "$ref": "#/definitions/v1StakeLinking",
           "title": "Staking event"
         },
         "reward_payout": {
@@ -1799,14 +1799,14 @@
         "BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE",
         "BUS_EVENT_TYPE_EPOCH_UPDATE",
         "BUS_EVENT_TYPE_VALIDATOR_UPDATE",
-        "BUS_EVENT_TYPE_STAKING_EVENT",
+        "BUS_EVENT_TYPE_STAKE_LINKING",
         "BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT",
         "BUS_EVENT_TYPE_CHECKPOINT",
         "BUS_EVENT_TYPE_MARKET",
         "BUS_EVENT_TYPE_TX_ERROR"
       ],
       "default": "BUS_EVENT_TYPE_UNSPECIFIED",
-      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for next epoch has changed\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKING_EVENT: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
+      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for next epoch has changed\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
       "title": "An (event) bus event type is used to specify a type of event\nIt has 2 styles of event:\nSingle values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item\nGroup values (e.g. BUS_EVENT_TYPE_AUCTION) where they represent a group of data items"
     },
     "v1CandlesResponse": {
@@ -1829,37 +1829,6 @@
           "$ref": "#/definitions/vegaCandle"
         }
       }
-    },
-    "v1ChainEvent": {
-      "type": "object",
-      "properties": {
-        "tx_id": {
-          "type": "string",
-          "title": "The identifier of the transaction in which the events happened, usually a hash"
-        },
-        "nonce": {
-          "type": "string",
-          "format": "uint64",
-          "title": "Arbitrary one-time integer used to prevent replay attacks"
-        },
-        "builtin": {
-          "$ref": "#/definitions/vegaBuiltinAssetEvent",
-          "title": "Built-in asset event"
-        },
-        "erc20": {
-          "$ref": "#/definitions/vegaERC20Event",
-          "title": "Ethereum ERC20 event"
-        },
-        "btc": {
-          "$ref": "#/definitions/vegaBTCEvent",
-          "title": "Bitcoin BTC event"
-        },
-        "validator": {
-          "$ref": "#/definitions/vegaValidatorEvent",
-          "title": "Validator event"
-        }
-      },
-      "title": "An event forwarded to the Vega network to provide information on events happening on other networks"
     },
     "v1CheckpointEvent": {
       "type": "object",
@@ -3144,7 +3113,7 @@
       },
       "description": "A signature to be authenticate a transaction and to be verified by the vega\nnetwork."
     },
-    "v1StakingEvent": {
+    "v1StakeLinking": {
       "type": "object",
       "properties": {
         "id": {
@@ -3152,7 +3121,7 @@
           "title": "The internal ID for this staking event"
         },
         "type": {
-          "$ref": "#/definitions/v1StakingEventType",
+          "$ref": "#/definitions/v1StakeLinkingType",
           "title": "The type of event"
         },
         "ts": {
@@ -3167,19 +3136,43 @@
         "amount": {
           "type": "string",
           "title": "The amount of stake deposited or removed"
+        },
+        "status": {
+          "$ref": "#/definitions/v1StakeLinkingStatus",
+          "title": "The status of the event"
+        },
+        "finalized_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "The time at which the vega network finalized the state of the event"
+        },
+        "tx_hash": {
+          "type": "string",
+          "title": "The hash of the transaction from which the events happen"
         }
       },
-      "title": "StakingEvent - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
+      "title": "StakeLinking - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
     },
-    "v1StakingEventType": {
+    "v1StakeLinkingStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_PENDING",
+        "STATUS_ACCEPTED",
+        "STATUS_REJECTED"
+      ],
+      "default": "STATUS_UNSPECIFIED",
+      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate an event waiting for confirmation from the vega network\n - STATUS_ACCEPTED: Indicate of an event accepted by the vega network\n - STATUS_REJECTED: Indaicate of an event rejected by the vega network"
+    },
+    "v1StakeLinkingType": {
       "type": "string",
       "enum": [
         "TYPE_UNSPECIFIED",
-        "TYPE_DEPOSIT",
-        "TYPE_REMOVE"
+        "TYPE_LINK",
+        "TYPE_UNLINK"
       ],
       "default": "TYPE_UNSPECIFIED",
-      "title": "- TYPE_UNSPECIFIED: Default value\n - TYPE_DEPOSIT: Indicate of a stake deposit instruction\n - TYPE_REMOVE: Indicate of a stake remove instruction"
+      "title": "- TYPE_UNSPECIFIED: Default value\n - TYPE_LINK: Indicate of a stake deposit instruction\n - TYPE_UNLINK: Indicate of a stake remove instruction"
     },
     "v1StatisticsResponse": {
       "type": "object",
@@ -3522,16 +3515,6 @@
       "description": "- ACCOUNT_TYPE_UNSPECIFIED: Default value\n - ACCOUNT_TYPE_INSURANCE: Insurance pool accounts contain insurance pool funds for a market\n - ACCOUNT_TYPE_SETTLEMENT: Settlement accounts exist only during settlement or mark-to-market\n - ACCOUNT_TYPE_MARGIN: Margin accounts contain margin funds for a party and each party will\nhave multiple margin accounts, one for each market they have traded in\n\nMargin account funds will alter as margin requirements on positions change\n - ACCOUNT_TYPE_GENERAL: General accounts contains general funds for a party. A party will\nhave multiple general accounts, one for each asset they want\nto trade with\n\nGeneral accounts are where funds are initially deposited or withdrawn from,\nit is also the account where funds are taken to fulfil fees and initial margin requirements\n - ACCOUNT_TYPE_FEES_INFRASTRUCTURE: Infrastructure accounts contain fees earned by providing infrastructure on Vega\n - ACCOUNT_TYPE_FEES_LIQUIDITY: Liquidity accounts contain fees earned by providing liquidity on Vega markets\n - ACCOUNT_TYPE_FEES_MAKER: This account is created to hold fees earned by placing orders that sit on the book\nand are then matched with an incoming order to create a trade - These fees reward parties\nwho provide the best priced liquidity that actually allows trading to take place\n - ACCOUNT_TYPE_LOCK_WITHDRAW: This account is created to lock funds to be withdrawn by parties\n - ACCOUNT_TYPE_BOND: This account is created to maintain liquidity providers funds commitments\n - ACCOUNT_TYPE_EXTERNAL: External account represents an external source (deposit/withdrawal)\n - ACCOUNT_TYPE_GLOBAL_INSURANCE: Global insurance account for the asset\n - ACCOUNT_TYPE_GLOBAL_REWARD: Global reward account for the asset",
       "title": "Various collateral/account types as used by Vega"
     },
-    "vegaAddValidator": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/vegaIdentifier",
-          "title": "The identifier of the validator"
-        }
-      },
-      "title": "A message to notify when a new validator is being added to the Vega network"
-    },
     "vegaAsset": {
       "type": "object",
       "properties": {
@@ -3610,80 +3593,6 @@
       "description": "- AUCTION_TRIGGER_UNSPECIFIED: Default value for AuctionTrigger, no auction triggered\n - AUCTION_TRIGGER_BATCH: Batch auction\n - AUCTION_TRIGGER_OPENING: Opening auction\n - AUCTION_TRIGGER_PRICE: Price monitoring trigger\n - AUCTION_TRIGGER_LIQUIDITY: Liquidity monitoring trigger",
       "title": "Auction triggers indicate what condition triggered an auction (if market is in auction mode)"
     },
-    "vegaBTCDeposit": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "The Vega network internal identifier of the asset"
-        },
-        "source_btc_address": {
-          "type": "string",
-          "title": "The BTC wallet initiating the deposit"
-        },
-        "target_party_id": {
-          "type": "string",
-          "title": "The Vega party identifier (pub-key) which is the target of the deposit"
-        }
-      },
-      "title": "A Bitcoin deposit into Vega"
-    },
-    "vegaBTCEvent": {
-      "type": "object",
-      "properties": {
-        "index": {
-          "type": "string",
-          "format": "uint64",
-          "title": "The index of the transaction"
-        },
-        "block": {
-          "type": "string",
-          "format": "uint64",
-          "title": "The block in which the transaction happened"
-        },
-        "deposit": {
-          "$ref": "#/definitions/vegaBTCDeposit",
-          "title": "Deposit BTC asset"
-        },
-        "withdrawal": {
-          "$ref": "#/definitions/vegaBTCWithdrawal",
-          "title": "Withdraw BTC asset"
-        }
-      },
-      "title": "An event from the Bitcoin network"
-    },
-    "vegaBTCWithdrawal": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "The vega network internal identifier of the asset"
-        },
-        "source_party_id": {
-          "type": "string",
-          "title": "The party identifier (pub-key) initiating the withdrawal"
-        },
-        "target_btc_address": {
-          "type": "string",
-          "title": "Target Bitcoin wallet address"
-        },
-        "reference_nonce": {
-          "type": "string",
-          "title": "The nonce reference of the transaction"
-        }
-      },
-      "title": "A Bitcoin withdrawal from Vega"
-    },
-    "vegaBitcoinAddress": {
-      "type": "object",
-      "properties": {
-        "address": {
-          "type": "string",
-          "title": "A Bitcoin address"
-        }
-      },
-      "title": "Used as a wrapper for a Bitcoin address (wallet)"
-    },
     "vegaBuiltinAsset": {
       "type": "object",
       "properties": {
@@ -3693,58 +3602,6 @@
         }
       },
       "title": "A Vega internal asset"
-    },
-    "vegaBuiltinAssetDeposit": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "A Vega network internal asset identifier"
-        },
-        "party_id": {
-          "type": "string",
-          "title": "A Vega party identifier (pub-key)"
-        },
-        "amount": {
-          "type": "string",
-          "format": "uint64",
-          "title": "The amount to be deposited"
-        }
-      },
-      "title": "A deposit for a Vega built-in asset"
-    },
-    "vegaBuiltinAssetEvent": {
-      "type": "object",
-      "properties": {
-        "deposit": {
-          "$ref": "#/definitions/vegaBuiltinAssetDeposit",
-          "title": "Built-in asset deposit"
-        },
-        "withdrawal": {
-          "$ref": "#/definitions/vegaBuiltinAssetWithdrawal",
-          "title": "Built-in asset withdrawal"
-        }
-      },
-      "title": "An event related to a Vega built-in asset"
-    },
-    "vegaBuiltinAssetWithdrawal": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "A Vega network internal asset identifier"
-        },
-        "party_id": {
-          "type": "string",
-          "title": "A Vega network party identifier (pub-key)"
-        },
-        "amount": {
-          "type": "string",
-          "format": "uint64",
-          "title": "The amount to be withdrawn"
-        }
-      },
-      "title": "A withdrawal for a Vega built-in asset"
     },
     "vegaCandle": {
       "type": "object",
@@ -3910,98 +3767,6 @@
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
     },
-    "vegaERC20AssetDelist": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "The Vega network internal identifier of the asset"
-        }
-      },
-      "title": "An asset deny-listing for an ERC20 token"
-    },
-    "vegaERC20AssetList": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "The Vega network internal identifier of the asset"
-        }
-      },
-      "title": "An asset allow-listing for an ERC20 token"
-    },
-    "vegaERC20Deposit": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "The vega network internal identifier of the asset"
-        },
-        "source_ethereum_address": {
-          "type": "string",
-          "title": "The Ethereum wallet that initiated the deposit"
-        },
-        "target_party_id": {
-          "type": "string",
-          "title": "The Vega party identifier (pub-key) which is the target of the deposit"
-        },
-        "amount": {
-          "type": "string",
-          "title": "The amount to be deposited"
-        }
-      },
-      "title": "An asset deposit for an ERC20 token"
-    },
-    "vegaERC20Event": {
-      "type": "object",
-      "properties": {
-        "index": {
-          "type": "string",
-          "format": "uint64",
-          "title": "Index of the transaction"
-        },
-        "block": {
-          "type": "string",
-          "format": "uint64",
-          "title": "The block in which the transaction was added"
-        },
-        "asset_list": {
-          "$ref": "#/definitions/vegaERC20AssetList",
-          "title": "List an ERC20 asset"
-        },
-        "asset_delist": {
-          "$ref": "#/definitions/vegaERC20AssetDelist",
-          "title": "De-list an ERC20 asset"
-        },
-        "deposit": {
-          "$ref": "#/definitions/vegaERC20Deposit",
-          "title": "Deposit ERC20 asset"
-        },
-        "withdrawal": {
-          "$ref": "#/definitions/vegaERC20Withdrawal",
-          "title": "Withdraw ERC20 asset"
-        }
-      },
-      "title": "An event related to an ERC20 token"
-    },
-    "vegaERC20Withdrawal": {
-      "type": "object",
-      "properties": {
-        "vega_asset_id": {
-          "type": "string",
-          "title": "The Vega network internal identifier of the asset"
-        },
-        "target_ethereum_address": {
-          "type": "string",
-          "title": "The target Ethereum wallet address"
-        },
-        "reference_nonce": {
-          "type": "string",
-          "title": "The reference nonce used for the transaction"
-        }
-      },
-      "title": "An asset withdrawal for an ERC20 token"
-    },
     "vegaErc20WithdrawExt": {
       "type": "object",
       "properties": {
@@ -4011,16 +3776,6 @@
         }
       },
       "title": "An extension of data required for the withdraw submissions"
-    },
-    "vegaEthereumAddress": {
-      "type": "object",
-      "properties": {
-        "address": {
-          "type": "string",
-          "title": "An Ethereum address"
-        }
-      },
-      "title": "Used as a wrapper for an Ethereum address (wallet/contract)"
     },
     "vegaFee": {
       "type": "object",
@@ -4168,20 +3923,6 @@
         }
       },
       "title": "Governance data"
-    },
-    "vegaIdentifier": {
-      "type": "object",
-      "properties": {
-        "ethereum_address": {
-          "$ref": "#/definitions/vegaEthereumAddress",
-          "title": "Ethereum network"
-        },
-        "bitcoin_address": {
-          "$ref": "#/definitions/vegaBitcoinAddress",
-          "title": "Bitcoin network"
-        }
-      },
-      "title": "Used as a wrapper type on any possible network address supported by Vega"
     },
     "vegaInstrument": {
       "type": "object",
@@ -5446,16 +5187,6 @@
       },
       "title": "Terms for a governance proposal on Vega"
     },
-    "vegaRemoveValidator": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/vegaIdentifier",
-          "title": "The identifier of the validator"
-        }
-      },
-      "title": "A message to notify when a validator is being removed from the Vega network"
-    },
     "vegaRiskFactor": {
       "type": "object",
       "properties": {
@@ -5886,24 +5617,6 @@
         }
       },
       "title": "Update network configuration on Vega"
-    },
-    "vegaValidatorEvent": {
-      "type": "object",
-      "properties": {
-        "source_id": {
-          "type": "string",
-          "title": "The source identifier of the event"
-        },
-        "add": {
-          "$ref": "#/definitions/vegaAddValidator",
-          "title": "Add a new validator"
-        },
-        "rm": {
-          "$ref": "#/definitions/vegaRemoveValidator",
-          "title": "Remove an existing validator"
-        }
-      },
-      "title": "An event related to validator management with foreign networks"
     },
     "vegaVote": {
       "type": "object",
