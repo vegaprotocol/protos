@@ -1141,6 +1141,8 @@ message EpochData {
 }
 
 message Node {
+  reserved 5;
+  
   // The node url eg n01.vega.xyz
   string id = 1;
   // Pub key of the node operator
@@ -1149,8 +1151,6 @@ message Node {
   string info_url = 3;
   // Country code for the location of the node
   string location = 4;
-  // Value between 0 and 1 for percentage
-  float fee = 5;
   // The amount the node has put up themselves
   string staked_by_operator = 6;
   // The amount of stake that has been delegated by token holders
@@ -1170,6 +1170,8 @@ message Node {
 }
 
 message NodeData {
+  reserved 5;
+
   // Total staked amount across all nodes
   string staked_total = 1;
   // Total number of nodes
@@ -1178,8 +1180,6 @@ message NodeData {
   uint32 inactive_nodes = 3;
   // Number of nodes validating
   uint32 validating_nodes = 4;
-  // Average percentage fee across all nodes
-  float average_fee = 5;
   // Total uptime for all epochs across all nodes
   float uptime = 6;
 }
