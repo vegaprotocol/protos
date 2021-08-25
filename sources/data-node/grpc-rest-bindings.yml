@@ -160,9 +160,9 @@ http:
       get: '/epochs/{id}'
     
     # Epochs
-    - selector: datanode.api.v1.TradingDataService.Delegations
+    - selector: datanode.api.v1.TradingDataService.Epochs
       get: '/epochs/{id}'
     
     # Delegations
     - selector: datanode.api.v1.TradingDataService.Delegations
-      get: '/delegations/party/{party}/node/{node_id}/epoch/{epoch_seq}'
+      get: '/delegations'

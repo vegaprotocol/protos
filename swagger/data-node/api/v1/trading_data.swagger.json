@@ -100,6 +100,43 @@
         ]
       }
     },
+    "/delegations": {
+      "get": {
+        "summary": "Get delegation data",
+        "operationId": "Delegations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DelegationsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "party",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "node_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "epoch_seq",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/deposits/{id}": {
       "get": {
         "summary": "Get a deposit by its identifier",
