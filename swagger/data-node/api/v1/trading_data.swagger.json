@@ -126,6 +126,33 @@
         ]
       }
     },
+    "/epochs/{id}": {
+      "get": {
+        "summary": "Get data for a specific epoch, if id omitted it gets the current epoch",
+        "operationId": "GetEpoch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEpochResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Optional - if id omitted it gets the current epoch",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/governance/asset/proposals": {
       "get": {
         "summary": "Get governance data (proposals and votes) for proposals aiming to create new assets",
@@ -697,6 +724,66 @@
             }
           }
         },
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
+    "/nodes": {
+      "get": {
+        "summary": "List all known network nodes",
+        "operationId": "GetNodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNodesResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
+    "/nodes-data": {
+      "get": {
+        "summary": "Get data of current node",
+        "operationId": "GetNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNodeDataResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
+    "/nodes/{id}": {
+      "get": {
+        "summary": "Get a specific node by ID",
+        "operationId": "GetNodeByID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNodeByIDResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Required id of node",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "tags": [
           "TradingDataService"
         ]
