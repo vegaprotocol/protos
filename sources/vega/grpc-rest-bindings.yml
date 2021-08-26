@@ -33,3 +33,5 @@ http:
       get: '/assets'
     - selector: vega.coreapi.v1.CoreApiService.ListParties
       get: '/parties'
+    - selector: vega.coreapi.v1.CoreApiService.ListValidators
+      get: '/validators'

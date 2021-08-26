@@ -88,6 +88,15 @@ func request_CoreApiService_ListParties_0(ctx context.Context, marshaler runtime
 
 }
 
+func request_CoreApiService_ListValidators_0(ctx context.Context, marshaler runtime.Marshaler, client CoreApiServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListValidatorsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.ListValidators(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
 // RegisterCoreApiServiceHandlerFromEndpoint is same as RegisterCoreApiServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterCoreApiServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
@@ -206,6 +215,26 @@ func RegisterCoreApiServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("GET", pattern_CoreApiService_ListValidators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_CoreApiService_ListValidators_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreApiService_ListValidators_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -217,6 +246,8 @@ var (
 	pattern_CoreApiService_ListNetworkParameters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"network", "parameters"}, ""))
 
 	pattern_CoreApiService_ListParties_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"parties"}, ""))
+
+	pattern_CoreApiService_ListValidators_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"validators"}, ""))
 )
 
 var (
@@ -227,4 +258,6 @@ var (
 	forward_CoreApiService_ListNetworkParameters_0 = runtime.ForwardResponseMessage
 
 	forward_CoreApiService_ListParties_0 = runtime.ForwardResponseMessage
+
+	forward_CoreApiService_ListValidators_0 = runtime.ForwardResponseMessage
 )

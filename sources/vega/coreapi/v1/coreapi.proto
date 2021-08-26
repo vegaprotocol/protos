@@ -5,12 +5,14 @@ option go_package = "code.vegaprotocol.io/vega/proto/coreapi/v1";
 
 import "vega/assets.proto";
 import "vega/vega.proto";
+import "vega/events/v1/events.proto";
 
 service CoreApiService {
   rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
   rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
   rpc ListNetworkParameters(ListNetworkParametersRequest) returns (ListNetworkParametersResponse);
   rpc ListParties(ListPartiesRequest) returns (ListPartiesResponse);
+  rpc ListValidators(ListValidatorsRequest) returns (ListValidatorsResponse);
 }
 
 message Account {
@@ -50,4 +52,10 @@ message ListPartiesRequest {}
 
 message ListPartiesResponse {
   repeated vega.Party parties = 1;
+}
+
+message ListValidatorsRequest {}
+
+message ListValidatorsResponse {
+  repeated vega.events.v1.ValidatorUpdate validators = 1;
 }

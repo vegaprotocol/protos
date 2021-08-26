@@ -8,6 +8,7 @@ import (
 	math "math"
 
 	_ "code.vegaprotocol.io/protos/vega"
+	_ "code.vegaprotocol.io/protos/vega/events/v1"
 	proto "github.com/golang/protobuf/proto"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
@@ -67,6 +68,19 @@ func (this *ListPartiesResponse) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("Parties", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ListValidatorsRequest) Validate() error {
+	return nil
+}
+func (this *ListValidatorsResponse) Validate() error {
+	for _, item := range this.Validators {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Validators", err)
 			}
 		}
 	}
