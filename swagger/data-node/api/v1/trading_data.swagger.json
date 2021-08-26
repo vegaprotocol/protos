@@ -4889,11 +4889,6 @@
           "type": "string",
           "title": "Country code for the location of the node"
         },
-        "fee": {
-          "type": "number",
-          "format": "float",
-          "title": "Value between 0 and 1 for percentage"
-        },
         "staked_by_operator": {
           "type": "string",
           "title": "The amount the node has put up themselves"
@@ -4952,11 +4947,6 @@
           "type": "integer",
           "format": "int64",
           "title": "Number of nodes validating"
-        },
-        "average_fee": {
-          "type": "number",
-          "format": "float",
-          "title": "Average percentage fee across all nodes"
         },
         "uptime": {
           "type": "number",
