@@ -1141,8 +1141,6 @@ message EpochData {
 }
 
 message Node {
-  reserved 5;
-  
   // The node url eg n01.vega.xyz
   string id = 1;
   // Pub key of the node operator
@@ -1170,8 +1168,6 @@ message Node {
 }
 
 message NodeData {
-  reserved 5;
-
   // Total staked amount across all nodes
   string staked_total = 1;
   // Total number of nodes
