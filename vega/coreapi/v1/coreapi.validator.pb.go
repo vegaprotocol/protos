@@ -46,3 +46,16 @@ func (this *ListAssetsResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ListNetworkParametersRequest) Validate() error {
+	return nil
+}
+func (this *ListNetworkParametersResponse) Validate() error {
+	for _, item := range this.NetworkParameters {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("NetworkParameters", err)
+			}
+		}
+	}
+	return nil
+}

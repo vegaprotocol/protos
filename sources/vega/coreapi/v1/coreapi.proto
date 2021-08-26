@@ -1,31 +1,33 @@
- syntax = "proto3";
+syntax = "proto3";
 
- package vega.coreapi.v1;
- option go_package = "code.vegaprotocol.io/vega/proto/coreapi/v1";
+package vega.coreapi.v1;
+option go_package = "code.vegaprotocol.io/vega/proto/coreapi/v1";
 
 import "vega/assets.proto";
+import "vega/vega.proto";
 
- service CoreApiService {
-   rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
-   rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
- }
+service CoreApiService {
+  rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
+  rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
+  rpc ListNetworkParameters(ListNetworkParametersRequest) returns (ListNetworkParametersResponse);
+}
 
- message Account {
-   string party = 1;
-   string market = 2;
-   string balance = 3;
-   string asset = 5;
+message Account {
+  string party = 1;
+  string market = 2;
+  string balance = 3;
+  string asset = 5;
    string type = 6;
+}
+
+message ListAccountsRequest {
+  string party = 1;
+  string market = 2;
  }
 
- message ListAccountsRequest {
-   string party = 1;
-   string market = 2;
- }
-
- message ListAccountsResponse {
-   repeated Account accounts = 1;
- }
+message ListAccountsResponse {
+  repeated Account accounts = 1;
+}
 
 message ListAssetsRequest {
   string asset = 1; // optional ID
@@ -33,4 +35,12 @@ message ListAssetsRequest {
 
 message ListAssetsResponse {
   repeated vega.Asset assets = 1;
+}
+
+message ListNetworkParametersRequest {
+  string network_parameter_key = 1; // optional parameter key
+}
+
+message ListNetworkParametersResponse {
+  repeated vega.NetworkParameter network_parameters = 1;
 }
