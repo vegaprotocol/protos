@@ -7,7 +7,7 @@ title: Vega Trading API
 
 apis:
   - name: TradingService
-  - name: TradingDataService
+  - name: CoreApiService
 
 http:
   rules:
@@ -23,3 +23,11 @@ http:
       get: '/blockchain/height'
     - selector: api.v1.TradingService.GetVegaTime
       get: '/time'
+
+    # Core APIs
+    - selector: vega.coreapi.v1.CoreApiService.ListNetworkParameters
+      get: '/network/parameters'
+    - selector: vega.coreapi.v1.CoreApiService.ListAccounts
+      get: '/accounts'
+    - selector: vega.coreapi.v1.CoreApiService.ListAssets
+      get: '/accounts'
