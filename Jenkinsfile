@@ -7,7 +7,15 @@ pipeline {
     }
 
     stages {
-
+	stage('unit tests') {
+            options { retry(3) }
+            steps {
+                dir('vega') {
+                    sh 'go test -v ./... 2>&1 | tee unit-test-results.txt && cat unit-test-results.txt | go-junit-report > vega-unit-test-report.xml'
+                    junit checksName: 'Unit Tests', testResults: 'vega-unit-test-report.xml'
+                }
+            }
+	}
         stage('Run linters') {
             parallel {
                 stage('buf lint') {
