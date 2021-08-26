@@ -28,6 +28,8 @@ service TradingService {
   rpc LastBlockHeight(LastBlockHeightRequest) returns (LastBlockHeightResponse);
   // Get Time
   rpc GetVegaTime(GetVegaTimeRequest) returns (GetVegaTimeResponse);
+  // Subscribe to a stream of events from the core
+  rpc ObserveEventBus(stream ObserveEventBusRequest) returns (stream ObserveEventBusResponse);
 }
 
 // Request for a new event sent by the blockchain queue to be propagated on Vega
