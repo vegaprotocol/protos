@@ -59,3 +59,16 @@ func (this *ListNetworkParametersResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ListPartiesRequest) Validate() error {
+	return nil
+}
+func (this *ListPartiesResponse) Validate() error {
+	for _, item := range this.Parties {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Parties", err)
+			}
+		}
+	}
+	return nil
+}

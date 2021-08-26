@@ -10,6 +10,7 @@ service CoreApiService {
   rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
   rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
   rpc ListNetworkParameters(ListNetworkParametersRequest) returns (ListNetworkParametersResponse);
+  rpc ListParties(ListPartiesRequest) returns (ListPartiesResponse);
 }
 
 message Account {
@@ -43,4 +44,10 @@ message ListNetworkParametersRequest {
 
 message ListNetworkParametersResponse {
   repeated vega.NetworkParameter network_parameters = 1;
+}
+
+message ListPartiesRequest {}
+
+message ListPartiesResponse {
+  repeated vega.Party parties = 1;
 }

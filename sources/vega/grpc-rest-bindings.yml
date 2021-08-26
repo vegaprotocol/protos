@@ -30,4 +30,6 @@ http:
     - selector: vega.coreapi.v1.CoreApiService.ListAccounts
       get: '/accounts'
     - selector: vega.coreapi.v1.CoreApiService.ListAssets
-      get: '/accounts'
+      get: '/assets'
+    - selector: vega.coreapi.v1.CoreApiService.ListParties
+      get: '/parties'
