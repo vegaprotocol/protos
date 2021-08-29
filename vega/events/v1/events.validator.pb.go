@@ -28,6 +28,9 @@ func (this *CheckpointEvent) Validate() error {
 func (this *RewardPayoutEvent) Validate() error {
 	return nil
 }
+func (this *ValidatorScoreEvent) Validate() error {
+	return nil
+}
 func (this *DelegationBalanceEvent) Validate() error {
 	return nil
 }

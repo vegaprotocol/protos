@@ -68,6 +68,14 @@ message RewardPayoutEvent {
   int64  timestamp = 6;
 }
 
+//ValidatorScoreEvent is the score a validator gets for a given epoch
+message ValidatorScoreEvent {
+  string node_id= 1;
+  string epoch_seq = 2;
+  string validator_score = 3;
+  string normalised_score = 4;
+}
+
 //DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect
 message DelegationBalanceEvent {
   string party = 1;
