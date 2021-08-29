@@ -1728,7 +1728,7 @@
           "$ref": "#/definitions/v1DelegationBalanceEvent",
           "title": "Delegation balance events"
         },
-        "validatorScore": {
+        "validator_score": {
           "$ref": "#/definitions/v1ValidatorScoreEvent",
           "title": "Validator score calcualted"
         },

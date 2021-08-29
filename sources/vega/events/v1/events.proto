@@ -395,7 +395,7 @@ message BusEvent {
     // Delegation balance events
     DelegationBalanceEvent delegation_balance = 129;
     // Validator score calcualted
-    ValidatorScoreEvent validatorScore = 130;
+    ValidatorScoreEvent validator_score = 130;
     // Epoch update events - See [Epoch](#vega.Epoch)
     EpochEvent epoch_event = 131;
     // Validator update events
