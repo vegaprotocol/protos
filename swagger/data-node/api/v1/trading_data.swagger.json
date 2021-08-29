@@ -4,10 +4,6 @@
     "title": "data-node/api/v1/trading_data.proto",
     "version": "version not set"
   },
-  "schemes": [
-    "http",
-    "https"
-  ],
   "consumes": [
     "application/json"
   ],
@@ -18,12 +14,18 @@
     "/assets": {
       "get": {
         "summary": "Get a list of all assets on Vega",
-        "operationId": "Assets",
+        "operationId": "TradingDataService_Assets",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1AssetsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -35,12 +37,18 @@
     "/assets/{asset}/infrastructureFeeAccount": {
       "get": {
         "summary": "Get a list of accounts holding infrastructure fees.\nCan be filtered by asset, there will be 1 infrastructure fee account per\nasset in the network.",
-        "operationId": "FeeInfrastructureAccounts",
+        "operationId": "TradingDataService_FeeInfrastructureAccounts",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1FeeInfrastructureAccountsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -61,12 +69,18 @@
     "/assets/{id}": {
       "get": {
         "summary": "Get an asset by its identifier",
-        "operationId": "AssetByID",
+        "operationId": "TradingDataService_AssetByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1AssetByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -86,12 +100,18 @@
     },
     "/blockchain/height": {
       "get": {
-        "operationId": "LastBlockHeight",
+        "operationId": "TradingDataService_LastBlockHeight",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1LastBlockHeightResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -103,12 +123,18 @@
     "/delegations": {
       "get": {
         "summary": "Get delegation data",
-        "operationId": "Delegations",
+        "operationId": "TradingDataService_Delegations",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DelegationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -140,12 +166,18 @@
     "/deposits/{id}": {
       "get": {
         "summary": "Get a deposit by its identifier",
-        "operationId": "Deposit",
+        "operationId": "TradingDataService_Deposit",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DepositResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -166,12 +198,18 @@
     "/epochs/{id}": {
       "get": {
         "summary": "Get data for a specific epoch, if id omitted it gets the current epoch",
-        "operationId": "GetEpoch",
+        "operationId": "TradingDataService_GetEpoch",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetEpochResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -193,12 +231,18 @@
     "/governance/asset/proposals": {
       "get": {
         "summary": "Get governance data (proposals and votes) for proposals aiming to create new assets",
-        "operationId": "GetNewAssetProposals",
+        "operationId": "TradingDataService_GetNewAssetProposals",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetNewAssetProposalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -230,12 +274,18 @@
     "/governance/market/proposals": {
       "get": {
         "summary": "Get governance data (proposals and votes) for proposals that aim creating new markets",
-        "operationId": "GetNewMarketProposals",
+        "operationId": "TradingDataService_GetNewMarketProposals",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetNewMarketProposalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -267,12 +317,18 @@
     "/governance/proposal/reference/{reference}": {
       "get": {
         "summary": "Get governance data (proposals and votes) for a proposal located by reference",
-        "operationId": "GetProposalByReference",
+        "operationId": "TradingDataService_GetProposalByReference",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetProposalByReferenceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -293,12 +349,18 @@
     "/governance/proposal/{proposal_id}": {
       "get": {
         "summary": "Get governance data (proposals and votes) for a proposal located by ID",
-        "operationId": "GetProposalByID",
+        "operationId": "TradingDataService_GetProposalByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetProposalByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -319,12 +381,18 @@
     "/governance/proposals": {
       "get": {
         "summary": "Get governance data (proposals and votes) for all proposals",
-        "operationId": "GetProposals",
+        "operationId": "TradingDataService_GetProposals",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetProposalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -356,12 +424,18 @@
     "/liquidity-provisions/party/{party}/market/{market}": {
       "get": {
         "summary": "Get the liquidity provision orders",
-        "operationId": "LiquidityProvisions",
+        "operationId": "TradingDataService_LiquidityProvisions",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1LiquidityProvisionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -389,12 +463,18 @@
     "/markets": {
       "get": {
         "summary": "Get a list of Markets",
-        "operationId": "Markets",
+        "operationId": "TradingDataService_Markets",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1MarketsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -406,12 +486,18 @@
     "/markets-data": {
       "get": {
         "summary": "Get a list of Market Data",
-        "operationId": "MarketsData",
+        "operationId": "TradingDataService_MarketsData",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1MarketsDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -423,12 +509,18 @@
     "/markets-data/{market_id}": {
       "get": {
         "summary": "Get Market Data by Market ID",
-        "operationId": "MarketDataByID",
+        "operationId": "TradingDataService_MarketDataByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1MarketDataByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -449,12 +541,18 @@
     "/markets/{market_id}": {
       "get": {
         "summary": "Get a Market by ID",
-        "operationId": "MarketByID",
+        "operationId": "TradingDataService_MarketByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1MarketByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -475,12 +573,18 @@
     "/markets/{market_id}/accounts": {
       "get": {
         "summary": "Get a list of Accounts by Market",
-        "operationId": "MarketAccounts",
+        "operationId": "TradingDataService_MarketAccounts",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1MarketAccountsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -508,12 +612,18 @@
     "/markets/{market_id}/candles": {
       "get": {
         "summary": "Get a list of Candles by Market",
-        "operationId": "Candles",
+        "operationId": "TradingDataService_Candles",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1CandlesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -559,12 +669,18 @@
     "/markets/{market_id}/depth": {
       "get": {
         "summary": "Get Market Depth",
-        "operationId": "MarketDepth",
+        "operationId": "TradingDataService_MarketDepth",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1MarketDepthResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -593,12 +709,18 @@
     "/markets/{market_id}/orders": {
       "get": {
         "summary": "Get a list of Orders by Market",
-        "operationId": "OrdersByMarket",
+        "operationId": "TradingDataService_OrdersByMarket",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OrdersByMarketResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -631,8 +753,7 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean",
-            "format": "boolean"
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -643,12 +764,18 @@
     "/markets/{market_id}/orders/{order_id}": {
       "get": {
         "summary": "Get an Order by Market and Order ID",
-        "operationId": "OrderByMarketAndID",
+        "operationId": "TradingDataService_OrderByMarketAndID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OrderByMarketAndIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -676,12 +803,18 @@
     "/markets/{market_id}/trades": {
       "get": {
         "summary": "Get a list of Trades by Market",
-        "operationId": "TradesByMarket",
+        "operationId": "TradingDataService_TradesByMarket",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1TradesByMarketResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -714,8 +847,7 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean",
-            "format": "boolean"
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -726,12 +858,18 @@
     "/markets/{market_id}/trades/latest": {
       "get": {
         "summary": "Get latest Trade",
-        "operationId": "LastTrade",
+        "operationId": "TradingDataService_LastTrade",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1LastTradeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -752,12 +890,18 @@
     "/network/parameters": {
       "get": {
         "summary": "Get the network parameters",
-        "operationId": "NetworkParameters",
+        "operationId": "TradingDataService_NetworkParameters",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1NetworkParametersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -769,12 +913,18 @@
     "/nodes": {
       "get": {
         "summary": "List all known network nodes",
-        "operationId": "GetNodes",
+        "operationId": "TradingDataService_GetNodes",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetNodesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -786,12 +936,18 @@
     "/nodes-data": {
       "get": {
         "summary": "Get data of current node",
-        "operationId": "GetNodeData",
+        "operationId": "TradingDataService_GetNodeData",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetNodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -803,12 +959,18 @@
     "/nodes/{id}": {
       "get": {
         "summary": "Get a specific node by ID",
-        "operationId": "GetNodeByID",
+        "operationId": "TradingDataService_GetNodeByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetNodeByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -829,12 +991,18 @@
     "/oracle-specs": {
       "get": {
         "summary": "Get the oracle specs",
-        "operationId": "OracleSpecs",
+        "operationId": "TradingDataService_OracleSpecs",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OracleSpecsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -846,12 +1014,18 @@
     "/oracle-specs/{id}": {
       "get": {
         "summary": "Get an oracle spec by ID",
-        "operationId": "OracleSpec",
+        "operationId": "TradingDataService_OracleSpec",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OracleSpecResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -872,12 +1046,18 @@
     "/oracle-specs/{id}/oracle-data": {
       "get": {
         "summary": "Get all oracle data",
-        "operationId": "OracleDataBySpec",
+        "operationId": "TradingDataService_OracleDataBySpec",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OracleDataBySpecResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -898,12 +1078,18 @@
     "/orders/fee/estimate": {
       "post": {
         "summary": "Get an estimate for the fee to be paid for a given order",
-        "operationId": "EstimateFee",
+        "operationId": "TradingDataService_EstimateFee",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1EstimateFeeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -925,12 +1111,18 @@
     "/orders/margins/estimate": {
       "post": {
         "summary": "Get an estimate for the margin required for a new order",
-        "operationId": "EstimateMargin",
+        "operationId": "TradingDataService_EstimateMargin",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1EstimateMarginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -952,12 +1144,18 @@
     "/orders/{order_id}/trades": {
       "get": {
         "summary": "Get a list of Trades by Order",
-        "operationId": "TradesByOrder",
+        "operationId": "TradingDataService_TradesByOrder",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1TradesByOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -978,12 +1176,18 @@
     "/orders/{order_id}/versions": {
       "get": {
         "summary": "Get all versions of the order by its orderID",
-        "operationId": "OrderVersionsByID",
+        "operationId": "TradingDataService_OrderVersionsByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OrderVersionsByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1016,8 +1220,7 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean",
-            "format": "boolean"
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -1028,12 +1231,18 @@
     "/orders/{reference}": {
       "get": {
         "summary": "Get an Order by Pending Order reference (UUID)",
-        "operationId": "OrderByReference",
+        "operationId": "TradingDataService_OrderByReference",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OrderByReferenceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1054,12 +1263,18 @@
     "/parties": {
       "get": {
         "summary": "Get a list of Parties",
-        "operationId": "Parties",
+        "operationId": "TradingDataService_Parties",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1PartiesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1071,12 +1286,18 @@
     "/parties/{party_id}": {
       "get": {
         "summary": "Get a Party by ID",
-        "operationId": "PartyByID",
+        "operationId": "TradingDataService_PartyByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1PartyByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1097,12 +1318,18 @@
     "/parties/{party_id}/accounts": {
       "get": {
         "summary": "Get a list of Accounts by Party",
-        "operationId": "PartyAccounts",
+        "operationId": "TradingDataService_PartyAccounts",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1PartyAccountsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1160,12 +1387,18 @@
     "/parties/{party_id}/deposits": {
       "get": {
         "summary": "Get deposits for a party",
-        "operationId": "Deposits",
+        "operationId": "TradingDataService_Deposits",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DepositsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1186,12 +1419,18 @@
     "/parties/{party_id}/markets/{market_id}/margin": {
       "get": {
         "summary": "Get Margin Levels by Party ID",
-        "operationId": "MarginLevels",
+        "operationId": "TradingDataService_MarginLevels",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1MarginLevelsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1219,12 +1458,18 @@
     "/parties/{party_id}/orders": {
       "get": {
         "summary": "Get a list of Orders by Party",
-        "operationId": "OrdersByParty",
+        "operationId": "TradingDataService_OrdersByParty",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1OrdersByPartyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1257,8 +1502,7 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean",
-            "format": "boolean"
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -1269,12 +1513,18 @@
     "/parties/{party_id}/positions": {
       "get": {
         "summary": "Get a list of Positions by Party",
-        "operationId": "PositionsByParty",
+        "operationId": "TradingDataService_PositionsByParty",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1PositionsByPartyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1302,12 +1552,18 @@
     "/parties/{party_id}/proposals": {
       "get": {
         "summary": "Get governance data (proposals and votes) for proposals by party authoring them",
-        "operationId": "GetProposalsByParty",
+        "operationId": "TradingDataService_GetProposalsByParty",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetProposalsByPartyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1346,12 +1602,18 @@
     "/parties/{party_id}/rewards": {
       "get": {
         "summary": "Get Rewards data",
-        "operationId": "GetRewardDetails",
+        "operationId": "TradingDataService_GetRewardDetails",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetRewardDetailsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1371,12 +1633,18 @@
     "/parties/{party_id}/trades": {
       "get": {
         "summary": "Get a list of Trades by Party",
-        "operationId": "TradesByParty",
+        "operationId": "TradingDataService_TradesByParty",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1TradesByPartyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1416,8 +1684,7 @@
             "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
             "in": "query",
             "required": false,
-            "type": "boolean",
-            "format": "boolean"
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -1428,12 +1695,18 @@
     "/parties/{party_id}/votes": {
       "get": {
         "summary": "Get votes by party casting them",
-        "operationId": "GetVotesByParty",
+        "operationId": "TradingDataService_GetVotesByParty",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetVotesByPartyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1453,12 +1726,18 @@
     },
     "/parties/{party}/stake": {
       "get": {
-        "operationId": "PartyStake",
+        "operationId": "TradingDataService_PartyStake",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1PartyStakeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1478,12 +1757,18 @@
     "/time": {
       "get": {
         "summary": "Get Time",
-        "operationId": "GetVegaTime",
+        "operationId": "TradingDataService_GetVegaTime",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetVegaTimeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1495,12 +1780,18 @@
     "/withdrawals/party/{party_id}": {
       "get": {
         "summary": "Get withdrawals for a party",
-        "operationId": "Withdrawals",
+        "operationId": "TradingDataService_Withdrawals",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1WithdrawalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1521,12 +1812,18 @@
     "/withdrawals/{id}": {
       "get": {
         "summary": "Get a withdrawal by its identifier",
-        "operationId": "Withdrawal",
+        "operationId": "TradingDataService_Withdrawal",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1WithdrawalResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1547,12 +1844,18 @@
     "/withdrawals/{withdrawal_id}/approval/erc20": {
       "get": {
         "summary": "Get the bundle approval for an ERC20 withdrawal,\nthese data are being used to bundle the call to the smart contract on the ethereum bridge",
-        "operationId": "ERC20WithdrawalApproval",
+        "operationId": "TradingDataService_ERC20WithdrawalApproval",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1ERC20WithdrawalApprovalResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -1636,6 +1939,27 @@
         }
       }
     },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
     "runtimeStreamError": {
       "type": "object",
       "properties": {
@@ -1701,12 +2025,10 @@
         },
         "opening_auction": {
           "type": "boolean",
-          "format": "boolean",
           "title": "True if the event indicates an auction opening and False otherwise"
         },
         "leave": {
           "type": "boolean",
-          "format": "boolean",
           "title": "True if the event indicates leaving auction mode and False otherwise"
         },
         "start": {
@@ -1857,9 +2179,9 @@
           "$ref": "#/definitions/v1DelegationBalanceEvent",
           "title": "Delegation balance events"
         },
-        "pending_delegation_balance": {
-          "$ref": "#/definitions/v1PendingDelegationBalanceEvent",
-          "title": "Pending delegation balance events"
+        "validatorScore": {
+          "$ref": "#/definitions/v1ValidatorScoreEvent",
+          "title": "Validator score calcualted"
         },
         "epoch_event": {
           "$ref": "#/definitions/v1EpochEvent",
@@ -1925,7 +2247,7 @@
         "BUS_EVENT_TYPE_ORACLE_SPEC",
         "BUS_EVENT_TYPE_ORACLE_DATA",
         "BUS_EVENT_TYPE_DELEGATION_BALANCE",
-        "BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE",
+        "BUS_EVENT_TYPE_VALIDATOR_SCORE",
         "BUS_EVENT_TYPE_EPOCH_UPDATE",
         "BUS_EVENT_TYPE_VALIDATOR_UPDATE",
         "BUS_EVENT_TYPE_STAKE_LINKING",
@@ -1935,7 +2257,7 @@
         "BUS_EVENT_TYPE_TX_ERROR"
       ],
       "default": "BUS_EVENT_TYPE_UNSPECIFIED",
-      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for next epoch has changed\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
+      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
       "title": "An (event) bus event type is used to specify a type of event\nIt has 2 styles of event:\nSingle values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item\nGroup values (e.g. BUS_EVENT_TYPE_AUCTION) where they represent a group of data items"
     },
     "v1CandlesResponse": {
@@ -3060,7 +3382,6 @@
         },
         "descending": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order"
         }
       },
@@ -3115,29 +3436,6 @@
           }
         }
       }
-    },
-    "v1PendingDelegationBalanceEvent": {
-      "type": "object",
-      "properties": {
-        "party": {
-          "type": "string"
-        },
-        "node_id": {
-          "type": "string"
-        },
-        "delegation_amount": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "undelegation_amount": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "epoch_seq": {
-          "type": "string"
-        }
-      },
-      "title": "PendingDelegationBalanceEvent - updates on the delegation/undelegation balance of a party to a node for the next epoch"
     },
     "v1PositionResolution": {
       "type": "object",
@@ -3509,6 +3807,24 @@
           "$ref": "#/definitions/v1WithdrawSubmission"
         }
       }
+    },
+    "v1ValidatorScoreEvent": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string"
+        },
+        "epoch_seq": {
+          "type": "string"
+        },
+        "validator_score": {
+          "type": "string"
+        },
+        "normalised_score": {
+          "type": "string"
+        }
+      },
+      "title": "ValidatorScoreEvent is the score a validator gets for a given epoch"
     },
     "v1ValidatorUpdate": {
       "type": "object",
@@ -5902,188 +6218,6 @@
       "default": "STATUS_UNSPECIFIED",
       "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The withdrawal is open and being processed by the network\n - STATUS_CANCELLED: The withdrawal have been cancelled\n - STATUS_FINALIZED: The withdrawal went through and is fully finalised, the funds are removed from the\nVega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network",
       "title": "The status of the withdrawal"
-    }
-  },
-  "x-stream-definitions": {
-    "v1AccountsSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1AccountsSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1AccountsSubscribeResponse"
-    },
-    "v1CandlesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1CandlesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1CandlesSubscribeResponse"
-    },
-    "v1MarginLevelsSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarginLevelsSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarginLevelsSubscribeResponse"
-    },
-    "v1MarketDepthSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarketDepthSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarketDepthSubscribeResponse"
-    },
-    "v1MarketDepthUpdatesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarketDepthUpdatesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarketDepthUpdatesSubscribeResponse"
-    },
-    "v1MarketsDataSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1MarketsDataSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1MarketsDataSubscribeResponse"
-    },
-    "v1ObserveEventBusResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObserveEventBusResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObserveEventBusResponse"
-    },
-    "v1ObserveGovernanceResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObserveGovernanceResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObserveGovernanceResponse"
-    },
-    "v1ObservePartyProposalsResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObservePartyProposalsResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObservePartyProposalsResponse"
-    },
-    "v1ObservePartyVotesResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObservePartyVotesResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObservePartyVotesResponse"
-    },
-    "v1ObserveProposalVotesResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObserveProposalVotesResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObserveProposalVotesResponse"
-    },
-    "v1OrdersSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1OrdersSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1OrdersSubscribeResponse"
-    },
-    "v1PositionsSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1PositionsSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1PositionsSubscribeResponse"
-    },
-    "v1TradesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1TradesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1TradesSubscribeResponse"
-    },
-    "v1TransferResponsesSubscribeResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1TransferResponsesSubscribeResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1TransferResponsesSubscribeResponse"
     }
   }
 }
