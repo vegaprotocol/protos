@@ -28,6 +28,9 @@ func (this *CheckpointEvent) Validate() error {
 func (this *RewardPayoutEvent) Validate() error {
 	return nil
 }
+func (this *ValidatorScoreEvent) Validate() error {
+	return nil
+}
 func (this *DelegationBalanceEvent) Validate() error {
 	return nil
 }
@@ -333,10 +336,10 @@ func (this *BusEvent) Validate() error {
 			}
 		}
 	}
-	if oneOfNester, ok := this.GetEvent().(*BusEvent_PendingDelegationBalance); ok {
-		if oneOfNester.PendingDelegationBalance != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.PendingDelegationBalance); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("PendingDelegationBalance", err)
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_ValidatorScore); ok {
+		if oneOfNester.ValidatorScore != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ValidatorScore); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ValidatorScore", err)
 			}
 		}
 	}
