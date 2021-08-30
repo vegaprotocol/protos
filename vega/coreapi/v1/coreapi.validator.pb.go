@@ -112,3 +112,29 @@ func (this *ListProposalsResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ListMarketsDataRequest) Validate() error {
+	return nil
+}
+func (this *ListMarketsDataResponse) Validate() error {
+	for _, item := range this.MarketsData {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("MarketsData", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ListVotesRequest) Validate() error {
+	return nil
+}
+func (this *ListVotesResponse) Validate() error {
+	for _, item := range this.Votes {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Votes", err)
+			}
+		}
+	}
+	return nil
+}

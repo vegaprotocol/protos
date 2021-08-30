@@ -17,6 +17,8 @@ service CoreApiService {
   rpc ListValidators(ListValidatorsRequest) returns (ListValidatorsResponse);
   rpc ListMarkets(ListMarketsRequest) returns (ListMarketsResponse);
   rpc ListProposals(ListProposalsRequest) returns (ListProposalsResponse);
+  rpc ListMarketsData(ListMarketsDataRequest) returns (ListMarketsDataResponse);
+  rpc ListVotes(ListVotesRequest) returns (ListVotesResponse);
 }
 
 message Account {
@@ -79,4 +81,21 @@ message ListProposalsRequest {
 
 message ListProposalsResponse {
   repeated vega.Proposal proposals = 1;
+}
+
+message ListMarketsDataRequest {
+  string market = 1;
+}
+
+message ListMarketsDataResponse {
+  repeated vega.MarketData markets_data = 1;
+}
+
+message ListVotesRequest {
+  string proposal = 1;
+  string party = 2;
+}
+
+message ListVotesResponse {
+  repeated vega.Vote votes = 1;
 }

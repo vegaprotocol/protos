@@ -37,5 +37,9 @@ http:
       get: '/validators'
     - selector: vega.coreapi.v1.CoreApiService.ListProposals
       get: '/proposals'
+    - selector: vega.coreapi.v1.CoreApiService.ListVotes
+      get: '/votes'
     - selector: vega.coreapi.v1.CoreApiService.ListMarkets
       get: '/markets'
+    - selector: vega.coreapi.v1.CoreApiService.ListMarketsData
+      get: '/markets/data'
