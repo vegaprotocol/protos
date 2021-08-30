@@ -70,7 +70,7 @@ message RewardPayoutEvent {
 
 //ValidatorScoreEvent is the score a validator gets for a given epoch
 message ValidatorScoreEvent {
-  string node_id= 1;
+  string node_id = 1;
   string epoch_seq = 2;
   string validator_score = 3;
   string normalised_score = 4;
@@ -310,9 +310,9 @@ enum BusEventType {
   BUS_EVENT_TYPE_ORACLE_DATA = 28;
   // Event indicating that an delegation balance of a party to a node for current epoch has changed
   BUS_EVENT_TYPE_DELEGATION_BALANCE = 29;
- // Event indicating the validator score for the given epoch
- BUS_EVENT_TYPE_VALIDATOR_SCORE = 30;  
- // Event indicating the start or end of an epoch
+  // Event indicating the validator score for the given epoch
+  BUS_EVENT_TYPE_VALIDATOR_SCORE = 30;  
+  // Event indicating the start or end of an epoch
   BUS_EVENT_TYPE_EPOCH_UPDATE = 31;
   // Event indicating that validator node has been updated
   BUS_EVENT_TYPE_VALIDATOR_UPDATE = 32;
