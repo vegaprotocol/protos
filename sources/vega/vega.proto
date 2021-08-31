@@ -1096,6 +1096,10 @@ message Node {
   NodeStatus status = 11 [(validator.field) = {msg_exists : true}];
   // Node's delegations
   repeated Delegation delagations = 12;
+  // Node score
+  string score = 13;
+  // Node normalised score
+  string normalised_score = 14;
 }
 
 message NodeData {
