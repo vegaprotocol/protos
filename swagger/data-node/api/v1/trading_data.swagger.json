@@ -4918,6 +4918,14 @@
             "$ref": "#/definitions/vegaDelegation"
           },
           "title": "Node's delegations"
+        },
+        "score": {
+          "type": "string",
+          "title": "Node score"
+        },
+        "normalised_score": {
+          "type": "string",
+          "title": "Node normalised score"
         }
       }
     },
