@@ -1069,6 +1069,8 @@ message ERC20WithdrawalApprovalResponse {
   // The signatures bundle as hex encoded data, forward by 0x
   // e.g: 0x + sig1 + sig2 + ... + sixN
   string signatures = 5;
+  // The ethereum address to withdraw the funds to, 0x prefixed
+  string target_address = 6;
 }
 
 // A request to get a list of deposit from a given party
