@@ -116,6 +116,9 @@ message TxErrorEvent {
     commands.v1.VoteSubmission vote_submission = 105;
     commands.v1.LiquidityProvisionSubmission liquidity_provision_submission = 106;
     commands.v1.WithdrawSubmission withdraw_submission = 107;
+    commands.v1.DelegateSubmission delegate_submission = 108;
+    commands.v1.WithdrawSubmission undelegate_submission = 109;
+    commands.v1.RestoreSnapshot restore_snapshot = 110;
   }
 }
 
@@ -311,7 +314,7 @@ enum BusEventType {
   // Event indicating that an delegation balance of a party to a node for current epoch has changed
   BUS_EVENT_TYPE_DELEGATION_BALANCE = 29;
   // Event indicating the validator score for the given epoch
-  BUS_EVENT_TYPE_VALIDATOR_SCORE = 30;  
+  BUS_EVENT_TYPE_VALIDATOR_SCORE = 30;
   // Event indicating the start or end of an epoch
   BUS_EVENT_TYPE_EPOCH_UPDATE = 31;
   // Event indicating that validator node has been updated
@@ -322,7 +325,7 @@ enum BusEventType {
   BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT = 34;
   // Event indicating a new checkpoint was created
   BUS_EVENT_TYPE_CHECKPOINT = 35;
- 
+
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
   // Event used to report failed transactions back to a user, this is excluded from the ALL type
