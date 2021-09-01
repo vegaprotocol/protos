@@ -136,6 +136,16 @@
       "description": "- TIME_IN_FORCE_UNSPECIFIED: Default value for TimeInForce, can be valid for an amend\n - TIME_IN_FORCE_GTC: Good until cancelled\n - TIME_IN_FORCE_GTT: Good until specified time\n - TIME_IN_FORCE_IOC: Immediate or cancel\n - TIME_IN_FORCE_FOK: Fill or kill\n - TIME_IN_FORCE_GFA: Good for auction\n - TIME_IN_FORCE_GFN: Good for normal",
       "title": "Time In Force for an order\nSee [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
     },
+    "UndelegateSubmissionMethod": {
+      "type": "string",
+      "enum": [
+        "METHOD_UNSPECIFIED",
+        "METHOD_NOW",
+        "METHOD_AT_END_OF_EPOCH",
+        "METHOD_IN_ANGER"
+      ],
+      "default": "METHOD_UNSPECIFIED"
+    },
     "VoteValue": {
       "type": "string",
       "enum": [
@@ -1447,10 +1457,26 @@
           "$ref": "#/definitions/v1DelegateSubmission"
         },
         "undelegate_submission": {
-          "$ref": "#/definitions/v1WithdrawSubmission"
+          "$ref": "#/definitions/v1UndelegateSubmission"
         },
         "restore_snapshot": {
           "$ref": "#/definitions/v1RestoreSnapshot"
+        }
+      }
+    },
+    "v1UndelegateSubmission": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string",
+          "format": "uint64",
+          "title": "optional, if not specified = ALL"
+        },
+        "method": {
+          "$ref": "#/definitions/UndelegateSubmissionMethod"
         }
       }
     },
