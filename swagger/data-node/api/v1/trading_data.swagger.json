@@ -3941,6 +3941,9 @@
           "format": "uint64",
           "title": "Sequence is used as epoch indentifier"
         },
+        "action": {
+          "$ref": "#/definitions/vegaEpochAction"
+        },
         "timestamps": {
           "$ref": "#/definitions/vegaEpochTimestamps",
           "title": "Timestamps for start/end etc"
@@ -3960,6 +3963,17 @@
           "title": "List of all delegations in epoch"
         }
       }
+    },
+    "vegaEpochAction": {
+      "type": "string",
+      "enum": [
+        "EPOCH_ACTION_UNSPECIFIED",
+        "EPOCH_ACTION_START",
+        "EPOCH_ACTION_END"
+      ],
+      "default": "EPOCH_ACTION_UNSPECIFIED",
+      "description": "- EPOCH_ACTION_START: The epoch update is for a new epoch\n - EPOCH_ACTION_END: The epoch update is for the end of an epoch",
+      "title": "What epoch action has occurred"
     },
     "vegaEpochData": {
       "type": "object",
