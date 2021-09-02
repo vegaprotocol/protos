@@ -478,7 +478,6 @@
         },
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "The amount of stake to delegate"
         }
       },
@@ -1470,7 +1469,6 @@
         },
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "optional, if not specified = ALL"
         },
         "method": {
