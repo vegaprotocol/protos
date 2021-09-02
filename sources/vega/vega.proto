@@ -1042,6 +1042,9 @@ message EpochTimestamps {
   uint64 first_block = 3;
   // Height of last block in the epoch, empty if not ended
   uint64 last_block = 4;
+  // Timestamp of epoch expiry time in nanoseconds
+  // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+  int64 expiry_time = 5;
 }
 
 message Epoch {
