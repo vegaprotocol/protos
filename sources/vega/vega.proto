@@ -1047,6 +1047,15 @@ message EpochTimestamps {
   uint64 last_block = 5;
 }
 
+// What epoch action has occurred
+enum EpochAction {
+  EPOCH_ACTION_UNSPECIFIED = 0;
+  // The epoch update is for a new epoch
+  EPOCH_ACTION_START = 1;
+  // The epoch update is for the end of an epoch
+  EPOCH_ACTION_END = 2;
+}
+
 message Epoch {
   // Sequence is used as epoch indentifier
   uint64 seq = 1;

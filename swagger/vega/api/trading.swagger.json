@@ -502,17 +502,6 @@
       },
       "title": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
     },
-    "v1EpochAction": {
-      "type": "string",
-      "enum": [
-        "EPOCH_ACTION_UNSPECIFIED",
-        "EPOCH_ACTION_START",
-        "EPOCH_ACTION_END"
-      ],
-      "default": "EPOCH_ACTION_UNSPECIFIED",
-      "description": "- EPOCH_ACTION_START: The epoch update is for a new epoch\n - EPOCH_ACTION_END: The epoch update is for the end of an epoch",
-      "title": "What epoch action has occurred"
-    },
     "v1EpochEvent": {
       "type": "object",
       "properties": {
@@ -522,7 +511,7 @@
           "title": "Sequence number that increases by one each epoch"
         },
         "action": {
-          "$ref": "#/definitions/v1EpochAction",
+          "$ref": "#/definitions/vegaEpochAction",
           "title": "Action tells us what action is taking place"
         },
         "start_time": {
@@ -1825,6 +1814,17 @@
         }
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
+    },
+    "vegaEpochAction": {
+      "type": "string",
+      "enum": [
+        "EPOCH_ACTION_UNSPECIFIED",
+        "EPOCH_ACTION_START",
+        "EPOCH_ACTION_END"
+      ],
+      "default": "EPOCH_ACTION_UNSPECIFIED",
+      "description": "- EPOCH_ACTION_START: The epoch update is for a new epoch\n - EPOCH_ACTION_END: The epoch update is for the end of an epoch",
+      "title": "What epoch action has occurred"
     },
     "vegaErc20WithdrawExt": {
       "type": "object",
