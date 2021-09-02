@@ -24,13 +24,13 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		{
 			// this is a valid cancellation.
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 0,
+				CommitmentAmount: "0",
 				MarketId:         "okmarketid",
 			},
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "abcd",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{
@@ -44,7 +44,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "-1",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{
@@ -58,7 +58,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: 10, Proportion: 1},
@@ -71,7 +71,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{
@@ -85,7 +85,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{
@@ -99,7 +99,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{
@@ -112,7 +112,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{
@@ -124,7 +124,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				MarketId:         "okmarketid",
 				Sells:            []*types.LiquidityOrder{},
@@ -136,7 +136,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{
@@ -150,7 +150,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 		},
 		{
 			lp: commandspb.LiquidityProvisionSubmission{
-				CommitmentAmount: 100,
+				CommitmentAmount: "100",
 				Fee:              "0.1",
 				MarketId:         "okmarketid",
 				Sells: []*types.LiquidityOrder{

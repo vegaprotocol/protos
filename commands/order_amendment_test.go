@@ -36,7 +36,7 @@ func testAmendOrderJustPriceSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:  "orderid",
 		MarketId: "marketid",
-		Price:    &proto.Price{Value: 1000},
+		Price:    &proto.Price{Value: "1000"},
 	}
 	err := checkOrderAmendment(arg)
 

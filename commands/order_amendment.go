@@ -2,6 +2,7 @@ package commands
 
 import (
 	"errors"
+	"math/big"
 
 	types "code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
@@ -41,8 +42,12 @@ func checkOrderAmendment(cmd *commandspb.OrderAmendment) Errors {
 
 	if cmd.Price != nil {
 		isAmending = true
-		if cmd.Price.Value == 0 {
-			errs.AddForProperty("order_amendment.price", ErrCannotAmendToGFN)
+		if price, ok := big.NewInt(0).SetString(cmd.Price.Value, 10); !ok {
+			errs.AddForProperty("order_amendment.price", ErrNotAValidInteger)
+		} else {
+			if price.Cmp(big.NewInt(0)) == 0 {
+				errs.AddForProperty("order_amendment.price", ErrIsRequired)
+			}
 		}
 	}
 

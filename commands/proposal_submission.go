@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"math/big"
 	"strconv"
 	"strings"
 	"time"
@@ -524,8 +525,16 @@ func checkLiquidityCommitment(commitment *types.NewMarketCommitment) Errors {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment", ErrIsRequired)
 	}
 
-	if commitment.CommitmentAmount == 0 {
+	if len(commitment.CommitmentAmount) <= 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrMustBePositive)
+	} else {
+		if commitmentAmount, ok := big.NewInt(0).SetString(commitment.CommitmentAmount, 10); !ok {
+			errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrNotAValidInteger)
+		} else {
+			if commitmentAmount.Cmp(big.NewInt(0)) == 0 {
+				errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrMustBePositive)
+			}
+		}
 	}
 	if len(commitment.Fee) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.fee", ErrIsRequired)
