@@ -1059,6 +1059,7 @@ enum EpochAction {
 message Epoch {
   // Sequence is used as epoch indentifier
   uint64 seq = 1;
+  // Action tells us what action is taking place
   EpochAction action = 2 [(validator.field) = {msg_exists : true}];
   // Timestamps for start/end etc
   EpochTimestamps timestamps = 3 [(validator.field) = {msg_exists : true}];
