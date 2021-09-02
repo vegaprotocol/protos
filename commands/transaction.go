@@ -131,6 +131,10 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkChainEvent(cmd.ChainEvent))
 		case *commandspb.InputData_OracleDataSubmission:
 			errs.Merge(checkOracleDataSubmission(cmd.OracleDataSubmission))
+		case *commandspb.InputData_DelegateSubmission:
+			errs.Merge(checkDelegateSubmission(cmd.DelegateSubmission))
+		case *commandspb.InputData_UndelegateSubmission:
+			errs.Merge(checkUndelegateSubmission(cmd.UndelegateSubmission))
 		default:
 			errs.AddForProperty("tx.input_data.command", ErrIsNotSupported)
 		}
