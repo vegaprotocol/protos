@@ -2132,6 +2132,10 @@
           "format": "uint64",
           "title": "Sequence number that increases by one each epoch"
         },
+        "action": {
+          "$ref": "#/definitions/vegaEpochAction",
+          "title": "Action tells us what action is taking place"
+        },
         "start_time": {
           "type": "string",
           "format": "int64",
@@ -3961,6 +3965,17 @@
         }
       }
     },
+    "vegaEpochAction": {
+      "type": "string",
+      "enum": [
+        "EPOCH_ACTION_UNSPECIFIED",
+        "EPOCH_ACTION_START",
+        "EPOCH_ACTION_END"
+      ],
+      "default": "EPOCH_ACTION_UNSPECIFIED",
+      "description": "- EPOCH_ACTION_START: The epoch update is for a new epoch\n - EPOCH_ACTION_END: The epoch update is for the end of an epoch",
+      "title": "What epoch action has occurred"
+    },
     "vegaEpochData": {
       "type": "object",
       "properties": {
@@ -3987,7 +4002,12 @@
         "start_time": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp of epoch start in nanoseconds, empty if not started\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+          "title": "Timestamp of epoch start in nanoseconds\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+        },
+        "expiry_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp of epoch expiry in nanoseconds\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
         "end_time": {
           "type": "string",
