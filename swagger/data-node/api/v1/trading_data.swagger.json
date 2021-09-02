@@ -3987,7 +3987,12 @@
         "start_time": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp of epoch start in nanoseconds, empty if not started\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+          "title": "Timestamp of epoch start in nanoseconds\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+        },
+        "expiry_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp of epoch expiry in nanoseconds\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
         "end_time": {
           "type": "string",

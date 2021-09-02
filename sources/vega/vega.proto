@@ -1032,16 +1032,19 @@ enum NodeStatus {
 
 // Describes in both human readable and block time when an epoch spans
 message EpochTimestamps {
-  // Timestamp of epoch start in nanoseconds, empty if not started
+  // Timestamp of epoch start in nanoseconds
   // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
   int64 start_time = 1;
+  // Timestamp of epoch expiry in nanoseconds
+  // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+  int64 expiry_time = 2;
   // Timestamp of epoch end in nanoseconds, empty if not started
   // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
-  int64 end_time = 2;
+  int64 end_time = 3;
   // Height of first block in the epoch
-  uint64 first_block = 3;
+  uint64 first_block = 4;
   // Height of last block in the epoch, empty if not ended
-  uint64 last_block = 4;
+  uint64 last_block = 5;
 }
 
 message Epoch {
