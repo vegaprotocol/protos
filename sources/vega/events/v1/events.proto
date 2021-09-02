@@ -128,16 +128,27 @@ message TimeUpdate {
   int64 timestamp = 1;
 }
 
+// What epoch action has occurred
+enum EpochAction {
+  EPOCH_ACTION_UNSPECIFIED = 0;
+  // The epoch update is for a new epoch
+  EPOCH_ACTION_START = 1;
+  // The epoch update is for the end of an epoch
+  EPOCH_ACTION_END = 2;
+}
+
 // Epoch details
 message EpochEvent {
   // Sequence number that increases by one each epoch
   uint64 seq = 1;
+  // Action tells us what action is taking place
+  EpochAction action = 2;
   // What time did this epoch start
-  int64  start_time = 2;
+  int64  start_time = 3;
   // What time should this epoch end
-  int64  expire_time = 3;
+  int64  expire_time = 4;
   // What time did it actually end
-  int64  end_time = 4;
+  int64  end_time = 5;
 }
 
 // A transfer responses event contains a collection of transfer information

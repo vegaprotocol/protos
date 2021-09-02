@@ -2124,6 +2124,17 @@
       },
       "title": "The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge\nfunction withdraw_asset(address asset_source, uint256 asset_id, uint256 amount, uint256 expiry, uint256 nonce, bytes memory signatures)"
     },
+    "v1EpochAction": {
+      "type": "string",
+      "enum": [
+        "EPOCH_ACTION_UNSPECIFIED",
+        "EPOCH_ACTION_START",
+        "EPOCH_ACTION_END"
+      ],
+      "default": "EPOCH_ACTION_UNSPECIFIED",
+      "description": "- EPOCH_ACTION_START: The epoch update is for a new epoch\n - EPOCH_ACTION_END: The epoch update is for the end of an epoch",
+      "title": "What epoch action has occurred"
+    },
     "v1EpochEvent": {
       "type": "object",
       "properties": {
@@ -2131,6 +2142,10 @@
           "type": "string",
           "format": "uint64",
           "title": "Sequence number that increases by one each epoch"
+        },
+        "action": {
+          "$ref": "#/definitions/v1EpochAction",
+          "title": "Action tells us what action is taking place"
         },
         "start_time": {
           "type": "string",
@@ -3941,9 +3956,6 @@
           "format": "uint64",
           "title": "Sequence is used as epoch indentifier"
         },
-        "action": {
-          "$ref": "#/definitions/vegaEpochAction"
-        },
         "timestamps": {
           "$ref": "#/definitions/vegaEpochTimestamps",
           "title": "Timestamps for start/end etc"
@@ -3963,17 +3975,6 @@
           "title": "List of all delegations in epoch"
         }
       }
-    },
-    "vegaEpochAction": {
-      "type": "string",
-      "enum": [
-        "EPOCH_ACTION_UNSPECIFIED",
-        "EPOCH_ACTION_START",
-        "EPOCH_ACTION_END"
-      ],
-      "default": "EPOCH_ACTION_UNSPECIFIED",
-      "description": "- EPOCH_ACTION_START: The epoch update is for a new epoch\n - EPOCH_ACTION_END: The epoch update is for the end of an epoch",
-      "title": "What epoch action has occurred"
     },
     "vegaEpochData": {
       "type": "object",
