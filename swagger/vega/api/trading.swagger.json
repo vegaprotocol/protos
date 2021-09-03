@@ -1501,6 +1501,10 @@
     "v1ValidatorUpdate": {
       "type": "object",
       "properties": {
+        "node_id": {
+          "type": "string",
+          "title": "Node id of the node"
+        },
         "vega_pub_key": {
           "type": "string",
           "title": "Vega public key of validator node"

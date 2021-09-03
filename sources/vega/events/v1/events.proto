@@ -238,16 +238,18 @@ message AuctionEvent {
 
 // A validator update event contains information about validator node
 message ValidatorUpdate {
+  // Node id of the node
+  string node_id = 1;
   // Vega public key of validator node
-  string vega_pub_key = 1;
+  string vega_pub_key = 2;
   // Ethereum public key of validator node
-  string ethereum_address = 2;
+  string ethereum_address = 3;
   // Public key of Tendermint
-  string tm_pub_key = 3;
+  string tm_pub_key = 4;
   // URL with more info on the node
-  string info_url = 4;
+  string info_url = 5;
   // Country code (ISO 3166-1 alpha-2) for the location of the node
-  string country = 5;
+  string country = 6;
 }
 
 // An (event) bus event type is used to specify a type of event
