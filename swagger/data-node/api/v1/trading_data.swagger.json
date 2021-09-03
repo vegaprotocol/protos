@@ -3572,6 +3572,10 @@
     "v1ValidatorUpdate": {
       "type": "object",
       "properties": {
+        "node_id": {
+          "type": "string",
+          "title": "Node id of the node"
+        },
         "vega_pub_key": {
           "type": "string",
           "title": "Vega public key of validator node"
@@ -4931,6 +4935,14 @@
         "pub_key": {
           "type": "string",
           "title": "Pub key of the node operator"
+        },
+        "tm_pub_key": {
+          "type": "string",
+          "title": "Public key of Tendermint"
+        },
+        "ethereum_adddress": {
+          "type": "string",
+          "title": "Ethereum public key of the node"
         },
         "info_url": {
           "type": "string",

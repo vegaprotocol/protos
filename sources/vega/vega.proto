@@ -1088,30 +1088,34 @@ message Node {
   string id = 1;
   // Pub key of the node operator
   string pub_key = 2 [(validator.field) = {string_not_empty : true}];
+  // Public key of Tendermint
+  string tm_pub_key = 3;
+  // Ethereum public key of the node
+  string ethereum_adddress = 4;
   // URL where I can find out more info on the node
-  string info_url = 3;
+  string info_url = 5;
   // Country code for the location of the node
-  string location = 4;
+  string location = 6;
   // The amount the node has put up themselves
-  string staked_by_operator = 5;
+  string staked_by_operator = 7;
   // The amount of stake that has been delegated by token holders
-  string staked_by_delegates = 6;;
+  string staked_by_delegates = 8;;
   // Total amount staked on node
-  string staked_total = 7;
+  string staked_total = 9;
   // Max amount of (wanted) stake, is this a network param or a node param
-  string max_intended_stake = 8;
+  string max_intended_stake = 10;
   // Amount of stake on the next epoch
-  string pending_stake = 9;
+  string pending_stake = 11;
   // Informantion about epoch
-  EpochData epoch_data = 10 [(validator.field) = {msg_exists : true}];
+  EpochData epoch_data = 12 [(validator.field) = {msg_exists : true}];
   // Node status
-  NodeStatus status = 11 [(validator.field) = {msg_exists : true}];
+  NodeStatus status = 13 [(validator.field) = {msg_exists : true}];
   // Node's delegations
-  repeated Delegation delagations = 12;
+  repeated Delegation delagations = 14;
   // Node score
-  string score = 13;
+  string score = 15;
   // Node normalised score
-  string normalised_score = 14;
+  string normalised_score = 16;
 }
 
 message NodeData {
