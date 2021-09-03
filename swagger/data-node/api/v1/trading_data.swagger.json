@@ -4936,6 +4936,14 @@
           "type": "string",
           "title": "Pub key of the node operator"
         },
+        "tm_pub_key": {
+          "type": "string",
+          "title": "Public key of Tendermint"
+        },
+        "ethereum_adddress": {
+          "type": "string",
+          "title": "Ethereum public key of the node"
+        },
         "info_url": {
           "type": "string",
           "title": "URL where I can find out more info on the node"
