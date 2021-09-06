@@ -10,9 +10,7 @@ import (
 	_ "code.vegaprotocol.io/protos/vega"
 	_ "code.vegaprotocol.io/protos/vega/commands/v1"
 	_ "code.vegaprotocol.io/protos/vega/events/v1"
-	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 

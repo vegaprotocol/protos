@@ -2,7 +2,6 @@ syntax = "proto3";
 
 option go_package = "code.vegaprotocol.io/protos/data-node/api/v1";
 
-import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/transaction.proto";
 
 package datanode.api.v1;
