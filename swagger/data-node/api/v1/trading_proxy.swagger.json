@@ -44,6 +44,16 @@
     }
   },
   "definitions": {
+    "v1LastBlockHeightResponse": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "A response with the height of the last block processed by\ntendermint"
+    },
     "v1Signature": {
       "type": "object",
       "properties": {
