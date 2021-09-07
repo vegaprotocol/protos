@@ -161,3 +161,16 @@ func (this *ListPartiesStakeResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ListDelegationsRequest) Validate() error {
+	return nil
+}
+func (this *ListDelegationsResponse) Validate() error {
+	for _, item := range this.Delegations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Delegations", err)
+			}
+		}
+	}
+	return nil
+}
