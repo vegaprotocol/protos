@@ -1035,12 +1035,6 @@ func (this *OracleDataBySpecResponse) Validate() error {
 	}
 	return nil
 }
-func (this *LastBlockHeightRequest) Validate() error {
-	return nil
-}
-func (this *LastBlockHeightResponse) Validate() error {
-	return nil
-}
 func (this *GetRewardDetailsRequest) Validate() error {
 	if this.PartyId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("PartyId", fmt.Errorf(`value '%v' must not be an empty string`, this.PartyId))

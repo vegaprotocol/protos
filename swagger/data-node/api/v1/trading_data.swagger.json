@@ -84,22 +84,6 @@
         ]
       }
     },
-    "/blockchain/height": {
-      "get": {
-        "operationId": "LastBlockHeight",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1LastBlockHeightResponse"
-            }
-          }
-        },
-        "tags": [
-          "TradingDataService"
-        ]
-      }
-    },
     "/delegations": {
       "get": {
         "summary": "Get delegation data",
@@ -2408,16 +2392,6 @@
         }
       },
       "title": "Response for a list of votes for a party"
-    },
-    "v1LastBlockHeightResponse": {
-      "type": "object",
-      "properties": {
-        "height": {
-          "type": "string",
-          "format": "uint64"
-        }
-      },
-      "title": "A response with the height of the last block processed by\ntendermint"
     },
     "v1LastTradeResponse": {
       "type": "object",

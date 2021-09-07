@@ -10,6 +10,8 @@ package datanode.api.v1;
 service TradingProxyService {
     // Submit a signed transaction
     rpc SubmitTransaction(SubmitTransactionRequest) returns (SubmitTransactionResponse);
+    // Get the height of the very last block processed by tendermint
+    rpc LastBlockHeight(LastBlockHeightRequest) returns (LastBlockHeightResponse);
 }
 
 // Request for submitting a transaction V2 on Vega
@@ -38,4 +40,14 @@ message SubmitTransactionResponse {
     // Success will be true if the transaction was accepted by the node,
     // **Important** - success does not mean that the event is confirmed by consensus
     bool success = 1;
+}
+
+// A request to get the height of the very last block processed
+// by tendermint
+message LastBlockHeightRequest {}
+
+// A response with the height of the last block processed by
+// tendermint
+message LastBlockHeightResponse {
+  uint64 height = 1;
 }
