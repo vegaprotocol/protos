@@ -118,7 +118,7 @@ message ListPartiesStakeResponse {
 
 message ListDelegationsRequest {
   string party = 1;
-  string node_id = 2;
+  string node = 2;
   string epoch_seq = 3;
 }
 
