@@ -2034,8 +2034,7 @@
           "type": "string"
         },
         "amount": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "epoch_seq": {
           "type": "string"

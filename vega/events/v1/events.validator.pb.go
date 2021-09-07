@@ -34,9 +34,6 @@ func (this *ValidatorScoreEvent) Validate() error {
 func (this *DelegationBalanceEvent) Validate() error {
 	return nil
 }
-func (this *PendingDelegationBalanceEvent) Validate() error {
-	return nil
-}
 func (this *MarketEvent) Validate() error {
 	return nil
 }
