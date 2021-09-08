@@ -45,3 +45,5 @@ http:
       get: '/markets'
     - selector: vega.coreapi.v1.CoreApiService.ListMarketsData
       get: '/markets/data'
+    - selector: vega.coreapi.v1.CoreApiService.ListDelegations
+      get: '/delegations'

@@ -20,6 +20,7 @@ service CoreApiService {
   rpc ListMarketsData(ListMarketsDataRequest) returns (ListMarketsDataResponse);
   rpc ListVotes(ListVotesRequest) returns (ListVotesResponse);
   rpc ListPartiesStake(ListPartiesStakeRequest) returns (ListPartiesStakeResponse);
+  rpc ListDelegations(ListDelegationsRequest) returns (ListDelegationsResponse);
 }
 
 message Account {
@@ -113,4 +114,14 @@ message ListPartiesStakeRequest {
 
 message ListPartiesStakeResponse {
   repeated PartyStake parties_stake = 1;
+}
+
+message ListDelegationsRequest {
+  string party = 1;
+  string node = 2;
+  string epoch_seq = 3;
+}
+
+message ListDelegationsResponse{
+  repeated vega.Delegation delegations = 1;
 }
