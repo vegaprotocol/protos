@@ -20,6 +20,7 @@ message Checkpoint {
   bytes collateral = 3;
   bytes network_parameters = 4;
   bytes delegation = 5;
+  bytes epoch = 6; // will just be an epoch event
 }
 
 // AssetEntrty is a single (enabled) asset
