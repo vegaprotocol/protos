@@ -94,3 +94,6 @@ func (this *Delegate) Validate() error {
 	}
 	return nil
 }
+func (this *Block) Validate() error {
+	return nil
+}
