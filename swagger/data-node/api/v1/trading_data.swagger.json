@@ -1882,6 +1882,11 @@
         "tx_err_event": {
           "$ref": "#/definitions/v1TxErrorEvent",
           "title": "Transaction error events, not included in the ALL event type"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Version of bus event"
         }
       },
       "title": "A bus event is a container for event bus events emitted by Vega"
