@@ -21,6 +21,7 @@ message Checkpoint {
   bytes network_parameters = 4;
   bytes delegation = 5;
   bytes epoch = 6; // will just be an epoch event
+  bytes block = 7;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -70,4 +71,10 @@ message DelegateEntry {
 message Delegate {
   repeated DelegateEntry active = 1;
   repeated DelegateEntry pending = 2;
+}
+
+// Block message contains data related to block at which the checkpoint
+// was created (ie block height)
+message Block {
+  int64 height = 1;
 }
