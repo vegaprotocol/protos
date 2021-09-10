@@ -23,6 +23,11 @@ function gen_code() {
         sed -i -re 's/this\.Size_/this.Size/' "$pbfile" \
 		&& ./script/fix_imports.sh "$pbfile"
 	done
+	find data-node -name '*.validator.pb.go' | sort | while read -r pbfile
+	do
+        sed -i -re 's/this\.Size_/this.Size/' "$pbfile" \
+		&& ./script/fix_imports.sh "$pbfile"
+	done
 }
 
 function gen_swagger() {

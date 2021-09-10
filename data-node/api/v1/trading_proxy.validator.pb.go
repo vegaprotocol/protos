@@ -6,8 +6,9 @@ package v1
 import (
 	fmt "fmt"
 	math "math"
-	proto "github.com/golang/protobuf/proto"
+
 	_ "code.vegaprotocol.io/protos/vega/commands/v1"
+	proto "github.com/golang/protobuf/proto"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -27,11 +28,9 @@ func (this *SubmitTransactionRequest) Validate() error {
 func (this *SubmitTransactionResponse) Validate() error {
 	return nil
 }
-func (this *PrepareWithdrawRequest) Validate() error {
-	if this.Withdraw != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Withdraw); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Withdraw", err)
-		}
-	}
+func (this *LastBlockHeightRequest) Validate() error {
+	return nil
+}
+func (this *LastBlockHeightResponse) Validate() error {
 	return nil
 }

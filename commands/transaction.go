@@ -11,7 +11,6 @@ import (
 )
 
 var (
-	ErrInvalidSignature   = errors.New("invalid signature")
 	ErrShouldBeHexEncoded = errors.New("should be hex encoded")
 )
 
@@ -30,6 +29,14 @@ func NewInputData(height uint64) *commandspb.InputData {
 	return &commandspb.InputData{
 		Nonce:       crypto.NewNonce(),
 		BlockHeight: height,
+	}
+}
+
+func NewSignature(sig []byte, algo string, version uint32) *commandspb.Signature {
+	return &commandspb.Signature{
+		Value:   hex.EncodeToString(sig),
+		Algo:    algo,
+		Version: version,
 	}
 }
 
@@ -57,7 +64,7 @@ func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error)
 	if !errs.Empty() {
 		return nil, errs.ErrorOrNil()
 	}
-	errs.Merge(validateSignature(tx.InputData, tx.Signature, tx.GetPubKey()))
+	errs.Merge(validateSignature(tx.Signature, tx.GetPubKey()))
 	if !errs.Empty() {
 		return nil, errs.ErrorOrNil()
 	}
@@ -69,7 +76,7 @@ func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error)
 	return inputData, nil
 }
 
-func validateSignature(inputData []byte, signature *commandspb.Signature, pubKey string) Errors {
+func validateSignature(signature *commandspb.Signature, pubKey string) Errors {
 	errs := NewErrors()
 	_, err := hex.DecodeString(signature.Value)
 	if err != nil {
@@ -124,6 +131,12 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkChainEvent(cmd.ChainEvent))
 		case *commandspb.InputData_OracleDataSubmission:
 			errs.Merge(checkOracleDataSubmission(cmd.OracleDataSubmission))
+		case *commandspb.InputData_DelegateSubmission:
+			errs.Merge(checkDelegateSubmission(cmd.DelegateSubmission))
+		case *commandspb.InputData_UndelegateSubmission:
+			errs.Merge(checkUndelegateSubmission(cmd.UndelegateSubmission))
+		case *commandspb.InputData_RestoreSnapshotSubmission:
+			break // nothing to verify as such
 		default:
 			errs.AddForProperty("tx.input_data.command", ErrIsNotSupported)
 		}

@@ -84,17 +84,38 @@
         ]
       }
     },
-    "/blockchain/height": {
+    "/delegations": {
       "get": {
-        "operationId": "LastBlockHeight",
+        "summary": "Get delegation data",
+        "operationId": "Delegations",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1LastBlockHeightResponse"
+              "$ref": "#/definitions/v1DelegationsResponse"
             }
           }
         },
+        "parameters": [
+          {
+            "name": "party",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "node_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "epoch_seq",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
           "TradingDataService"
         ]
@@ -119,6 +140,33 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
+    "/epochs/{id}": {
+      "get": {
+        "summary": "Get data for a specific epoch, if id omitted it gets the current epoch",
+        "operationId": "GetEpoch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEpochResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Optional - if id omitted it gets the current epoch",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -702,6 +750,66 @@
         ]
       }
     },
+    "/nodes": {
+      "get": {
+        "summary": "List all known network nodes",
+        "operationId": "GetNodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNodesResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
+    "/nodes-data": {
+      "get": {
+        "summary": "Get data of current node",
+        "operationId": "GetNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNodeDataResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
+    "/nodes/{id}": {
+      "get": {
+        "summary": "Get a specific node by ID",
+        "operationId": "GetNodeByID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNodeByIDResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Required id of node",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/oracle-specs": {
       "get": {
         "summary": "Get the oracle specs",
@@ -1219,6 +1327,31 @@
         ]
       }
     },
+    "/parties/{party_id}/rewards": {
+      "get": {
+        "summary": "Get Rewards data",
+        "operationId": "GetRewardDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRewardDetailsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "party_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/parties/{party_id}/trades": {
       "get": {
         "summary": "Get a list of Trades by Party",
@@ -1292,6 +1425,30 @@
           {
             "name": "party_id",
             "description": "Party identifier, required field",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
+    "/parties/{party}/stake": {
+      "get": {
+        "operationId": "PartyStake",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PartyStakeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "party",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1439,6 +1596,16 @@
       "default": "TIME_IN_FORCE_UNSPECIFIED",
       "description": "- TIME_IN_FORCE_UNSPECIFIED: Default value for TimeInForce, can be valid for an amend\n - TIME_IN_FORCE_GTC: Good until cancelled\n - TIME_IN_FORCE_GTT: Good until specified time\n - TIME_IN_FORCE_IOC: Immediate or cancel\n - TIME_IN_FORCE_FOK: Fill or kill\n - TIME_IN_FORCE_GFA: Good for auction\n - TIME_IN_FORCE_GFN: Good for normal",
       "title": "Time In Force for an order\nSee [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
+    },
+    "UndelegateSubmissionMethod": {
+      "type": "string",
+      "enum": [
+        "METHOD_UNSPECIFIED",
+        "METHOD_NOW",
+        "METHOD_AT_END_OF_EPOCH",
+        "METHOD_IN_ANGER"
+      ],
+      "default": "METHOD_UNSPECIFIED"
     },
     "VoteValue": {
       "type": "string",
@@ -1684,9 +1851,9 @@
           "$ref": "#/definitions/v1DelegationBalanceEvent",
           "title": "Delegation balance events"
         },
-        "pending_delegation_balance": {
-          "$ref": "#/definitions/v1PendingDelegationBalanceEvent",
-          "title": "Pending delegation balance events"
+        "validator_score": {
+          "$ref": "#/definitions/v1ValidatorScoreEvent",
+          "title": "Validator score calcualted"
         },
         "epoch_event": {
           "$ref": "#/definitions/v1EpochEvent",
@@ -1696,9 +1863,17 @@
           "$ref": "#/definitions/v1ValidatorUpdate",
           "title": "Validator update events"
         },
-        "staking_event": {
-          "$ref": "#/definitions/v1StakingEvent",
+        "stake_linking": {
+          "$ref": "#/definitions/v1StakeLinking",
           "title": "Staking event"
+        },
+        "reward_payout": {
+          "$ref": "#/definitions/v1RewardPayoutEvent",
+          "title": "Reward payout event"
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/v1CheckpointEvent",
+          "title": "Checkpoint was created"
         },
         "market": {
           "$ref": "#/definitions/v1MarketEvent",
@@ -1707,6 +1882,11 @@
         "tx_err_event": {
           "$ref": "#/definitions/v1TxErrorEvent",
           "title": "Transaction error events, not included in the ALL event type"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Version of bus event"
         }
       },
       "title": "A bus event is a container for event bus events emitted by Vega"
@@ -1744,15 +1924,17 @@
         "BUS_EVENT_TYPE_ORACLE_SPEC",
         "BUS_EVENT_TYPE_ORACLE_DATA",
         "BUS_EVENT_TYPE_DELEGATION_BALANCE",
-        "BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE",
+        "BUS_EVENT_TYPE_VALIDATOR_SCORE",
         "BUS_EVENT_TYPE_EPOCH_UPDATE",
         "BUS_EVENT_TYPE_VALIDATOR_UPDATE",
-        "BUS_EVENT_TYPE_STAKING_EVENT",
+        "BUS_EVENT_TYPE_STAKE_LINKING",
+        "BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT",
+        "BUS_EVENT_TYPE_CHECKPOINT",
         "BUS_EVENT_TYPE_MARKET",
         "BUS_EVENT_TYPE_TX_ERROR"
       ],
       "default": "BUS_EVENT_TYPE_UNSPECIFIED",
-      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_PENDING_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for next epoch has changed\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKING_EVENT: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
+      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
       "title": "An (event) bus event type is used to specify a type of event\nIt has 2 styles of event:\nSingle values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item\nGroup values (e.g. BUS_EVENT_TYPE_AUCTION) where they represent a group of data items"
     },
     "v1CandlesResponse": {
@@ -1776,6 +1958,49 @@
         }
       }
     },
+    "v1Checkpoint": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "block_hash": {
+          "type": "string"
+        },
+        "at_block": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "The actual data regarding a checkpoint"
+    },
+    "v1CheckpointEvent": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "block_hash": {
+          "type": "string"
+        },
+        "block_height": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1CheckpointsResponse": {
+      "type": "object",
+      "properties": {
+        "checkpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Checkpoint"
+          }
+        }
+      },
+      "title": "Response message containing all checkpoints requested"
+    },
     "v1Condition": {
       "type": "object",
       "properties": {
@@ -1790,6 +2015,20 @@
       },
       "title": "Condition describes the condition that must be validated by the"
     },
+    "v1DelegateSubmission": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "title": "The ID for the node to delegate to"
+        },
+        "amount": {
+          "type": "string",
+          "title": "The amount of stake to delegate"
+        }
+      },
+      "title": "A command to submit an instruction to delegate some stake to a node"
+    },
     "v1DelegationBalanceEvent": {
       "type": "object",
       "properties": {
@@ -1800,11 +2039,24 @@
           "type": "string"
         },
         "amount": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
+        },
+        "epoch_seq": {
+          "type": "string"
         }
       },
       "title": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
+    },
+    "v1DelegationsResponse": {
+      "type": "object",
+      "properties": {
+        "delegations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          }
+        }
+      }
     },
     "v1DepositResponse": {
       "type": "object",
@@ -1852,6 +2104,10 @@
         "signatures": {
           "type": "string",
           "title": "The signatures bundle as hex encoded data, forward by 0x\ne.g: 0x + sig1 + sig2 + ... + sixN"
+        },
+        "target_address": {
+          "type": "string",
+          "title": "The ethereum address to withdraw the funds to, 0x prefixed"
         }
       },
       "title": "The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge\nfunction withdraw_asset(address asset_source, uint256 asset_id, uint256 amount, uint256 expiry, uint256 nonce, bytes memory signatures)"
@@ -1863,6 +2119,10 @@
           "type": "string",
           "format": "uint64",
           "title": "Sequence number that increases by one each epoch"
+        },
+        "action": {
+          "$ref": "#/definitions/vegaEpochAction",
+          "title": "Action tells us what action is taking place"
         },
         "start_time": {
           "type": "string",
@@ -1952,6 +2212,14 @@
       },
       "description": "Filter describes the conditions under which an oracle data is considered of\ninterest or not."
     },
+    "v1GetEpochResponse": {
+      "type": "object",
+      "properties": {
+        "epoch": {
+          "$ref": "#/definitions/vegaEpoch"
+        }
+      }
+    },
     "v1GetNetworkParametersProposalsResponse": {
       "type": "object",
       "properties": {
@@ -1991,6 +2259,24 @@
       },
       "title": "Response for a list of new market proposals"
     },
+    "v1GetNodeByIDResponse": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/vegaNode"
+        }
+      },
+      "title": "Response with all nodes"
+    },
+    "v1GetNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "node_data": {
+          "$ref": "#/definitions/vegaNodeData"
+        }
+      },
+      "title": "Response with node data"
+    },
     "v1GetNodeSignaturesAggregateResponse": {
       "type": "object",
       "properties": {
@@ -2003,6 +2289,18 @@
         }
       },
       "title": "Response to specify the identifier of the resource we want to retrieve aggregated signatures for"
+    },
+    "v1GetNodesResponse": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaNode"
+          }
+        }
+      },
+      "title": "Response with all nodes"
     },
     "v1GetProposalByIDResponse": {
       "type": "object",
@@ -2050,6 +2348,18 @@
       },
       "title": "Response for a list of proposals"
     },
+    "v1GetRewardDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "reward_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaRewardPerAssetDetail"
+          }
+        }
+      },
+      "title": "The return message with reward details in for a single party"
+    },
     "v1GetUpdateMarketProposalsResponse": {
       "type": "object",
       "properties": {
@@ -2087,16 +2397,6 @@
       },
       "title": "Response for a list of votes for a party"
     },
-    "v1LastBlockHeightResponse": {
-      "type": "object",
-      "properties": {
-        "height": {
-          "type": "string",
-          "format": "uint64"
-        }
-      },
-      "title": "A response with the height of the last block processed by\ntendermint"
-    },
     "v1LastTradeResponse": {
       "type": "object",
       "properties": {
@@ -2116,7 +2416,6 @@
         },
         "commitment_amount": {
           "type": "string",
-          "format": "uint64",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
         "fee": {
@@ -2667,7 +2966,6 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price for the order, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places,\n, required field for limit orders, however it is not required for market orders"
         },
         "size": {
@@ -2812,25 +3110,19 @@
       },
       "title": "Response for a party given a party identifier"
     },
-    "v1PendingDelegationBalanceEvent": {
+    "v1PartyStakeResponse": {
       "type": "object",
       "properties": {
-        "party": {
+        "current_stake_available": {
           "type": "string"
         },
-        "node_id": {
-          "type": "string"
-        },
-        "delegation_amount": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "undelegation_amount": {
-          "type": "string",
-          "format": "uint64"
+        "stake_linkings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1StakeLinking"
+          }
         }
-      },
-      "title": "PendingDelegationBalanceEvent - updates on the delegation/undelegation balance of a party to a node for the next epoch"
+      }
     },
     "v1PositionResolution": {
       "type": "object",
@@ -2934,6 +3226,40 @@
       },
       "title": "A command to submit a new proposal for the\nvega network governance"
     },
+    "v1RestoreSnapshot": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "title": "A command that loads the state from a given checkpoint"
+    },
+    "v1RewardPayoutEvent": {
+      "type": "object",
+      "properties": {
+        "party": {
+          "type": "string"
+        },
+        "epoch_seq": {
+          "type": "string"
+        },
+        "asset": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "percent_of_total_reward": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "v1SettleDistressed": {
       "type": "object",
       "properties": {
@@ -2984,7 +3310,7 @@
       },
       "title": "A settle position event contains position settlement information for a party"
     },
-    "v1StakingEvent": {
+    "v1StakeLinking": {
       "type": "object",
       "properties": {
         "id": {
@@ -2992,7 +3318,7 @@
           "title": "The internal ID for this staking event"
         },
         "type": {
-          "$ref": "#/definitions/v1StakingEventType",
+          "$ref": "#/definitions/v1StakeLinkingType",
           "title": "The type of event"
         },
         "ts": {
@@ -3007,19 +3333,43 @@
         "amount": {
           "type": "string",
           "title": "The amount of stake deposited or removed"
+        },
+        "status": {
+          "$ref": "#/definitions/v1StakeLinkingStatus",
+          "title": "The status of the event"
+        },
+        "finalized_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "The time at which the vega network finalized the state of the event"
+        },
+        "tx_hash": {
+          "type": "string",
+          "title": "The hash of the transaction from which the events happen"
         }
       },
-      "title": "StakingEvent - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
+      "title": "StakeLinking - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
     },
-    "v1StakingEventType": {
+    "v1StakeLinkingStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_PENDING",
+        "STATUS_ACCEPTED",
+        "STATUS_REJECTED"
+      ],
+      "default": "STATUS_UNSPECIFIED",
+      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate an event waiting for confirmation from the vega network\n - STATUS_ACCEPTED: Indicate of an event accepted by the vega network\n - STATUS_REJECTED: Indaicate of an event rejected by the vega network"
+    },
+    "v1StakeLinkingType": {
       "type": "string",
       "enum": [
         "TYPE_UNSPECIFIED",
-        "TYPE_DEPOSIT",
-        "TYPE_REMOVE"
+        "TYPE_LINK",
+        "TYPE_UNLINK"
       ],
       "default": "TYPE_UNSPECIFIED",
-      "title": "- TYPE_UNSPECIFIED: Default value\n - TYPE_DEPOSIT: Indicate of a stake deposit instruction\n - TYPE_REMOVE: Indicate of a stake remove instruction"
+      "title": "- TYPE_UNSPECIFIED: Default value\n - TYPE_LINK: Indicate of a stake deposit instruction\n - TYPE_UNLINK: Indicate of a stake remove instruction"
     },
     "v1TimeUpdate": {
       "type": "object",
@@ -3152,15 +3502,65 @@
         },
         "withdraw_submission": {
           "$ref": "#/definitions/v1WithdrawSubmission"
+        },
+        "delegate_submission": {
+          "$ref": "#/definitions/v1DelegateSubmission"
+        },
+        "undelegate_submission": {
+          "$ref": "#/definitions/v1UndelegateSubmission"
+        },
+        "restore_snapshot": {
+          "$ref": "#/definitions/v1RestoreSnapshot"
         }
       }
+    },
+    "v1UndelegateSubmission": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string",
+          "title": "optional, if not specified = ALL"
+        },
+        "method": {
+          "$ref": "#/definitions/UndelegateSubmissionMethod"
+        }
+      }
+    },
+    "v1ValidatorScoreEvent": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string"
+        },
+        "epoch_seq": {
+          "type": "string"
+        },
+        "validator_score": {
+          "type": "string"
+        },
+        "normalised_score": {
+          "type": "string"
+        }
+      },
+      "title": "ValidatorScoreEvent is the score a validator gets for a given epoch"
     },
     "v1ValidatorUpdate": {
       "type": "object",
       "properties": {
-        "pub_key": {
+        "node_id": {
           "type": "string",
-          "title": "Public key of validator node"
+          "title": "Node id of the node"
+        },
+        "vega_pub_key": {
+          "type": "string",
+          "title": "Vega public key of validator node"
+        },
+        "ethereum_address": {
+          "type": "string",
+          "title": "Ethereum public key of validator node"
         },
         "tm_pub_key": {
           "type": "string",
@@ -3196,7 +3596,6 @@
       "properties": {
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "The amount to be withdrawn"
         },
         "asset": {
@@ -3246,7 +3645,6 @@
         },
         "balance": {
           "type": "string",
-          "format": "uint64",
           "title": "Balance of the asset, the balance is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places\nand importantly balances cannot be negative"
         },
         "asset": {
@@ -3387,22 +3785,18 @@
         },
         "high": {
           "type": "string",
-          "format": "uint64",
           "title": "Highest price for trading during the candle interval"
         },
         "low": {
           "type": "string",
-          "format": "uint64",
           "title": "Lowest price for trading during the candle interval"
         },
         "open": {
           "type": "string",
-          "format": "uint64",
           "title": "Open trade price"
         },
         "close": {
           "type": "string",
-          "format": "uint64",
           "title": "Closing trade price"
         },
         "volume": {
@@ -3426,6 +3820,27 @@
         }
       },
       "title": "Continuous trading"
+    },
+    "vegaDelegation": {
+      "type": "object",
+      "properties": {
+        "party": {
+          "type": "string",
+          "title": "Party which is delegating"
+        },
+        "node_id": {
+          "type": "string",
+          "title": "Node ID"
+        },
+        "amount": {
+          "type": "string",
+          "title": "Amount delegated"
+        },
+        "epoch_seq": {
+          "type": "string",
+          "title": "Epoch of delegation"
+        }
+      }
     },
     "vegaDeposit": {
       "type": "object",
@@ -3504,6 +3919,96 @@
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
     },
+    "vegaEpoch": {
+      "type": "object",
+      "properties": {
+        "seq": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Sequence is used as epoch indentifier"
+        },
+        "timestamps": {
+          "$ref": "#/definitions/vegaEpochTimestamps",
+          "title": "Timestamps for start/end etc"
+        },
+        "validators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaNode"
+          },
+          "title": "Validators that participated in this epoch"
+        },
+        "delegations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          },
+          "title": "List of all delegations in epoch"
+        }
+      }
+    },
+    "vegaEpochAction": {
+      "type": "string",
+      "enum": [
+        "EPOCH_ACTION_UNSPECIFIED",
+        "EPOCH_ACTION_START",
+        "EPOCH_ACTION_END"
+      ],
+      "default": "EPOCH_ACTION_UNSPECIFIED",
+      "description": "- EPOCH_ACTION_START: The epoch update is for a new epoch\n - EPOCH_ACTION_END: The epoch update is for the end of an epoch",
+      "title": "What epoch action has occurred"
+    },
+    "vegaEpochData": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total number of epochs since node was created"
+        },
+        "offline": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total number of offline epochs since node was created"
+        },
+        "online": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total number of online epochs since node was created"
+        }
+      }
+    },
+    "vegaEpochTimestamps": {
+      "type": "object",
+      "properties": {
+        "start_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp of epoch start in nanoseconds\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+        },
+        "expiry_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp of epoch expiry in nanoseconds\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "int64",
+          "title": "Timestamp of epoch end in nanoseconds, empty if not started\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+        },
+        "first_block": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Height of first block in the epoch"
+        },
+        "last_block": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Height of last block in the epoch, empty if not ended"
+        }
+      },
+      "title": "Describes in both human readable and block time when an epoch spans"
+    },
     "vegaErc20WithdrawExt": {
       "type": "object",
       "properties": {
@@ -3519,17 +4024,14 @@
       "properties": {
         "maker_fee": {
           "type": "string",
-          "format": "uint64",
           "title": "Fee amount paid to the non-aggressive party of the trade"
         },
         "infrastructure_fee": {
           "type": "string",
-          "format": "uint64",
           "title": "Fee amount paid for maintaining the Vega infrastructure"
         },
         "liquidity_fee": {
           "type": "string",
-          "format": "uint64",
           "title": "Fee amount paid to market makers"
         }
       },
@@ -3746,7 +4248,6 @@
         },
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "An amount to transfer"
         },
         "reference": {
@@ -3864,7 +4365,6 @@
         },
         "commitment_amount": {
           "type": "string",
-          "format": "uint64",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
         "fee": {
@@ -3971,22 +4471,18 @@
       "properties": {
         "maintenance_margin": {
           "type": "string",
-          "format": "uint64",
           "title": "Maintenance margin value"
         },
         "search_level": {
           "type": "string",
-          "format": "uint64",
           "title": "Search level value"
         },
         "initial_margin": {
           "type": "string",
-          "format": "uint64",
           "title": "Initial margin value"
         },
         "collateral_release_level": {
           "type": "string",
-          "format": "uint64",
           "title": "Collateral release level value"
         },
         "party_id": {
@@ -4069,12 +4565,10 @@
       "properties": {
         "mark_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Mark price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "best_bid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Highest price level on an order book for buy orders, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "best_bid_volume": {
@@ -4084,7 +4578,6 @@
         },
         "best_offer_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Lowest price level on an order book for offer orders"
         },
         "best_offer_volume": {
@@ -4094,7 +4587,6 @@
         },
         "best_static_bid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Highest price on the order book for buy orders not including pegged orders"
         },
         "best_static_bid_volume": {
@@ -4104,7 +4596,6 @@
         },
         "best_static_offer_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Lowest price on the order book for sell orders not including pegged orders"
         },
         "best_static_offer_volume": {
@@ -4114,12 +4605,10 @@
         },
         "mid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Arithmetic average of the best bid price and best offer price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "static_mid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Arithmetic average of the best static bid price and best static offer price"
         },
         "market": {
@@ -4148,7 +4637,6 @@
         },
         "indicative_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Indicative price (zero if not in auction)"
         },
         "indicative_volume": {
@@ -4342,7 +4830,6 @@
       "properties": {
         "commitment_amount": {
           "type": "string",
-          "format": "uint64",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
         "fee": {
@@ -4416,6 +4903,118 @@
       },
       "title": "Configuration for a new market on Vega"
     },
+    "vegaNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "The node url eg n01.vega.xyz"
+        },
+        "pub_key": {
+          "type": "string",
+          "title": "Pub key of the node operator"
+        },
+        "tm_pub_key": {
+          "type": "string",
+          "title": "Public key of Tendermint"
+        },
+        "ethereum_adddress": {
+          "type": "string",
+          "title": "Ethereum public key of the node"
+        },
+        "info_url": {
+          "type": "string",
+          "title": "URL where I can find out more info on the node"
+        },
+        "location": {
+          "type": "string",
+          "title": "Country code for the location of the node"
+        },
+        "staked_by_operator": {
+          "type": "string",
+          "title": "The amount the node has put up themselves"
+        },
+        "staked_by_delegates": {
+          "type": "string",
+          "title": "The amount of stake that has been delegated by token holders"
+        },
+        "staked_total": {
+          "type": "string",
+          "title": "Total amount staked on node"
+        },
+        "max_intended_stake": {
+          "type": "string",
+          "title": "Max amount of (wanted) stake, is this a network param or a node param"
+        },
+        "pending_stake": {
+          "type": "string",
+          "title": "Amount of stake on the next epoch"
+        },
+        "epoch_data": {
+          "$ref": "#/definitions/vegaEpochData",
+          "title": "Informantion about epoch"
+        },
+        "status": {
+          "$ref": "#/definitions/vegaNodeStatus",
+          "title": "Node status"
+        },
+        "delagations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          },
+          "title": "Node's delegations"
+        },
+        "score": {
+          "type": "string",
+          "title": "Node score"
+        },
+        "normalised_score": {
+          "type": "string",
+          "title": "Node normalised score"
+        }
+      }
+    },
+    "vegaNodeData": {
+      "type": "object",
+      "properties": {
+        "staked_total": {
+          "type": "string",
+          "title": "Total staked amount across all nodes"
+        },
+        "total_nodes": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Total number of nodes"
+        },
+        "inactive_nodes": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Number of inactive nodes"
+        },
+        "validating_nodes": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Number of nodes validating"
+        },
+        "uptime": {
+          "type": "number",
+          "format": "float",
+          "title": "Total uptime for all epochs across all nodes"
+        }
+      }
+    },
+    "vegaNodeStatus": {
+      "type": "string",
+      "enum": [
+        "NODE_STATUS_UNSPECIFIED",
+        "NODE_STATUS_VALIDATOR",
+        "NODE_STATUS_NON_VALIDATOR"
+      ],
+      "default": "NODE_STATUS_UNSPECIFIED",
+      "description": "- NODE_STATUS_VALIDATOR: The node is validating\n - NODE_STATUS_NON_VALIDATOR: The node is non-validating",
+      "title": "Node status type"
+    },
     "vegaOracleSpecToFutureBinding": {
       "type": "object",
       "properties": {
@@ -4451,7 +5050,6 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price for the order, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "size": {
@@ -4610,6 +5208,12 @@
         "id": {
           "type": "string",
           "title": "A unique identifier for the party, typically represented by a public key"
+        },
+        "delegations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaDelegation"
+          }
         }
       },
       "title": "A party represents an entity who wishes to trade on or query a Vega network"
@@ -4659,17 +5263,14 @@
         },
         "realised_pnl": {
           "type": "string",
-          "format": "int64",
           "title": "Realised profit and loss for the position, value is signed +ve for long and -ve for short"
         },
         "unrealised_pnl": {
           "type": "string",
-          "format": "int64",
           "title": "Unrealised profit and loss for the position, value is signed +ve for long and -ve for short"
         },
         "average_entry_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Average entry price for the position, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "updated_at": {
@@ -4685,7 +5286,6 @@
       "properties": {
         "value": {
           "type": "string",
-          "format": "uint64",
           "title": "Price value, given as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         }
       }
@@ -4695,7 +5295,6 @@
       "properties": {
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price for the price level, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "number_of_orders": {
@@ -4716,12 +5315,10 @@
       "properties": {
         "min_valid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Minimum price that isn't currently breaching the specified price monitoring trigger"
         },
         "max_valid_price": {
           "type": "string",
-          "format": "uint64",
           "title": "Maximum price that isn't currently breaching the specified price monitoring trigger"
         },
         "trigger": {
@@ -4918,6 +5515,53 @@
       },
       "title": "Terms for a governance proposal on Vega"
     },
+    "vegaRewardDetails": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "party_id": {
+          "type": "string"
+        },
+        "epoch": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "percentage_of_total": {
+          "type": "string"
+        },
+        "received_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Details for a single reward payment"
+    },
+    "vegaRewardPerAssetDetail": {
+      "type": "object",
+      "properties": {
+        "asset": {
+          "type": "string",
+          "title": "asset details"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaRewardDetails"
+          },
+          "title": "rewards ordered by received_at"
+        },
+        "total_for_asset": {
+          "type": "string",
+          "title": "Total amount of rewards for the asset"
+        }
+      },
+      "title": "Details for rewards for a single asset"
+    },
     "vegaRiskFactor": {
       "type": "object",
       "properties": {
@@ -5073,7 +5717,6 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price for the trade, the price is an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "size": {
@@ -5152,7 +5795,6 @@
         },
         "balance": {
           "type": "string",
-          "format": "uint64",
           "title": "The balance relating to the transfer"
         }
       },
@@ -5214,7 +5856,6 @@
         },
         "total_governance_token_balance": {
           "type": "string",
-          "format": "uint64",
           "title": "Total number of governance token for the party that casted the vote"
         },
         "total_governance_token_weight": {
@@ -5247,7 +5888,6 @@
         },
         "amount": {
           "type": "string",
-          "format": "uint64",
           "title": "The amount to be withdrawn"
         },
         "asset": {

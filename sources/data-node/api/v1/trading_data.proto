@@ -149,10 +149,22 @@ service TradingDataService {
   // Subscribe to a stream of events from the core
   rpc ObserveEventBus(stream ObserveEventBusRequest) returns (stream ObserveEventBusResponse);
 
+  // -- Validators --
+
+  // Get data of current node
+  rpc GetNodeData(GetNodeDataRequest) returns (GetNodeDataResponse);
+
+  // List all known network nodes
+  rpc GetNodes(GetNodesRequest) returns (GetNodesResponse);
+
+  // Get a specific node by ID
+  rpc GetNodeByID(GetNodeByIDRequest) returns (GetNodeByIDResponse);
+
+  // Get data for a specific epoch, if id omitted it gets the current epoch
+  rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
+
   // -- Misc --
-
-  rpc LastBlockHeight(LastBlockHeightRequest) returns (LastBlockHeightResponse);
-
+  
   // Get Time
   rpc GetVegaTime(GetVegaTimeRequest) returns (GetVegaTimeResponse);
 
@@ -231,6 +243,75 @@ service TradingDataService {
 
   // Get all oracle data
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
+
+  // Get Rewards data
+  rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
+
+  rpc Checkpoints(CheckpointsRequest) returns (CheckpointsResponse);
+
+  // Get delegation data
+  rpc Delegations(DelegationsRequest) returns (DelegationsResponse);
+
+  rpc PartyStake(PartyStakeRequest) returns (PartyStakeResponse);
+}
+
+// both fields optional but 1 of them required at least
+// party = all delegation for a party
+// node_id = all delegation for a node
+// party_id + node_id = all delegation for a node for a given party
+message DelegationsRequest {
+  string party = 1;
+  string node_id = 2;
+  string epoch_seq = 3;
+}
+
+message DelegationsResponse {
+  repeated vega.Delegation delegations = 1;
+}
+
+message PartyStakeRequest {
+  string party = 1;
+}
+
+message PartyStakeResponse {
+  string current_stake_available = 1;
+  repeated vega.events.v1.StakeLinking stake_linkings = 2;
+}
+
+// Request for current Node data
+message GetNodeDataRequest{}
+
+// Response with node data
+message GetNodeDataResponse{
+  vega.NodeData node_data = 1;
+}
+
+// Request to list all nodes
+message GetNodesRequest {}
+
+// Response with all nodes
+message GetNodesResponse {
+  repeated vega.Node nodes = 1;
+}
+
+// Request to list all nodes
+message GetNodeByIDRequest {
+  // Required id of node
+  string id = 1;
+}
+
+// Response with all nodes
+message GetNodeByIDResponse {
+  vega.Node node = 1;
+}
+
+message GetEpochRequest {
+  // Optional - if id omitted it gets the current epoch
+  uint64 id = 1;
+}
+
+message GetEpochResponse {
+  vega.Epoch epoch = 1;
 }
 
 // Request for a list of all assets enabled on Vega
@@ -860,45 +941,6 @@ message FeeInfrastructureAccountsResponse {
   repeated vega.Account accounts = 1;
 }
 
-// Request to prepare a governance proposal
-message PrepareProposalSubmissionRequest {
-  vega.commands.v1.ProposalSubmission submission = 1;
-}
-
-// Response to prepare a governance proposal
-message PrepareProposalSubmissionResponse {
-  // A blob is an encoded representation of the proposal ready to sign using the Vega Wallet and then submit as a transaction
-  bytes blob = 1;
-  // A copy of the prepared proposal
-  vega.commands.v1.ProposalSubmission submission = 2;
-}
-
-// Request to prepare a governance vote
-message PrepareVoteSubmissionRequest {
-  // Vote, required field
-  vega.commands.v1.VoteSubmission submission = 1 [(validator.field) = {msg_exists: true}];
-}
-
-// Response to prepare a governance vote
-message PrepareVoteSubmissionResponse {
-  // A blob is an encoded representation of the vote ready to sign using the Vega Wallet and then submit as a transaction
-  bytes blob = 1;
-  // A copy of the prepared vote
-  vega.commands.v1.VoteSubmission submission = 2;
-}
-
-// Request to prepare liquiditity provision
-message PrepareLiquidityProvisionRequest {
-  // Submission, required field
-  vega.commands.v1.LiquidityProvisionSubmission submission = 1 [(validator.field) = {msg_exists: true}];
-}
-
-// Response to a liquidity provision request
-message PrepareLiquidityProvisionResponse {
- // A blob is an encoded representation of the liquidity provision message ready to sign using the Vega Wallet and then submit as a transaction
- bytes blob = 1;
-}
-
 // Request for an order with the specified order identifier
 // Optionally, return a specific version of the order with the `version` field
 message OrderByIDRequest {
@@ -1025,6 +1067,8 @@ message ERC20WithdrawalApprovalResponse {
   // The signatures bundle as hex encoded data, forward by 0x
   // e.g: 0x + sig1 + sig2 + ... + sixN
   string signatures = 5;
+  // The ethereum address to withdraw the funds to, 0x prefixed
+  string target_address = 6;
 }
 
 // A request to get a list of deposit from a given party
@@ -1107,12 +1151,27 @@ message OracleDataBySpecResponse {
   repeated oracles.v1.OracleData oracle_data = 1;
 }
 
-// A request to get the height of the very last block processed
-// by tendermint
-message LastBlockHeightRequest {}
+// A request to get reward details for a party
+message GetRewardDetailsRequest {
+  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+}
 
-// A response with the height of the last block processed by
-// tendermint
-message LastBlockHeightResponse {
-  uint64 height = 1;
+// The return message with reward details in for a single party
+message GetRewardDetailsResponse {
+  repeated vega.RewardPerAssetDetail reward_details = 1;
+}
+
+// The actual data regarding a checkpoint
+message Checkpoint {
+  string hash = 1;
+  string block_hash = 2;
+  uint64 at_block = 3;
+}
+
+// Request to get all checkpoints. Currently no fields, probably will be expanded to allow filtering data
+message CheckpointsRequest {}
+
+// Response message containing all checkpoints requested
+message CheckpointsResponse {
+  repeated Checkpoint checkpoints = 1;
 }

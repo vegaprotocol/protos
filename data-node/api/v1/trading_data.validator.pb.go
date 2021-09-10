@@ -6,12 +6,13 @@ package v1
 import (
 	fmt "fmt"
 	math "math"
-	proto "github.com/golang/protobuf/proto"
-	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
-	_ "code.vegaprotocol.io/protos/vega/commands/v1"
-	_ "github.com/mwitkow/go-proto-validators"
+
 	_ "code.vegaprotocol.io/protos/vega"
+	_ "code.vegaprotocol.io/protos/vega/commands/v1"
 	_ "code.vegaprotocol.io/protos/vega/events/v1"
+	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
+	proto "github.com/golang/protobuf/proto"
+	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -20,6 +21,78 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+func (this *DelegationsRequest) Validate() error {
+	return nil
+}
+func (this *DelegationsResponse) Validate() error {
+	for _, item := range this.Delegations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Delegations", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *PartyStakeRequest) Validate() error {
+	return nil
+}
+func (this *PartyStakeResponse) Validate() error {
+	for _, item := range this.StakeLinkings {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakeLinkings", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *GetNodeDataRequest) Validate() error {
+	return nil
+}
+func (this *GetNodeDataResponse) Validate() error {
+	if this.NodeData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.NodeData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("NodeData", err)
+		}
+	}
+	return nil
+}
+func (this *GetNodesRequest) Validate() error {
+	return nil
+}
+func (this *GetNodesResponse) Validate() error {
+	for _, item := range this.Nodes {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Nodes", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *GetNodeByIDRequest) Validate() error {
+	return nil
+}
+func (this *GetNodeByIDResponse) Validate() error {
+	if this.Node != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Node); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Node", err)
+		}
+	}
+	return nil
+}
+func (this *GetEpochRequest) Validate() error {
+	return nil
+}
+func (this *GetEpochResponse) Validate() error {
+	if this.Epoch != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Epoch); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Epoch", err)
+		}
+	}
+	return nil
+}
 func (this *AssetsRequest) Validate() error {
 	return nil
 }
@@ -750,55 +823,6 @@ func (this *FeeInfrastructureAccountsResponse) Validate() error {
 	}
 	return nil
 }
-func (this *PrepareProposalSubmissionRequest) Validate() error {
-	if this.Submission != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Submission); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Submission", err)
-		}
-	}
-	return nil
-}
-func (this *PrepareProposalSubmissionResponse) Validate() error {
-	if this.Submission != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Submission); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Submission", err)
-		}
-	}
-	return nil
-}
-func (this *PrepareVoteSubmissionRequest) Validate() error {
-	if nil == this.Submission {
-		return github_com_mwitkow_go_proto_validators.FieldError("Submission", fmt.Errorf("message must exist"))
-	}
-	if this.Submission != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Submission); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Submission", err)
-		}
-	}
-	return nil
-}
-func (this *PrepareVoteSubmissionResponse) Validate() error {
-	if this.Submission != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Submission); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Submission", err)
-		}
-	}
-	return nil
-}
-func (this *PrepareLiquidityProvisionRequest) Validate() error {
-	if nil == this.Submission {
-		return github_com_mwitkow_go_proto_validators.FieldError("Submission", fmt.Errorf("message must exist"))
-	}
-	if this.Submission != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Submission); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Submission", err)
-		}
-	}
-	return nil
-}
-func (this *PrepareLiquidityProvisionResponse) Validate() error {
-	return nil
-}
 func (this *OrderByIDRequest) Validate() error {
 	return nil
 }
@@ -1011,9 +1035,35 @@ func (this *OracleDataBySpecResponse) Validate() error {
 	}
 	return nil
 }
-func (this *LastBlockHeightRequest) Validate() error {
+func (this *GetRewardDetailsRequest) Validate() error {
+	if this.PartyId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PartyId", fmt.Errorf(`value '%v' must not be an empty string`, this.PartyId))
+	}
 	return nil
 }
-func (this *LastBlockHeightResponse) Validate() error {
+func (this *GetRewardDetailsResponse) Validate() error {
+	for _, item := range this.RewardDetails {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Checkpoint) Validate() error {
+	return nil
+}
+func (this *CheckpointsRequest) Validate() error {
+	return nil
+}
+func (this *CheckpointsResponse) Validate() error {
+	for _, item := range this.Checkpoints {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Checkpoints", err)
+			}
+		}
+	}
 	return nil
 }

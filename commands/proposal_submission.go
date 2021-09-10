@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"math/big"
 	"strconv"
 	"strings"
 	"time"
@@ -14,6 +15,7 @@ import (
 
 const (
 	MaxDuration30DaysNs int64 = 2592000000000000
+	ReferenceMaxLen     int   = 100
 )
 
 func CheckProposalSubmission(cmd *commandspb.ProposalSubmission) error {
@@ -25,6 +27,10 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) Errors {
 
 	if cmd == nil {
 		return errs.FinalAddForProperty("proposal_submission", ErrIsRequired)
+	}
+
+	if len(cmd.Reference) > ReferenceMaxLen {
+		errs.AddForProperty("proposal_submission.reference", ErrReferenceTooLong)
 	}
 
 	if cmd.Terms == nil {
@@ -206,8 +212,8 @@ func checkNewMarketChanges(change *types.ProposalTerms_NewMarket) Errors {
 
 	changes := change.NewMarket.Changes
 
-	if changes.DecimalPlaces <= 0 {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.decimal_places", ErrMustBePositive)
+	if changes.DecimalPlaces < 0 {
+		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.decimal_places", ErrMustBePositiveOrZero)
 	} else if changes.DecimalPlaces >= 150 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.decimal_places", ErrMustBeLessThan150)
 	}
@@ -519,8 +525,16 @@ func checkLiquidityCommitment(commitment *types.NewMarketCommitment) Errors {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment", ErrIsRequired)
 	}
 
-	if commitment.CommitmentAmount == 0 {
+	if len(commitment.CommitmentAmount) <= 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrMustBePositive)
+	} else {
+		if commitmentAmount, ok := big.NewInt(0).SetString(commitment.CommitmentAmount, 10); !ok {
+			errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrNotAValidInteger)
+		} else {
+			if commitmentAmount.Cmp(big.NewInt(0)) == 0 {
+				errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrMustBePositive)
+			}
+		}
 	}
 	if len(commitment.Fee) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.fee", ErrIsRequired)

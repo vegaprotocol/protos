@@ -89,6 +89,10 @@ http:
       get: '/parties/{party_id}/accounts'
     - selector: datanode.api.v1.TradingDataService.MarginLevels
       get: '/parties/{party_id}/markets/{market_id}/margin'
+    - selector: datanode.api.v1.TradingDataService.GetRewardDetails
+      get: '/parties/{party_id}/rewards'
+    - selector: datanode.api.v1.TradingDataService.PartyStake
+      get: '/parties/{party}/stake'
 
     # governance stuff by party
     - selector: datanode.api.v1.TradingDataService.GetProposalsByParty
@@ -142,3 +146,23 @@ http:
       get: '/oracle-specs/{id}/oracle-data'
     - selector: datanode.api.v1.TradingDataService.OracleSpecs
       get: '/oracle-specs'
+
+    # Nodes
+    - selector: datanode.api.v1.TradingDataService.GetNodeData
+      get: '/nodes-data'
+    - selector: datanode.api.v1.TradingDataService.GetNodes
+      get: '/nodes'
+    - selector: datanode.api.v1.TradingDataService.GetNodeByID
+      get: '/nodes/{id}'
+    
+    # Epochs
+    - selector: datanode.api.v1.TradingDataService.GetEpoch
+      get: '/epochs/{id}'
+    
+    # Epochs
+    - selector: datanode.api.v1.TradingDataService.Epochs
+      get: '/epochs/{id}'
+    
+    # Delegations
+    - selector: datanode.api.v1.TradingDataService.Delegations
+      get: '/delegations'

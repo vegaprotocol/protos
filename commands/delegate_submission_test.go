@@ -20,7 +20,7 @@ func TestSubmittingNoDelegateCommandFails(t *testing.T) {
 
 func TestSubmittingNoDelegateNodeIdFails(t *testing.T) {
 	cmd := &commandspb.DelegateSubmission{
-		Amount: 1000,
+		Amount: "1000",
 	}
 	err := checkDelegateSubmission(cmd)
 
@@ -57,7 +57,7 @@ func TestSubmittingNoUndelegateCommandFails(t *testing.T) {
 
 func TestSubmittingNoUndelegateNodeIdFails(t *testing.T) {
 	cmd := &commandspb.UndelegateSubmission{
-		Amount: 1000,
+		Amount: "1000",
 	}
 	err := checkUndelegateSubmission(cmd)
 
