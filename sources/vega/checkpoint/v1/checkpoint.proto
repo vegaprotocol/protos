@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-package vega.snapshot.v1;
-option go_package = "code.vegaprotocol.io/protos/vega/snapshot/v1";
+package vega.checkpoint.v1;
+option go_package = "code.vegaprotocol.io/protos/vega/checkpoint/v1";
 
 import "vega/vega.proto";
 import "vega/assets.proto";
 import "vega/governance.proto";
 
-// Snapshot is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
-message Snapshot {
+// CheckpointState is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
+message CheckpointState {
   bytes hash = 1;
   bytes state = 2;
 }
