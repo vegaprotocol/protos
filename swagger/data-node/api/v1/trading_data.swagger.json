@@ -3382,6 +3382,7 @@
       "properties": {
         "size": {
           "type": "string",
+          "format": "int64",
           "title": "Size of trade settlement"
         },
         "price": {
