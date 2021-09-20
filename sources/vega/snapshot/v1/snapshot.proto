@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package vega.snapshot.v1;
+option go_package = "code.vegaprotocol.io/protos/vega/snapshot/v1";
+
+import "vega/vega.proto";
+import "vega/assets.proto";
+import "vega/governance.proto";
+
+enum Format {
+  // Default value, always invalid
+  FORMAT_UNSPECIFIED = 0;
+  // Standard proto encoding
+  FORMAT_PROTO = 1;
+  // Compressed proto, might come in handy
+  FORMAT_PROTO_COMPRESSED = 2;
+  // Simple JSON serialisation, probably not going to be used
+  FORMAT_JSON = 3;
+}
+
+// Represents a set of time intervals that are used when querying for candle-stick data
+message Snapshot {
+  uint64 height = 1;
+  Format format = 2;
+  uint32 chunks = 3;
+  bytes hash = 4;
+  bytes metadata = 5;
+}
+
+// Chunk is simply an as-is chunk belonging to a snapshot
+// not sure how usable this type would be
+message Chunk {
+  oneof data {
+    CollateralAccounts collateral_accounts = 1;
+    CollateralAssets collateral_assets = 2;
+    ActiveAssets active_assets = 3;
+    PendingAssets pending_assets = 4;
+  }
+}
+
+message CollateralAccounts {
+  repeated vega.Account accounts = 1;
+}
+
+message CollateralAssets {
+  repeated vega.AssetDetails assets = 1;
+}
+
+message ActiveAssets {
+  repeated vega.AssetDetails assets = 1;
+}
+
+message PendingAssets {
+  repeated vega.AssetDetails assets = 1;
+}
