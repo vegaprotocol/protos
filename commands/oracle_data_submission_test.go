@@ -55,6 +55,9 @@ func testOracleDataSubmissionWithSourceSucceeds(t *testing.T) {
 		{
 			msg:   "with Open Oracle source",
 			value: commandspb.OracleDataSubmission_ORACLE_SOURCE_OPEN_ORACLE,
+		}, {
+			msg:   "with JSON source",
+			value: commandspb.OracleDataSubmission_ORACLE_SOURCE_JSON,
 		},
 	}
 	for _, tc := range testCases {
