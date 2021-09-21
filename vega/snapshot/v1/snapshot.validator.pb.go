@@ -143,6 +143,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_MarketPositions); ok {
+		if oneOfNester.MarketPositions != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.MarketPositions); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("MarketPositions", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -487,6 +494,19 @@ func (this *ExecutionMarkets) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("Markets", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Position) Validate() error {
+	return nil
+}
+func (this *MarketPositions) Validate() error {
+	for _, item := range this.Positions {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Positions", err)
 			}
 		}
 	}

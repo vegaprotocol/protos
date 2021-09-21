@@ -53,6 +53,7 @@ message Payload {
     MatchingBook matching_book = 14;
     NetParams network_parameters = 15;
     ExecutionMarkets execution_markets = 16;
+    MarketPositions market_positions = 17;
   }
 }
 
@@ -235,4 +236,19 @@ message Market {
 
 message ExecutionMarkets {
   repeated Market markets = 1;
+}
+
+message Position {
+  string party_id = 1;
+  int64 size = 2;
+  int64 buy = 3;
+  int64 sell = 4;
+  string price = 5;
+  string vw_buy_price = 6;
+  string sw_sell_price = 7;
+}
+
+message MarketPositions {
+  string market_id = 1;
+  repeated Position positions = 2;
 }
