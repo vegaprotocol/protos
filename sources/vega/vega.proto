@@ -1057,7 +1057,7 @@ enum EpochAction {
 }
 
 message Epoch {
-  // Sequence is used as epoch indentifier
+  // Sequence is used as epoch identifier
   uint64 seq = 1;
   // Timestamps for start/end etc
   EpochTimestamps timestamps = 2 [(validator.field) = {msg_exists : true}];

@@ -4246,7 +4246,7 @@ func (m *EpochTimestamps) GetLastBlock() uint64 {
 }
 
 type Epoch struct {
-	// Sequence is used as epoch indentifier
+	// Sequence is used as epoch identifier
 	Seq uint64 `protobuf:"varint,1,opt,name=seq,proto3" json:"seq,omitempty"`
 	// Timestamps for start/end etc
 	Timestamps *EpochTimestamps `protobuf:"bytes,2,opt,name=timestamps,proto3" json:"timestamps,omitempty"`
