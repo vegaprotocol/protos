@@ -5,6 +5,7 @@ option go_package = "code.vegaprotocol.io/protos/vega/snapshot/v1";
 
 import "vega/vega.proto";
 import "vega/assets.proto";
+import "vega/chain_events.proto";
 import "vega/governance.proto";
 
 enum Format {
@@ -30,11 +31,24 @@ message Snapshot {
 // Chunk is simply an as-is chunk belonging to a snapshot
 // not sure how usable this type would be
 message Chunk {
+  repeated Payload data = 1;
+}
+
+message Payload {
   oneof data {
-    CollateralAccounts collateral_accounts = 1;
-    CollateralAssets collateral_assets = 2;
-    ActiveAssets active_assets = 3;
-    PendingAssets pending_assets = 4;
+    ActiveAssets active_assets = 1;
+    PendingAssets pending_assets = 2;
+    BankingWithdrawals banking_withdrawals = 3;
+    BankingDeposits banking_deposits = 4;
+    BankingSeen banking_seen = 5;
+    Checkpoint checkpoint = 6;
+    CollateralAccounts collateral_accounts = 7;
+    CollateralAssets collateral_assets = 8;
+    DelegationActive delegation_active = 9;
+    DelegationPending delegation_pending = 10;
+    GovernanceActive governance_active = 11;
+    GovernanceEnacted governance_enacted = 12;
+    StakingAccounts staking_accounts = 13;
   }
 }
 
@@ -52,4 +66,71 @@ message ActiveAssets {
 
 message PendingAssets {
   repeated vega.AssetDetails assets = 1;
+}
+
+message Withdrawal {
+  string ref = 1;
+  vega.Withdrawal withdrawal = 2;
+}
+
+message Deposit {
+  string id = 1;
+  vega.Deposit deposit = 2;
+}
+
+message TxRef {
+  string asset = 1;
+  uint64 block_nr = 2;
+  string hash = 3;
+  uint64 log_index = 4;
+}
+
+message BankingWithdrawals {
+  repeated Withdrawal withdrawals = 1;
+}
+
+message BankingDeposits {
+  repeated Deposit deposit = 1;
+}
+
+message BankingSeen {
+  repeated TxRef refs = 1;
+}
+
+message Checkpoint {
+  int64 next_cp = 1;
+}
+
+message DelegationActive {
+  repeated vega.Delegation delegations = 1;
+}
+
+message DelegationPending {
+  repeated vega.Delegation delegations = 1;
+  repeated vega.Delegation undelegation = 2;
+}
+
+message PendingProposal {
+  vega.Proposal proposal = 1;
+  repeated vega.Vote yes = 2;
+  repeated vega.Vote no = 3;
+  repeated vega.Vote invalid = 4;
+}
+
+message GovernanceEnacted {
+  repeated vega.Proposal proposals = 1;
+}
+
+message GovernanceActive {
+  repeated PendingProposal proposals = 1;
+}
+
+message StakingAccount {
+  string party = 1;
+  string balance = 2;
+  repeated vega.StakingEvent events = 3;
+}
+
+message StakingAccounts {
+  repeated StakingAccount accounts = 1;
 }

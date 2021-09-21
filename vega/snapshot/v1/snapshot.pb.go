@@ -131,15 +131,10 @@ func (m *Snapshot) GetMetadata() []byte {
 // Chunk is simply an as-is chunk belonging to a snapshot
 // not sure how usable this type would be
 type Chunk struct {
-	// Types that are valid to be assigned to Data:
-	//	*Chunk_CollateralAccounts
-	//	*Chunk_CollateralAssets
-	//	*Chunk_ActiveAssets
-	//	*Chunk_PendingAssets
-	Data                 isChunk_Data `protobuf_oneof:"data"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	Data                 []*Payload `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
 }
 
 func (m *Chunk) Reset()         { *m = Chunk{} }
@@ -167,76 +162,255 @@ func (m *Chunk) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Chunk proto.InternalMessageInfo
 
-type isChunk_Data interface {
-	isChunk_Data()
-}
-
-type Chunk_CollateralAccounts struct {
-	CollateralAccounts *CollateralAccounts `protobuf:"bytes,1,opt,name=collateral_accounts,json=collateralAccounts,proto3,oneof"`
-}
-
-type Chunk_CollateralAssets struct {
-	CollateralAssets *CollateralAssets `protobuf:"bytes,2,opt,name=collateral_assets,json=collateralAssets,proto3,oneof"`
-}
-
-type Chunk_ActiveAssets struct {
-	ActiveAssets *ActiveAssets `protobuf:"bytes,3,opt,name=active_assets,json=activeAssets,proto3,oneof"`
-}
-
-type Chunk_PendingAssets struct {
-	PendingAssets *PendingAssets `protobuf:"bytes,4,opt,name=pending_assets,json=pendingAssets,proto3,oneof"`
-}
-
-func (*Chunk_CollateralAccounts) isChunk_Data() {}
-
-func (*Chunk_CollateralAssets) isChunk_Data() {}
-
-func (*Chunk_ActiveAssets) isChunk_Data() {}
-
-func (*Chunk_PendingAssets) isChunk_Data() {}
-
-func (m *Chunk) GetData() isChunk_Data {
+func (m *Chunk) GetData() []*Payload {
 	if m != nil {
 		return m.Data
 	}
 	return nil
 }
 
-func (m *Chunk) GetCollateralAccounts() *CollateralAccounts {
-	if x, ok := m.GetData().(*Chunk_CollateralAccounts); ok {
-		return x.CollateralAccounts
+type Payload struct {
+	// Types that are valid to be assigned to Data:
+	//	*Payload_ActiveAssets
+	//	*Payload_PendingAssets
+	//	*Payload_BankingWithdrawals
+	//	*Payload_BankingDeposits
+	//	*Payload_BankingSeen
+	//	*Payload_Checkpoint
+	//	*Payload_CollateralAccounts
+	//	*Payload_CollateralAssets
+	//	*Payload_DelegationActive
+	//	*Payload_DelegationPending
+	//	*Payload_GovernanceActive
+	//	*Payload_GovernanceEnacted
+	//	*Payload_StakingAccounts
+	Data                 isPayload_Data `protobuf_oneof:"data"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *Payload) Reset()         { *m = Payload{} }
+func (m *Payload) String() string { return proto.CompactTextString(m) }
+func (*Payload) ProtoMessage()    {}
+func (*Payload) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{2}
+}
+
+func (m *Payload) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Payload.Unmarshal(m, b)
+}
+func (m *Payload) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Payload.Marshal(b, m, deterministic)
+}
+func (m *Payload) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Payload.Merge(m, src)
+}
+func (m *Payload) XXX_Size() int {
+	return xxx_messageInfo_Payload.Size(m)
+}
+func (m *Payload) XXX_DiscardUnknown() {
+	xxx_messageInfo_Payload.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Payload proto.InternalMessageInfo
+
+type isPayload_Data interface {
+	isPayload_Data()
+}
+
+type Payload_ActiveAssets struct {
+	ActiveAssets *ActiveAssets `protobuf:"bytes,1,opt,name=active_assets,json=activeAssets,proto3,oneof"`
+}
+
+type Payload_PendingAssets struct {
+	PendingAssets *PendingAssets `protobuf:"bytes,2,opt,name=pending_assets,json=pendingAssets,proto3,oneof"`
+}
+
+type Payload_BankingWithdrawals struct {
+	BankingWithdrawals *BankingWithdrawals `protobuf:"bytes,3,opt,name=banking_withdrawals,json=bankingWithdrawals,proto3,oneof"`
+}
+
+type Payload_BankingDeposits struct {
+	BankingDeposits *BankingDeposits `protobuf:"bytes,4,opt,name=banking_deposits,json=bankingDeposits,proto3,oneof"`
+}
+
+type Payload_BankingSeen struct {
+	BankingSeen *BankingSeen `protobuf:"bytes,5,opt,name=banking_seen,json=bankingSeen,proto3,oneof"`
+}
+
+type Payload_Checkpoint struct {
+	Checkpoint *Checkpoint `protobuf:"bytes,6,opt,name=checkpoint,proto3,oneof"`
+}
+
+type Payload_CollateralAccounts struct {
+	CollateralAccounts *CollateralAccounts `protobuf:"bytes,7,opt,name=collateral_accounts,json=collateralAccounts,proto3,oneof"`
+}
+
+type Payload_CollateralAssets struct {
+	CollateralAssets *CollateralAssets `protobuf:"bytes,8,opt,name=collateral_assets,json=collateralAssets,proto3,oneof"`
+}
+
+type Payload_DelegationActive struct {
+	DelegationActive *DelegationActive `protobuf:"bytes,9,opt,name=delegation_active,json=delegationActive,proto3,oneof"`
+}
+
+type Payload_DelegationPending struct {
+	DelegationPending *DelegationPending `protobuf:"bytes,10,opt,name=delegation_pending,json=delegationPending,proto3,oneof"`
+}
+
+type Payload_GovernanceActive struct {
+	GovernanceActive *GovernanceActive `protobuf:"bytes,11,opt,name=governance_active,json=governanceActive,proto3,oneof"`
+}
+
+type Payload_GovernanceEnacted struct {
+	GovernanceEnacted *GovernanceEnacted `protobuf:"bytes,12,opt,name=governance_enacted,json=governanceEnacted,proto3,oneof"`
+}
+
+type Payload_StakingAccounts struct {
+	StakingAccounts *StakingAccounts `protobuf:"bytes,13,opt,name=staking_accounts,json=stakingAccounts,proto3,oneof"`
+}
+
+func (*Payload_ActiveAssets) isPayload_Data() {}
+
+func (*Payload_PendingAssets) isPayload_Data() {}
+
+func (*Payload_BankingWithdrawals) isPayload_Data() {}
+
+func (*Payload_BankingDeposits) isPayload_Data() {}
+
+func (*Payload_BankingSeen) isPayload_Data() {}
+
+func (*Payload_Checkpoint) isPayload_Data() {}
+
+func (*Payload_CollateralAccounts) isPayload_Data() {}
+
+func (*Payload_CollateralAssets) isPayload_Data() {}
+
+func (*Payload_DelegationActive) isPayload_Data() {}
+
+func (*Payload_DelegationPending) isPayload_Data() {}
+
+func (*Payload_GovernanceActive) isPayload_Data() {}
+
+func (*Payload_GovernanceEnacted) isPayload_Data() {}
+
+func (*Payload_StakingAccounts) isPayload_Data() {}
+
+func (m *Payload) GetData() isPayload_Data {
+	if m != nil {
+		return m.Data
 	}
 	return nil
 }
 
-func (m *Chunk) GetCollateralAssets() *CollateralAssets {
-	if x, ok := m.GetData().(*Chunk_CollateralAssets); ok {
-		return x.CollateralAssets
-	}
-	return nil
-}
-
-func (m *Chunk) GetActiveAssets() *ActiveAssets {
-	if x, ok := m.GetData().(*Chunk_ActiveAssets); ok {
+func (m *Payload) GetActiveAssets() *ActiveAssets {
+	if x, ok := m.GetData().(*Payload_ActiveAssets); ok {
 		return x.ActiveAssets
 	}
 	return nil
 }
 
-func (m *Chunk) GetPendingAssets() *PendingAssets {
-	if x, ok := m.GetData().(*Chunk_PendingAssets); ok {
+func (m *Payload) GetPendingAssets() *PendingAssets {
+	if x, ok := m.GetData().(*Payload_PendingAssets); ok {
 		return x.PendingAssets
 	}
 	return nil
 }
 
+func (m *Payload) GetBankingWithdrawals() *BankingWithdrawals {
+	if x, ok := m.GetData().(*Payload_BankingWithdrawals); ok {
+		return x.BankingWithdrawals
+	}
+	return nil
+}
+
+func (m *Payload) GetBankingDeposits() *BankingDeposits {
+	if x, ok := m.GetData().(*Payload_BankingDeposits); ok {
+		return x.BankingDeposits
+	}
+	return nil
+}
+
+func (m *Payload) GetBankingSeen() *BankingSeen {
+	if x, ok := m.GetData().(*Payload_BankingSeen); ok {
+		return x.BankingSeen
+	}
+	return nil
+}
+
+func (m *Payload) GetCheckpoint() *Checkpoint {
+	if x, ok := m.GetData().(*Payload_Checkpoint); ok {
+		return x.Checkpoint
+	}
+	return nil
+}
+
+func (m *Payload) GetCollateralAccounts() *CollateralAccounts {
+	if x, ok := m.GetData().(*Payload_CollateralAccounts); ok {
+		return x.CollateralAccounts
+	}
+	return nil
+}
+
+func (m *Payload) GetCollateralAssets() *CollateralAssets {
+	if x, ok := m.GetData().(*Payload_CollateralAssets); ok {
+		return x.CollateralAssets
+	}
+	return nil
+}
+
+func (m *Payload) GetDelegationActive() *DelegationActive {
+	if x, ok := m.GetData().(*Payload_DelegationActive); ok {
+		return x.DelegationActive
+	}
+	return nil
+}
+
+func (m *Payload) GetDelegationPending() *DelegationPending {
+	if x, ok := m.GetData().(*Payload_DelegationPending); ok {
+		return x.DelegationPending
+	}
+	return nil
+}
+
+func (m *Payload) GetGovernanceActive() *GovernanceActive {
+	if x, ok := m.GetData().(*Payload_GovernanceActive); ok {
+		return x.GovernanceActive
+	}
+	return nil
+}
+
+func (m *Payload) GetGovernanceEnacted() *GovernanceEnacted {
+	if x, ok := m.GetData().(*Payload_GovernanceEnacted); ok {
+		return x.GovernanceEnacted
+	}
+	return nil
+}
+
+func (m *Payload) GetStakingAccounts() *StakingAccounts {
+	if x, ok := m.GetData().(*Payload_StakingAccounts); ok {
+		return x.StakingAccounts
+	}
+	return nil
+}
+
 // XXX_OneofWrappers is for the internal use of the proto package.
-func (*Chunk) XXX_OneofWrappers() []interface{} {
+func (*Payload) XXX_OneofWrappers() []interface{} {
 	return []interface{}{
-		(*Chunk_CollateralAccounts)(nil),
-		(*Chunk_CollateralAssets)(nil),
-		(*Chunk_ActiveAssets)(nil),
-		(*Chunk_PendingAssets)(nil),
+		(*Payload_ActiveAssets)(nil),
+		(*Payload_PendingAssets)(nil),
+		(*Payload_BankingWithdrawals)(nil),
+		(*Payload_BankingDeposits)(nil),
+		(*Payload_BankingSeen)(nil),
+		(*Payload_Checkpoint)(nil),
+		(*Payload_CollateralAccounts)(nil),
+		(*Payload_CollateralAssets)(nil),
+		(*Payload_DelegationActive)(nil),
+		(*Payload_DelegationPending)(nil),
+		(*Payload_GovernanceActive)(nil),
+		(*Payload_GovernanceEnacted)(nil),
+		(*Payload_StakingAccounts)(nil),
 	}
 }
 
@@ -251,7 +425,7 @@ func (m *CollateralAccounts) Reset()         { *m = CollateralAccounts{} }
 func (m *CollateralAccounts) String() string { return proto.CompactTextString(m) }
 func (*CollateralAccounts) ProtoMessage()    {}
 func (*CollateralAccounts) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{2}
+	return fileDescriptor_cee6f703c00de307, []int{3}
 }
 
 func (m *CollateralAccounts) XXX_Unmarshal(b []byte) error {
@@ -290,7 +464,7 @@ func (m *CollateralAssets) Reset()         { *m = CollateralAssets{} }
 func (m *CollateralAssets) String() string { return proto.CompactTextString(m) }
 func (*CollateralAssets) ProtoMessage()    {}
 func (*CollateralAssets) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{3}
+	return fileDescriptor_cee6f703c00de307, []int{4}
 }
 
 func (m *CollateralAssets) XXX_Unmarshal(b []byte) error {
@@ -329,7 +503,7 @@ func (m *ActiveAssets) Reset()         { *m = ActiveAssets{} }
 func (m *ActiveAssets) String() string { return proto.CompactTextString(m) }
 func (*ActiveAssets) ProtoMessage()    {}
 func (*ActiveAssets) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{4}
+	return fileDescriptor_cee6f703c00de307, []int{5}
 }
 
 func (m *ActiveAssets) XXX_Unmarshal(b []byte) error {
@@ -368,7 +542,7 @@ func (m *PendingAssets) Reset()         { *m = PendingAssets{} }
 func (m *PendingAssets) String() string { return proto.CompactTextString(m) }
 func (*PendingAssets) ProtoMessage()    {}
 func (*PendingAssets) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{5}
+	return fileDescriptor_cee6f703c00de307, []int{6}
 }
 
 func (m *PendingAssets) XXX_Unmarshal(b []byte) error {
@@ -396,48 +570,738 @@ func (m *PendingAssets) GetAssets() []*vega.AssetDetails {
 	return nil
 }
 
+type Withdrawal struct {
+	Ref                  string           `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
+	Withdrawal           *vega.Withdrawal `protobuf:"bytes,2,opt,name=withdrawal,proto3" json:"withdrawal,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *Withdrawal) Reset()         { *m = Withdrawal{} }
+func (m *Withdrawal) String() string { return proto.CompactTextString(m) }
+func (*Withdrawal) ProtoMessage()    {}
+func (*Withdrawal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{7}
+}
+
+func (m *Withdrawal) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Withdrawal.Unmarshal(m, b)
+}
+func (m *Withdrawal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Withdrawal.Marshal(b, m, deterministic)
+}
+func (m *Withdrawal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Withdrawal.Merge(m, src)
+}
+func (m *Withdrawal) XXX_Size() int {
+	return xxx_messageInfo_Withdrawal.Size(m)
+}
+func (m *Withdrawal) XXX_DiscardUnknown() {
+	xxx_messageInfo_Withdrawal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Withdrawal proto.InternalMessageInfo
+
+func (m *Withdrawal) GetRef() string {
+	if m != nil {
+		return m.Ref
+	}
+	return ""
+}
+
+func (m *Withdrawal) GetWithdrawal() *vega.Withdrawal {
+	if m != nil {
+		return m.Withdrawal
+	}
+	return nil
+}
+
+type Deposit struct {
+	Id                   string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Deposit              *vega.Deposit `protobuf:"bytes,2,opt,name=deposit,proto3" json:"deposit,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *Deposit) Reset()         { *m = Deposit{} }
+func (m *Deposit) String() string { return proto.CompactTextString(m) }
+func (*Deposit) ProtoMessage()    {}
+func (*Deposit) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{8}
+}
+
+func (m *Deposit) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Deposit.Unmarshal(m, b)
+}
+func (m *Deposit) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Deposit.Marshal(b, m, deterministic)
+}
+func (m *Deposit) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Deposit.Merge(m, src)
+}
+func (m *Deposit) XXX_Size() int {
+	return xxx_messageInfo_Deposit.Size(m)
+}
+func (m *Deposit) XXX_DiscardUnknown() {
+	xxx_messageInfo_Deposit.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Deposit proto.InternalMessageInfo
+
+func (m *Deposit) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Deposit) GetDeposit() *vega.Deposit {
+	if m != nil {
+		return m.Deposit
+	}
+	return nil
+}
+
+type TxRef struct {
+	Asset                string   `protobuf:"bytes,1,opt,name=asset,proto3" json:"asset,omitempty"`
+	BlockNr              uint64   `protobuf:"varint,2,opt,name=block_nr,json=blockNr,proto3" json:"block_nr,omitempty"`
+	Hash                 string   `protobuf:"bytes,3,opt,name=hash,proto3" json:"hash,omitempty"`
+	LogIndex             uint64   `protobuf:"varint,4,opt,name=log_index,json=logIndex,proto3" json:"log_index,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *TxRef) Reset()         { *m = TxRef{} }
+func (m *TxRef) String() string { return proto.CompactTextString(m) }
+func (*TxRef) ProtoMessage()    {}
+func (*TxRef) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{9}
+}
+
+func (m *TxRef) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TxRef.Unmarshal(m, b)
+}
+func (m *TxRef) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TxRef.Marshal(b, m, deterministic)
+}
+func (m *TxRef) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TxRef.Merge(m, src)
+}
+func (m *TxRef) XXX_Size() int {
+	return xxx_messageInfo_TxRef.Size(m)
+}
+func (m *TxRef) XXX_DiscardUnknown() {
+	xxx_messageInfo_TxRef.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TxRef proto.InternalMessageInfo
+
+func (m *TxRef) GetAsset() string {
+	if m != nil {
+		return m.Asset
+	}
+	return ""
+}
+
+func (m *TxRef) GetBlockNr() uint64 {
+	if m != nil {
+		return m.BlockNr
+	}
+	return 0
+}
+
+func (m *TxRef) GetHash() string {
+	if m != nil {
+		return m.Hash
+	}
+	return ""
+}
+
+func (m *TxRef) GetLogIndex() uint64 {
+	if m != nil {
+		return m.LogIndex
+	}
+	return 0
+}
+
+type BankingWithdrawals struct {
+	Withdrawals          []*Withdrawal `protobuf:"bytes,1,rep,name=withdrawals,proto3" json:"withdrawals,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *BankingWithdrawals) Reset()         { *m = BankingWithdrawals{} }
+func (m *BankingWithdrawals) String() string { return proto.CompactTextString(m) }
+func (*BankingWithdrawals) ProtoMessage()    {}
+func (*BankingWithdrawals) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{10}
+}
+
+func (m *BankingWithdrawals) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BankingWithdrawals.Unmarshal(m, b)
+}
+func (m *BankingWithdrawals) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BankingWithdrawals.Marshal(b, m, deterministic)
+}
+func (m *BankingWithdrawals) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BankingWithdrawals.Merge(m, src)
+}
+func (m *BankingWithdrawals) XXX_Size() int {
+	return xxx_messageInfo_BankingWithdrawals.Size(m)
+}
+func (m *BankingWithdrawals) XXX_DiscardUnknown() {
+	xxx_messageInfo_BankingWithdrawals.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BankingWithdrawals proto.InternalMessageInfo
+
+func (m *BankingWithdrawals) GetWithdrawals() []*Withdrawal {
+	if m != nil {
+		return m.Withdrawals
+	}
+	return nil
+}
+
+type BankingDeposits struct {
+	Deposit              []*Deposit `protobuf:"bytes,1,rep,name=deposit,proto3" json:"deposit,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *BankingDeposits) Reset()         { *m = BankingDeposits{} }
+func (m *BankingDeposits) String() string { return proto.CompactTextString(m) }
+func (*BankingDeposits) ProtoMessage()    {}
+func (*BankingDeposits) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{11}
+}
+
+func (m *BankingDeposits) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BankingDeposits.Unmarshal(m, b)
+}
+func (m *BankingDeposits) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BankingDeposits.Marshal(b, m, deterministic)
+}
+func (m *BankingDeposits) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BankingDeposits.Merge(m, src)
+}
+func (m *BankingDeposits) XXX_Size() int {
+	return xxx_messageInfo_BankingDeposits.Size(m)
+}
+func (m *BankingDeposits) XXX_DiscardUnknown() {
+	xxx_messageInfo_BankingDeposits.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BankingDeposits proto.InternalMessageInfo
+
+func (m *BankingDeposits) GetDeposit() []*Deposit {
+	if m != nil {
+		return m.Deposit
+	}
+	return nil
+}
+
+type BankingSeen struct {
+	Refs                 []*TxRef `protobuf:"bytes,1,rep,name=refs,proto3" json:"refs,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *BankingSeen) Reset()         { *m = BankingSeen{} }
+func (m *BankingSeen) String() string { return proto.CompactTextString(m) }
+func (*BankingSeen) ProtoMessage()    {}
+func (*BankingSeen) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{12}
+}
+
+func (m *BankingSeen) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BankingSeen.Unmarshal(m, b)
+}
+func (m *BankingSeen) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BankingSeen.Marshal(b, m, deterministic)
+}
+func (m *BankingSeen) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BankingSeen.Merge(m, src)
+}
+func (m *BankingSeen) XXX_Size() int {
+	return xxx_messageInfo_BankingSeen.Size(m)
+}
+func (m *BankingSeen) XXX_DiscardUnknown() {
+	xxx_messageInfo_BankingSeen.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BankingSeen proto.InternalMessageInfo
+
+func (m *BankingSeen) GetRefs() []*TxRef {
+	if m != nil {
+		return m.Refs
+	}
+	return nil
+}
+
+type Checkpoint struct {
+	NextCp               int64    `protobuf:"varint,1,opt,name=next_cp,json=nextCp,proto3" json:"next_cp,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Checkpoint) Reset()         { *m = Checkpoint{} }
+func (m *Checkpoint) String() string { return proto.CompactTextString(m) }
+func (*Checkpoint) ProtoMessage()    {}
+func (*Checkpoint) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{13}
+}
+
+func (m *Checkpoint) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Checkpoint.Unmarshal(m, b)
+}
+func (m *Checkpoint) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Checkpoint.Marshal(b, m, deterministic)
+}
+func (m *Checkpoint) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Checkpoint.Merge(m, src)
+}
+func (m *Checkpoint) XXX_Size() int {
+	return xxx_messageInfo_Checkpoint.Size(m)
+}
+func (m *Checkpoint) XXX_DiscardUnknown() {
+	xxx_messageInfo_Checkpoint.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Checkpoint proto.InternalMessageInfo
+
+func (m *Checkpoint) GetNextCp() int64 {
+	if m != nil {
+		return m.NextCp
+	}
+	return 0
+}
+
+type DelegationActive struct {
+	Delegations          []*vega.Delegation `protobuf:"bytes,1,rep,name=delegations,proto3" json:"delegations,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *DelegationActive) Reset()         { *m = DelegationActive{} }
+func (m *DelegationActive) String() string { return proto.CompactTextString(m) }
+func (*DelegationActive) ProtoMessage()    {}
+func (*DelegationActive) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{14}
+}
+
+func (m *DelegationActive) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DelegationActive.Unmarshal(m, b)
+}
+func (m *DelegationActive) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DelegationActive.Marshal(b, m, deterministic)
+}
+func (m *DelegationActive) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DelegationActive.Merge(m, src)
+}
+func (m *DelegationActive) XXX_Size() int {
+	return xxx_messageInfo_DelegationActive.Size(m)
+}
+func (m *DelegationActive) XXX_DiscardUnknown() {
+	xxx_messageInfo_DelegationActive.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DelegationActive proto.InternalMessageInfo
+
+func (m *DelegationActive) GetDelegations() []*vega.Delegation {
+	if m != nil {
+		return m.Delegations
+	}
+	return nil
+}
+
+type DelegationPending struct {
+	Delegations          []*vega.Delegation `protobuf:"bytes,1,rep,name=delegations,proto3" json:"delegations,omitempty"`
+	Undelegation         []*vega.Delegation `protobuf:"bytes,2,rep,name=undelegation,proto3" json:"undelegation,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *DelegationPending) Reset()         { *m = DelegationPending{} }
+func (m *DelegationPending) String() string { return proto.CompactTextString(m) }
+func (*DelegationPending) ProtoMessage()    {}
+func (*DelegationPending) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{15}
+}
+
+func (m *DelegationPending) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DelegationPending.Unmarshal(m, b)
+}
+func (m *DelegationPending) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DelegationPending.Marshal(b, m, deterministic)
+}
+func (m *DelegationPending) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DelegationPending.Merge(m, src)
+}
+func (m *DelegationPending) XXX_Size() int {
+	return xxx_messageInfo_DelegationPending.Size(m)
+}
+func (m *DelegationPending) XXX_DiscardUnknown() {
+	xxx_messageInfo_DelegationPending.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DelegationPending proto.InternalMessageInfo
+
+func (m *DelegationPending) GetDelegations() []*vega.Delegation {
+	if m != nil {
+		return m.Delegations
+	}
+	return nil
+}
+
+func (m *DelegationPending) GetUndelegation() []*vega.Delegation {
+	if m != nil {
+		return m.Undelegation
+	}
+	return nil
+}
+
+type PendingProposal struct {
+	Proposal             *vega.Proposal `protobuf:"bytes,1,opt,name=proposal,proto3" json:"proposal,omitempty"`
+	Yes                  []*vega.Vote   `protobuf:"bytes,2,rep,name=yes,proto3" json:"yes,omitempty"`
+	No                   []*vega.Vote   `protobuf:"bytes,3,rep,name=no,proto3" json:"no,omitempty"`
+	Invalid              []*vega.Vote   `protobuf:"bytes,4,rep,name=invalid,proto3" json:"invalid,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *PendingProposal) Reset()         { *m = PendingProposal{} }
+func (m *PendingProposal) String() string { return proto.CompactTextString(m) }
+func (*PendingProposal) ProtoMessage()    {}
+func (*PendingProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{16}
+}
+
+func (m *PendingProposal) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PendingProposal.Unmarshal(m, b)
+}
+func (m *PendingProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PendingProposal.Marshal(b, m, deterministic)
+}
+func (m *PendingProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PendingProposal.Merge(m, src)
+}
+func (m *PendingProposal) XXX_Size() int {
+	return xxx_messageInfo_PendingProposal.Size(m)
+}
+func (m *PendingProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_PendingProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PendingProposal proto.InternalMessageInfo
+
+func (m *PendingProposal) GetProposal() *vega.Proposal {
+	if m != nil {
+		return m.Proposal
+	}
+	return nil
+}
+
+func (m *PendingProposal) GetYes() []*vega.Vote {
+	if m != nil {
+		return m.Yes
+	}
+	return nil
+}
+
+func (m *PendingProposal) GetNo() []*vega.Vote {
+	if m != nil {
+		return m.No
+	}
+	return nil
+}
+
+func (m *PendingProposal) GetInvalid() []*vega.Vote {
+	if m != nil {
+		return m.Invalid
+	}
+	return nil
+}
+
+type GovernanceEnacted struct {
+	Proposals            []*vega.Proposal `protobuf:"bytes,1,rep,name=proposals,proto3" json:"proposals,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *GovernanceEnacted) Reset()         { *m = GovernanceEnacted{} }
+func (m *GovernanceEnacted) String() string { return proto.CompactTextString(m) }
+func (*GovernanceEnacted) ProtoMessage()    {}
+func (*GovernanceEnacted) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{17}
+}
+
+func (m *GovernanceEnacted) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GovernanceEnacted.Unmarshal(m, b)
+}
+func (m *GovernanceEnacted) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GovernanceEnacted.Marshal(b, m, deterministic)
+}
+func (m *GovernanceEnacted) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GovernanceEnacted.Merge(m, src)
+}
+func (m *GovernanceEnacted) XXX_Size() int {
+	return xxx_messageInfo_GovernanceEnacted.Size(m)
+}
+func (m *GovernanceEnacted) XXX_DiscardUnknown() {
+	xxx_messageInfo_GovernanceEnacted.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GovernanceEnacted proto.InternalMessageInfo
+
+func (m *GovernanceEnacted) GetProposals() []*vega.Proposal {
+	if m != nil {
+		return m.Proposals
+	}
+	return nil
+}
+
+type GovernanceActive struct {
+	Proposals            []*PendingProposal `protobuf:"bytes,1,rep,name=proposals,proto3" json:"proposals,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *GovernanceActive) Reset()         { *m = GovernanceActive{} }
+func (m *GovernanceActive) String() string { return proto.CompactTextString(m) }
+func (*GovernanceActive) ProtoMessage()    {}
+func (*GovernanceActive) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{18}
+}
+
+func (m *GovernanceActive) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GovernanceActive.Unmarshal(m, b)
+}
+func (m *GovernanceActive) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GovernanceActive.Marshal(b, m, deterministic)
+}
+func (m *GovernanceActive) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GovernanceActive.Merge(m, src)
+}
+func (m *GovernanceActive) XXX_Size() int {
+	return xxx_messageInfo_GovernanceActive.Size(m)
+}
+func (m *GovernanceActive) XXX_DiscardUnknown() {
+	xxx_messageInfo_GovernanceActive.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GovernanceActive proto.InternalMessageInfo
+
+func (m *GovernanceActive) GetProposals() []*PendingProposal {
+	if m != nil {
+		return m.Proposals
+	}
+	return nil
+}
+
+type StakingAccount struct {
+	Party                string               `protobuf:"bytes,1,opt,name=party,proto3" json:"party,omitempty"`
+	Balance              string               `protobuf:"bytes,2,opt,name=balance,proto3" json:"balance,omitempty"`
+	Events               []*vega.StakingEvent `protobuf:"bytes,3,rep,name=events,proto3" json:"events,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *StakingAccount) Reset()         { *m = StakingAccount{} }
+func (m *StakingAccount) String() string { return proto.CompactTextString(m) }
+func (*StakingAccount) ProtoMessage()    {}
+func (*StakingAccount) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{19}
+}
+
+func (m *StakingAccount) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StakingAccount.Unmarshal(m, b)
+}
+func (m *StakingAccount) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StakingAccount.Marshal(b, m, deterministic)
+}
+func (m *StakingAccount) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StakingAccount.Merge(m, src)
+}
+func (m *StakingAccount) XXX_Size() int {
+	return xxx_messageInfo_StakingAccount.Size(m)
+}
+func (m *StakingAccount) XXX_DiscardUnknown() {
+	xxx_messageInfo_StakingAccount.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StakingAccount proto.InternalMessageInfo
+
+func (m *StakingAccount) GetParty() string {
+	if m != nil {
+		return m.Party
+	}
+	return ""
+}
+
+func (m *StakingAccount) GetBalance() string {
+	if m != nil {
+		return m.Balance
+	}
+	return ""
+}
+
+func (m *StakingAccount) GetEvents() []*vega.StakingEvent {
+	if m != nil {
+		return m.Events
+	}
+	return nil
+}
+
+type StakingAccounts struct {
+	Accounts             []*StakingAccount `protobuf:"bytes,1,rep,name=accounts,proto3" json:"accounts,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *StakingAccounts) Reset()         { *m = StakingAccounts{} }
+func (m *StakingAccounts) String() string { return proto.CompactTextString(m) }
+func (*StakingAccounts) ProtoMessage()    {}
+func (*StakingAccounts) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{20}
+}
+
+func (m *StakingAccounts) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StakingAccounts.Unmarshal(m, b)
+}
+func (m *StakingAccounts) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StakingAccounts.Marshal(b, m, deterministic)
+}
+func (m *StakingAccounts) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StakingAccounts.Merge(m, src)
+}
+func (m *StakingAccounts) XXX_Size() int {
+	return xxx_messageInfo_StakingAccounts.Size(m)
+}
+func (m *StakingAccounts) XXX_DiscardUnknown() {
+	xxx_messageInfo_StakingAccounts.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StakingAccounts proto.InternalMessageInfo
+
+func (m *StakingAccounts) GetAccounts() []*StakingAccount {
+	if m != nil {
+		return m.Accounts
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterEnum("vega.snapshot.v1.Format", Format_name, Format_value)
 	proto.RegisterType((*Snapshot)(nil), "vega.snapshot.v1.Snapshot")
 	proto.RegisterType((*Chunk)(nil), "vega.snapshot.v1.Chunk")
+	proto.RegisterType((*Payload)(nil), "vega.snapshot.v1.Payload")
 	proto.RegisterType((*CollateralAccounts)(nil), "vega.snapshot.v1.CollateralAccounts")
 	proto.RegisterType((*CollateralAssets)(nil), "vega.snapshot.v1.CollateralAssets")
 	proto.RegisterType((*ActiveAssets)(nil), "vega.snapshot.v1.ActiveAssets")
 	proto.RegisterType((*PendingAssets)(nil), "vega.snapshot.v1.PendingAssets")
+	proto.RegisterType((*Withdrawal)(nil), "vega.snapshot.v1.Withdrawal")
+	proto.RegisterType((*Deposit)(nil), "vega.snapshot.v1.Deposit")
+	proto.RegisterType((*TxRef)(nil), "vega.snapshot.v1.TxRef")
+	proto.RegisterType((*BankingWithdrawals)(nil), "vega.snapshot.v1.BankingWithdrawals")
+	proto.RegisterType((*BankingDeposits)(nil), "vega.snapshot.v1.BankingDeposits")
+	proto.RegisterType((*BankingSeen)(nil), "vega.snapshot.v1.BankingSeen")
+	proto.RegisterType((*Checkpoint)(nil), "vega.snapshot.v1.Checkpoint")
+	proto.RegisterType((*DelegationActive)(nil), "vega.snapshot.v1.DelegationActive")
+	proto.RegisterType((*DelegationPending)(nil), "vega.snapshot.v1.DelegationPending")
+	proto.RegisterType((*PendingProposal)(nil), "vega.snapshot.v1.PendingProposal")
+	proto.RegisterType((*GovernanceEnacted)(nil), "vega.snapshot.v1.GovernanceEnacted")
+	proto.RegisterType((*GovernanceActive)(nil), "vega.snapshot.v1.GovernanceActive")
+	proto.RegisterType((*StakingAccount)(nil), "vega.snapshot.v1.StakingAccount")
+	proto.RegisterType((*StakingAccounts)(nil), "vega.snapshot.v1.StakingAccounts")
 }
 
 func init() { proto.RegisterFile("vega/snapshot/v1/snapshot.proto", fileDescriptor_cee6f703c00de307) }
 
 var fileDescriptor_cee6f703c00de307 = []byte{
-	// 480 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x93, 0xd1, 0x8e, 0xd2, 0x40,
-	0x14, 0x86, 0x29, 0xb0, 0x0d, 0x39, 0xc0, 0x6e, 0x77, 0x8c, 0xda, 0x60, 0xe2, 0x12, 0xe2, 0x05,
-	0x6e, 0x4c, 0x71, 0xf1, 0x4e, 0x13, 0x0d, 0x0b, 0x25, 0xac, 0xc9, 0x6e, 0x71, 0xba, 0xc6, 0xc4,
-	0x1b, 0x1c, 0x87, 0x91, 0x36, 0x76, 0x3b, 0x84, 0x99, 0xed, 0xd3, 0xf8, 0x48, 0x3e, 0x94, 0xe1,
-	0x30, 0x34, 0x95, 0x26, 0x9b, 0xec, 0xdd, 0x9c, 0xef, 0xfc, 0xff, 0xdf, 0x33, 0x27, 0x1d, 0x38,
-	0xcb, 0xc4, 0x8a, 0x0d, 0x54, 0xca, 0xd6, 0x2a, 0x92, 0x7a, 0x90, 0x5d, 0xe4, 0x67, 0x6f, 0xbd,
-	0x91, 0x5a, 0x12, 0x67, 0x2b, 0xf0, 0x72, 0x98, 0x5d, 0x74, 0x4e, 0xd0, 0x82, 0x18, 0x25, 0x9d,
-	0x53, 0x04, 0x4c, 0x29, 0xa1, 0x95, 0x41, 0x4f, 0x11, 0xad, 0x64, 0x26, 0x36, 0x29, 0x4b, 0xb9,
-	0xd8, 0xe1, 0xde, 0x1f, 0x0b, 0x1a, 0xa1, 0x89, 0x22, 0xcf, 0xc0, 0x8e, 0x44, 0xbc, 0x8a, 0xb4,
-	0x6b, 0x75, 0xad, 0x7e, 0x9d, 0x9a, 0x8a, 0xbc, 0x05, 0xfb, 0x97, 0xdc, 0xdc, 0x31, 0xed, 0x56,
-	0xbb, 0x56, 0xff, 0x78, 0xe8, 0x7a, 0x87, 0x23, 0x78, 0x53, 0xec, 0x53, 0xa3, 0xdb, 0x26, 0xf1,
-	0xe8, 0x3e, 0xfd, 0xad, 0xdc, 0x5a, 0xd7, 0xea, 0xb7, 0xa9, 0xa9, 0x08, 0x81, 0x7a, 0xc4, 0x54,
-	0xe4, 0xd6, 0xbb, 0x56, 0xbf, 0x45, 0xf1, 0x4c, 0x3a, 0xd0, 0xb8, 0x13, 0x9a, 0x2d, 0x99, 0x66,
-	0xee, 0x11, 0xf2, 0xbc, 0xee, 0xfd, 0xad, 0xc2, 0xd1, 0x78, 0x6b, 0x25, 0xdf, 0xe0, 0x09, 0x97,
-	0x49, 0xc2, 0xb4, 0xd8, 0xb0, 0x64, 0xc1, 0x38, 0x97, 0xf7, 0xa9, 0x56, 0x38, 0x68, 0x73, 0xf8,
-	0xaa, 0x3c, 0xd0, 0x38, 0x17, 0x8f, 0x8c, 0x76, 0x56, 0xa1, 0x84, 0x97, 0x28, 0xf9, 0x02, 0xa7,
-	0xc5, 0x60, 0xdc, 0x19, 0xde, 0xb3, 0x39, 0xec, 0x3d, 0x18, 0x8b, 0xca, 0x59, 0x85, 0x3a, 0xfc,
-	0x80, 0x11, 0x1f, 0xda, 0x8c, 0xeb, 0x38, 0x13, 0xfb, 0xb8, 0x1a, 0xc6, 0xbd, 0x2c, 0xc7, 0x8d,
-	0x50, 0x96, 0x47, 0xb5, 0x58, 0xa1, 0x26, 0x33, 0x38, 0x5e, 0x8b, 0x74, 0x19, 0xa7, 0xab, 0x7d,
-	0x4e, 0x1d, 0x73, 0xce, 0xca, 0x39, 0xf3, 0x9d, 0x2e, 0x0f, 0x6a, 0xaf, 0x8b, 0xe0, 0xd2, 0x86,
-	0x3a, 0xae, 0xf3, 0x13, 0x90, 0xf2, 0x5e, 0xc8, 0x6b, 0x68, 0x14, 0xf6, 0x59, 0xeb, 0x37, 0x87,
-	0xed, 0xdd, 0x17, 0x8c, 0x82, 0xe6, 0xed, 0xde, 0x47, 0x70, 0x0e, 0x37, 0x40, 0xce, 0xc1, 0x36,
-	0xe3, 0xed, 0xcc, 0xc4, 0x98, 0xb7, 0x6c, 0x22, 0x34, 0x8b, 0x13, 0x45, 0x8d, 0xa2, 0xf7, 0x1e,
-	0x5a, 0xc5, 0x2b, 0x3f, 0xca, 0xfb, 0x01, 0xda, 0xff, 0x5d, 0xf3, 0x31, 0xe6, 0xf3, 0x1f, 0x60,
-	0x4f, 0xf7, 0xbf, 0x26, 0x99, 0x06, 0xf4, 0x7a, 0x74, 0xbb, 0xf8, 0x7a, 0x13, 0xce, 0xfd, 0xf1,
-	0xd5, 0xf4, 0xca, 0x9f, 0x38, 0x15, 0xe2, 0x40, 0xcb, 0xf0, 0x39, 0x0d, 0x6e, 0x03, 0xc7, 0x22,
-	0x2f, 0xe0, 0x79, 0x91, 0x2c, 0xc6, 0xc1, 0xf5, 0x9c, 0xfa, 0x61, 0xe8, 0x4f, 0x9c, 0x2a, 0x39,
-	0x81, 0xa6, 0x69, 0x7e, 0x0e, 0x83, 0x1b, 0xa7, 0x76, 0xe9, 0x7d, 0x7f, 0xc3, 0xe5, 0x52, 0xe0,
-	0x0c, 0xf8, 0xb6, 0xb8, 0x4c, 0xbc, 0x58, 0x0e, 0xf0, 0xac, 0x06, 0x87, 0xaf, 0xfa, 0xa7, 0x8d,
-	0x8d, 0x77, 0xff, 0x02, 0x00, 0x00, 0xff, 0xff, 0xea, 0x1d, 0xa9, 0x70, 0xf0, 0x03, 0x00, 0x00,
+	// 1126 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x56, 0x5d, 0x73, 0xda, 0x46,
+	0x14, 0xe5, 0xcb, 0x80, 0x2f, 0x60, 0xe4, 0xdb, 0x0f, 0x2b, 0x4e, 0xda, 0x10, 0x35, 0x9d, 0xba,
+	0x69, 0x8a, 0x13, 0xd2, 0xe9, 0x43, 0xda, 0x49, 0xc6, 0xc6, 0x50, 0xd2, 0x99, 0x18, 0xba, 0xb8,
+	0xcd, 0x4c, 0x5f, 0xe8, 0x22, 0xad, 0x41, 0x63, 0x45, 0xcb, 0x48, 0x32, 0xb1, 0x1f, 0xfa, 0x4f,
+	0x9a, 0xff, 0xda, 0xd9, 0xd5, 0xea, 0xc3, 0x92, 0x49, 0x27, 0x7d, 0xdb, 0x7b, 0xee, 0xb9, 0x67,
+	0x2f, 0x77, 0x97, 0xa3, 0x85, 0xfb, 0x6b, 0xb6, 0xa0, 0x87, 0xbe, 0x4b, 0x57, 0xfe, 0x92, 0x07,
+	0x87, 0xeb, 0xa7, 0xf1, 0xba, 0xbb, 0xf2, 0x78, 0xc0, 0x51, 0x13, 0x84, 0x6e, 0x0c, 0xae, 0x9f,
+	0xee, 0xb7, 0x65, 0x89, 0x84, 0x25, 0x65, 0x7f, 0x57, 0x02, 0xd4, 0xf7, 0x59, 0xe0, 0x2b, 0x68,
+	0x4f, 0x42, 0xe6, 0x92, 0xda, 0xee, 0x8c, 0xad, 0x99, 0x1b, 0x27, 0x3e, 0x93, 0x89, 0x05, 0x5f,
+	0x33, 0xcf, 0xa5, 0xae, 0xc9, 0x42, 0xd8, 0xf8, 0xa7, 0x08, 0xf5, 0xa9, 0xda, 0x03, 0x3f, 0x87,
+	0xea, 0x92, 0xd9, 0x8b, 0x65, 0xa0, 0x17, 0x3b, 0xc5, 0x83, 0x0a, 0x51, 0x11, 0x3e, 0x81, 0xea,
+	0x39, 0xf7, 0xde, 0xd2, 0x40, 0x2f, 0x75, 0x8a, 0x07, 0x3b, 0x3d, 0xbd, 0x9b, 0xed, 0xad, 0x3b,
+	0x94, 0x79, 0xa2, 0x78, 0x42, 0xc9, 0x5c, 0x5e, 0xba, 0x17, 0xbe, 0x5e, 0xee, 0x14, 0x0f, 0x5a,
+	0x44, 0x45, 0x88, 0x50, 0x59, 0x52, 0x7f, 0xa9, 0x57, 0x3a, 0xc5, 0x83, 0x26, 0x91, 0x6b, 0xdc,
+	0x87, 0xfa, 0x5b, 0x16, 0x50, 0x8b, 0x06, 0x54, 0xdf, 0x92, 0x78, 0x1c, 0x1b, 0x3f, 0xc2, 0x56,
+	0x5f, 0x54, 0xe2, 0xf7, 0x50, 0x91, 0x84, 0x62, 0xa7, 0x7c, 0xd0, 0xe8, 0xdd, 0xc9, 0x37, 0x30,
+	0xa1, 0xd7, 0x0e, 0xa7, 0x16, 0x91, 0x34, 0xe3, 0x7d, 0x1d, 0x6a, 0x0a, 0xc1, 0x01, 0xb4, 0xa8,
+	0x19, 0xd8, 0x6b, 0x36, 0x0b, 0x27, 0x25, 0x7f, 0x5c, 0xa3, 0xf7, 0x65, 0x5e, 0xe3, 0x48, 0xd2,
+	0x8e, 0x24, 0x6b, 0x54, 0x20, 0x4d, 0x9a, 0x8a, 0x71, 0x04, 0x3b, 0x2b, 0xe6, 0x5a, 0xb6, 0xbb,
+	0x88, 0x74, 0x4a, 0x52, 0xe7, 0xfe, 0x2d, 0xbd, 0x84, 0xbc, 0x58, 0xa8, 0xb5, 0x4a, 0x03, 0xf8,
+	0x06, 0x3e, 0x99, 0x53, 0xf7, 0x42, 0x28, 0xbd, 0xb3, 0x83, 0xa5, 0xe5, 0xd1, 0x77, 0xd4, 0x09,
+	0x27, 0xd5, 0xe8, 0x3d, 0xcc, 0xcb, 0x1d, 0x87, 0xe4, 0x37, 0x09, 0x77, 0x54, 0x20, 0x38, 0xcf,
+	0xa1, 0x78, 0x0a, 0x5a, 0x24, 0x6c, 0xb1, 0x15, 0xf7, 0xed, 0xc0, 0x97, 0x93, 0x6e, 0xf4, 0x1e,
+	0x6c, 0x54, 0x3d, 0x51, 0xc4, 0x51, 0x81, 0xb4, 0xe7, 0x37, 0x21, 0x3c, 0x86, 0x66, 0xa4, 0xe7,
+	0x33, 0xe6, 0xca, 0xd3, 0x69, 0xf4, 0xbe, 0xd8, 0xa8, 0x35, 0x65, 0xcc, 0x1d, 0x15, 0x48, 0x63,
+	0x9e, 0x84, 0xf8, 0x02, 0xc0, 0x5c, 0x32, 0xf3, 0x62, 0xc5, 0x6d, 0x37, 0xd0, 0xab, 0x52, 0xe1,
+	0x5e, 0x5e, 0xa1, 0x1f, 0x73, 0x46, 0x05, 0x92, 0xaa, 0x10, 0xc3, 0x32, 0xb9, 0xe3, 0xd0, 0x80,
+	0x79, 0xd4, 0x99, 0x51, 0xd3, 0xe4, 0x97, 0x6e, 0xe0, 0xeb, 0xb5, 0x4d, 0xc3, 0xea, 0xc7, 0xe4,
+	0x23, 0xc5, 0x15, 0xc3, 0x32, 0x73, 0x28, 0xfe, 0x06, 0xbb, 0x69, 0xe1, 0xf0, 0x48, 0xeb, 0x52,
+	0xd6, 0xf8, 0xa0, 0x6c, 0x74, 0xaa, 0x9a, 0x99, 0xc1, 0x84, 0xa4, 0xc5, 0x1c, 0xb6, 0xa0, 0x81,
+	0xcd, 0xdd, 0x59, 0x78, 0x7b, 0xf4, 0xed, 0x4d, 0x92, 0x27, 0x31, 0x35, 0xbc, 0x77, 0x42, 0xd2,
+	0xca, 0x60, 0x78, 0x06, 0x98, 0x92, 0x54, 0xf7, 0x48, 0x07, 0xa9, 0xf9, 0xd5, 0x87, 0x34, 0xd5,
+	0x1d, 0x1c, 0x15, 0x48, 0xaa, 0x27, 0x05, 0x8a, 0x46, 0x13, 0x27, 0x88, 0x1a, 0x6d, 0x6c, 0x6a,
+	0xf4, 0x97, 0x98, 0x9a, 0x34, 0xba, 0xc8, 0x60, 0xa2, 0xd1, 0x94, 0x24, 0x73, 0xa9, 0x19, 0x30,
+	0x4b, 0x6f, 0x6e, 0x6a, 0x34, 0xd1, 0x1c, 0x84, 0x54, 0xd1, 0xe8, 0x22, 0x0b, 0x8a, 0x1b, 0xed,
+	0x07, 0x54, 0xde, 0xc0, 0xf8, 0xe8, 0x5b, 0x9b, 0x6e, 0xf4, 0x34, 0x64, 0xa6, 0xce, 0xbd, 0xed,
+	0xdf, 0x84, 0x8e, 0xab, 0xa1, 0x8d, 0x18, 0x2f, 0x01, 0xf3, 0x17, 0x05, 0xbf, 0x85, 0x7a, 0xbc,
+	0x4b, 0x68, 0x34, 0xad, 0x70, 0x17, 0xc5, 0x20, 0x71, 0xda, 0x78, 0x01, 0x5a, 0xf6, 0x4a, 0xe0,
+	0x23, 0xa8, 0xc6, 0x0e, 0x23, 0x8a, 0x51, 0x15, 0x0b, 0xec, 0x84, 0x05, 0xd4, 0x76, 0x7c, 0xa2,
+	0x18, 0xc6, 0x73, 0x68, 0xa6, 0xdd, 0xe6, 0xa3, 0x6a, 0x7f, 0x82, 0xd6, 0x0d, 0x87, 0xf9, 0xa8,
+	0xe2, 0x09, 0x40, 0x62, 0x19, 0xa8, 0x41, 0xd9, 0x63, 0xe7, 0xd2, 0x11, 0xb7, 0x89, 0x58, 0xe2,
+	0x13, 0x80, 0xc4, 0x94, 0x94, 0xc5, 0x69, 0xa1, 0x5e, 0x52, 0x47, 0x52, 0x1c, 0xe3, 0x18, 0x6a,
+	0xca, 0x31, 0x70, 0x07, 0x4a, 0xb6, 0xa5, 0xd4, 0x4a, 0xb6, 0x85, 0xdf, 0x40, 0x4d, 0x19, 0x91,
+	0x52, 0x52, 0xf3, 0x54, 0x7c, 0x12, 0x65, 0x0d, 0x1b, 0xb6, 0xce, 0xae, 0x08, 0x3b, 0xc7, 0x4f,
+	0x61, 0x4b, 0x36, 0xaa, 0x44, 0xc2, 0x00, 0xef, 0x40, 0x7d, 0xee, 0x70, 0xf3, 0x62, 0xe6, 0x7a,
+	0x52, 0xa8, 0x42, 0x6a, 0x32, 0x3e, 0xf5, 0xe2, 0x2f, 0x4a, 0x59, 0xf2, 0xc3, 0x2f, 0xca, 0x5d,
+	0xd8, 0x76, 0xf8, 0x62, 0x66, 0xbb, 0x16, 0xbb, 0x92, 0x06, 0x58, 0x21, 0x75, 0x87, 0x2f, 0x5e,
+	0x89, 0xd8, 0x38, 0x03, 0xcc, 0x1b, 0x2a, 0xbe, 0x80, 0x46, 0xda, 0x8b, 0xc3, 0x39, 0xde, 0xe2,
+	0x53, 0xa9, 0x19, 0xa4, 0x0b, 0x8c, 0x21, 0xb4, 0x33, 0x86, 0x8a, 0xcf, 0x92, 0x1f, 0xbf, 0xf1,
+	0xab, 0x95, 0x1b, 0xc4, 0x73, 0x68, 0xa4, 0xcc, 0x14, 0xbf, 0x83, 0x8a, 0xc7, 0xce, 0xa3, 0x7e,
+	0xf6, 0xf2, 0x02, 0x72, 0x6a, 0x44, 0x92, 0x8c, 0xaf, 0x01, 0x12, 0x1b, 0xc5, 0x3d, 0xa8, 0xb9,
+	0xec, 0x2a, 0x98, 0x99, 0x2b, 0x39, 0xcb, 0x32, 0xa9, 0x8a, 0xb0, 0xbf, 0x32, 0x86, 0xa0, 0x65,
+	0xad, 0x07, 0x7b, 0xd0, 0x48, 0x5c, 0x22, 0xda, 0x4e, 0x8b, 0x0e, 0x2b, 0x4a, 0x90, 0x34, 0xc9,
+	0xf8, 0x1b, 0x76, 0x73, 0x76, 0xf3, 0x7f, 0x84, 0xf0, 0x07, 0x68, 0x5e, 0xba, 0x09, 0xa0, 0x97,
+	0x36, 0x14, 0xdd, 0x60, 0x19, 0xef, 0x8b, 0xd0, 0x56, 0xbb, 0x4e, 0x3c, 0xbe, 0xe2, 0x3e, 0x75,
+	0xf0, 0x11, 0xd4, 0x57, 0x6a, 0xad, 0xbe, 0xf2, 0x3b, 0xa1, 0x4a, 0xc4, 0x20, 0x71, 0x1e, 0xef,
+	0x41, 0xf9, 0x9a, 0xf9, 0x6a, 0x33, 0x08, 0x69, 0x7f, 0xf0, 0x80, 0x11, 0x01, 0xe3, 0x3e, 0x94,
+	0x5c, 0xae, 0x97, 0x73, 0xc9, 0x92, 0xcb, 0xf1, 0x21, 0xd4, 0x6c, 0x77, 0x4d, 0x1d, 0xdb, 0xd2,
+	0x2b, 0x39, 0x42, 0x94, 0x32, 0x8e, 0x60, 0x37, 0x67, 0x72, 0xf8, 0x18, 0xb6, 0xa3, 0x06, 0xa2,
+	0xe1, 0x64, 0x3b, 0x4c, 0x08, 0xc6, 0x14, 0xb4, 0xac, 0xf7, 0xe2, 0xcb, 0xbc, 0xc2, 0x83, 0x8d,
+	0x2f, 0x90, 0xdb, 0x44, 0x1d, 0xd8, 0xb9, 0x69, 0x94, 0xe2, 0x3f, 0xb7, 0xa2, 0x5e, 0x70, 0x1d,
+	0xfd, 0xe7, 0x64, 0x80, 0x3a, 0xd4, 0xe6, 0xd4, 0x11, 0x3b, 0xcb, 0xbf, 0xdc, 0x36, 0x89, 0x42,
+	0x61, 0x37, 0xe1, 0xd3, 0x52, 0xcd, 0x47, 0xd9, 0x8d, 0x52, 0x1d, 0x88, 0x14, 0x51, 0x0c, 0x63,
+	0x0c, 0xed, 0x8c, 0x2d, 0xe3, 0xcf, 0x39, 0x97, 0xed, 0xfc, 0x97, 0x97, 0x27, 0xc6, 0xfb, 0xe8,
+	0x2f, 0xa8, 0x0e, 0xa3, 0x37, 0x26, 0x0e, 0xc7, 0xe4, 0xf5, 0xd1, 0xd9, 0xec, 0xf7, 0xd3, 0xe9,
+	0x64, 0xd0, 0x7f, 0x35, 0x7c, 0x35, 0x38, 0xd1, 0x0a, 0xa8, 0x41, 0x53, 0xe1, 0x13, 0x32, 0x3e,
+	0x1b, 0x6b, 0x45, 0xbc, 0x0b, 0x7b, 0x69, 0x64, 0xd6, 0x1f, 0xbf, 0x9e, 0x90, 0xc1, 0x74, 0x3a,
+	0x38, 0xd1, 0x4a, 0xd8, 0x86, 0x86, 0x4a, 0xfe, 0x3a, 0x1d, 0x9f, 0x6a, 0xe5, 0xe3, 0xee, 0x9f,
+	0x8f, 0x4d, 0x6e, 0x31, 0xd9, 0x93, 0x7c, 0x24, 0x9b, 0xdc, 0xe9, 0xda, 0xfc, 0x50, 0xae, 0xfd,
+	0xc3, 0xec, 0xbb, 0x7d, 0x5e, 0x95, 0x89, 0x67, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0xa6, 0x15,
+	0xf7, 0x77, 0xd2, 0x0b, 0x00, 0x00,
 }
