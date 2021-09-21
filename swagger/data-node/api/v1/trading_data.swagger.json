@@ -4985,7 +4985,7 @@
           "$ref": "#/definitions/vegaNodeStatus",
           "title": "Node status"
         },
-        "delagations": {
+        "delegations": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/vegaDelegation"
