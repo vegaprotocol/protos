@@ -154,15 +154,13 @@ http:
       get: '/nodes'
     - selector: datanode.api.v1.TradingDataService.GetNodeByID
       get: '/nodes/{id}'
-    
+
     # Epochs
     - selector: datanode.api.v1.TradingDataService.GetEpoch
       get: '/epochs/{id}'
-    
-    # Epochs
-    - selector: datanode.api.v1.TradingDataService.Epochs
-      get: '/epochs/{id}'
-    
+    - selector: datanode.api.v1.TradingDataService.GetEpoch
+      get: '/epochs'
+
     # Delegations
     - selector: datanode.api.v1.TradingDataService.Delegations
       get: '/delegations'

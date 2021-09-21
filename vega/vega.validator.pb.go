@@ -362,10 +362,10 @@ func (this *Node) Validate() error {
 			return github_com_mwitkow_go_proto_validators.FieldError("EpochData", err)
 		}
 	}
-	for _, item := range this.Delagations {
+	for _, item := range this.Delegations {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Delagations", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("Delegations", err)
 			}
 		}
 	}
