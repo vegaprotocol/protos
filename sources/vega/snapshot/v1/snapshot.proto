@@ -260,7 +260,7 @@ message Position {
   int64 sell = 4;
   string price = 5;
   string vw_buy_price = 6;
-  string sw_sell_price = 7;
+  string vw_sell_price = 7;
 }
 
 message MarketPositions {
