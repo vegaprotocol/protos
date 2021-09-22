@@ -150,6 +150,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_AppState); ok {
+		if oneOfNester.AppState != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.AppState); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("AppState", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -510,5 +517,8 @@ func (this *MarketPositions) Validate() error {
 			}
 		}
 	}
+	return nil
+}
+func (this *AppState) Validate() error {
 	return nil
 }

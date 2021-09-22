@@ -54,6 +54,7 @@ message Payload {
     NetParams network_parameters = 15;
     ExecutionMarkets execution_markets = 16;
     MarketPositions market_positions = 17;
+    AppState app_state = 18;
   }
 }
 
@@ -251,4 +252,10 @@ message Position {
 message MarketPositions {
   string market_id = 1;
   repeated Position positions = 2;
+}
+
+message AppState {
+  uint64 Height = 1;
+  string block = 2;
+  int64 time = 3;
 }
