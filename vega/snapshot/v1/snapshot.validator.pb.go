@@ -20,6 +20,19 @@ var _ = math.Inf
 func (this *Snapshot) Validate() error {
 	return nil
 }
+func (this *NodeHash) Validate() error {
+	return nil
+}
+func (this *Metadata) Validate() error {
+	for _, item := range this.NodeHashes {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("NodeHashes", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *Chunk) Validate() error {
 	for _, item := range this.Data {
 		if item != nil {

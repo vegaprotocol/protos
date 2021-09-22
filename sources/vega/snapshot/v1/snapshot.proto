@@ -29,6 +29,19 @@ message Snapshot {
   bytes metadata = 5;
 }
 
+message NodeHash {
+  string full_key = 1; // namespace<separator>key
+  string namespace = 2;
+  string key = 3;
+  string hash = 4;
+}
+
+message Metadata {
+  int64 version = 1;
+  repeated string chunk_hashes = 2;
+  repeated NodeHash node_hashes = 3; // hashes used by snapshot engine, different to chunk hash if data was split up, or combined into a single chunk
+}
+
 // Chunk is simply an as-is chunk belonging to a snapshot
 // not sure how usable this type would be
 message Chunk {
