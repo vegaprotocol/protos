@@ -20,7 +20,6 @@ enum Format {
   FORMAT_JSON = 3;
 }
 
-// Represents a set of time intervals that are used when querying for candle-stick data
 message Snapshot {
   uint64 height = 1;
   Format format = 2;
@@ -46,6 +45,8 @@ message Metadata {
 // not sure how usable this type would be
 message Chunk {
   repeated Payload data = 1;
+  int64 nr = 2; // in case of multi-part data, this is chunk nr...
+  int64 of = 3; // ...of a total of N chunks
 }
 
 message Payload {
@@ -268,7 +269,7 @@ message MarketPositions {
 }
 
 message AppState {
-  uint64 Height = 1;
+  uint64 height = 1;
   string block = 2;
   int64 time = 3;
 }
