@@ -108,6 +108,13 @@ func (this *InputData) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetCommand().(*InputData_KeyRotateSubmission); ok {
+		if oneOfNester.KeyRotateSubmission != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.KeyRotateSubmission); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("KeyRotateSubmission", err)
+			}
+		}
+	}
 	if oneOfNester, ok := this.GetCommand().(*InputData_OracleDataSubmission); ok {
 		if oneOfNester.OracleDataSubmission != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.OracleDataSubmission); err != nil {

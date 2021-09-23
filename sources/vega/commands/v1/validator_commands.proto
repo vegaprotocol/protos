@@ -75,3 +75,11 @@ message ChainEvent {
     vega.StakingEvent staking_event = 1005;
   }
 }
+
+// A transaction to allow validator to rotate their vega keys
+message KeyRotateSubmission {
+  uint64 key_number = 1;
+  uint64 target_block = 2;
+  int64 time = 3;
+  string new_pub_key_hash = 4;
+}
