@@ -18,8 +18,8 @@ package api.v1;
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 service TradingService {
-  // Submit a signed transaction (v2)
-  rpc SubmitTransactionV2(SubmitTransactionV2Request) returns (SubmitTransactionV2Response);
+  // Submit a signed transaction
+  rpc SubmitTransaction(SubmitTransactionRequest) returns (SubmitTransactionResponse);
   // Propagate a chain event
   rpc PropagateChainEvent(PropagateChainEventRequest) returns (PropagateChainEventResponse);
   // Get Statistics on Vega
@@ -50,7 +50,7 @@ message PropagateChainEventResponse {
 }
 
 // Request for submitting a transaction v2 on Vega
-message SubmitTransactionV2Request {
+message SubmitTransactionRequest {
   // Blockchain transaction type
   enum Type {
     TYPE_UNSPECIFIED = 0;
@@ -71,7 +71,7 @@ message SubmitTransactionV2Request {
 }
 
 // Response for submitting a transaction v2 on Vega
-message SubmitTransactionV2Response {
+message SubmitTransactionResponse {
   // Success will be true if the transaction was accepted by the node,
   // **Important** - success does not mean that the event is confirmed by consensus
   bool success = 1;

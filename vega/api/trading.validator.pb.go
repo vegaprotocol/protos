@@ -27,7 +27,7 @@ func (this *PropagateChainEventRequest) Validate() error {
 func (this *PropagateChainEventResponse) Validate() error {
 	return nil
 }
-func (this *SubmitTransactionV2Request) Validate() error {
+func (this *SubmitTransactionRequest) Validate() error {
 	if this.Tx != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Tx); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Tx", err)
@@ -35,7 +35,7 @@ func (this *SubmitTransactionV2Request) Validate() error {
 	}
 	return nil
 }
-func (this *SubmitTransactionV2Response) Validate() error {
+func (this *SubmitTransactionResponse) Validate() error {
 	return nil
 }
 func (this *GetVegaTimeRequest) Validate() error {
