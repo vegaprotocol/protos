@@ -8,6 +8,7 @@ import (
 	math "math"
 
 	_ "code.vegaprotocol.io/protos/vega"
+	_ "code.vegaprotocol.io/protos/vega/events/v1"
 	proto "github.com/golang/protobuf/proto"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
@@ -167,6 +168,13 @@ func (this *Payload) Validate() error {
 		if oneOfNester.AppState != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.AppState); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("AppState", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_Epoch); ok {
+		if oneOfNester.Epoch != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Epoch); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Epoch", err)
 			}
 		}
 	}

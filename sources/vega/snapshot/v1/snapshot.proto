@@ -8,6 +8,7 @@ import "vega/markets.proto";
 import "vega/assets.proto";
 import "vega/chain_events.proto";
 import "vega/governance.proto";
+import "vega/events/v1/events.proto";
 
 enum Format {
   // Default value, always invalid
@@ -69,6 +70,7 @@ message Payload {
     ExecutionMarkets execution_markets = 16;
     MarketPositions market_positions = 17;
     AppState app_state = 18;
+    vega.events.v1.EpochEvent epoch = 19;
   }
 }
 
@@ -148,7 +150,7 @@ message GovernanceActive {
 message StakingAccount {
   string party = 1;
   string balance = 2;
-  repeated vega.StakingEvent events = 3;
+  repeated vega.events.v1.StakeLinking events = 3;
 }
 
 message StakingAccounts {
