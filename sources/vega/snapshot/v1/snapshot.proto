@@ -247,6 +247,7 @@ message Market {
   string last_market_value_proxy = 10;
   int64 last_equity_share_distributed = 11;
   EquityShare equity_share = 12;
+  string current_mark_price = 13;
 }
 
 message ExecutionMarkets {
