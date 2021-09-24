@@ -62,15 +62,16 @@ message Payload {
     CollateralAssets collateral_assets = 8;
     DelegationActive delegation_active = 9;
     DelegationPending delegation_pending = 10;
-    GovernanceActive governance_active = 11;
-    GovernanceEnacted governance_enacted = 12;
-    StakingAccounts staking_accounts = 13;
-    MatchingBook matching_book = 14;
-    NetParams network_parameters = 15;
-    ExecutionMarkets execution_markets = 16;
-    MarketPositions market_positions = 17;
-    AppState app_state = 18;
-    vega.events.v1.EpochEvent epoch = 19;
+    DelegationAuto delegation_auto = 11;
+    GovernanceActive governance_active = 12;
+    GovernanceEnacted governance_enacted = 13;
+    StakingAccounts staking_accounts = 14;
+    MatchingBook matching_book = 15;
+    NetParams network_parameters = 16;
+    ExecutionMarkets execution_markets = 17;
+    MarketPositions market_positions = 18;
+    AppState app_state = 19;
+    vega.events.v1.EpochEvent epoch = 20;
   }
 }
 
@@ -130,6 +131,10 @@ message DelegationActive {
 message DelegationPending {
   repeated vega.Delegation delegations = 1;
   repeated vega.Delegation undelegation = 2;
+}
+
+message DelegationAuto {
+  repeated string parties = 1;
 }
 
 message PendingProposal {

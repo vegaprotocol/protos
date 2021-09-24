@@ -115,6 +115,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_DelegationAuto); ok {
+		if oneOfNester.DelegationAuto != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.DelegationAuto); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("DelegationAuto", err)
+			}
+		}
+	}
 	if oneOfNester, ok := this.GetData().(*Payload_GovernanceActive); ok {
 		if oneOfNester.GovernanceActive != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.GovernanceActive); err != nil {
@@ -297,6 +304,9 @@ func (this *DelegationPending) Validate() error {
 			}
 		}
 	}
+	return nil
+}
+func (this *DelegationAuto) Validate() error {
 	return nil
 }
 func (this *PendingProposal) Validate() error {
