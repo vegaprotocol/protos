@@ -71,6 +71,7 @@ message DelegateEntry {
 message Delegate {
   repeated DelegateEntry active = 1;
   repeated DelegateEntry pending = 2;
+  repeated string auto_delegation = 3;
 }
 
 // Block message contains data related to block at which the checkpoint
