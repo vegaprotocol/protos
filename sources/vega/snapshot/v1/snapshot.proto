@@ -71,7 +71,7 @@ message Payload {
     ExecutionMarkets execution_markets = 17;
     MarketPositions market_positions = 18;
     AppState app_state = 19;
-    vega.events.v1.EpochEvent epoch = 20;
+    EpochState epoch = 20;
   }
 }
 
