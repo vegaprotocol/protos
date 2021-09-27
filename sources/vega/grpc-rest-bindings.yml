@@ -12,7 +12,7 @@ apis:
 http:
   rules:
     # transaction
-    - selector: api.v1.TradingService.SubmitTransactionV2
+    - selector: api.v1.TradingService.SubmitTransaction
       post: '/transaction'
       body: "*"
 
