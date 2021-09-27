@@ -553,3 +553,6 @@ func (this *MarketPositions) Validate() error {
 func (this *AppState) Validate() error {
 	return nil
 }
+func (this *EpochState) Validate() error {
+	return nil
+}
