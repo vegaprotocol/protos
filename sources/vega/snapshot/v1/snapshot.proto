@@ -71,7 +71,7 @@ message Payload {
     ExecutionMarkets execution_markets = 17;
     MarketPositions market_positions = 18;
     AppState app_state = 19;
-    vega.events.v1.EpochEvent epoch = 20;
+    EpochState epoch = 20;
   }
 }
 
@@ -280,4 +280,22 @@ message AppState {
   uint64 height = 1;
   string block = 2;
   int64 time = 3;
+}
+
+// EpochState details
+message EpochState {
+  // Sequence number that increases by one each epoch
+  uint64 seq = 1;
+  // Action tells us what action is taking place
+  vega.EpochAction action = 2;
+  // What time did this epoch start
+  int64  start_time = 3;
+  // What time should this epoch end
+  int64  expire_time = 4;
+  // What time did it actually end
+  int64  end_time = 5;
+  // Ready to start a new epoch
+  bool ready_to_start_new_epoch = 6;
+  // Ready to end epoch
+  bool ready_to_end_epoch = 7;
 }
