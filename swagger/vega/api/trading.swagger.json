@@ -65,6 +65,33 @@
           "TradingService"
         ]
       }
+    },
+    "/transaction": {
+      "post": {
+        "summary": "Submit a signed transaction",
+        "operationId": "SubmitTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SubmitTransactionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SubmitTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TradingService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -1293,6 +1320,20 @@
           "$ref": "#/definitions/v1Statistics"
         }
       }
+    },
+    "v1SubmitTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "tx": {
+          "$ref": "#/definitions/v1Transaction",
+          "title": "A bundle of signed payload and signature, to form a transaction that will be submitted to the Vega blockchain"
+        },
+        "type": {
+          "$ref": "#/definitions/v1SubmitTransactionRequestType",
+          "title": "Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response"
+        }
+      },
+      "title": "Request for submitting a transaction v2 on Vega"
     },
     "v1SubmitTransactionRequestType": {
       "type": "string",
