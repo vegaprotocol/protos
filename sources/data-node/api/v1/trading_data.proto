@@ -9,8 +9,6 @@ import "vega/assets.proto";
 import "vega/events/v1/events.proto";
 import "vega/oracles/v1/spec.proto";
 import "vega/oracles/v1/data.proto";
-import "vega/commands/v1/commands.proto";
-import "vega/commands/v1/transaction.proto";
 import "vega/commands/v1/validator_commands.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
@@ -164,7 +162,7 @@ service TradingDataService {
   rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
 
   // -- Misc --
-  
+
   // Get Time
   rpc GetVegaTime(GetVegaTimeRequest) returns (GetVegaTimeResponse);
 

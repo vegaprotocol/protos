@@ -5,7 +5,6 @@ option go_package = "code.vegaprotocol.io/protos/vega";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "vega/markets.proto";
-import "vega/assets.proto";
 
 
 // A side relates to the direction of an order, to Buy, or Sell
