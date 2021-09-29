@@ -84,11 +84,11 @@ message CollateralAssets {
 }
 
 message ActiveAssets {
-  repeated vega.AssetDetails assets = 1;
+  repeated vega.Asset assets = 1;
 }
 
 message PendingAssets {
-  repeated vega.AssetDetails assets = 1;
+  repeated vega.Asset assets = 1;
 }
 
 message Withdrawal {
