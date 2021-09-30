@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "vega/api/v1/core_state_service.proto",
+    "title": "vega/api/v1/corestate.proto",
     "version": "version not set"
   },
   "schemes": [
