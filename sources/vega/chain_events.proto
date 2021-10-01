@@ -10,7 +10,7 @@ message BuiltinAssetDeposit {
   // A Vega party identifier (pub-key)
   string party_id = 2;
   // The amount to be deposited
-  uint64 amount = 3;
+  string amount = 3;
 }
 
 // A withdrawal for a Vega built-in asset

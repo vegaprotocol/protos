@@ -65,33 +65,6 @@
           "TradingService"
         ]
       }
-    },
-    "/transaction": {
-      "post": {
-        "summary": "Submit a signed transaction (v2)",
-        "operationId": "SubmitTransactionV2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1SubmitTransactionV2Response"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1SubmitTransactionV2Request"
-            }
-          }
-        ],
-        "tags": [
-          "TradingService"
-        ]
-      }
     }
   },
   "definitions": {
@@ -1321,21 +1294,7 @@
         }
       }
     },
-    "v1SubmitTransactionV2Request": {
-      "type": "object",
-      "properties": {
-        "tx": {
-          "$ref": "#/definitions/v1Transaction",
-          "title": "A bundle of signed payload and signature, to form a transaction that will be submitted to the Vega blockchain"
-        },
-        "type": {
-          "$ref": "#/definitions/v1SubmitTransactionV2RequestType",
-          "title": "Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response"
-        }
-      },
-      "title": "Request for submitting a transaction v2 on Vega"
-    },
-    "v1SubmitTransactionV2RequestType": {
+    "v1SubmitTransactionRequestType": {
       "type": "string",
       "enum": [
         "TYPE_UNSPECIFIED",
@@ -1347,7 +1306,7 @@
       "description": "- TYPE_ASYNC: The transaction will be submitted without waiting for response\n - TYPE_SYNC: The transaction will be submitted, and blocking until the\ntendermint mempool return a response\n - TYPE_COMMIT: The transaction will submitted, and blocking until the tendermint\nnetwork will have committed it into a block",
       "title": "Blockchain transaction type"
     },
-    "v1SubmitTransactionV2Response": {
+    "v1SubmitTransactionResponse": {
       "type": "object",
       "properties": {
         "success": {
