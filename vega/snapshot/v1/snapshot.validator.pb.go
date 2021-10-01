@@ -185,6 +185,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_ExecutionIdGenerator); ok {
+		if oneOfNester.ExecutionIdGenerator != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ExecutionIdGenerator); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ExecutionIdGenerator", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -554,5 +561,8 @@ func (this *AppState) Validate() error {
 	return nil
 }
 func (this *EpochState) Validate() error {
+	return nil
+}
+func (this *ExecutionIDGenerator) Validate() error {
 	return nil
 }
