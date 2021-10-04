@@ -705,6 +705,14 @@
         "country": {
           "type": "string",
           "title": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name of the validator"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "AvatarURL of the validator"
         }
       },
       "title": "A validator update event contains information about validator node"

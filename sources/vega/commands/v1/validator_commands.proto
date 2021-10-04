@@ -18,6 +18,12 @@ message NodeRegistration {
   string info_url = 4 [(validator.field) = {string_not_empty: true}];
   // Country code (ISO 3166-1 alpha-2) for the location of the node
   string country = 5 [(validator.field) = {string_not_empty: true}];
+  // ID of the validator, (public master key)
+  string id = 6;
+  // Name of the validator
+  string name = 7;
+  // AvatarURL of the validator
+  string avatar_url = 8;
 }
 
 // Used when a node votes for validating a given resource exists or is valid,
