@@ -6,44 +6,44 @@ name: api.v1.trading
 title: Vega Trading API
 
 apis:
-  - name: TradingService
-  - name: CoreApiService
+  - name: CoreService
+  - name: CoreStateService
 
 http:
   rules:
     # transaction
-    - selector: api.v1.TradingService.SubmitTransaction
+    - selector: vega.api.v1.CoreService.SubmitTransaction
       post: '/transaction'
       body: "*"
 
     # Miscellaneous
-    - selector: api.v1.TradingService.Statistics
+    - selector: vega.api.v1.CoreService.Statistics
       get: '/statistics'
-    - selector: api.v1.TradingService.LastBlockHeight
+    - selector: vega.api.v1.CoreService.LastBlockHeight
       get: '/blockchain/height'
-    - selector: api.v1.TradingService.GetVegaTime
+    - selector: vega.api.v1.CoreService.GetVegaTime
       get: '/time'
 
     # Core APIs
-    - selector: vega.coreapi.v1.CoreApiService.ListNetworkParameters
+    - selector: vega.api.v1.CoreStateService.ListNetworkParameters
       get: '/network/parameters'
-    - selector: vega.coreapi.v1.CoreApiService.ListAccounts
+    - selector: vega.api.v1.CoreStateService.ListAccounts
       get: '/accounts'
-    - selector: vega.coreapi.v1.CoreApiService.ListAssets
+    - selector: vega.api.v1.CoreStateService.ListAssets
       get: '/assets'
-    - selector: vega.coreapi.v1.CoreApiService.ListParties
+    - selector: vega.api.v1.CoreStateService.ListParties
       get: '/parties'
-    - selector: vega.coreapi.v1.CoreApiService.ListPartiesStake
+    - selector: vega.api.v1.CoreStateService.ListPartiesStake
       get: '/parties/stake'
-    - selector: vega.coreapi.v1.CoreApiService.ListValidators
+    - selector: vega.api.v1.CoreStateService.ListValidators
       get: '/validators'
-    - selector: vega.coreapi.v1.CoreApiService.ListProposals
+    - selector: vega.api.v1.CoreStateService.ListProposals
       get: '/proposals'
-    - selector: vega.coreapi.v1.CoreApiService.ListVotes
+    - selector: vega.api.v1.CoreStateService.ListVotes
       get: '/votes'
-    - selector: vega.coreapi.v1.CoreApiService.ListMarkets
+    - selector: vega.api.v1.CoreStateService.ListMarkets
       get: '/markets'
-    - selector: vega.coreapi.v1.CoreApiService.ListMarketsData
+    - selector: vega.api.v1.CoreStateService.ListMarketsData
       get: '/markets/data'
-    - selector: vega.coreapi.v1.CoreApiService.ListDelegations
+    - selector: vega.api.v1.CoreStateService.ListDelegations
       get: '/delegations'

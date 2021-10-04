@@ -167,7 +167,10 @@ message MatchingBook {
   string market_id = 1;
   repeated vega.Order buy = 2;
   repeated vega.Order sell = 3;
-}
+  string last_traded_price = 4;
+  bool auction = 5;
+  uint64 batch_id = 6;
+} 
 
 message NetParams {
   repeated vega.NetworkParameter params = 1;
