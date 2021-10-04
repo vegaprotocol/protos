@@ -4943,7 +4943,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "The node url eg n01.vega.xyz"
+          "title": "The node ID (wallet ID)"
         },
         "pub_key": {
           "type": "string",
@@ -5007,6 +5007,14 @@
         "normalised_score": {
           "type": "string",
           "title": "Node normalised score"
+        },
+        "name": {
+          "type": "string",
+          "title": "Node name"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "Avatar url"
         }
       }
     },
