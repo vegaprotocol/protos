@@ -31,6 +31,11 @@ service TradingDataService {
   // asset in the network.
   rpc FeeInfrastructureAccounts(FeeInfrastructureAccountsRequest) returns (FeeInfrastructureAccountsResponse);
 
+  // Get a list of accounts holding rewards pools
+  // Can be filtered by asset, there will be 1 reward pool account per
+  // asset in the network.
+  rpc GlobalRewardPoolAccounts(GlobalRewardPoolAccountsRequest) returns (GlobalRewardPoolAccountsResponse);
+
   // -- Candles --
 
   // Get a list of Candles by Market
@@ -164,7 +169,7 @@ service TradingDataService {
   rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
 
   // -- Misc --
-  
+
   // Get Time
   rpc GetVegaTime(GetVegaTimeRequest) returns (GetVegaTimeResponse);
 
@@ -938,6 +943,20 @@ message FeeInfrastructureAccountsRequest {
 // Response for a list of infrastructure fee accounts
 message FeeInfrastructureAccountsResponse {
   // A list of 0 or more infrastructure fee accounts
+  repeated vega.Account accounts = 1;
+}
+
+// Request for a list of global reward pool accounts
+message GlobalRewardPoolAccountsRequest {
+  // Asset identifier, required field
+  // - Set to an empty string to return all accounts
+  // - Set to an asset ID to return a single global reward pool account for a given asset
+  string asset = 1;
+}
+
+// Response for a list of global reward pool accounts
+message GlobalRewardPoolAccountsResponse {
+  // A list of 0 or more global reward pool accounts
   repeated vega.Account accounts = 1;
 }
 
