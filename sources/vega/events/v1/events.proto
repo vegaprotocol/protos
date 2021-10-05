@@ -241,6 +241,10 @@ message ValidatorUpdate {
   string info_url = 5;
   // Country code (ISO 3166-1 alpha-2) for the location of the node
   string country = 6;
+  // Name of the validator
+  string name = 7;
+  // AvatarURL of the validator
+  string avatar_url = 8;
 }
 
 // An (event) bus event type is used to specify a type of event

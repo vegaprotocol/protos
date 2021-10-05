@@ -3600,6 +3600,14 @@
         "country": {
           "type": "string",
           "title": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name of the validator"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "AvatarURL of the validator"
         }
       },
       "title": "A validator update event contains information about validator node"
@@ -4935,7 +4943,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "The node url eg n01.vega.xyz"
+          "title": "The node ID (wallet ID)"
         },
         "pub_key": {
           "type": "string",
@@ -4999,6 +5007,14 @@
         "normalised_score": {
           "type": "string",
           "title": "Node normalised score"
+        },
+        "name": {
+          "type": "string",
+          "title": "Node name"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "Avatar url"
         }
       }
     },
