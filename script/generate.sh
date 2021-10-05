@@ -31,7 +31,7 @@ function gen_code() {
 }
 
 function gen_swagger() {
-	buf generate --path=./sources/vega/api --template=./sources/vega/api/buf.gen.yaml # generate swagger
+	buf generate --path=./sources/vega/api --template=./sources/vega/api/v1/buf.gen.yaml # generate swagger
 	buf generate --path=./sources/data-node/api/v1 --template=./sources/data-node/api/v1/buf.gen.yaml # generate swagger
 }
 check

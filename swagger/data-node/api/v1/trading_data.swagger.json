@@ -147,6 +147,33 @@
         ]
       }
     },
+    "/epochs": {
+      "get": {
+        "summary": "Get data for a specific epoch, if id omitted it gets the current epoch",
+        "operationId": "GetEpoch2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEpochResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Optional - if id omitted it gets the current epoch.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/epochs/{id}": {
       "get": {
         "summary": "Get data for a specific epoch, if id omitted it gets the current epoch",
@@ -3567,6 +3594,14 @@
         "country": {
           "type": "string",
           "title": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name of the validator"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "AvatarURL of the validator"
         }
       },
       "title": "A validator update event contains information about validator node"
@@ -3919,7 +3954,7 @@
         "seq": {
           "type": "string",
           "format": "uint64",
-          "title": "Sequence is used as epoch indentifier"
+          "title": "Sequence is used as epoch identifier"
         },
         "timestamps": {
           "$ref": "#/definitions/vegaEpochTimestamps",
@@ -4902,7 +4937,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "The node url eg n01.vega.xyz"
+          "title": "The node ID (wallet ID)"
         },
         "pub_key": {
           "type": "string",
@@ -4952,7 +4987,7 @@
           "$ref": "#/definitions/vegaNodeStatus",
           "title": "Node status"
         },
-        "delagations": {
+        "delegations": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/vegaDelegation"
@@ -4966,6 +5001,14 @@
         "normalised_score": {
           "type": "string",
           "title": "Node normalised score"
+        },
+        "name": {
+          "type": "string",
+          "title": "Node name"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "Avatar url"
         }
       }
     },

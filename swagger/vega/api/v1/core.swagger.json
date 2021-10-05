@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "vega/api/trading.proto",
+    "title": "vega/api/v1/core.proto",
     "version": "version not set"
   },
   "schemes": [
@@ -28,7 +28,7 @@
           }
         },
         "tags": [
-          "TradingService"
+          "CoreService"
         ]
       }
     },
@@ -45,7 +45,7 @@
           }
         },
         "tags": [
-          "TradingService"
+          "CoreService"
         ]
       }
     },
@@ -62,19 +62,19 @@
           }
         },
         "tags": [
-          "TradingService"
+          "CoreService"
         ]
       }
     },
     "/transaction": {
       "post": {
-        "summary": "Submit a signed transaction (v2)",
-        "operationId": "SubmitTransactionV2",
+        "summary": "Submit a signed transaction",
+        "operationId": "SubmitTransaction",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1SubmitTransactionV2Response"
+              "$ref": "#/definitions/v1SubmitTransactionResponse"
             }
           }
         },
@@ -84,12 +84,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1SubmitTransactionV2Request"
+              "$ref": "#/definitions/v1SubmitTransactionRequest"
             }
           }
         ],
         "tags": [
-          "TradingService"
+          "CoreService"
         ]
       }
     }
@@ -1316,7 +1316,7 @@
         }
       }
     },
-    "v1SubmitTransactionV2Request": {
+    "v1SubmitTransactionRequest": {
       "type": "object",
       "properties": {
         "tx": {
@@ -1324,13 +1324,13 @@
           "title": "A bundle of signed payload and signature, to form a transaction that will be submitted to the Vega blockchain"
         },
         "type": {
-          "$ref": "#/definitions/v1SubmitTransactionV2RequestType",
+          "$ref": "#/definitions/v1SubmitTransactionRequestType",
           "title": "Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response"
         }
       },
       "title": "Request for submitting a transaction v2 on Vega"
     },
-    "v1SubmitTransactionV2RequestType": {
+    "v1SubmitTransactionRequestType": {
       "type": "string",
       "enum": [
         "TYPE_UNSPECIFIED",
@@ -1342,7 +1342,7 @@
       "description": "- TYPE_ASYNC: The transaction will be submitted without waiting for response\n - TYPE_SYNC: The transaction will be submitted, and blocking until the\ntendermint mempool return a response\n - TYPE_COMMIT: The transaction will submitted, and blocking until the tendermint\nnetwork will have committed it into a block",
       "title": "Blockchain transaction type"
     },
-    "v1SubmitTransactionV2Response": {
+    "v1SubmitTransactionResponse": {
       "type": "object",
       "properties": {
         "success": {
@@ -1522,6 +1522,14 @@
         "country": {
           "type": "string",
           "title": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name of the validator"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "AvatarURL of the validator"
         }
       },
       "title": "A validator update event contains information about validator node"

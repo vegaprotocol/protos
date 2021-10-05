@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package vega.checkpoint.v1;
+option go_package = "code.vegaprotocol.io/protos/vega/checkpoint/v1";
+
+import "vega/vega.proto";
+import "vega/assets.proto";
+import "vega/governance.proto";
+
+// CheckpointState is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
+message CheckpointState {
+  bytes hash = 1;
+  bytes state = 2;
+}
+
+// Checkpoint aggregates the various engine snapshots
+message Checkpoint {
+  bytes governance = 1;
+  bytes assets = 2;
+  bytes collateral = 3;
+  bytes network_parameters = 4;
+  bytes delegation = 5;
+  bytes epoch = 6; // will just be an epoch event
+  bytes block = 7;
+}
+
+// AssetEntrty is a single (enabled) asset
+message AssetEntry {
+  string id = 1;
+  vega.AssetDetails asset_details = 2;
+}
+
+// Assets contains all the enabled assets as AssetEntries
+message Assets {
+  repeated AssetEntry assets = 1;
+}
+
+// AssetBalance represents the total balance of a given asset for a party
+message AssetBalance {
+  string party = 1;
+  string asset = 2;
+  string balance = 3;
+}
+
+// Collateral contains the balances per party
+message Collateral {
+  repeated AssetBalance balances = 1;
+}
+
+// NetParams contains all network parameters
+message NetParams {
+  repeated vega.NetworkParameter params = 1;
+}
+
+// Proposals will contain all accepted proposals
+message Proposals {
+  repeated vega.Proposal proposals = 1;
+}
+
+// Delegated amounts for party/node
+// undelegate and epoch seq are only relevant for pending entries
+message DelegateEntry {
+  string party = 1;
+  string node = 2;
+  string amount = 3;
+  bool undelegate = 4;
+  uint64 epoch_seq = 5;
+}
+
+// Delegate contains all entries for a checkpoint
+message Delegate {
+  repeated DelegateEntry active = 1;
+  repeated DelegateEntry pending = 2;
+  repeated string auto_delegation = 3;
+}
+
+// Block message contains data related to block at which the checkpoint
+// was created (ie block height)
+message Block {
+  int64 height = 1;
+}
