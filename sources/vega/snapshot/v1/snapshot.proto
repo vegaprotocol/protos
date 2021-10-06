@@ -57,22 +57,24 @@ message Payload {
     BankingWithdrawals banking_withdrawals = 3;
     BankingDeposits banking_deposits = 4;
     BankingSeen banking_seen = 5;
-    Checkpoint checkpoint = 6;
-    CollateralAccounts collateral_accounts = 7;
-    CollateralAssets collateral_assets = 8;
-    DelegationActive delegation_active = 9;
-    DelegationPending delegation_pending = 10;
-    DelegationAuto delegation_auto = 11;
-    GovernanceActive governance_active = 12;
-    GovernanceEnacted governance_enacted = 13;
-    StakingAccounts staking_accounts = 14;
-    MatchingBook matching_book = 15;
-    NetParams network_parameters = 16;
-    ExecutionMarkets execution_markets = 17;
-    MarketPositions market_positions = 18;
-    AppState app_state = 19;
-    EpochState epoch = 20;
-    ExecutionIDGenerator execution_id_generator = 21;
+    BankingAssetActions banking_asset_actions = 6;
+    Checkpoint checkpoint = 7;
+    CollateralAccounts collateral_accounts = 8;
+    CollateralAssets collateral_assets = 9;
+    DelegationActive delegation_active = 10;
+    DelegationPending delegation_pending = 11;
+    DelegationAuto delegation_auto = 12;
+    GovernanceActive governance_active = 13;
+    GovernanceEnacted governance_enacted = 14;
+    StakingAccounts staking_accounts = 15;
+    MatchingBook matching_book = 16;
+    NetParams network_parameters = 17;
+    ExecutionMarkets execution_markets = 18;
+    MarketPositions market_positions = 19;
+    AppState app_state = 20;
+    EpochState epoch = 21;
+    ExecutionIDGenerator execution_id_generator = 22;
+    RewardsPendingPayouts rewards_pending_payouts = 23;
   }
 }
 
@@ -109,6 +111,19 @@ message TxRef {
   uint64 log_index = 4;
 }
 
+message AssetAction {
+  string id = 1;
+  uint32 state = 2;
+  string asset = 3;
+  uint64 block_number = 4;
+  uint64 tx_index = 5;
+  string hash = 6;
+
+  vega.BuiltinAssetDeposit builtin_deposit = 7;
+  vega.ERC20Deposit erc20_deposit = 8;
+  vega.ERC20AssetList asset_list = 9;
+}
+
 message BankingWithdrawals {
   repeated Withdrawal withdrawals = 1;
 }
@@ -119,6 +134,10 @@ message BankingDeposits {
 
 message BankingSeen {
   repeated TxRef refs = 1;
+}
+
+message BankingAssetActions {
+  repeated AssetAction asset_action = 1;
 }
 
 message Checkpoint {
@@ -308,4 +327,19 @@ message ExecutionIDGenerator {
   uint64 orders = 2;
   // How many proposals in this batch
   uint64 proposals = 3;
+}
+
+message RewardsPendingPayouts {
+  int64 reward_time = 1;
+  string from_account = 2;
+  string asset = 3;
+  repeated RewardPartyAmount reward_party_amount = 4;
+  string total_reward = 5;
+  string epoch_seq = 6;
+  int64 timestamp = 7;
+}
+
+message RewardPartyAmount {
+  string party = 1;
+  string amount = 2;
 }

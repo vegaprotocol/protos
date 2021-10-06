@@ -80,6 +80,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_BankingAssetActions); ok {
+		if oneOfNester.BankingAssetActions != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.BankingAssetActions); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("BankingAssetActions", err)
+			}
+		}
+	}
 	if oneOfNester, ok := this.GetData().(*Payload_Checkpoint); ok {
 		if oneOfNester.Checkpoint != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Checkpoint); err != nil {
@@ -192,6 +199,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_RewardsPendingPayouts); ok {
+		if oneOfNester.RewardsPendingPayouts != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.RewardsPendingPayouts); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardsPendingPayouts", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -253,6 +267,24 @@ func (this *Deposit) Validate() error {
 func (this *TxRef) Validate() error {
 	return nil
 }
+func (this *AssetAction) Validate() error {
+	if this.BuiltinDeposit != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.BuiltinDeposit); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("BuiltinDeposit", err)
+		}
+	}
+	if this.Erc20Deposit != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Erc20Deposit); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Erc20Deposit", err)
+		}
+	}
+	if this.AssetList != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.AssetList); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("AssetList", err)
+		}
+	}
+	return nil
+}
 func (this *BankingWithdrawals) Validate() error {
 	for _, item := range this.Withdrawals {
 		if item != nil {
@@ -278,6 +310,16 @@ func (this *BankingSeen) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("Refs", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *BankingAssetActions) Validate() error {
+	for _, item := range this.AssetAction {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("AssetAction", err)
 			}
 		}
 	}
@@ -564,5 +606,18 @@ func (this *EpochState) Validate() error {
 	return nil
 }
 func (this *ExecutionIDGenerator) Validate() error {
+	return nil
+}
+func (this *RewardsPendingPayouts) Validate() error {
+	for _, item := range this.RewardPartyAmount {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardPartyAmount", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *RewardPartyAmount) Validate() error {
 	return nil
 }
