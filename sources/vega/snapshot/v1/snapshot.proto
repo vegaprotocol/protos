@@ -174,7 +174,7 @@ message GovernanceActive {
 }
 
 message GovernanceNode {
-  repeated PendingProposal proposals = 1;
+  repeated vega.Proposal proposals = 1;
 }
 
 message StakingAccount {
