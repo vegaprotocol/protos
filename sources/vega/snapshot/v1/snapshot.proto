@@ -75,6 +75,7 @@ message Payload {
     EpochState epoch = 21;
     ExecutionIDGenerator execution_id_generator = 22;
     RewardsPendingPayouts rewards_pending_payouts = 23;
+    FeeState fee_state = 24;
   }
 }
 
@@ -342,4 +343,12 @@ message RewardsPendingPayouts {
 message RewardPartyAmount {
   string party = 1;
   string amount = 2;
+}
+
+// FeeState details
+message FeeState {
+  string asset = 1;
+  string maker_fee = 2;
+  string infrastructure_fee = 3;
+  string liquidity_fee = 4;
 }

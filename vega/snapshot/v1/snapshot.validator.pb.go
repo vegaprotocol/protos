@@ -206,6 +206,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_FeeState); ok {
+		if oneOfNester.FeeState != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.FeeState); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("FeeState", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -619,5 +626,8 @@ func (this *RewardsPendingPayouts) Validate() error {
 	return nil
 }
 func (this *RewardPartyAmount) Validate() error {
+	return nil
+}
+func (this *FeeState) Validate() error {
 	return nil
 }
