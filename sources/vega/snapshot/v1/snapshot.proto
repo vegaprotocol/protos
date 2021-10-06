@@ -113,7 +113,7 @@ message TxRef {
 
 message AssetAction {
   string id = 1;
-	uint32 state = 2;
+  uint32 state = 2;
   string asset = 3;
   uint64 block_number = 4;
   uint64 tx_index = 5;
@@ -332,11 +332,11 @@ message ExecutionIDGenerator {
 message RewardsPendingPayouts {
   int64 reward_time = 1;
   string from_account = 2;
-	string asset = 3;
-	repeated RewardPartyAmount reward_party_amount = 4; 
-	string total_reward = 5;
-	string epoch_seq = 6;
-	int64 timestamp = 7;
+  string asset = 3;
+  repeated RewardPartyAmount reward_party_amount = 4;
+  string total_reward = 5;
+  string epoch_seq = 6;
+  int64 timestamp = 7;
 }
 
 message RewardPartyAmount {
