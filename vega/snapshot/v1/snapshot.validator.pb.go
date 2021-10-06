@@ -609,6 +609,16 @@ func (this *ExecutionIDGenerator) Validate() error {
 	return nil
 }
 func (this *RewardsPendingPayouts) Validate() error {
+	for _, item := range this.Payouts {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Payouts", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *RewardPendingPayout) Validate() error {
 	for _, item := range this.RewardPartyAmount {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
