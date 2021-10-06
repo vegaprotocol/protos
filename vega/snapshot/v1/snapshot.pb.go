@@ -328,6 +328,7 @@ type Payload struct {
 	//	*Payload_Epoch
 	//	*Payload_ExecutionIdGenerator
 	//	*Payload_RewardsPendingPayouts
+	//	*Payload_GovernanceNode
 	Data                 isPayload_Data `protobuf_oneof:"data"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
 	XXX_unrecognized     []byte         `json:"-"`
@@ -455,6 +456,10 @@ type Payload_RewardsPendingPayouts struct {
 	RewardsPendingPayouts *RewardsPendingPayouts `protobuf:"bytes,23,opt,name=rewards_pending_payouts,json=rewardsPendingPayouts,proto3,oneof"`
 }
 
+type Payload_GovernanceNode struct {
+	GovernanceNode *GovernanceNode `protobuf:"bytes,24,opt,name=governance_node,json=governanceNode,proto3,oneof"`
+}
+
 func (*Payload_ActiveAssets) isPayload_Data() {}
 
 func (*Payload_PendingAssets) isPayload_Data() {}
@@ -500,6 +505,8 @@ func (*Payload_Epoch) isPayload_Data() {}
 func (*Payload_ExecutionIdGenerator) isPayload_Data() {}
 
 func (*Payload_RewardsPendingPayouts) isPayload_Data() {}
+
+func (*Payload_GovernanceNode) isPayload_Data() {}
 
 func (m *Payload) GetData() isPayload_Data {
 	if m != nil {
@@ -669,6 +676,13 @@ func (m *Payload) GetRewardsPendingPayouts() *RewardsPendingPayouts {
 	return nil
 }
 
+func (m *Payload) GetGovernanceNode() *GovernanceNode {
+	if x, ok := m.GetData().(*Payload_GovernanceNode); ok {
+		return x.GovernanceNode
+	}
+	return nil
+}
+
 // XXX_OneofWrappers is for the internal use of the proto package.
 func (*Payload) XXX_OneofWrappers() []interface{} {
 	return []interface{}{
@@ -695,6 +709,7 @@ func (*Payload) XXX_OneofWrappers() []interface{} {
 		(*Payload_Epoch)(nil),
 		(*Payload_ExecutionIdGenerator)(nil),
 		(*Payload_RewardsPendingPayouts)(nil),
+		(*Payload_GovernanceNode)(nil),
 	}
 }
 
@@ -1575,6 +1590,45 @@ func (m *GovernanceActive) GetProposals() []*PendingProposal {
 	return nil
 }
 
+type GovernanceNode struct {
+	Proposals            []*vega.Proposal `protobuf:"bytes,1,rep,name=proposals,proto3" json:"proposals,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *GovernanceNode) Reset()         { *m = GovernanceNode{} }
+func (m *GovernanceNode) String() string { return proto.CompactTextString(m) }
+func (*GovernanceNode) ProtoMessage()    {}
+func (*GovernanceNode) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cee6f703c00de307, []int{24}
+}
+
+func (m *GovernanceNode) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GovernanceNode.Unmarshal(m, b)
+}
+func (m *GovernanceNode) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GovernanceNode.Marshal(b, m, deterministic)
+}
+func (m *GovernanceNode) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GovernanceNode.Merge(m, src)
+}
+func (m *GovernanceNode) XXX_Size() int {
+	return xxx_messageInfo_GovernanceNode.Size(m)
+}
+func (m *GovernanceNode) XXX_DiscardUnknown() {
+	xxx_messageInfo_GovernanceNode.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GovernanceNode proto.InternalMessageInfo
+
+func (m *GovernanceNode) GetProposals() []*vega.Proposal {
+	if m != nil {
+		return m.Proposals
+	}
+	return nil
+}
+
 type StakingAccount struct {
 	Party                string             `protobuf:"bytes,1,opt,name=party,proto3" json:"party,omitempty"`
 	Balance              string             `protobuf:"bytes,2,opt,name=balance,proto3" json:"balance,omitempty"`
@@ -1588,7 +1642,7 @@ func (m *StakingAccount) Reset()         { *m = StakingAccount{} }
 func (m *StakingAccount) String() string { return proto.CompactTextString(m) }
 func (*StakingAccount) ProtoMessage()    {}
 func (*StakingAccount) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{24}
+	return fileDescriptor_cee6f703c00de307, []int{25}
 }
 
 func (m *StakingAccount) XXX_Unmarshal(b []byte) error {
@@ -1641,7 +1695,7 @@ func (m *StakingAccounts) Reset()         { *m = StakingAccounts{} }
 func (m *StakingAccounts) String() string { return proto.CompactTextString(m) }
 func (*StakingAccounts) ProtoMessage()    {}
 func (*StakingAccounts) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{25}
+	return fileDescriptor_cee6f703c00de307, []int{26}
 }
 
 func (m *StakingAccounts) XXX_Unmarshal(b []byte) error {
@@ -1685,7 +1739,7 @@ func (m *MatchingBook) Reset()         { *m = MatchingBook{} }
 func (m *MatchingBook) String() string { return proto.CompactTextString(m) }
 func (*MatchingBook) ProtoMessage()    {}
 func (*MatchingBook) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{26}
+	return fileDescriptor_cee6f703c00de307, []int{27}
 }
 
 func (m *MatchingBook) XXX_Unmarshal(b []byte) error {
@@ -1759,7 +1813,7 @@ func (m *NetParams) Reset()         { *m = NetParams{} }
 func (m *NetParams) String() string { return proto.CompactTextString(m) }
 func (*NetParams) ProtoMessage()    {}
 func (*NetParams) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{27}
+	return fileDescriptor_cee6f703c00de307, []int{28}
 }
 
 func (m *NetParams) XXX_Unmarshal(b []byte) error {
@@ -1799,7 +1853,7 @@ func (m *DecimalMap) Reset()         { *m = DecimalMap{} }
 func (m *DecimalMap) String() string { return proto.CompactTextString(m) }
 func (*DecimalMap) ProtoMessage()    {}
 func (*DecimalMap) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{28}
+	return fileDescriptor_cee6f703c00de307, []int{29}
 }
 
 func (m *DecimalMap) XXX_Unmarshal(b []byte) error {
@@ -1846,7 +1900,7 @@ func (m *TimePrice) Reset()         { *m = TimePrice{} }
 func (m *TimePrice) String() string { return proto.CompactTextString(m) }
 func (*TimePrice) ProtoMessage()    {}
 func (*TimePrice) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{29}
+	return fileDescriptor_cee6f703c00de307, []int{30}
 }
 
 func (m *TimePrice) XXX_Unmarshal(b []byte) error {
@@ -1893,7 +1947,7 @@ func (m *PriceVolume) Reset()         { *m = PriceVolume{} }
 func (m *PriceVolume) String() string { return proto.CompactTextString(m) }
 func (*PriceVolume) ProtoMessage()    {}
 func (*PriceVolume) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{30}
+	return fileDescriptor_cee6f703c00de307, []int{31}
 }
 
 func (m *PriceVolume) XXX_Unmarshal(b []byte) error {
@@ -1941,7 +1995,7 @@ func (m *PriceRange) Reset()         { *m = PriceRange{} }
 func (m *PriceRange) String() string { return proto.CompactTextString(m) }
 func (*PriceRange) ProtoMessage()    {}
 func (*PriceRange) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{31}
+	return fileDescriptor_cee6f703c00de307, []int{32}
 }
 
 func (m *PriceRange) XXX_Unmarshal(b []byte) error {
@@ -1997,7 +2051,7 @@ func (m *PriceBound) Reset()         { *m = PriceBound{} }
 func (m *PriceBound) String() string { return proto.CompactTextString(m) }
 func (*PriceBound) ProtoMessage()    {}
 func (*PriceBound) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{32}
+	return fileDescriptor_cee6f703c00de307, []int{33}
 }
 
 func (m *PriceBound) XXX_Unmarshal(b []byte) error {
@@ -2058,7 +2112,7 @@ func (m *PriceRangeCache) Reset()         { *m = PriceRangeCache{} }
 func (m *PriceRangeCache) String() string { return proto.CompactTextString(m) }
 func (*PriceRangeCache) ProtoMessage()    {}
 func (*PriceRangeCache) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{33}
+	return fileDescriptor_cee6f703c00de307, []int{34}
 }
 
 func (m *PriceRangeCache) XXX_Unmarshal(b []byte) error {
@@ -2112,7 +2166,7 @@ func (m *PriceMonitor) Reset()         { *m = PriceMonitor{} }
 func (m *PriceMonitor) String() string { return proto.CompactTextString(m) }
 func (*PriceMonitor) ProtoMessage()    {}
 func (*PriceMonitor) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{34}
+	return fileDescriptor_cee6f703c00de307, []int{35}
 }
 
 func (m *PriceMonitor) XXX_Unmarshal(b []byte) error {
@@ -2214,7 +2268,7 @@ func (m *AuctionState) Reset()         { *m = AuctionState{} }
 func (m *AuctionState) String() string { return proto.CompactTextString(m) }
 func (*AuctionState) ProtoMessage()    {}
 func (*AuctionState) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{35}
+	return fileDescriptor_cee6f703c00de307, []int{36}
 }
 
 func (m *AuctionState) XXX_Unmarshal(b []byte) error {
@@ -2305,7 +2359,7 @@ func (m *EquityShareLP) Reset()         { *m = EquityShareLP{} }
 func (m *EquityShareLP) String() string { return proto.CompactTextString(m) }
 func (*EquityShareLP) ProtoMessage()    {}
 func (*EquityShareLP) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{36}
+	return fileDescriptor_cee6f703c00de307, []int{37}
 }
 
 func (m *EquityShareLP) XXX_Unmarshal(b []byte) error {
@@ -2367,7 +2421,7 @@ func (m *EquityShare) Reset()         { *m = EquityShare{} }
 func (m *EquityShare) String() string { return proto.CompactTextString(m) }
 func (*EquityShare) ProtoMessage()    {}
 func (*EquityShare) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{37}
+	return fileDescriptor_cee6f703c00de307, []int{38}
 }
 
 func (m *EquityShare) XXX_Unmarshal(b []byte) error {
@@ -2432,7 +2486,7 @@ func (m *Market) Reset()         { *m = Market{} }
 func (m *Market) String() string { return proto.CompactTextString(m) }
 func (*Market) ProtoMessage()    {}
 func (*Market) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{38}
+	return fileDescriptor_cee6f703c00de307, []int{39}
 }
 
 func (m *Market) XXX_Unmarshal(b []byte) error {
@@ -2555,7 +2609,7 @@ func (m *ExecutionMarkets) Reset()         { *m = ExecutionMarkets{} }
 func (m *ExecutionMarkets) String() string { return proto.CompactTextString(m) }
 func (*ExecutionMarkets) ProtoMessage()    {}
 func (*ExecutionMarkets) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{39}
+	return fileDescriptor_cee6f703c00de307, []int{40}
 }
 
 func (m *ExecutionMarkets) XXX_Unmarshal(b []byte) error {
@@ -2600,7 +2654,7 @@ func (m *Position) Reset()         { *m = Position{} }
 func (m *Position) String() string { return proto.CompactTextString(m) }
 func (*Position) ProtoMessage()    {}
 func (*Position) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{40}
+	return fileDescriptor_cee6f703c00de307, []int{41}
 }
 
 func (m *Position) XXX_Unmarshal(b []byte) error {
@@ -2682,7 +2736,7 @@ func (m *MarketPositions) Reset()         { *m = MarketPositions{} }
 func (m *MarketPositions) String() string { return proto.CompactTextString(m) }
 func (*MarketPositions) ProtoMessage()    {}
 func (*MarketPositions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{41}
+	return fileDescriptor_cee6f703c00de307, []int{42}
 }
 
 func (m *MarketPositions) XXX_Unmarshal(b []byte) error {
@@ -2730,7 +2784,7 @@ func (m *AppState) Reset()         { *m = AppState{} }
 func (m *AppState) String() string { return proto.CompactTextString(m) }
 func (*AppState) ProtoMessage()    {}
 func (*AppState) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{42}
+	return fileDescriptor_cee6f703c00de307, []int{43}
 }
 
 func (m *AppState) XXX_Unmarshal(b []byte) error {
@@ -2793,7 +2847,7 @@ func (m *EpochState) Reset()         { *m = EpochState{} }
 func (m *EpochState) String() string { return proto.CompactTextString(m) }
 func (*EpochState) ProtoMessage()    {}
 func (*EpochState) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{43}
+	return fileDescriptor_cee6f703c00de307, []int{44}
 }
 
 func (m *EpochState) XXX_Unmarshal(b []byte) error {
@@ -2866,7 +2920,7 @@ func (m *ExecutionIDGenerator) Reset()         { *m = ExecutionIDGenerator{} }
 func (m *ExecutionIDGenerator) String() string { return proto.CompactTextString(m) }
 func (*ExecutionIDGenerator) ProtoMessage()    {}
 func (*ExecutionIDGenerator) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{44}
+	return fileDescriptor_cee6f703c00de307, []int{45}
 }
 
 func (m *ExecutionIDGenerator) XXX_Unmarshal(b []byte) error {
@@ -2919,7 +2973,7 @@ func (m *RewardsPendingPayouts) Reset()         { *m = RewardsPendingPayouts{} }
 func (m *RewardsPendingPayouts) String() string { return proto.CompactTextString(m) }
 func (*RewardsPendingPayouts) ProtoMessage()    {}
 func (*RewardsPendingPayouts) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cee6f703c00de307, []int{45}
+	return fileDescriptor_cee6f703c00de307, []int{46}
 }
 
 func (m *RewardsPendingPayouts) XXX_Unmarshal(b []byte) error {
@@ -3146,6 +3200,7 @@ func init() {
 	proto.RegisterType((*PendingProposal)(nil), "vega.snapshot.v1.PendingProposal")
 	proto.RegisterType((*GovernanceEnacted)(nil), "vega.snapshot.v1.GovernanceEnacted")
 	proto.RegisterType((*GovernanceActive)(nil), "vega.snapshot.v1.GovernanceActive")
+	proto.RegisterType((*GovernanceNode)(nil), "vega.snapshot.v1.GovernanceNode")
 	proto.RegisterType((*StakingAccount)(nil), "vega.snapshot.v1.StakingAccount")
 	proto.RegisterType((*StakingAccounts)(nil), "vega.snapshot.v1.StakingAccounts")
 	proto.RegisterType((*MatchingBook)(nil), "vega.snapshot.v1.MatchingBook")
