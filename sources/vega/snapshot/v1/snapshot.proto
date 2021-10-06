@@ -75,6 +75,7 @@ message Payload {
     EpochState epoch = 21;
     ExecutionIDGenerator execution_id_generator = 22;
     RewardsPendingPayouts rewards_pending_payouts = 23;
+    GovernanceNode governance_node = 24;
   }
 }
 
@@ -170,6 +171,10 @@ message GovernanceEnacted {
 
 message GovernanceActive {
   repeated PendingProposal proposals = 1;
+}
+
+message GovernanceNode {
+  repeated vega.Proposal proposals = 1;
 }
 
 message StakingAccount {

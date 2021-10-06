@@ -206,6 +206,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_GovernanceNode); ok {
+		if oneOfNester.GovernanceNode != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.GovernanceNode); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("GovernanceNode", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -398,6 +405,16 @@ func (this *GovernanceEnacted) Validate() error {
 	return nil
 }
 func (this *GovernanceActive) Validate() error {
+	for _, item := range this.Proposals {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Proposals", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *GovernanceNode) Validate() error {
 	for _, item := range this.Proposals {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
