@@ -114,7 +114,7 @@ message TxRef {
 message AssetAction {
   string id = 1;
 	uint32 state = 2;
-  vega.Asset asset = 3;
+  string asset = 3;
   uint64 block_number = 4;
   uint64 tx_index = 5;
   string hash = 6;

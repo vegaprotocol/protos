@@ -268,11 +268,6 @@ func (this *TxRef) Validate() error {
 	return nil
 }
 func (this *AssetAction) Validate() error {
-	if this.Asset != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Asset); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Asset", err)
-		}
-	}
 	if this.BuiltinDeposit != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.BuiltinDeposit); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("BuiltinDeposit", err)
