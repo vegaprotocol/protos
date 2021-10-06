@@ -38,6 +38,8 @@ http:
       get: '/assets/{id}'
     - selector: datanode.api.v1.TradingDataService.FeeInfrastructureAccounts
       get: '/assets/{asset}/infrastructureFeeAccount'
+    - selector: datanode.api.v1.TradingDataService.GlobalRewardPoolAccounts
+      get: '/assets/{asset}/globalRewardPoolAccount'
 
 
     # MarketData
