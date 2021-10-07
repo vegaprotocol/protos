@@ -61,7 +61,6 @@ message Timestamp {
 message Party {
   // A unique identifier for the party, typically represented by a public key
   string id = 1 [(validator.field) = {msg_exists : true}];
-  repeated Delegation delegations = 2;
 }
 
 // Risk factors are used to calculate the current risk associated with orders trading on a given market
@@ -1084,7 +1083,7 @@ message EpochData {
 }
 
 message Node {
-  // The node url eg n01.vega.xyz
+  // The node ID (wallet ID)
   string id = 1;
   // Pub key of the node operator
   string pub_key = 2 [(validator.field) = {string_not_empty : true}];
@@ -1116,6 +1115,10 @@ message Node {
   string score = 15;
   // Node normalised score
   string normalised_score = 16;
+  // Node name
+  string name = 17;
+  // Avatar url
+  string avatar_url = 18;
 }
 
 message NodeData {

@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "vega/api/trading.proto",
+    "title": "vega/api/v1/core.proto",
     "version": "version not set"
   },
   "schemes": [
@@ -28,7 +28,7 @@
           }
         },
         "tags": [
-          "TradingService"
+          "CoreService"
         ]
       }
     },
@@ -45,7 +45,7 @@
           }
         },
         "tags": [
-          "TradingService"
+          "CoreService"
         ]
       }
     },
@@ -62,7 +62,34 @@
           }
         },
         "tags": [
-          "TradingService"
+          "CoreService"
+        ]
+      }
+    },
+    "/transaction": {
+      "post": {
+        "summary": "Submit a signed transaction",
+        "operationId": "SubmitTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SubmitTransactionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SubmitTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CoreService"
         ]
       }
     }
@@ -1294,6 +1321,20 @@
         }
       }
     },
+    "v1SubmitTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "tx": {
+          "$ref": "#/definitions/v1Transaction",
+          "title": "A bundle of signed payload and signature, to form a transaction that will be submitted to the Vega blockchain"
+        },
+        "type": {
+          "$ref": "#/definitions/v1SubmitTransactionRequestType",
+          "title": "Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response"
+        }
+      },
+      "title": "Request for submitting a transaction v2 on Vega"
+    },
     "v1SubmitTransactionRequestType": {
       "type": "string",
       "enum": [
@@ -1487,6 +1528,14 @@
         "country": {
           "type": "string",
           "title": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name of the validator"
+        },
+        "avatar_url": {
+          "type": "string",
+          "title": "AvatarURL of the validator"
         }
       },
       "title": "A validator update event contains information about validator node"
@@ -1683,27 +1732,6 @@
         }
       },
       "title": "Continuous trading"
-    },
-    "vegaDelegation": {
-      "type": "object",
-      "properties": {
-        "party": {
-          "type": "string",
-          "title": "Party which is delegating"
-        },
-        "node_id": {
-          "type": "string",
-          "title": "Node ID"
-        },
-        "amount": {
-          "type": "string",
-          "title": "Amount delegated"
-        },
-        "epoch_seq": {
-          "type": "string",
-          "title": "Epoch of delegation"
-        }
-      }
     },
     "vegaDeposit": {
       "type": "object",
@@ -2769,12 +2797,6 @@
         "id": {
           "type": "string",
           "title": "A unique identifier for the party, typically represented by a public key"
-        },
-        "delegations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/vegaDelegation"
-          }
         }
       },
       "title": "A party represents an entity who wishes to trade on or query a Vega network"

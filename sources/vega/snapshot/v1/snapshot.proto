@@ -4,77 +4,347 @@ package vega.snapshot.v1;
 option go_package = "code.vegaprotocol.io/protos/vega/snapshot/v1";
 
 import "vega/vega.proto";
+import "vega/markets.proto";
 import "vega/assets.proto";
+import "vega/chain_events.proto";
 import "vega/governance.proto";
+import "vega/events/v1/events.proto";
 
-// Snapshot is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
+enum Format {
+  // Default value, always invalid
+  FORMAT_UNSPECIFIED = 0;
+  // Standard proto encoding
+  FORMAT_PROTO = 1;
+  // Compressed proto, might come in handy
+  FORMAT_PROTO_COMPRESSED = 2;
+  // Simple JSON serialisation, probably not going to be used
+  FORMAT_JSON = 3;
+}
+
 message Snapshot {
-  bytes hash = 1;
-  bytes state = 2;
+  uint64 height = 1;
+  Format format = 2;
+  uint32 chunks = 3;
+  bytes hash = 4;
+  bytes metadata = 5;
 }
 
-// Checkpoint aggregates the various engine snapshots
-message Checkpoint {
-  bytes governance = 1;
-  bytes assets = 2;
-  bytes collateral = 3;
-  bytes network_parameters = 4;
-  bytes delegation = 5;
-  bytes epoch = 6; // will just be an epoch event
-  bytes block = 7;
+message NodeHash {
+  string full_key = 1; // namespace<separator>key
+  string namespace = 2;
+  string key = 3;
+  string hash = 4;
 }
 
-// AssetEntrty is a single (enabled) asset
-message AssetEntry {
+message Metadata {
+  int64 version = 1;
+  repeated string chunk_hashes = 2;
+  repeated NodeHash node_hashes = 3; // hashes used by snapshot engine, different to chunk hash if data was split up, or combined into a single chunk
+}
+
+// Chunk is simply an as-is chunk belonging to a snapshot
+// not sure how usable this type would be
+message Chunk {
+  repeated Payload data = 1;
+  int64 nr = 2; // in case of multi-part data, this is chunk nr...
+  int64 of = 3; // ...of a total of N chunks
+}
+
+message Payload {
+  oneof data {
+    ActiveAssets active_assets = 1;
+    PendingAssets pending_assets = 2;
+    BankingWithdrawals banking_withdrawals = 3;
+    BankingDeposits banking_deposits = 4;
+    BankingSeen banking_seen = 5;
+    BankingAssetActions banking_asset_actions = 6;
+    Checkpoint checkpoint = 7;
+    CollateralAccounts collateral_accounts = 8;
+    CollateralAssets collateral_assets = 9;
+    DelegationActive delegation_active = 10;
+    DelegationPending delegation_pending = 11;
+    DelegationAuto delegation_auto = 12;
+    GovernanceActive governance_active = 13;
+    GovernanceEnacted governance_enacted = 14;
+    StakingAccounts staking_accounts = 15;
+    MatchingBook matching_book = 16;
+    NetParams network_parameters = 17;
+    ExecutionMarkets execution_markets = 18;
+    MarketPositions market_positions = 19;
+    AppState app_state = 20;
+    EpochState epoch = 21;
+    ExecutionIDGenerator execution_id_generator = 22;
+    RewardsPendingPayouts rewards_pending_payouts = 23;
+    GovernanceNode governance_node = 24;
+  }
+}
+
+message CollateralAccounts {
+  repeated vega.Account accounts = 1;
+}
+
+message CollateralAssets {
+  repeated vega.Asset assets = 1;
+}
+
+message ActiveAssets {
+  repeated vega.Asset assets = 1;
+}
+
+message PendingAssets {
+  repeated vega.Asset assets = 1;
+}
+
+message Withdrawal {
+  string ref = 1;
+  vega.Withdrawal withdrawal = 2;
+}
+
+message Deposit {
   string id = 1;
-  vega.AssetDetails asset_details = 2;
+  vega.Deposit deposit = 2;
 }
 
-// Assets contains all the enabled assets as AssetEntries
-message Assets {
-  repeated AssetEntry assets = 1;
+message TxRef {
+  string asset = 1;
+  uint64 block_nr = 2;
+  string hash = 3;
+  uint64 log_index = 4;
 }
 
-// AssetBalance represents the total balance of a given asset for a party
-message AssetBalance {
+message AssetAction {
+  string id = 1;
+  uint32 state = 2;
+  string asset = 3;
+  uint64 block_number = 4;
+  uint64 tx_index = 5;
+  string hash = 6;
+
+  vega.BuiltinAssetDeposit builtin_deposit = 7;
+  vega.ERC20Deposit erc20_deposit = 8;
+  vega.ERC20AssetList asset_list = 9;
+}
+
+message BankingWithdrawals {
+  repeated Withdrawal withdrawals = 1;
+}
+
+message BankingDeposits {
+  repeated Deposit deposit = 1;
+}
+
+message BankingSeen {
+  repeated TxRef refs = 1;
+}
+
+message BankingAssetActions {
+  repeated AssetAction asset_action = 1;
+}
+
+message Checkpoint {
+  int64 next_cp = 1;
+}
+
+message DelegationActive {
+  repeated vega.Delegation delegations = 1;
+}
+
+message DelegationPending {
+  repeated vega.Delegation delegations = 1;
+  repeated vega.Delegation undelegation = 2;
+}
+
+message DelegationAuto {
+  repeated string parties = 1;
+}
+
+message PendingProposal {
+  vega.Proposal proposal = 1;
+  repeated vega.Vote yes = 2;
+  repeated vega.Vote no = 3;
+  repeated vega.Vote invalid = 4;
+}
+
+message GovernanceEnacted {
+  repeated vega.Proposal proposals = 1;
+}
+
+message GovernanceActive {
+  repeated PendingProposal proposals = 1;
+}
+
+message GovernanceNode {
+  repeated vega.Proposal proposals = 1;
+}
+
+message StakingAccount {
   string party = 1;
-  string asset = 2;
-  string balance = 3;
+  string balance = 2;
+  repeated vega.events.v1.StakeLinking events = 3;
 }
 
-// Collateral contains the balances per party
-message Collateral {
-  repeated AssetBalance balances = 1;
+message StakingAccounts {
+  repeated StakingAccount accounts = 1;
 }
 
-// NetParams contains all network parameters
+message MatchingBook {
+  string market_id = 1;
+  repeated vega.Order buy = 2;
+  repeated vega.Order sell = 3;
+  string last_traded_price = 4;
+  bool auction = 5;
+  uint64 batch_id = 6;
+} 
+
 message NetParams {
   repeated vega.NetworkParameter params = 1;
 }
 
-// Proposals will contain all accepted proposals
-message Proposals {
-  repeated vega.Proposal proposals = 1;
+message DecimalMap {
+  int64 key = 1;
+  string val = 2;
 }
 
-// Delegated amounts for party/node
-// undelegate and epoch seq are only relevant for pending entries
-message DelegateEntry {
+message TimePrice {
+  int64 time = 1;
+  string price = 2;
+}
+
+message PriceVolume {
+  string price = 1;
+  uint64 volume = 2;
+}
+
+message PriceRange {
+  string min = 1;
+  string max = 2;
+  string ref = 3;
+}
+
+message PriceBound {
+  bool active = 1;
+  string up_factor = 2;
+  string down_factor = 3;
+  vega.PriceMonitoringTrigger trigger = 4;
+}
+
+message PriceRangeCache {
+  PriceBound bound = 1;
+  PriceRange range = 2;
+}
+
+message PriceMonitor {
+  bool initialised = 3;
+  repeated DecimalMap fp_horizons = 4;
+  int64 now = 5;
+  int64 update = 6;
+  repeated PriceBound bounds = 7;
+  int64 price_range_cache_time = 8;
+  repeated PriceRangeCache price_range_cache = 9;
+  int64 ref_price_cache_time = 10;
+  repeated DecimalMap ref_price_cache = 11;
+}
+
+message AuctionState {
+  vega.Market.TradingMode mode = 1;
+  vega.Market.TradingMode default_mode = 2;
+  vega.AuctionTrigger trigger = 3;
+  int64 begin = 4;
+  vega.AuctionDuration end = 5;
+  bool start = 6;
+  bool stop = 7;
+  vega.AuctionTrigger extension = 8;
+}
+
+message EquityShareLP {
+  string id = 1;
+  string stake = 2;
+  string share = 3;
+  string avg = 4;
+}
+
+message EquityShare {
+  string mvp = 1;
+  bool opening_auction_ended = 2;
+  repeated EquityShareLP lps = 3;
+}
+
+message Market {
+  vega.Market market = 1;
+  PriceMonitor price_monitor = 2;
+  AuctionState auction_state = 3;
+  repeated vega.Order pegged_orders = 4;
+  repeated vega.Order expiring_orders = 5;
+  string last_best_bid = 6;
+  string last_best_ask = 7;
+  string last_mid_bid = 8;
+  string last_mid_ask = 9;
+  string last_market_value_proxy = 10;
+  int64 last_equity_share_distributed = 11;
+  EquityShare equity_share = 12;
+  string current_mark_price = 13;
+}
+
+message ExecutionMarkets {
+  repeated Market markets = 1;
+}
+
+message Position {
+  string party_id = 1;
+  int64 size = 2;
+  int64 buy = 3;
+  int64 sell = 4;
+  string price = 5;
+  string vw_buy_price = 6;
+  string vw_sell_price = 7;
+}
+
+message MarketPositions {
+  string market_id = 1;
+  repeated Position positions = 2;
+}
+
+message AppState {
+  uint64 height = 1;
+  string block = 2;
+  int64 time = 3;
+}
+
+// EpochState details
+message EpochState {
+  // Sequence number that increases by one each epoch
+  uint64 seq = 1;
+  // What time did this epoch start
+  int64  start_time = 3;
+  // What time should this epoch end
+  int64  expire_time = 4;
+  // Ready to start a new epoch
+  bool ready_to_start_new_epoch = 6;
+  // Ready to end epoch
+  bool ready_to_end_epoch = 7;
+}
+
+// State of the ID generator used for creating order IDs
+message ExecutionIDGenerator {
+  // Which batch are we on
+  uint64 batches = 1;
+  // How many orders in this batch
+  uint64 orders = 2;
+  // How many proposals in this batch
+  uint64 proposals = 3;
+}
+
+message RewardsPendingPayouts {
+  int64 reward_time = 1;
+  string from_account = 2;
+  string asset = 3;
+  repeated RewardPartyAmount reward_party_amount = 4;
+  string total_reward = 5;
+  string epoch_seq = 6;
+  int64 timestamp = 7;
+}
+
+message RewardPartyAmount {
   string party = 1;
-  string node = 2;
-  string amount = 3;
-  bool undelegate = 4;
-  uint64 epoch_seq = 5;
-}
-
-// Delegate contains all entries for a checkpoint
-message Delegate {
-  repeated DelegateEntry active = 1;
-  repeated DelegateEntry pending = 2;
-}
-
-// Block message contains data related to block at which the checkpoint
-// was created (ie block height)
-message Block {
-  int64 height = 1;
+  string amount = 2;
 }
