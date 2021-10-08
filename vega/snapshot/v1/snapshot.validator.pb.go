@@ -213,6 +213,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_LimitState); ok {
+		if oneOfNester.LimitState != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LimitState); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LimitState", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -656,5 +663,8 @@ func (this *RewardsPayout) Validate() error {
 	return nil
 }
 func (this *RewardsPartyAmount) Validate() error {
+	return nil
+}
+func (this *LimitState) Validate() error {
 	return nil
 }
