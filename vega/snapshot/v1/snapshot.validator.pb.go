@@ -626,6 +626,26 @@ func (this *ExecutionIDGenerator) Validate() error {
 	return nil
 }
 func (this *RewardsPendingPayouts) Validate() error {
+	for _, item := range this.ScheduledRewardsPayout {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ScheduledRewardsPayout", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ScheduledRewardsPayout) Validate() error {
+	for _, item := range this.RewardsPayout {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardsPayout", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *RewardsPayout) Validate() error {
 	for _, item := range this.RewardPartyAmount {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
@@ -635,6 +655,6 @@ func (this *RewardsPendingPayouts) Validate() error {
 	}
 	return nil
 }
-func (this *RewardPartyAmount) Validate() error {
+func (this *RewardsPartyAmount) Validate() error {
 	return nil
 }

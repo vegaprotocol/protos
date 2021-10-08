@@ -335,16 +335,24 @@ message ExecutionIDGenerator {
 }
 
 message RewardsPendingPayouts {
-  int64 reward_time = 1;
-  string from_account = 2;
-  string asset = 3;
-  repeated RewardPartyAmount reward_party_amount = 4;
-  string total_reward = 5;
-  string epoch_seq = 6;
-  int64 timestamp = 7;
+  repeated ScheduledRewardsPayout scheduled_rewards_payout = 1;
 }
 
-message RewardPartyAmount {
+message ScheduledRewardsPayout {
+  int64 payout_time = 1;
+  repeated RewardsPayout rewards_payout = 2;
+} 
+
+message RewardsPayout {
+  string from_account = 1;
+  string asset = 2;
+  repeated RewardsPartyAmount reward_party_amount = 3;
+  string total_reward = 4;
+  string epoch_seq = 5;
+  int64 timestamp = 6;
+}
+
+message RewardsPartyAmount {
   string party = 1;
   string amount = 2;
 }
