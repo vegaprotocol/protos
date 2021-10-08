@@ -76,6 +76,8 @@ message Payload {
     ExecutionIDGenerator execution_id_generator = 22;
     RewardsPendingPayouts rewards_pending_payouts = 23;
     GovernanceNode governance_node = 24;
+    LimitState limit_state = 25;
+
   }
 }
 
@@ -355,4 +357,22 @@ message RewardsPayout {
 message RewardsPartyAmount {
   string party = 1;
   string amount = 2;
+}
+
+// LimitState details
+message LimitState {
+  // Number of blocks into the boostrapping phase
+  uint32 block_count = 1;
+  // whether the limit on market proposals has been lifted
+  bool can_propose_market = 2;
+  // whether the limit on asset proposals has been lifted
+  bool can_propose_asset = 3;
+  // whether the genesis state is loaded
+  bool genesis_loaded = 4;
+  // fields derived from the genesis state
+  bool  propose_market_enabled = 5;
+  bool  propose_asset_enabled = 6;
+  int64 propose_market_enabled_from = 7;
+  int64 propose_asset_enabled_from = 8;
+
 }
