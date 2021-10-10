@@ -384,8 +384,8 @@ message VoteSpamPolicy {
   repeated PartyTokenBalance token_balance = 3;
   repeated BlockRejectStats recent_blocks_reject_stats = 4;
   uint64 current_block_index = 5;
-  uint64 lastIncreaseBlock = 6;
-  uint64 currentEpochSeq = 7;  
+  uint64 last_increase_block = 6;
+  uint64 current_epoch_seq = 7;  
 }
 
 message PartyProposalVoteCount {
@@ -418,5 +418,5 @@ message SimpleSpamPolicy {
   repeated SpamPartyTransactionCount party_to_count = 1;
   repeated BannedParty banned_parties = 2;
   repeated PartyTokenBalance token_balance = 3;
-	uint64 currentEpochSeq = 4;  
+	uint64 current_epoch_seq = 4;  
 }
