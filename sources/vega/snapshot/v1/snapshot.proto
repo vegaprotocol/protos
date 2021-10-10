@@ -396,7 +396,7 @@ message PartyProposalVoteCount {
 
 message BannedParty {
   string party = 1;
-  uint64 until_block = 2;
+  uint64 until_epoch = 2;
 }
 
 message PartyTokenBalance {
