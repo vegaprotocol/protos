@@ -386,6 +386,7 @@ message VoteSpamPolicy {
   uint64 current_block_index = 5;
   uint64 last_increase_block = 6;
   uint64 current_epoch_seq = 7;  
+  uint64 min_voting_tokens_factor = 8;
 }
 
 message PartyProposalVoteCount {
