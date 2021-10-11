@@ -220,6 +220,20 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_VoteSpamPolicy); ok {
+		if oneOfNester.VoteSpamPolicy != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.VoteSpamPolicy); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("VoteSpamPolicy", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_SimpleSpamPolicy); ok {
+		if oneOfNester.SimpleSpamPolicy != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.SimpleSpamPolicy); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("SimpleSpamPolicy", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -666,5 +680,75 @@ func (this *RewardsPartyAmount) Validate() error {
 	return nil
 }
 func (this *LimitState) Validate() error {
+	return nil
+}
+func (this *VoteSpamPolicy) Validate() error {
+	for _, item := range this.PartyToVote {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PartyToVote", err)
+			}
+		}
+	}
+	for _, item := range this.BannedParties {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("BannedParties", err)
+			}
+		}
+	}
+	for _, item := range this.TokenBalance {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("TokenBalance", err)
+			}
+		}
+	}
+	for _, item := range this.RecentBlocksRejectStats {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RecentBlocksRejectStats", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *PartyProposalVoteCount) Validate() error {
+	return nil
+}
+func (this *BannedParty) Validate() error {
+	return nil
+}
+func (this *PartyTokenBalance) Validate() error {
+	return nil
+}
+func (this *BlockRejectStats) Validate() error {
+	return nil
+}
+func (this *SpamPartyTransactionCount) Validate() error {
+	return nil
+}
+func (this *SimpleSpamPolicy) Validate() error {
+	for _, item := range this.PartyToCount {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PartyToCount", err)
+			}
+		}
+	}
+	for _, item := range this.BannedParties {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("BannedParties", err)
+			}
+		}
+	}
+	for _, item := range this.TokenBalance {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("TokenBalance", err)
+			}
+		}
+	}
 	return nil
 }

@@ -77,7 +77,8 @@ message Payload {
     RewardsPendingPayouts rewards_pending_payouts = 23;
     GovernanceNode governance_node = 24;
     LimitState limit_state = 25;
-
+    VoteSpamPolicy vote_spam_policy = 26;
+    SimpleSpamPolicy simple_spam_policy = 27;
   }
 }
 
@@ -375,4 +376,49 @@ message LimitState {
   int64 propose_market_enabled_from = 7;
   int64 propose_asset_enabled_from = 8;
 
+}
+
+message VoteSpamPolicy {
+  repeated PartyProposalVoteCount party_to_vote = 1;
+  repeated BannedParty banned_parties = 2;
+  repeated PartyTokenBalance token_balance = 3;
+  repeated BlockRejectStats recent_blocks_reject_stats = 4;
+  uint64 current_block_index = 5;
+  uint64 last_increase_block = 6;
+  uint64 current_epoch_seq = 7;  
+  string min_voting_tokens_factor = 8;
+}
+
+message PartyProposalVoteCount {
+  string party = 1;
+  string proposal = 2;
+  uint64 count = 3;
+}
+
+message BannedParty {
+  string party = 1;
+  uint64 until_epoch = 2;
+}
+
+message PartyTokenBalance {
+  string party = 1;
+  string balance = 2;
+}
+
+message BlockRejectStats {
+  uint64 rejected = 1;
+  uint64 total = 2;
+}
+
+message SpamPartyTransactionCount {
+  string party = 1;
+  uint64 count = 2;
+}
+
+message SimpleSpamPolicy {
+  string policy_name = 1;
+  repeated SpamPartyTransactionCount party_to_count = 2;
+  repeated BannedParty banned_parties = 3;
+  repeated PartyTokenBalance token_balance = 4;
+	uint64 current_epoch_seq = 5;  
 }
