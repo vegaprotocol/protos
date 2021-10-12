@@ -234,6 +234,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_Notary); ok {
+		if oneOfNester.Notary != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Notary); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Notary", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -747,6 +754,19 @@ func (this *SimpleSpamPolicy) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("TokenBalance", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *NotarySigs) Validate() error {
+	return nil
+}
+func (this *Notary) Validate() error {
+	for _, item := range this.NotarySigs {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("NotarySigs", err)
 			}
 		}
 	}

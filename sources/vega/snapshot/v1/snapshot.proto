@@ -79,6 +79,7 @@ message Payload {
     LimitState limit_state = 25;
     VoteSpamPolicy vote_spam_policy = 26;
     SimpleSpamPolicy simple_spam_policy = 27;
+    Notary notary = 28;
   }
 }
 
@@ -421,4 +422,15 @@ message SimpleSpamPolicy {
   repeated BannedParty banned_parties = 3;
   repeated PartyTokenBalance token_balance = 4;
 	uint64 current_epoch_seq = 5;  
+}
+
+message NotarySigs {
+  string id = 1;
+  int32 kind = 2;
+  string node = 3;
+  string sig = 4;
+}
+
+message Notary {
+  repeated NotarySigs notary_sigs = 1;
 }
