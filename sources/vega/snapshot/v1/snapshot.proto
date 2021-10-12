@@ -424,18 +424,13 @@ message SimpleSpamPolicy {
 	uint64 current_epoch_seq = 5;  
 }
 
-message NotaryNodeSig {
-  string node = 1;
-  string sig = 2;
-}
-
-message NotaryIDKind {
+message NotarySigs {
   string id = 1;
   int32 kind = 2;
-  repeated NotaryNodeSig notary_node_sig = 3;
+  string node = 3;
+  string sig = 4;
 }
 
 message Notary {
-  repeated NotaryIDKind notary_Id_kind = 1;
-  double validator_votes_required = 2;
+  repeated NotarySigs notary_sigs = 1;
 }

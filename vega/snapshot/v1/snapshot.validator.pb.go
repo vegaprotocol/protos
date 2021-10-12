@@ -759,24 +759,14 @@ func (this *SimpleSpamPolicy) Validate() error {
 	}
 	return nil
 }
-func (this *NotaryNodeSig) Validate() error {
-	return nil
-}
-func (this *NotaryIDKind) Validate() error {
-	for _, item := range this.NotaryNodeSig {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("NotaryNodeSig", err)
-			}
-		}
-	}
+func (this *NotarySigs) Validate() error {
 	return nil
 }
 func (this *Notary) Validate() error {
-	for _, item := range this.Notary_IdKind {
+	for _, item := range this.NotarySigs {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Notary_IdKind", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("NotarySigs", err)
 			}
 		}
 	}
