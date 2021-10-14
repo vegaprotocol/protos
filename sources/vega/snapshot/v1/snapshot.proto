@@ -80,6 +80,7 @@ message Payload {
     VoteSpamPolicy vote_spam_policy = 26;
     SimpleSpamPolicy simple_spam_policy = 27;
     Notary notary = 28;
+    ReplayProtection replay_protection = 29;
   }
 }
 
@@ -433,4 +434,12 @@ message NotarySigs {
 
 message Notary {
   repeated NotarySigs notary_sigs = 1;
+}
+
+message ReplayProtection {
+  repeated RecentBlocksTransactions recent_blocks_transactions = 1;
+}
+
+message RecentBlocksTransactions {
+  repeated string tx = 1;
 }

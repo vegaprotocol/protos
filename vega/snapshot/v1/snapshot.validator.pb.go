@@ -241,6 +241,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_ReplayProtection); ok {
+		if oneOfNester.ReplayProtection != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ReplayProtection); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ReplayProtection", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -770,5 +777,18 @@ func (this *Notary) Validate() error {
 			}
 		}
 	}
+	return nil
+}
+func (this *ReplayProtection) Validate() error {
+	for _, item := range this.RecentBlocksTransactions {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RecentBlocksTransactions", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *RecentBlocksTransactions) Validate() error {
 	return nil
 }
