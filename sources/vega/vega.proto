@@ -61,7 +61,6 @@ message Timestamp {
 message Party {
   // A unique identifier for the party, typically represented by a public key
   string id = 1 [(validator.field) = {msg_exists : true}];
-  repeated Delegation delegations = 2;
 }
 
 // Risk factors are used to calculate the current risk associated with orders trading on a given market

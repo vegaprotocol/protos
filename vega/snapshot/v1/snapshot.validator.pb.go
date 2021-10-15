@@ -80,6 +80,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_BankingAssetActions); ok {
+		if oneOfNester.BankingAssetActions != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.BankingAssetActions); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("BankingAssetActions", err)
+			}
+		}
+	}
 	if oneOfNester, ok := this.GetData().(*Payload_Checkpoint); ok {
 		if oneOfNester.Checkpoint != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Checkpoint); err != nil {
@@ -192,6 +199,55 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_RewardsPendingPayouts); ok {
+		if oneOfNester.RewardsPendingPayouts != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.RewardsPendingPayouts); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardsPendingPayouts", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_GovernanceNode); ok {
+		if oneOfNester.GovernanceNode != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.GovernanceNode); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("GovernanceNode", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_LimitState); ok {
+		if oneOfNester.LimitState != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LimitState); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LimitState", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_VoteSpamPolicy); ok {
+		if oneOfNester.VoteSpamPolicy != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.VoteSpamPolicy); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("VoteSpamPolicy", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_SimpleSpamPolicy); ok {
+		if oneOfNester.SimpleSpamPolicy != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.SimpleSpamPolicy); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("SimpleSpamPolicy", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_Notary); ok {
+		if oneOfNester.Notary != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Notary); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Notary", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_ReplayProtection); ok {
+		if oneOfNester.ReplayProtection != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ReplayProtection); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ReplayProtection", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -253,6 +309,24 @@ func (this *Deposit) Validate() error {
 func (this *TxRef) Validate() error {
 	return nil
 }
+func (this *AssetAction) Validate() error {
+	if this.BuiltinDeposit != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.BuiltinDeposit); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("BuiltinDeposit", err)
+		}
+	}
+	if this.Erc20Deposit != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Erc20Deposit); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Erc20Deposit", err)
+		}
+	}
+	if this.AssetList != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.AssetList); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("AssetList", err)
+		}
+	}
+	return nil
+}
 func (this *BankingWithdrawals) Validate() error {
 	for _, item := range this.Withdrawals {
 		if item != nil {
@@ -278,6 +352,16 @@ func (this *BankingSeen) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("Refs", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *BankingAssetActions) Validate() error {
+	for _, item := range this.AssetAction {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("AssetAction", err)
 			}
 		}
 	}
@@ -356,6 +440,16 @@ func (this *GovernanceEnacted) Validate() error {
 	return nil
 }
 func (this *GovernanceActive) Validate() error {
+	for _, item := range this.Proposals {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Proposals", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *GovernanceNode) Validate() error {
 	for _, item := range this.Proposals {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
@@ -564,5 +658,137 @@ func (this *EpochState) Validate() error {
 	return nil
 }
 func (this *ExecutionIDGenerator) Validate() error {
+	return nil
+}
+func (this *RewardsPendingPayouts) Validate() error {
+	for _, item := range this.ScheduledRewardsPayout {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ScheduledRewardsPayout", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ScheduledRewardsPayout) Validate() error {
+	for _, item := range this.RewardsPayout {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardsPayout", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *RewardsPayout) Validate() error {
+	for _, item := range this.RewardPartyAmount {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RewardPartyAmount", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *RewardsPartyAmount) Validate() error {
+	return nil
+}
+func (this *LimitState) Validate() error {
+	return nil
+}
+func (this *VoteSpamPolicy) Validate() error {
+	for _, item := range this.PartyToVote {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PartyToVote", err)
+			}
+		}
+	}
+	for _, item := range this.BannedParties {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("BannedParties", err)
+			}
+		}
+	}
+	for _, item := range this.TokenBalance {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("TokenBalance", err)
+			}
+		}
+	}
+	for _, item := range this.RecentBlocksRejectStats {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RecentBlocksRejectStats", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *PartyProposalVoteCount) Validate() error {
+	return nil
+}
+func (this *BannedParty) Validate() error {
+	return nil
+}
+func (this *PartyTokenBalance) Validate() error {
+	return nil
+}
+func (this *BlockRejectStats) Validate() error {
+	return nil
+}
+func (this *SpamPartyTransactionCount) Validate() error {
+	return nil
+}
+func (this *SimpleSpamPolicy) Validate() error {
+	for _, item := range this.PartyToCount {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PartyToCount", err)
+			}
+		}
+	}
+	for _, item := range this.BannedParties {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("BannedParties", err)
+			}
+		}
+	}
+	for _, item := range this.TokenBalance {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("TokenBalance", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *NotarySigs) Validate() error {
+	return nil
+}
+func (this *Notary) Validate() error {
+	for _, item := range this.NotarySigs {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("NotarySigs", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ReplayProtection) Validate() error {
+	for _, item := range this.RecentBlocksTransactions {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RecentBlocksTransactions", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *RecentBlocksTransactions) Validate() error {
 	return nil
 }

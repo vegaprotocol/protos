@@ -1727,27 +1727,6 @@
       },
       "title": "Continuous trading"
     },
-    "vegaDelegation": {
-      "type": "object",
-      "properties": {
-        "party": {
-          "type": "string",
-          "title": "Party which is delegating"
-        },
-        "node_id": {
-          "type": "string",
-          "title": "Node ID"
-        },
-        "amount": {
-          "type": "string",
-          "title": "Amount delegated"
-        },
-        "epoch_seq": {
-          "type": "string",
-          "title": "Epoch of delegation"
-        }
-      }
-    },
     "vegaDeposit": {
       "type": "object",
       "properties": {
@@ -2812,12 +2791,6 @@
         "id": {
           "type": "string",
           "title": "A unique identifier for the party, typically represented by a public key"
-        },
-        "delegations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/vegaDelegation"
-          }
         }
       },
       "title": "A party represents an entity who wishes to trade on or query a Vega network"

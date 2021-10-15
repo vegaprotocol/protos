@@ -57,22 +57,30 @@ message Payload {
     BankingWithdrawals banking_withdrawals = 3;
     BankingDeposits banking_deposits = 4;
     BankingSeen banking_seen = 5;
-    Checkpoint checkpoint = 6;
-    CollateralAccounts collateral_accounts = 7;
-    CollateralAssets collateral_assets = 8;
-    DelegationActive delegation_active = 9;
-    DelegationPending delegation_pending = 10;
-    DelegationAuto delegation_auto = 11;
-    GovernanceActive governance_active = 12;
-    GovernanceEnacted governance_enacted = 13;
-    StakingAccounts staking_accounts = 14;
-    MatchingBook matching_book = 15;
-    NetParams network_parameters = 16;
-    ExecutionMarkets execution_markets = 17;
-    MarketPositions market_positions = 18;
-    AppState app_state = 19;
-    EpochState epoch = 20;
-    ExecutionIDGenerator execution_id_generator = 21;
+    BankingAssetActions banking_asset_actions = 6;
+    Checkpoint checkpoint = 7;
+    CollateralAccounts collateral_accounts = 8;
+    CollateralAssets collateral_assets = 9;
+    DelegationActive delegation_active = 10;
+    DelegationPending delegation_pending = 11;
+    DelegationAuto delegation_auto = 12;
+    GovernanceActive governance_active = 13;
+    GovernanceEnacted governance_enacted = 14;
+    StakingAccounts staking_accounts = 15;
+    MatchingBook matching_book = 16;
+    NetParams network_parameters = 17;
+    ExecutionMarkets execution_markets = 18;
+    MarketPositions market_positions = 19;
+    AppState app_state = 20;
+    EpochState epoch = 21;
+    ExecutionIDGenerator execution_id_generator = 22;
+    RewardsPendingPayouts rewards_pending_payouts = 23;
+    GovernanceNode governance_node = 24;
+    LimitState limit_state = 25;
+    VoteSpamPolicy vote_spam_policy = 26;
+    SimpleSpamPolicy simple_spam_policy = 27;
+    Notary notary = 28;
+    ReplayProtection replay_protection = 29;
   }
 }
 
@@ -109,6 +117,19 @@ message TxRef {
   uint64 log_index = 4;
 }
 
+message AssetAction {
+  string id = 1;
+  uint32 state = 2;
+  string asset = 3;
+  uint64 block_number = 4;
+  uint64 tx_index = 5;
+  string hash = 6;
+
+  vega.BuiltinAssetDeposit builtin_deposit = 7;
+  vega.ERC20Deposit erc20_deposit = 8;
+  vega.ERC20AssetList asset_list = 9;
+}
+
 message BankingWithdrawals {
   repeated Withdrawal withdrawals = 1;
 }
@@ -119,6 +140,10 @@ message BankingDeposits {
 
 message BankingSeen {
   repeated TxRef refs = 1;
+}
+
+message BankingAssetActions {
+  repeated AssetAction asset_action = 1;
 }
 
 message Checkpoint {
@@ -151,6 +176,10 @@ message GovernanceEnacted {
 
 message GovernanceActive {
   repeated PendingProposal proposals = 1;
+}
+
+message GovernanceNode {
+  repeated vega.Proposal proposals = 1;
 }
 
 message StakingAccount {
@@ -308,4 +337,109 @@ message ExecutionIDGenerator {
   uint64 orders = 2;
   // How many proposals in this batch
   uint64 proposals = 3;
+}
+
+message RewardsPendingPayouts {
+  repeated ScheduledRewardsPayout scheduled_rewards_payout = 1;
+}
+
+message ScheduledRewardsPayout {
+  int64 payout_time = 1;
+  repeated RewardsPayout rewards_payout = 2;
+} 
+
+message RewardsPayout {
+  string from_account = 1;
+  string asset = 2;
+  repeated RewardsPartyAmount reward_party_amount = 3;
+  string total_reward = 4;
+  string epoch_seq = 5;
+  int64 timestamp = 6;
+}
+
+message RewardsPartyAmount {
+  string party = 1;
+  string amount = 2;
+}
+
+// LimitState details
+message LimitState {
+  // Number of blocks into the boostrapping phase
+  uint32 block_count = 1;
+  // whether the limit on market proposals has been lifted
+  bool can_propose_market = 2;
+  // whether the limit on asset proposals has been lifted
+  bool can_propose_asset = 3;
+  // whether the genesis state is loaded
+  bool genesis_loaded = 4;
+  // fields derived from the genesis state
+  bool  propose_market_enabled = 5;
+  bool  propose_asset_enabled = 6;
+  int64 propose_market_enabled_from = 7;
+  int64 propose_asset_enabled_from = 8;
+
+}
+
+message VoteSpamPolicy {
+  repeated PartyProposalVoteCount party_to_vote = 1;
+  repeated BannedParty banned_parties = 2;
+  repeated PartyTokenBalance token_balance = 3;
+  repeated BlockRejectStats recent_blocks_reject_stats = 4;
+  uint64 current_block_index = 5;
+  uint64 last_increase_block = 6;
+  uint64 current_epoch_seq = 7;  
+  string min_voting_tokens_factor = 8;
+}
+
+message PartyProposalVoteCount {
+  string party = 1;
+  string proposal = 2;
+  uint64 count = 3;
+}
+
+message BannedParty {
+  string party = 1;
+  uint64 until_epoch = 2;
+}
+
+message PartyTokenBalance {
+  string party = 1;
+  string balance = 2;
+}
+
+message BlockRejectStats {
+  uint64 rejected = 1;
+  uint64 total = 2;
+}
+
+message SpamPartyTransactionCount {
+  string party = 1;
+  uint64 count = 2;
+}
+
+message SimpleSpamPolicy {
+  string policy_name = 1;
+  repeated SpamPartyTransactionCount party_to_count = 2;
+  repeated BannedParty banned_parties = 3;
+  repeated PartyTokenBalance token_balance = 4;
+	uint64 current_epoch_seq = 5;  
+}
+
+message NotarySigs {
+  string id = 1;
+  int32 kind = 2;
+  string node = 3;
+  string sig = 4;
+}
+
+message Notary {
+  repeated NotarySigs notary_sigs = 1;
+}
+
+message ReplayProtection {
+  repeated RecentBlocksTransactions recent_blocks_transactions = 1;
+}
+
+message RecentBlocksTransactions {
+  repeated string tx = 1;
 }
