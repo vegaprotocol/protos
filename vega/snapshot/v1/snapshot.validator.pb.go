@@ -249,6 +249,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_FutureState); ok {
+		if oneOfNester.FutureState != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.FutureState); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("FutureState", err)
+			}
+		}
+	}
 	if oneOfNester, ok := this.GetData().(*Payload_EventForwarder); ok {
 		if oneOfNester.EventForwarder != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.EventForwarder); err != nil {
@@ -259,10 +266,10 @@ func (this *Payload) Validate() error {
 	return nil
 }
 func (this *EventForwarder) Validate() error {
-	for _, item := range this.Events {
+	for _, item := range this.AckedEvents {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Events", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("AckedEvents", err)
 			}
 		}
 	}
@@ -808,5 +815,8 @@ func (this *ReplayProtection) Validate() error {
 	return nil
 }
 func (this *RecentBlocksTransactions) Validate() error {
+	return nil
+}
+func (this *FutureState) Validate() error {
 	return nil
 }
