@@ -81,6 +81,7 @@ message Payload {
     SimpleSpamPolicy simple_spam_policy = 27;
     Notary notary = 28;
     ReplayProtection replay_protection = 29;
+    FutureState  future_state = 30;
   }
 }
 
@@ -442,4 +443,10 @@ message ReplayProtection {
 
 message RecentBlocksTransactions {
   repeated string tx = 1;
+}
+
+message FutureState {
+  string market_id = 1;
+  string settlement_price = 2;
+  bool trading_terminated = 3;
 }

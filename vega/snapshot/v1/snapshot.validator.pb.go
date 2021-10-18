@@ -248,6 +248,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_FutureState); ok {
+		if oneOfNester.FutureState != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.FutureState); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("FutureState", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *CollateralAccounts) Validate() error {
@@ -790,5 +797,8 @@ func (this *ReplayProtection) Validate() error {
 	return nil
 }
 func (this *RecentBlocksTransactions) Validate() error {
+	return nil
+}
+func (this *FutureState) Validate() error {
 	return nil
 }
