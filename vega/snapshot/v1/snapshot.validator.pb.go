@@ -8,6 +8,7 @@ import (
 	math "math"
 
 	_ "code.vegaprotocol.io/protos/vega"
+	_ "code.vegaprotocol.io/protos/vega/commands/v1"
 	_ "code.vegaprotocol.io/protos/vega/events/v1"
 	proto "github.com/golang/protobuf/proto"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
@@ -245,6 +246,23 @@ func (this *Payload) Validate() error {
 		if oneOfNester.ReplayProtection != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ReplayProtection); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("ReplayProtection", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_EventForwarder); ok {
+		if oneOfNester.EventForwarder != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.EventForwarder); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("EventForwarder", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *EventForwarder) Validate() error {
+	for _, item := range this.Events {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Events", err)
 			}
 		}
 	}
