@@ -361,7 +361,7 @@
         },
         "validator_score": {
           "$ref": "#/definitions/v1ValidatorScoreEvent",
-          "title": "Validator score calcualted"
+          "title": "Validator score calculated"
         },
         "epoch_event": {
           "$ref": "#/definitions/v1EpochEvent",
@@ -623,7 +623,6 @@
         },
         "amount": {
           "type": "string",
-          "format": "int64",
           "title": "Amount distributed"
         }
       },
@@ -919,8 +918,7 @@
         },
         "mark_price": {
           "type": "string",
-          "format": "uint64",
-          "title": "Mark price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
+          "title": "Mark price as a string representing a scaled price"
         }
       },
       "title": "A position resolution event contains information on distressed trades"
@@ -1039,12 +1037,10 @@
         },
         "margin": {
           "type": "string",
-          "format": "uint64",
           "title": "Margin value as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "price": {
           "type": "string",
-          "format": "uint64",
           "title": "Price as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         }
       },
@@ -1063,8 +1059,7 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
-          "title": "Price of settlement as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
+          "title": "Price of settlement as a string"
         },
         "trade_settlements": {
           "type": "array",
@@ -1379,8 +1374,7 @@
         },
         "price": {
           "type": "string",
-          "format": "uint64",
-          "title": "Price of settlement as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
+          "title": "Price of settlement as string"
         }
       },
       "title": "A trade settlement is part of the settle position event"
