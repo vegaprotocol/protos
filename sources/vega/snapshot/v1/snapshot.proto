@@ -9,6 +9,7 @@ import "vega/assets.proto";
 import "vega/chain_events.proto";
 import "vega/governance.proto";
 import "vega/events/v1/events.proto";
+import "vega/commands/v1/validator_commands.proto";
 
 enum Format {
   // Default value, always invalid
@@ -82,7 +83,12 @@ message Payload {
     Notary notary = 28;
     ReplayProtection replay_protection = 29;
     FutureState  future_state = 30;
+    EventForwarder event_forwarder = 31;
   }
+}
+
+message EventForwarder {
+  repeated vega.commands.v1.ChainEvent acked_events = 1;
 }
 
 message CollateralAccounts {
