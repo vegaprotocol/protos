@@ -76,6 +76,12 @@ message Payload {
     ExecutionIDGenerator execution_id_generator = 22;
     RewardsPendingPayouts rewards_pending_payouts = 23;
     GovernanceNode governance_node = 24;
+    LimitState limit_state = 25;
+    VoteSpamPolicy vote_spam_policy = 26;
+    SimpleSpamPolicy simple_spam_policy = 27;
+    Notary notary = 28;
+    ReplayProtection replay_protection = 29;
+    FutureState  future_state = 30;
   }
 }
 
@@ -335,16 +341,112 @@ message ExecutionIDGenerator {
 }
 
 message RewardsPendingPayouts {
-  int64 reward_time = 1;
-  string from_account = 2;
-  string asset = 3;
-  repeated RewardPartyAmount reward_party_amount = 4;
-  string total_reward = 5;
-  string epoch_seq = 6;
-  int64 timestamp = 7;
+  repeated ScheduledRewardsPayout scheduled_rewards_payout = 1;
 }
 
-message RewardPartyAmount {
+message ScheduledRewardsPayout {
+  int64 payout_time = 1;
+  repeated RewardsPayout rewards_payout = 2;
+} 
+
+message RewardsPayout {
+  string from_account = 1;
+  string asset = 2;
+  repeated RewardsPartyAmount reward_party_amount = 3;
+  string total_reward = 4;
+  string epoch_seq = 5;
+  int64 timestamp = 6;
+}
+
+message RewardsPartyAmount {
   string party = 1;
   string amount = 2;
+}
+
+// LimitState details
+message LimitState {
+  // Number of blocks into the boostrapping phase
+  uint32 block_count = 1;
+  // whether the limit on market proposals has been lifted
+  bool can_propose_market = 2;
+  // whether the limit on asset proposals has been lifted
+  bool can_propose_asset = 3;
+  // whether the genesis state is loaded
+  bool genesis_loaded = 4;
+  // fields derived from the genesis state
+  bool  propose_market_enabled = 5;
+  bool  propose_asset_enabled = 6;
+  int64 propose_market_enabled_from = 7;
+  int64 propose_asset_enabled_from = 8;
+
+}
+
+message VoteSpamPolicy {
+  repeated PartyProposalVoteCount party_to_vote = 1;
+  repeated BannedParty banned_parties = 2;
+  repeated PartyTokenBalance token_balance = 3;
+  repeated BlockRejectStats recent_blocks_reject_stats = 4;
+  uint64 current_block_index = 5;
+  uint64 last_increase_block = 6;
+  uint64 current_epoch_seq = 7;  
+  string min_voting_tokens_factor = 8;
+}
+
+message PartyProposalVoteCount {
+  string party = 1;
+  string proposal = 2;
+  uint64 count = 3;
+}
+
+message BannedParty {
+  string party = 1;
+  uint64 until_epoch = 2;
+}
+
+message PartyTokenBalance {
+  string party = 1;
+  string balance = 2;
+}
+
+message BlockRejectStats {
+  uint64 rejected = 1;
+  uint64 total = 2;
+}
+
+message SpamPartyTransactionCount {
+  string party = 1;
+  uint64 count = 2;
+}
+
+message SimpleSpamPolicy {
+  string policy_name = 1;
+  repeated SpamPartyTransactionCount party_to_count = 2;
+  repeated BannedParty banned_parties = 3;
+  repeated PartyTokenBalance token_balance = 4;
+	uint64 current_epoch_seq = 5;  
+}
+
+message NotarySigs {
+  string id = 1;
+  int32 kind = 2;
+  string node = 3;
+  string sig = 4;
+}
+
+message Notary {
+  repeated NotarySigs notary_sigs = 1;
+}
+
+message ReplayProtection {
+  repeated RecentBlocksTransactions recent_blocks_transactions = 1;
+}
+
+message RecentBlocksTransactions {
+  repeated string tx = 1;
+}
+
+message FutureState {
+  string market_id = 1;
+  string settlement_price = 2;
+  bool trading_terminated = 3;
 }
