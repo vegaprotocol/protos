@@ -440,6 +440,7 @@ message Notary {
 
 message ReplayProtection {
   repeated RecentBlocksTransactions recent_blocks_transactions = 1;
+  uint64 tolerance = 2;
 }
 
 message RecentBlocksTransactions {
