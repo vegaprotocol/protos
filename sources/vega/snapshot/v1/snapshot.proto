@@ -529,7 +529,6 @@ message LiquidityParameters {
   string max_fee = 1;
   string max_shape_size = 2;
   string stake_to_obligation_factor = 3;
-  int64 current_time = 4;
 }
 
 message LiquidityPendingProvisions {
