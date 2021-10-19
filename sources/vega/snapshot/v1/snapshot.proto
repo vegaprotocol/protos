@@ -74,7 +74,6 @@ message Payload {
     MarketPositions market_positions = 19;
     AppState app_state = 20;
     EpochState epoch = 21;
-    ExecutionIDGenerator execution_id_generator = 22;
     RewardsPendingPayouts rewards_pending_payouts = 23;
     GovernanceNode governance_node = 24;
     LimitState limit_state = 25;
@@ -340,16 +339,6 @@ message EpochState {
   bool ready_to_start_new_epoch = 6;
   // Ready to end epoch
   bool ready_to_end_epoch = 7;
-}
-
-// State of the ID generator used for creating order IDs
-message ExecutionIDGenerator {
-  // Which batch are we on
-  uint64 batches = 1;
-  // How many orders in this batch
-  uint64 orders = 2;
-  // How many proposals in this batch
-  uint64 proposals = 3;
 }
 
 message RewardsPendingPayouts {
