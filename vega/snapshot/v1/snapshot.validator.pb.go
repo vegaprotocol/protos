@@ -256,6 +256,26 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_Witness); ok {
+		if oneOfNester.Witness != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Witness); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Witness", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Witness) Validate() error {
+	for _, item := range this.Resources {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Resources", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Resource) Validate() error {
 	return nil
 }
 func (this *EventForwarder) Validate() error {
