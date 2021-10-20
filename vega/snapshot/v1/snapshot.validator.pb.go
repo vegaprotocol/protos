@@ -256,6 +256,20 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_StakeVerifierDeposited); ok {
+		if oneOfNester.StakeVerifierDeposited != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StakeVerifierDeposited); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakeVerifierDeposited", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_StakeVerifierRemoved); ok {
+		if oneOfNester.StakeVerifierRemoved != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StakeVerifierRemoved); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakeVerifierRemoved", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *EventForwarder) Validate() error {
@@ -808,5 +822,28 @@ func (this *RecentBlocksTransactions) Validate() error {
 	return nil
 }
 func (this *FutureState) Validate() error {
+	return nil
+}
+func (this *StakeVerifierDeposited) Validate() error {
+	for _, item := range this.PendingDeposited {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PendingDeposited", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *StakeVerifierRemoved) Validate() error {
+	for _, item := range this.PendingRemoved {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PendingRemoved", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *StakeVerifierPending) Validate() error {
 	return nil
 }
