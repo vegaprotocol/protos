@@ -83,6 +83,8 @@ message Payload {
     ReplayProtection replay_protection = 29;
     FutureState  future_state = 30;
     EventForwarder event_forwarder = 31;
+    StakeVerifierDeposited stake_verifier_deposited = 32;
+    StakeVerifierRemoved stake_verifier_removed = 33;
   }
 }
 
@@ -450,4 +452,24 @@ message FutureState {
   string market_id = 1;
   string settlement_price = 2;
   bool trading_terminated = 3;
+}
+
+
+message StakeVerifierDeposited {
+  repeated StakeVerifierPending pending_deposited = 1;
+}
+
+message StakeVerifierRemoved {
+  repeated StakeVerifierPending pending_removed = 1;
+}
+
+message StakeVerifierPending {
+  string ethereum_address = 1;
+  string vega_public_key = 2;
+  string amount = 3;
+  int64 block_time = 4;
+  uint64 block_number = 5;
+  uint64 log_index = 6;
+  string tx_id = 7;
+  string id = 8;
 }
