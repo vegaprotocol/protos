@@ -85,7 +85,20 @@ message Payload {
     EventForwarder event_forwarder = 31;
     StakeVerifierDeposited stake_verifier_deposited = 32;
     StakeVerifierRemoved stake_verifier_removed = 33;
+    Witness witness = 34;
   }
+}
+
+message Witness {
+  repeated Resource resources = 1;
+  repeated string need_resend_resources = 2;
+}
+
+message Resource {
+  string id = 1;
+  int64 check_until = 2;
+  repeated string votes = 3;
+  uint32 state = 4;
 }
 
 message EventForwarder {
