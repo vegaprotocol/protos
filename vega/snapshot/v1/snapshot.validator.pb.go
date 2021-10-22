@@ -277,6 +277,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_DelegationLastReconciliationTime); ok {
+		if oneOfNester.DelegationLastReconciliationTime != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.DelegationLastReconciliationTime); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("DelegationLastReconciliationTime", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *Witness) Validate() error {
@@ -420,6 +427,9 @@ func (this *BankingAssetActions) Validate() error {
 	return nil
 }
 func (this *Checkpoint) Validate() error {
+	return nil
+}
+func (this *DelegationLastReconciliationTime) Validate() error {
 	return nil
 }
 func (this *DelegationActive) Validate() error {
