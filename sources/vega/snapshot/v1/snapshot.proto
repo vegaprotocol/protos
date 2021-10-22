@@ -86,6 +86,7 @@ message Payload {
     StakeVerifierDeposited stake_verifier_deposited = 32;
     StakeVerifierRemoved stake_verifier_removed = 33;
     Witness witness = 34;
+    DelegationLastReconciliationTime delegation_last_reconciliation_time = 35;
   }
 }
 
@@ -169,6 +170,10 @@ message BankingAssetActions {
 
 message Checkpoint {
   int64 next_cp = 1;
+}
+
+message DelegationLastReconciliationTime {
+  int64 last_reconciliation_time = 1;
 }
 
 message DelegationActive {
