@@ -9,6 +9,7 @@ import "vega/assets.proto";
 import "vega/chain_events.proto";
 import "vega/governance.proto";
 import "vega/events/v1/events.proto";
+import "vega/commands/v1/validator_commands.proto";
 
 enum Format {
   // Default value, always invalid
@@ -73,7 +74,6 @@ message Payload {
     MarketPositions market_positions = 19;
     AppState app_state = 20;
     EpochState epoch = 21;
-    ExecutionIDGenerator execution_id_generator = 22;
     RewardsPendingPayouts rewards_pending_payouts = 23;
     GovernanceNode governance_node = 24;
     LimitState limit_state = 25;
@@ -82,7 +82,28 @@ message Payload {
     Notary notary = 28;
     ReplayProtection replay_protection = 29;
     FutureState  future_state = 30;
+    EventForwarder event_forwarder = 31;
+    StakeVerifierDeposited stake_verifier_deposited = 32;
+    StakeVerifierRemoved stake_verifier_removed = 33;
+    Witness witness = 34;
+    DelegationLastReconciliationTime delegation_last_reconciliation_time = 35;
   }
+}
+
+message Witness {
+  repeated Resource resources = 1;
+  repeated string need_resend_resources = 2;
+}
+
+message Resource {
+  string id = 1;
+  int64 check_until = 2;
+  repeated string votes = 3;
+  uint32 state = 4;
+}
+
+message EventForwarder {
+  repeated vega.commands.v1.ChainEvent acked_events = 1;
 }
 
 message CollateralAccounts {
@@ -149,6 +170,10 @@ message BankingAssetActions {
 
 message Checkpoint {
   int64 next_cp = 1;
+}
+
+message DelegationLastReconciliationTime {
+  int64 last_reconciliation_time = 1;
 }
 
 message DelegationActive {
@@ -293,6 +318,12 @@ message Market {
 
 message ExecutionMarkets {
   repeated Market markets = 1;
+  // Which batch are we on
+  uint64 batches = 2;
+  // How many orders in this batch
+  uint64 orders = 3;
+  // How many proposals in this batch
+  uint64 proposals = 4;
 }
 
 message Position {
@@ -328,16 +359,6 @@ message EpochState {
   bool ready_to_start_new_epoch = 6;
   // Ready to end epoch
   bool ready_to_end_epoch = 7;
-}
-
-// State of the ID generator used for creating order IDs
-message ExecutionIDGenerator {
-  // Which batch are we on
-  uint64 batches = 1;
-  // How many orders in this batch
-  uint64 orders = 2;
-  // How many proposals in this batch
-  uint64 proposals = 3;
 }
 
 message RewardsPendingPayouts {
@@ -449,4 +470,24 @@ message FutureState {
   string market_id = 1;
   string settlement_price = 2;
   bool trading_terminated = 3;
+}
+
+
+message StakeVerifierDeposited {
+  repeated StakeVerifierPending pending_deposited = 1;
+}
+
+message StakeVerifierRemoved {
+  repeated StakeVerifierPending pending_removed = 1;
+}
+
+message StakeVerifierPending {
+  string ethereum_address = 1;
+  string vega_public_key = 2;
+  string amount = 3;
+  int64 block_time = 4;
+  uint64 block_number = 5;
+  uint64 log_index = 6;
+  string tx_id = 7;
+  string id = 8;
 }

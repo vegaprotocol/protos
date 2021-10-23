@@ -8,6 +8,7 @@ import (
 	math "math"
 
 	_ "code.vegaprotocol.io/protos/vega"
+	_ "code.vegaprotocol.io/protos/vega/commands/v1"
 	_ "code.vegaprotocol.io/protos/vega/events/v1"
 	proto "github.com/golang/protobuf/proto"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
@@ -192,13 +193,6 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
-	if oneOfNester, ok := this.GetData().(*Payload_ExecutionIdGenerator); ok {
-		if oneOfNester.ExecutionIdGenerator != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ExecutionIdGenerator); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("ExecutionIdGenerator", err)
-			}
-		}
-	}
 	if oneOfNester, ok := this.GetData().(*Payload_RewardsPendingPayouts); ok {
 		if oneOfNester.RewardsPendingPayouts != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.RewardsPendingPayouts); err != nil {
@@ -252,6 +246,64 @@ func (this *Payload) Validate() error {
 		if oneOfNester.FutureState != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.FutureState); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("FutureState", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_EventForwarder); ok {
+		if oneOfNester.EventForwarder != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.EventForwarder); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("EventForwarder", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_StakeVerifierDeposited); ok {
+		if oneOfNester.StakeVerifierDeposited != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StakeVerifierDeposited); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakeVerifierDeposited", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_StakeVerifierRemoved); ok {
+		if oneOfNester.StakeVerifierRemoved != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StakeVerifierRemoved); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StakeVerifierRemoved", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_Witness); ok {
+		if oneOfNester.Witness != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Witness); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Witness", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetData().(*Payload_DelegationLastReconciliationTime); ok {
+		if oneOfNester.DelegationLastReconciliationTime != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.DelegationLastReconciliationTime); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("DelegationLastReconciliationTime", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Witness) Validate() error {
+	for _, item := range this.Resources {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Resources", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Resource) Validate() error {
+	return nil
+}
+func (this *EventForwarder) Validate() error {
+	for _, item := range this.AckedEvents {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("AckedEvents", err)
 			}
 		}
 	}
@@ -375,6 +427,9 @@ func (this *BankingAssetActions) Validate() error {
 	return nil
 }
 func (this *Checkpoint) Validate() error {
+	return nil
+}
+func (this *DelegationLastReconciliationTime) Validate() error {
 	return nil
 }
 func (this *DelegationActive) Validate() error {
@@ -664,9 +719,6 @@ func (this *AppState) Validate() error {
 func (this *EpochState) Validate() error {
 	return nil
 }
-func (this *ExecutionIDGenerator) Validate() error {
-	return nil
-}
 func (this *RewardsPendingPayouts) Validate() error {
 	for _, item := range this.ScheduledRewardsPayout {
 		if item != nil {
@@ -800,5 +852,28 @@ func (this *RecentBlocksTransactions) Validate() error {
 	return nil
 }
 func (this *FutureState) Validate() error {
+	return nil
+}
+func (this *StakeVerifierDeposited) Validate() error {
+	for _, item := range this.PendingDeposited {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PendingDeposited", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *StakeVerifierRemoved) Validate() error {
+	for _, item := range this.PendingRemoved {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PendingRemoved", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *StakeVerifierPending) Validate() error {
 	return nil
 }
