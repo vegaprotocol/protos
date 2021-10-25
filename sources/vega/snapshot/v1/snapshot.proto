@@ -529,20 +529,30 @@ message LiquidityParameters {
   string max_fee = 1;
   string max_shape_size = 2;
   string stake_to_obligation_factor = 3;
+  // required for key generation
+  string market_id = 4;
 }
 
 message LiquidityPendingProvisions {
   repeated string pending_provisions = 1;
+  // required for key generation
+  string market_id = 2;
 }
 
 message LiquidityPartiesLiquidityOrders {
   repeated vega.Order orders = 1;
+  // required for key generation
+  string market_id = 2;
 }
 
 message LiquidityPartiesOrders {
   repeated vega.Order orders = 1;
+  // required for key generation
+  string market_id = 2;
 }
 
 message LiquidityProvisions {
   repeated vega.LiquidityProvision liquidity_provisions = 1;
+  // required for key generation
+  string market_id = 2;
 }
