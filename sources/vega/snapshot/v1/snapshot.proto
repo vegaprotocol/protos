@@ -87,6 +87,7 @@ message Payload {
     StakeVerifierRemoved stake_verifier_removed = 33;
     Witness witness = 34;
     DelegationLastReconciliationTime delegation_last_reconciliation_time = 35;
+    Topology topology = 36;
   }
 }
 
@@ -490,4 +491,9 @@ message StakeVerifierPending {
   uint64 log_index = 6;
   string tx_id = 7;
   string id = 8;
+}
+
+message Topology{
+  repeated vega.events.v1.ValidatorUpdate validator_data = 1;
+  repeated string chain_keys = 2;
 }
