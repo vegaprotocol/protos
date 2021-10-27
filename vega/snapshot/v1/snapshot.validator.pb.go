@@ -284,6 +284,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_Topology); ok {
+		if oneOfNester.Topology != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.Topology); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Topology", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *Witness) Validate() error {
@@ -875,5 +882,15 @@ func (this *StakeVerifierRemoved) Validate() error {
 	return nil
 }
 func (this *StakeVerifierPending) Validate() error {
+	return nil
+}
+func (this *Topology) Validate() error {
+	for _, item := range this.ValidatorData {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ValidatorData", err)
+			}
+		}
+	}
 	return nil
 }
