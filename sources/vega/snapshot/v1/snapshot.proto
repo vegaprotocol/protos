@@ -315,6 +315,7 @@ message Market {
   int64 last_equity_share_distributed = 11;
   EquityShare equity_share = 12;
   string current_mark_price = 13;
+  repeated string parties = 14;
 }
 
 message ExecutionMarkets {
