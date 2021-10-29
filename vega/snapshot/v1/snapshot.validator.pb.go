@@ -608,6 +608,12 @@ func (this *PriceRangeCache) Validate() error {
 	}
 	return nil
 }
+func (this *CurrentPrice) Validate() error {
+	return nil
+}
+func (this *PastPrice) Validate() error {
+	return nil
+}
 func (this *PriceMonitor) Validate() error {
 	for _, item := range this.FpHorizons {
 		if item != nil {
@@ -634,6 +640,20 @@ func (this *PriceMonitor) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("RefPriceCache", err)
+			}
+		}
+	}
+	for _, item := range this.PricesNow {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PricesNow", err)
+			}
+		}
+	}
+	for _, item := range this.PricesPast {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PricesPast", err)
 			}
 		}
 	}
