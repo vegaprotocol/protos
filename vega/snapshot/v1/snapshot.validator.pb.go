@@ -636,6 +636,13 @@ func (this *PriceMonitor) Validate() error {
 			}
 		}
 	}
+	for _, item := range this.RefPriceCache {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RefPriceCache", err)
+			}
+		}
+	}
 	for _, item := range this.PricesNow {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
@@ -647,13 +654,6 @@ func (this *PriceMonitor) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("PricesPast", err)
-			}
-		}
-	}
-	for _, item := range this.RefPriceCache {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("RefPriceCache", err)
 			}
 		}
 	}

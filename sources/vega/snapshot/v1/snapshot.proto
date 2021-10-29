@@ -283,10 +283,10 @@ message PriceMonitor {
   repeated PriceBound bounds = 7;
   int64 price_range_cache_time = 8;
   repeated PriceRangeCache price_range_cache = 9;
-  repeated CurrentPrice prices_now = 10;
-  repeated PastPrice prices_past = 11;
-  int64 ref_price_cache_time = 12;
-  repeated DecimalMap ref_price_cache = 13;
+  repeated DecimalMap ref_price_cache = 10;
+  int64 ref_price_cache_time = 11;
+  repeated CurrentPrice prices_now = 12;
+  repeated PastPrice prices_past = 13;
 }
 
 message AuctionState {
