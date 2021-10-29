@@ -271,7 +271,7 @@ message CurrentPrice {
 }
 
 message PastPrice {
-  int64 Time = 1;
+  int64 time = 1;
   string volume_weighted_price = 2;
 }
 
