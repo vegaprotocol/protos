@@ -265,6 +265,16 @@ message PriceRangeCache {
   PriceRange range = 2;
 }
 
+message CurrentPrice {
+  string price = 1;
+  uint64 volume = 2;
+}
+
+message PastPrice {
+  int64 Time = 1;
+  string volume_weighted_price = 2;
+}
+
 message PriceMonitor {
   bool initialised = 3;
   repeated DecimalMap fp_horizons = 4;
@@ -273,8 +283,10 @@ message PriceMonitor {
   repeated PriceBound bounds = 7;
   int64 price_range_cache_time = 8;
   repeated PriceRangeCache price_range_cache = 9;
-  int64 ref_price_cache_time = 10;
-  repeated DecimalMap ref_price_cache = 11;
+  repeated CurrentPrice prices_now = 10;
+  repeated PastPrice prices_past = 11;
+  int64 ref_price_cache_time = 12;
+  repeated DecimalMap ref_price_cache = 13;
 }
 
 message AuctionState {
