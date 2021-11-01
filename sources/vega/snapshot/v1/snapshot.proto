@@ -88,13 +88,17 @@ message Payload {
     Witness witness = 34;
     DelegationLastReconciliationTime delegation_last_reconciliation_time = 35;
     Topology topology = 36;
-    OracleData oracle_data = 37;
+    OracleDataBatch oracle_data = 37;
     LiquidityParameters liquidity_parameters = 38;
     LiquidityPendingProvisions liquidity_pending_provisions = 39;
     LiquidityPartiesLiquidityOrders liquidity_parties_liquidity_orders = 40;
     LiquidityPartiesOrders liquidity_parties_orders = 41;
     LiquidityProvisions liquidity_provisions = 42;
   }
+}
+
+message OracleDataBatch {
+  repeated OracleData oracle_data = 1;
 }
 
 message OracleData {

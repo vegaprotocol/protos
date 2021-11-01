@@ -335,6 +335,16 @@ func (this *Payload) Validate() error {
 	}
 	return nil
 }
+func (this *OracleDataBatch) Validate() error {
+	for _, item := range this.OracleData {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("OracleData", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *OracleData) Validate() error {
 	for _, item := range this.Data {
 		if item != nil {
