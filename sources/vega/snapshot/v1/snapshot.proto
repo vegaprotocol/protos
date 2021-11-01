@@ -89,6 +89,11 @@ message Payload {
     DelegationLastReconciliationTime delegation_last_reconciliation_time = 35;
     Topology topology = 36;
     OracleDataBatch oracle_data = 37;
+    LiquidityParameters liquidity_parameters = 38;
+    LiquidityPendingProvisions liquidity_pending_provisions = 39;
+    LiquidityPartiesLiquidityOrders liquidity_parties_liquidity_orders = 40;
+    LiquidityPartiesOrders liquidity_parties_orders = 41;
+    LiquidityProvisions liquidity_provisions = 42;
   }
 }
 
@@ -241,7 +246,7 @@ message MatchingBook {
   string last_traded_price = 4;
   bool auction = 5;
   uint64 batch_id = 6;
-} 
+}
 
 message NetParams {
   repeated vega.NetworkParameter params = 1;
@@ -396,7 +401,7 @@ message RewardsPendingPayouts {
 message ScheduledRewardsPayout {
   int64 payout_time = 1;
   repeated RewardsPayout rewards_payout = 2;
-} 
+}
 
 message RewardsPayout {
   string from_account = 1;
@@ -437,7 +442,7 @@ message VoteSpamPolicy {
   repeated BlockRejectStats recent_blocks_reject_stats = 4;
   uint64 current_block_index = 5;
   uint64 last_increase_block = 6;
-  uint64 current_epoch_seq = 7;  
+  uint64 current_epoch_seq = 7;
   string min_voting_tokens_factor = 8;
 }
 
@@ -472,7 +477,7 @@ message SimpleSpamPolicy {
   repeated SpamPartyTransactionCount party_to_count = 2;
   repeated BannedParty banned_parties = 3;
   repeated PartyTokenBalance token_balance = 4;
-	uint64 current_epoch_seq = 5;  
+  uint64 current_epoch_seq = 5;
 }
 
 message NotarySigs {
@@ -500,7 +505,6 @@ message FutureState {
   bool trading_terminated = 3;
 }
 
-
 message StakeVerifierDeposited {
   repeated StakeVerifierPending pending_deposited = 1;
 }
@@ -523,4 +527,36 @@ message StakeVerifierPending {
 message Topology{
   repeated vega.events.v1.ValidatorUpdate validator_data = 1;
   repeated string chain_keys = 2;
+}
+
+message LiquidityParameters {
+  string max_fee = 1;
+  string max_shape_size = 2;
+  string stake_to_obligation_factor = 3;
+  // required for key generation
+  string market_id = 4;
+}
+
+message LiquidityPendingProvisions {
+  repeated string pending_provisions = 1;
+  // required for key generation
+  string market_id = 2;
+}
+
+message LiquidityPartiesLiquidityOrders {
+  repeated vega.Order orders = 1;
+  // required for key generation
+  string market_id = 2;
+}
+
+message LiquidityPartiesOrders {
+  repeated vega.Order orders = 1;
+  // required for key generation
+  string market_id = 2;
+}
+
+message LiquidityProvisions {
+  repeated vega.LiquidityProvision liquidity_provisions = 1;
+  // required for key generation
+  string market_id = 2;
 }
