@@ -88,7 +88,18 @@ message Payload {
     Witness witness = 34;
     DelegationLastReconciliationTime delegation_last_reconciliation_time = 35;
     Topology topology = 36;
+    OracleData oracle_data = 37;
   }
+}
+
+message OracleData {
+  repeated string pub_keys = 1;
+  repeated OracleDataPair data = 2;
+}
+
+message OracleDataPair {
+  string key = 1;
+  string value = 2;
 }
 
 message Witness {
