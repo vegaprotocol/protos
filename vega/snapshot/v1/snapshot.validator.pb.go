@@ -291,6 +291,26 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_OracleData); ok {
+		if oneOfNester.OracleData != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.OracleData); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("OracleData", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *OracleData) Validate() error {
+	for _, item := range this.Data {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Data", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *OracleDataPair) Validate() error {
 	return nil
 }
 func (this *Witness) Validate() error {
