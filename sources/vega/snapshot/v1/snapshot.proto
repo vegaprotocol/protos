@@ -94,7 +94,21 @@ message Payload {
     LiquidityPartiesLiquidityOrders liquidity_parties_liquidity_orders = 40;
     LiquidityPartiesOrders liquidity_parties_orders = 41;
     LiquidityProvisions liquidity_provisions = 42;
+    LiquiditySupplied liquidity_supplied= 43;
   }
+}
+
+message LiquidityPriceProbabilityPair {
+  string price = 1;
+  string probability = 2;
+}
+
+message LiquiditySupplied {
+   string market_id = 1;
+   string cached_min = 2;
+   string cached_max = 3;
+   repeated LiquidityPriceProbabilityPair bid_cache = 4;
+   repeated LiquidityPriceProbabilityPair ask_cache = 5; 
 }
 
 message OracleDataBatch {
