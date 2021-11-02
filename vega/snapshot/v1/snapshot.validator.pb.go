@@ -333,6 +333,33 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_LiquiditySupplied); ok {
+		if oneOfNester.LiquiditySupplied != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LiquiditySupplied); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LiquiditySupplied", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *LiquidityPriceProbabilityPair) Validate() error {
+	return nil
+}
+func (this *LiquiditySupplied) Validate() error {
+	for _, item := range this.BidCache {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("BidCache", err)
+			}
+		}
+	}
+	for _, item := range this.AskCache {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("AskCache", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *OracleDataBatch) Validate() error {
