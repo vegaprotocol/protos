@@ -340,6 +340,31 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_LiquidityTarget); ok {
+		if oneOfNester.LiquidityTarget != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LiquidityTarget); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LiquidityTarget", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *TimestampedOpenInterest) Validate() error {
+	return nil
+}
+func (this *LiquidityTarget) Validate() error {
+	for _, item := range this.PreviousOpenInterests {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PreviousOpenInterests", err)
+			}
+		}
+	}
+	if this.MaxOpenInterests != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.MaxOpenInterests); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("MaxOpenInterests", err)
+		}
+	}
 	return nil
 }
 func (this *LiquidityPriceProbabilityPair) Validate() error {
