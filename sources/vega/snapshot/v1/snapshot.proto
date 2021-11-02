@@ -100,7 +100,7 @@ message Payload {
 }
 
 message TimestampedOpenInterest {
-  uint64 open_iterest = 1;
+  uint64 open_interest = 1;
   int64 time = 2;
 }
 
