@@ -5,6 +5,5 @@ This repository contains all the protobufs and go generated code used by the veg
 
 It also offer a couple of methods implementation and validation used overall the codebase.
 
-# Licence
-
-Distributed under the MIT License. See  [`LICENSE`](https://github.com/vegaprotocol/protos/blob/develop/LICENSE for more information.
+# License
+[MIT](https://github.com/vegaprotocol/protos/blob/develop/LICENSE)
