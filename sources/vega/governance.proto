@@ -40,9 +40,9 @@ message InstrumentConfiguration {
 // Configuration for a new market on Vega
 message NewMarketConfiguration {
   // New market instrument configuration
-  InstrumentConfiguration instrument = 1 [(validator.field) = {msg_exists: true}];
+  InstrumentConfiguration instrument = 1;
   // Decimal places used for the new market
-  uint64 decimal_places = 2 [(validator.field) = {int_lt: 150}];
+  uint64 decimal_places = 2;
   // Optional new market meta data, tags
   repeated string metadata = 3;
   // Price monitoring parameters
@@ -86,9 +86,9 @@ message NewMarketCommitment {
 // New market on Vega
 message NewMarket {
   // The configuration of the new market
-  NewMarketConfiguration changes = 1 [(validator.field) = {msg_exists: true}];
+  NewMarketConfiguration changes = 1;
   // The commitment from the party creating the NewMarket proposal
-  NewMarketCommitment liquidity_commitment = 2 /* THIS TO BE UN-COMMENTED ONCE WE MAKE THE COMMITMENT MANDATORY [(validator.field) = {msg_exists: true}] */;
+  NewMarketCommitment liquidity_commitment = 2;
 }
 
 // Update an existing market on Vega
@@ -97,13 +97,13 @@ message UpdateMarket { }
 // Update network configuration on Vega
 message UpdateNetworkParameter {
   // The network parameter to update
-  NetworkParameter changes = 1 [(validator.field) = {msg_exists: true}];
+  NetworkParameter changes = 1;
 }
 
 // New asset on Vega
 message NewAsset {
   // The configuration of the new asset
-  AssetDetails changes = 1 [(validator.field) = {msg_exists: true}];
+  AssetDetails changes = 1;
 }
 
 // Freeform proposal
@@ -120,10 +120,10 @@ message NewFreeform {
 message ProposalTerms {
   // Timestamp (Unix time in seconds) when voting closes for this proposal,
   // constrained by `minClose` and `maxClose` network parameters
-  int64 closing_timestamp = 1 [(validator.field) = {int_gt: 0}];
+  int64 closing_timestamp = 1;
   // Timestamp (Unix time in seconds) when proposal gets enacted (if passed),
   // constrained by `minEnact` and `maxEnact` network parameters
-  int64 enactment_timestamp = 2 [(validator.field) = {int_gt: 0}];
+  int64 enactment_timestamp = 2;
   // Validation timestamp (Unix time in seconds)
   int64 validation_timestamp = 3;
   // Changes being proposed
@@ -199,11 +199,11 @@ message Proposal {
   // Party identifier of the author (the party submitting the proposal)
   string party_id = 3;
   // Proposal state - See (Proposal.State)[#vega.Proposal.State] definition
-  State state = 4 [(validator.field) = {is_in_enum: true}];
+  State state = 4;
   // Proposal timestamp for date and time (in nanoseconds) when proposal was submitted to the network
   int64 timestamp = 5;
   // Proposal configuration and the actual change that is meant to be executed when proposal is enacted
-  ProposalTerms terms = 6 [(validator.field) = {msg_exists: true}];
+  ProposalTerms terms = 6;
   // A reason for the current state of the proposal, this may be set in case of REJECTED and FAILED statuses
   ProposalError reason = 7;
   // The detailed error associated to the reason.
@@ -303,7 +303,7 @@ message Vote {
   // Voter's party identifier
   string party_id = 1;
   // Actual vote
-  Value value = 2 [(validator.field) = {is_in_enum : true}];
+  Value value = 2;
   // Identifier of the proposal being voted on
   string proposal_id = 3;
   // Vote timestamp for date and time (in nanoseconds) when vote was submitted to the network
