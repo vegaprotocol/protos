@@ -6,6 +6,12 @@ option go_package = "code.vegaprotocol.io/protos/vega/commands/v1";
 import "vega/governance.proto";
 import "vega/vega.proto";
 
+// Replacement for the google well-known type until we can get rid of this
+// entirely
+message Int64Value {
+  int64 value = 1;
+}
+
 // An order submission is a request to submit or create a new order on Vega
 message OrderSubmission {
   // Market identifier for the order, required field
@@ -68,7 +74,7 @@ message OrderAmendment {
   // - See [`TimeInForce`](#api.VegaTimeResponse).`timestamp`
   vega.Order.TimeInForce time_in_force = 6;
   // Amend the pegged order offset for the order
-  string pegged_offset = 7;
+  Int64Value pegged_offset = 7;
   // Amend the pegged order reference for the order
   // - See [`PeggedReference`](#vega.PeggedReference)
   vega.PeggedReference pegged_reference = 8;
