@@ -3,7 +3,6 @@ syntax = "proto3";
 package vega;
 option go_package = "code.vegaprotocol.io/protos/vega";
 
-import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "vega/markets.proto";
 import "vega/assets.proto";
 
@@ -60,7 +59,7 @@ message Timestamp {
 // A party represents an entity who wishes to trade on or query a Vega network
 message Party {
   // A unique identifier for the party, typically represented by a public key
-  string id = 1 [(validator.field) = {msg_exists : true}];
+  string id = 1;
 }
 
 // Risk factors are used to calculate the current risk associated with orders trading on a given market
@@ -997,7 +996,7 @@ message LiquidityProvision {
   // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
   int64 updated_at = 4;
   // Market identifier for the order, required field
-  string market_id = 5 [(validator.field) = {string_not_empty: true}];
+  string market_id = 5;
   // Specified as a unitless number that represents the amount of settlement asset of the market
   string commitment_amount = 6;
   // Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers
@@ -1067,7 +1066,7 @@ message Epoch {
   // Sequence is used as epoch identifier
   uint64 seq = 1;
   // Timestamps for start/end etc
-  EpochTimestamps timestamps = 2 [(validator.field) = {msg_exists : true}];
+  EpochTimestamps timestamps = 2;
   // Validators that participated in this epoch
   repeated Node validators = 3;
   // List of all delegations in epoch
@@ -1075,7 +1074,7 @@ message Epoch {
 }
 
 message EpochParticipation {
-  Epoch epoch = 1 [(validator.field) = {string_not_empty : true}];
+  Epoch epoch = 1;
   uint64 offline = 2;
   uint64 online = 3;
   double total_rewards = 4;
@@ -1094,7 +1093,7 @@ message Node {
   // The node ID (wallet ID)
   string id = 1;
   // Pub key of the node operator
-  string pub_key = 2 [(validator.field) = {string_not_empty : true}];
+  string pub_key = 2;
   // Public key of Tendermint
   string tm_pub_key = 3;
   // Ethereum public key of the node
@@ -1114,9 +1113,9 @@ message Node {
   // Amount of stake on the next epoch
   string pending_stake = 11;
   // Informantion about epoch
-  EpochData epoch_data = 12 [(validator.field) = {msg_exists : true}];
+  EpochData epoch_data = 12;
   // Node status
-  NodeStatus status = 13 [(validator.field) = {msg_exists : true}];
+  NodeStatus status = 13;
   // Node's delegations
   repeated Delegation delegations = 14;
   // Node score

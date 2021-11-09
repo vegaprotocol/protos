@@ -3,8 +3,6 @@ syntax = "proto3";
 package vega;
 option go_package = "code.vegaprotocol.io/protos/vega";
 
-import "github.com/mwitkow/go-proto-validators/validator.proto";
-
 import "vega/markets.proto";
 import "vega/vega.proto";
 import "vega/assets.proto";
@@ -13,11 +11,11 @@ import "vega/oracles/v1/spec.proto";
 // Future product configuration
 message FutureProduct {
   // Future product maturity (ISO8601/RFC3339 timestamp)
-  string maturity = 1 [(validator.field) = {string_not_empty : true}];
+  string maturity = 1;
   // Product settlement asset identifier
-  string settlement_asset = 2  [(validator.field) = {string_not_empty : true}];
+  string settlement_asset = 2 ;
   // Product quote name
-  string quote_name = 3 [(validator.field) = {string_not_empty : true}];
+  string quote_name = 3;
   // The oracle spec describing the oracle data of settlement price
   oracles.v1.OracleSpecConfiguration oracle_spec_for_settlement_price = 5;
   // The oracle spec describing the oracle data of trading termination
@@ -29,9 +27,9 @@ message FutureProduct {
 // Instrument configuration
 message InstrumentConfiguration {
   // Instrument name
-  string name = 1 [(validator.field) = {string_not_empty : true}];
+  string name = 1;
   // Instrument code
-  string code = 2 [(validator.field) = {string_not_empty : true}];
+  string code = 2;
   // Product specification
   oneof product {
     // Future
@@ -199,7 +197,7 @@ message Proposal {
   // Proposal reference
   string reference = 2;
   // Party identifier of the author (the party submitting the proposal)
-  string party_id = 3 [(validator.field) = {string_not_empty : true}];
+  string party_id = 3;
   // Proposal state - See (Proposal.State)[#vega.Proposal.State] definition
   State state = 4 [(validator.field) = {is_in_enum: true}];
   // Proposal timestamp for date and time (in nanoseconds) when proposal was submitted to the network
@@ -303,11 +301,11 @@ message Vote {
   }
 
   // Voter's party identifier
-  string party_id = 1 [(validator.field) = {string_not_empty : true}];
+  string party_id = 1;
   // Actual vote
   Value value = 2 [(validator.field) = {is_in_enum : true}];
   // Identifier of the proposal being voted on
-  string proposal_id = 3 [(validator.field) = {string_not_empty : true}];
+  string proposal_id = 3;
   // Vote timestamp for date and time (in nanoseconds) when vote was submitted to the network
   int64 timestamp = 4;
   // Total number of governance token for the party that casted the vote

@@ -5,19 +5,17 @@ option go_package = "code.vegaprotocol.io/protos/vega/commands/v1";
 
 import "vega/governance.proto";
 import "vega/vega.proto";
-import "google/protobuf/wrappers.proto";
-import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 // An order submission is a request to submit or create a new order on Vega
 message OrderSubmission {
   // Market identifier for the order, required field
-  string market_id = 1 [(validator.field) = {string_not_empty: true}];
+  string market_id = 1;
   // Price for the order, the price is an integer, for example `123456` is a correctly
   // formatted price of `1.23456` assuming market configured to 5 decimal places,
   // , required field for limit orders, however it is not required for market orders
   string price = 2;
   // Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative
-  uint64 size = 3 [(validator.field) = {int_gt: 0}];
+  uint64 size = 3;
   // Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)
   vega.Side side = 4;
   // Time in force indicates how long an order will remain active before it is executed or expires, required field
@@ -50,7 +48,7 @@ message OrderAmendment {
   // The `orderID`, `partyID` and `marketID` fields are used for lookup of the order only and cannot be amended by this command
 
   // Order identifier, this is required to find the order and will not be updated, required field
-  string order_id = 1 [(validator.field) = {string_not_empty : true}];
+  string order_id = 1;
   // Market identifier, this is required to find the order and will not be updated
   string market_id = 2;
 
@@ -79,7 +77,7 @@ message OrderAmendment {
 // A liquidity provision submitted for a given market
 message LiquidityProvisionSubmission {
   // Market identifier for the order, required field
-  string market_id = 1 [(validator.field) = {string_not_empty: true}];
+  string market_id = 1;
   // Specified as a unitless number that represents the amount of settlement asset of the market
   string commitment_amount = 2;
   // Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers
@@ -125,14 +123,14 @@ message ProposalSubmission {
   // Proposal reference
   string reference = 1;
   // Proposal configuration and the actual change that is meant to be executed when proposal is enacted
-  vega.ProposalTerms terms = 2 [(validator.field) = {msg_exists: true}];
+  vega.ProposalTerms terms = 2;
 }
 
 // A command to submit a new vote for a governance
 // proposal.
 message VoteSubmission {
   // The ID of the proposal to vote for.
-  string proposal_id = 1 [(validator.field) = {string_not_empty : true}];
+  string proposal_id = 1;
   // The actual value of the vote
   vega.Vote.Value value = 2;
 }
@@ -140,7 +138,7 @@ message VoteSubmission {
 // A command to submit an instruction to delegate some stake to a node
 message DelegateSubmission {
   // The ID for the node to delegate to
-  string node_id = 1 [(validator.field) = {string_not_empty : true}];
+  string node_id = 1;
   // The amount of stake to delegate
   string amount = 2;
 }
@@ -152,7 +150,7 @@ message UndelegateSubmission {
     METHOD_AT_END_OF_EPOCH = 2;
     METHOD_IN_ANGER = 3;
   }
-  string node_id = 1 [(validator.field) = {string_not_empty : true}];
+  string node_id = 1;
   // optional, if not specified = ALL
   string amount = 2;
   Method method = 3;

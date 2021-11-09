@@ -14,7 +14,6 @@ import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/transaction.proto";
 import "vega/commands/v1/validator_commands.proto";
-import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 service CoreService {
   // Submit a signed transaction

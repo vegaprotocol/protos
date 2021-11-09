@@ -3,8 +3,6 @@ syntax = "proto3";
 package vega;
 option go_package = "code.vegaprotocol.io/protos/vega";
 
-import "github.com/mwitkow/go-proto-validators/validator.proto";
-
 import "vega/oracles/v1/spec.proto";
 
 // An auction duration is used to configure 3 auction periods:
@@ -30,7 +28,7 @@ message ContinuousTrading {
 // Discrete trading
 message DiscreteTrading {
   // Duration in nanoseconds, maximum 1 month (2592000000000000 ns)
-  int64 duration_ns = 1 [(validator.field) = {int_gt: 0, int_lt: 2592000000000000}];
+  int64 duration_ns = 1;
   // Tick size
   string tick_size = 2;
 }
@@ -121,11 +119,11 @@ message SimpleModelParams {
   // Pre-defined risk factor value for short
   double factor_short = 2;
   // Pre-defined maximum price move up that the model considers as valid
-  double max_move_up = 3 [(validator.field) = {float_gte: 0}];
+  double max_move_up = 3;
   // Pre-defined minimum price move down that the model considers as valid
-  double min_move_down = 4 [(validator.field) = {float_lte: 0}];
+  double min_move_down = 4;
   // Pre-defined constant probability of trading
-  double probability_of_trading = 5 [(validator.field) = {float_gte: 0, float_lte: 1}];
+  double probability_of_trading = 5;
 }
 
 // Scaling Factors (for use in margin calculation)
@@ -178,13 +176,13 @@ message Fees {
 // PriceMonitoringTrigger holds together price projection horizon τ, probability level p, and auction extension duration
 message PriceMonitoringTrigger {
   // Price monitoring projection horizon τ in seconds
-  int64 horizon = 1 [(validator.field) = {int_gt: 0}];
+  int64 horizon = 1;
   // Price monitoring probability level p
-  double probability = 2 [(validator.field) = {float_gt: 0, float_lt: 1}];
+  double probability = 2;
   // Price monitoring auction extension duration in seconds should the price
   // breach it's theoretical level over the specified horizon at the specified
   // probability level
-  int64 auction_extension = 3 [(validator.field) = {int_gt: 0}];
+  int64 auction_extension = 3;
 }
 
 // PriceMonitoringParameters contains a collection of triggers to be used for a given market
@@ -206,7 +204,7 @@ message LiquidityMonitoringParameters {
   // Specifies parameters related to target stake calculation
   TargetStakeParameters target_stake_parameters = 1;
   // Specifies the triggering ratio for entering liquidity auction
-  double triggering_ratio = 2 [(validator.field) = {float_gte: 0, float_lte: 1}];
+  double triggering_ratio = 2;
   // Specifies by how many seconds an auction should be extended if leaving the auction were to trigger a liquidity auction
   int64 auction_extension = 3;
 }
@@ -214,9 +212,9 @@ message LiquidityMonitoringParameters {
 // TargetStakeParameters contains parameters used in target stake calculation
 message TargetStakeParameters {
   // Specifies length of time window expressed in seconds for target stake calculation
-  int64 time_window = 1 [(validator.field) = {int_gt: 0}];
+  int64 time_window = 1;
   // Specifies scaling factors used in target stake calculation
-  double scaling_factor = 2 [(validator.field) = {float_gt: 0}];
+  double scaling_factor = 2;
 }
 
 // Market definition
