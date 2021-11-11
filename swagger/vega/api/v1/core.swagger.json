@@ -2506,6 +2506,21 @@
       },
       "title": "New asset on Vega"
     },
+    "vegaNewFreeform": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        }
+      },
+      "title": "Freeform proposal"
+    },
     "vegaNewMarket": {
       "type": "object",
       "properties": {
@@ -3032,6 +3047,10 @@
         "new_asset": {
           "$ref": "#/definitions/vegaNewAsset",
           "title": "Proposal change for creating new assets on Vega"
+        },
+        "new_freeform": {
+          "$ref": "#/definitions/vegaNewFreeform",
+          "title": "Proposal change for a freeform voting thing"
         }
       },
       "title": "Terms for a governance proposal on Vega"

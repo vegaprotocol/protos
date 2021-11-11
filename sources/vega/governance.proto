@@ -108,6 +108,13 @@ message NewAsset {
   AssetDetails changes = 1 [(validator.field) = {msg_exists: true}];
 }
 
+// Freeform proposal
+message NewFreeform {
+  string url = 1;
+  string description = 2;
+  string hash = 3;
+}
+
 // Terms for a governance proposal on Vega
 message ProposalTerms {
   // Timestamp (Unix time in seconds) when voting closes for this proposal,
@@ -128,6 +135,8 @@ message ProposalTerms {
     UpdateNetworkParameter update_network_parameter = 103;
     // Proposal change for creating new assets on Vega
     NewAsset new_asset = 104;
+    // Proposal change for a freeform voting thing
+    NewFreeform new_freeform = 105;
   };
 }
 
