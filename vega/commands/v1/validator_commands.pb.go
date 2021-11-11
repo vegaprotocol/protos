@@ -416,9 +416,13 @@ func (*ChainEvent) XXX_OneofWrappers() []interface{} {
 
 // A transaction to allow validator to rotate their vega keys
 type KeyRotateSubmission struct {
-	KeyNumber            uint64   `protobuf:"varint,1,opt,name=key_number,json=keyNumber,proto3" json:"key_number,omitempty"`
-	TargetBlock          uint64   `protobuf:"varint,2,opt,name=target_block,json=targetBlock,proto3" json:"target_block,omitempty"`
-	Time                 int64    `protobuf:"varint,3,opt,name=time,proto3" json:"time,omitempty"`
+	// Index of the new public key
+	KeyNumber uint64 `protobuf:"varint,1,opt,name=key_number,json=keyNumber,proto3" json:"key_number,omitempty"`
+	// Target block at which the key rotation will take effect on
+	TargetBlock uint64 `protobuf:"varint,2,opt,name=target_block,json=targetBlock,proto3" json:"target_block,omitempty"`
+	// Time
+	Time int64 `protobuf:"varint,3,opt,name=time,proto3" json:"time,omitempty"`
+	// Hash of the public key to rotate too
 	NewPubKeyHash        string   `protobuf:"bytes,4,opt,name=new_pub_key_hash,json=newPubKeyHash,proto3" json:"new_pub_key_hash,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
