@@ -47,10 +47,19 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) Errors {
 		errs.AddForProperty("proposal_submission.terms.validation_timestamp", ErrMustBePositiveOrZero)
 	}
 
-	if cmd.Terms.ClosingTimestamp > cmd.Terms.EnactmentTimestamp {
-		errs.AddForProperty("proposal_submission.terms.closing_timestamp",
-			errors.New("cannot be after enactment time"),
-		)
+	switch cmd.Terms.Change.(type) {
+	case *types.ProposalTerms_NewFreeform:
+		break
+	default:
+		if cmd.Terms.EnactmentTimestamp <= 0 {
+			errs.AddForProperty("proposal_submission.terms.enactment_timestamp", ErrMustBePositive)
+		}
+
+		if cmd.Terms.ClosingTimestamp > cmd.Terms.EnactmentTimestamp {
+			errs.AddForProperty("proposal_submission.terms.closing_timestamp",
+				errors.New("cannot be after enactment time"),
+			)
+		}
 	}
 
 	if cmd.Terms.ValidationTimestamp >= cmd.Terms.ClosingTimestamp {
