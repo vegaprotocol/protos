@@ -856,8 +856,11 @@ func (m *NewAsset) GetChanges() *AssetDetails {
 
 // Freeform proposal
 type NewFreeform struct {
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	Description          string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	// The URL containing content that describes the proposal
+	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	// A short description of what is being proposed
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	// The hash on the content of the URL
 	Hash                 string   `protobuf:"bytes,3,opt,name=hash,proto3" json:"hash,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -913,10 +916,10 @@ func (m *NewFreeform) GetHash() string {
 // Terms for a governance proposal on Vega
 type ProposalTerms struct {
 	// Timestamp (Unix time in seconds) when voting closes for this proposal,
-	// constrained by `minCloseInSeconds` and `maxCloseInSeconds` network parameters
+	// constrained by `minClose` and `maxClose` network parameters
 	ClosingTimestamp int64 `protobuf:"varint,1,opt,name=closing_timestamp,json=closingTimestamp,proto3" json:"closing_timestamp,omitempty"`
 	// Timestamp (Unix time in seconds) when proposal gets enacted (if passed),
-	// constrained by `minEnactInSeconds` and `maxEnactInSeconds` network parameters
+	// constrained by `minEnact` and `maxEnact` network parameters
 	EnactmentTimestamp int64 `protobuf:"varint,2,opt,name=enactment_timestamp,json=enactmentTimestamp,proto3" json:"enactment_timestamp,omitempty"`
 	// Validation timestamp (Unix time in seconds)
 	ValidationTimestamp int64 `protobuf:"varint,3,opt,name=validation_timestamp,json=validationTimestamp,proto3" json:"validation_timestamp,omitempty"`

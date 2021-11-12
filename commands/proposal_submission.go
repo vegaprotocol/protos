@@ -40,16 +40,22 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) Errors {
 	if cmd.Terms.ClosingTimestamp <= 0 {
 		errs.AddForProperty("proposal_submission.terms.closing_timestamp", ErrMustBePositive)
 	}
-	if cmd.Terms.EnactmentTimestamp <= 0 {
-		errs.AddForProperty("proposal_submission.terms.enactment_timestamp", ErrMustBePositive)
-	}
+
 	if cmd.Terms.ValidationTimestamp < 0 {
 		errs.AddForProperty("proposal_submission.terms.validation_timestamp", ErrMustBePositiveOrZero)
 	}
 
+	if cmd.Terms.ValidationTimestamp >= cmd.Terms.ClosingTimestamp {
+		errs.AddForProperty("proposal_submission.terms.validation_timestamp",
+			errors.New("cannot be after or equal to closing time"),
+		)
+	}
+
 	switch cmd.Terms.Change.(type) {
 	case *types.ProposalTerms_NewFreeform:
-		break
+		if cmd.Terms.EnactmentTimestamp != 0 {
+			errs.AddForProperty("proposal_submission.terms.enactment_timestamp", ErrIsNotValid)
+		}
 	default:
 		if cmd.Terms.EnactmentTimestamp <= 0 {
 			errs.AddForProperty("proposal_submission.terms.enactment_timestamp", ErrMustBePositive)
@@ -60,12 +66,6 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) Errors {
 				errors.New("cannot be after enactment time"),
 			)
 		}
-	}
-
-	if cmd.Terms.ValidationTimestamp >= cmd.Terms.ClosingTimestamp {
-		errs.AddForProperty("proposal_submission.terms.validation_timestamp",
-			errors.New("cannot be after or equal to closing time"),
-		)
 	}
 
 	errs.Merge(checkProposalChanges(cmd.Terms))
@@ -174,7 +174,7 @@ func CheckNewFreeformChanges(change *types.ProposalTerms_NewFreeform) Errors {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.url", ErrIsRequired)
 	}
 
-	if len(change.NewFreeform.Description) == 0 {
+	if len(change.NewFreeform.Description) > 255 {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.description", ErrIsRequired)
 	}
 

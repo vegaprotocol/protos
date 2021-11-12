@@ -1367,13 +1367,16 @@
       "type": "object",
       "properties": {
         "url": {
-          "type": "string"
+          "type": "string",
+          "title": "The URL containing content that describes the proposal"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "title": "A short description of what is being proposed"
         },
         "hash": {
-          "type": "string"
+          "type": "string",
+          "title": "The hash on the content of the URL"
         }
       },
       "title": "Freeform proposal"
@@ -1680,12 +1683,12 @@
         "closing_timestamp": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp (Unix time in seconds) when voting closes for this proposal,\nconstrained by `minCloseInSeconds` and `maxCloseInSeconds` network parameters"
+          "title": "Timestamp (Unix time in seconds) when voting closes for this proposal,\nconstrained by `minClose` and `maxClose` network parameters"
         },
         "enactment_timestamp": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnactInSeconds` and `maxEnactInSeconds` network parameters"
+          "title": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnact` and `maxEnact` network parameters"
         },
         "validation_timestamp": {
           "type": "string",
