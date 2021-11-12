@@ -78,6 +78,8 @@ func checkProposalChanges(terms *types.ProposalTerms) Errors {
 		errs.Merge(checkNetworkParameterUpdateChanges(c))
 	case *types.ProposalTerms_NewAsset:
 		errs.Merge(checkNewAssetChanges(c))
+	case *types.ProposalTerms_NewFreeform:
+		errs.Merge(CheckNewFreeformChanges(c))
 	default:
 		return errs.FinalAddForProperty("proposal_submission.terms.change", ErrIsNotValid)
 	}
@@ -151,6 +153,24 @@ func checkNewAssetChanges(change *types.ProposalTerms_NewAsset) Errors {
 		errs.Merge(checkERC20AssetSource(s))
 	default:
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_asset.changes.source", ErrIsNotValid)
+	}
+
+	return errs
+}
+
+func CheckNewFreeformChanges(change *types.ProposalTerms_NewFreeform) Errors {
+	errs := NewErrors()
+
+	if len(change.NewFreeform.Url) == 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.url", ErrIsRequired)
+	}
+
+	if len(change.NewFreeform.Description) == 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.description", ErrIsRequired)
+	}
+
+	if len(change.NewFreeform.Hash) == 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.hash", ErrIsRequired)
 	}
 
 	return errs
