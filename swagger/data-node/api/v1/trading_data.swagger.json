@@ -2750,7 +2750,7 @@
     "v1ObserveDelegationsResponse": {
       "type": "object",
       "properties": {
-        "delegations": {
+        "delegation": {
           "$ref": "#/definitions/vegaDelegation"
         }
       },
@@ -2806,7 +2806,7 @@
       "type": "object",
       "properties": {
         "reward_details": {
-          "$ref": "#/definitions/vegaRewardPerAssetDetail"
+          "$ref": "#/definitions/vegaRewardDetails"
         }
       }
     },
@@ -6173,17 +6173,17 @@
       },
       "title": "Stream result of v1ObserveProposalVotesResponse"
     },
-    "v1ObserveRewardResponse": {
+    "v1ObserveRewardDetailsResponse": {
       "type": "object",
       "properties": {
         "result": {
-          "$ref": "#/definitions/vegaRewardPerAssetDetail"
+          "$ref": "#/definitions/vegaRewardDetails"
         },
         "error": {
           "$ref": "#/definitions/runtimeStreamError"
         }
       },
-      "title": "Stream result of v1ObserveRewardResponse"
+      "title": "Stream result of v1ObserveRewardDetailsResponse"
     },
     "v1OrdersSubscribeResponse": {
       "type": "object",

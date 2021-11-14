@@ -38,9 +38,9 @@ func (this *ObserveDelegationsRequest) Validate() error {
 	return nil
 }
 func (this *ObserveDelegationsResponse) Validate() error {
-	if this.Delegations != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Delegations); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Delegations", err)
+	if this.Delegation != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Delegation); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Delegation", err)
 		}
 	}
 	return nil
