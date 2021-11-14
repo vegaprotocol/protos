@@ -249,6 +249,9 @@ service TradingDataService {
   // Get all oracle data
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
 
+  // subscribe to reward derails 
+  rpc ObserveRewardDetails(ObserveRewardsRequest) returns (stream ObserveRewardsResponse);
+
   // Get Rewards data
   rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
 
@@ -256,6 +259,9 @@ service TradingDataService {
 
   // Get delegation data
   rpc Delegations(DelegationsRequest) returns (DelegationsResponse);
+
+  // subscribe to delegation events 
+  rpc ObserveDelegations(ObserveDelegationsRequest) returns (stream ObserveDelegationsResponse);
 
   rpc PartyStake(PartyStakeRequest) returns (PartyStakeResponse);
 }
@@ -272,6 +278,18 @@ message DelegationsRequest {
 
 message DelegationsResponse {
   repeated vega.Delegation delegations = 1;
+}
+
+// Request to obsever all event related to delegation with the given filters
+message ObserveDelegationsRequest {
+  string party = 1;
+  string node_id = 2;
+  string epoch_seq = 3;
+}
+
+// All events elated to delegation with the given filters
+message ObserveDelegationsResponse {
+  vega.Delegation delegations = 1;
 }
 
 message PartyStakeRequest {
@@ -1168,6 +1186,15 @@ message OracleDataBySpecRequest {
 message OracleDataBySpecResponse {
   // The list of oracle data broadcast to a given spec
   repeated oracles.v1.OracleData oracle_data = 1;
+}
+
+message ObserveRewardsRequest {
+  string epoch = 1;
+  string party = 2; 
+}
+
+message ObserveRewardsResponse {
+  vega.RewardPerAssetDetail reward_details = 1;
 }
 
 // A request to get reward details for a party

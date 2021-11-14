@@ -2747,6 +2747,15 @@
       "description": "- NODE_SIGNATURE_KIND_UNSPECIFIED: Represents an unspecified or missing value from the input\n - NODE_SIGNATURE_KIND_ASSET_NEW: Represents a signature for a new asset allow-listing\n - NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL: Represents a signature for an asset withdrawal",
       "title": "The kind of the signature created by a node, for example, allow-listing a new asset, withdrawal etc"
     },
+    "v1ObserveDelegationsResponse": {
+      "type": "object",
+      "properties": {
+        "delegations": {
+          "$ref": "#/definitions/vegaDelegation"
+        }
+      },
+      "title": "All events related to delegation with the given filters"
+    },
     "v1ObserveEventBusResponse": {
       "type": "object",
       "properties": {
@@ -2790,6 +2799,14 @@
       "properties": {
         "vote": {
           "$ref": "#/definitions/vegaVote"
+        }
+      }
+    },
+    "v1ObserveRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "reward_details": {
+          "$ref": "#/definitions/vegaRewardPerAssetDetail"
         }
       }
     },
@@ -6084,6 +6101,18 @@
       },
       "title": "Stream result of v1MarketsDataSubscribeResponse"
     },
+    "v1ObserveDelegationsResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/vegaDelegation"
+        },
+        "error": {
+          "$ref": "#/definitions/runtimeStreamError"
+        }
+      },
+      "title": "Stream result of v1ObserveDelegationsResponse"
+    },
     "v1ObserveEventBusResponse": {
       "type": "object",
       "properties": {
@@ -6143,6 +6172,18 @@
         }
       },
       "title": "Stream result of v1ObserveProposalVotesResponse"
+    },
+    "v1ObserveRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/vegaRewardPerAssetDetail"
+        },
+        "error": {
+          "$ref": "#/definitions/runtimeStreamError"
+        }
+      },
+      "title": "Stream result of v1ObserveRewardsResponse"
     },
     "v1OrdersSubscribeResponse": {
       "type": "object",
