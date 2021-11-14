@@ -1059,10 +1059,10 @@ func (this *OracleDataBySpecResponse) Validate() error {
 	}
 	return nil
 }
-func (this *ObserveRewardRequest) Validate() error {
+func (this *ObserveRewardDetailsRequest) Validate() error {
 	return nil
 }
-func (this *ObserveRewardResponse) Validate() error {
+func (this *ObserveRewardDetailsResponse) Validate() error {
 	if this.RewardDetails != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.RewardDetails); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)

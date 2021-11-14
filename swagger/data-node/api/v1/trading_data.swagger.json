@@ -2802,7 +2802,7 @@
         }
       }
     },
-    "v1ObserveRewardResponse": {
+    "v1ObserveRewardDetailsResponse": {
       "type": "object",
       "properties": {
         "reward_details": {

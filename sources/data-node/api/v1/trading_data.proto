@@ -250,7 +250,7 @@ service TradingDataService {
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
 
   // subscribe to reward details 
-  rpc ObserveRewardDetails(ObserveRewardRequest) returns (stream ObserveRewardResponse);
+  rpc ObserveRewardDetails(ObserveRewardDetailsRequest) returns (stream ObserveRewardDetailsResponse);
 
   // Get Reward data
   rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
@@ -1188,12 +1188,12 @@ message OracleDataBySpecResponse {
   repeated oracles.v1.OracleData oracle_data = 1;
 }
 
-message ObserveRewardRequest {
+message ObserveRewardDetailsRequest {
   string epoch = 1;
   string party = 2; 
 }
 
-message ObserveRewardResponse {
+message ObserveRewardDetailsResponse {
   vega.RewardPerAssetDetail reward_details = 1;
 }
 
