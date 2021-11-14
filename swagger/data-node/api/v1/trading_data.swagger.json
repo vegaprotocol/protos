@@ -34,7 +34,7 @@
     },
     "/assets/{asset}/globalRewardPoolAccount": {
       "get": {
-        "summary": "Get a list of accounts holding rewards pools\nCan be filtered by asset, there will be 1 reward pool account per\nasset in the network.",
+        "summary": "Get a list of accounts holding reward pools\nCan be filtered by asset, there will be 1 reward pool account per\nasset in the network.",
         "operationId": "GlobalRewardPoolAccounts",
         "responses": {
           "200": {
@@ -1382,7 +1382,7 @@
     },
     "/parties/{party_id}/rewards": {
       "get": {
-        "summary": "Get Rewards data",
+        "summary": "Get Reward data",
         "operationId": "GetRewardDetails",
         "responses": {
           "200": {
@@ -2802,7 +2802,7 @@
         }
       }
     },
-    "v1ObserveRewardsResponse": {
+    "v1ObserveRewardResponse": {
       "type": "object",
       "properties": {
         "reward_details": {
@@ -6173,7 +6173,7 @@
       },
       "title": "Stream result of v1ObserveProposalVotesResponse"
     },
-    "v1ObserveRewardsResponse": {
+    "v1ObserveRewardResponse": {
       "type": "object",
       "properties": {
         "result": {
@@ -6183,7 +6183,7 @@
           "$ref": "#/definitions/runtimeStreamError"
         }
       },
-      "title": "Stream result of v1ObserveRewardsResponse"
+      "title": "Stream result of v1ObserveRewardResponse"
     },
     "v1OrdersSubscribeResponse": {
       "type": "object",

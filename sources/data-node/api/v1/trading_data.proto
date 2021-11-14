@@ -31,7 +31,7 @@ service TradingDataService {
   // asset in the network.
   rpc FeeInfrastructureAccounts(FeeInfrastructureAccountsRequest) returns (FeeInfrastructureAccountsResponse);
 
-  // Get a list of accounts holding rewards pools
+  // Get a list of accounts holding reward pools
   // Can be filtered by asset, there will be 1 reward pool account per
   // asset in the network.
   rpc GlobalRewardPoolAccounts(GlobalRewardPoolAccountsRequest) returns (GlobalRewardPoolAccountsResponse);
@@ -249,10 +249,10 @@ service TradingDataService {
   // Get all oracle data
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
 
-  // subscribe to reward derails 
-  rpc ObserveRewardDetails(ObserveRewardsRequest) returns (stream ObserveRewardsResponse);
+  // subscribe to reward details 
+  rpc ObserveRewardDetails(ObserveRewardRequest) returns (stream ObserveRewardResponse);
 
-  // Get Rewards data
+  // Get Reward data
   rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
 
   rpc Checkpoints(CheckpointsRequest) returns (CheckpointsResponse);
@@ -287,7 +287,7 @@ message ObserveDelegationsRequest {
   string epoch_seq = 3;
 }
 
-// All events elated to delegation with the given filters
+// All events related to delegation with the given filters
 message ObserveDelegationsResponse {
   vega.Delegation delegations = 1;
 }
@@ -1188,12 +1188,12 @@ message OracleDataBySpecResponse {
   repeated oracles.v1.OracleData oracle_data = 1;
 }
 
-message ObserveRewardsRequest {
+message ObserveRewardRequest {
   string epoch = 1;
   string party = 2; 
 }
 
-message ObserveRewardsResponse {
+message ObserveRewardResponse {
   vega.RewardPerAssetDetail reward_details = 1;
 }
 
