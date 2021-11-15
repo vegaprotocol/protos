@@ -1349,6 +1349,10 @@
           "type": "boolean",
           "format": "boolean",
           "title": "Success will be true if the transaction was accepted by the node,\n**Important** - success does not mean that the event is confirmed by consensus"
+        },
+        "tx_hash": {
+          "type": "string",
+          "title": "Hash of the transaction, if accepted"
         }
       },
       "title": "Response for submitting a transaction v2 on Vega"
