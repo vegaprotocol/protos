@@ -74,6 +74,8 @@ message SubmitTransactionResponse {
   // Success will be true if the transaction was accepted by the node,
   // **Important** - success does not mean that the event is confirmed by consensus
   bool success = 1;
+  // Hash of the transaction, if accepted
+  string tx_hash = 2;
 }
 
 
