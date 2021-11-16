@@ -10,7 +10,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) - 
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) - Add Github actions for changelog and new project baord automation
+- [151](https://github.com/vegaprotocol/protos/pull/151) - Add changelog, linked PR and project board Github actions
 - [135](https://github.com/vegaprotocol/protos/pull/135) - Add snapshot protos for topology
 - [137](https://github.com/vegaprotocol/protos/pull/137) - Add new prices fields to price monitor
 - [138](https://github.com/vegaprotocol/protos/pull/138) - Add oracle snapshot proto model
