@@ -4896,6 +4896,24 @@
       },
       "title": "New asset on Vega"
     },
+    "vegaNewFreeform": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "The URL containing content that describes the proposal"
+        },
+        "description": {
+          "type": "string",
+          "title": "A short description of what is being proposed"
+        },
+        "hash": {
+          "type": "string",
+          "title": "The hash on the content of the URL"
+        }
+      },
+      "title": "Freeform proposal"
+    },
     "vegaNewMarket": {
       "type": "object",
       "properties": {
@@ -5571,12 +5589,12 @@
         "closing_timestamp": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp (Unix time in seconds) when voting closes for this proposal,\nconstrained by `minCloseInSeconds` and `maxCloseInSeconds` network parameters"
+          "title": "Timestamp (Unix time in seconds) when voting closes for this proposal,\nconstrained by `minClose` and `maxClose` network parameters"
         },
         "enactment_timestamp": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnactInSeconds` and `maxEnactInSeconds` network parameters"
+          "title": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnact` and `maxEnact` network parameters"
         },
         "validation_timestamp": {
           "type": "string",
@@ -5598,6 +5616,10 @@
         "new_asset": {
           "$ref": "#/definitions/vegaNewAsset",
           "title": "Proposal change for creating new assets on Vega"
+        },
+        "new_freeform": {
+          "$ref": "#/definitions/vegaNewFreeform",
+          "title": "Proposal change for a freeform voting thing"
         }
       },
       "title": "Terms for a governance proposal on Vega"
