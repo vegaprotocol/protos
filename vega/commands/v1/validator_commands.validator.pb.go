@@ -83,3 +83,6 @@ func (this *ChainEvent) Validate() error {
 	}
 	return nil
 }
+func (this *KeyRotateSubmission) Validate() error {
+	return nil
+}
