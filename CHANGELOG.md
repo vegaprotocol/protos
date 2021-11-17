@@ -19,7 +19,7 @@
 - [140](https://github.com/vegaprotocol/protos/pull/140) - Add proto definition for liquidity/supplied snapshot
 - [145](https://github.com/vegaprotocol/protos/pull/145) - Add protos for freeform proposals
 - [148](https://github.com/vegaprotocol/protos/pull/148) - Add TX Hash to SubmitTransactionResponse proto message
-- [148](https://github.com/vegaprotocol/protos/pull/149) - Add transaction hash to SubmitTransactionResponse
+- [149](https://github.com/vegaprotocol/protos/pull/149) - Add transaction hash to SubmitTransactionResponse
 - [147](https://github.com/vegaprotocol/protos/pull/147) - Add observers for delegation and rewards
 - [146](https://github.com/vegaprotocol/protos/pull/146) - Add NewFreeform as a new proposal type
 - [96](https://github.com/vegaprotocol/protos/pull/96) - Add key rotate submission command
