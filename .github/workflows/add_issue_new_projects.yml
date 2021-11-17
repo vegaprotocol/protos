@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Add Issue to New Core Project Board
         env:
-          GITHUB_TOKEN: ${{ secrets.ADD_TO_NEW_PROJECT }}
-          PROJECT_ID: PN_kwDOAjbEk81yLw
+          GITHUB_TOKEN: ${{ secrets.GH_NEW_CARD_TO_PROJECT }}
+          PROJECT_ID: ${{ secrets.CORE_PROJECT_ID }}
           ISSUE_ID: ${{ github.event.issue.node_id }}
         run: |
           gh api graphql -f query='
