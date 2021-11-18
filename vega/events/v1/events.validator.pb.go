@@ -25,7 +25,7 @@ func (this *StakeLinking) Validate() error {
 func (this *CheckpointEvent) Validate() error {
 	return nil
 }
-func (this *HelloEvent) Validate() error {
+func (this *StreamStartEvent) Validate() error {
 	return nil
 }
 func (this *RewardPayoutEvent) Validate() error {
@@ -399,10 +399,10 @@ func (this *BusEvent) Validate() error {
 			}
 		}
 	}
-	if oneOfNester, ok := this.GetEvent().(*BusEvent_HelloEvent); ok {
-		if oneOfNester.HelloEvent != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.HelloEvent); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("HelloEvent", err)
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_StreamStart); ok {
+		if oneOfNester.StreamStart != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StreamStart); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StreamStart", err)
 			}
 		}
 	}

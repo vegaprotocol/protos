@@ -59,7 +59,7 @@ message CheckpointEvent {
   uint64 block_height = 3;
 }
 
-message HelloEvent {
+message StreamStartEvent {
   string chain_id = 1;
 }
 
@@ -325,8 +325,8 @@ enum BusEventType {
   BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT = 34;
   // Event indicating a new checkpoint was created
   BUS_EVENT_TYPE_CHECKPOINT = 35;
-  // Event indicating saying hello
-  BUS_EVENT_TYPE_HELLO = 36;
+  // Event indicating stream is starting
+  BUS_EVENT_TYPE_STREAM_START = 36;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -411,8 +411,8 @@ message BusEvent {
     RewardPayoutEvent reward_payout = 134;
     // Checkpoint was created
     CheckpointEvent checkpoint = 135;
-    // Hello Event - sent at the start of a stream to identify chainid
-    HelloEvent hello_event = 136;
+    // Stream Start Event - sent at the start of a stream to identify chainid
+    StreamStartEvent stream_start = 136;
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type
