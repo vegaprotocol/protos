@@ -22,6 +22,7 @@ message Checkpoint {
   bytes delegation = 5;
   bytes epoch = 6; // will just be an epoch event
   bytes block = 7;
+  bytes rewards = 8;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -78,4 +79,13 @@ message Delegate {
 // was created (ie block height)
 message Block {
   int64 height = 1;
+}
+
+message RewardPayout {
+  int64 payout_time = 1;
+  repeated PendingRewardPayout rewards_payout = 2;
+}
+
+message PendingRewardPayout {
+ repeated vega.RewardDetails RewardDetails = 1;
 }
