@@ -81,6 +81,10 @@ message Block {
   int64 height = 1;
 }
 
+message Rewards {
+  repeated RewardPayout rewards = 1;
+}
+
 message RewardPayout {
   int64 payout_time = 1;
   repeated PendingRewardPayout rewards_payout = 2;
