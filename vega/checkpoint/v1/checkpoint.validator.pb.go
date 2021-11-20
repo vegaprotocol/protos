@@ -118,12 +118,15 @@ func (this *RewardPayout) Validate() error {
 	return nil
 }
 func (this *PendingRewardPayout) Validate() error {
-	for _, item := range this.RewardDetails {
+	for _, item := range this.PartyAmount {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("PartyAmount", err)
 			}
 		}
 	}
+	return nil
+}
+func (this *PartyAmount) Validate() error {
 	return nil
 }
