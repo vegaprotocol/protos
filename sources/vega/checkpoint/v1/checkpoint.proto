@@ -91,11 +91,11 @@ message RewardPayout {
 }
 
 message PendingRewardPayout {
-	string fromAccount = 1;
+	string from_account = 1;
 	string asset = 2;        
 	repeated PartyAmount party_amount = 3;
-	string totalReward = 4;
-	string epochSeq = 5;
+	string total_reward = 4;
+	string epoch_seq = 5;
 	int64 timestamp = 6;
 }
   
