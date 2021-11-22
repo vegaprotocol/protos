@@ -4,10 +4,26 @@
 *YYYY-MM-DD*
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) - 
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🗑️ Deprecation
-- [](https://github.com/vegaprotocol/protos/pull/) - 
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🛠 Improvements
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🐛 Fixes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.46.0
+*2021-11-22*
+
+### 🚨 Breaking changes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🗑️ Deprecation
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
 - [151](https://github.com/vegaprotocol/protos/pull/151) - Add changelog, linked PR and project board Github actions
