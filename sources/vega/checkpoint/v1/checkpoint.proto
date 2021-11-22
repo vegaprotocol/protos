@@ -22,6 +22,7 @@ message Checkpoint {
   bytes delegation = 5;
   bytes epoch = 6; // will just be an epoch event
   bytes block = 7;
+  bytes rewards = 8;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -79,3 +80,27 @@ message Delegate {
 message Block {
   int64 height = 1;
 }
+
+message Rewards {
+  repeated RewardPayout rewards = 1;
+}
+
+message RewardPayout {
+  int64 payout_time = 1;
+  repeated PendingRewardPayout rewards_payout = 2;
+}
+
+message PendingRewardPayout {
+	string from_account = 1;
+	string asset = 2;        
+	repeated PartyAmount party_amount = 3;
+	string total_reward = 4;
+	string epoch_seq = 5;
+	int64 timestamp = 6;
+}
+  
+message PartyAmount {
+  string party = 1;
+  string amount = 2;
+}
+
