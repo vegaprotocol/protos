@@ -6127,7 +6127,7 @@
       "type": "object",
       "properties": {
         "result": {
-          "$ref": "#/definitions/vegaDelegation"
+          "$ref": "#/definitions/v1ObserveDelegationsResponse"
         },
         "error": {
           "$ref": "#/definitions/runtimeStreamError"
@@ -6199,7 +6199,7 @@
       "type": "object",
       "properties": {
         "result": {
-          "$ref": "#/definitions/vegaRewardDetails"
+          "$ref": "#/definitions/v1ObserveRewardDetailsResponse"
         },
         "error": {
           "$ref": "#/definitions/runtimeStreamError"
