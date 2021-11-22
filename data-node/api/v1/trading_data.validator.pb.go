@@ -34,6 +34,17 @@ func (this *DelegationsResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ObserveDelegationsRequest) Validate() error {
+	return nil
+}
+func (this *ObserveDelegationsResponse) Validate() error {
+	if this.Delegation != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Delegation); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Delegation", err)
+		}
+	}
+	return nil
+}
 func (this *PartyStakeRequest) Validate() error {
 	return nil
 }
@@ -1044,6 +1055,17 @@ func (this *OracleDataBySpecResponse) Validate() error {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("OracleData", err)
 			}
+		}
+	}
+	return nil
+}
+func (this *ObserveRewardDetailsRequest) Validate() error {
+	return nil
+}
+func (this *ObserveRewardDetailsResponse) Validate() error {
+	if this.RewardDetails != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.RewardDetails); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)
 		}
 	}
 	return nil

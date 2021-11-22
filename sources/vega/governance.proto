@@ -108,13 +108,23 @@ message NewAsset {
   AssetDetails changes = 1 [(validator.field) = {msg_exists: true}];
 }
 
+// Freeform proposal
+message NewFreeform {
+  // The URL containing content that describes the proposal
+  string url = 1;
+  // A short description of what is being proposed
+  string description = 2;
+  // The hash on the content of the URL
+  string hash = 3;
+}
+
 // Terms for a governance proposal on Vega
 message ProposalTerms {
   // Timestamp (Unix time in seconds) when voting closes for this proposal,
-  // constrained by `minCloseInSeconds` and `maxCloseInSeconds` network parameters
+  // constrained by `minClose` and `maxClose` network parameters
   int64 closing_timestamp = 1 [(validator.field) = {int_gt: 0}];
   // Timestamp (Unix time in seconds) when proposal gets enacted (if passed),
-  // constrained by `minEnactInSeconds` and `maxEnactInSeconds` network parameters
+  // constrained by `minEnact` and `maxEnact` network parameters
   int64 enactment_timestamp = 2 [(validator.field) = {int_gt: 0}];
   // Validation timestamp (Unix time in seconds)
   int64 validation_timestamp = 3;
@@ -128,6 +138,8 @@ message ProposalTerms {
     UpdateNetworkParameter update_network_parameter = 103;
     // Proposal change for creating new assets on Vega
     NewAsset new_asset = 104;
+    // Proposal change for a freeform voting thing
+    NewFreeform new_freeform = 105;
   };
 }
 
