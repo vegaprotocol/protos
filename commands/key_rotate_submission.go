@@ -21,9 +21,5 @@ func checkKeyRotateSubmission(cmd *commandspb.KeyRotateSubmission) Errors {
 		errs.AddForProperty("key_rotate_submission.key_number", ErrIsRequired)
 	}
 
-	if cmd.Time <= 0 {
-		errs.AddForProperty("key_rotate_submission.time", ErrNotAValidInteger)
-	}
-
 	return errs
 }
