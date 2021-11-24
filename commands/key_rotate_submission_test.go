@@ -18,23 +18,23 @@ func TestSubmittingNoKeyRotateSubmissionCommandFails(t *testing.T) {
 func TestKeyRotateSubmissionSubmittingEmptyCommandFails(t *testing.T) {
 	err := checkKeyRotateSubmission(&commandspb.KeyRotateSubmission{})
 
-	assert.Contains(t, err.Get("key_rotate_submission.new_pub_key_hash"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("key_rotate_submission.new_pub_key"), commands.ErrIsRequired)
 	assert.Contains(t, err.Get("key_rotate_submission.key_number"), commands.ErrIsRequired)
 }
 
-func TestKeyRotateSubmissionMissingNewPubKeyHashFails(t *testing.T) {
+func TestKeyRotateSubmissionMissingNewPubKeyFails(t *testing.T) {
 	err := checkKeyRotateSubmission(&commandspb.KeyRotateSubmission{
 		KeyNumber:   10,
 		TargetBlock: 100,
 	})
 
-	assert.Contains(t, err.Get("key_rotate_submission.new_pub_key_hash"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("key_rotate_submission.new_pub_key"), commands.ErrIsRequired)
 }
 
 func TestKeyRotateSubmissionMissingKeyNumberFails(t *testing.T) {
 	err := checkKeyRotateSubmission(&commandspb.KeyRotateSubmission{
-		NewPubKeyHash: "123456789abcdef",
-		TargetBlock:   100,
+		NewPubKey:   "123456789abcdef",
+		TargetBlock: 100,
 	})
 
 	assert.Contains(t, err.Get("key_rotate_submission.key_number"), commands.ErrIsRequired)
@@ -42,9 +42,9 @@ func TestKeyRotateSubmissionMissingKeyNumberFails(t *testing.T) {
 
 func TestSubmittingEmptyCommandSuccess(t *testing.T) {
 	err := checkKeyRotateSubmission(&commandspb.KeyRotateSubmission{
-		KeyNumber:     10,
-		NewPubKeyHash: "123456789abcdef",
-		TargetBlock:   100,
+		KeyNumber:   10,
+		NewPubKey:   "123456789abcdef",
+		TargetBlock: 100,
 	})
 
 	assert.True(t, err.Empty())

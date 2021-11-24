@@ -83,5 +83,5 @@ message KeyRotateSubmission {
   // Target block at which the key rotation will take effect on
   uint64 target_block = 2;
   // Hash of the public key to rotate too
-  string new_pub_key_hash = 3;
+  string new_pub_key = 3;
 }

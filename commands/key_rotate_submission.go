@@ -13,8 +13,8 @@ func checkKeyRotateSubmission(cmd *commandspb.KeyRotateSubmission) Errors {
 		return errs.FinalAddForProperty("key_rotate_submission", ErrIsRequired)
 	}
 
-	if len(cmd.NewPubKeyHash) <= 0 {
-		errs.AddForProperty("key_rotate_submission.new_pub_key_hash", ErrIsRequired)
+	if len(cmd.NewPubKey) <= 0 {
+		errs.AddForProperty("key_rotate_submission.new_pub_key", ErrIsRequired)
 	}
 
 	if cmd.KeyNumber == 0 {
