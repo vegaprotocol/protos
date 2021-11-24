@@ -19,13 +19,11 @@
 ## 0.46.0
 *2021-11-22*
 
-### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
-
-### 🗑️ Deprecation
-- [](https://github.com/vegaprotocol/protos/pull/) -
-
 ### 🛠 Improvements
+- [158](https://github.com/vegaprotocol/protos/pull/158) - Release version `v0.46.0`
+- [157](https://github.com/vegaprotocol/protos/pull/157) - Release version `v0.46.0`
+- [155](https://github.com/vegaprotocol/protos/pull/155) - Add a checkpoint proto definitions for pending rewards
+- [154](https://github.com/vegaprotocol/protos/pull/154) - Add Hello message
 - [151](https://github.com/vegaprotocol/protos/pull/151) - Add changelog, linked PR and project board Github actions
 - [135](https://github.com/vegaprotocol/protos/pull/135) - Add snapshot protos for topology
 - [137](https://github.com/vegaprotocol/protos/pull/137) - Add new prices fields to price monitor
