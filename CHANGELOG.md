@@ -10,7 +10,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [162](https://github.com/vegaprotocol/protos/pull/162) - Update changelog for `v0.46.0`
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
