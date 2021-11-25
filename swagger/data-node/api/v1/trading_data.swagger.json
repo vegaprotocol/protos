@@ -1928,10 +1928,6 @@
           "$ref": "#/definitions/v1CheckpointEvent",
           "title": "Checkpoint was created"
         },
-        "stream_start": {
-          "$ref": "#/definitions/v1StreamStartEvent",
-          "title": "Stream Start Event - sent at the start of a stream to identify chainid"
-        },
         "market": {
           "$ref": "#/definitions/v1MarketEvent",
           "title": "Market tick events - See [MarketEvent](#vega.MarketEvent)"
@@ -1944,6 +1940,9 @@
           "type": "integer",
           "format": "int64",
           "title": "Version of bus event"
+        },
+        "chain_id": {
+          "type": "string"
         }
       },
       "title": "A bus event is a container for event bus events emitted by Vega"
@@ -3453,14 +3452,6 @@
       ],
       "default": "TYPE_UNSPECIFIED",
       "title": "- TYPE_UNSPECIFIED: Default value\n - TYPE_LINK: Indicate of a stake deposit instruction\n - TYPE_UNLINK: Indicate of a stake remove instruction"
-    },
-    "v1StreamStartEvent": {
-      "type": "object",
-      "properties": {
-        "chain_id": {
-          "type": "string"
-        }
-      }
     },
     "v1TimeUpdate": {
       "type": "object",

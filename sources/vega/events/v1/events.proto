@@ -411,8 +411,6 @@ message BusEvent {
     RewardPayoutEvent reward_payout = 134;
     // Checkpoint was created
     CheckpointEvent checkpoint = 135;
-    // Stream Start Event - sent at the start of a stream to identify chainid
-    StreamStartEvent stream_start = 136;
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type
@@ -420,4 +418,5 @@ message BusEvent {
   }
   // Version of bus event
   uint32 version = 4;
+  string chain_id = 5;
 }

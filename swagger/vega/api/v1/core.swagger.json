@@ -383,10 +383,6 @@
           "$ref": "#/definitions/v1CheckpointEvent",
           "title": "Checkpoint was created"
         },
-        "stream_start": {
-          "$ref": "#/definitions/v1StreamStartEvent",
-          "title": "Stream Start Event - sent at the start of a stream to identify chainid"
-        },
         "market": {
           "$ref": "#/definitions/v1MarketEvent",
           "title": "Market tick events - See [MarketEvent](#vega.MarketEvent)"
@@ -399,6 +395,9 @@
           "type": "integer",
           "format": "int64",
           "title": "Version of bus event"
+        },
+        "chain_id": {
+          "type": "string"
         }
       },
       "title": "A bus event is a container for event bus events emitted by Vega"
@@ -1318,14 +1317,6 @@
       "properties": {
         "statistics": {
           "$ref": "#/definitions/v1Statistics"
-        }
-      }
-    },
-    "v1StreamStartEvent": {
-      "type": "object",
-      "properties": {
-        "chain_id": {
-          "type": "string"
         }
       }
     },
