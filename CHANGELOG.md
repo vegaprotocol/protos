@@ -37,6 +37,7 @@
 - [147](https://github.com/vegaprotocol/protos/pull/147) - Add observers for delegation and rewards
 - [146](https://github.com/vegaprotocol/protos/pull/146) - Add NewFreeform as a new proposal type
 - [96](https://github.com/vegaprotocol/protos/pull/96) - Add key rotate submission command
+- [166](https://github.com/vegaprotocol/protos/pull/166) - Update key rotate submission command and add key rotate event
 
 ### 🐛 Fixes
 - [139](https://github.com/vegaprotocol/protos/pull/139) - Fix oracle data model
