@@ -248,6 +248,18 @@ message ValidatorUpdate {
   string avatar_url = 8;
 }
 
+// A key rotation events contains information about Vega key rotation
+message KeyRotation {
+  // Node id of the node
+  string node_id = 1;
+  // Old Vega public key of validator node
+  string old_pub_key = 2;
+  // New Vega public key of validator node
+  string new_pub_key = 3;
+  // Height of the block where key rotation took effect
+  uint64 block_height = 4;
+}
+
 // An (event) bus event type is used to specify a type of event
 // It has 2 styles of event:
 // Single values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item
@@ -327,6 +339,8 @@ enum BusEventType {
   BUS_EVENT_TYPE_CHECKPOINT = 35;
   // Event indicating stream is starting
   BUS_EVENT_TYPE_STREAM_START = 36;
+  // Event indicating key rotation took place
+  BUS_EVENT_TYPE_KEY_ROTATION = 37;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -411,6 +425,9 @@ message BusEvent {
     RewardPayoutEvent reward_payout = 134;
     // Checkpoint was created
     CheckpointEvent checkpoint = 135;
+    // Key rotation took place
+    KeyRotation key_rotation = 136;
+
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
     // Transaction error events, not included in the ALL event type
