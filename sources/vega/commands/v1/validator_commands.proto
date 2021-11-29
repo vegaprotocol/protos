@@ -24,7 +24,7 @@ message NodeRegistration {
   string name = 7;
   // AvatarURL of the validator
   string avatar_url = 8;
-  // Key number of Vega public key
+  // Number of Vega public key
   uint32 vega_pub_key_number = 9;
 }
 
