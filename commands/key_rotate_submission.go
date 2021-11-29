@@ -25,5 +25,9 @@ func checkKeyRotateSubmission(cmd *commandspb.KeyRotateSubmission) Errors {
 		errs.AddForProperty("key_rotate_submission.key_number", ErrIsRequired)
 	}
 
+	if cmd.TargetBlock == 0 {
+		errs.AddForProperty("key_rotate_submission.target_block", ErrIsRequired)
+	}
+
 	return errs
 }
