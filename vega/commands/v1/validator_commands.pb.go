@@ -72,7 +72,7 @@ type NodeRegistration struct {
 	Name string `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
 	// AvatarURL of the validator
 	AvatarUrl string `protobuf:"bytes,8,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	// Number of Vega public key
+	// Vega public key derviation index
 	VegaPubKeyNumber     uint32   `protobuf:"varint,9,opt,name=vega_pub_key_number,json=vegaPubKeyNumber,proto3" json:"vega_pub_key_number,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`

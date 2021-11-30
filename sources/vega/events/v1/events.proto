@@ -246,7 +246,7 @@ message ValidatorUpdate {
   string name = 7;
   // AvatarURL of the validator
   string avatar_url = 8;
-  // Number of Vega public key
+  // Vega public key derviation index
   uint32 vega_pub_key_number = 9;
 }
 
