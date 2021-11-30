@@ -713,6 +713,11 @@
         "avatar_url": {
           "type": "string",
           "title": "AvatarURL of the validator"
+        },
+        "vega_pub_key_number": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Number of Vega public key"
         }
       },
       "title": "A validator update event contains information about validator node"

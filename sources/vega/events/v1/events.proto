@@ -246,6 +246,8 @@ message ValidatorUpdate {
   string name = 7;
   // AvatarURL of the validator
   string avatar_url = 8;
+  // Number of Vega public key
+  uint32 vega_pub_key_number = 9;
 }
 
 // A key rotation events contains information about Vega key rotation
