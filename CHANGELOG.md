@@ -11,6 +11,11 @@
 
 ### 🛠 Improvements
 - [162](https://github.com/vegaprotocol/protos/pull/162) - Update changelog for `v0.46.0`
+- [159](https://github.com/vegaprotocol/protos/pull/159) - Update command and add transaction - Key rotate submission
+- [164](https://github.com/vegaprotocol/protos/pull/164) - Remove Stream Start, add `ChainID` to header
+- [165](https://github.com/vegaprotocol/protos/pull/165) - Update key rotate command and add key rotate event
+- [167](https://github.com/vegaprotocol/protos/pull/167) - Update validator function
+- [170](https://github.com/vegaprotocol/protos/pull/170) - Tidy up repo to align with team processes and workflows
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
