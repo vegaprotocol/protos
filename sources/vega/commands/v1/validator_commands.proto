@@ -24,7 +24,7 @@ message NodeRegistration {
   string name = 7;
   // AvatarURL of the validator
   string avatar_url = 8;
-  // Vega public key derviation index
+  // Vega public key derivation index
   uint32 vega_pub_key_number = 9;
 }
 
@@ -80,7 +80,7 @@ message ChainEvent {
 
 // A transaction to allow validator to rotate their vega keys
 message KeyRotateSubmission {
-  // New Vega public key derviation index
+  // New Vega public key derivation index
   uint32 new_pub_key_index = 1;
   // Target block at which the key rotation will take effect on
   uint64 target_block = 2;

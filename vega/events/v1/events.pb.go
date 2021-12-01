@@ -1587,7 +1587,7 @@ type ValidatorUpdate struct {
 	Name string `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
 	// AvatarURL of the validator
 	AvatarUrl string `protobuf:"bytes,8,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	// Vega public key derviation index
+	// Vega public key derivation index
 	VegaPubKeyIndex      uint32   `protobuf:"varint,9,opt,name=vega_pub_key_index,json=vegaPubKeyIndex,proto3" json:"vega_pub_key_index,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`

@@ -717,7 +717,7 @@
         "vega_pub_key_index": {
           "type": "integer",
           "format": "int64",
-          "title": "Vega public key derviation index"
+          "title": "Vega public key derivation index"
         }
       },
       "title": "A validator update event contains information about validator node"

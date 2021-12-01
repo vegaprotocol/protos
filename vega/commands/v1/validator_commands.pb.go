@@ -72,7 +72,7 @@ type NodeRegistration struct {
 	Name string `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
 	// AvatarURL of the validator
 	AvatarUrl string `protobuf:"bytes,8,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	// Vega public key derviation index
+	// Vega public key derivation index
 	VegaPubKeyNumber     uint32   `protobuf:"varint,9,opt,name=vega_pub_key_number,json=vegaPubKeyNumber,proto3" json:"vega_pub_key_number,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -425,7 +425,7 @@ func (*ChainEvent) XXX_OneofWrappers() []interface{} {
 
 // A transaction to allow validator to rotate their vega keys
 type KeyRotateSubmission struct {
-	// New Vega public key derviation index
+	// New Vega public key derivation index
 	NewPubKeyIndex uint32 `protobuf:"varint,1,opt,name=new_pub_key_index,json=newPubKeyIndex,proto3" json:"new_pub_key_index,omitempty"`
 	// Target block at which the key rotation will take effect on
 	TargetBlock uint64 `protobuf:"varint,2,opt,name=target_block,json=targetBlock,proto3" json:"target_block,omitempty"`
