@@ -553,9 +553,17 @@ message StakeVerifierPending {
   string id = 8;
 }
 
-message Topology{
+message PendingKeyRotation {
+  uint64 block_height = 1;
+  string node_id = 2;
+  string new_pub_key = 3;
+  uint32 new_pub_key_index = 4;
+}
+
+message Topology {
   repeated vega.events.v1.ValidatorUpdate validator_data = 1;
   repeated string chain_keys = 2;
+  repeated PendingKeyRotation pending_pub_key_rotations = 3;
 }
 
 message LiquidityParameters {
