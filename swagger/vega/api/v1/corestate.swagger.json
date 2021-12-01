@@ -714,7 +714,7 @@
           "type": "string",
           "title": "AvatarURL of the validator"
         },
-        "vega_pub_key_number": {
+        "vega_pub_key_index": {
           "type": "integer",
           "format": "int64",
           "title": "Vega public key derviation index"

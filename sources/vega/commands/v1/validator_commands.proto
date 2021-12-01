@@ -80,8 +80,8 @@ message ChainEvent {
 
 // A transaction to allow validator to rotate their vega keys
 message KeyRotateSubmission {
-  // Index of the new public key
-  uint32 key_number = 1;
+  // New Vega public key derviation index
+  uint32 new_pub_key_index = 1;
   // Target block at which the key rotation will take effect on
   uint64 target_block = 2;
   // The new public key to rotate to

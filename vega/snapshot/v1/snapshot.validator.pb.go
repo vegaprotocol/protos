@@ -1021,9 +1021,6 @@ func (this *StakeVerifierRemoved) Validate() error {
 func (this *StakeVerifierPending) Validate() error {
 	return nil
 }
-func (this *KeyRotation) Validate() error {
-	return nil
-}
 func (this *PendingKeyRotation) Validate() error {
 	return nil
 }
@@ -1039,13 +1036,6 @@ func (this *Topology) Validate() error {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("PendingPubKeyRotations", err)
-			}
-		}
-	}
-	for _, item := range this.ProcessedPubKeyRotations {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("ProcessedPubKeyRotations", err)
 			}
 		}
 	}
