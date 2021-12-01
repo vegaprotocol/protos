@@ -25,7 +25,7 @@ message NodeRegistration {
   // AvatarURL of the validator
   string avatar_url = 8;
   // Vega public key derivation index
-  uint32 vega_pub_key_number = 9;
+  uint32 vega_pub_key_index = 9;
 }
 
 // Used when a node votes for validating a given resource exists or is valid,
