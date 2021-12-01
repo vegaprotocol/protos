@@ -49,6 +49,7 @@
 - [139](https://github.com/vegaprotocol/protos/pull/139) - Fix oracle data model
 - [81](https://github.com/vegaprotocol/protos/pull/81) - Fix broken markdown in README
 - [167](https://github.com/vegaprotocol/protos/pull/167) - Update key rotation validation function
+- [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
 
 
 ## 0.45.1
