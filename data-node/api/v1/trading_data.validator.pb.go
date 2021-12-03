@@ -104,6 +104,35 @@ func (this *GetEpochResponse) Validate() error {
 	}
 	return nil
 }
+func (this *KeyRotation) Validate() error {
+	return nil
+}
+func (this *GetKeyRotationsRequest) Validate() error {
+	return nil
+}
+func (this *GetKeyRotationsResponse) Validate() error {
+	for _, item := range this.Rotations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Rotations", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *GetKeyRotationsByNodeIDRequest) Validate() error {
+	return nil
+}
+func (this *GetKeyRotationsByNodeIDResponse) Validate() error {
+	for _, item := range this.Rotations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Rotations", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *AssetsRequest) Validate() error {
 	return nil
 }
