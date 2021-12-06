@@ -23,6 +23,7 @@ message Checkpoint {
   bytes epoch = 6; // will just be an epoch event
   bytes block = 7;
   bytes rewards = 8;
+  bytes key_rotations = 9;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -104,3 +105,15 @@ message PartyAmount {
   string amount = 2;
 }
 
+message PendingKeyRotation {
+  // Relative target block height is: target block height - current block height.
+  // Useful for cross blockchain compatibility.
+  uint64 relative_target_block_height = 1;
+  string node_id = 2;
+  string new_pub_key = 3;
+  string new_pub_key_index = 4;
+}
+
+message KeyRotations {
+  repeated PendingKeyRotation pending_key_rotations = 1;
+}

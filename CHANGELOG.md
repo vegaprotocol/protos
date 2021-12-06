@@ -45,6 +45,7 @@
 - [166](https://github.com/vegaprotocol/protos/pull/166) - Update key rotate submission command and add key rotate event
 - [171](https://github.com/vegaprotocol/protos/pull/171) - Update topology snapshot to reflect key rotations
 - [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
+- [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
 
 ### 🐛 Fixes
 - [139](https://github.com/vegaprotocol/protos/pull/139) - Fix oracle data model
