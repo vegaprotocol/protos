@@ -168,8 +168,8 @@ service TradingDataService {
   // Get all key rotations
   rpc GetKeyRotations(GetKeyRotationsRequest) returns (GetKeyRotationsResponse);
 
-  // Get all key rotations by node ID
-  rpc GetKeyRotationsByNodeID(GetKeyRotationsByNodeIDRequest) returns (GetKeyRotationsByNodeIDResponse);
+  // Get all key rotations by node
+  rpc GetKeyRotationsByNode(GetKeyRotationsByNodeRequest) returns (GetKeyRotationsByNodeResponse);
 
   // Get data for a specific epoch, if id omitted it gets the current epoch
   rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
@@ -358,13 +358,13 @@ message GetKeyRotationsResponse {
 }
 
 // Request to list all key rotations per node
-message GetKeyRotationsByNodeIDRequest {
+message GetKeyRotationsByNodeRequest {
   // Required id of node
-  string id = 1;
+  string node_id = 1;
 }
 
 // Response with all key rotations per node
-message GetKeyRotationsByNodeIDResponse {
+message GetKeyRotationsByNodeResponse {
   repeated KeyRotation rotations = 1;
 }
 

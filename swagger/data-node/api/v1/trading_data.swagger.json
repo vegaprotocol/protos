@@ -407,32 +407,6 @@
         ]
       }
     },
-    "/key-rotations/node/{id}": {
-      "get": {
-        "summary": "Get all key rotations by node ID",
-        "operationId": "GetKeyRotationsByNodeID",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetKeyRotationsByNodeIDResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "description": "Required id of node",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "TradingDataService"
-        ]
-      }
-    },
     "/liquidity-provisions/party/{party}/market/{market}": {
       "get": {
         "summary": "Get the liquidity provision orders",
@@ -2343,7 +2317,7 @@
         }
       }
     },
-    "v1GetKeyRotationsByNodeIDResponse": {
+    "v1GetKeyRotationsByNodeResponse": {
       "type": "object",
       "properties": {
         "rotations": {

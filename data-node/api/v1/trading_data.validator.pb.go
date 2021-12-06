@@ -120,10 +120,10 @@ func (this *GetKeyRotationsResponse) Validate() error {
 	}
 	return nil
 }
-func (this *GetKeyRotationsByNodeIDRequest) Validate() error {
+func (this *GetKeyRotationsByNodeRequest) Validate() error {
 	return nil
 }
-func (this *GetKeyRotationsByNodeIDResponse) Validate() error {
+func (this *GetKeyRotationsByNodeResponse) Validate() error {
 	for _, item := range this.Rotations {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
