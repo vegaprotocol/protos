@@ -390,6 +390,23 @@
         ]
       }
     },
+    "/key-rotations": {
+      "get": {
+        "summary": "Get all key rotations",
+        "operationId": "GetKeyRotations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetKeyRotationsResponse"
+            }
+          }
+        },
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/liquidity-provisions/party/{party}/market/{market}": {
       "get": {
         "summary": "Get the liquidity provision orders",
@@ -1671,6 +1688,24 @@
       "description": "- VALUE_UNSPECIFIED: Default value, always invalid\n - VALUE_NO: A vote against the proposal\n - VALUE_YES: A vote in favour of the proposal",
       "title": "Vote value"
     },
+    "datanodeapiv1KeyRotation": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string"
+        },
+        "old_pub_key": {
+          "type": "string"
+        },
+        "new_pub_key": {
+          "type": "string"
+        },
+        "block_height": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -1929,7 +1964,7 @@
           "title": "Checkpoint was created"
         },
         "key_rotation": {
-          "$ref": "#/definitions/v1KeyRotation",
+          "$ref": "#/definitions/vegaeventsv1KeyRotation",
           "title": "Key rotation took place"
         },
         "market": {
@@ -2282,6 +2317,30 @@
         }
       }
     },
+    "v1GetKeyRotationsByNodeResponse": {
+      "type": "object",
+      "properties": {
+        "rotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/datanodeapiv1KeyRotation"
+          }
+        }
+      },
+      "title": "Response with all key rotations per node"
+    },
+    "v1GetKeyRotationsResponse": {
+      "type": "object",
+      "properties": {
+        "rotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/datanodeapiv1KeyRotation"
+          }
+        }
+      },
+      "title": "Response with all key rotations"
+    },
     "v1GetNetworkParametersProposalsResponse": {
       "type": "object",
       "properties": {
@@ -2471,29 +2530,6 @@
         }
       },
       "title": "Response for a list of global reward pool accounts"
-    },
-    "v1KeyRotation": {
-      "type": "object",
-      "properties": {
-        "node_id": {
-          "type": "string",
-          "title": "Node id of the node"
-        },
-        "old_pub_key": {
-          "type": "string",
-          "title": "Old Vega public key of validator node"
-        },
-        "new_pub_key": {
-          "type": "string",
-          "title": "New Vega public key of validator node"
-        },
-        "block_height": {
-          "type": "string",
-          "format": "uint64",
-          "title": "Height of the block where key rotation took effect"
-        }
-      },
-      "title": "A key rotation events contains information about Vega key rotation"
     },
     "v1LastTradeResponse": {
       "type": "object",
@@ -6085,6 +6121,29 @@
       "default": "STATUS_UNSPECIFIED",
       "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The withdrawal is open and being processed by the network\n - STATUS_CANCELLED: The withdrawal have been cancelled\n - STATUS_FINALIZED: The withdrawal went through and is fully finalised, the funds are removed from the\nVega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network",
       "title": "The status of the withdrawal"
+    },
+    "vegaeventsv1KeyRotation": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "title": "Node id of the node"
+        },
+        "old_pub_key": {
+          "type": "string",
+          "title": "Old Vega public key of validator node"
+        },
+        "new_pub_key": {
+          "type": "string",
+          "title": "New Vega public key of validator node"
+        },
+        "block_height": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Height of the block where key rotation took effect"
+        }
+      },
+      "title": "A key rotation events contains information about Vega key rotation"
     }
   },
   "x-stream-definitions": {
