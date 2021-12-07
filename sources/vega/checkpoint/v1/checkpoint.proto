@@ -111,7 +111,7 @@ message PendingKeyRotation {
   uint64 relative_target_block_height = 1;
   string node_id = 2;
   string new_pub_key = 3;
-  string new_pub_key_index = 4;
+  uint32 new_pub_key_index = 4;
 }
 
 message KeyRotations {
