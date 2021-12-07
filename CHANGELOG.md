@@ -9,6 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
+- [180](https://github.com/vegaprotocol/protos/pull/180) - Update `CHANGELOG.md` since GH Action implemented
 - [162](https://github.com/vegaprotocol/protos/pull/162) - Update changelog for `v0.46.0`
 - [159](https://github.com/vegaprotocol/protos/pull/159) - Update command and add transaction - Key rotate submission
 - [164](https://github.com/vegaprotocol/protos/pull/164) - Remove Stream Start, add `ChainID` to header
