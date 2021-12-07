@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased (X.Y.Z)
-*YYYY-MM-DD*
+## Unreleased
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -16,9 +15,12 @@
 - [165](https://github.com/vegaprotocol/protos/pull/165) - Update key rotate command and add key rotate event
 - [167](https://github.com/vegaprotocol/protos/pull/167) - Update validator function
 - [170](https://github.com/vegaprotocol/protos/pull/170) - Tidy up repo to align with team processes and workflows
+- [171](https://github.com/vegaprotocol/protos/pull/171) - Update topology snapshot to reflect key rotations
+- [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
+- [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
 
 
 ## 0.46.0
@@ -43,15 +45,11 @@
 - [146](https://github.com/vegaprotocol/protos/pull/146) - Add NewFreeform as a new proposal type
 - [96](https://github.com/vegaprotocol/protos/pull/96) - Add key rotate submission command
 - [166](https://github.com/vegaprotocol/protos/pull/166) - Update key rotate submission command and add key rotate event
-- [171](https://github.com/vegaprotocol/protos/pull/171) - Update topology snapshot to reflect key rotations
-- [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
-- [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
 
 ### 🐛 Fixes
 - [139](https://github.com/vegaprotocol/protos/pull/139) - Fix oracle data model
 - [81](https://github.com/vegaprotocol/protos/pull/81) - Fix broken markdown in README
 - [167](https://github.com/vegaprotocol/protos/pull/167) - Update key rotation validation function
-- [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
 
 
 ## 0.45.1
