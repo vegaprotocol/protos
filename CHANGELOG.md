@@ -19,6 +19,7 @@
 - [171](https://github.com/vegaprotocol/protos/pull/171) - Update topology snapshot to reflect key rotations
 - [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
 - [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
+- [183](https://github.com/vegaprotocol/protos/pull/183) - Add asset ID filter to GetRewardDetailsRequest  
 
 ### 🐛 Fixes
 - [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
