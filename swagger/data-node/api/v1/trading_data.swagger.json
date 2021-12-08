@@ -1415,6 +1415,12 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "asset_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
