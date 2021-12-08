@@ -1164,3 +1164,49 @@ message RewardPerAssetDetail {
   // Total amount of rewards for the asset
   string total_for_asset = 3;
 }
+
+message FloatingPointConsensusVote {
+  // state variable identifier
+  string state_var_id = 1;
+  // event identifier
+  uint64 event_id = 2;
+  // voting round
+  int64 round = 3;
+  // vote result 
+	bool vote = 4;
+}
+
+message StateValueProposal {
+  // state variable identifier
+  string state_var_id = 1;
+  // event identifier
+  uint64 event_id = 2;
+
+  repeated KeyValueBundle kvb = 3;
+}
+
+message KeyValueBundle {
+  string key = 1;
+  float tolerance = 2;
+  StateVarValue value = 3;
+}
+
+message StateVarValue {
+  oneof value {
+    ScalarValue scalarVal = 1;
+    VectorValue vectorVal = 2;
+    MatrixValue matrixVal = 3;
+  }
+}
+
+message ScalarValue {
+  float value = 1;
+}
+
+message VectorValue {
+  repeated float value = 1;
+}
+
+message MatrixValue {
+  repeated VectorValue value = 1;
+}

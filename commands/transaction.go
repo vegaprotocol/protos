@@ -137,6 +137,10 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkUndelegateSubmission(cmd.UndelegateSubmission))
 		case *commandspb.InputData_KeyRotateSubmission:
 			errs.Merge(checkKeyRotateSubmission(cmd.KeyRotateSubmission))
+		case *commandspb.InputData_StateVariableProposal:
+			errs.Merge(checkStateVariableProposal(cmd.StateVariableProposal))
+		case *commandspb.InputData_StateVariableVote:
+			errs.Merge(checkStateVariableVote(cmd.StateVariableVote))
 		case *commandspb.InputData_RestoreSnapshotSubmission:
 			break // nothing to verify as such
 		default:

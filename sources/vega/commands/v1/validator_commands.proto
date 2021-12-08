@@ -3,6 +3,7 @@ syntax = "proto3";
 package vega.commands.v1;
 option go_package = "code.vegaprotocol.io/protos/vega/commands/v1";
 
+import "vega/vega.proto";
 import "vega/chain_events.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
@@ -88,4 +89,18 @@ message KeyRotateSubmission {
   string new_pub_key = 3;
   // Hash of currently used public key
   string current_pub_key_hash = 4;
+}
+
+message StateVariableConsensusVote {
+  // Public key, required field
+  bytes pub_key = 1 [(validator.field) = {string_not_empty: true}];
+  // The vote details
+  vega.FloatingPointConsensusVote vote = 2;
+}
+
+message StateVariableProposal {
+  // Public key, required field
+  bytes pub_key = 1 [(validator.field) = {string_not_empty: true}];
+  // The state value proposal details
+  vega.StateValueProposal proposal = 2;
 }
