@@ -1187,7 +1187,7 @@ message StateValueProposal {
 
 message KeyValueBundle {
   string key = 1;
-  float tolerance = 2;
+  double tolerance = 2;
   StateVarValue value = 3;
 }
 
@@ -1200,11 +1200,11 @@ message StateVarValue {
 }
 
 message ScalarValue {
-  float value = 1;
+  double value = 1;
 }
 
 message VectorValue {
-  repeated float value = 1;
+  repeated double value = 1;
 }
 
 message MatrixValue {
