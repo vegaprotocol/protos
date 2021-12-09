@@ -1165,17 +1165,6 @@ message RewardPerAssetDetail {
   string total_for_asset = 3;
 }
 
-message FloatingPointConsensusVote {
-  // state variable identifier
-  string state_var_id = 1;
-  // event identifier
-  uint64 event_id = 2;
-  // voting round
-  int64 round = 3;
-  // vote result 
-	bool vote = 4;
-}
-
 message StateValueProposal {
   // state variable identifier
   string state_var_id = 1;
@@ -1187,7 +1176,7 @@ message StateValueProposal {
 
 message KeyValueBundle {
   string key = 1;
-  double tolerance = 2;
+  string tolerance = 2;
   StateVarValue value = 3;
 }
 

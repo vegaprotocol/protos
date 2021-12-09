@@ -91,13 +91,6 @@ message KeyRotateSubmission {
   string current_pub_key_hash = 4;
 }
 
-message StateVariableConsensusVote {
-  // Public key, required field
-  bytes pub_key = 1 [(validator.field) = {string_not_empty: true}];
-  // The vote details
-  vega.FloatingPointConsensusVote vote = 2;
-}
-
 message StateVariableProposal {
   // Public key, required field
   bytes pub_key = 1 [(validator.field) = {string_not_empty: true}];

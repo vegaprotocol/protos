@@ -122,13 +122,6 @@ func (this *InputData) Validate() error {
 			}
 		}
 	}
-	if oneOfNester, ok := this.GetCommand().(*InputData_StateVariableVote); ok {
-		if oneOfNester.StateVariableVote != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StateVariableVote); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("StateVariableVote", err)
-			}
-		}
-	}
 	if oneOfNester, ok := this.GetCommand().(*InputData_OracleDataSubmission); ok {
 		if oneOfNester.OracleDataSubmission != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.OracleDataSubmission); err != nil {

@@ -86,14 +86,6 @@ func (this *ChainEvent) Validate() error {
 func (this *KeyRotateSubmission) Validate() error {
 	return nil
 }
-func (this *StateVariableConsensusVote) Validate() error {
-	if this.Vote != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Vote); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Vote", err)
-		}
-	}
-	return nil
-}
 func (this *StateVariableProposal) Validate() error {
 	if this.Proposal != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Proposal); err != nil {

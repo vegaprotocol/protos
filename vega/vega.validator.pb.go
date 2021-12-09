@@ -383,9 +383,6 @@ func (this *RewardPerAssetDetail) Validate() error {
 	}
 	return nil
 }
-func (this *FloatingPointConsensusVote) Validate() error {
-	return nil
-}
 func (this *StateValueProposal) Validate() error {
 	for _, item := range this.Kvb {
 		if item != nil {
