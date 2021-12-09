@@ -164,6 +164,12 @@ service TradingDataService {
 
   // Get a specific node by ID
   rpc GetNodeByID(GetNodeByIDRequest) returns (GetNodeByIDResponse);
+  
+  // Get all key rotations
+  rpc GetKeyRotations(GetKeyRotationsRequest) returns (GetKeyRotationsResponse);
+
+  // Get all key rotations by node
+  rpc GetKeyRotationsByNode(GetKeyRotationsByNodeRequest) returns (GetKeyRotationsByNodeResponse);
 
   // Get data for a specific epoch, if id omitted it gets the current epoch
   rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
@@ -334,6 +340,32 @@ message GetEpochRequest {
 
 message GetEpochResponse {
   vega.Epoch epoch = 1;
+}
+
+message KeyRotation {
+  string node_id = 1;
+  string old_pub_key = 2;
+  string new_pub_key = 3;
+  uint64 block_height = 4;
+}
+
+// Request to list all key rotations
+message GetKeyRotationsRequest {}
+
+// Response with all key rotations
+message GetKeyRotationsResponse {
+  repeated KeyRotation rotations = 1;
+}
+
+// Request to list all key rotations per node
+message GetKeyRotationsByNodeRequest {
+  // Required id of node
+  string node_id = 1;
+}
+
+// Response with all key rotations per node
+message GetKeyRotationsByNodeResponse {
+  repeated KeyRotation rotations = 1;
 }
 
 // Request for a list of all assets enabled on Vega

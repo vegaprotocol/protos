@@ -160,6 +160,9 @@ func (this *AuctionEvent) Validate() error {
 func (this *ValidatorUpdate) Validate() error {
 	return nil
 }
+func (this *KeyRotation) Validate() error {
+	return nil
+}
 func (this *BusEvent) Validate() error {
 	if oneOfNester, ok := this.GetEvent().(*BusEvent_TimeUpdate); ok {
 		if oneOfNester.TimeUpdate != nil {
@@ -399,10 +402,10 @@ func (this *BusEvent) Validate() error {
 			}
 		}
 	}
-	if oneOfNester, ok := this.GetEvent().(*BusEvent_StreamStart); ok {
-		if oneOfNester.StreamStart != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StreamStart); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("StreamStart", err)
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_KeyRotation); ok {
+		if oneOfNester.KeyRotation != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.KeyRotation); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("KeyRotation", err)
 			}
 		}
 	}

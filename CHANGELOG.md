@@ -1,7 +1,6 @@
 # Changelog
 
-## Unreleased (X.Y.Z)
-*YYYY-MM-DD*
+## Unreleased
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -16,16 +15,34 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 
+## 0.47.0
+*2021-12-09*
+
+
+### 🛠 Improvements
+- [180](https://github.com/vegaprotocol/protos/pull/180) - Update `CHANGELOG.md` since GH Action implemented
+- [162](https://github.com/vegaprotocol/protos/pull/162) - Update changelog for `v0.46.0`
+- [159](https://github.com/vegaprotocol/protos/pull/159) - Update command and add transaction - Key rotate submission
+- [164](https://github.com/vegaprotocol/protos/pull/164) - Remove Stream Start, add `ChainID` to header
+- [165](https://github.com/vegaprotocol/protos/pull/165) - Update key rotate command and add key rotate event
+- [167](https://github.com/vegaprotocol/protos/pull/167) - Update validator function
+- [170](https://github.com/vegaprotocol/protos/pull/170) - Tidy up repo to align with team processes and workflows
+- [171](https://github.com/vegaprotocol/protos/pull/171) - Update topology snapshot to reflect key rotations
+- [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
+- [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
+
+### 🐛 Fixes
+- [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
+
+
 ## 0.46.0
 *2021-11-22*
 
-### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
-
-### 🗑️ Deprecation
-- [](https://github.com/vegaprotocol/protos/pull/) -
-
 ### 🛠 Improvements
+- [158](https://github.com/vegaprotocol/protos/pull/158) - Release version `v0.46.0`
+- [157](https://github.com/vegaprotocol/protos/pull/157) - Release version `v0.46.0`
+- [155](https://github.com/vegaprotocol/protos/pull/155) - Add a checkpoint proto definitions for pending rewards
+- [154](https://github.com/vegaprotocol/protos/pull/154) - Add Hello message
 - [151](https://github.com/vegaprotocol/protos/pull/151) - Add changelog, linked PR and project board Github actions
 - [135](https://github.com/vegaprotocol/protos/pull/135) - Add snapshot protos for topology
 - [137](https://github.com/vegaprotocol/protos/pull/137) - Add new prices fields to price monitor
@@ -39,11 +56,14 @@
 - [147](https://github.com/vegaprotocol/protos/pull/147) - Add observers for delegation and rewards
 - [146](https://github.com/vegaprotocol/protos/pull/146) - Add NewFreeform as a new proposal type
 - [96](https://github.com/vegaprotocol/protos/pull/96) - Add key rotate submission command
+- [166](https://github.com/vegaprotocol/protos/pull/166) - Update key rotate submission command and add key rotate event
 
 ### 🐛 Fixes
 - [139](https://github.com/vegaprotocol/protos/pull/139) - Fix oracle data model
 - [81](https://github.com/vegaprotocol/protos/pull/81) - Fix broken markdown in README
-
+- [167](https://github.com/vegaprotocol/protos/pull/167) - Update key rotation validation function
+- [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
+- [181](https://github.com/vegaprotocol/protos/pull/181) - Fix type for key rotations checkpoint proto
 
 ## 0.45.1
 *2021-10-23*

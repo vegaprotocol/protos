@@ -130,3 +130,16 @@ func (this *PendingRewardPayout) Validate() error {
 func (this *PartyAmount) Validate() error {
 	return nil
 }
+func (this *PendingKeyRotation) Validate() error {
+	return nil
+}
+func (this *KeyRotations) Validate() error {
+	for _, item := range this.PendingKeyRotations {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PendingKeyRotations", err)
+			}
+		}
+	}
+	return nil
+}
