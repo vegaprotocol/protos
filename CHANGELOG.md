@@ -9,6 +9,17 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🐛 Fixes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.47.0
+*2021-12-09*
+
+
+### 🛠 Improvements
 - [180](https://github.com/vegaprotocol/protos/pull/180) - Update `CHANGELOG.md` since GH Action implemented
 - [162](https://github.com/vegaprotocol/protos/pull/162) - Update changelog for `v0.46.0`
 - [159](https://github.com/vegaprotocol/protos/pull/159) - Update command and add transaction - Key rotate submission
