@@ -16,7 +16,7 @@ func checkStateVariableProposal(cmd *commandspb.StateVariableProposal) Errors {
 		return errs.FinalAddForProperty("state_variable_proposal.missing_proposal", ErrIsRequired)
 	}
 
-	if cmd.Proposal.EventId == 0 {
+	if len(cmd.Proposal.EventId) == 0 {
 		errs.AddForProperty("state_variable_proposal.event_id", ErrIsRequired)
 	}
 	if len(cmd.Proposal.Kvb) == 0 {
