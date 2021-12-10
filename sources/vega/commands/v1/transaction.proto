@@ -35,6 +35,7 @@ message InputData {
     NodeSignature node_signature = 2003;
     ChainEvent chain_event = 2004;
     KeyRotateSubmission key_rotate_submission = 2005;
+    StateVariableProposal state_variable_proposal = 2006;
 
     // Oracles
     OracleDataSubmission oracle_data_submission = 3001;

@@ -383,3 +383,61 @@ func (this *RewardPerAssetDetail) Validate() error {
 	}
 	return nil
 }
+func (this *StateValueProposal) Validate() error {
+	for _, item := range this.Kvb {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Kvb", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *KeyValueBundle) Validate() error {
+	if this.Value != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Value); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Value", err)
+		}
+	}
+	return nil
+}
+func (this *StateVarValue) Validate() error {
+	if oneOfNester, ok := this.GetValue().(*StateVarValue_ScalarVal); ok {
+		if oneOfNester.ScalarVal != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ScalarVal); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ScalarVal", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetValue().(*StateVarValue_VectorVal); ok {
+		if oneOfNester.VectorVal != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.VectorVal); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("VectorVal", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetValue().(*StateVarValue_MatrixVal); ok {
+		if oneOfNester.MatrixVal != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.MatrixVal); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("MatrixVal", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ScalarValue) Validate() error {
+	return nil
+}
+func (this *VectorValue) Validate() error {
+	return nil
+}
+func (this *MatrixValue) Validate() error {
+	for _, item := range this.Value {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Value", err)
+			}
+		}
+	}
+	return nil
+}

@@ -115,6 +115,13 @@ func (this *InputData) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetCommand().(*InputData_StateVariableProposal); ok {
+		if oneOfNester.StateVariableProposal != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StateVariableProposal); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StateVariableProposal", err)
+			}
+		}
+	}
 	if oneOfNester, ok := this.GetCommand().(*InputData_OracleDataSubmission); ok {
 		if oneOfNester.OracleDataSubmission != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.OracleDataSubmission); err != nil {

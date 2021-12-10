@@ -1164,3 +1164,38 @@ message RewardPerAssetDetail {
   // Total amount of rewards for the asset
   string total_for_asset = 3;
 }
+
+message StateValueProposal {
+  // state variable identifier
+  string state_var_id = 1;
+  // event identifier
+  string event_id = 2;
+  // key value tolerance triplets
+  repeated KeyValueBundle kvb = 3;
+}
+
+message KeyValueBundle {
+  string key = 1;
+  string tolerance = 2;
+  StateVarValue value = 3;
+}
+
+message StateVarValue {
+  oneof value {
+    ScalarValue scalar_val = 1;
+    VectorValue vector_val = 2;
+    MatrixValue matrix_val = 3;
+  }
+}
+
+message ScalarValue {
+  double value = 1;
+}
+
+message VectorValue {
+  repeated double value = 1;
+}
+
+message MatrixValue {
+  repeated VectorValue value = 1;
+}

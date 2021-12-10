@@ -262,6 +262,13 @@ message KeyRotation {
   uint64 block_height = 4;
 }
 
+//StateVarEvent - updates on state changes in state variable consensus
+message StateVar {
+  string id = 1;
+  string event_id = 2;
+  string state = 3;  
+}
+
 // An (event) bus event type is used to specify a type of event
 // It has 2 styles of event:
 // Single values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item
@@ -343,6 +350,9 @@ enum BusEventType {
   BUS_EVENT_TYPE_STREAM_START = 36;
   // Event indicating key rotation took place
   BUS_EVENT_TYPE_KEY_ROTATION = 37;
+  // Event indicating state transitions in state variable consensus
+  BUS_EVENT_TYPE_STATE_VAR = 38;
+
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -429,6 +439,8 @@ message BusEvent {
     CheckpointEvent checkpoint = 135;
     // Key rotation took place
     KeyRotation key_rotation = 136;
+    // State variable consensus state transition update
+    StateVar state_var = 137;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;

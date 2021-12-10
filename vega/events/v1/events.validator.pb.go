@@ -163,6 +163,9 @@ func (this *ValidatorUpdate) Validate() error {
 func (this *KeyRotation) Validate() error {
 	return nil
 }
+func (this *StateVar) Validate() error {
+	return nil
+}
 func (this *BusEvent) Validate() error {
 	if oneOfNester, ok := this.GetEvent().(*BusEvent_TimeUpdate); ok {
 		if oneOfNester.TimeUpdate != nil {
@@ -406,6 +409,13 @@ func (this *BusEvent) Validate() error {
 		if oneOfNester.KeyRotation != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.KeyRotation); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("KeyRotation", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetEvent().(*BusEvent_StateVar); ok {
+		if oneOfNester.StateVar != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.StateVar); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("StateVar", err)
 			}
 		}
 	}
