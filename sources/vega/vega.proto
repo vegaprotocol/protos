@@ -1146,7 +1146,7 @@ message Delegation {
 }
 
 // Details for a single reward payment
-message RewardDetails {
+message Reward {
    string asset_id = 1;
    string party_id = 2;
    uint64 epoch = 3;
@@ -1156,11 +1156,8 @@ message RewardDetails {
 }
 
 // Details for rewards for a single asset
-message RewardPerAssetDetail {
-  // asset details
-  string asset = 1;
-  // rewards ordered by received_at
-  repeated RewardDetails details = 2;
+message RewardSummary {
+  string asset_id = 1;
   // Total amount of rewards for the asset
-  string total_for_asset = 3;
+  string amount = 3;
 }

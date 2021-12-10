@@ -1399,13 +1399,13 @@
     },
     "/parties/{party_id}/rewards": {
       "get": {
-        "summary": "Get Reward data",
-        "operationId": "GetRewardDetails",
+        "summary": "Get rewards",
+        "operationId": "GetRewards",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetRewardDetailsResponse"
+              "$ref": "#/definitions/v1GetRewardsResponse"
             }
           }
         },
@@ -1415,6 +1415,36 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "asset_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pagination.skip",
+            "description": "Skip the number of records specified, default is 0.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.limit",
+            "description": "Limit the number of returned records to the value specified, default is 50.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.descending",
+            "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -2469,13 +2499,25 @@
       },
       "title": "Response for a list of proposals"
     },
-    "v1GetRewardDetailsResponse": {
+    "v1GetRewardSummariesResponse": {
       "type": "object",
       "properties": {
-        "reward_details": {
+        "summaries": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/vegaRewardPerAssetDetail"
+            "$ref": "#/definitions/vegaRewardSummary"
+          }
+        }
+      },
+      "title": "The return message with reward details in for a single party"
+    },
+    "v1GetRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaReward"
           }
         }
       },
@@ -2870,11 +2912,11 @@
         }
       }
     },
-    "v1ObserveRewardDetailsResponse": {
+    "v1ObserveRewardsResponse": {
       "type": "object",
       "properties": {
-        "reward_details": {
-          "$ref": "#/definitions/vegaRewardDetails"
+        "reward": {
+          "$ref": "#/definitions/vegaReward"
         }
       }
     },
@@ -5697,7 +5739,7 @@
       },
       "title": "Terms for a governance proposal on Vega"
     },
-    "vegaRewardDetails": {
+    "vegaReward": {
       "type": "object",
       "properties": {
         "asset_id": {
@@ -5723,21 +5765,13 @@
       },
       "title": "Details for a single reward payment"
     },
-    "vegaRewardPerAssetDetail": {
+    "vegaRewardSummary": {
       "type": "object",
       "properties": {
-        "asset": {
-          "type": "string",
-          "title": "asset details"
+        "asset_id": {
+          "type": "string"
         },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/vegaRewardDetails"
-          },
-          "title": "rewards ordered by received_at"
-        },
-        "total_for_asset": {
+        "amount": {
           "type": "string",
           "title": "Total amount of rewards for the asset"
         }
@@ -6291,17 +6325,17 @@
       },
       "title": "Stream result of v1ObserveProposalVotesResponse"
     },
-    "v1ObserveRewardDetailsResponse": {
+    "v1ObserveRewardsResponse": {
       "type": "object",
       "properties": {
         "result": {
-          "$ref": "#/definitions/v1ObserveRewardDetailsResponse"
+          "$ref": "#/definitions/v1ObserveRewardsResponse"
         },
         "error": {
           "$ref": "#/definitions/runtimeStreamError"
         }
       },
-      "title": "Stream result of v1ObserveRewardDetailsResponse"
+      "title": "Stream result of v1ObserveRewardsResponse"
     },
     "v1OrdersSubscribeResponse": {
       "type": "object",
