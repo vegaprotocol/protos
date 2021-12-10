@@ -29,7 +29,7 @@ func checkStateVariableProposal(cmd *commandspb.StateVariableProposal) Errors {
 
 	for i, kvb := range cmd.Proposal.Kvb {
 		if len(kvb.Key) == 0 {
-			errs.AddForProperty("state_variable_proposal.key_value_bundle."+strconv.Itoa(i), ErrIsRequired)
+			errs.AddForProperty("state_variable_proposal.key_value_bundle."+strconv.Itoa(i)+".key", ErrIsRequired)
 		}
 	}
 	return errs
