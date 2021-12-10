@@ -1,6 +1,10 @@
 package commands
 
-import commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
+import (
+	"strconv"
+
+	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
+)
 
 func CheckStateVariableProposal(cmd *commandspb.StateVariableProposal) error {
 	return checkStateVariableProposal(cmd).ErrorOrNil()
@@ -23,5 +27,10 @@ func checkStateVariableProposal(cmd *commandspb.StateVariableProposal) Errors {
 		errs.AddForProperty("state_variable_proposal.key_value_bundle", ErrIsRequired)
 	}
 
+	for i, kvb := range cmd.Proposal.Kvb {
+		if len(kvb.Key) == 0 {
+			errs.AddForProperty("state_variable_proposal.key_value_bundle."+strconv.Itoa(i), ErrIsRequired)
+		}
+	}
 	return errs
 }
