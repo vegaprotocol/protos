@@ -1182,9 +1182,9 @@ message KeyValueBundle {
 
 message StateVarValue {
   oneof value {
-    ScalarValue scalarVal = 1;
-    VectorValue vectorVal = 2;
-    MatrixValue matrixVal = 3;
+    ScalarValue scalar_val = 1;
+    VectorValue vector_val = 2;
+    MatrixValue matrix_val = 3;
   }
 }
 
