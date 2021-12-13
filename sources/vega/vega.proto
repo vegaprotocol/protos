@@ -1158,6 +1158,7 @@ message Reward {
 // Details for rewards for a single asset
 message RewardSummary {
   string asset_id = 1;
+  string party_id = 2;
   // Total amount of rewards for the asset
   string amount = 3;
 }

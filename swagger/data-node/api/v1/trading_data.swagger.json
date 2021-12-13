@@ -5771,6 +5771,9 @@
         "asset_id": {
           "type": "string"
         },
+        "party_id": {
+          "type": "string"
+        },
         "amount": {
           "type": "string",
           "title": "Total amount of rewards for the asset"
