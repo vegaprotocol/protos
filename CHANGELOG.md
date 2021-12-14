@@ -31,6 +31,8 @@
 - [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
 - [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
 - [186](https://github.com/vegaprotocol/protos/pull/186) - Proto definitions for floating point state variable 
+- [188](https://github.com/vegaprotocol/protos/pull/188) - Add support for filtering & paginating rewards
+
 
 ### 🐛 Fixes
 - [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
