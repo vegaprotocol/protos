@@ -260,6 +260,8 @@ message AuctionIndicativeState {
 // OrderError codes are returned in the `[Order](#vega.Order).reason` field - If there is an issue
 // with an order during its life-cycle, it will be marked with `status.ORDER_STATUS_REJECTED`
 enum OrderError {
+  reserved 38, 39;
+
   // Default value, no error reported
   ORDER_ERROR_UNSPECIFIED = 0;
   // Order was submitted for a market that does not exist
@@ -337,10 +339,6 @@ enum OrderError {
   ORDER_ERROR_WITHOUT_REFERENCE_PRICE = 36;
   // Buy pegged order cannot reference best ask price
   ORDER_ERROR_BUY_CANNOT_REFERENCE_BEST_ASK_PRICE = 37;
-  // Pegged order offset must be <= 0
-  ORDER_ERROR_OFFSET_MUST_BE_LESS_OR_EQUAL_TO_ZERO = 38;
-  // Pegged order offset must be < 0
-  ORDER_ERROR_OFFSET_MUST_BE_LESS_THAN_ZERO = 39;
   // Pegged order offset must be >= 0
   ORDER_ERROR_OFFSET_MUST_BE_GREATER_OR_EQUAL_TO_ZERO = 40;
   // Sell pegged order cannot reference best bid price
