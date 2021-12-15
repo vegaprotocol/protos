@@ -8,7 +8,7 @@ import "vega/commands/v1/validator_commands.proto";
 import "vega/commands/v1/oracles.proto";
 
 message InputData {
-  // A number to provide uniqueness, as to prevent accidental replays and,
+  // A number to provide uniqueness to prevent accidental replays and,
   // in combination with `block_height`, deliberate attacks.
   // A hash over the transaction uniquely identifies the transaction, thus
   // the nonce provides uniqueness for otherwise identical transactions. 
