@@ -270,6 +270,9 @@ func (this *ErrorDetail) Validate() error {
 func (this *NetworkParameter) Validate() error {
 	return nil
 }
+func (this *NetworkLimits) Validate() error {
+	return nil
+}
 func (this *LiquidityOrder) Validate() error {
 	return nil
 }

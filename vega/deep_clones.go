@@ -43,6 +43,10 @@ func (n NetworkParameter) DeepClone() *NetworkParameter {
 	return &n
 }
 
+func (n NetworkLimits) DeepClone() *NetworkLimits {
+	return &n
+}
+
 func (u UpdateNetworkParameter) DeepClone() *UpdateNetworkParameter {
 	if u.Changes != nil {
 		u.Changes = u.Changes.DeepClone()

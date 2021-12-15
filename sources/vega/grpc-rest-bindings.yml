@@ -27,6 +27,8 @@ http:
     # Core APIs
     - selector: vega.api.v1.CoreStateService.ListNetworkParameters
       get: '/network/parameters'
+    - selector: vega.api.v1.CoreStateService.ListNetworkLimits
+      get: '/network/limits'
     - selector: vega.api.v1.CoreStateService.ListAccounts
       get: '/accounts'
     - selector: vega.api.v1.CoreStateService.ListAssets

@@ -938,6 +938,24 @@ message NetworkParameter {
   string value = 2;
 }
 
+// Network limits, defined in the genesis file
+message NetworkLimits {
+  // Are market proposals allowed at this point in time
+	bool canProposeMarket = 1;
+  // Are asset proposals allowed at this point in time
+  bool canProposeAsset = 2;
+  // True once block count > bootstrapBlockCount
+  bool bootstrapFinished = 3;
+  // Are market proposals enabled on this chain
+	bool proposeMarketEnabled = 4;
+  // Are asset proposals enabled on this chain
+  bool proposeAssetEnabled = 5;
+  // How many blocks before the chain comes out of bootstrap mode
+	uint32 bootstrapBlockCount = 6;
+  // True once the genesis file is loaded
+	bool genesisLoaded = 7;
+}
+
 // Represents a liquidity order
 message LiquidityOrder {
   // The pegged reference point for the order

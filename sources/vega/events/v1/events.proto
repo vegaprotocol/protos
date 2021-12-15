@@ -352,7 +352,8 @@ enum BusEventType {
   BUS_EVENT_TYPE_KEY_ROTATION = 37;
   // Event indicating state transitions in state variable consensus
   BUS_EVENT_TYPE_STATE_VAR = 38;
-
+  // Event indicating network limits set or updated
+  BUS_EVENT_TYPE_NETWORK_LIMITS = 39;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -441,6 +442,8 @@ message BusEvent {
     KeyRotation key_rotation = 136;
     // State variable consensus state transition update
     StateVar state_var = 137;
+    // Network limits events
+    NetworkLimits network_limits = 138;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;

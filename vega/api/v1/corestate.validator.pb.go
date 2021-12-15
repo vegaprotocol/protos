@@ -60,6 +60,17 @@ func (this *ListNetworkParametersResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ListNetworkLimitsRequest) Validate() error {
+	return nil
+}
+func (this *ListNetworkLimitsResponse) Validate() error {
+	if this.NetworkLimits != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.NetworkLimits); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("NetworkLimits", err)
+		}
+	}
+	return nil
+}
 func (this *ListPartiesRequest) Validate() error {
 	return nil
 }

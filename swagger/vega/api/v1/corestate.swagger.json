@@ -153,6 +153,22 @@
         ]
       }
     },
+    "/network/limits": {
+      "get": {
+        "operationId": "ListNetworkLimits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListNetworkLimitsResponse"
+            }
+          }
+        },
+        "tags": [
+          "CoreStateService"
+        ]
+      }
+    },
     "/network/parameters": {
       "get": {
         "operationId": "ListNetworkParameters",
@@ -435,6 +451,14 @@
           "items": {
             "$ref": "#/definitions/vegaMarket"
           }
+        }
+      }
+    },
+    "v1ListNetworkLimitsResponse": {
+      "type": "object",
+      "properties": {
+        "network_limits": {
+          "$ref": "#/definitions/vegaNetworkLimits"
         }
       }
     },
@@ -1343,6 +1367,47 @@
         }
       },
       "title": "Time stamps for important times about creating, enacting etc the market"
+    },
+    "vegaNetworkLimits": {
+      "type": "object",
+      "properties": {
+        "canProposeMarket": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are market proposals allowed at this point in time"
+        },
+        "canProposeAsset": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are asset proposals allowed at this point in time"
+        },
+        "bootstrapFinished": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "True once block count \u003e bootstrapBlockCount"
+        },
+        "proposeMarketEnabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are market proposals enabled on this chain"
+        },
+        "proposeAssetEnabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are asset proposals enabled on this chain"
+        },
+        "bootstrapBlockCount": {
+          "type": "integer",
+          "format": "int64",
+          "title": "How many blocks before the chain comes out of bootstrap mode"
+        },
+        "genesisLoaded": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "True once the genesis file is loaded"
+        }
+      },
+      "title": "Network limits, defined in the genesis file"
     },
     "vegaNetworkParameter": {
       "type": "object",
