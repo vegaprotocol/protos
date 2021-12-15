@@ -1189,11 +1189,11 @@ message StateVarValue {
 }
 
 message ScalarValue {
-  double value = 1;
+  string value = 1;
 }
 
 message VectorValue {
-  repeated double value = 1;
+  repeated string value = 1;
 }
 
 message MatrixValue {
