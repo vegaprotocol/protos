@@ -941,19 +941,19 @@ message NetworkParameter {
 // Network limits, defined in the genesis file
 message NetworkLimits {
   // Are market proposals allowed at this point in time
-	bool canProposeMarket = 1;
+	bool can_propose_market = 1;
   // Are asset proposals allowed at this point in time
-  bool canProposeAsset = 2;
+  bool can_propose_asset = 2;
   // True once block count > bootstrapBlockCount
-  bool bootstrapFinished = 3;
+  bool bootstrap_finished = 3;
   // Are market proposals enabled on this chain
-	bool proposeMarketEnabled = 4;
+	bool propose_market_enabled = 4;
   // Are asset proposals enabled on this chain
-  bool proposeAssetEnabled = 5;
+  bool propose_asset_enabled = 5;
   // How many blocks before the chain comes out of bootstrap mode
-	uint32 bootstrapBlockCount = 6;
+	uint32 bootstrap_block_count = 6;
   // True once the genesis file is loaded
-	bool genesisLoaded = 7;
+	bool genesis_loaded = 7;
 }
 
 // Represents a liquidity order
