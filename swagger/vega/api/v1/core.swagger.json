@@ -2551,37 +2551,37 @@
     "vegaNetworkLimits": {
       "type": "object",
       "properties": {
-        "canProposeMarket": {
+        "can_propose_market": {
           "type": "boolean",
           "format": "boolean",
           "title": "Are market proposals allowed at this point in time"
         },
-        "canProposeAsset": {
+        "can_propose_asset": {
           "type": "boolean",
           "format": "boolean",
           "title": "Are asset proposals allowed at this point in time"
         },
-        "bootstrapFinished": {
+        "bootstrap_finished": {
           "type": "boolean",
           "format": "boolean",
           "title": "True once block count \u003e bootstrapBlockCount"
         },
-        "proposeMarketEnabled": {
+        "propose_market_enabled": {
           "type": "boolean",
           "format": "boolean",
           "title": "Are market proposals enabled on this chain"
         },
-        "proposeAssetEnabled": {
+        "propose_asset_enabled": {
           "type": "boolean",
           "format": "boolean",
           "title": "Are asset proposals enabled on this chain"
         },
-        "bootstrapBlockCount": {
+        "bootstrap_block_count": {
           "type": "integer",
           "format": "int64",
           "title": "How many blocks before the chain comes out of bootstrap mode"
         },
-        "genesisLoaded": {
+        "genesis_loaded": {
           "type": "boolean",
           "format": "boolean",
           "title": "True once the genesis file is loaded"
