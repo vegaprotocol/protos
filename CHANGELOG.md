@@ -3,7 +3,7 @@
 ## Unreleased
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
