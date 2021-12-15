@@ -15,7 +15,7 @@ message InputData {
   // Granted all other fields are equal, the nonce can either be a counter
   // or generated at random to submit multiple transactions within the same
   // block (see below), without being identified as replays.
-  // Please note that Protocol Buffers do not have a cononical, unique encoding
+  // Please note that Protocol Buffers do not have a canonical, unique encoding
   // and therefore different libraries or binaries may encode the same message
   // slightly differently, causing a different hash.
   uint64 nonce = 1;
