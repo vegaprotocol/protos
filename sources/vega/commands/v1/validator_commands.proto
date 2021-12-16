@@ -92,8 +92,6 @@ message KeyRotateSubmission {
 }
 
 message StateVariableProposal {
-  // Public key, required field
-  bytes pub_key = 1 [(validator.field) = {string_not_empty: true}];
   // The state value proposal details
-  vega.StateValueProposal proposal = 2;
+  vega.StateValueProposal proposal = 1;
 }
