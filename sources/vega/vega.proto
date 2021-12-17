@@ -954,6 +954,10 @@ message NetworkLimits {
   uint32 bootstrap_block_count = 6;
   // True once the genesis file is loaded
   bool genesis_loaded = 7;
+  // The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)
+  int64 propose_market_enabled_from = 8;
+  // The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)
+  int64 propose_asset_enabled_from = 9;
 }
 
 // Represents a liquidity order
