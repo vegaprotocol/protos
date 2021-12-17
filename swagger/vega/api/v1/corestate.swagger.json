@@ -1405,6 +1405,16 @@
           "type": "boolean",
           "format": "boolean",
           "title": "True once the genesis file is loaded"
+        },
+        "propose_market_enabled_from": {
+          "type": "string",
+          "format": "int64",
+          "title": "The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)"
+        },
+        "propose_asset_enabled_from": {
+          "type": "string",
+          "format": "int64",
+          "title": "The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)"
         }
       },
       "title": "Network limits, defined in the genesis file"
