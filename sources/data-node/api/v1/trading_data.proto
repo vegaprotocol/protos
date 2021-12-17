@@ -255,11 +255,14 @@ service TradingDataService {
   // Get all oracle data
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
 
-  // subscribe to reward details 
-  rpc ObserveRewardDetails(ObserveRewardDetailsRequest) returns (stream ObserveRewardDetailsResponse);
+  // subscribe to rewards
+  rpc ObserveRewards(ObserveRewardsRequest) returns (stream ObserveRewardsResponse);
 
-  // Get Reward data
-  rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
+  // Get rewards
+  rpc GetRewards(GetRewardsRequest) returns (GetRewardsResponse);
+
+  // Get reward summaries
+  rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
 
   rpc Checkpoints(CheckpointsRequest) returns (CheckpointsResponse);
 
@@ -1219,24 +1222,38 @@ message OracleDataBySpecResponse {
   repeated oracles.v1.OracleData oracle_data = 1;
 }
 
-message ObserveRewardDetailsRequest {
+message ObserveRewardsRequest {
   string asset_id = 1;
-  string party = 2; 
+  string party = 2;
 }
 
-message ObserveRewardDetailsResponse {
-  vega.RewardDetails reward_details = 1;
+message ObserveRewardsResponse {
+  vega.Reward reward = 1;
 }
 
 // A request to get reward details for a party
-message GetRewardDetailsRequest {
+message GetRewardSummariesRequest {
   string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string asset_id = 2;
 }
 
 // The return message with reward details in for a single party
-message GetRewardDetailsResponse {
-  repeated vega.RewardPerAssetDetail reward_details = 1;
+message GetRewardSummariesResponse {
+  repeated vega.RewardSummary summaries = 1;
 }
+
+// A request to get reward details for a party
+message GetRewardsRequest {
+  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string asset_id = 2;
+  Pagination pagination = 3;
+}
+
+// The return message with reward details in for a single party
+message GetRewardsResponse {
+  repeated vega.Reward rewards = 1;
+}
+
 
 // The actual data regarding a checkpoint
 message Checkpoint {

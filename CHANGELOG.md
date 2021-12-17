@@ -32,6 +32,7 @@
 - [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
 - [186](https://github.com/vegaprotocol/protos/pull/186) - Proto definitions for floating point state variable 
 - [195](https://github.com/vegaprotocol/protos/pull/195) - Add network limits bus events & GRPC calls
+- [188](https://github.com/vegaprotocol/protos/pull/188) - Add support for filtering & paginating rewards
 
 ### 🐛 Fixes
 - [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
