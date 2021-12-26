@@ -5865,13 +5865,11 @@
           "title": "Market ID that relates to this risk factor"
         },
         "short": {
-          "type": "number",
-          "format": "double",
+          "type": "string",
           "title": "Short Risk factor value"
         },
         "long": {
-          "type": "number",
-          "format": "double",
+          "type": "string",
           "title": "Long Risk factor value"
         }
       },

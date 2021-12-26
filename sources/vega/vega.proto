@@ -68,21 +68,9 @@ message RiskFactor {
   // Market ID that relates to this risk factor
   string market = 1;
   // Short Risk factor value
-  double short = 2;
+  string short = 2;
   // Long Risk factor value
-  double long = 3;
-}
-
-// Risk results are calculated internally by Vega to attempt to maintain safe trading
-message RiskResult {
-  // Timestamp for when risk factors were generated
-  int64 updated_timestamp = 1;
-  // Risk factors (long and short) for each margin-able asset/currency (usually == settlement assets) in the market
-  map<string, RiskFactor> risk_factors = 2;
-  // Timestamp for when risk factors are expected to change (or empty if risk factors are continually updated)
-  int64 next_update_timestamp = 3;
-  // Predicted risk factors at next change (what they would be if the change occurred now)
-  map<string, RiskFactor> predicted_next_risk_factors = 4;
+  string long = 3;
 }
 
 // Auction triggers indicate what condition triggered an auction (if market is in auction mode)
