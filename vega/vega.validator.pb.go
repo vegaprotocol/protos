@@ -29,11 +29,6 @@ func (this *Party) Validate() error {
 func (this *RiskFactor) Validate() error {
 	return nil
 }
-func (this *RiskResult) Validate() error {
-	// Validation of proto3 map<> fields is unsupported.
-	// Validation of proto3 map<> fields is unsupported.
-	return nil
-}
 func (this *PeggedOrder) Validate() error {
 	return nil
 }

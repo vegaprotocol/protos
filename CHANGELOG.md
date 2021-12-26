@@ -9,7 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
