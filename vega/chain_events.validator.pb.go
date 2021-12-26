@@ -176,11 +176,21 @@ func (this *StakingEvent) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetAction().(*StakingEvent_TotalSupply); ok {
+		if oneOfNester.TotalSupply != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.TotalSupply); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("TotalSupply", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *StakeDeposited) Validate() error {
 	return nil
 }
 func (this *StakeRemoved) Validate() error {
+	return nil
+}
+func (this *StakeTotalSupply) Validate() error {
 	return nil
 }
