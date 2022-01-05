@@ -3544,11 +3544,11 @@
       "enum": [
         "STATUS_UNSPECIFIED",
         "STATUS_OPEN",
-        "STATUS_CANCELLED",
+        "STATUS_REJECTED",
         "STATUS_FINALIZED"
       ],
       "default": "STATUS_UNSPECIFIED",
-      "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The withdrawal is open and being processed by the network\n - STATUS_CANCELLED: The withdrawal have been cancelled\n - STATUS_FINALIZED: The withdrawal went through and is fully finalised, the funds are removed from the\nVega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network",
+      "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The withdrawal is open and being processed by the network\n - STATUS_REJECTED: The withdrawal have been cancelled\n - STATUS_FINALIZED: The withdrawal went through and is fully finalised, the funds are removed from the\nVega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network",
       "title": "The status of the withdrawal"
     }
   },
