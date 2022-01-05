@@ -822,7 +822,7 @@
       ],
       "default": "AUCTION_TRIGGER_UNSPECIFIED",
       "description": "- AUCTION_TRIGGER_UNSPECIFIED: Default value for AuctionTrigger, no auction triggered\n - AUCTION_TRIGGER_BATCH: Batch auction\n - AUCTION_TRIGGER_OPENING: Opening auction\n - AUCTION_TRIGGER_PRICE: Price monitoring trigger\n - AUCTION_TRIGGER_LIQUIDITY: Liquidity monitoring trigger",
-      "title": "Auction triggers indicate what condition triggered an auction (if market is\nin auction mode)"
+      "title": "Auction triggers indicate what condition triggered an auction (if market is in auction mode)"
     },
     "vegaBuiltinAsset": {
       "type": "object",
@@ -1208,7 +1208,7 @@
         },
         "best_bid_price": {
           "type": "string",
-          "title": "Highest price level on an order book for buy orders, as an integer, for\nexample `123456` is a correctly formatted price of `1.23456` assuming\nmarket configured to 5 decimal places"
+          "title": "Highest price level on an order book for buy orders, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "best_bid_volume": {
           "type": "string",
@@ -1222,7 +1222,7 @@
         "best_offer_volume": {
           "type": "string",
           "format": "uint64",
-          "title": "Aggregated volume being offered at the best offer price, as an integer, for\nexample `123456` is a correctly\n // formatted price of `1.23456` assuming market configured to 5 decimal\n places"
+          "title": "Aggregated volume being offered at the best offer price, as an integer, for example `123456` is a correctly\n // formatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "best_static_bid_price": {
           "type": "string",
@@ -1244,7 +1244,7 @@
         },
         "mid_price": {
           "type": "string",
-          "title": "Arithmetic average of the best bid price and best offer price, as an\ninteger, for example `123456` is a correctly formatted price of `1.23456`\nassuming market configured to 5 decimal places"
+          "title": "Arithmetic average of the best bid price and best offer price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
         "static_mid_price": {
           "type": "string",
@@ -1257,7 +1257,7 @@
         "timestamp": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp at which this mark price was relevant, in nanoseconds since the\nepoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+          "title": "Timestamp at which this mark price was relevant, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
         "open_interest": {
           "type": "string",
@@ -1267,7 +1267,7 @@
         "auction_end": {
           "type": "string",
           "format": "int64",
-          "title": "Time in seconds until the end of the auction (0 if currently not in auction\nperiod)"
+          "title": "Time in seconds until the end of the auction (0 if currently not in auction period)"
         },
         "auction_start": {
           "type": "string",
@@ -1289,11 +1289,11 @@
         },
         "trigger": {
           "$ref": "#/definitions/vegaAuctionTrigger",
-          "title": "When a market is in an auction trading mode, this field indicates what\ntriggered the auction"
+          "title": "When a market is in an auction trading mode, this field indicates what triggered the auction"
         },
         "extension_trigger": {
           "$ref": "#/definitions/vegaAuctionTrigger",
-          "title": "When a market auction is extended, this field indicates what caused the\nextension"
+          "title": "When a market auction is extended, this field indicates what caused the extension"
         },
         "target_stake": {
           "type": "string",
@@ -1409,12 +1409,12 @@
         "propose_market_enabled_from": {
           "type": "string",
           "format": "int64",
-          "title": "The date/timestamp in unix nanoseconds at which market proposals will be\nenabled (0 indicates not set)"
+          "title": "The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)"
         },
         "propose_asset_enabled_from": {
           "type": "string",
           "format": "int64",
-          "title": "The date/timestamp in unix nanoseconds at which asset proposals will be\nenabled (0 indicates not set)"
+          "title": "The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)"
         }
       },
       "title": "Network limits, defined in the genesis file"
@@ -1587,18 +1587,18 @@
       ],
       "default": "PEGGED_REFERENCE_UNSPECIFIED",
       "description": "- PEGGED_REFERENCE_UNSPECIFIED: Default value for PeggedReference, no reference given\n - PEGGED_REFERENCE_MID: Mid price reference\n - PEGGED_REFERENCE_BEST_BID: Best bid price reference\n - PEGGED_REFERENCE_BEST_ASK: Best ask price reference",
-      "title": "A pegged reference defines which price point a pegged order is linked to -\nmeaning the price for a pegged order is calculated from the value of the\nreference price point"
+      "title": "A pegged reference defines which price point a pegged order is linked to - meaning\nthe price for a pegged order is calculated from the value of the reference price point"
     },
     "vegaPriceMonitoringBounds": {
       "type": "object",
       "properties": {
         "min_valid_price": {
           "type": "string",
-          "title": "Minimum price that isn't currently breaching the specified price monitoring\ntrigger"
+          "title": "Minimum price that isn't currently breaching the specified price monitoring trigger"
         },
         "max_valid_price": {
           "type": "string",
-          "title": "Maximum price that isn't currently breaching the specified price monitoring\ntrigger"
+          "title": "Maximum price that isn't currently breaching the specified price monitoring trigger"
         },
         "trigger": {
           "$ref": "#/definitions/vegaPriceMonitoringTrigger",
@@ -1610,7 +1610,7 @@
           "title": "Reference price used to calculate the valid price range"
         }
       },
-      "title": "Represents a list of valid (at the current timestamp) price ranges per\nassociated trigger"
+      "title": "Represents a list of valid (at the current timestamp) price ranges per associated trigger"
     },
     "vegaPriceMonitoringParameters": {
       "type": "object",
