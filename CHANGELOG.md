@@ -12,7 +12,7 @@
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
 
 
 ## 0.47.0
