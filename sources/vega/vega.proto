@@ -106,7 +106,7 @@ message PeggedOrder {
   // Which price point are we linked to
   PeggedReference reference = 1;
   // Offset from the price reference
-  int64 offset = 2;
+  string offset = 2;
 }
 
 // An order can be submitted, amended and cancelled on Vega in an attempt to make trades with other parties
@@ -953,7 +953,7 @@ message LiquidityOrder {
   // The relative proportion of the commitment to be allocated at a price level
   uint32 proportion = 2;
   // The offset/amount of units away for the order
-  int64 offset = 3;
+  string offset = 3;
 }
 
 // A pair of a liquidity order and the id of the generated order by the core

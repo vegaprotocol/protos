@@ -7,9 +7,9 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
-	_ "code.vegaprotocol.io/protos/vega"
 	_ "code.vegaprotocol.io/protos/vega/oracles/v1"
 	_ "code.vegaprotocol.io/protos/vega/commands/v1"
+	_ "code.vegaprotocol.io/protos/vega"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -107,6 +107,20 @@ func (this *TxErrorEvent) Validate() error {
 		if oneOfNester.RestoreSnapshot != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.RestoreSnapshot); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("RestoreSnapshot", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetTransaction().(*TxErrorEvent_LiquidityProvisionCancellation); ok {
+		if oneOfNester.LiquidityProvisionCancellation != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LiquidityProvisionCancellation); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LiquidityProvisionCancellation", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetTransaction().(*TxErrorEvent_LiquidityProvisionAmendment); ok {
+		if oneOfNester.LiquidityProvisionAmendment != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LiquidityProvisionAmendment); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LiquidityProvisionAmendment", err)
 			}
 		}
 	}

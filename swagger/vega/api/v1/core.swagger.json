@@ -913,7 +913,6 @@
         },
         "pegged_offset": {
           "type": "string",
-          "format": "int64",
           "title": "Amend the pegged order offset for the order"
         },
         "pegged_reference": {
@@ -2165,7 +2164,6 @@
         },
         "offset": {
           "type": "string",
-          "format": "int64",
           "title": "The offset/amount of units away for the order"
         }
       },
@@ -2983,7 +2981,6 @@
         },
         "offset": {
           "type": "string",
-          "format": "int64",
           "title": "Offset from the price reference"
         }
       },
