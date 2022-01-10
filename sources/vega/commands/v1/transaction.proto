@@ -28,6 +28,8 @@ message InputData {
     LiquidityProvisionSubmission liquidity_provision_submission = 1007;
     DelegateSubmission delegate_submission = 1008;
     UndelegateSubmission undelegate_submission = 1009;
+    LiquidityProvisionCancellation liquidity_provision_cancellation = 1010;
+    LiquidityProvisionAmendment liquidity_provision_amendment = 1011;
 
     // Validator commands
     NodeRegistration node_registration = 2001;
