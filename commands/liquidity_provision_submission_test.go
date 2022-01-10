@@ -300,16 +300,15 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			errString: "liquidity_provision_amendment.market_id (is required)",
 		},
 		{
-			name: "Should return no errors if amendment changes nothing",
+			name: "Should return an error if amendment changes nothing",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
 					Id:       "123",
 					MarketId: "abcd",
-					Sells:    nil,
-					Buys:     nil,
 				},
 			},
-			wantErr: assert.NoError,
+			wantErr:   assert.Error,
+			errString: "liquidity_provision_amendment (is required)",
 		},
 		{
 			name: "Should return no errors if amendment buys and sells are balanced",
@@ -328,7 +327,7 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			wantErr: assert.NoError,
 		},
 		{
-			name: "Should return an error if sell side shape is provided with no buy side shape",
+			name: "Should not return an error if sell side shape is provided with no buy side shape",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
 					Id:       "123",
@@ -339,11 +338,10 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 					Buys: []*types.LiquidityOrder{},
 				},
 			},
-			wantErr:   assert.Error,
-			errString: "liquidity_provision_submission.buys (empty shape)",
+			wantErr: assert.NoError,
 		},
 		{
-			name: "Should return an error if buy side shape is provided with no sell side shape",
+			name: "Should not return an error if buy side shape is provided with no sell side shape",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
 					Id:       "123",
@@ -354,8 +352,7 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 					},
 				},
 			},
-			wantErr:   assert.Error,
-			errString: "liquidity_provision_submission.sells (empty shape)",
+			wantErr: assert.NoError,
 		},
 		{
 			name: "Should return errors if shapes are provided with invalid reference prices",

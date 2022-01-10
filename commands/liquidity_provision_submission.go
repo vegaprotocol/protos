@@ -70,14 +70,14 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 		}
 	}
 
-	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY))
-	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY, false))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL, false))
 
 	return errs
 }
 
 func checkLiquidityProvisionShape(
-	orders []*types.LiquidityOrder, side types.Side,
+	orders []*types.LiquidityOrder, side types.Side, isAmendment bool,
 ) Errors {
 	var (
 		errs           = NewErrors()
@@ -87,7 +87,7 @@ func checkLiquidityProvisionShape(
 		shapeSideField = "liquidity_provision_submission.sells"
 	}
 
-	if len(orders) <= 0 {
+	if len(orders) <= 0 && !isAmendment {
 		errs.AddForProperty(shapeSideField, errors.New("empty shape"))
 		return errs
 
@@ -197,12 +197,16 @@ func checkLiquidityProvisionAmendment(cmd *commandspb.LiquidityProvisionAmendmen
 		return errs.FinalAddForProperty("liquidity_provision_amendment.market_id", ErrIsRequired)
 	}
 
-	if len(cmd.Buys) <= 0 && len(cmd.Sells) <= 0 {
-		return errs
+	if len(cmd.CommitmentAmount) <= 0 &&
+		len(cmd.Fee) <= 0 &&
+		len(cmd.Sells) <= 0 &&
+		len(cmd.Buys) <= 0 &&
+		len(cmd.Reference) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_amendment", ErrIsRequired)
 	}
 
-	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY))
-	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY, true))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL, true))
 
 	return errs
 }
