@@ -35,7 +35,8 @@
 - [188](https://github.com/vegaprotocol/protos/pull/188) - Add support for filtering & paginating rewards
 - [196](https://github.com/vegaprotocol/protos/pull/196) - Add propose_xxx_enabled_from to network limits event
 - [201](https://github.com/vegaprotocol/protos/pull/201) - Add chain event for stake total supply
-
+- [206](https://github.com/vegaprotocol/protos/pull/206) - Add new commands and validation for Liquidity Provisioning
+ 
 ### 🐛 Fixes
 - [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
 
