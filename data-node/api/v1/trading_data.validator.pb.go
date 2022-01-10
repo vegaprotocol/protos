@@ -22,6 +22,11 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 func (this *DelegationsRequest) Validate() error {
+	if this.Pagination != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Pagination); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Pagination", err)
+		}
+	}
 	return nil
 }
 func (this *DelegationsResponse) Validate() error {
