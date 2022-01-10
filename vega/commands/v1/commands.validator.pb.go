@@ -77,6 +77,26 @@ func (this *LiquidityProvisionSubmission) Validate() error {
 	}
 	return nil
 }
+func (this *LiquidityProvisionCancellation) Validate() error {
+	return nil
+}
+func (this *LiquidityProvisionAmendment) Validate() error {
+	for _, item := range this.Sells {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Sells", err)
+			}
+		}
+	}
+	for _, item := range this.Buys {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Buys", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *WithdrawSubmission) Validate() error {
 	if this.Ext != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Ext); err != nil {
