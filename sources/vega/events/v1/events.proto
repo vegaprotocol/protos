@@ -114,6 +114,8 @@ message TxErrorEvent {
     commands.v1.DelegateSubmission delegate_submission = 108;
     commands.v1.UndelegateSubmission undelegate_submission = 109;
     commands.v1.RestoreSnapshot restore_snapshot = 110;
+    commands.v1.LiquidityProvisionCancellation liquidity_provision_cancellation = 111;
+    commands.v1.LiquidityProvisionAmendment liquidity_provision_amendment = 112;
   }
 }
 
