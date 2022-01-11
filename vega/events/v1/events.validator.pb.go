@@ -111,6 +111,20 @@ func (this *TxErrorEvent) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetTransaction().(*TxErrorEvent_LiquidityProvisionCancellation); ok {
+		if oneOfNester.LiquidityProvisionCancellation != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LiquidityProvisionCancellation); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LiquidityProvisionCancellation", err)
+			}
+		}
+	}
+	if oneOfNester, ok := this.GetTransaction().(*TxErrorEvent_LiquidityProvisionAmendment); ok {
+		if oneOfNester.LiquidityProvisionAmendment != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.LiquidityProvisionAmendment); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("LiquidityProvisionAmendment", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *TimeUpdate) Validate() error {

@@ -616,6 +616,52 @@
       },
       "title": "A response with the height of the last block processed by\ntendermint"
     },
+    "v1LiquidityProvisionAmendment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "market_id": {
+          "type": "string"
+        },
+        "commitment_amount": {
+          "type": "string",
+          "title": "From here at least one of the following is required to consider the command valid"
+        },
+        "fee": {
+          "type": "string"
+        },
+        "sells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaLiquidityOrder"
+          }
+        },
+        "buys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaLiquidityOrder"
+          }
+        },
+        "reference": {
+          "type": "string"
+        }
+      },
+      "title": "Amend a liquidity provision request"
+    },
+    "v1LiquidityProvisionCancellation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "market_id": {
+          "type": "string"
+        }
+      },
+      "title": "Cancel a liquidity provision request"
+    },
     "v1LiquidityProvisionSubmission": {
       "type": "object",
       "properties": {
@@ -1521,6 +1567,12 @@
         },
         "restore_snapshot": {
           "$ref": "#/definitions/v1RestoreSnapshot"
+        },
+        "liquidity_provision_cancellation": {
+          "$ref": "#/definitions/v1LiquidityProvisionCancellation"
+        },
+        "liquidity_provision_amendment": {
+          "$ref": "#/definitions/v1LiquidityProvisionAmendment"
         }
       }
     },

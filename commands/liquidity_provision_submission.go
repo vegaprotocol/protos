@@ -47,10 +47,10 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 
 	if len(cmd.CommitmentAmount) > 0 {
 		if commitment, ok := big.NewInt(0).SetString(cmd.CommitmentAmount, 10); !ok {
-			errs.AddForProperty("liquidity_provision_subission.commitment_amount", ErrNotAValidInteger)
+			errs.AddForProperty("liquidity_provision_submission.commitment_amount", ErrNotAValidInteger)
 		} else {
 			if commitment.Cmp(big.NewInt(0)) == 0 {
-				return errs
+				return errs.FinalAddForProperty("liquidity_provision_submission.commitment_amount", ErrIsNotValidNumber)
 			}
 		}
 	} else { // valida cancellation
@@ -68,17 +68,16 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 		} else if fee < 0 {
 			errs.AddForProperty("liquidity_provision_submission.fee", ErrMustBePositive)
 		}
-
 	}
 
-	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY))
-	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY, false))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL, false))
 
 	return errs
 }
 
 func checkLiquidityProvisionShape(
-	orders []*types.LiquidityOrder, side types.Side,
+	orders []*types.LiquidityOrder, side types.Side, isAmendment bool,
 ) Errors {
 	var (
 		errs           = NewErrors()
@@ -88,7 +87,7 @@ func checkLiquidityProvisionShape(
 		shapeSideField = "liquidity_provision_submission.sells"
 	}
 
-	if len(orders) <= 0 {
+	if len(orders) <= 0 && !isAmendment {
 		errs.AddForProperty(shapeSideField, errors.New("empty shape"))
 		return errs
 
@@ -154,5 +153,60 @@ func checkLiquidityProvisionShape(
 			}
 		}
 	}
+	return errs
+}
+
+func CheckLiquidityProvisionCancellation(cmd *commandspb.LiquidityProvisionCancellation) error {
+	return checkLiquidityProvisionCancellation(cmd).ErrorOrNil()
+}
+
+func checkLiquidityProvisionCancellation(cmd *commandspb.LiquidityProvisionCancellation) Errors {
+	errs := NewErrors()
+
+	if cmd == nil {
+		return errs.FinalAddForProperty("liquidity_provision_cancellation", ErrIsRequired)
+	}
+
+	if len(cmd.Id) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_cancellation.id", ErrIsRequired)
+	}
+
+	if len(cmd.MarketId) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_cancellation.market_id", ErrIsRequired)
+	}
+
+	return errs
+}
+
+func CheckLiquidityProvisionAmendment(cmd *commandspb.LiquidityProvisionAmendment) error {
+	return checkLiquidityProvisionAmendment(cmd).ErrorOrNil()
+}
+
+func checkLiquidityProvisionAmendment(cmd *commandspb.LiquidityProvisionAmendment) Errors {
+	errs := NewErrors()
+
+	if cmd == nil {
+		return errs.FinalAddForProperty("liquidity_provision_amendment", ErrIsRequired)
+	}
+
+	if len(cmd.Id) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_amendment.id", ErrIsRequired)
+	}
+
+	if len(cmd.MarketId) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_amendment.market_id", ErrIsRequired)
+	}
+
+	if len(cmd.CommitmentAmount) <= 0 &&
+		len(cmd.Fee) <= 0 &&
+		len(cmd.Sells) <= 0 &&
+		len(cmd.Buys) <= 0 &&
+		len(cmd.Reference) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_amendment", ErrIsRequired)
+	}
+
+	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY, true))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL, true))
+
 	return errs
 }
