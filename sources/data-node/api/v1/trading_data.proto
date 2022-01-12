@@ -283,6 +283,9 @@ message DelegationsRequest {
   string party = 1;
   string node_id = 2;
   string epoch_seq = 3;
+  // Pagination controls
+  Pagination pagination = 4;  
+
 }
 
 message DelegationsResponse {
