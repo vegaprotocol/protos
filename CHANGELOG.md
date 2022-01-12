@@ -39,7 +39,7 @@
 
 ### 🐛 Fixes
 - [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
-
+- [210](https://github.com/vegaprotocol/protos/pull/210) - Remove redundant Id field from Liquidity Provision Cancellation and Amendment messages.
 
 ## 0.46.0
 *2021-11-22*
