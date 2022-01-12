@@ -77,12 +77,12 @@ message Transaction {
     string pub_key = 1002;
   }
 
-  // A version of the transaction, to be used in the future in case we want to
-  // implement changes to the Transaction format.
+  // A version of the transaction, to be used in the future in case changes are implemented 
+  // to the Transaction format.
   uint32 version = 2000;
 }
 
-// A signature to be authenticate a transaction and to be verified by the vega
+// A signature to authenticate a transaction and to be verified by the Vega
 // network.
 message Signature {
   // The bytes of the signature (hex-encoded).
