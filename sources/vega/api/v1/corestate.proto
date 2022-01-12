@@ -13,6 +13,7 @@ service CoreStateService {
   rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
   rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
   rpc ListNetworkParameters(ListNetworkParametersRequest) returns (ListNetworkParametersResponse);
+  rpc ListNetworkLimits(ListNetworkLimitsRequest) returns (ListNetworkLimitsResponse);
   rpc ListParties(ListPartiesRequest) returns (ListPartiesResponse);
   rpc ListValidators(ListValidatorsRequest) returns (ListValidatorsResponse);
   rpc ListMarkets(ListMarketsRequest) returns (ListMarketsResponse);
@@ -54,6 +55,12 @@ message ListNetworkParametersRequest {
 
 message ListNetworkParametersResponse {
   repeated vega.NetworkParameter network_parameters = 1;
+}
+
+message ListNetworkLimitsRequest {}
+
+message ListNetworkLimitsResponse {
+  vega.NetworkLimits network_limits = 1;
 }
 
 message ListPartiesRequest {}

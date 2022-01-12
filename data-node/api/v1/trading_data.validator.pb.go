@@ -1088,28 +1088,49 @@ func (this *OracleDataBySpecResponse) Validate() error {
 	}
 	return nil
 }
-func (this *ObserveRewardDetailsRequest) Validate() error {
+func (this *ObserveRewardsRequest) Validate() error {
 	return nil
 }
-func (this *ObserveRewardDetailsResponse) Validate() error {
-	if this.RewardDetails != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.RewardDetails); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)
+func (this *ObserveRewardsResponse) Validate() error {
+	if this.Reward != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Reward); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Reward", err)
 		}
 	}
 	return nil
 }
-func (this *GetRewardDetailsRequest) Validate() error {
+func (this *GetRewardSummariesRequest) Validate() error {
 	if this.PartyId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("PartyId", fmt.Errorf(`value '%v' must not be an empty string`, this.PartyId))
 	}
 	return nil
 }
-func (this *GetRewardDetailsResponse) Validate() error {
-	for _, item := range this.RewardDetails {
+func (this *GetRewardSummariesResponse) Validate() error {
+	for _, item := range this.Summaries {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("RewardDetails", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("Summaries", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *GetRewardsRequest) Validate() error {
+	if this.PartyId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PartyId", fmt.Errorf(`value '%v' must not be an empty string`, this.PartyId))
+	}
+	if this.Pagination != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Pagination); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Pagination", err)
+		}
+	}
+	return nil
+}
+func (this *GetRewardsResponse) Validate() error {
+	for _, item := range this.Rewards {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Rewards", err)
 			}
 		}
 	}

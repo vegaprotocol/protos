@@ -68,21 +68,9 @@ message RiskFactor {
   // Market ID that relates to this risk factor
   string market = 1;
   // Short Risk factor value
-  double short = 2;
+  string short = 2;
   // Long Risk factor value
-  double long = 3;
-}
-
-// Risk results are calculated internally by Vega to attempt to maintain safe trading
-message RiskResult {
-  // Timestamp for when risk factors were generated
-  int64 updated_timestamp = 1;
-  // Risk factors (long and short) for each margin-able asset/currency (usually == settlement assets) in the market
-  map<string, RiskFactor> risk_factors = 2;
-  // Timestamp for when risk factors are expected to change (or empty if risk factors are continually updated)
-  int64 next_update_timestamp = 3;
-  // Predicted risk factors at next change (what they would be if the change occurred now)
-  map<string, RiskFactor> predicted_next_risk_factors = 4;
+  string long = 3;
 }
 
 // Auction triggers indicate what condition triggered an auction (if market is in auction mode)
@@ -586,7 +574,7 @@ message Withdrawal {
     // The withdrawal is open and being processed by the network
     STATUS_OPEN = 1;
     // The withdrawal have been cancelled
-    STATUS_CANCELLED = 2;
+    STATUS_REJECTED = 2;
     // The withdrawal went through and is fully finalised, the funds are removed from the
     // Vega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network
     STATUS_FINALIZED = 3;
@@ -938,6 +926,28 @@ message NetworkParameter {
   string value = 2;
 }
 
+// Network limits, defined in the genesis file
+message NetworkLimits {
+  // Are market proposals allowed at this point in time
+  bool can_propose_market = 1;
+  // Are asset proposals allowed at this point in time
+  bool can_propose_asset = 2;
+  // True once block count > bootstrapBlockCount
+  bool bootstrap_finished = 3;
+  // Are market proposals enabled on this chain
+  bool propose_market_enabled = 4;
+  // Are asset proposals enabled on this chain
+  bool propose_asset_enabled = 5;
+  // How many blocks before the chain comes out of bootstrap mode
+  uint32 bootstrap_block_count = 6;
+  // True once the genesis file is loaded
+  bool genesis_loaded = 7;
+  // The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)
+  int64 propose_market_enabled_from = 8;
+  // The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)
+  int64 propose_asset_enabled_from = 9;
+}
+
 // Represents a liquidity order
 message LiquidityOrder {
   // The pegged reference point for the order
@@ -1146,7 +1156,7 @@ message Delegation {
 }
 
 // Details for a single reward payment
-message RewardDetails {
+message Reward {
    string asset_id = 1;
    string party_id = 2;
    uint64 epoch = 3;
@@ -1156,13 +1166,11 @@ message RewardDetails {
 }
 
 // Details for rewards for a single asset
-message RewardPerAssetDetail {
-  // asset details
-  string asset = 1;
-  // rewards ordered by received_at
-  repeated RewardDetails details = 2;
+message RewardSummary {
+  string asset_id = 1;
+  string party_id = 2;
   // Total amount of rewards for the asset
-  string total_for_asset = 3;
+  string amount = 3;
 }
 
 message StateValueProposal {
@@ -1189,11 +1197,11 @@ message StateVarValue {
 }
 
 message ScalarValue {
-  double value = 1;
+  string value = 1;
 }
 
 message VectorValue {
-  repeated double value = 1;
+  repeated string value = 1;
 }
 
 message MatrixValue {

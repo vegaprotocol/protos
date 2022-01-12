@@ -180,6 +180,7 @@ message StakingEvent {
   oneof action {
     StakeDeposited stake_deposited = 1001;
     StakeRemoved stake_removed = 1002;
+    StakeTotalSupply total_supply = 1003;
   }
 }
 
@@ -207,4 +208,11 @@ message StakeRemoved {
   // will be used to inform the core at what time
   // the stake was made unavailable.
   int64 block_time = 4;
+}
+
+message StakeTotalSupply {
+  // The address of the staking asset
+  string token_address = 1;
+  // The total supply observed for the token
+  string total_supply = 2;
 }

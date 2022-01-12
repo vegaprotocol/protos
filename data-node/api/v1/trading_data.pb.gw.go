@@ -1286,8 +1286,12 @@ func request_TradingDataService_OracleDataBySpec_0(ctx context.Context, marshale
 
 }
 
-func request_TradingDataService_GetRewardDetails_0(ctx context.Context, marshaler runtime.Marshaler, client TradingDataServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardDetailsRequest
+var (
+	filter_TradingDataService_GetRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"party_id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+)
+
+func request_TradingDataService_GetRewards_0(ctx context.Context, marshaler runtime.Marshaler, client TradingDataServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRewardsRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -1308,7 +1312,11 @@ func request_TradingDataService_GetRewardDetails_0(ctx context.Context, marshale
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "party_id", err)
 	}
 
-	msg, err := client.GetRewardDetails(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_TradingDataService_GetRewards_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetRewards(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
@@ -2415,7 +2423,7 @@ func RegisterTradingDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 
 	})
 
-	mux.Handle("GET", pattern_TradingDataService_GetRewardDetails_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_TradingDataService_GetRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -2424,14 +2432,14 @@ func RegisterTradingDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_TradingDataService_GetRewardDetails_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_TradingDataService_GetRewards_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_TradingDataService_GetRewardDetails_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_TradingDataService_GetRewards_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2581,7 +2589,7 @@ var (
 
 	pattern_TradingDataService_OracleDataBySpec_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"oracle-specs", "id", "oracle-data"}, ""))
 
-	pattern_TradingDataService_GetRewardDetails_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"parties", "party_id", "rewards"}, ""))
+	pattern_TradingDataService_GetRewards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"parties", "party_id", "rewards"}, ""))
 
 	pattern_TradingDataService_Delegations_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"delegations"}, ""))
 
@@ -2691,7 +2699,7 @@ var (
 
 	forward_TradingDataService_OracleDataBySpec_0 = runtime.ForwardResponseMessage
 
-	forward_TradingDataService_GetRewardDetails_0 = runtime.ForwardResponseMessage
+	forward_TradingDataService_GetRewards_0 = runtime.ForwardResponseMessage
 
 	forward_TradingDataService_Delegations_0 = runtime.ForwardResponseMessage
 

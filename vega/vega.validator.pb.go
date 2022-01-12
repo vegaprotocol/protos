@@ -29,11 +29,6 @@ func (this *Party) Validate() error {
 func (this *RiskFactor) Validate() error {
 	return nil
 }
-func (this *RiskResult) Validate() error {
-	// Validation of proto3 map<> fields is unsupported.
-	// Validation of proto3 map<> fields is unsupported.
-	return nil
-}
 func (this *PeggedOrder) Validate() error {
 	return nil
 }
@@ -270,6 +265,9 @@ func (this *ErrorDetail) Validate() error {
 func (this *NetworkParameter) Validate() error {
 	return nil
 }
+func (this *NetworkLimits) Validate() error {
+	return nil
+}
 func (this *LiquidityOrder) Validate() error {
 	return nil
 }
@@ -370,17 +368,10 @@ func (this *NodeData) Validate() error {
 func (this *Delegation) Validate() error {
 	return nil
 }
-func (this *RewardDetails) Validate() error {
+func (this *Reward) Validate() error {
 	return nil
 }
-func (this *RewardPerAssetDetail) Validate() error {
-	for _, item := range this.Details {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Details", err)
-			}
-		}
-	}
+func (this *RewardSummary) Validate() error {
 	return nil
 }
 func (this *StateValueProposal) Validate() error {

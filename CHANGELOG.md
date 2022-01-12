@@ -10,9 +10,10 @@
 
 ### 🛠 Improvements
 - [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
+- [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
 
 
 ## 0.47.0
@@ -30,7 +31,12 @@
 - [171](https://github.com/vegaprotocol/protos/pull/171) - Update topology snapshot to reflect key rotations
 - [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
 - [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
-- [186](https://github.com/vegaprotocol/protos/pull/186) - Proto definitions for floating point state variable 
+- [186](https://github.com/vegaprotocol/protos/pull/186) - Proto definitions for floating point state variable
+- [195](https://github.com/vegaprotocol/protos/pull/195) - Add network limits bus events & GRPC calls
+- [188](https://github.com/vegaprotocol/protos/pull/188) - Add support for filtering & paginating rewards
+- [196](https://github.com/vegaprotocol/protos/pull/196) - Add propose_xxx_enabled_from to network limits event
+- [201](https://github.com/vegaprotocol/protos/pull/201) - Add chain event for stake total supply
+- [207](https://github.com/vegaprotocol/protos/pull/207) - Adding new commands for Liquidity Provision Cancellation and Amendment
 
 ### 🐛 Fixes
 - [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field

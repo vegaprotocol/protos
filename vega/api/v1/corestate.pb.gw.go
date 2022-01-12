@@ -79,6 +79,15 @@ func request_CoreStateService_ListNetworkParameters_0(ctx context.Context, marsh
 
 }
 
+func request_CoreStateService_ListNetworkLimits_0(ctx context.Context, marshaler runtime.Marshaler, client CoreStateServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListNetworkLimitsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.ListNetworkLimits(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
 func request_CoreStateService_ListParties_0(ctx context.Context, marshaler runtime.Marshaler, client CoreStateServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListPartiesRequest
 	var metadata runtime.ServerMetadata
@@ -297,6 +306,26 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 
 	})
 
+	mux.Handle("GET", pattern_CoreStateService_ListNetworkLimits_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_CoreStateService_ListNetworkLimits_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListNetworkLimits_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_CoreStateService_ListParties_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -467,6 +496,8 @@ var (
 
 	pattern_CoreStateService_ListNetworkParameters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"network", "parameters"}, ""))
 
+	pattern_CoreStateService_ListNetworkLimits_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"network", "limits"}, ""))
+
 	pattern_CoreStateService_ListParties_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"parties"}, ""))
 
 	pattern_CoreStateService_ListValidators_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"validators"}, ""))
@@ -490,6 +521,8 @@ var (
 	forward_CoreStateService_ListAssets_0 = runtime.ForwardResponseMessage
 
 	forward_CoreStateService_ListNetworkParameters_0 = runtime.ForwardResponseMessage
+
+	forward_CoreStateService_ListNetworkLimits_0 = runtime.ForwardResponseMessage
 
 	forward_CoreStateService_ListParties_0 = runtime.ForwardResponseMessage
 
