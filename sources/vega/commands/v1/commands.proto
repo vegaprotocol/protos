@@ -94,21 +94,19 @@ message LiquidityProvisionSubmission {
 
 // Cancel a liquidity provision request
 message LiquidityProvisionCancellation {
-  string id = 1; // this is required
-  string market_id = 2; // this can be remove if we get a nice way to get provisions IDs to market
+  string market_id = 1; // this can be remove if we get a nice way to get provisions IDs to market
 }
 
 // Amend a liquidity provision request
 message LiquidityProvisionAmendment {
-  string id = 1; // this is required
-  string market_id = 2; // this can be remove if we get a nice way to get provisions IDs to market
+  string market_id = 1; // this can be remove if we get a nice way to get provisions IDs to market
 
   // From here at least one of the following is required to consider the command valid
-  string commitment_amount = 3; // an empty strings means no change
-  string fee = 4; // an empty strings means no change
-  repeated vega.LiquidityOrder sells = 5; // empty slice means no change
-  repeated vega.LiquidityOrder buys = 6; // empty slice means no change
-  string reference = 7; // empty string means no change
+  string commitment_amount = 2; // an empty strings means no change
+  string fee = 3; // an empty strings means no change
+  repeated vega.LiquidityOrder sells = 4; // empty slice means no change
+  repeated vega.LiquidityOrder buys = 5; // empty slice means no change
+  string reference = 6; // empty string means no change
 }
 
 // Represents the submission request to withdraw funds for a party on Vega
