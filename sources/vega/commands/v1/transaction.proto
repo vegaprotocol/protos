@@ -20,10 +20,13 @@ message InputData {
   // slightly differently, causing a different hash.
   uint64 nonce = 1;
 
-  // The block height at which the transaction is valid.
-  // This must be the current or a future block height, but never exceed the
-  // tolerance defined in the genesis state of the network (eg. 150 for mainnet1).
-  // Prefer to set this to the current block height.
+  // The block height at which the transaction was made.
+  // This should be the current block height. The transaction will be valid
+  // from the block and up to `tolerance` blocks into the future.
+  // Example: say the network has a tolerance of 150 blocks and `block_height`
+  // is set to `200`, then the transaction will be valid until block `350`.
+  // Note that a `block_height` ahead of the real block height will be 
+  // rejected. The tolerance can be queried from the chain's network parameters.
   // It prevents replay attacks in conjunction with `nonce` (see above).
   uint64 block_height = 2;
 
