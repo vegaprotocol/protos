@@ -21,12 +21,25 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type InputData struct {
-	// A random number used to provided uniqueness and prevents against replay
-	// attack.
+	// A number to provide uniqueness to prevent accidental replays and,
+	// in combination with `block_height`, deliberate attacks.
+	// A hash of the transaction uniquely identifies the transaction, thus
+	// the nonce provides uniqueness for otherwise identical transactions.
+	// Granted all other fields are equal, the nonce can either be a counter
+	// or generated at random to submit multiple transactions within the same
+	// block (see below), without being identified as replays.
+	// Please note that Protocol Buffers do not have a canonical, unique encoding
+	// and therefore different libraries or binaries may encode the same message
+	// slightly differently, causing a different hash.
 	Nonce uint64 `protobuf:"varint,1,opt,name=nonce,proto3" json:"nonce,omitempty"`
-	// The block height associated to the transaction.
-	// This should always be current height of the node at the time of sending the
-	// Tx. BlockHeight is used as a mechanism for replay protection.
+	// The block height at which the transaction was made.
+	// This should be the current block height. The transaction will be valid
+	// from the block and up to `tolerance` blocks into the future.
+	// Example: say the network has a tolerance of 150 blocks and `block_height`
+	// is set to `200`, then the transaction will be valid until block `350`.
+	// Note that a `block_height` ahead of the real block height will be
+	// rejected. The tolerance can be queried from the chain's network parameters.
+	// It prevents replay attacks in conjunction with `nonce` (see above).
 	BlockHeight uint64 `protobuf:"varint,2,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
 	// Types that are valid to be assigned to Command:
 	//	*InputData_OrderSubmission
@@ -389,8 +402,8 @@ type Transaction struct {
 	//	*Transaction_Address
 	//	*Transaction_PubKey
 	From isTransaction_From `protobuf_oneof:"from"`
-	// A version of the transaction, to be used in the future in case we want to
-	// implement changes to the Transaction format.
+	// A version of the transaction, to be used in the future in case changes are implemented
+	// to the Transaction format.
 	Version              uint32   `protobuf:"varint,2000,opt,name=version,proto3" json:"version,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -488,7 +501,7 @@ func (*Transaction) XXX_OneofWrappers() []interface{} {
 	}
 }
 
-// A signature to be authenticate a transaction and to be verified by the vega
+// A signature to authenticate a transaction and to be verified by the Vega
 // network.
 type Signature struct {
 	// The bytes of the signature (hex-encoded).
