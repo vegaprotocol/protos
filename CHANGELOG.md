@@ -9,6 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
+- [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 
 ### 🐛 Fixes

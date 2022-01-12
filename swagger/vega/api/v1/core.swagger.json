@@ -1176,7 +1176,7 @@
           "description": "The version of the signature used to create the signature."
         }
       },
-      "description": "A signature to be authenticate a transaction and to be verified by the vega\nnetwork."
+      "description": "A signature to authenticate a transaction and to be verified by the Vega\nnetwork."
     },
     "v1StakeLinking": {
       "type": "object",
@@ -1509,7 +1509,7 @@
         "version": {
           "type": "integer",
           "format": "int64",
-          "description": "A version of the transaction, to be used in the future in case we want to\nimplement changes to the Transaction format."
+          "description": "A version of the transaction, to be used in the future in case changes are implemented \nto the Transaction format."
         }
       },
       "description": "Represents a transaction to be sent to Vega."
