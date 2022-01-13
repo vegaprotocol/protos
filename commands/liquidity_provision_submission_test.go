@@ -204,21 +204,9 @@ func TestCheckLiquidityProvisionCancellation(t *testing.T) {
 			errString: "liquidity_provision_cancellation (is required)",
 		},
 		{
-			name: "Should return an error if id is not provided",
-			args: args{
-				cmd: &commandspb.LiquidityProvisionCancellation{
-					Id:       "",
-					MarketId: "abcd",
-				},
-			},
-			wantErr:   assert.Error,
-			errString: "liquidity_provision_cancellation.id (is required)",
-		},
-		{
 			name: "Should return an error if market_id is not provided",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionCancellation{
-					Id:       "1",
 					MarketId: "",
 				},
 			},
@@ -226,10 +214,9 @@ func TestCheckLiquidityProvisionCancellation(t *testing.T) {
 			errString: "liquidity_provision_cancellation.market_id (is required)",
 		},
 		{
-			name: "Should succeed if id and market id are provided",
+			name: "Should succeed if market id is provided",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionCancellation{
-					Id:       "123",
 					MarketId: "abcd",
 				},
 			},
@@ -266,27 +253,9 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			errString: "liquidity_provision_amendment (is required)",
 		},
 		{
-			name: "Should return an error when id is not provided",
-			args: args{
-				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "",
-					MarketId: "abcd",
-					Sells: []*types.LiquidityOrder{
-						{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: 10, Proportion: 1},
-					},
-					Buys: []*types.LiquidityOrder{
-						{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID, Offset: -10, Proportion: 1},
-					},
-				},
-			},
-			wantErr:   assert.Error,
-			errString: "liquidity_provision_amendment.id (is required)",
-		},
-		{
 			name: "Should return an error when market_id is not provided",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "123",
 					MarketId: "",
 					Sells: []*types.LiquidityOrder{
 						{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: 10, Proportion: 1},
@@ -303,7 +272,6 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			name: "Should return an error if amendment changes nothing",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "123",
 					MarketId: "abcd",
 				},
 			},
@@ -314,7 +282,6 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			name: "Should return no errors if amendment buys and sells are balanced",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "123",
 					MarketId: "abcd",
 					Sells: []*types.LiquidityOrder{
 						{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: 10, Proportion: 1},
@@ -330,7 +297,6 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			name: "Should not return an error if sell side shape is provided with no buy side shape",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "123",
 					MarketId: "abcd",
 					Sells: []*types.LiquidityOrder{
 						{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: 10, Proportion: 1},
@@ -344,7 +310,6 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			name: "Should not return an error if buy side shape is provided with no sell side shape",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "123",
 					MarketId: "abcd",
 					Sells:    []*types.LiquidityOrder{},
 					Buys: []*types.LiquidityOrder{
@@ -358,7 +323,6 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			name: "Should return errors if shapes are provided with invalid reference prices",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "123",
 					MarketId: "abcd",
 					Sells: []*types.LiquidityOrder{
 						{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID, Offset: 10, Proportion: 1},
@@ -375,7 +339,6 @@ func TestCheckLiquidityProvisionAmendment(t *testing.T) {
 			name: "Liquidity Provision shapes with multiple errors should return all errors found",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionAmendment{
-					Id:       "123",
 					MarketId: "abcd",
 					Sells: []*types.LiquidityOrder{
 						{Reference: types.PeggedReference_PEGGED_REFERENCE_MID, Offset: 0, Proportion: 1},

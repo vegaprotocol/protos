@@ -167,10 +167,6 @@ func checkLiquidityProvisionCancellation(cmd *commandspb.LiquidityProvisionCance
 		return errs.FinalAddForProperty("liquidity_provision_cancellation", ErrIsRequired)
 	}
 
-	if len(cmd.Id) <= 0 {
-		return errs.FinalAddForProperty("liquidity_provision_cancellation.id", ErrIsRequired)
-	}
-
 	if len(cmd.MarketId) <= 0 {
 		return errs.FinalAddForProperty("liquidity_provision_cancellation.market_id", ErrIsRequired)
 	}
@@ -187,10 +183,6 @@ func checkLiquidityProvisionAmendment(cmd *commandspb.LiquidityProvisionAmendmen
 
 	if cmd == nil {
 		return errs.FinalAddForProperty("liquidity_provision_amendment", ErrIsRequired)
-	}
-
-	if len(cmd.Id) <= 0 {
-		return errs.FinalAddForProperty("liquidity_provision_amendment.id", ErrIsRequired)
 	}
 
 	if len(cmd.MarketId) <= 0 {
