@@ -14,6 +14,7 @@
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
+- [214](https://github.com/vegaprotocol/protos/pull/214) Rewording of transaction nonce and block_height
 
 
 ## 0.47.0
