@@ -3801,6 +3801,12 @@
         },
         "normalised_score": {
           "type": "string"
+        },
+        "validator_performance": {
+          "type": "string"
+        },
+        "raw_validator_score": {
+          "type": "string"
         }
       },
       "title": "ValidatorScoreEvent is the score a validator gets for a given epoch"
