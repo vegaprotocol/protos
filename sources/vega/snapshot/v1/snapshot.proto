@@ -96,6 +96,7 @@ message Payload {
     LiquidityProvisions liquidity_provisions = 42;
     LiquiditySupplied liquidity_supplied= 43;
     LiquidityTarget liquidity_target= 44;
+    ValidatorPerformance validator_performance = 45;
   }
 }
 
@@ -596,4 +597,19 @@ message LiquidityProvisions {
   repeated vega.LiquidityProvision liquidity_provisions = 1;
   // required for key generation
   string market_id = 2;
+}
+
+message PerformanceStats {
+  string validatorAddress = 1;
+  uint64 proposed = 2;
+  uint64 elected = 3;
+  uint64 voted = 4;
+  int64 lastHeightVoted = 5;
+  int64 lastHeightProposed = 6;
+  int64 lastHeightElected = 7;
+
+}
+
+message ValidatorPerformance {
+  repeated PerformanceStats validator_perf_stats = 1;
 }
