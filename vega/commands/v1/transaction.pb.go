@@ -23,8 +23,8 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 type InputData struct {
 	// A number to provide uniqueness to prevent accidental replays and,
 	// in combination with `block_height`, deliberate attacks.
-	// A hash of the transaction uniquely identifies the transaction, thus
-	// the nonce provides uniqueness for otherwise identical transactions.
+	// A nonce provides uniqueness for otherwise identical transactions,
+	// ensuring that the transaction hash uniquely identifies a specific transaction.
 	// Granted all other fields are equal, the nonce can either be a counter
 	// or generated at random to submit multiple transactions within the same
 	// block (see below), without being identified as replays.
@@ -34,12 +34,12 @@ type InputData struct {
 	Nonce uint64 `protobuf:"varint,1,opt,name=nonce,proto3" json:"nonce,omitempty"`
 	// The block height at which the transaction was made.
 	// This should be the current block height. The transaction will be valid
-	// from the block and up to `tolerance` blocks into the future.
-	// Example: say the network has a tolerance of 150 blocks and `block_height`
+	// from the block and up to the `tolerance` block height.
+	// Example: If the network has a tolerance of 150 blocks and `block_height`
 	// is set to `200`, then the transaction will be valid until block `350`.
-	// Note that a `block_height` ahead of the real block height will be
+	// Note that a `block_height` that is ahead of the real block height will be
 	// rejected. The tolerance can be queried from the chain's network parameters.
-	// It prevents replay attacks in conjunction with `nonce` (see above).
+	// `block_height` prevents replay attacks in conjunction with `nonce` (see above).
 	BlockHeight uint64 `protobuf:"varint,2,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
 	// Types that are valid to be assigned to Command:
 	//	*InputData_OrderSubmission
