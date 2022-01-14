@@ -78,6 +78,8 @@ message ValidatorScoreEvent {
   string epoch_seq = 2;
   string validator_score = 3;
   string normalised_score = 4;
+  string validator_performance = 5;
+  string raw_validator_score = 6;
 }
 
 //DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect

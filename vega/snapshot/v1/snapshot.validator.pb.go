@@ -347,6 +347,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_ValidatorPerformance); ok {
+		if oneOfNester.ValidatorPerformance != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.ValidatorPerformance); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ValidatorPerformance", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *TimestampedOpenInterest) Validate() error {
@@ -1024,6 +1031,19 @@ func (this *StakeVerifierPending) Validate() error {
 func (this *PendingKeyRotation) Validate() error {
 	return nil
 }
+func (this *PerformanceStats) Validate() error {
+	return nil
+}
+func (this *ValidatorPerformance) Validate() error {
+	for _, item := range this.ValidatorPerfStats {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ValidatorPerfStats", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *Topology) Validate() error {
 	for _, item := range this.ValidatorData {
 		if item != nil {
@@ -1037,6 +1057,11 @@ func (this *Topology) Validate() error {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("PendingPubKeyRotations", err)
 			}
+		}
+	}
+	if this.ValidatorPerformance != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.ValidatorPerformance); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("ValidatorPerformance", err)
 		}
 	}
 	return nil
