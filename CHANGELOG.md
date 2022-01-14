@@ -11,6 +11,7 @@
 ### 🛠 Improvements
 - [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
+- [213](https://github.com/vegaprotocol/protos/pull/217) - Add changes for ValidatorPerformance snapshot and events
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
