@@ -429,7 +429,7 @@ message Fee {
 
 message TradeSet {
   // A set of one or more trades
-    repeated Trade trades = 1;
+  repeated Trade trades = 1;
 }
 
 // Represents the high, low, open, and closing prices for an interval of trading,
@@ -498,7 +498,7 @@ message Position {
   // Open volume for the position, value is signed +ve for long and -ve for short
   int64 open_volume = 3;
   // Realised profit and loss for the position, value is signed +ve for long and -ve for short
-  string realised_pnl  = 4;
+  string realised_pnl = 4;
   // Unrealised profit and loss for the position, value is signed +ve for long and -ve for short
   string unrealised_pnl = 5;
   // Average entry price for the position, the price is an integer, for example `123456` is a correctly
@@ -1004,7 +1004,7 @@ message LiquidityProvision {
   // A set of liquidity sell orders to meet the liquidity provision obligation
   repeated LiquidityOrderReference sells = 8;
   // A set of liquidity buy orders to meet the liquidity provision obligation
-  repeated LiquidityOrderReference buys  = 9;
+  repeated LiquidityOrderReference buys = 9;
   // Version of this liquidity provision order
   string version = 10;
   // Status of this liquidity provision order
@@ -1013,18 +1013,31 @@ message LiquidityProvision {
   string reference = 12;
 }
 
-// Ethereum configuration details
+// Ethereum configuration details.
 message EthereumConfig {
-  // Network identifier of this Ethereum network
+  // Network identifier of this Ethereum network.
   string network_id = 1;
-  // Chain identifier of this Ethereum network
+  // Chain identifier of this Ethereum network.
   string chain_id = 2;
-  // Bridge address for this Ethereum network
-  string bridge_address = 3;
-  // Number of confirmations
+  //// Contract configuration of the collateral bridge contract for this Ethereum network.
+  EthereumContractConfig collateral_bridge_contract = 3;
+  // Number of block confirmations to wait to consider an Ethereum transaction trusted.
+  // An Ethereum block is trusted when there are at least "n" blocks confirmed by the
+  // network, "n" being the number of `confirmations` required. If `confirmations` was set to `3`,
+  // and the current block to be forged (or mined) on Ethereum is block 14, block
+  // 10 would be considered as trusted, but not block 11.
   uint32 confirmations = 4;
-  // Staking Bridge addresses for the ethereum network
-  repeated string staking_bridge_addresses = 5;
+  // Contract configuration of the stacking bridge contract for this Ethereum network.
+  EthereumContractConfig staking_bridge_contract = 5;
+  // Contract configuration of the token vesting contract for this Ethereum network.
+  EthereumContractConfig token_vesting_contract = 6;
+}
+
+message EthereumContractConfig {
+  // Address of the contract for this Ethereum network. The address should start with "0x".
+  string address = 1;
+  // Block height at which the stacking contract has been deployed for this Ethereum network.
+  uint64 deployment_block_height = 6;
 }
 
 // Node status type
@@ -1158,12 +1171,12 @@ message Delegation {
 
 // Details for a single reward payment
 message Reward {
-   string asset_id = 1;
-   string party_id = 2;
-   uint64 epoch = 3;
-   string amount = 4;
-   string percentage_of_total = 5;
-   int64 received_at = 6;
+  string asset_id = 1;
+  string party_id = 2;
+  uint64 epoch = 3;
+  string amount = 4;
+  string percentage_of_total = 5;
+  int64 received_at = 6;
 }
 
 // Details for rewards for a single asset
