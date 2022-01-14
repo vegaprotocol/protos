@@ -162,14 +162,14 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a new market with sell side and order proportion fails", testNewMarketSubmissionWithSellSideAndOrderProportionSucceeds)
 	t.Run("Submitting a new market with buy side and best ask reference fails", testNewMarketSubmissionWithBuySideAndBestAskReferenceFails)
 	t.Run("Submitting a new market with buy side and best bid reference succeeds", testNewMarketSubmissionWithBuySideAndBestBidReferenceSucceeds)
-	t.Run("Submitting a new market with buy side and best bid reference and positive offset fails", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails)
-	t.Run("Submitting a new market with buy side and best bid reference and non positive offset succeeds", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonPositiveOffsetSucceeds)
-	t.Run("Submitting a new market with buy side and mid reference and non-negative offset fails", testNewMarketSubmissionWithBuySideAndMidReferenceAndNonNegativeOffsetFails)
-	t.Run("Submitting a new market with buy side and mid reference and negative offset succeeds", testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds)
+	t.Run("Submitting a new market with buy side and best bid reference and negative offset fails", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNegativeOffsetFails)
+	t.Run("Submitting a new market with buy side and best bid reference and non-negative offset succeeds", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonNegativeOffsetSucceeds)
+	t.Run("Submitting a new market with buy side and mid reference and non-positive offset fails", testNewMarketSubmissionWithBuySideAndMidReferenceAndNonPositiveOffsetFails)
+	t.Run("Submitting a new market with buy side and mid reference and positive offset succeeds", testNewMarketSubmissionWithBuySideAndMidReferenceAndPositiveOffsetSucceeds)
 	t.Run("Submitting a new market with sell side and best bid reference fails", testNewMarketSubmissionWithSellSideAndBestBidReferenceFails)
 	t.Run("Submitting a new market with sell side and best ask reference succeeds", testNewMarketSubmissionWithSellSideAndBestAskReferenceSucceeds)
 	t.Run("Submitting a new market with sell side and best ask reference and negative offset fails", testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNegativeOffsetFails)
-	t.Run("Submitting a new market with sell side and best ask reference and non negative offset succeeds", testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetSucceeds)
+	t.Run("Submitting a new market with sell side and best ask reference and non-negative offset succeeds", testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetSucceeds)
 	t.Run("Submitting a new market with sell side and mid reference and non-positive offset fails", testNewMarketSubmissionWithSellSideAndMidReferenceAndNonPositiveOffsetFails)
 	t.Run("Submitting a new market with sell side and mid reference and positive offset succeeds", testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds)
 	t.Run("Submitting a new market with a too long reference fails", testNewMarketSubmissionWithTooLongReferenceFails)
@@ -3521,7 +3521,7 @@ func testNewMarketSubmissionWithBuySideAndBestBidReferenceSucceeds(t *testing.T)
 		errors.New("cannot have a reference of type BEST_ASK when on BUY side"))
 }
 
-func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails(t *testing.T) {
+func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNegativeOffsetFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewMarket{
@@ -3530,11 +3530,11 @@ func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails
 						Buys: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 						},
 					},
@@ -3542,64 +3542,63 @@ func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails
 			},
 		},
 	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegativeOrZero)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegativeOrZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositiveOrZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositiveOrZero)
 }
 
-func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonPositiveOffsetSucceeds(t *testing.T) {
+func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonNegativeOffsetSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value int64
+		value string
 	}{
 		{
 			msg:   "with 0 offset",
-			value: 0,
-		}, {
-			msg:   "with negative offset",
-			value: RandomNegativeI64(),
-		},
-	}
-	for _, tc := range testCases {
-		t.Run(tc.msg, func(t *testing.T) {
-			err := checkProposalSubmission(&commandspb.ProposalSubmission{
-				Terms: &types.ProposalTerms{
-					Change: &types.ProposalTerms_NewMarket{
-						NewMarket: &types.NewMarket{
-							LiquidityCommitment: &types.NewMarketCommitment{
-								Buys: []*types.LiquidityOrder{
-									{
-										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-										Offset:    RandomNegativeI64(),
-									},
-									{
-										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-										Offset:    RandomNegativeI64(),
-									},
-								},
-							},
-						},
-					},
-				},
-			})
-
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegativeOrZero)
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegativeOrZero)
-		})
-	}
-}
-
-func testNewMarketSubmissionWithBuySideAndMidReferenceAndNonNegativeOffsetFails(t *testing.T) {
-	testCases := []struct {
-		msg   string
-		value int64
-	}{
-		{
-			msg:   "with 0 offset",
-			value: 0,
+			value: "0",
 		}, {
 			msg:   "with positive offset",
-			value: RandomPositiveI64(),
+			value: RandomPositiveU64AsString(),
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.msg, func(t *testing.T) {
+			err := checkProposalSubmission(&commandspb.ProposalSubmission{
+				Terms: &types.ProposalTerms{
+					Change: &types.ProposalTerms_NewMarket{
+						NewMarket: &types.NewMarket{
+							LiquidityCommitment: &types.NewMarketCommitment{
+								Buys: []*types.LiquidityOrder{
+									{
+										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
+										Offset:    tc.value,
+									},
+									{
+										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
+										Offset:    tc.value,
+									},
+								},
+							},
+						},
+					},
+				},
+			})
+
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositiveOrZero)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositiveOrZero)
+		})
+	}
+}
+
+func testNewMarketSubmissionWithBuySideAndMidReferenceAndNonPositiveOffsetFails(t *testing.T) {
+	testCases := []struct {
+		msg   string
+		value string
+	}{
+		{
+			msg:   "with 0 offset",
+			value: "0",
+		}, {
+			msg:   "with negative offset",
+			value: RandomNegativeI64AsString(),
 		},
 	}
 	for _, tc := range testCases {
@@ -3625,13 +3624,13 @@ func testNewMarketSubmissionWithBuySideAndMidReferenceAndNonNegativeOffsetFails(
 				},
 			})
 
-			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegative)
-			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegative)
+			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositive)
+			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositive)
 		})
 	}
 }
 
-func testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds(t *testing.T) {
+func testNewMarketSubmissionWithBuySideAndMidReferenceAndPositiveOffsetSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewMarket{
@@ -3640,11 +3639,11 @@ func testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds(
 						Buys: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 						},
 					},
@@ -3653,8 +3652,8 @@ func testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds(
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegative)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegative)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositive)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositive)
 }
 
 func testNewMarketSubmissionWithSellSideAndBestBidReferenceFails(t *testing.T) {
@@ -3718,11 +3717,11 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNegativeOffsetFail
 						Sells: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 						},
 					},
@@ -3738,14 +3737,14 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNegativeOffsetFail
 func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value int64
+		value string
 	}{
 		{
 			msg:   "with 0 offset",
-			value: 0,
+			value: "0",
 		}, {
 			msg:   "with positive offset",
-			value: RandomPositiveI64(),
+			value: RandomPositiveU64AsString(),
 		},
 	}
 	for _, tc := range testCases {
@@ -3780,14 +3779,14 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetS
 func testNewMarketSubmissionWithSellSideAndMidReferenceAndNonPositiveOffsetFails(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value int64
+		value string
 	}{
 		{
 			msg:   "with 0 offset",
-			value: 0,
+			value: "0",
 		}, {
 			msg:   "with negative offset",
-			value: RandomNegativeI64(),
+			value: RandomNegativeI64AsString(),
 		},
 	}
 	for _, tc := range testCases {
@@ -3828,11 +3827,11 @@ func testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds
 						Sells: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 						},
 					},

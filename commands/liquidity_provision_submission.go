@@ -14,8 +14,8 @@ var (
 	ErrOrderInShapeWithoutReference         = errors.New("order in shape without reference")
 	ErrOrderInShapeWithoutProportion        = errors.New("order in shape without a proportion")
 	ErrOrderInBuySideShapeWithBestAskPrice  = errors.New("order in buy side shape with best ask price reference")
-	ErrOrderInBuySideShapeOffsetSup0        = errors.New("order in buy side shape offset must be <= 0")
-	ErrOrderInBuySideShapeOffsetSupEq0      = errors.New("order in buy side shape offset must be < 0")
+	ErrOrderInBuySideShapeOffsetInf0        = errors.New("order in buy side shape offset must be >= 0")
+	ErrOrderInBuySideShapeOffsetInfEq0      = errors.New("order in buy side shape offset must be > 0")
 	ErrOrderInSellSideShapeOffsetInf0       = errors.New("order in sell shape offset must be >= 0")
 	ErrOrderInSellSideShapeWithBestBidPrice = errors.New("order in sell side shape with best bid price reference")
 	ErrOrderInSellSideShapeOffsetInfEq0     = errors.New("order in sell shape offset must be > 0")
@@ -93,6 +93,8 @@ func checkLiquidityProvisionShape(
 
 	}
 
+	zero := big.NewInt(0)
+
 	for idx, order := range orders {
 		if order.Reference == types.PeggedReference_PEGGED_REFERENCE_UNSPECIFIED {
 			errs.AddForProperty(
@@ -115,24 +117,54 @@ func checkLiquidityProvisionShape(
 					ErrOrderInBuySideShapeWithBestAskPrice,
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-				if order.Offset > 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
-						ErrOrderInBuySideShapeOffsetSup0,
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrOrderInBuySideShapeOffsetInf0,
 					)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				if order.Offset >= 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
-						ErrOrderInBuySideShapeOffsetSupEq0,
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 || offset.Cmp(zero) == 0 {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrOrderInBuySideShapeOffsetInfEq0,
 					)
 				}
 			}
 		} else {
 			switch order.Reference {
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-				if order.Offset < 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInSellSideShapeOffsetInf0,
@@ -144,7 +176,17 @@ func checkLiquidityProvisionShape(
 					ErrOrderInSellSideShapeWithBestBidPrice,
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				if order.Offset <= 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 || offset.Cmp(zero) == 0 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInSellSideShapeOffsetInfEq0,
