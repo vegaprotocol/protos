@@ -561,10 +561,26 @@ message PendingKeyRotation {
   uint32 new_pub_key_index = 4;
 }
 
+message PerformanceStats {
+  string validator_address = 1;
+  uint64 proposed = 2;
+  uint64 elected = 3;
+  uint64 voted = 4;
+  int64 last_height_voted = 5;
+  int64 last_height_proposed = 6;
+  int64 last_height_elected = 7;
+
+}
+
+message ValidatorPerformance {
+  repeated PerformanceStats validator_perf_stats = 1;
+}
+
 message Topology {
   repeated vega.events.v1.ValidatorUpdate validator_data = 1;
   repeated string chain_keys = 2;
   repeated PendingKeyRotation pending_pub_key_rotations = 3;
+  ValidatorPerformance validatorPerformance = 4;
 }
 
 message LiquidityParameters {
@@ -599,17 +615,4 @@ message LiquidityProvisions {
   string market_id = 2;
 }
 
-message PerformanceStats {
-  string validatorAddress = 1;
-  uint64 proposed = 2;
-  uint64 elected = 3;
-  uint64 voted = 4;
-  int64 lastHeightVoted = 5;
-  int64 lastHeightProposed = 6;
-  int64 lastHeightElected = 7;
 
-}
-
-message ValidatorPerformance {
-  repeated PerformanceStats validator_perf_stats = 1;
-}
