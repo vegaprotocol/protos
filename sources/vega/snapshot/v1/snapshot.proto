@@ -580,7 +580,7 @@ message Topology {
   repeated vega.events.v1.ValidatorUpdate validator_data = 1;
   repeated string chain_keys = 2;
   repeated PendingKeyRotation pending_pub_key_rotations = 3;
-  ValidatorPerformance validatorPerformance = 4;
+  ValidatorPerformance validator_performance = 4;
 }
 
 message LiquidityParameters {
