@@ -86,7 +86,7 @@ func checkOrderAmendment(cmd *commandspb.OrderAmendment) Errors {
 		}
 	}
 
-	if cmd.PeggedOffset != "" {
+	if cmd.PeggedOffset != nil {
 		isAmending = true
 	}
 

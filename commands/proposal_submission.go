@@ -612,32 +612,12 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 					errors.New("cannot have a reference of type BEST_ASK when on BUY side"),
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-				if !ok {
-					errs.AddForProperty(
-						fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
-						ErrNotAValidInteger,
-					)
-
-					break
-				}
-
-				if offset.Cmp(big.NewInt(0)) == -1 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
+				if order.Offset > 0 {
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBeNegativeOrZero)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-				if !ok {
-					errs.AddForProperty(
-						fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
-						ErrNotAValidInteger,
-					)
-
-					break
-				}
-
-				if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
+				if order.Offset >= 0 {
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBeNegative)
 				}
 			}
 			continue
@@ -649,31 +629,11 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 				errors.New("cannot have a reference of type BEST_BID when on SELL side"),
 			)
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-			if !ok {
-				errs.AddForProperty(
-					fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
-					ErrNotAValidInteger,
-				)
-
-				break
-			}
-
-			if offset.Cmp(big.NewInt(0)) == -1 {
+			if order.Offset < 0 {
 				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
 			}
 		case types.PeggedReference_PEGGED_REFERENCE_MID:
-			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-			if !ok {
-				errs.AddForProperty(
-					fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
-					ErrNotAValidInteger,
-				)
-
-				break
-			}
-
-			if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
+			if order.Offset <= 0 {
 				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
 			}
 		}

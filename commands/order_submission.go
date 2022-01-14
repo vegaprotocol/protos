@@ -89,32 +89,12 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 					errors.New("cannot have a reference of type BEST_ASK when on BUY side"),
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-				offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-				if !ok {
-					errs.AddForProperty(
-						"order_submission.pegged_order.offset",
-						ErrNotAValidInteger,
-					)
-
-					break
-				}
-
-				if offset.Cmp(big.NewInt(0)) == -1 {
-					errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositiveOrZero)
+				if cmd.PeggedOrder.Offset > 0 {
+					errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBeNegativeOrZero)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-				if !ok {
-					errs.AddForProperty(
-						"order_submission.pegged_order.offset",
-						ErrNotAValidInteger,
-					)
-
-					break
-				}
-
-				if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
-					errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositive)
+				if cmd.PeggedOrder.Offset >= 0 {
+					errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBeNegative)
 				}
 			}
 			return errs
@@ -126,31 +106,11 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 				errors.New("cannot have a reference of type BEST_BID when on SELL side"),
 			)
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-			offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-			if !ok {
-				errs.AddForProperty(
-					"order_submission.pegged_order.offset",
-					ErrNotAValidInteger,
-				)
-
-				break
-			}
-
-			if offset.Cmp(big.NewInt(0)) == -1 {
+			if cmd.PeggedOrder.Offset < 0 {
 				errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositiveOrZero)
 			}
 		case types.PeggedReference_PEGGED_REFERENCE_MID:
-			offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-			if !ok {
-				errs.AddForProperty(
-					"order_submission.pegged_order.offset",
-					ErrNotAValidInteger,
-				)
-
-				break
-			}
-
-			if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
+			if cmd.PeggedOrder.Offset <= 0 {
 				errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositive)
 			}
 		}

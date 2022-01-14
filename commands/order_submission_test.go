@@ -37,9 +37,9 @@ func TestCheckOrderSubmission(t *testing.T) {
 	t.Run("Submitting a pegged order with right time in force succeeds", testPeggedOrderSubmissionWithRightTimeInForceSucceeds)
 	t.Run("Submitting a pegged order with side buy and best ask reference fails", testPeggedOrderSubmissionWithSideBuyAndBestAskReferenceFails)
 	t.Run("Submitting a pegged order with side buy and best bid reference succeeds", testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceSucceeds)
-	t.Run("Submitting a pegged order with side buy and best bid reference and negative offset fails", testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndNegativeOffsetFails)
-	t.Run("Submitting a pegged order with side buy and best bid reference and non-negative offset succeeds", testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndNonNegativeOffsetSucceeds)
-	t.Run("Submitting a pegged order with side buy and mid reference and non-negative offset fails", testPeggedOrderSubmissionWithSideBuyAndMidReferenceAndNonPositiveOffsetFails)
+	t.Run("Submitting a pegged order with side buy and best bid reference and positive offset fails", testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndPositiveOffsetFails)
+	t.Run("Submitting a pegged order with side buy and best bid reference and non positive offset succeeds", testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndNonPositiveOffsetSucceeds)
+	t.Run("Submitting a pegged order with side buy and mid reference and non-negative offset fails", testPeggedOrderSubmissionWithSideBuyAndMidReferenceAndNonNegativeOffsetFails)
 	t.Run("Submitting a pegged order with side buy and mid reference and negative offset succeeds", testPeggedOrderSubmissionWithSideBuyAndMidReferenceAndNegativeOffsetSucceeds)
 	t.Run("Submitting a pegged order with side sell and best bid reference fails", testPeggedOrderSubmissionWithSideSellAndBestBidReferenceFails)
 	t.Run("Submitting a pegged order with side sell and best ask reference succeeds", testPeggedOrderSubmissionWithSideSellAndBestAskReferenceSucceeds)
@@ -383,29 +383,29 @@ func testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceSucceeds(t *testing.
 	assert.NotContains(t, err.Get("order_submission.pegged_order.reference"), errors.New("cannot have a reference of type BEST_ASK when on BUY side"))
 }
 
-func testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndNegativeOffsetFails(t *testing.T) {
+func testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndPositiveOffsetFails(t *testing.T) {
 	err := checkOrderSubmission(&commandspb.OrderSubmission{
 		Side: types.Side_SIDE_BUY,
 		PeggedOrder: &types.PeggedOrder{
 			Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-			Offset:    "-1",
+			Offset:    RandomPositiveI64(),
 		},
 	})
 
-	assert.Contains(t, err.Get("order_submission.pegged_order.offset"), errors.New("must be positive or zero"))
+	assert.Contains(t, err.Get("order_submission.pegged_order.offset"), errors.New("must be negative or zero"))
 }
 
-func testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndNonNegativeOffsetSucceeds(t *testing.T) {
+func testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndNonPositiveOffsetSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value string
+		value int64
 	}{
 		{
 			msg:   "with 0 offset",
-			value: "0",
+			value: 0,
 		}, {
-			msg:   "with positive offset",
-			value: RandomPositiveU64AsString(),
+			msg:   "with negative offset",
+			value: RandomNegativeI64(),
 		},
 	}
 	for _, tc := range testCases {
@@ -418,22 +418,22 @@ func testPeggedOrderSubmissionWithSideBuyAndBestBidReferenceAndNonNegativeOffset
 				},
 			})
 
-			assert.NotContains(t, err.Get("order_submission.pegged_order.offset"), errors.New("must be positive or zero"))
+			assert.NotContains(t, err.Get("order_submission.pegged_order.offset"), errors.New("must be negative or zero"))
 		})
 	}
 }
 
-func testPeggedOrderSubmissionWithSideBuyAndMidReferenceAndNonPositiveOffsetFails(t *testing.T) {
+func testPeggedOrderSubmissionWithSideBuyAndMidReferenceAndNonNegativeOffsetFails(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value string
+		value int64
 	}{
 		{
 			msg:   "with 0 offset",
-			value: "0",
+			value: 0,
 		}, {
-			msg:   "with negative offset",
-			value: RandomNegativeI64AsString(),
+			msg:   "with positive offset",
+			value: RandomPositiveI64(),
 		},
 	}
 	for _, tc := range testCases {
@@ -446,7 +446,7 @@ func testPeggedOrderSubmissionWithSideBuyAndMidReferenceAndNonPositiveOffsetFail
 				},
 			})
 
-			assert.Contains(t, err.Get("order_submission.pegged_order.offset"), errors.New("must be positive"))
+			assert.Contains(t, err.Get("order_submission.pegged_order.offset"), errors.New("must be negative"))
 		})
 	}
 }
@@ -456,7 +456,7 @@ func testPeggedOrderSubmissionWithSideBuyAndMidReferenceAndNegativeOffsetSucceed
 		Side: types.Side_SIDE_BUY,
 		PeggedOrder: &types.PeggedOrder{
 			Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-			Offset:    RandomPositiveU64AsString(),
+			Offset:    RandomNegativeI64(),
 		},
 	})
 
@@ -490,7 +490,7 @@ func testPeggedOrderSubmissionWithSideSellAndBestAskReferenceAndNegativeOffsetFa
 		Side: types.Side_SIDE_SELL,
 		PeggedOrder: &types.PeggedOrder{
 			Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK,
-			Offset:    RandomNegativeI64AsString(),
+			Offset:    RandomNegativeI64(),
 		},
 	})
 
@@ -500,14 +500,14 @@ func testPeggedOrderSubmissionWithSideSellAndBestAskReferenceAndNegativeOffsetFa
 func testPeggedOrderSubmissionWithSideSellAndBestAskReferenceAndNonNegativeOffsetSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value string
+		value int64
 	}{
 		{
 			msg:   "with 0 offset",
-			value: "0",
+			value: 0,
 		}, {
 			msg:   "with positive offset",
-			value: RandomPositiveU64AsString(),
+			value: RandomPositiveI64(),
 		},
 	}
 	for _, tc := range testCases {
@@ -528,14 +528,14 @@ func testPeggedOrderSubmissionWithSideSellAndBestAskReferenceAndNonNegativeOffse
 func testPeggedOrderSubmissionWithSideSellAndMidReferenceAndNonPositiveOffsetFails(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value string
+		value int64
 	}{
 		{
 			msg:   "with 0 offset",
-			value: "0",
+			value: 0,
 		}, {
 			msg:   "with negative offset",
-			value: "-1",
+			value: RandomNegativeI64(),
 		},
 	}
 	for _, tc := range testCases {
@@ -558,7 +558,7 @@ func testPeggedOrderSubmissionWithSideSellAndMidReferenceAndPositiveOffsetSuccee
 		Side: types.Side_SIDE_SELL,
 		PeggedOrder: &types.PeggedOrder{
 			Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-			Offset:    RandomPositiveU64AsString(),
+			Offset:    RandomPositiveI64(),
 		},
 	})
 

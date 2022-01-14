@@ -70,7 +70,7 @@ message OrderAmendment {
   // - See [`TimeInForce`](#api.VegaTimeResponse).`timestamp`
   vega.Order.TimeInForce time_in_force = 6;
   // Amend the pegged order offset for the order
-  string pegged_offset = 7;
+  google.protobuf.Int64Value pegged_offset = 7;
   // Amend the pegged order reference for the order
   // - See [`PeggedReference`](#vega.PeggedReference)
   vega.PeggedReference pegged_reference = 8;
