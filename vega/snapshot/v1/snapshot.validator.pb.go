@@ -354,6 +354,13 @@ func (this *Payload) Validate() error {
 			}
 		}
 	}
+	if oneOfNester, ok := this.GetData().(*Payload_FloatingPointConsensus); ok {
+		if oneOfNester.FloatingPointConsensus != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(oneOfNester.FloatingPointConsensus); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("FloatingPointConsensus", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *TimestampedOpenInterest) Validate() error {
@@ -1100,5 +1107,18 @@ func (this *LiquidityProvisions) Validate() error {
 			}
 		}
 	}
+	return nil
+}
+func (this *FloatingPointConsensus) Validate() error {
+	for _, item := range this.NextTimeTrigger {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("NextTimeTrigger", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *NextTimeTrigger) Validate() error {
 	return nil
 }

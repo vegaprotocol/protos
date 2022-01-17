@@ -97,6 +97,7 @@ message Payload {
     LiquiditySupplied liquidity_supplied= 43;
     LiquidityTarget liquidity_target= 44;
     ValidatorPerformance validator_performance = 45;
+    FloatingPointConsensus floating_point_consensus = 46;
   }
 }
 
@@ -618,4 +619,14 @@ message LiquidityProvisions {
   string market_id = 2;
 }
 
+// snapshot payload for floating point consensus
+message FloatingPointConsensus {
+  repeated NextTimeTrigger next_time_trigger = 1;
+}
 
+message NextTimeTrigger {
+  string asset = 1;
+  string market = 2;
+  string id = 3;
+  int64  next_trigger = 4;
+}
