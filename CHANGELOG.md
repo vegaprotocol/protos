@@ -15,7 +15,8 @@
 - [213](https://github.com/vegaprotocol/protos/pull/217) - Add changes for ValidatorPerformance snapshot and events
 - [219](https://github.com/vegaprotocol/protos/pull/219) - Include floating point consensus flags in the snapshot for a market
 - [189](https://github.com/vegaprotocol/protos/pull/189) - Update offset to string and disable negative offset for buy side
-- [225](https://github.com/vegaprotocol/protos/ipull/225) - Added snapshot payload for floating point consensus engine
+- [225](https://github.com/vegaprotocol/protos/pull/225) - Added snapshot payload for floating point consensus engine
+- [144](https://github.com/vegaprotocol/protos/pull/144) - Remove validation annotations
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
