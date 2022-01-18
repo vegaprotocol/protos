@@ -106,7 +106,7 @@ message PeggedOrder {
   // Which price point are we linked to
   PeggedReference reference = 1;
   // Offset from the price reference
-  int64 offset = 2;
+  string offset = 2;
 }
 
 // An order can be submitted, amended and cancelled on Vega in an attempt to make trades with other parties
@@ -260,6 +260,8 @@ message AuctionIndicativeState {
 // OrderError codes are returned in the `[Order](#vega.Order).reason` field - If there is an issue
 // with an order during its life-cycle, it will be marked with `status.ORDER_STATUS_REJECTED`
 enum OrderError {
+  reserved 38, 39;
+
   // Default value, no error reported
   ORDER_ERROR_UNSPECIFIED = 0;
   // Order was submitted for a market that does not exist
@@ -337,10 +339,6 @@ enum OrderError {
   ORDER_ERROR_WITHOUT_REFERENCE_PRICE = 36;
   // Buy pegged order cannot reference best ask price
   ORDER_ERROR_BUY_CANNOT_REFERENCE_BEST_ASK_PRICE = 37;
-  // Pegged order offset must be <= 0
-  ORDER_ERROR_OFFSET_MUST_BE_LESS_OR_EQUAL_TO_ZERO = 38;
-  // Pegged order offset must be < 0
-  ORDER_ERROR_OFFSET_MUST_BE_LESS_THAN_ZERO = 39;
   // Pegged order offset must be >= 0
   ORDER_ERROR_OFFSET_MUST_BE_GREATER_OR_EQUAL_TO_ZERO = 40;
   // Sell pegged order cannot reference best bid price
@@ -955,7 +953,7 @@ message LiquidityOrder {
   // The relative proportion of the commitment to be allocated at a price level
   uint32 proportion = 2;
   // The offset/amount of units away for the order
-  int64 offset = 3;
+  string offset = 3;
 }
 
 // A pair of a liquidity order and the id of the generated order by the core

@@ -50,11 +50,6 @@ func (this *OrderAmendment) Validate() error {
 			return github_com_mwitkow_go_proto_validators.FieldError("ExpiresAt", err)
 		}
 	}
-	if this.PeggedOffset != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.PeggedOffset); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("PeggedOffset", err)
-		}
-	}
 	return nil
 }
 func (this *LiquidityProvisionSubmission) Validate() error {
