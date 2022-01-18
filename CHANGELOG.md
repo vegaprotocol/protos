@@ -15,6 +15,7 @@
 - [213](https://github.com/vegaprotocol/protos/pull/217) - Add changes for ValidatorPerformance snapshot and events
 - [219](https://github.com/vegaprotocol/protos/pull/219) - Include floating point consensus flags in the snapshot for a market
 - [225](https://github.com/vegaprotocol/protos/ipull/225) - Added snapshot payload for floating point consensus engine
+- [228](https://github.com/vegaprotocol/protos/ipull/228) - Raw Score and Performance added to Node definition for validator performance reporting 
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
