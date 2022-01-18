@@ -166,3 +166,29 @@ message UndelegateSubmission {
 message RestoreSnapshot {
   bytes data = 1;
 }
+
+message Transfer {
+  // shall support GENERAL at first.
+  vega.AccountType from_account_type = 1;
+  string to = 2;
+  // shall support GENERAL and REWARD types at first.
+  vega.AccountType to_account_type = 3;
+  string asset = 4;
+  string amount = 5;
+  string reference = 7;
+
+  oneof kind {
+    OneOffTransfer one_off = 101;
+    RecurringTransfer recurring = 102;
+  }
+}
+
+message OneOffTransfer {
+  int64 deliver_on = 6;
+}
+
+message RecurringTransfer {
+  int64 start_epoch = 1;
+  int64 end_epoch = 2;
+  string factor = 3;
+}
