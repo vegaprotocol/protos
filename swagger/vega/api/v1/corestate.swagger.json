@@ -1069,7 +1069,6 @@
         },
         "offset": {
           "type": "string",
-          "format": "int64",
           "title": "The offset/amount of units away for the order"
         }
       },

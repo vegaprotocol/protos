@@ -14,7 +14,9 @@
 - [212](https://github.com/vegaprotocol/protos/pull/212) - Add pagination field to DelegationRequest
 - [213](https://github.com/vegaprotocol/protos/pull/217) - Add changes for ValidatorPerformance snapshot and events
 - [219](https://github.com/vegaprotocol/protos/pull/219) - Include floating point consensus flags in the snapshot for a market
-- [225](https://github.com/vegaprotocol/protos/ipull/225) - Added snapshot payload for floating point consensus engine
+- [189](https://github.com/vegaprotocol/protos/pull/189) - Update offset to string and disable negative offset for buy side
+- [225](https://github.com/vegaprotocol/protos/pull/225) - Added snapshot payload for floating point consensus engine
+- [144](https://github.com/vegaprotocol/protos/pull/144) - Remove validation annotations
 - [228](https://github.com/vegaprotocol/protos/ipull/228) - Raw Score and Performance added to Node definition for validator performance reporting 
 
 ### 🐛 Fixes

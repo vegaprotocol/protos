@@ -4,9 +4,6 @@ plugins:
   - name: go
     out: .
     opt: plugins=grpc,paths=source_relative
-  - name: govalidators
-    out: .
-    opt: paths=source_relative
   - name: grpc-gateway
     out: .
     opt: logtostderr=true,grpc_api_configuration=sources/data-node/grpc-rest-bindings.yml,paths=source_relative
