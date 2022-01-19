@@ -1126,6 +1126,10 @@ message Node {
   string name = 17;
   // Avatar url
   string avatar_url = 18;
+  // Performance
+  string performance = 19;
+  // Raw Score
+  string raw_score=20;
 }
 
 message NodeData {

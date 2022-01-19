@@ -5348,6 +5348,14 @@
         "avatar_url": {
           "type": "string",
           "title": "Avatar url"
+        },
+        "performance": {
+          "type": "string",
+          "title": "Performance"
+        },
+        "raw_score": {
+          "type": "string",
+          "title": "Raw Score"
         }
       }
     },
