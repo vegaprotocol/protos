@@ -27,6 +27,7 @@ var (
 	ErrIsMismatching          = errors.New("is mismatching")
 	ErrReferenceTooLong       = errors.New("reference is too long")
 	ErrNotAValidInteger       = errors.New("not a valid integer")
+	ErrNotAValidFloat         = errors.New("not a valid float")
 	ErrMustBeLessThan100Chars = errors.New("must be less than 100 characters")
 )
 

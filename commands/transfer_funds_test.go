@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"code.vegaprotocol.io/protos/commands"
+	"code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
 	"github.com/stretchr/testify/assert"
 )
@@ -11,7 +12,7 @@ import (
 func TestNilTransferFundsFails(t *testing.T) {
 	err := checkTransfer(nil)
 
-	assert.Contains(t, err.Get("transfer_funds"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("transfer"), commands.ErrIsRequired)
 }
 
 func TestTransferFunds(t *testing.T) {
@@ -21,6 +22,11 @@ func TestTransferFunds(t *testing.T) {
 	}{
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
 				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
 				Amount:    "1",
@@ -29,6 +35,11 @@ func TestTransferFunds(t *testing.T) {
 		},
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
 				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
 				Amount:    "1",
@@ -37,57 +48,87 @@ func TestTransferFunds(t *testing.T) {
 		},
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "",
 				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
 				Amount:    "1",
 				Reference: "testing",
 			},
-			errString: "transfer_funds.to (is required)",
+			errString: "transfer.to (is required)",
 		},
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
 				Asset:     "",
 				Amount:    "1",
 				Reference: "testing",
 			},
-			errString: "transfer_funds.asset (is required)",
+			errString: "transfer.asset (is required)",
 		},
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
 				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
 				Amount:    "",
 				Reference: "testing",
 			},
-			errString: "transfer_funds.amount (is required)",
+			errString: "transfer.amount (is required)",
 		},
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
 				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
 				Amount:    "-1",
 				Reference: "testing",
 			},
-			errString: "transfer_funds.amount (must be positive)",
+			errString: "transfer.amount (must be positive)",
 		},
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
 				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
 				Amount:    "0",
 				Reference: "testing",
 			},
-			errString: "transfer_funds.amount (is required)",
+			errString: "transfer.amount (is required)",
 		},
 		{
 			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
 				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
 				Amount:    "1",
 				Reference: "testingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtest",
 			},
-			errString: "transfer_funds.reference (must be less than 100 characters)",
+			errString: "transfer.reference (must be less than 100 characters)",
 		},
 		{
 			transfer: commandspb.Transfer{
@@ -96,7 +137,134 @@ func TestTransferFunds(t *testing.T) {
 				Amount:    "",
 				Reference: "",
 			},
-			errString: "transfer_funds.amount (is required), transfer_funds.asset (is required), transfer_funds.to (is required)",
+			errString: "transfer.amount (is required), transfer.asset (is required), transfer.from_account_type (is not a valid value), transfer.kind (is required), transfer.to (is required), transfer.to_account_type (is not a valid value)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{
+						DeliverOn: -1,
+					},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
+			errString: "transfer.kind.deliver_on (must be positive or zero)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				ToAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
+			errString: "transfer.from_account_type (is not a valid value)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_OneOff{
+					OneOff: &commandspb.OneOffTransfer{},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
+			errString: "transfer.to_account_type (is not a valid value)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_Recurring{
+					Recurring: &commandspb.RecurringTransfer{},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
+			errString: "transfer.kind.end_epoch (must be positive), transfer.kind.factor (not a valid float), transfer.kind.start_epoch (must be positive)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_Recurring{
+					Recurring: &commandspb.RecurringTransfer{
+						StartEpoch: -1,
+						EndEpoch:   10,
+						Factor:     "1",
+					},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
+			errString: "transfer.kind.start_epoch (must be positive)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_Recurring{
+					Recurring: &commandspb.RecurringTransfer{
+						StartEpoch: 10,
+						EndEpoch:   -1,
+						Factor:     "1",
+					},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
+			errString: "transfer.kind.end_epoch (must be positive, must be after start_epoch)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_Recurring{
+					Recurring: &commandspb.RecurringTransfer{
+						StartEpoch: 10,
+						EndEpoch:   11,
+						Factor:     "-1",
+					},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
+			errString: "transfer.kind.factor (must be positive)",
+		},
+		{
+			transfer: commandspb.Transfer{
+				FromAccountType: vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
+				Kind: &commandspb.Transfer_Recurring{
+					Recurring: &commandspb.RecurringTransfer{
+						StartEpoch: 10,
+						EndEpoch:   11,
+						Factor:     "0.01",
+					},
+				},
+				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
+				Asset:     "080538b7cc2249de568cb4272a17f4d5e0b0a69a1a240acbf5119d816178daff",
+				Amount:    "1",
+				Reference: "testing",
+			},
 		},
 	}
 
@@ -106,7 +274,6 @@ func TestTransferFunds(t *testing.T) {
 			assert.NoError(t, err)
 			continue
 		}
-		assert.Error(t, err)
 		assert.EqualError(t, err, c.errString)
 	}
 

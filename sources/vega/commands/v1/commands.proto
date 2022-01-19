@@ -168,10 +168,8 @@ message RestoreSnapshot {
 }
 
 message Transfer {
-  // shall support GENERAL at first.
   vega.AccountType from_account_type = 1;
   string to = 2;
-  // shall support GENERAL and REWARD types at first.
   vega.AccountType to_account_type = 3;
   string asset = 4;
   string amount = 5;

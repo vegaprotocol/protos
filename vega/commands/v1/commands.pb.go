@@ -888,14 +888,12 @@ func (m *RestoreSnapshot) GetData() []byte {
 }
 
 type Transfer struct {
-	// shall support GENERAL at first.
 	FromAccountType vega.AccountType `protobuf:"varint,1,opt,name=from_account_type,json=fromAccountType,proto3,enum=vega.AccountType" json:"from_account_type,omitempty"`
 	To              string           `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
-	// shall support GENERAL and REWARD types at first.
-	ToAccountType vega.AccountType `protobuf:"varint,3,opt,name=to_account_type,json=toAccountType,proto3,enum=vega.AccountType" json:"to_account_type,omitempty"`
-	Asset         string           `protobuf:"bytes,4,opt,name=asset,proto3" json:"asset,omitempty"`
-	Amount        string           `protobuf:"bytes,5,opt,name=amount,proto3" json:"amount,omitempty"`
-	Reference     string           `protobuf:"bytes,7,opt,name=reference,proto3" json:"reference,omitempty"`
+	ToAccountType   vega.AccountType `protobuf:"varint,3,opt,name=to_account_type,json=toAccountType,proto3,enum=vega.AccountType" json:"to_account_type,omitempty"`
+	Asset           string           `protobuf:"bytes,4,opt,name=asset,proto3" json:"asset,omitempty"`
+	Amount          string           `protobuf:"bytes,5,opt,name=amount,proto3" json:"amount,omitempty"`
+	Reference       string           `protobuf:"bytes,7,opt,name=reference,proto3" json:"reference,omitempty"`
 	// Types that are valid to be assigned to Kind:
 	//	*Transfer_OneOff
 	//	*Transfer_Recurring
