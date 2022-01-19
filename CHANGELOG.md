@@ -3,7 +3,7 @@
 ## Unreleased
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [218](https://github.com/vegaprotocol/protos/pull/) - Restructure EthereumConfig to separate staking and vesting contract addresses, plus add block height at which they have been added respectively
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
