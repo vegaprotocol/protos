@@ -201,7 +201,7 @@ func TestTransferFunds(t *testing.T) {
 				ToAccountType:   vega.AccountType_ACCOUNT_TYPE_GENERAL,
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
-						StartEpoch: -1,
+						StartEpoch: 0,
 						EndEpoch:   10,
 						Factor:     "1",
 					},
@@ -220,7 +220,7 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 10,
-						EndEpoch:   -1,
+						EndEpoch:   0,
 						Factor:     "1",
 					},
 				},

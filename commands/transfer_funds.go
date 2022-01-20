@@ -72,10 +72,10 @@ func checkTransfer(cmd *commandspb.Transfer) Errors {
 				errs.AddForProperty("transfer.kind.deliver_on", ErrMustBePositiveOrZero)
 			}
 		case *commandspb.Transfer_Recurring:
-			if k.Recurring.EndEpoch <= 0 {
+			if k.Recurring.EndEpoch == 0 {
 				errs.AddForProperty("transfer.kind.end_epoch", ErrMustBePositive)
 			}
-			if k.Recurring.StartEpoch <= 0 {
+			if k.Recurring.StartEpoch == 0 {
 				errs.AddForProperty("transfer.kind.start_epoch", ErrMustBePositive)
 			}
 			if k.Recurring.StartEpoch > k.Recurring.EndEpoch {
