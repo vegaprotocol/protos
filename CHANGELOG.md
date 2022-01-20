@@ -17,7 +17,8 @@
 - [189](https://github.com/vegaprotocol/protos/pull/189) - Update offset to string and disable negative offset for buy side
 - [225](https://github.com/vegaprotocol/protos/pull/225) - Added snapshot payload for floating point consensus engine
 - [144](https://github.com/vegaprotocol/protos/pull/144) - Remove validation annotations
-- [228](https://github.com/vegaprotocol/protos/ipull/228) - Raw Score and Performance added to Node definition for validator performance reporting 
+- [228](https://github.com/vegaprotocol/protos/pull/228) - Raw Score and Performance added to Node definition for validator performance reporting
+- [230](https://github.com/vegaprotocol/protos/pull/230) - Implement the transfer commands
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
