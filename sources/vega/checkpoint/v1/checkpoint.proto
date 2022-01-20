@@ -119,11 +119,17 @@ message KeyRotations {
   repeated PendingKeyRotation pending_key_rotations = 1;
 }
 
+message ScheduledTransfer {
+  vega.Transfer transfer = 1;
+  vega.AccountType account_type = 2;
+  string reference = 3;
+}
+
 message ScheduledTransferAtTime {
   int64 deliverOn = 1;
-  vega.Transfer transfer = 2;
+  repeated ScheduledTransfer transfers = 2;
 }
 
 message Banking {
-  repeated ScheduledTransferAtTime transfers = 1;
+  repeated ScheduledTransferAtTime transfers_at_time = 1;
 }
