@@ -128,7 +128,7 @@ message ScheduledTransfer {
 }
 
 message ScheduledTransferAtTime {
-  int64 deliverOn = 1;
+  int64 deliver_on = 1;
   repeated ScheduledTransfer transfers = 2;
 }
 
