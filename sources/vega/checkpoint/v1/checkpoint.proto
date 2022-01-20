@@ -6,6 +6,7 @@ option go_package = "code.vegaprotocol.io/protos/vega/checkpoint/v1";
 import "vega/vega.proto";
 import "vega/assets.proto";
 import "vega/governance.proto";
+import "vega/events/v1/events.proto";
 
 // CheckpointState is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
 message CheckpointState {
@@ -123,6 +124,7 @@ message ScheduledTransfer {
   vega.Transfer transfer = 1;
   vega.AccountType account_type = 2;
   string reference = 3;
+  vega.events.v1.OneOffTransfer oneoff_transfer = 4;
 }
 
 message ScheduledTransferAtTime {
