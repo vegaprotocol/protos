@@ -124,7 +124,7 @@ message ScheduledTransfer {
   vega.Transfer transfer = 1;
   vega.AccountType account_type = 2;
   string reference = 3;
-  vega.events.v1.OneOffTransfer oneoff_transfer = 4;
+  vega.events.v1.Transfer oneoff_transfer = 4;
 }
 
 message ScheduledTransferAtTime {
