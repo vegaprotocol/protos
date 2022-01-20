@@ -173,7 +173,7 @@ message Transfer {
   vega.AccountType to_account_type = 3;
   string asset = 4;
   string amount = 5;
-  string reference = 7;
+  string reference = 6;
 
   oneof kind {
     OneOffTransfer one_off = 101;
@@ -182,7 +182,7 @@ message Transfer {
 }
 
 message OneOffTransfer {
-  int64 deliver_on = 6;
+  int64 deliver_on = 1;
 }
 
 message RecurringTransfer {
