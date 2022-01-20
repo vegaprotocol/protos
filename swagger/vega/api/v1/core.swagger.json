@@ -1525,6 +1525,17 @@
       },
       "title": "A transfer responses event contains a collection of transfer information"
     },
+    "v1TransferStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_PENDING",
+        "STATUS_DONE",
+        "STATUS_REJECTED"
+      ],
+      "default": "STATUS_UNSPECIFIED",
+      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an event accepted by the vega network\n - STATUS_REJECTED: Indaicate of an event rejected by the vega network"
+    },
     "v1TxErrorEvent": {
       "type": "object",
       "properties": {
@@ -3712,6 +3723,9 @@
         },
         "reference": {
           "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/v1TransferStatus"
         },
         "one_off": {
           "$ref": "#/definitions/vegaeventsv1OneOffTransfer"

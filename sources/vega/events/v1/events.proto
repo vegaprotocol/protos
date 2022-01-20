@@ -32,6 +32,7 @@ message Transfer {
   string asset = 6;
   string amount = 7;
   string reference = 8;
+  Status status = 9;
 
   oneof kind {
     OneOffTransfer one_off = 101;
