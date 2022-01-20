@@ -24,6 +24,7 @@ message Checkpoint {
   bytes block = 7;
   bytes rewards = 8;
   bytes key_rotations = 9;
+  bytes scheduled_transfers = 10;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -92,14 +93,14 @@ message RewardPayout {
 }
 
 message PendingRewardPayout {
-	string from_account = 1;
-	string asset = 2;        
-	repeated PartyAmount party_amount = 3;
-	string total_reward = 4;
-	string epoch_seq = 5;
-	int64 timestamp = 6;
+  string from_account = 1;
+  string asset = 2;
+  repeated PartyAmount party_amount = 3;
+  string total_reward = 4;
+  string epoch_seq = 5;
+  int64 timestamp = 6;
 }
-  
+
 message PartyAmount {
   string party = 1;
   string amount = 2;
@@ -116,4 +117,13 @@ message PendingKeyRotation {
 
 message KeyRotations {
   repeated PendingKeyRotation pending_key_rotations = 1;
+}
+
+message ScheduledTransferAtTime {
+  int64 deliverOn = 1;
+  vega.Transfer transfer = 2;
+}
+
+message ScheduledTransfers {
+  repeated ScheduledTransferAtTime transfers = 1;
 }
