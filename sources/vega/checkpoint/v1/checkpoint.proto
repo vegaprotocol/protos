@@ -24,7 +24,7 @@ message Checkpoint {
   bytes block = 7;
   bytes rewards = 8;
   bytes key_rotations = 9;
-  bytes scheduled_transfers = 10;
+  bytes banking = 10;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -124,6 +124,6 @@ message ScheduledTransferAtTime {
   vega.Transfer transfer = 2;
 }
 
-message ScheduledTransfers {
+message Banking {
   repeated ScheduledTransferAtTime transfers = 1;
 }
