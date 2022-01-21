@@ -659,6 +659,9 @@ enum AccountType {
   // Global reward account for the asset
   ACCOUNT_TYPE_GLOBAL_REWARD = 12;
 
+  // Per asset account used to store pending transfers (if any)
+  ACCOUNT_TYPE_PENDING_TRANSFERS = 13;
+
   // Note: If adding an enum value, add a matching entry in:
   //       - gateway/graphql/helpers_enum.go
   //       - gateway/graphql/schema.graphql (enum AccountType)
@@ -737,6 +740,10 @@ enum TransferType {
   TRANSFER_TYPE_BOND_SLASHING = 20;
   // Stake reward
   TRANSFER_TYPE_STAKE_REWARD = 21;
+  // Transfer funds
+  TRANSFER_TYPE_TRANSFER_FUNDS_SEND = 22;
+  // Transfer funds
+  TRANSFER_TYPE_TRANSFER_FUNDS_DISTRIBUTE = 23;
 }
 
 // Represents a financial transfer within Vega

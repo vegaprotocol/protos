@@ -10,7 +10,7 @@ import "vega/commands/v1/oracles.proto";
 message InputData {
   // A number to provide uniqueness to prevent accidental replays and,
   // in combination with `block_height`, deliberate attacks.
-  // A nonce provides uniqueness for otherwise identical transactions, 
+  // A nonce provides uniqueness for otherwise identical transactions,
   // ensuring that the transaction hash uniquely identifies a specific transaction.
   // Granted all other fields are equal, the nonce can either be a counter
   // or generated at random to submit multiple transactions within the same
@@ -25,7 +25,7 @@ message InputData {
   // from the block and up to the `tolerance` block height.
   // Example: If the network has a tolerance of 150 blocks and `block_height`
   // is set to `200`, then the transaction will be valid until block `350`.
-  // Note that a `block_height` that is ahead of the real block height will be 
+  // Note that a `block_height` that is ahead of the real block height will be
   // rejected. The tolerance can be queried from the chain's network parameters.
   // `block_height` prevents replay attacks in conjunction with `nonce` (see above).
   uint64 block_height = 2;
@@ -43,6 +43,7 @@ message InputData {
     UndelegateSubmission undelegate_submission = 1009;
     LiquidityProvisionCancellation liquidity_provision_cancellation = 1010;
     LiquidityProvisionAmendment liquidity_provision_amendment = 1011;
+    Transfer transfer = 1012;
 
     // Validator commands
     NodeRegistration node_registration = 2001;
@@ -77,7 +78,7 @@ message Transaction {
     string pub_key = 1002;
   }
 
-  // A version of the transaction, to be used in the future in case changes are implemented 
+  // A version of the transaction, to be used in the future in case changes are implemented
   // to the Transaction format.
   uint32 version = 2000;
 }

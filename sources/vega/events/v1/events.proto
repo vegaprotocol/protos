@@ -12,6 +12,44 @@ import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/validator_commands.proto";
 
+message Transfer {
+  enum Status {
+    // Default value
+    STATUS_UNSPECIFIED = 0;
+    // Indicate a transfer still being processed
+    STATUS_PENDING = 1;
+    // Indicate of an event accepted by the vega network
+    STATUS_DONE = 2;
+    // Indaicate of an event rejected by the vega network
+    STATUS_REJECTED = 3;
+  }
+
+  string id = 1;
+  string from = 2;
+  vega.AccountType from_account_type = 3;
+  string to = 4;
+  vega.AccountType to_account_type = 5;
+  string asset = 6;
+  string amount = 7;
+  string reference = 8;
+  Status status = 9;
+
+  oneof kind {
+    OneOffTransfer one_off = 101;
+    RecurringTransfer recurring = 102;
+  }
+}
+
+message OneOffTransfer {
+  int64 deliver_on = 1;
+}
+
+message RecurringTransfer {
+  int64 start_epoch = 1;
+  int64 end_epoch = 2;
+  string factor = 3;
+}
+
 // StakeLinking - an event notifying of stake being deposited or removed for a given party
 // These events are emitted for every Staking deposit or removed accepted by the network
 message StakeLinking {
@@ -118,6 +156,7 @@ message TxErrorEvent {
     commands.v1.RestoreSnapshot restore_snapshot = 110;
     commands.v1.LiquidityProvisionCancellation liquidity_provision_cancellation = 111;
     commands.v1.LiquidityProvisionAmendment liquidity_provision_amendment = 112;
+    commands.v1.Transfer transfer = 113;
   }
 }
 
@@ -270,7 +309,7 @@ message KeyRotation {
 message StateVar {
   string id = 1;
   string event_id = 2;
-  string state = 3;  
+  string state = 3;
 }
 
 // An (event) bus event type is used to specify a type of event
@@ -358,6 +397,8 @@ enum BusEventType {
   BUS_EVENT_TYPE_STATE_VAR = 38;
   // Event indicating network limits set or updated
   BUS_EVENT_TYPE_NETWORK_LIMITS = 39;
+  // Event indicating a update for a transfert
+  BUS_EVENT_TYPE_TRANSFER = 40;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -448,6 +489,9 @@ message BusEvent {
     StateVar state_var = 137;
     // Network limits events
     NetworkLimits network_limits = 138;
+    // Transfer event
+    Transfer transfer = 139;
+
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;

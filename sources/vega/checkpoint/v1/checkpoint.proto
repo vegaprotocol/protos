@@ -6,6 +6,7 @@ option go_package = "code.vegaprotocol.io/protos/vega/checkpoint/v1";
 import "vega/vega.proto";
 import "vega/assets.proto";
 import "vega/governance.proto";
+import "vega/events/v1/events.proto";
 
 // CheckpointState is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
 message CheckpointState {
@@ -24,6 +25,7 @@ message Checkpoint {
   bytes block = 7;
   bytes rewards = 8;
   bytes key_rotations = 9;
+  bytes banking = 10;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -92,14 +94,14 @@ message RewardPayout {
 }
 
 message PendingRewardPayout {
-	string from_account = 1;
-	string asset = 2;        
-	repeated PartyAmount party_amount = 3;
-	string total_reward = 4;
-	string epoch_seq = 5;
-	int64 timestamp = 6;
+  string from_account = 1;
+  string asset = 2;
+  repeated PartyAmount party_amount = 3;
+  string total_reward = 4;
+  string epoch_seq = 5;
+  int64 timestamp = 6;
 }
-  
+
 message PartyAmount {
   string party = 1;
   string amount = 2;
@@ -116,4 +118,20 @@ message PendingKeyRotation {
 
 message KeyRotations {
   repeated PendingKeyRotation pending_key_rotations = 1;
+}
+
+message ScheduledTransfer {
+  vega.Transfer transfer = 1;
+  vega.AccountType account_type = 2;
+  string reference = 3;
+  vega.events.v1.Transfer oneoff_transfer = 4;
+}
+
+message ScheduledTransferAtTime {
+  int64 deliver_on = 1;
+  repeated ScheduledTransfer transfers = 2;
+}
+
+message Banking {
+  repeated ScheduledTransferAtTime transfers_at_time = 1;
 }
