@@ -3698,11 +3698,11 @@
       "properties": {
         "start_epoch": {
           "type": "string",
-          "format": "int64"
+          "format": "uint64"
         },
         "end_epoch": {
           "type": "string",
-          "format": "int64"
+          "format": "uint64"
         },
         "factor": {
           "type": "string"

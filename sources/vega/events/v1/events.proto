@@ -45,9 +45,9 @@ message OneOffTransfer {
 }
 
 message RecurringTransfer {
-  int64 start_epoch = 1;
+  uint64 start_epoch = 1;
   oneof end_epoch {
-    int64 end_epoch = 2;
+    uint64 end_epoch = 2;
   }
   string factor = 3;
 }
