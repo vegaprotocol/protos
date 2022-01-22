@@ -193,7 +193,7 @@ func TestTransferFunds(t *testing.T) {
 				Amount:    "1",
 				Reference: "testing",
 			},
-			errString: "transfer.kind.end_epoch (must be positive), transfer.kind.factor (not a valid float), transfer.kind.start_epoch (must be positive)",
+			errString: "transfer.kind.factor (not a valid float), transfer.kind.start_epoch (must be positive)",
 		},
 		{
 			transfer: commandspb.Transfer{
@@ -202,8 +202,10 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 0,
-						EndEpoch:   10,
-						Factor:     "1",
+						EndEpoch_: &commandspb.RecurringTransfer_EndEpoch{
+							EndEpoch: 10,
+						},
+						Factor: "1",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
@@ -220,8 +222,10 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 10,
-						EndEpoch:   0,
-						Factor:     "1",
+						EndEpoch_: &commandspb.RecurringTransfer_EndEpoch{
+							EndEpoch: 0,
+						},
+						Factor: "1",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
@@ -238,8 +242,10 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 10,
-						EndEpoch:   11,
-						Factor:     "-1",
+						EndEpoch_: &commandspb.RecurringTransfer_EndEpoch{
+							EndEpoch: 11,
+						},
+						Factor: "-1",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
@@ -256,8 +262,10 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 10,
-						EndEpoch:   11,
-						Factor:     "0.01",
+						EndEpoch_: &commandspb.RecurringTransfer_EndEpoch{
+							EndEpoch: 11,
+						},
+						Factor: "0.01",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",

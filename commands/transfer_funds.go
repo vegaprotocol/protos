@@ -72,13 +72,13 @@ func checkTransfer(cmd *commandspb.Transfer) Errors {
 				errs.AddForProperty("transfer.kind.deliver_on", ErrMustBePositiveOrZero)
 			}
 		case *commandspb.Transfer_Recurring:
-			if k.Recurring.EndEpoch == 0 {
+			if k.Recurring.EndEpoch_ != nil && k.Recurring.GetEndEpoch() <= 0 {
 				errs.AddForProperty("transfer.kind.end_epoch", ErrMustBePositive)
 			}
 			if k.Recurring.StartEpoch == 0 {
 				errs.AddForProperty("transfer.kind.start_epoch", ErrMustBePositive)
 			}
-			if k.Recurring.StartEpoch > k.Recurring.EndEpoch {
+			if k.Recurring.EndEpoch_ != nil && k.Recurring.StartEpoch > k.Recurring.GetEndEpoch() {
 				errs.AddForProperty("transfer.kind.end_epoch", ErrMustBeAfterStartEpoch)
 			}
 			if f, ok := big.NewFloat(0).SetString(k.Recurring.Factor); !ok {
