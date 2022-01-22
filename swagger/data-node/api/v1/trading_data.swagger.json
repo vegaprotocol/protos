@@ -3758,10 +3758,11 @@
         "STATUS_UNSPECIFIED",
         "STATUS_PENDING",
         "STATUS_DONE",
-        "STATUS_REJECTED"
+        "STATUS_REJECTED",
+        "STATUS_STOPPED"
       ],
       "default": "STATUS_UNSPECIFIED",
-      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an event accepted by the vega network\n - STATUS_REJECTED: Indaicate of an event rejected by the vega network"
+      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an transfer accepted by the vega network\n - STATUS_REJECTED: Indicate of an transfer rejected by the vega network\n - STATUS_STOPPED: Indicate of a transfer stopped by the vega network\ne.g: no funds left to cover the transfer"
     },
     "v1TxErrorEvent": {
       "type": "object",
