@@ -633,14 +633,14 @@ message NextTimeTrigger {
 }
 
 message FeesTracker {
-  repeated AssetFees maker_fees = 1;
-  repeated AssetFees taker_fees = 2;
-  repeated AssetFees lp_fees = 3;
+  repeated AssetFees asset_fees = 1;
 }
 
 message AssetFees {
   string asset = 1;
-  repeated PartyFees party_fees = 2;
+  repeated PartyFees maker_fees = 2;
+  repeated PartyFees taker_fees = 3;
+  repeated PartyFees lp_fees = 4; 
 }
 
 message PartyFees {
