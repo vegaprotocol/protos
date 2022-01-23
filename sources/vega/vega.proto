@@ -662,6 +662,18 @@ enum AccountType {
   // Per asset account used to store pending transfers (if any)
   ACCOUNT_TYPE_PENDING_TRANSFERS = 13;
 
+  // Per asset reward account for fees paid by takers
+  ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES = 14;
+
+  // Per asset reward account for fees received by makers
+  ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES = 15;
+
+  // Per asset reward account for fees received by liquidity providers
+  ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES = 16;
+
+  // Per asset reward account for market proposers when the market goes above some trading threshold
+  ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS = 17;
+
   // Note: If adding an enum value, add a matching entry in:
   //       - gateway/graphql/helpers_enum.go
   //       - gateway/graphql/schema.graphql (enum AccountType)

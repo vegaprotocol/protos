@@ -98,6 +98,7 @@ message Payload {
     LiquidityTarget liquidity_target= 44;
     ValidatorPerformance validator_performance = 45;
     FloatingPointConsensus floating_point_consensus = 46;
+    FeesTracker fees_tracker = 47;
   }
 }
 
@@ -629,4 +630,20 @@ message NextTimeTrigger {
   string market = 2;
   string id = 3;
   int64  next_trigger = 4;
+}
+
+message FeesTracker {
+  repeated AssetFees maker_fees = 1;
+  repeated AssetFees taker_fees = 2;
+  repeated AssetFees lp_fees = 3;
+}
+
+message AssetFees {
+  string asset = 1;
+  repeated PartyFees party_fees = 2;
+}
+
+message PartyFees {
+  string party = 1;
+  string fee = 2;
 }
