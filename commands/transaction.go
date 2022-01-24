@@ -141,6 +141,8 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkStateVariableProposal(cmd.StateVariableProposal))
 		case *commandspb.InputData_Transfer:
 			errs.Merge(checkTransfer(cmd.Transfer))
+		case *commandspb.InputData_CancelTransfer:
+			errs.Merge(checkCancelTransfer(cmd.CancelTransfer))
 		case *commandspb.InputData_RestoreSnapshotSubmission:
 			break // nothing to verify as such
 		default:

@@ -25,6 +25,8 @@ message Transfer {
     // Indicate of a transfer stopped by the vega network
     // e.g: no funds left to cover the transfer
     STATUS_STOPPED = 4;
+    // Indicate of a transfer cancel by the user
+    STATUS_CANCELLED = 5;
   }
 
   string id = 1;
@@ -49,9 +51,7 @@ message OneOffTransfer {
 
 message RecurringTransfer {
   uint64 start_epoch = 1;
-  oneof end_epoch {
-    uint64 end_epoch = 2;
-  }
+  vega.Uint64Value end_epoch = 2;
   string factor = 3;
 }
 
@@ -162,6 +162,7 @@ message TxErrorEvent {
     commands.v1.LiquidityProvisionCancellation liquidity_provision_cancellation = 111;
     commands.v1.LiquidityProvisionAmendment liquidity_provision_amendment = 112;
     commands.v1.Transfer transfer = 113;
+    commands.v1.CancelTransfer cancel_transfer = 114;
   }
 }
 
