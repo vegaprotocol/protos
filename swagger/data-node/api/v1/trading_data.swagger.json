@@ -3762,10 +3762,11 @@
         "STATUS_UNSPECIFIED",
         "STATUS_PENDING",
         "STATUS_DONE",
-        "STATUS_REJECTED"
+        "STATUS_REJECTED",
+        "STATUS_STOPPED"
       ],
       "default": "STATUS_UNSPECIFIED",
-      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an event accepted by the vega network\n - STATUS_REJECTED: Indaicate of an event rejected by the vega network"
+      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an transfer accepted by the vega network\n - STATUS_REJECTED: Indicate of an transfer rejected by the vega network\n - STATUS_STOPPED: Indicate of a transfer stopped by the vega network\ne.g: no funds left to cover the transfer"
     },
     "v1TxErrorEvent": {
       "type": "object",
@@ -6346,46 +6347,57 @@
       "properties": {
         "deliver_on": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "A unix timestamp in second. Time at which the\ntransfer should be delivered in the to account"
         }
-      }
+      },
+      "title": "Specific details for a one off transfer"
     },
     "vegacommandsv1RecurringTransfer": {
       "type": "object",
       "properties": {
         "start_epoch": {
           "type": "string",
-          "format": "uint64"
+          "format": "uint64",
+          "title": "The first epoch from which this transfer shall be paid"
         },
         "end_epoch": {
           "type": "string",
           "format": "uint64"
         },
         "factor": {
-          "type": "string"
+          "type": "string",
+          "title": "factor needs to be \u003e 0"
         }
-      }
+      },
+      "title": "Specific details for a recurring transfer"
     },
     "vegacommandsv1Transfer": {
       "type": "object",
       "properties": {
         "from_account_type": {
-          "$ref": "#/definitions/vegaAccountType"
+          "$ref": "#/definitions/vegaAccountType",
+          "title": "The account type from which the funds of the party\nshould be taken"
         },
         "to": {
-          "type": "string"
+          "type": "string",
+          "title": "The public key of the destination account"
         },
         "to_account_type": {
-          "$ref": "#/definitions/vegaAccountType"
+          "$ref": "#/definitions/vegaAccountType",
+          "title": "The type of the destination account"
         },
         "asset": {
-          "type": "string"
+          "type": "string",
+          "title": "The asset"
         },
         "amount": {
-          "type": "string"
+          "type": "string",
+          "title": "The amount to be taken from the source account"
         },
         "reference": {
-          "type": "string"
+          "type": "string",
+          "title": "The reference to be attached to the transfer"
         },
         "one_off": {
           "$ref": "#/definitions/vegacommandsv1OneOffTransfer"
@@ -6393,7 +6405,8 @@
         "recurring": {
           "$ref": "#/definitions/vegacommandsv1RecurringTransfer"
         }
-      }
+      },
+      "title": "A transfer initiated by a party"
     },
     "vegaeventsv1KeyRotation": {
       "type": "object",
@@ -6432,11 +6445,11 @@
       "properties": {
         "start_epoch": {
           "type": "string",
-          "format": "int64"
+          "format": "uint64"
         },
         "end_epoch": {
           "type": "string",
-          "format": "int64"
+          "format": "uint64"
         },
         "factor": {
           "type": "string"
