@@ -3513,6 +3513,15 @@
       },
       "title": "Represents the response from a transfer"
     },
+    "vegaUint64Value": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "vegaUpdateMarket": {
       "type": "object",
       "title": "Update an existing market on Vega"
@@ -3653,8 +3662,8 @@
           "title": "The first epoch from which this transfer shall be paid"
         },
         "end_epoch": {
-          "type": "string",
-          "format": "uint64"
+          "$ref": "#/definitions/vegaUint64Value",
+          "title": "The last epoch at which this transfer shall be paid"
         },
         "factor": {
           "type": "string",
@@ -3716,8 +3725,7 @@
           "format": "uint64"
         },
         "end_epoch": {
-          "type": "string",
-          "format": "uint64"
+          "$ref": "#/definitions/vegaUint64Value"
         },
         "factor": {
           "type": "string"
