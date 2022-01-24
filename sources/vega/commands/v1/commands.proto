@@ -209,3 +209,9 @@ message RecurringTransfer {
   // factor needs to be > 0
   string factor = 3;
 }
+
+// A request for cancelling a recurring transfer
+message CancelTransfer {
+  // The ID of the transfer to cancel
+  string transfer_id = 1;
+}

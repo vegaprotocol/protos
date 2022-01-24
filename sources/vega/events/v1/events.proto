@@ -25,6 +25,8 @@ message Transfer {
     // Indicate of a transfer stopped by the vega network
     // e.g: no funds left to cover the transfer
     STATUS_STOPPED = 4;
+    // Indicate of a transfer cancel by the user
+    STATUS_CANCELLED = 5;
   }
 
   string id = 1;
@@ -162,6 +164,7 @@ message TxErrorEvent {
     commands.v1.LiquidityProvisionCancellation liquidity_provision_cancellation = 111;
     commands.v1.LiquidityProvisionAmendment liquidity_provision_amendment = 112;
     commands.v1.Transfer transfer = 113;
+    commands.v1.CancelTransfer cancel_transfer = 114;
   }
 }
 
