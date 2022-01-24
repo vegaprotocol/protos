@@ -1228,3 +1228,7 @@ message VectorValue {
 message MatrixValue {
   repeated VectorValue value = 1;
 }
+
+message Uint64Value {
+  uint64 value = 1;
+}
