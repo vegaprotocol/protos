@@ -18,10 +18,13 @@ message Transfer {
     STATUS_UNSPECIFIED = 0;
     // Indicate a transfer still being processed
     STATUS_PENDING = 1;
-    // Indicate of an event accepted by the vega network
+    // Indicate of an transfer accepted by the vega network
     STATUS_DONE = 2;
-    // Indaicate of an event rejected by the vega network
+    // Indicate of an transfer rejected by the vega network
     STATUS_REJECTED = 3;
+    // Indicate of a transfer stopped by the vega network
+    // e.g: no funds left to cover the transfer
+    STATUS_STOPPED = 4;
   }
 
   string id = 1;
@@ -45,8 +48,10 @@ message OneOffTransfer {
 }
 
 message RecurringTransfer {
-  int64 start_epoch = 1;
-  int64 end_epoch = 2;
+  uint64 start_epoch = 1;
+  oneof end_epoch {
+    uint64 end_epoch = 2;
+  }
   string factor = 3;
 }
 

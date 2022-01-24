@@ -132,6 +132,11 @@ message ScheduledTransferAtTime {
   repeated ScheduledTransfer transfers = 2;
 }
 
+message RecurringTransfers {
+  repeated vega.events.v1.Transfer recurring_transfers = 1;
+}
+
 message Banking {
   repeated ScheduledTransferAtTime transfers_at_time = 1;
+  RecurringTransfers recurring_transfers = 2;
 }
