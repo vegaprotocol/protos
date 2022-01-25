@@ -19,6 +19,7 @@
 - [144](https://github.com/vegaprotocol/protos/pull/144) - Remove validation annotations
 - [228](https://github.com/vegaprotocol/protos/pull/228) - Raw Score and Performance added to Node definition for validator performance reporting
 - [230](https://github.com/vegaprotocol/protos/pull/230) - Implement the transfer commands
+- [242](https://github.com/vegaprotocol/protos/pull/242) - Add Submit Raw Transaction endpoint and supporting messages
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
