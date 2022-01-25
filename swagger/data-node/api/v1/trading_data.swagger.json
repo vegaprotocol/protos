@@ -4061,7 +4061,7 @@
           "format": "uint64",
           "title": "Number of decimal / precision handled by this asset"
         },
-        "quantum": {
+        "min_lp_stake": {
           "type": "string",
           "title": "Min stake required for this asset from liquidity providers"
         },
