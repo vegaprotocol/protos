@@ -21,6 +21,7 @@
 - [230](https://github.com/vegaprotocol/protos/pull/230) - Implement the transfer commands
 - [230](https://github.com/vegaprotocol/protos/pull/230) - Change the transfer command to have recurring transfer end epoch optional
 - [236](https://github.com/vegaprotocol/protos/pull/236) - Implement CancelTransfer command
+- [242](https://github.com/vegaprotocol/protos/pull/242) - Add Submit Raw Transaction endpoint and supporting messages
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
