@@ -21,6 +21,7 @@
 - [230](https://github.com/vegaprotocol/protos/pull/230) - Implement the transfer commands
 - [230](https://github.com/vegaprotocol/protos/pull/230) - Change the transfer command to have recurring transfer end epoch optional
 - [236](https://github.com/vegaprotocol/protos/pull/236) - Implement CancelTransfer command
+- [242](https://github.com/vegaprotocol/protos/pull/242) - Add Submit Raw Transaction endpoint and supporting messages
 - [244](https://github.com/vegaprotocol/protos/pull/244) - Add account types and snapshot definitions for market and fee trackers
 
 ### 🐛 Fixes

@@ -1427,6 +1427,33 @@
         }
       }
     },
+    "v1SubmitRawTransactionRequestType": {
+      "type": "string",
+      "enum": [
+        "TYPE_UNSPECIFIED",
+        "TYPE_ASYNC",
+        "TYPE_SYNC",
+        "TYPE_COMMIT"
+      ],
+      "default": "TYPE_UNSPECIFIED",
+      "description": "- TYPE_ASYNC: The transaction will be submitted without waiting for response\n - TYPE_SYNC: The transaction will be submitted, and blocking until the\ntendermint mempool return a response\n - TYPE_COMMIT: The transaction will submitted, and blocking until the tendermint\nnetwork will have committed it into a block",
+      "title": "Blockchain transaction type"
+    },
+    "v1SubmitRawTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Success will be true if the transaction was accepted by the node,\n**Important** - success does not mean that the event is confirmed by consensus"
+        },
+        "tx_hash": {
+          "type": "string",
+          "title": "Hash of the transaction, if accepted"
+        }
+      },
+      "title": "Response for submitting a version agnostic transaction on Vega"
+    },
     "v1SubmitTransactionRequest": {
       "type": "object",
       "properties": {
