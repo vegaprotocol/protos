@@ -18,6 +18,7 @@
 - [225](https://github.com/vegaprotocol/protos/pull/225) - Added snapshot payload for floating point consensus engine
 - [144](https://github.com/vegaprotocol/protos/pull/144) - Remove validation annotations
 - [228](https://github.com/vegaprotocol/protos/pull/228) - Raw Score and Performance added to Node definition for validator performance reporting
+- [230](https://github.com/vegaprotocol/protos/pull/230) - Implement the transfer commands
 - [230](https://github.com/vegaprotocol/protos/pull/230) - Change the transfer command to have recurring transfer end epoch optional
 - [236](https://github.com/vegaprotocol/protos/pull/236) - Implement CancelTransfer command
 - [242](https://github.com/vegaprotocol/protos/pull/242) - Add Submit Raw Transaction endpoint and supporting messages
