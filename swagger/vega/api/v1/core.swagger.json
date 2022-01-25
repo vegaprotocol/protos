@@ -469,6 +469,16 @@
       "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_STREAM_START: Event indicating stream is starting\n - BUS_EVENT_TYPE_KEY_ROTATION: Event indicating key rotation took place\n - BUS_EVENT_TYPE_STATE_VAR: Event indicating state transitions in state variable consensus\n - BUS_EVENT_TYPE_NETWORK_LIMITS: Event indicating network limits set or updated\n - BUS_EVENT_TYPE_TRANSFER: Event indicating a update for a transfert\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
       "title": "An (event) bus event type is used to specify a type of event\nIt has 2 styles of event:\nSingle values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item\nGroup values (e.g. BUS_EVENT_TYPE_AUCTION) where they represent a group of data items"
     },
+    "v1CancelTransfer": {
+      "type": "object",
+      "properties": {
+        "transfer_id": {
+          "type": "string",
+          "title": "The ID of the transfer to cancel"
+        }
+      },
+      "title": "A request for cancelling a recurring transfer"
+    },
     "v1CheckpointEvent": {
       "type": "object",
       "properties": {
@@ -1558,10 +1568,12 @@
         "STATUS_UNSPECIFIED",
         "STATUS_PENDING",
         "STATUS_DONE",
-        "STATUS_REJECTED"
+        "STATUS_REJECTED",
+        "STATUS_STOPPED",
+        "STATUS_CANCELLED"
       ],
       "default": "STATUS_UNSPECIFIED",
-      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an event accepted by the vega network\n - STATUS_REJECTED: Indaicate of an event rejected by the vega network"
+      "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an transfer accepted by the vega network\n - STATUS_REJECTED: Indicate of an transfer rejected by the vega network\n - STATUS_STOPPED: Indicate of a transfer stopped by the vega network\ne.g: no funds left to cover the transfer\n - STATUS_CANCELLED: Indicate of a transfer cancel by the user"
     },
     "v1TxErrorEvent": {
       "type": "object",
@@ -1612,6 +1624,9 @@
         },
         "transfer": {
           "$ref": "#/definitions/vegacommandsv1Transfer"
+        },
+        "cancel_transfer": {
+          "$ref": "#/definitions/v1CancelTransfer"
         }
       }
     },
@@ -3525,6 +3540,15 @@
       },
       "title": "Represents the response from a transfer"
     },
+    "vegaUint64Value": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "vegaUpdateMarket": {
       "type": "object",
       "title": "Update an existing market on Vega"
@@ -3650,46 +3674,57 @@
       "properties": {
         "deliver_on": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "A unix timestamp in second. Time at which the\ntransfer should be delivered in the to account"
         }
-      }
+      },
+      "title": "Specific details for a one off transfer"
     },
     "vegacommandsv1RecurringTransfer": {
       "type": "object",
       "properties": {
         "start_epoch": {
           "type": "string",
-          "format": "uint64"
+          "format": "uint64",
+          "title": "The first epoch from which this transfer shall be paid"
         },
         "end_epoch": {
-          "type": "string",
-          "format": "uint64"
+          "$ref": "#/definitions/vegaUint64Value",
+          "title": "The last epoch at which this transfer shall be paid"
         },
         "factor": {
-          "type": "string"
+          "type": "string",
+          "title": "factor needs to be \u003e 0"
         }
-      }
+      },
+      "title": "Specific details for a recurring transfer"
     },
     "vegacommandsv1Transfer": {
       "type": "object",
       "properties": {
         "from_account_type": {
-          "$ref": "#/definitions/vegaAccountType"
+          "$ref": "#/definitions/vegaAccountType",
+          "title": "The account type from which the funds of the party\nshould be taken"
         },
         "to": {
-          "type": "string"
+          "type": "string",
+          "title": "The public key of the destination account"
         },
         "to_account_type": {
-          "$ref": "#/definitions/vegaAccountType"
+          "$ref": "#/definitions/vegaAccountType",
+          "title": "The type of the destination account"
         },
         "asset": {
-          "type": "string"
+          "type": "string",
+          "title": "The asset"
         },
         "amount": {
-          "type": "string"
+          "type": "string",
+          "title": "The amount to be taken from the source account"
         },
         "reference": {
-          "type": "string"
+          "type": "string",
+          "title": "The reference to be attached to the transfer"
         },
         "one_off": {
           "$ref": "#/definitions/vegacommandsv1OneOffTransfer"
@@ -3697,7 +3732,8 @@
         "recurring": {
           "$ref": "#/definitions/vegacommandsv1RecurringTransfer"
         }
-      }
+      },
+      "title": "A transfer initiated by a party"
     },
     "vegaeventsv1OneOffTransfer": {
       "type": "object",
@@ -3713,11 +3749,10 @@
       "properties": {
         "start_epoch": {
           "type": "string",
-          "format": "int64"
+          "format": "uint64"
         },
         "end_epoch": {
-          "type": "string",
-          "format": "int64"
+          "$ref": "#/definitions/vegaUint64Value"
         },
         "factor": {
           "type": "string"

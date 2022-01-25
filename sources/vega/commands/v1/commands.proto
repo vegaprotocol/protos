@@ -167,26 +167,48 @@ message RestoreSnapshot {
   bytes data = 1;
 }
 
+// A transfer initiated by a party
 message Transfer {
+  // The account type from which the funds of the party
+  // should be taken
   vega.AccountType from_account_type = 1;
+  // The public key of the destination account
   string to = 2;
+  // The type of the destination account
   vega.AccountType to_account_type = 3;
+  // The asset
   string asset = 4;
+  // The amount to be taken from the source account
   string amount = 5;
+  // The reference to be attached to the transfer
   string reference = 6;
 
+  // Specific details of the transfer
   oneof kind {
     OneOffTransfer one_off = 101;
     RecurringTransfer recurring = 102;
   }
 }
 
+// Specific details for a one off transfer
 message OneOffTransfer {
+  // A unix timestamp in second. Time at which the
+  // transfer should be delivered in the to account
   int64 deliver_on = 1;
 }
 
+// Specific details for a recurring transfer
 message RecurringTransfer {
+  // The first epoch from which this transfer shall be paid
   uint64 start_epoch = 1;
-  uint64 end_epoch = 2;
+  // The last epoch at which this transfer shall be paid
+  vega.Uint64Value end_epoch = 2;
+  // factor needs to be > 0
   string factor = 3;
+}
+
+// A request for cancelling a recurring transfer
+message CancelTransfer {
+  // The ID of the transfer to cancel
+  string transfer_id = 1;
 }
