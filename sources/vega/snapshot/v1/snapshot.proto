@@ -654,8 +654,9 @@ message MarketTracker {
 }
 
 message MarketVolumeTracker {
-  string proposer = 1;
-  bool bonus_paid = 2;
-  string volume_traded = 3; 
+  string market_id = 1;
+  string proposer = 2;
+  bool bonus_paid = 3;
+  string volume_traded = 4; 
 }
 
