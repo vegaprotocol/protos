@@ -99,6 +99,7 @@ message Payload {
     ValidatorPerformance validator_performance = 45;
     FloatingPointConsensus floating_point_consensus = 46;
     FeesTracker fees_tracker = 47;
+    MarketTracker market_tracker = 48;
   }
 }
 
@@ -647,3 +648,14 @@ message PartyFees {
   string party = 1;
   string fee = 2;
 }
+
+message MarketTracker {
+  repeated MarketVolumeTracker market_tracker = 1;
+}
+
+message MarketVolumeTracker {
+  string proposer = 1;
+  bool bonus_paid = 2;
+  string volume_traded = 3; 
+}
+
