@@ -1837,9 +1837,9 @@
           "format": "uint64",
           "title": "Number of decimal / precision handled by this asset"
         },
-        "min_lp_stake": {
+        "quantum": {
           "type": "string",
-          "title": "Min stake required for this asset from liquidity providers"
+          "title": "The minimum economically meaningful amount in the asset"
         },
         "builtin_asset": {
           "$ref": "#/definitions/vegaBuiltinAsset",
