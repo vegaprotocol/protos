@@ -415,7 +415,7 @@
         "chain_id": {
           "type": "string"
         },
-        "tranx_id": {
+        "transaction_hash": {
           "type": "string"
         }
       },
