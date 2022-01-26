@@ -119,6 +119,10 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkWithdrawSubmission(cmd.WithdrawSubmission))
 		case *commandspb.InputData_LiquidityProvisionSubmission:
 			errs.Merge(checkLiquidityProvisionSubmission(cmd.LiquidityProvisionSubmission))
+		case *commandspb.InputData_LiquidityProvisionCancellation:
+			errs.Merge(checkLiquidityProvisionCancellation(cmd.LiquidityProvisionCancellation))
+		case *commandspb.InputData_LiquidityProvisionAmendment:
+			errs.Merge(checkLiquidityProvisionAmendment(cmd.LiquidityProvisionAmendment))
 		case *commandspb.InputData_ProposalSubmission:
 			errs.Merge(checkProposalSubmission(cmd.ProposalSubmission))
 		case *commandspb.InputData_NodeRegistration:
