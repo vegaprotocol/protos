@@ -414,6 +414,9 @@
         },
         "chain_id": {
           "type": "string"
+        },
+        "tranx_id": {
+          "type": "string"
         }
       },
       "title": "A bus event is a container for event bus events emitted by Vega"
