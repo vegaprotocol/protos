@@ -24,6 +24,7 @@
 - [242](https://github.com/vegaprotocol/protos/pull/242) - Add Submit Raw Transaction endpoint and supporting messages
 - [244](https://github.com/vegaprotocol/protos/pull/244) - Add account types and snapshot definitions for market and fee trackers
 - [240](https://github.com/vegaprotocol/protos/pull/240) - Add transfers snapshot types
+- [248](https://github.com/vegaprotocol/protos/pull/248) - Add transaction id to events 
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
