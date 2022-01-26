@@ -507,5 +507,5 @@ message BusEvent {
   // Version of bus event
   uint32 version = 4;
   string chain_id = 5;
-  string tranx_id = 6;
+  string transaction_hash = 6;
 }
