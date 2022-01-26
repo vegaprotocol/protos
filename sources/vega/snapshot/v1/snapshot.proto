@@ -10,6 +10,7 @@ import "vega/chain_events.proto";
 import "vega/governance.proto";
 import "vega/events/v1/events.proto";
 import "vega/commands/v1/validator_commands.proto";
+import "vega/checkpoint/v1/checkpoint.proto";
 
 enum Format {
   // Default value, always invalid
@@ -100,6 +101,8 @@ message Payload {
     FloatingPointConsensus floating_point_consensus = 46;
     FeesTracker fees_tracker = 47;
     MarketTracker market_tracker = 48;
+    BankingRecurringTransfers banking_recurring_transfers = 49;
+    BankingScheduledTransfers banking_scheduled_transfers = 50;
   }
 }
 
@@ -126,7 +129,7 @@ message LiquiditySupplied {
    string market_id = 1;
    bool consensus_reached = 2;
    repeated LiquidityPriceProbabilityPair bid_cache = 3;
-   repeated LiquidityPriceProbabilityPair ask_cache = 4; 
+   repeated LiquidityPriceProbabilityPair ask_cache = 4;
 }
 
 message OracleDataBatch {
@@ -219,6 +222,14 @@ message BankingSeen {
 
 message BankingAssetActions {
   repeated AssetAction asset_action = 1;
+}
+
+message BankingRecurringTransfers {
+  vega.checkpoint.v1.RecurringTransfers recurring_tranfers = 1;
+}
+
+message BankingScheduledTransfers {
+  repeated vega.checkpoint.v1.ScheduledTransferAtTime transfers_at_time = 1;
 }
 
 message Checkpoint {
@@ -641,7 +652,7 @@ message AssetFees {
   string asset = 1;
   repeated PartyFees maker_fees = 2;
   repeated PartyFees taker_fees = 3;
-  repeated PartyFees lp_fees = 4; 
+  repeated PartyFees lp_fees = 4;
 }
 
 message PartyFees {
@@ -657,6 +668,5 @@ message MarketVolumeTracker {
   string market_id = 1;
   string proposer = 2;
   bool bonus_paid = 3;
-  string volume_traded = 4; 
+  string volume_traded = 4;
 }
-
