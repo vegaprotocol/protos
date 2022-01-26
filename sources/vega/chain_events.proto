@@ -69,7 +69,7 @@ message ERC20Withdrawal {
 
 // An event related to an ERC20 token
 message ERC20Event {
-  // Index of the transaction
+  // Index of the log in the transaction
   uint64 index = 1;
   // The block in which the transaction was added
   uint64 block = 2;
@@ -172,7 +172,7 @@ message ValidatorEvent {
 }
 
 message StakingEvent {
-  // Index of the transaction
+  // Index of the log in the transaction
   uint64 index = 1;
   // The block in which the transaction was added
   uint64 block = 2;

@@ -430,7 +430,7 @@ func (m *ERC20Withdrawal) GetReferenceNonce() string {
 
 // An event related to an ERC20 token
 type ERC20Event struct {
-	// Index of the transaction
+	// Index of the log in the transaction
 	Index uint64 `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
 	// The block in which the transaction was added
 	Block uint64 `protobuf:"varint,2,opt,name=block,proto3" json:"block,omitempty"`
@@ -1127,7 +1127,7 @@ func (*ValidatorEvent) XXX_OneofWrappers() []interface{} {
 }
 
 type StakingEvent struct {
-	// Index of the transaction
+	// Index of the log in the transaction
 	Index uint64 `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
 	// The block in which the transaction was added
 	Block uint64 `protobuf:"varint,2,opt,name=block,proto3" json:"block,omitempty"`
