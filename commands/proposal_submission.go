@@ -393,7 +393,7 @@ func isBuiltInSpec(filters []*oraclespb.Filter) bool {
 		return false
 	}
 
-	if strings.HasPrefix(filters[0].Key.String(), "vegaprotocol.builtin") {
+	if strings.HasPrefix(filters[0].Key.Name, "vegaprotocol.builtin") && filters[0].Key.Type == oraclespb.PropertyKey_TYPE_TIMESTAMP {
 		return true
 	}
 
