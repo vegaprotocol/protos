@@ -77,6 +77,7 @@ message NodeSignature {
 
 // An event forwarded to the Vega network to provide information on events happening on other networks
 message ChainEvent {
+  reserved 1003, 1004;
   // The identifier of the transaction in which the events happened, usually a hash
   string tx_id = 1;
   // Arbitrary one-time integer used to prevent replay attacks
@@ -87,10 +88,6 @@ message ChainEvent {
     vega.BuiltinAssetEvent builtin = 1001;
     // Ethereum ERC20 event
     vega.ERC20Event erc20 = 1002;
-    // Bitcoin BTC event
-    vega.BTCEvent btc = 1003;
-    // Validator event
-    vega.ValidatorEvent validator = 1004;
     // Ethereum Staking event
     vega.StakingEvent staking_event = 1005;
   }
