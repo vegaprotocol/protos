@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 	"testing"
+	"time"
 
 	"code.vegaprotocol.io/protos/commands"
 	types "code.vegaprotocol.io/protos/vega"
@@ -173,6 +174,8 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a new market with sell side and mid reference and non-positive offset fails", testNewMarketSubmissionWithSellSideAndMidReferenceAndNonPositiveOffsetFails)
 	t.Run("Submitting a new market with sell side and mid reference and positive offset succeeds", testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds)
 	t.Run("Submitting a new market with a too long reference fails", testNewMarketSubmissionWithTooLongReferenceFails)
+	t.Run("Submitting a future market with internal time for trade termination succeeds", testFutureMarketSubmissionWithInternalTimestampForTradingTerminationSucceeds)
+	t.Run("Submitting a future market with trade termination from external oracle with no public key fails", testFutureMarketSubmissionWithExternalTradingTerminationNoPublicKeyFails)
 }
 
 func testProposalSubmissionWithoutTermsFails(t *testing.T) {
@@ -3861,4 +3864,75 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) commands.Errors
 	}
 
 	return e
+}
+
+func testFutureMarketSubmissionWithInternalTimestampForTradingTerminationSucceeds(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						Instrument: &types.InstrumentConfiguration{
+							Product: &types.InstrumentConfiguration_Future{
+								Future: &types.FutureProduct{
+									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
+										PubKeys: []string{},
+										Filters: []*oraclespb.Filter{
+											{
+												Key: &oraclespb.PropertyKey{
+													Name: "vegaprotocol.builtin.timestamp",
+													Type: oraclespb.PropertyKey_TYPE_TIMESTAMP,
+												},
+												Conditions: []*oraclespb.Condition{
+													{
+														Operator: oraclespb.Condition_OPERATOR_GREATER_THAN_OR_EQUAL,
+														Value:    fmt.Sprintf("%d", time.Now().Add(time.Hour*24*365).UnixNano()),
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.oracle_spec_for_trading_termination.pub_keys"), commands.ErrIsRequired)
+}
+
+func testFutureMarketSubmissionWithExternalTradingTerminationNoPublicKeyFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						Instrument: &types.InstrumentConfiguration{
+							Product: &types.InstrumentConfiguration_Future{
+								Future: &types.FutureProduct{
+									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
+										PubKeys: []string{},
+										Filters: []*oraclespb.Filter{
+											{
+												Key: &oraclespb.PropertyKey{
+													Name: "trading.terminated",
+													Type: oraclespb.PropertyKey_TYPE_BOOLEAN,
+												},
+												Conditions: []*oraclespb.Condition{},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.oracle_spec_for_trading_termination.pub_keys"), commands.ErrIsRequired)
 }
