@@ -2454,6 +2454,19 @@
       },
       "title": "Response for a list of new asset proposals"
     },
+    "v1GetNewFreeformProposalsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaGovernanceData"
+          },
+          "title": "A list of 0 or more governance data"
+        }
+      },
+      "title": "Response for a list of new freeform proposals"
+    },
     "v1GetNewMarketProposalsResponse": {
       "type": "object",
       "properties": {
@@ -5211,6 +5224,16 @@
     "vegaNewFreeform": {
       "type": "object",
       "properties": {
+        "changes": {
+          "$ref": "#/definitions/vegaNewFreeformDetails",
+          "title": "The configuration of the new freeform"
+        }
+      },
+      "title": "Freeform proposal"
+    },
+    "vegaNewFreeformDetails": {
+      "type": "object",
+      "properties": {
         "url": {
           "type": "string",
           "title": "The URL containing content that describes the proposal"
@@ -5223,8 +5246,7 @@
           "type": "string",
           "title": "The hash on the content of the URL"
         }
-      },
-      "title": "Freeform proposal"
+      }
     },
     "vegaNewMarket": {
       "type": "object",
