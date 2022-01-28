@@ -132,6 +132,9 @@ service TradingDataService {
   // Get governance data (proposals and votes) for proposals aiming to create new assets
   rpc GetNewAssetProposals(GetNewAssetProposalsRequest) returns (GetNewAssetProposalsResponse);
 
+   // Get governance data (proposals and votes) for proposals aiming to create freeform proposals
+   rpc GetNewFreeformProposals(GetNewFreeformProposalsRequest) returns (GetNewFreeformProposalsResponse);
+
   // Get governance data (proposals and votes) for a proposal located by ID
   rpc GetProposalByID(GetProposalByIDRequest) returns (GetProposalByIDResponse);
 
@@ -484,6 +487,18 @@ message GetNetworkParametersProposalsRequest {
 
 // Response for a list of network parameter proposals
 message GetNetworkParametersProposalsResponse {
+  // A list of 0 or more governance data
+  repeated vega.GovernanceData data = 1;
+}
+
+// Request for a list of new freeform proposals
+message GetNewFreeformProposalsRequest {
+  // Optional proposal state
+  OptionalProposalState select_in_state = 1;
+}
+
+// Response for a list of new freeform proposals
+message GetNewFreeformProposalsResponse {
   // A list of 0 or more governance data
   repeated vega.GovernanceData data = 1;
 }

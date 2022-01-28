@@ -1445,6 +1445,16 @@
     "vegaNewFreeform": {
       "type": "object",
       "properties": {
+        "changes": {
+          "$ref": "#/definitions/vegaNewFreeformDetails",
+          "title": "The configuration of the new freeform"
+        }
+      },
+      "title": "Freeform proposal"
+    },
+    "vegaNewFreeformDetails": {
+      "type": "object",
+      "properties": {
         "url": {
           "type": "string",
           "title": "The URL containing content that describes the proposal"
@@ -1457,8 +1467,7 @@
           "type": "string",
           "title": "The hash on the content of the URL"
         }
-      },
-      "title": "Freeform proposal"
+      }
     },
     "vegaNewMarket": {
       "type": "object",

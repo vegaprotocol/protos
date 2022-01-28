@@ -4,6 +4,7 @@
 
 ### 🚨 Breaking changes
 - [218](https://github.com/vegaprotocol/protos/pull/) - Restructure EthereumConfig to separate staking and vesting contract addresses, plus add block height at which they have been added respectively
+- [256](https://github.com/vegaprotocol/protos/pull/) - Rework freeform proposal protos so that they align with other proposals
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -

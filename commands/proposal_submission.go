@@ -170,15 +170,15 @@ func checkNewAssetChanges(change *types.ProposalTerms_NewAsset) Errors {
 func CheckNewFreeformChanges(change *types.ProposalTerms_NewFreeform) Errors {
 	errs := NewErrors()
 
-	if len(change.NewFreeform.Url) == 0 {
+	if len(change.NewFreeform.Changes.Url) == 0 {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.url", ErrIsRequired)
 	}
 
-	if len(change.NewFreeform.Description) > 255 {
+	if len(change.NewFreeform.Changes.Description) > 255 {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.description", ErrIsRequired)
 	}
 
-	if len(change.NewFreeform.Hash) == 0 {
+	if len(change.NewFreeform.Changes.Hash) == 0 {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.hash", ErrIsRequired)
 	}
 

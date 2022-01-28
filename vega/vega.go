@@ -20,6 +20,7 @@ func (NewMarket) IsProposalChange()              {}
 func (NewAsset) IsProposalChange()               {}
 func (UpdateMarket) IsProposalChange()           {}
 func (UpdateNetworkParameter) IsProposalChange() {}
+func (NewFreeform) IsProposalChange()            {}
 func (LogNormalRiskModel) IsRiskModel()          {}
 func (SimpleRiskModel) IsRiskModel()             {}
 func (SimpleModelParams) IsRiskModel()           {}
