@@ -83,6 +83,14 @@ message ERC20SignerRemoved {
   string nonce = 2;
 }
 
+// The threshold have been updated on the multisigcontrol
+message ERC20ThresholdSet {
+  // The new threshold
+  uint32 new_threshold = 1;
+  // The nonce create by the vega network
+  string nonce = 2;
+}
+
 // An event related to an ERC20 token
 message ERC20Event {
   // Index of the log in the transaction
@@ -103,6 +111,8 @@ message ERC20Event {
     ERC20SignerAdded signer_added = 1005;
     // Remove a signer from the erc20 bridge
     ERC20SignerRemoved signer_removed = 1006;
+    // Threshold set
+    ERC20ThresholdSet threshold_set = 1007;
   }
 }
 
