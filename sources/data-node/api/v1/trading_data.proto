@@ -275,6 +275,18 @@ service TradingDataService {
   rpc ObserveDelegations(ObserveDelegationsRequest) returns (stream ObserveDelegationsResponse);
 
   rpc PartyStake(PartyStakeRequest) returns (PartyStakeResponse);
+
+  rpc Transfers(TransfersRequest) returns (TransfersResponse);
+}
+
+message TransfersRequest {
+  string pubkey =  1;
+  bool is_from = 2;
+  bool is_to = 3;
+}
+
+message TransfersResponse {
+  repeated vega.events.v1.Transfer transfers = 1;
 }
 
 // both fields optional but 1 of them required at least
