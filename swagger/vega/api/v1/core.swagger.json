@@ -3805,6 +3805,10 @@
         "status": {
           "$ref": "#/definitions/v1TransferStatus"
         },
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
+        },
         "one_off": {
           "$ref": "#/definitions/vegaeventsv1OneOffTransfer"
         },

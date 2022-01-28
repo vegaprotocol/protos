@@ -169,3 +169,7 @@ http:
       get: "/key-rotations"
     - selector: datanode.api.v1.TradingDataService.GetKeyRotationsByNodeID
       get: "/key-rotations/node/{id}"
+
+    # Transfers
+    - selector: datanode.api.v1.TradingDataService.Transfers
+      get: "/transfers"

@@ -1605,6 +1605,44 @@
         ]
       }
     },
+    "/transfers": {
+      "get": {
+        "operationId": "Transfers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TransfersResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pubkey",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_from",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_to",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/withdrawals/party/{party_id}": {
       "get": {
         "summary": "Get withdrawals for a party",
@@ -3794,6 +3832,17 @@
       ],
       "default": "STATUS_UNSPECIFIED",
       "title": "- STATUS_UNSPECIFIED: Default value\n - STATUS_PENDING: Indicate a transfer still being processed\n - STATUS_DONE: Indicate of an transfer accepted by the vega network\n - STATUS_REJECTED: Indicate of an transfer rejected by the vega network\n - STATUS_STOPPED: Indicate of a transfer stopped by the vega network\ne.g: no funds left to cover the transfer\n - STATUS_CANCELLED: Indicate of a transfer cancel by the user"
+    },
+    "v1TransfersResponse": {
+      "type": "object",
+      "properties": {
+        "transfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/vegaeventsv1Transfer"
+          }
+        }
+      }
     },
     "v1TxErrorEvent": {
       "type": "object",
@@ -6532,6 +6581,10 @@
         },
         "status": {
           "$ref": "#/definitions/v1TransferStatus"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
         },
         "one_off": {
           "$ref": "#/definitions/vegaeventsv1OneOffTransfer"
