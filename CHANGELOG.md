@@ -28,6 +28,7 @@
 - [248](https://github.com/vegaprotocol/protos/pull/248) - Add transaction hash to events 
 - [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash 
 - [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
+- [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.

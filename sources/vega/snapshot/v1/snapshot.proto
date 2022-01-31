@@ -280,6 +280,7 @@ message StakingAccount {
 
 message StakingAccounts {
   repeated StakingAccount accounts = 1;
+  string staking_asset_total_supply = 2;
 }
 
 message MatchingBook {
