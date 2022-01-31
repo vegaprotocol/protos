@@ -1,6 +1,21 @@
 # Changelog
 
-## Unreleased
+## Unreleased (0.49.0)
+
+### 🚨 Breaking changes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🗑️ Deprecation
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🛠 Improvements
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🐛 Fixes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.48.0
 
 ### 🚨 Breaking changes
 - [218](https://github.com/vegaprotocol/protos/pull/) - Restructure EthereumConfig to separate staking and vesting contract addresses, plus add block height at which they have been added respectively
@@ -25,8 +40,8 @@
 - [242](https://github.com/vegaprotocol/protos/pull/242) - Add Submit Raw Transaction endpoint and supporting messages
 - [244](https://github.com/vegaprotocol/protos/pull/244) - Add account types and snapshot definitions for market and fee trackers
 - [240](https://github.com/vegaprotocol/protos/pull/240) - Add transfers snapshot types
-- [248](https://github.com/vegaprotocol/protos/pull/248) - Add transaction hash to events 
-- [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash 
+- [248](https://github.com/vegaprotocol/protos/pull/248) - Add transaction hash to events
+- [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash
 - [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
 - [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
 
