@@ -623,32 +623,32 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 	}
 
 	if len(orders) == 0 {
-		return errs.FinalAddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s", humanizedSide), ErrIsRequired)
+		return errs.FinalAddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s", humanizedSide), ErrIsRequired)
 	}
 
 	for i, order := range orders {
 		if order.Reference == types.PeggedReference_PEGGED_REFERENCE_UNSPECIFIED {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsRequired)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsRequired)
 		}
 		if _, ok := types.PeggedReference_name[int32(order.Reference)]; !ok {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsNotValid)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsNotValid)
 		}
 
 		if order.Proportion == 0 {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.proportion.%d", humanizedSide, i), ErrIsRequired)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.proportion.%d", humanizedSide, i), ErrIsRequired)
 		}
 
 		if side == types.Side_SIDE_BUY {
 			switch order.Reference {
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i),
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i),
 					errors.New("cannot have a reference of type BEST_ASK when on BUY side"),
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
 				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 				if !ok {
 					errs.AddForProperty(
-						fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+						fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 						ErrNotAValidInteger,
 					)
 
@@ -656,13 +656,13 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 				}
 
 				if offset.Cmp(big.NewInt(0)) == -1 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
 				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 				if !ok {
 					errs.AddForProperty(
-						fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+						fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 						ErrNotAValidInteger,
 					)
 
@@ -670,7 +670,7 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 				}
 
 				if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
 				}
 			}
 			continue
@@ -678,14 +678,14 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 
 		switch order.Reference {
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i),
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i),
 				errors.New("cannot have a reference of type BEST_BID when on SELL side"),
 			)
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
 			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 			if !ok {
 				errs.AddForProperty(
-					fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+					fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 					ErrNotAValidInteger,
 				)
 
@@ -693,13 +693,13 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 			}
 
 			if offset.Cmp(big.NewInt(0)) == -1 {
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
 			}
 		case types.PeggedReference_PEGGED_REFERENCE_MID:
 			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 			if !ok {
 				errs.AddForProperty(
-					fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+					fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 					ErrNotAValidInteger,
 				)
 
@@ -707,7 +707,7 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 			}
 
 			if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
 			}
 		}
 
