@@ -32,6 +32,33 @@
         ]
       }
     },
+    "/rawtransaction": {
+      "post": {
+        "summary": "Submit a version agnostic signed transaction",
+        "operationId": "SubmitRawTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SubmitRawTransactionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SubmitRawTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CoreService"
+        ]
+      }
+    },
     "/statistics": {
       "get": {
         "summary": "Get Statistics on Vega",
@@ -1429,6 +1456,21 @@
           "$ref": "#/definitions/v1Statistics"
         }
       }
+    },
+    "v1SubmitRawTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "tx": {
+          "type": "string",
+          "format": "byte",
+          "title": "A bundle of signed payload and signature marshalled into a byte array, to form a transaction that will be submitted to the Vega blockchain"
+        },
+        "type": {
+          "$ref": "#/definitions/v1SubmitRawTransactionRequestType",
+          "title": "Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response"
+        }
+      },
+      "title": "Request for submitting a version agnostic transaction on Vega"
     },
     "v1SubmitRawTransactionRequestType": {
       "type": "string",
