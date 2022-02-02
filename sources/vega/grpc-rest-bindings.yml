@@ -15,6 +15,10 @@ http:
     - selector: vega.api.v1.CoreService.SubmitTransaction
       post: '/transaction'
       body: "*"
+    # transaction
+    - selector: vega.api.v1.CoreService.SubmitRawTransaction
+      post: '/rawtransaction'
+      body: "*"
 
     # Miscellaneous
     - selector: vega.api.v1.CoreService.Statistics
