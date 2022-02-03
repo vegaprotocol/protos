@@ -125,8 +125,8 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkLiquidityProvisionAmendment(cmd.LiquidityProvisionAmendment))
 		case *commandspb.InputData_ProposalSubmission:
 			errs.Merge(checkProposalSubmission(cmd.ProposalSubmission))
-		case *commandspb.InputData_AnnounceNode:
-			errs.Merge(checkAnnounceNode(cmd.AnnounceNode))
+		case *commandspb.InputData_NodeRegistration:
+			errs.Merge(checkNodeRegistration(cmd.NodeRegistration))
 		case *commandspb.InputData_NodeVote:
 			errs.Merge(checkNodeVote(cmd.NodeVote))
 		case *commandspb.InputData_NodeSignature:
@@ -147,8 +147,6 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkTransfer(cmd.Transfer))
 		case *commandspb.InputData_CancelTransfer:
 			errs.Merge(checkCancelTransfer(cmd.CancelTransfer))
-		case *commandspb.InputData_ValidatorHeartbeat:
-			errs.Merge(checkValidatorHeartbeat(cmd.ValidatorHeartbeat))
 		case *commandspb.InputData_RestoreSnapshotSubmission:
 			break // nothing to verify as such
 		default:
