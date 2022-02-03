@@ -31,11 +31,14 @@ message Snapshot {
   bytes metadata = 5;
 }
 
+// NodeHash represents an exported node from the AVL tree and contains all the data necessary to recontruct and identical copy of the 
+// AVL tree after we've serialised it
 message NodeHash {
-  string full_key = 1; // namespace<separator>key
-  string namespace = 2;
   string key = 3;
   string hash = 4;
+  int32 height = 5;
+  int64 version = 6;
+  bool is_leaf = 8;
 }
 
 message Metadata {

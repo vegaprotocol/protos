@@ -29,6 +29,8 @@
 - [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash 
 - [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
 - [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
+- [263](https://github.com/vegaprotocol/protos/pull/263) - Add new validator commands
+- [272](https://github.com/vegaprotocol/protos/pull/272) - Update snapshot protos to be able to handle the iavl exported nodes
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
