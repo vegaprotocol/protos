@@ -34,11 +34,16 @@ message Snapshot {
 // NodeHash represents an exported node from the AVL tree and contains all the data necessary to recontruct and identical copy of the 
 // AVL tree after we've serialised it
 message NodeHash {
+  // The node's full key, for example epoch.all
   string key = 3;
+  // The hash of the node's value
   string hash = 4;
+  // The height of the node in the tree
   int32 height = 5;
+  // The version of that node i.e how many times its value has changed during tree updates
   int64 version = 6;
-  bool is_leaf = 8;
+  // Whether or not the node contains a snapshot payload, only leaf nodes in the AVL contain payloads
+  bool is_leaf = 7;
 }
 
 message Metadata {
