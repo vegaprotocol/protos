@@ -3,7 +3,6 @@ package commands_test
 import (
 	"errors"
 	"fmt"
-	"math"
 	"strconv"
 	"testing"
 	"time"
@@ -141,11 +140,7 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a log normal risk parameters change without log normal risk parameters fails", testNewLogNormalRiskParametersChangeSubmissionWithoutLogNormalRiskParametersFails)
 	t.Run("Submitting a log normal risk parameters change with log normal risk parameters succeeds", testNewLogNormalRiskParametersChangeSubmissionWithLogNormalRiskParametersSucceeds)
 	t.Run("Submitting a log normal risk parameters change with params fails", testNewLogNormalRiskParametersChangeSubmissionWithoutParamsFails)
-	t.Run("Submitting a log normal risk parameters change with invalid risk aversion", testNewLogNormalRiskParametersChangeSubmissionInvalidRiskAversion)
-	t.Run("Submitting a log normal risk parameters change with invalid tau", testNewLogNormalRiskParametersChangeSubmissionInvalidTau)
-	t.Run("Submitting a log normal risk parameters change with invalid mu", testNewLogNormalRiskParametersChangeSubmissionInvalidMu)
-	t.Run("Submitting a log normal risk parameters change with invalid sigma", testNewLogNormalRiskParametersChangeSubmissionInvalidSigma)
-	t.Run("Submitting a log normal risk parameters change with invalid r", testNewLogNormalRiskParametersChangeSubmissionInvalidR)
+	t.Run("Submitting a log normal risk parameters change with params succeeds", testNewLogNormalRiskParametersChangeSubmissionWithParamsSucceeds)
 	t.Run("Submitting a new market without liquidity commitment fails", testNewMarketSubmissionWithoutLiquidityCommitmentFails)
 	t.Run("Submitting a new market with liquidity commitment succeeds", testNewMarketSubmissionWithLiquidityCommitmentSucceeds)
 	t.Run("Submitting a new market without commitment amount fails", testNewMarketSubmissionWithoutCommitmentAmountFails)
@@ -2997,15 +2992,7 @@ func testNewLogNormalRiskParametersChangeSubmissionWithLogNormalRiskParametersSu
 				NewMarket: &types.NewMarket{
 					Changes: &types.NewMarketConfiguration{
 						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: 1,
-								Tau:                   2,
-								Params: &types.LogNormalModelParams{
-									Mu:    0,
-									Sigma: 0.1,
-									R:     0,
-								},
-							},
+							LogNormal: &types.LogNormalRiskModel{},
 						},
 					},
 				},
@@ -3034,180 +3021,24 @@ func testNewLogNormalRiskParametersChangeSubmissionWithoutParamsFails(t *testing
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params"), commands.ErrIsRequired)
 }
 
-func testNewLogNormalRiskParametersChangeSubmissionInvalidRiskAversion(t *testing.T) {
-	cZero := &commandspb.ProposalSubmission{
+func testNewLogNormalRiskParametersChangeSubmissionWithParamsSucceeds(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewMarket{
 				NewMarket: &types.NewMarket{
 					Changes: &types.NewMarketConfiguration{
 						RiskParameters: &types.NewMarketConfiguration_LogNormal{
 							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: 0,
-								Tau:                   2,
-								Params: &types.LogNormalModelParams{
-									Mu:    0,
-									Sigma: 0.1,
-									R:     0,
-								},
+								Params: &types.LogNormalModelParams{},
 							},
 						},
 					},
 				},
 			},
 		},
-	}
-	err := checkProposalSubmission(cZero)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.risk_aversion_parameter"), commands.ErrMustBePositive)
+	})
 
-	cNeg := &commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: -0.1,
-								Tau:                   2,
-								Params: &types.LogNormalModelParams{
-									Mu:    0,
-									Sigma: 0.1,
-									R:     0,
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-	err = checkProposalSubmission(cNeg)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.risk_aversion_parameter"), commands.ErrMustBePositive)
-}
-
-func testNewLogNormalRiskParametersChangeSubmissionInvalidTau(t *testing.T) {
-	cZero := &commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: 0.1,
-								Tau:                   0,
-								Params: &types.LogNormalModelParams{
-									Mu:    0,
-									Sigma: 0.1,
-									R:     0,
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-	err := checkProposalSubmission(cZero)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.tau"), commands.ErrMustBePositive)
-
-	cNeg := &commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: 0.1,
-								Tau:                   -0.2,
-								Params: &types.LogNormalModelParams{
-									Mu:    0,
-									Sigma: 0.1,
-									R:     0,
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-	err = checkProposalSubmission(cNeg)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.tau"), commands.ErrMustBePositive)
-}
-
-func testNewLogNormalRiskParametersChangeSubmissionInvalidMu(t *testing.T) {
-	cNaN := &commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: 0.1,
-								Tau:                   0.2,
-								Params: &types.LogNormalModelParams{
-									Mu:    math.NaN(),
-									Sigma: 0.1,
-									R:     0,
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-	err := checkProposalSubmission(cNaN)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.mu"), commands.ErrIsNotValidNumber)
-}
-func testNewLogNormalRiskParametersChangeSubmissionInvalidR(t *testing.T) {
-	cNaN := &commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: 0.1,
-								Tau:                   0.2,
-								Params: &types.LogNormalModelParams{
-									Mu:    0.2,
-									Sigma: 0.1,
-									R:     math.NaN(),
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-	err := checkProposalSubmission(cNaN)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.r"), commands.ErrIsNotValidNumber)
-}
-func testNewLogNormalRiskParametersChangeSubmissionInvalidSigma(t *testing.T) {
-	cNaN := &commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{
-								RiskAversionParameter: 0.1,
-								Tau:                   0.2,
-								Params: &types.LogNormalModelParams{
-									Mu:    0.2,
-									Sigma: math.NaN(),
-									R:     0,
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-	err := checkProposalSubmission(cNaN)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma"), commands.ErrIsNotValidNumber)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithoutLiquidityCommitmentFails(t *testing.T) {
