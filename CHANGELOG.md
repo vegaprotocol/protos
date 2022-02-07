@@ -30,7 +30,7 @@
 - [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
 - [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
 - [272](https://github.com/vegaprotocol/protos/pull/272) - Update snapshot protos to be able to handle the iavl exported nodes
-
+- [276](https://github.com/vegaprotocol/protos/pull/276) - Remove maturity from future product, tick size from market and trading mode config from market
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
 - [214](https://github.com/vegaprotocol/protos/pull/214) Rewording of transaction nonce and block_height

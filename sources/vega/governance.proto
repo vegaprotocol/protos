@@ -10,8 +10,6 @@ import "vega/oracles/v1/spec.proto";
 
 // Future product configuration
 message FutureProduct {
-  // Future product maturity (ISO8601/RFC3339 timestamp)
-  string maturity = 1;
   // Product settlement asset identifier
   string settlement_asset = 2 ;
   // Product quote name
@@ -55,13 +53,6 @@ message NewMarketConfiguration {
     SimpleModelParams simple = 100;
     // Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected
     LogNormalRiskModel log_normal = 101;
-  }
-  // Trading mode for the new market
-  oneof trading_mode {
-    // Continuous trading
-    ContinuousTrading continuous = 200;
-    // Discrete trading
-    DiscreteTrading discrete = 201;
   }
 }
 
@@ -236,10 +227,6 @@ enum ProposalError {
   PROPOSAL_ERROR_NO_PRODUCT = 7;
   // The specified product is not supported
   PROPOSAL_ERROR_UNSUPPORTED_PRODUCT = 8;
-  // Invalid future maturity timestamp (expect RFC3339)
-  PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT_TIMESTAMP = 9;
-  // The product maturity is past
-  PROPOSAL_ERROR_PRODUCT_MATURITY_IS_PASSED = 10;
   // The proposal has no trading mode
   PROPOSAL_ERROR_NO_TRADING_MODE = 11;
   // The proposal has an unsupported trading mode

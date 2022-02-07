@@ -147,28 +147,6 @@ func (n NewMarketConfiguration_LogNormal) DeepClone() *NewMarketConfiguration_Lo
 	return &n
 }
 
-func (c ContinuousTrading) DeepClone() *ContinuousTrading {
-	return &c
-}
-
-func (n NewMarketConfiguration_Continuous) DeepClone() *NewMarketConfiguration_Continuous {
-	if n.Continuous != nil {
-		n.Continuous = n.Continuous.DeepClone()
-	}
-	return &n
-}
-
-func (d DiscreteTrading) DeepClone() *DiscreteTrading {
-	return &d
-}
-
-func (n NewMarketConfiguration_Discrete) DeepClone() *NewMarketConfiguration_Discrete {
-	if n.Discrete != nil {
-		n.Discrete = n.Discrete.DeepClone()
-	}
-	return &n
-}
-
 func (n NewMarketConfiguration) DeepClone() *NewMarketConfiguration {
 	if n.Instrument != nil {
 		n.Instrument = n.Instrument.DeepClone()
@@ -191,14 +169,6 @@ func (n NewMarketConfiguration) DeepClone() *NewMarketConfiguration {
 		}
 	}
 
-	if n.TradingMode != nil {
-		switch trading := n.TradingMode.(type) {
-		case *NewMarketConfiguration_Continuous:
-			n.TradingMode = trading.DeepClone()
-		case *NewMarketConfiguration_Discrete:
-			n.TradingMode = trading.DeepClone()
-		}
-	}
 	return &n
 }
 
@@ -447,20 +417,6 @@ func (a AuctionDuration) DeepClone() *AuctionDuration {
 	return &a
 }
 
-func (m Market_Continuous) DeepClone() *Market_Continuous {
-	if m.Continuous != nil {
-		m.Continuous = m.Continuous.DeepClone()
-	}
-	return &m
-}
-
-func (m Market_Discrete) DeepClone() *Market_Discrete {
-	if m.Discrete != nil {
-		m.Discrete = m.Discrete.DeepClone()
-	}
-	return &m
-}
-
 func (p PriceMonitoringSettings) DeepClone() *PriceMonitoringSettings {
 	if p.Parameters != nil {
 		p.Parameters = p.Parameters.DeepClone()
@@ -494,15 +450,6 @@ func (m Market) DeepClone() *Market {
 
 	if m.OpeningAuction != nil {
 		m.OpeningAuction = m.OpeningAuction.DeepClone()
-	}
-
-	if m.TradingModeConfig != nil {
-		switch tmc := m.TradingModeConfig.(type) {
-		case *Market_Continuous:
-			m.TradingModeConfig = tmc.DeepClone()
-		case *Market_Discrete:
-			m.TradingModeConfig = tmc.DeepClone()
-		}
 	}
 
 	if m.PriceMonitoringSettings != nil {
