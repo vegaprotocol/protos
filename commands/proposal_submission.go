@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"math"
 	"math/big"
 	"strconv"
 	"strings"
@@ -521,6 +522,26 @@ func checkLogNormalRiskParameters(params *types.NewMarketConfiguration_LogNormal
 
 	if params.LogNormal.Params == nil {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params", ErrIsRequired)
+	}
+
+	if params.LogNormal.RiskAversionParameter <= 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.risk_aversion_parameter", ErrMustBePositive)
+	}
+
+	if params.LogNormal.Tau <= 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.tau", ErrMustBePositive)
+	}
+
+	if math.IsNaN(params.LogNormal.Params.Mu) {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.mu", ErrIsNotValidNumber)
+	}
+
+	if math.IsNaN(params.LogNormal.Params.Sigma) {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma", ErrIsNotValidNumber)
+	}
+
+	if math.IsNaN(params.LogNormal.Params.R) {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.r", ErrIsNotValidNumber)
 	}
 
 	return errs
