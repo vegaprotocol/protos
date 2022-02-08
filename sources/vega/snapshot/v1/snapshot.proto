@@ -10,6 +10,7 @@ import "vega/chain_events.proto";
 import "vega/governance.proto";
 import "vega/events/v1/events.proto";
 import "vega/commands/v1/validator_commands.proto";
+import "vega/checkpoint/v1/checkpoint.proto";
 
 enum Format {
   // Default value, always invalid
@@ -30,11 +31,19 @@ message Snapshot {
   bytes metadata = 5;
 }
 
+// NodeHash represents an exported node from the AVL tree and contains all the data necessary to recontruct and identical copy of the 
+// AVL tree after we've serialised it
 message NodeHash {
-  string full_key = 1; // namespace<separator>key
-  string namespace = 2;
+  // The node's full key, for example epoch.all
   string key = 3;
+  // The hash of the node's value
   string hash = 4;
+  // The height of the node in the tree
+  int32 height = 5;
+  // The version of that node i.e how many times its value has changed during tree updates
+  int64 version = 6;
+  // Whether or not the node contains a snapshot payload, only leaf nodes in the AVL contain payloads
+  bool is_leaf = 7;
 }
 
 message Metadata {
@@ -96,6 +105,12 @@ message Payload {
     LiquidityProvisions liquidity_provisions = 42;
     LiquiditySupplied liquidity_supplied= 43;
     LiquidityTarget liquidity_target= 44;
+    ValidatorPerformance validator_performance = 45;
+    FloatingPointConsensus floating_point_consensus = 46;
+    FeesTracker fees_tracker = 47;
+    MarketTracker market_tracker = 48;
+    BankingRecurringTransfers banking_recurring_transfers = 49;
+    BankingScheduledTransfers banking_scheduled_transfers = 50;
   }
 }
 
@@ -120,10 +135,9 @@ message LiquidityPriceProbabilityPair {
 
 message LiquiditySupplied {
    string market_id = 1;
-   string cached_min = 2;
-   string cached_max = 3;
-   repeated LiquidityPriceProbabilityPair bid_cache = 4;
-   repeated LiquidityPriceProbabilityPair ask_cache = 5; 
+   bool consensus_reached = 2;
+   repeated LiquidityPriceProbabilityPair bid_cache = 3;
+   repeated LiquidityPriceProbabilityPair ask_cache = 4;
 }
 
 message OracleDataBatch {
@@ -218,6 +232,14 @@ message BankingAssetActions {
   repeated AssetAction asset_action = 1;
 }
 
+message BankingRecurringTransfers {
+  vega.checkpoint.v1.RecurringTransfers recurring_tranfers = 1;
+}
+
+message BankingScheduledTransfers {
+  repeated vega.checkpoint.v1.ScheduledTransferAtTime transfers_at_time = 1;
+}
+
 message Checkpoint {
   int64 next_cp = 1;
 }
@@ -266,6 +288,7 @@ message StakingAccount {
 
 message StakingAccounts {
   repeated StakingAccount accounts = 1;
+  string staking_asset_total_supply = 2;
 }
 
 message MatchingBook {
@@ -336,6 +359,7 @@ message PriceMonitor {
   repeated DecimalMap ref_price_cache = 11;
   repeated CurrentPrice prices_now = 12;
   repeated PastPrice prices_past = 13;
+  bool consensus_reached = 14;
 }
 
 message AuctionState {
@@ -376,6 +400,9 @@ message Market {
   int64 last_equity_share_distributed = 11;
   EquityShare equity_share = 12;
   string current_mark_price = 13;
+  string risk_factor_short = 14;
+  string risk_factor_long = 15;
+  bool risk_factor_consensus_reached = 16;
 }
 
 message ExecutionMarkets {
@@ -560,10 +587,26 @@ message PendingKeyRotation {
   uint32 new_pub_key_index = 4;
 }
 
+message PerformanceStats {
+  string validator_address = 1;
+  uint64 proposed = 2;
+  uint64 elected = 3;
+  uint64 voted = 4;
+  int64 last_height_voted = 5;
+  int64 last_height_proposed = 6;
+  int64 last_height_elected = 7;
+
+}
+
+message ValidatorPerformance {
+  repeated PerformanceStats validator_perf_stats = 1;
+}
+
 message Topology {
   repeated vega.events.v1.ValidatorUpdate validator_data = 1;
   repeated string chain_keys = 2;
   repeated PendingKeyRotation pending_pub_key_rotations = 3;
+  ValidatorPerformance validator_performance = 4;
 }
 
 message LiquidityParameters {
@@ -596,4 +639,43 @@ message LiquidityProvisions {
   repeated vega.LiquidityProvision liquidity_provisions = 1;
   // required for key generation
   string market_id = 2;
+}
+
+// snapshot payload for floating point consensus
+message FloatingPointConsensus {
+  repeated NextTimeTrigger next_time_trigger = 1;
+}
+
+message NextTimeTrigger {
+  string asset = 1;
+  string market = 2;
+  string id = 3;
+  int64  next_trigger = 4;
+}
+
+message FeesTracker {
+  repeated AssetFees asset_fees = 1;
+}
+
+message AssetFees {
+  string asset = 1;
+  repeated PartyFees maker_fees = 2;
+  repeated PartyFees taker_fees = 3;
+  repeated PartyFees lp_fees = 4;
+}
+
+message PartyFees {
+  string party = 1;
+  string fee = 2;
+}
+
+message MarketTracker {
+  repeated MarketVolumeTracker market_tracker = 1;
+}
+
+message MarketVolumeTracker {
+  string market_id = 1;
+  string proposer = 2;
+  bool bonus_paid = 3;
+  string volume_traded = 4;
 }

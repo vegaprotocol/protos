@@ -2,6 +2,7 @@ package vega
 
 import (
 	"errors"
+	fmt "fmt"
 )
 
 var (
@@ -28,4 +29,31 @@ func (m *Market) GetAsset() (string, error) {
 	default:
 		return "", ErrUnknownAsset
 	}
+}
+
+func (p *PriceMonitoringTrigger) Validate() error {
+	if !(p.Horizon > 0) {
+		return fmt.Errorf("invalid field Triggers.Horizon: value '%v' must be greater than '0'", p.Horizon)
+	}
+	if !(p.Probability > 0) {
+		return fmt.Errorf("invalid field Triggers.Probability: value '%v' must be strictly greater than '0'", p.Probability)
+	}
+	if !(p.Probability < 1) {
+		return fmt.Errorf("invalid field Triggers.Probability: value '%v' must be strictly lower than '1'", p.Probability)
+	}
+	if !(p.AuctionExtension > 0) {
+		return fmt.Errorf("invalid field Triggers.AuctionExtension: value '%v' must be greater than '0'", p.AuctionExtension)
+	}
+	return nil
+}
+
+func (p *PriceMonitoringParameters) Validate() error {
+	for _, item := range p.Triggers {
+		if item != nil {
+			if err := item.Validate(); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }

@@ -1,2 +1,5 @@
+*.go-re
 .metals
 .vscode
+.idea
+

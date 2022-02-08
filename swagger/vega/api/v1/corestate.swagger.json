@@ -153,6 +153,22 @@
         ]
       }
     },
+    "/network/limits": {
+      "get": {
+        "operationId": "ListNetworkLimits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListNetworkLimitsResponse"
+            }
+          }
+        },
+        "tags": [
+          "CoreStateService"
+        ]
+      }
+    },
     "/network/parameters": {
       "get": {
         "operationId": "ListNetworkParameters",
@@ -435,6 +451,14 @@
           "items": {
             "$ref": "#/definitions/vegaMarket"
           }
+        }
+      }
+    },
+    "v1ListNetworkLimitsResponse": {
+      "type": "object",
+      "properties": {
+        "network_limits": {
+          "$ref": "#/definitions/vegaNetworkLimits"
         }
       }
     },
@@ -756,9 +780,9 @@
           "format": "uint64",
           "title": "Number of decimal / precision handled by this asset"
         },
-        "min_lp_stake": {
+        "quantum": {
           "type": "string",
-          "title": "Min stake required for this asset from liquidity providers"
+          "title": "The minimum economically meaningful amount in the asset"
         },
         "builtin_asset": {
           "$ref": "#/definitions/vegaBuiltinAsset",
@@ -1045,7 +1069,6 @@
         },
         "offset": {
           "type": "string",
-          "format": "int64",
           "title": "The offset/amount of units away for the order"
         }
       },
@@ -1344,6 +1367,57 @@
       },
       "title": "Time stamps for important times about creating, enacting etc the market"
     },
+    "vegaNetworkLimits": {
+      "type": "object",
+      "properties": {
+        "can_propose_market": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are market proposals allowed at this point in time"
+        },
+        "can_propose_asset": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are asset proposals allowed at this point in time"
+        },
+        "bootstrap_finished": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "True once block count \u003e bootstrapBlockCount"
+        },
+        "propose_market_enabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are market proposals enabled on this chain"
+        },
+        "propose_asset_enabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Are asset proposals enabled on this chain"
+        },
+        "bootstrap_block_count": {
+          "type": "integer",
+          "format": "int64",
+          "title": "How many blocks before the chain comes out of bootstrap mode"
+        },
+        "genesis_loaded": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "True once the genesis file is loaded"
+        },
+        "propose_market_enabled_from": {
+          "type": "string",
+          "format": "int64",
+          "title": "The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)"
+        },
+        "propose_asset_enabled_from": {
+          "type": "string",
+          "format": "int64",
+          "title": "The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)"
+        }
+      },
+      "title": "Network limits, defined in the genesis file"
+    },
     "vegaNetworkParameter": {
       "type": "object",
       "properties": {
@@ -1371,6 +1445,16 @@
     "vegaNewFreeform": {
       "type": "object",
       "properties": {
+        "changes": {
+          "$ref": "#/definitions/vegaNewFreeformDetails",
+          "title": "The configuration of the new freeform"
+        }
+      },
+      "title": "Freeform proposal"
+    },
+    "vegaNewFreeformDetails": {
+      "type": "object",
+      "properties": {
         "url": {
           "type": "string",
           "title": "The URL containing content that describes the proposal"
@@ -1383,8 +1467,7 @@
           "type": "string",
           "title": "The hash on the content of the URL"
         }
-      },
-      "title": "Freeform proposal"
+      }
     },
     "vegaNewMarket": {
       "type": "object",

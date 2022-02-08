@@ -3,8 +3,10 @@ package commands_test
 import (
 	"errors"
 	"fmt"
+	"math"
 	"strconv"
 	"testing"
+	"time"
 
 	"code.vegaprotocol.io/protos/commands"
 	types "code.vegaprotocol.io/protos/vega"
@@ -139,7 +141,11 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a log normal risk parameters change without log normal risk parameters fails", testNewLogNormalRiskParametersChangeSubmissionWithoutLogNormalRiskParametersFails)
 	t.Run("Submitting a log normal risk parameters change with log normal risk parameters succeeds", testNewLogNormalRiskParametersChangeSubmissionWithLogNormalRiskParametersSucceeds)
 	t.Run("Submitting a log normal risk parameters change with params fails", testNewLogNormalRiskParametersChangeSubmissionWithoutParamsFails)
-	t.Run("Submitting a log normal risk parameters change with params succeeds", testNewLogNormalRiskParametersChangeSubmissionWithParamsSucceeds)
+	t.Run("Submitting a log normal risk parameters change with invalid risk aversion", testNewLogNormalRiskParametersChangeSubmissionInvalidRiskAversion)
+	t.Run("Submitting a log normal risk parameters change with invalid tau", testNewLogNormalRiskParametersChangeSubmissionInvalidTau)
+	t.Run("Submitting a log normal risk parameters change with invalid mu", testNewLogNormalRiskParametersChangeSubmissionInvalidMu)
+	t.Run("Submitting a log normal risk parameters change with invalid sigma", testNewLogNormalRiskParametersChangeSubmissionInvalidSigma)
+	t.Run("Submitting a log normal risk parameters change with invalid r", testNewLogNormalRiskParametersChangeSubmissionInvalidR)
 	t.Run("Submitting a new market without liquidity commitment fails", testNewMarketSubmissionWithoutLiquidityCommitmentFails)
 	t.Run("Submitting a new market with liquidity commitment succeeds", testNewMarketSubmissionWithLiquidityCommitmentSucceeds)
 	t.Run("Submitting a new market without commitment amount fails", testNewMarketSubmissionWithoutCommitmentAmountFails)
@@ -162,17 +168,19 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a new market with sell side and order proportion fails", testNewMarketSubmissionWithSellSideAndOrderProportionSucceeds)
 	t.Run("Submitting a new market with buy side and best ask reference fails", testNewMarketSubmissionWithBuySideAndBestAskReferenceFails)
 	t.Run("Submitting a new market with buy side and best bid reference succeeds", testNewMarketSubmissionWithBuySideAndBestBidReferenceSucceeds)
-	t.Run("Submitting a new market with buy side and best bid reference and positive offset fails", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails)
-	t.Run("Submitting a new market with buy side and best bid reference and non positive offset succeeds", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonPositiveOffsetSucceeds)
-	t.Run("Submitting a new market with buy side and mid reference and non-negative offset fails", testNewMarketSubmissionWithBuySideAndMidReferenceAndNonNegativeOffsetFails)
-	t.Run("Submitting a new market with buy side and mid reference and negative offset succeeds", testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds)
+	t.Run("Submitting a new market with buy side and best bid reference and negative offset fails", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNegativeOffsetFails)
+	t.Run("Submitting a new market with buy side and best bid reference and non-negative offset succeeds", testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonNegativeOffsetSucceeds)
+	t.Run("Submitting a new market with buy side and mid reference and non-positive offset fails", testNewMarketSubmissionWithBuySideAndMidReferenceAndNonPositiveOffsetFails)
+	t.Run("Submitting a new market with buy side and mid reference and positive offset succeeds", testNewMarketSubmissionWithBuySideAndMidReferenceAndPositiveOffsetSucceeds)
 	t.Run("Submitting a new market with sell side and best bid reference fails", testNewMarketSubmissionWithSellSideAndBestBidReferenceFails)
 	t.Run("Submitting a new market with sell side and best ask reference succeeds", testNewMarketSubmissionWithSellSideAndBestAskReferenceSucceeds)
 	t.Run("Submitting a new market with sell side and best ask reference and negative offset fails", testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNegativeOffsetFails)
-	t.Run("Submitting a new market with sell side and best ask reference and non negative offset succeeds", testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetSucceeds)
+	t.Run("Submitting a new market with sell side and best ask reference and non-negative offset succeeds", testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetSucceeds)
 	t.Run("Submitting a new market with sell side and mid reference and non-positive offset fails", testNewMarketSubmissionWithSellSideAndMidReferenceAndNonPositiveOffsetFails)
 	t.Run("Submitting a new market with sell side and mid reference and positive offset succeeds", testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds)
 	t.Run("Submitting a new market with a too long reference fails", testNewMarketSubmissionWithTooLongReferenceFails)
+	t.Run("Submitting a future market with internal time for trade termination succeeds", testFutureMarketSubmissionWithInternalTimestampForTradingTerminationSucceeds)
+	t.Run("Submitting a future market with trade termination from external oracle with no public key fails", testFutureMarketSubmissionWithExternalTradingTerminationNoPublicKeyFails)
 }
 
 func testProposalSubmissionWithoutTermsFails(t *testing.T) {
@@ -2989,7 +2997,15 @@ func testNewLogNormalRiskParametersChangeSubmissionWithLogNormalRiskParametersSu
 				NewMarket: &types.NewMarket{
 					Changes: &types.NewMarketConfiguration{
 						RiskParameters: &types.NewMarketConfiguration_LogNormal{
-							LogNormal: &types.LogNormalRiskModel{},
+							LogNormal: &types.LogNormalRiskModel{
+								RiskAversionParameter: 1,
+								Tau:                   2,
+								Params: &types.LogNormalModelParams{
+									Mu:    0,
+									Sigma: 0.1,
+									R:     0,
+								},
+							},
 						},
 					},
 				},
@@ -3018,24 +3034,180 @@ func testNewLogNormalRiskParametersChangeSubmissionWithoutParamsFails(t *testing
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params"), commands.ErrIsRequired)
 }
 
-func testNewLogNormalRiskParametersChangeSubmissionWithParamsSucceeds(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+func testNewLogNormalRiskParametersChangeSubmissionInvalidRiskAversion(t *testing.T) {
+	cZero := &commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewMarket{
 				NewMarket: &types.NewMarket{
 					Changes: &types.NewMarketConfiguration{
 						RiskParameters: &types.NewMarketConfiguration_LogNormal{
 							LogNormal: &types.LogNormalRiskModel{
-								Params: &types.LogNormalModelParams{},
+								RiskAversionParameter: 0,
+								Tau:                   2,
+								Params: &types.LogNormalModelParams{
+									Mu:    0,
+									Sigma: 0.1,
+									R:     0,
+								},
 							},
 						},
 					},
 				},
 			},
 		},
-	})
+	}
+	err := checkProposalSubmission(cZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.risk_aversion_parameter"), commands.ErrMustBePositive)
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params"), commands.ErrIsRequired)
+	cNeg := &commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						RiskParameters: &types.NewMarketConfiguration_LogNormal{
+							LogNormal: &types.LogNormalRiskModel{
+								RiskAversionParameter: -0.1,
+								Tau:                   2,
+								Params: &types.LogNormalModelParams{
+									Mu:    0,
+									Sigma: 0.1,
+									R:     0,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	err = checkProposalSubmission(cNeg)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.risk_aversion_parameter"), commands.ErrMustBePositive)
+}
+
+func testNewLogNormalRiskParametersChangeSubmissionInvalidTau(t *testing.T) {
+	cZero := &commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						RiskParameters: &types.NewMarketConfiguration_LogNormal{
+							LogNormal: &types.LogNormalRiskModel{
+								RiskAversionParameter: 0.1,
+								Tau:                   0,
+								Params: &types.LogNormalModelParams{
+									Mu:    0,
+									Sigma: 0.1,
+									R:     0,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	err := checkProposalSubmission(cZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.tau"), commands.ErrMustBePositive)
+
+	cNeg := &commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						RiskParameters: &types.NewMarketConfiguration_LogNormal{
+							LogNormal: &types.LogNormalRiskModel{
+								RiskAversionParameter: 0.1,
+								Tau:                   -0.2,
+								Params: &types.LogNormalModelParams{
+									Mu:    0,
+									Sigma: 0.1,
+									R:     0,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	err = checkProposalSubmission(cNeg)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.tau"), commands.ErrMustBePositive)
+}
+
+func testNewLogNormalRiskParametersChangeSubmissionInvalidMu(t *testing.T) {
+	cNaN := &commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						RiskParameters: &types.NewMarketConfiguration_LogNormal{
+							LogNormal: &types.LogNormalRiskModel{
+								RiskAversionParameter: 0.1,
+								Tau:                   0.2,
+								Params: &types.LogNormalModelParams{
+									Mu:    math.NaN(),
+									Sigma: 0.1,
+									R:     0,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	err := checkProposalSubmission(cNaN)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.mu"), commands.ErrIsNotValidNumber)
+}
+func testNewLogNormalRiskParametersChangeSubmissionInvalidR(t *testing.T) {
+	cNaN := &commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						RiskParameters: &types.NewMarketConfiguration_LogNormal{
+							LogNormal: &types.LogNormalRiskModel{
+								RiskAversionParameter: 0.1,
+								Tau:                   0.2,
+								Params: &types.LogNormalModelParams{
+									Mu:    0.2,
+									Sigma: 0.1,
+									R:     math.NaN(),
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	err := checkProposalSubmission(cNaN)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.r"), commands.ErrIsNotValidNumber)
+}
+func testNewLogNormalRiskParametersChangeSubmissionInvalidSigma(t *testing.T) {
+	cNaN := &commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						RiskParameters: &types.NewMarketConfiguration_LogNormal{
+							LogNormal: &types.LogNormalRiskModel{
+								RiskAversionParameter: 0.1,
+								Tau:                   0.2,
+								Params: &types.LogNormalModelParams{
+									Mu:    0.2,
+									Sigma: math.NaN(),
+									R:     0,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	err := checkProposalSubmission(cNaN)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma"), commands.ErrIsNotValidNumber)
 }
 
 func testNewMarketSubmissionWithoutLiquidityCommitmentFails(t *testing.T) {
@@ -3188,7 +3360,7 @@ func testNewMarketSubmissionWithBuySideAndNoOrdersFails(t *testing.T) {
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithBuySideAndOrdersSucceeds(t *testing.T) {
@@ -3207,7 +3379,7 @@ func testNewMarketSubmissionWithBuySideAndOrdersSucceeds(t *testing.T) {
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys"), commands.ErrIsRequired)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithSellSideAndNoOrdersFails(t *testing.T) {
@@ -3223,7 +3395,7 @@ func testNewMarketSubmissionWithSellSideAndNoOrdersFails(t *testing.T) {
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithSellSideAndOrdersSucceeds(t *testing.T) {
@@ -3242,7 +3414,7 @@ func testNewMarketSubmissionWithSellSideAndOrdersSucceeds(t *testing.T) {
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells"), commands.ErrIsRequired)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithBuySideAndWrongOrderReferenceFails(t *testing.T) {
@@ -3265,8 +3437,8 @@ func testNewMarketSubmissionWithBuySideAndWrongOrderReferenceFails(t *testing.T)
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.0"), commands.ErrIsNotValid)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.1"), commands.ErrIsNotValid)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.0"), commands.ErrIsNotValid)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.1"), commands.ErrIsNotValid)
 }
 
 func testNewMarketSubmissionWithBuySideAndRightOrderReferenceSucceeds(t *testing.T) {
@@ -3307,8 +3479,8 @@ func testNewMarketSubmissionWithBuySideAndRightOrderReferenceSucceeds(t *testing
 				},
 			})
 
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.0"), commands.ErrIsNotValid)
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.1"), commands.ErrIsNotValid)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.0"), commands.ErrIsNotValid)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.1"), commands.ErrIsNotValid)
 		})
 	}
 }
@@ -3333,8 +3505,8 @@ func testNewMarketSubmissionWithSellSideAndWrongOrderReferenceFails(t *testing.T
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.0"), commands.ErrIsNotValid)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.1"), commands.ErrIsNotValid)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.0"), commands.ErrIsNotValid)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.1"), commands.ErrIsNotValid)
 }
 
 func testNewMarketSubmissionWithSellSideAndRightOrderReferenceSucceeds(t *testing.T) {
@@ -3375,8 +3547,8 @@ func testNewMarketSubmissionWithSellSideAndRightOrderReferenceSucceeds(t *testin
 				},
 			})
 
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.0"), commands.ErrIsNotValid)
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.1"), commands.ErrIsNotValid)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.0"), commands.ErrIsNotValid)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.1"), commands.ErrIsNotValid)
 		})
 	}
 }
@@ -3397,8 +3569,8 @@ func testNewMarketSubmissionWithBuySideAndNoOrderProportionFails(t *testing.T) {
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.proportion.0"), commands.ErrIsRequired)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.proportion.1"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.proportion.0"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.proportion.1"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithBuySideAndOrderProportionSucceeds(t *testing.T) {
@@ -3421,8 +3593,8 @@ func testNewMarketSubmissionWithBuySideAndOrderProportionSucceeds(t *testing.T) 
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.proportion.0"), commands.ErrIsRequired)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.proportion.1"), commands.ErrIsRequired)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.proportion.0"), commands.ErrIsRequired)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.proportion.1"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithSellSideAndNoOrderProportionFails(t *testing.T) {
@@ -3441,8 +3613,8 @@ func testNewMarketSubmissionWithSellSideAndNoOrderProportionFails(t *testing.T) 
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.proportion.0"), commands.ErrIsRequired)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.proportion.1"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.proportion.0"), commands.ErrIsRequired)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.proportion.1"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithSellSideAndOrderProportionSucceeds(t *testing.T) {
@@ -3465,8 +3637,8 @@ func testNewMarketSubmissionWithSellSideAndOrderProportionSucceeds(t *testing.T)
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.proportion.0"), commands.ErrIsRequired)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.proportion.1"), commands.ErrIsRequired)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.proportion.0"), commands.ErrIsRequired)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.proportion.1"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithBuySideAndBestAskReferenceFails(t *testing.T) {
@@ -3489,9 +3661,9 @@ func testNewMarketSubmissionWithBuySideAndBestAskReferenceFails(t *testing.T) {
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.0"),
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.0"),
 		errors.New("cannot have a reference of type BEST_ASK when on BUY side"))
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.1"),
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.1"),
 		errors.New("cannot have a reference of type BEST_ASK when on BUY side"))
 }
 
@@ -3515,13 +3687,13 @@ func testNewMarketSubmissionWithBuySideAndBestBidReferenceSucceeds(t *testing.T)
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.0"),
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.0"),
 		errors.New("cannot have a reference of type BEST_ASK when on BUY side"))
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.reference.1"),
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.reference.1"),
 		errors.New("cannot have a reference of type BEST_ASK when on BUY side"))
 }
 
-func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails(t *testing.T) {
+func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNegativeOffsetFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewMarket{
@@ -3530,11 +3702,11 @@ func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails
 						Buys: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 						},
 					},
@@ -3542,64 +3714,63 @@ func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndPositiveOffsetFails
 			},
 		},
 	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegativeOrZero)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegativeOrZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositiveOrZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositiveOrZero)
 }
 
-func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonPositiveOffsetSucceeds(t *testing.T) {
+func testNewMarketSubmissionWithBuySideAndBestBidReferenceAndNonNegativeOffsetSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value int64
+		value string
 	}{
 		{
 			msg:   "with 0 offset",
-			value: 0,
-		}, {
-			msg:   "with negative offset",
-			value: RandomNegativeI64(),
-		},
-	}
-	for _, tc := range testCases {
-		t.Run(tc.msg, func(t *testing.T) {
-			err := checkProposalSubmission(&commandspb.ProposalSubmission{
-				Terms: &types.ProposalTerms{
-					Change: &types.ProposalTerms_NewMarket{
-						NewMarket: &types.NewMarket{
-							LiquidityCommitment: &types.NewMarketCommitment{
-								Buys: []*types.LiquidityOrder{
-									{
-										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-										Offset:    RandomNegativeI64(),
-									},
-									{
-										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
-										Offset:    RandomNegativeI64(),
-									},
-								},
-							},
-						},
-					},
-				},
-			})
-
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegativeOrZero)
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegativeOrZero)
-		})
-	}
-}
-
-func testNewMarketSubmissionWithBuySideAndMidReferenceAndNonNegativeOffsetFails(t *testing.T) {
-	testCases := []struct {
-		msg   string
-		value int64
-	}{
-		{
-			msg:   "with 0 offset",
-			value: 0,
+			value: "0",
 		}, {
 			msg:   "with positive offset",
-			value: RandomPositiveI64(),
+			value: RandomPositiveU64AsString(),
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.msg, func(t *testing.T) {
+			err := checkProposalSubmission(&commandspb.ProposalSubmission{
+				Terms: &types.ProposalTerms{
+					Change: &types.ProposalTerms_NewMarket{
+						NewMarket: &types.NewMarket{
+							LiquidityCommitment: &types.NewMarketCommitment{
+								Buys: []*types.LiquidityOrder{
+									{
+										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
+										Offset:    tc.value,
+									},
+									{
+										Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID,
+										Offset:    tc.value,
+									},
+								},
+							},
+						},
+					},
+				},
+			})
+
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositiveOrZero)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositiveOrZero)
+		})
+	}
+}
+
+func testNewMarketSubmissionWithBuySideAndMidReferenceAndNonPositiveOffsetFails(t *testing.T) {
+	testCases := []struct {
+		msg   string
+		value string
+	}{
+		{
+			msg:   "with 0 offset",
+			value: "0",
+		}, {
+			msg:   "with negative offset",
+			value: RandomNegativeI64AsString(),
 		},
 	}
 	for _, tc := range testCases {
@@ -3625,13 +3796,13 @@ func testNewMarketSubmissionWithBuySideAndMidReferenceAndNonNegativeOffsetFails(
 				},
 			})
 
-			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegative)
-			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegative)
+			assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositive)
+			assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositive)
 		})
 	}
 }
 
-func testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds(t *testing.T) {
+func testNewMarketSubmissionWithBuySideAndMidReferenceAndPositiveOffsetSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewMarket{
@@ -3640,11 +3811,11 @@ func testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds(
 						Buys: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 						},
 					},
@@ -3653,8 +3824,8 @@ func testNewMarketSubmissionWithBuySideAndMidReferenceAndNegativeOffsetSucceeds(
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.0"), commands.ErrMustBeNegative)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.buys.offset.1"), commands.ErrMustBeNegative)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.0"), commands.ErrMustBePositive)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.buys.offset.1"), commands.ErrMustBePositive)
 }
 
 func testNewMarketSubmissionWithSellSideAndBestBidReferenceFails(t *testing.T) {
@@ -3677,9 +3848,9 @@ func testNewMarketSubmissionWithSellSideAndBestBidReferenceFails(t *testing.T) {
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.0"),
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.0"),
 		errors.New("cannot have a reference of type BEST_BID when on SELL side"))
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.1"),
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.1"),
 		errors.New("cannot have a reference of type BEST_BID when on SELL side"))
 }
 
@@ -3703,9 +3874,9 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceSucceeds(t *testing.T
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.0"),
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.0"),
 		errors.New("cannot have a reference of type BEST_BID when on SELL side"))
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.reference.1"),
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.reference.1"),
 		errors.New("cannot have a reference of type BEST_BID when on SELL side"))
 }
 
@@ -3718,11 +3889,11 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNegativeOffsetFail
 						Sells: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK,
-								Offset:    RandomNegativeI64(),
+								Offset:    RandomNegativeI64AsString(),
 							},
 						},
 					},
@@ -3731,21 +3902,21 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNegativeOffsetFail
 		},
 	})
 
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositiveOrZero)
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositiveOrZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositiveOrZero)
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositiveOrZero)
 }
 
 func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value int64
+		value string
 	}{
 		{
 			msg:   "with 0 offset",
-			value: 0,
+			value: "0",
 		}, {
 			msg:   "with positive offset",
-			value: RandomPositiveI64(),
+			value: RandomPositiveU64AsString(),
 		},
 	}
 	for _, tc := range testCases {
@@ -3771,8 +3942,8 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetS
 				},
 			})
 
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositiveOrZero)
-			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositiveOrZero)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositiveOrZero)
+			assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositiveOrZero)
 		})
 	}
 }
@@ -3780,14 +3951,14 @@ func testNewMarketSubmissionWithSellSideAndBestAskReferenceAndNonNegativeOffsetS
 func testNewMarketSubmissionWithSellSideAndMidReferenceAndNonPositiveOffsetFails(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value int64
+		value string
 	}{
 		{
 			msg:   "with 0 offset",
-			value: 0,
+			value: "0",
 		}, {
 			msg:   "with negative offset",
-			value: RandomNegativeI64(),
+			value: RandomNegativeI64AsString(),
 		},
 	}
 	for _, tc := range testCases {
@@ -3813,8 +3984,8 @@ func testNewMarketSubmissionWithSellSideAndMidReferenceAndNonPositiveOffsetFails
 				},
 			})
 
-			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositive)
-			assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositive)
+			assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositive)
+			assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositive)
 		})
 	}
 }
@@ -3828,11 +3999,11 @@ func testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds
 						Sells: []*types.LiquidityOrder{
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 							{
 								Reference: types.PeggedReference_PEGGED_REFERENCE_MID,
-								Offset:    RandomPositiveI64(),
+								Offset:    RandomPositiveU64AsString(),
 							},
 						},
 					},
@@ -3841,8 +4012,8 @@ func testNewMarketSubmissionWithSellSideAndMidReferenceAndPositiveOffsetSucceeds
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositive)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositive)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.0"), commands.ErrMustBePositive)
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.sells.offset.1"), commands.ErrMustBePositive)
 }
 
 func testNewMarketSubmissionWithTooLongReferenceFails(t *testing.T) {
@@ -3862,4 +4033,75 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) commands.Errors
 	}
 
 	return e
+}
+
+func testFutureMarketSubmissionWithInternalTimestampForTradingTerminationSucceeds(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						Instrument: &types.InstrumentConfiguration{
+							Product: &types.InstrumentConfiguration_Future{
+								Future: &types.FutureProduct{
+									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
+										PubKeys: []string{},
+										Filters: []*oraclespb.Filter{
+											{
+												Key: &oraclespb.PropertyKey{
+													Name: "vegaprotocol.builtin.timestamp",
+													Type: oraclespb.PropertyKey_TYPE_TIMESTAMP,
+												},
+												Conditions: []*oraclespb.Condition{
+													{
+														Operator: oraclespb.Condition_OPERATOR_GREATER_THAN_OR_EQUAL,
+														Value:    fmt.Sprintf("%d", time.Now().Add(time.Hour*24*365).UnixNano()),
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.oracle_spec_for_trading_termination.pub_keys"), commands.ErrIsRequired)
+}
+
+func testFutureMarketSubmissionWithExternalTradingTerminationNoPublicKeyFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						Instrument: &types.InstrumentConfiguration{
+							Product: &types.InstrumentConfiguration_Future{
+								Future: &types.FutureProduct{
+									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
+										PubKeys: []string{},
+										Filters: []*oraclespb.Filter{
+											{
+												Key: &oraclespb.PropertyKey{
+													Name: "trading.terminated",
+													Type: oraclespb.PropertyKey_TYPE_BOOLEAN,
+												},
+												Conditions: []*oraclespb.Condition{},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.oracle_spec_for_trading_termination.pub_keys"), commands.ErrIsRequired)
 }

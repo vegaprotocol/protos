@@ -3,21 +3,21 @@ syntax = "proto3";
 package vega.commands.v1;
 option go_package = "code.vegaprotocol.io/protos/vega/commands/v1";
 
+import "vega/vega.proto";
 import "vega/chain_events.proto";
-import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 // Used to Register a node as a validator during network start-up
 message NodeRegistration {
   // Vega public key, required field
-  string vega_pub_key = 1 [(validator.field) = {string_not_empty: true}];
+  string vega_pub_key = 1;
   // Ethereum public key, required field
-  string ethereum_address = 2 [(validator.field) = {string_not_empty: true}];
+  string ethereum_address = 2;
   // Public key for the blockchain, required field
-  string chain_pub_key = 3 [(validator.field) = {string_not_empty: true}];
+  string chain_pub_key = 3;
   // URL with more info on the node
-  string info_url = 4 [(validator.field) = {string_not_empty: true}];
+  string info_url = 4;
   // Country code (ISO 3166-1 alpha-2) for the location of the node
-  string country = 5 [(validator.field) = {string_not_empty: true}];
+  string country = 5;
   // ID of the validator, (public master key)
   string id = 6;
   // Name of the validator
@@ -32,9 +32,9 @@ message NodeRegistration {
 // for example, an ERC20 deposit is valid and exists on ethereum
 message NodeVote {
   // Public key, required field
-  bytes pub_key = 1 [(validator.field) = {string_not_empty: true}];
+  bytes pub_key = 1;
   // Reference, required field
-  string reference = 2 [(validator.field) = {string_not_empty: true}];
+  string reference = 2;
 }
 
 // The kind of the signature created by a node, for example, allow-listing a new asset, withdrawal etc
@@ -88,4 +88,9 @@ message KeyRotateSubmission {
   string new_pub_key = 3;
   // Hash of currently used public key
   string current_pub_key_hash = 4;
+}
+
+message StateVariableProposal {
+  // The state value proposal details
+  vega.StateValueProposal proposal = 1;
 }

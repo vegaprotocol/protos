@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## Unreleased (0.49.0)
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -13,6 +13,43 @@
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.48.0
+
+### 🚨 Breaking changes
+- [218](https://github.com/vegaprotocol/protos/pull/) - Restructure EthereumConfig to separate staking and vesting contract addresses, plus add block height at which they have been added respectively
+- [256](https://github.com/vegaprotocol/protos/pull/) - Rework freeform proposal protos so that they align with other proposals
+
+### 🗑️ Deprecation
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🛠 Improvements
+- [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
+- [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
+- [212](https://github.com/vegaprotocol/protos/pull/212) - Add pagination field to DelegationRequest
+- [213](https://github.com/vegaprotocol/protos/pull/217) - Add changes for ValidatorPerformance snapshot and events
+- [219](https://github.com/vegaprotocol/protos/pull/219) - Include floating point consensus flags in the snapshot for a market
+- [189](https://github.com/vegaprotocol/protos/pull/189) - Update offset to string and disable negative offset for buy side
+- [225](https://github.com/vegaprotocol/protos/pull/225) - Added snapshot payload for floating point consensus engine
+- [144](https://github.com/vegaprotocol/protos/pull/144) - Remove validation annotations
+- [228](https://github.com/vegaprotocol/protos/pull/228) - Raw Score and Performance added to Node definition for validator performance reporting
+- [230](https://github.com/vegaprotocol/protos/pull/230) - Implement the transfer commands
+- [230](https://github.com/vegaprotocol/protos/pull/230) - Change the transfer command to have recurring transfer end epoch optional
+- [236](https://github.com/vegaprotocol/protos/pull/236) - Implement CancelTransfer command
+- [242](https://github.com/vegaprotocol/protos/pull/242) - Add Submit Raw Transaction endpoint and supporting messages
+- [244](https://github.com/vegaprotocol/protos/pull/244) - Add account types and snapshot definitions for market and fee trackers
+- [240](https://github.com/vegaprotocol/protos/pull/240) - Add transfers snapshot types
+- [248](https://github.com/vegaprotocol/protos/pull/248) - Add transaction hash to events
+- [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash
+- [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
+- [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
+- [272](https://github.com/vegaprotocol/protos/pull/272) - Update snapshot protos to be able to handle the iavl exported nodes
+- [277](https://github.com/vegaprotocol/protos/pull/277) - Update validation for risk params for log normal risk model
+
+### 🐛 Fixes
+- [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
+- [214](https://github.com/vegaprotocol/protos/pull/214) Rewording of transaction nonce and block_height
 
 
 ## 0.47.0
@@ -30,10 +67,16 @@
 - [171](https://github.com/vegaprotocol/protos/pull/171) - Update topology snapshot to reflect key rotations
 - [175](https://github.com/vegaprotocol/protos/pull/175) - Add data node key rotations API
 - [177](https://github.com/vegaprotocol/protos/pull/177) - Add key rotations checkpoint
+- [186](https://github.com/vegaprotocol/protos/pull/186) - Proto definitions for floating point state variable
+- [195](https://github.com/vegaprotocol/protos/pull/195) - Add network limits bus events & GRPC calls
+- [188](https://github.com/vegaprotocol/protos/pull/188) - Add support for filtering & paginating rewards
+- [196](https://github.com/vegaprotocol/protos/pull/196) - Add propose_xxx_enabled_from to network limits event
+- [201](https://github.com/vegaprotocol/protos/pull/201) - Add chain event for stake total supply
+- [207](https://github.com/vegaprotocol/protos/pull/207) - Adding new commands for Liquidity Provision Cancellation and Amendment
 
 ### 🐛 Fixes
 - [173](https://github.com/vegaprotocol/protos/pull/173) - Rename node registration field
-
+- [210](https://github.com/vegaprotocol/protos/pull/210) - Remove redundant Id field from Liquidity Provision Cancellation and Amendment messages.
 
 ## 0.46.0
 *2021-11-22*

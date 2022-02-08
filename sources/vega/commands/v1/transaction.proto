@@ -8,13 +8,26 @@ import "vega/commands/v1/validator_commands.proto";
 import "vega/commands/v1/oracles.proto";
 
 message InputData {
-  // A random number used to provided uniqueness and prevents against replay
-  // attack.
+  // A number to provide uniqueness to prevent accidental replays and,
+  // in combination with `block_height`, deliberate attacks.
+  // A nonce provides uniqueness for otherwise identical transactions,
+  // ensuring that the transaction hash uniquely identifies a specific transaction.
+  // Granted all other fields are equal, the nonce can either be a counter
+  // or generated at random to submit multiple transactions within the same
+  // block (see below), without being identified as replays.
+  // Please note that Protocol Buffers do not have a canonical, unique encoding
+  // and therefore different libraries or binaries may encode the same message
+  // slightly differently, causing a different hash.
   uint64 nonce = 1;
 
-  // The block height associated to the transaction.
-  // This should always be current height of the node at the time of sending the
-  // Tx. BlockHeight is used as a mechanism for replay protection.
+  // The block height at which the transaction was made.
+  // This should be the current block height. The transaction will be valid
+  // from the block and up to the `tolerance` block height.
+  // Example: If the network has a tolerance of 150 blocks and `block_height`
+  // is set to `200`, then the transaction will be valid until block `350`.
+  // Note that a `block_height` that is ahead of the real block height will be
+  // rejected. The tolerance can be queried from the chain's network parameters.
+  // `block_height` prevents replay attacks in conjunction with `nonce` (see above).
   uint64 block_height = 2;
 
   oneof command {
@@ -28,6 +41,10 @@ message InputData {
     LiquidityProvisionSubmission liquidity_provision_submission = 1007;
     DelegateSubmission delegate_submission = 1008;
     UndelegateSubmission undelegate_submission = 1009;
+    LiquidityProvisionCancellation liquidity_provision_cancellation = 1010;
+    LiquidityProvisionAmendment liquidity_provision_amendment = 1011;
+    Transfer transfer = 1012;
+    CancelTransfer cancel_transfer = 1013;
 
     // Validator commands
     NodeRegistration node_registration = 2001;
@@ -35,6 +52,7 @@ message InputData {
     NodeSignature node_signature = 2003;
     ChainEvent chain_event = 2004;
     KeyRotateSubmission key_rotate_submission = 2005;
+    StateVariableProposal state_variable_proposal = 2006;
 
     // Oracles
     OracleDataSubmission oracle_data_submission = 3001;
@@ -61,12 +79,12 @@ message Transaction {
     string pub_key = 1002;
   }
 
-  // A version of the transaction, to be used in the future in case we want to
-  // implement changes to the Transaction format.
+  // A version of the transaction, to be used in the future in case changes are implemented
+  // to the Transaction format.
   uint32 version = 2000;
 }
 
-// A signature to be authenticate a transaction and to be verified by the vega
+// A signature to authenticate a transaction and to be verified by the Vega
 // network.
 message Signature {
   // The bytes of the signature (hex-encoded).

@@ -1,9 +1,16 @@
 package commands_test
 
-import "math/rand"
+import (
+	"math/rand"
+	"strconv"
+)
 
 func RandomNegativeI64() int64 {
 	return (rand.Int63n(1000) + 1) * -1
+}
+
+func RandomNegativeI64AsString() string {
+	return strconv.FormatInt(RandomNegativeI64(), 10)
 }
 
 func RandomI64() int64 {
@@ -24,6 +31,10 @@ func RandomPositiveU32() uint32 {
 
 func RandomPositiveU64() uint64 {
 	return rand.Uint64() + 1
+}
+
+func RandomPositiveU64AsString() string {
+	return strconv.FormatUint(RandomPositiveU64(), 10)
 }
 
 func RandomPositiveU64Before(n int64) uint64 {

@@ -3,7 +3,6 @@ syntax = "proto3";
 package vega;
 option go_package = "code.vegaprotocol.io/protos/vega";
 
-import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "vega/markets.proto";
 import "vega/assets.proto";
 
@@ -60,7 +59,7 @@ message Timestamp {
 // A party represents an entity who wishes to trade on or query a Vega network
 message Party {
   // A unique identifier for the party, typically represented by a public key
-  string id = 1 [(validator.field) = {msg_exists : true}];
+  string id = 1;
 }
 
 // Risk factors are used to calculate the current risk associated with orders trading on a given market
@@ -68,21 +67,9 @@ message RiskFactor {
   // Market ID that relates to this risk factor
   string market = 1;
   // Short Risk factor value
-  double short = 2;
+  string short = 2;
   // Long Risk factor value
-  double long = 3;
-}
-
-// Risk results are calculated internally by Vega to attempt to maintain safe trading
-message RiskResult {
-  // Timestamp for when risk factors were generated
-  int64 updated_timestamp = 1;
-  // Risk factors (long and short) for each margin-able asset/currency (usually == settlement assets) in the market
-  map<string, RiskFactor> risk_factors = 2;
-  // Timestamp for when risk factors are expected to change (or empty if risk factors are continually updated)
-  int64 next_update_timestamp = 3;
-  // Predicted risk factors at next change (what they would be if the change occurred now)
-  map<string, RiskFactor> predicted_next_risk_factors = 4;
+  string long = 3;
 }
 
 // Auction triggers indicate what condition triggered an auction (if market is in auction mode)
@@ -118,7 +105,7 @@ message PeggedOrder {
   // Which price point are we linked to
   PeggedReference reference = 1;
   // Offset from the price reference
-  int64 offset = 2;
+  string offset = 2;
 }
 
 // An order can be submitted, amended and cancelled on Vega in an attempt to make trades with other parties
@@ -272,6 +259,8 @@ message AuctionIndicativeState {
 // OrderError codes are returned in the `[Order](#vega.Order).reason` field - If there is an issue
 // with an order during its life-cycle, it will be marked with `status.ORDER_STATUS_REJECTED`
 enum OrderError {
+  reserved 38, 39;
+
   // Default value, no error reported
   ORDER_ERROR_UNSPECIFIED = 0;
   // Order was submitted for a market that does not exist
@@ -349,10 +338,6 @@ enum OrderError {
   ORDER_ERROR_WITHOUT_REFERENCE_PRICE = 36;
   // Buy pegged order cannot reference best ask price
   ORDER_ERROR_BUY_CANNOT_REFERENCE_BEST_ASK_PRICE = 37;
-  // Pegged order offset must be <= 0
-  ORDER_ERROR_OFFSET_MUST_BE_LESS_OR_EQUAL_TO_ZERO = 38;
-  // Pegged order offset must be < 0
-  ORDER_ERROR_OFFSET_MUST_BE_LESS_THAN_ZERO = 39;
   // Pegged order offset must be >= 0
   ORDER_ERROR_OFFSET_MUST_BE_GREATER_OR_EQUAL_TO_ZERO = 40;
   // Sell pegged order cannot reference best bid price
@@ -444,7 +429,7 @@ message Fee {
 
 message TradeSet {
   // A set of one or more trades
-    repeated Trade trades = 1;
+  repeated Trade trades = 1;
 }
 
 // Represents the high, low, open, and closing prices for an interval of trading,
@@ -513,7 +498,7 @@ message Position {
   // Open volume for the position, value is signed +ve for long and -ve for short
   int64 open_volume = 3;
   // Realised profit and loss for the position, value is signed +ve for long and -ve for short
-  string realised_pnl  = 4;
+  string realised_pnl = 4;
   // Unrealised profit and loss for the position, value is signed +ve for long and -ve for short
   string unrealised_pnl = 5;
   // Average entry price for the position, the price is an integer, for example `123456` is a correctly
@@ -586,7 +571,7 @@ message Withdrawal {
     // The withdrawal is open and being processed by the network
     STATUS_OPEN = 1;
     // The withdrawal have been cancelled
-    STATUS_CANCELLED = 2;
+    STATUS_REJECTED = 2;
     // The withdrawal went through and is fully finalised, the funds are removed from the
     // Vega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network
     STATUS_FINALIZED = 3;
@@ -674,6 +659,21 @@ enum AccountType {
   // Global reward account for the asset
   ACCOUNT_TYPE_GLOBAL_REWARD = 12;
 
+  // Per asset account used to store pending transfers (if any)
+  ACCOUNT_TYPE_PENDING_TRANSFERS = 13;
+
+  // Per asset reward account for fees paid by takers
+  ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES = 14;
+
+  // Per asset reward account for fees received by makers
+  ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES = 15;
+
+  // Per asset reward account for fees received by liquidity providers
+  ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES = 16;
+
+  // Per asset reward account for market proposers when the market goes above some trading threshold
+  ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS = 17;
+
   // Note: If adding an enum value, add a matching entry in:
   //       - gateway/graphql/helpers_enum.go
   //       - gateway/graphql/schema.graphql (enum AccountType)
@@ -752,6 +752,10 @@ enum TransferType {
   TRANSFER_TYPE_BOND_SLASHING = 20;
   // Stake reward
   TRANSFER_TYPE_STAKE_REWARD = 21;
+  // Transfer funds
+  TRANSFER_TYPE_TRANSFER_FUNDS_SEND = 22;
+  // Transfer funds
+  TRANSFER_TYPE_TRANSFER_FUNDS_DISTRIBUTE = 23;
 }
 
 // Represents a financial transfer within Vega
@@ -938,6 +942,28 @@ message NetworkParameter {
   string value = 2;
 }
 
+// Network limits, defined in the genesis file
+message NetworkLimits {
+  // Are market proposals allowed at this point in time
+  bool can_propose_market = 1;
+  // Are asset proposals allowed at this point in time
+  bool can_propose_asset = 2;
+  // True once block count > bootstrapBlockCount
+  bool bootstrap_finished = 3;
+  // Are market proposals enabled on this chain
+  bool propose_market_enabled = 4;
+  // Are asset proposals enabled on this chain
+  bool propose_asset_enabled = 5;
+  // How many blocks before the chain comes out of bootstrap mode
+  uint32 bootstrap_block_count = 6;
+  // True once the genesis file is loaded
+  bool genesis_loaded = 7;
+  // The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)
+  int64 propose_market_enabled_from = 8;
+  // The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)
+  int64 propose_asset_enabled_from = 9;
+}
+
 // Represents a liquidity order
 message LiquidityOrder {
   // The pegged reference point for the order
@@ -945,7 +971,7 @@ message LiquidityOrder {
   // The relative proportion of the commitment to be allocated at a price level
   uint32 proportion = 2;
   // The offset/amount of units away for the order
-  int64 offset = 3;
+  string offset = 3;
 }
 
 // A pair of a liquidity order and the id of the generated order by the core
@@ -989,7 +1015,7 @@ message LiquidityProvision {
   // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
   int64 updated_at = 4;
   // Market identifier for the order, required field
-  string market_id = 5 [(validator.field) = {string_not_empty: true}];
+  string market_id = 5;
   // Specified as a unitless number that represents the amount of settlement asset of the market
   string commitment_amount = 6;
   // Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers
@@ -997,7 +1023,7 @@ message LiquidityProvision {
   // A set of liquidity sell orders to meet the liquidity provision obligation
   repeated LiquidityOrderReference sells = 8;
   // A set of liquidity buy orders to meet the liquidity provision obligation
-  repeated LiquidityOrderReference buys  = 9;
+  repeated LiquidityOrderReference buys = 9;
   // Version of this liquidity provision order
   string version = 10;
   // Status of this liquidity provision order
@@ -1006,18 +1032,31 @@ message LiquidityProvision {
   string reference = 12;
 }
 
-// Ethereum configuration details
+// Ethereum configuration details.
 message EthereumConfig {
-  // Network identifier of this Ethereum network
+  // Network identifier of this Ethereum network.
   string network_id = 1;
-  // Chain identifier of this Ethereum network
+  // Chain identifier of this Ethereum network.
   string chain_id = 2;
-  // Bridge address for this Ethereum network
-  string bridge_address = 3;
-  // Number of confirmations
+  //// Contract configuration of the collateral bridge contract for this Ethereum network.
+  EthereumContractConfig collateral_bridge_contract = 3;
+  // Number of block confirmations to wait to consider an Ethereum transaction trusted.
+  // An Ethereum block is trusted when there are at least "n" blocks confirmed by the
+  // network, "n" being the number of `confirmations` required. If `confirmations` was set to `3`,
+  // and the current block to be forged (or mined) on Ethereum is block 14, block
+  // 10 would be considered as trusted, but not block 11.
   uint32 confirmations = 4;
-  // Staking Bridge addresses for the ethereum network
-  repeated string staking_bridge_addresses = 5;
+  // Contract configuration of the stacking bridge contract for this Ethereum network.
+  EthereumContractConfig staking_bridge_contract = 5;
+  // Contract configuration of the token vesting contract for this Ethereum network.
+  EthereumContractConfig token_vesting_contract = 6;
+}
+
+message EthereumContractConfig {
+  // Address of the contract for this Ethereum network. The address should start with "0x".
+  string address = 1;
+  // Block height at which the stacking contract has been deployed for this Ethereum network.
+  uint64 deployment_block_height = 6;
 }
 
 // Node status type
@@ -1059,7 +1098,7 @@ message Epoch {
   // Sequence is used as epoch identifier
   uint64 seq = 1;
   // Timestamps for start/end etc
-  EpochTimestamps timestamps = 2 [(validator.field) = {msg_exists : true}];
+  EpochTimestamps timestamps = 2;
   // Validators that participated in this epoch
   repeated Node validators = 3;
   // List of all delegations in epoch
@@ -1067,7 +1106,7 @@ message Epoch {
 }
 
 message EpochParticipation {
-  Epoch epoch = 1 [(validator.field) = {string_not_empty : true}];
+  Epoch epoch = 1;
   uint64 offline = 2;
   uint64 online = 3;
   double total_rewards = 4;
@@ -1086,7 +1125,7 @@ message Node {
   // The node ID (wallet ID)
   string id = 1;
   // Pub key of the node operator
-  string pub_key = 2 [(validator.field) = {string_not_empty : true}];
+  string pub_key = 2;
   // Public key of Tendermint
   string tm_pub_key = 3;
   // Ethereum public key of the node
@@ -1106,9 +1145,9 @@ message Node {
   // Amount of stake on the next epoch
   string pending_stake = 11;
   // Informantion about epoch
-  EpochData epoch_data = 12 [(validator.field) = {msg_exists : true}];
+  EpochData epoch_data = 12;
   // Node status
-  NodeStatus status = 13 [(validator.field) = {msg_exists : true}];
+  NodeStatus status = 13;
   // Node's delegations
   repeated Delegation delegations = 14;
   // Node score
@@ -1119,6 +1158,10 @@ message Node {
   string name = 17;
   // Avatar url
   string avatar_url = 18;
+  // Performance
+  string performance = 19;
+  // Raw Score
+  string raw_score=20;
 }
 
 message NodeData {
@@ -1146,21 +1189,58 @@ message Delegation {
 }
 
 // Details for a single reward payment
-message RewardDetails {
-   string asset_id = 1;
-   string party_id = 2;
-   uint64 epoch = 3;
-   string amount = 4;
-   string percentage_of_total = 5;
-   int64 received_at = 6;
+message Reward {
+  string asset_id = 1;
+  string party_id = 2;
+  uint64 epoch = 3;
+  string amount = 4;
+  string percentage_of_total = 5;
+  int64 received_at = 6;
 }
 
 // Details for rewards for a single asset
-message RewardPerAssetDetail {
-  // asset details
-  string asset = 1;
-  // rewards ordered by received_at
-  repeated RewardDetails details = 2;
+message RewardSummary {
+  string asset_id = 1;
+  string party_id = 2;
   // Total amount of rewards for the asset
-  string total_for_asset = 3;
+  string amount = 3;
+}
+
+message StateValueProposal {
+  // state variable identifier
+  string state_var_id = 1;
+  // event identifier
+  string event_id = 2;
+  // key value tolerance triplets
+  repeated KeyValueBundle kvb = 3;
+}
+
+message KeyValueBundle {
+  string key = 1;
+  string tolerance = 2;
+  StateVarValue value = 3;
+}
+
+message StateVarValue {
+  oneof value {
+    ScalarValue scalar_val = 1;
+    VectorValue vector_val = 2;
+    MatrixValue matrix_val = 3;
+  }
+}
+
+message ScalarValue {
+  string value = 1;
+}
+
+message VectorValue {
+  repeated string value = 1;
+}
+
+message MatrixValue {
+  repeated VectorValue value = 1;
+}
+
+message Uint64Value {
+  uint64 value = 1;
 }

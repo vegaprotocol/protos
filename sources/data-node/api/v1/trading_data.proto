@@ -12,7 +12,6 @@ import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/transaction.proto";
 import "vega/commands/v1/validator_commands.proto";
-import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package datanode.api.v1;
 
@@ -133,6 +132,9 @@ service TradingDataService {
   // Get governance data (proposals and votes) for proposals aiming to create new assets
   rpc GetNewAssetProposals(GetNewAssetProposalsRequest) returns (GetNewAssetProposalsResponse);
 
+   // Get governance data (proposals and votes) for proposals aiming to create freeform proposals
+   rpc GetNewFreeformProposals(GetNewFreeformProposalsRequest) returns (GetNewFreeformProposalsResponse);
+
   // Get governance data (proposals and votes) for a proposal located by ID
   rpc GetProposalByID(GetProposalByIDRequest) returns (GetProposalByIDResponse);
 
@@ -164,7 +166,7 @@ service TradingDataService {
 
   // Get a specific node by ID
   rpc GetNodeByID(GetNodeByIDRequest) returns (GetNodeByIDResponse);
-  
+
   // Get all key rotations
   rpc GetKeyRotations(GetKeyRotationsRequest) returns (GetKeyRotationsResponse);
 
@@ -255,21 +257,36 @@ service TradingDataService {
   // Get all oracle data
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
 
-  // subscribe to reward details 
-  rpc ObserveRewardDetails(ObserveRewardDetailsRequest) returns (stream ObserveRewardDetailsResponse);
+  // subscribe to rewards
+  rpc ObserveRewards(ObserveRewardsRequest) returns (stream ObserveRewardsResponse);
 
-  // Get Reward data
-  rpc GetRewardDetails(GetRewardDetailsRequest) returns (GetRewardDetailsResponse);
+  // Get rewards
+  rpc GetRewards(GetRewardsRequest) returns (GetRewardsResponse);
+
+  // Get reward summaries
+  rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
 
   rpc Checkpoints(CheckpointsRequest) returns (CheckpointsResponse);
 
   // Get delegation data
   rpc Delegations(DelegationsRequest) returns (DelegationsResponse);
 
-  // subscribe to delegation events 
+  // subscribe to delegation events
   rpc ObserveDelegations(ObserveDelegationsRequest) returns (stream ObserveDelegationsResponse);
 
   rpc PartyStake(PartyStakeRequest) returns (PartyStakeResponse);
+
+  rpc Transfers(TransfersRequest) returns (TransfersResponse);
+}
+
+message TransfersRequest {
+  string pubkey =  1;
+  bool is_from = 2;
+  bool is_to = 3;
+}
+
+message TransfersResponse {
+  repeated vega.events.v1.Transfer transfers = 1;
 }
 
 // both fields optional but 1 of them required at least
@@ -280,6 +297,9 @@ message DelegationsRequest {
   string party = 1;
   string node_id = 2;
   string epoch_seq = 3;
+  // Pagination controls
+  Pagination pagination = 4;
+
 }
 
 message DelegationsResponse {
@@ -380,7 +400,7 @@ message AssetsResponse {
 // Request for an asset given an asset identifier
 message AssetByIDRequest {
   // Asset identifier, required field
-  string id = 1 [(validator.field) = {string_not_empty : true}];
+  string id = 1;
 }
 
 // Response for an asset given an asset identifier
@@ -392,7 +412,7 @@ message AssetByIDResponse {
 // Request to specify the identifier of the resource we want to retrieve aggregated signatures for
 message GetNodeSignaturesAggregateRequest {
   // Resource identifier, required field
-  string id = 1 [(validator.field) = {string_not_empty : true}];
+  string id = 1;
 }
 
 // Response to specify the identifier of the resource we want to retrieve aggregated signatures for
@@ -422,7 +442,7 @@ message GetProposalsResponse {
 // Request for a list of proposals for a party
 message GetProposalsByPartyRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty : true}];
+  string party_id = 1;
   // Optional proposal state
   OptionalProposalState select_in_state = 2;
 }
@@ -436,7 +456,7 @@ message GetProposalsByPartyResponse {
 // Request for a list of votes for a party
 message GetVotesByPartyRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty : true}];
+  string party_id = 1;
 }
 
 // Response for a list of votes for a party
@@ -460,7 +480,7 @@ message GetNewMarketProposalsResponse {
 // Request for a list of update market proposals
 message GetUpdateMarketProposalsRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty : true}];
+  string market_id = 1;
   // Proposal state
   OptionalProposalState select_in_state = 2;
 }
@@ -483,6 +503,18 @@ message GetNetworkParametersProposalsResponse {
   repeated vega.GovernanceData data = 1;
 }
 
+// Request for a list of new freeform proposals
+message GetNewFreeformProposalsRequest {
+  // Optional proposal state
+  OptionalProposalState select_in_state = 1;
+}
+
+// Response for a list of new freeform proposals
+message GetNewFreeformProposalsResponse {
+  // A list of 0 or more governance data
+  repeated vega.GovernanceData data = 1;
+}
+
 // Request for a list of new asset proposals
 message GetNewAssetProposalsRequest {
   // Optional proposal state
@@ -498,7 +530,7 @@ message GetNewAssetProposalsResponse {
 // Request for a governance proposal given a proposal identifier
 message GetProposalByIDRequest {
   // Proposal identifier, required field
-  string proposal_id = 1 [(validator.field) = {string_not_empty : true}];
+  string proposal_id = 1;
 }
 
 // Response for a governance proposal given a proposal identifier
@@ -510,7 +542,7 @@ message GetProposalByIDResponse {
 // Request for a governance proposal given a proposal reference
 message GetProposalByReferenceRequest {
   // Proposal reference. Required field
-  string reference = 1 [(validator.field) = {string_not_empty : true}];
+  string reference = 1;
 }
 
 // Response for a governance proposal given a proposal reference
@@ -530,7 +562,7 @@ message ObserveGovernanceResponse {
 // Request to subscribe to a stream of governance proposals for a party
 message ObservePartyProposalsRequest {
   // Party identifier, required field
-  string party_id = 1  [(validator.field) = {string_not_empty : true }];
+  string party_id = 1 ;
 }
 
 message ObservePartyProposalsResponse {
@@ -540,7 +572,7 @@ message ObservePartyProposalsResponse {
 // Request to subscribe to a stream of governance votes for a proposal
 message ObserveProposalVotesRequest {
   // Proposal identifier, required field
-  string proposal_id = 1  [(validator.field) = {string_not_empty : true }];
+  string proposal_id = 1 ;
 }
 
 message ObserveProposalVotesResponse {
@@ -550,7 +582,7 @@ message ObserveProposalVotesResponse {
 // Request to subscribe to a stream of governance votes for a party
 message ObservePartyVotesRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string party_id = 1;
 }
 
 message ObservePartyVotesResponse {
@@ -561,7 +593,7 @@ message ObservePartyVotesResponse {
 // Optionally, the list can be additionally filtered by market
 message MarginLevelsSubscribeRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string party_id = 1;
   // Market identifier
   string market_id = 2;
 }
@@ -573,7 +605,7 @@ message MarginLevelsSubscribeResponse {
 // Request for margin levels for a party
 message MarginLevelsRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string party_id = 1;
   // Market identifier
   string market_id = 2;
 }
@@ -598,7 +630,7 @@ message MarketsDataSubscribeResponse {
 // Request for market data for a market
 message MarketDataByIDRequest {
   // Market identifier
-  string market_id = 1 [(validator.field) = {string_not_empty : true }];
+  string market_id = 1;
 }
 
 // Response for market data for a market
@@ -619,7 +651,7 @@ message MarketsDataResponse {
 // Request for the latest trade that occurred on Vega for a given market
 message LastTradeRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty : true }];
+  string market_id = 1;
 }
 
 // Response for the latest trade that occurred on Vega for a given market
@@ -631,7 +663,7 @@ message LastTradeResponse {
 // Request for a market given a market identifier
 message MarketByIDRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty : true }];
+  string market_id = 1;
 }
 
 // Response for a market given a market identifier
@@ -643,7 +675,7 @@ message MarketByIDResponse {
 // Request for a party given a party identifier
 message PartyByIDRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string party_id = 1;
 }
 
 // Response for a party given a party identifier
@@ -737,7 +769,7 @@ message TradesSubscribeRequest {
 // Request to subscribe to a stream of (Candles)[#vega.Candle]
 message CandlesSubscribeRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty : true}];
+  string market_id = 1;
   // Time interval for the candles, required field.
   vega.Interval interval = 2;
 }
@@ -749,7 +781,7 @@ message CandlesSubscribeResponse {
 // Request to subscribe to a stream of (MarketDepth)[#vega.MarketDepth] data
 message MarketDepthSubscribeRequest {
   // Market identifier, required field.
-  string market_id = 1 [(validator.field) = {string_not_empty : true}];
+  string market_id = 1;
 }
 
 message MarketDepthSubscribeResponse {
@@ -759,7 +791,7 @@ message MarketDepthSubscribeResponse {
 // Request to subscribe to a stream of (MarketDepth Update)[#vega.MarketDepthUpdate] data
 message MarketDepthUpdatesSubscribeRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty : true}];
+  string market_id = 1;
 }
 
 message MarketDepthUpdatesSubscribeResponse {
@@ -781,7 +813,7 @@ message PositionsSubscribeResponse {
 // Request for a list of orders for a market
 message OrdersByMarketRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty : true}];
+  string market_id = 1;
   // Optional pagination controls
   Pagination pagination = 2;
 }
@@ -795,7 +827,7 @@ message OrdersByMarketResponse {
 // Request for a list of orders for a party
 message OrdersByPartyRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string party_id = 1;
   // Pagination controls
   Pagination pagination = 2;
 }
@@ -809,9 +841,9 @@ message OrdersByPartyResponse {
 // Request for an order on a market given an order identifier
 message OrderByMarketAndIDRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty : true}];
+  string market_id = 1;
   // Order identifier, required field
-  string order_id = 2 [(validator.field) = {string_not_empty : true}];
+  string order_id = 2;
 }
 
 // Response for an order on a market given an order identifier
@@ -823,7 +855,7 @@ message OrderByMarketAndIDResponse {
 // Request for an order given an order reference
 message OrderByReferenceRequest {
   // Unique reference, required field
-  string reference = 1 [(validator.field) = {string_not_empty : true}];
+  string reference = 1;
 }
 
 // Response for an order given an order reference
@@ -844,10 +876,10 @@ message MarketsResponse {
 // Request for a list of candles for a market at an interval
 message CandlesRequest {
   // Market identifier, required field.
-  string market_id = 1 [(validator.field) = {string_not_empty : true}];
+  string market_id = 1;
   // Timestamp to retrieve candles since, in nanoseconds since the epoch,
   // required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
-  int64 since_timestamp = 2 [(validator.field) = {int_gt: 0}];
+  int64 since_timestamp = 2;
   // Time interval for the candles, required field
   vega.Interval interval = 3;
 }
@@ -862,7 +894,7 @@ message CandlesResponse {
 // Optionally, a maximum depth can be set to limit the number of levels returned
 message MarketDepthRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty: true}];
+  string market_id = 1;
   // Max depth limits the number of levels returned. Default is 0, which returns all levels
   uint64 max_depth = 2;
 }
@@ -884,7 +916,7 @@ message MarketDepthResponse {
 // Request for a list of trades on a market
 message TradesByMarketRequest {
   // Market identifier, required field
-  string market_id = 1 [(validator.field) = {string_not_empty: true}];
+  string market_id = 1;
   // Pagination controls
   Pagination pagination = 2;
 }
@@ -899,7 +931,7 @@ message TradesByMarketResponse {
 // Optionally, if a market identifier is set, the results will be filtered for that market only
 message PositionsByPartyRequest {
   // Party identifier, required field
-  string party_id = 1 [(validator.field) = {string_not_empty: true}];
+  string party_id = 1;
   // Market identifier
   string market_id = 2;
 }
@@ -1013,7 +1045,7 @@ message GlobalRewardPoolAccountsResponse {
 // Optionally, return a specific version of the order with the `version` field
 message OrderByIDRequest {
   // Order identifier, required field
-  string order_id = 1 [(validator.field) = {msg_exists: true}];
+  string order_id = 1;
   // Version of the order:
   // - Set `version` to 0 for most recent version of the order
   // - Set `1` for original version of the order
@@ -1028,7 +1060,7 @@ message OrderByIDResponse {
 // Request for a list of all versions of an order given the specified order identifier
 message OrderVersionsByIDRequest {
   // Order identifier, required field
-  string order_id = 1 [(validator.field) = {msg_exists: true}];
+  string order_id = 1;
   // Pagination controls
   Pagination pagination = 2;
 }
@@ -1094,7 +1126,7 @@ message ObserveEventBusResponse {
 // A request to get a list of withdrawal from a given party
 message WithdrawalsRequest {
   // The party to get the withdrawals for
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string party_id = 1;
 }
 
 // The response for a list of withdrawals
@@ -1106,7 +1138,7 @@ message WithdrawalsResponse {
 // A request to get a specific withdrawal by identifier
 message WithdrawalRequest {
   // The identifier of the withdrawal
-  string id = 1 [(validator.field) = {string_not_empty : true }];
+  string id = 1;
 }
 
 // A response for a withdrawal
@@ -1118,7 +1150,7 @@ message WithdrawalResponse {
 // The request to get all information required to bundle the call to finalise the withdrawal on the erc20 bridge
 message ERC20WithdrawalApprovalRequest {
   // The identifier of the withdrawal
-  string withdrawal_id = 1 [(validator.field) = {string_not_empty : true }];
+  string withdrawal_id = 1;
 }
 
 // The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge
@@ -1142,7 +1174,7 @@ message ERC20WithdrawalApprovalResponse {
 // A request to get a list of deposit from a given party
 message DepositsRequest {
   // The party to get the deposits for
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+  string party_id = 1;
 }
 
 // The response for a list of deposits
@@ -1154,7 +1186,7 @@ message DepositsResponse {
 // A request to get a specific deposit by identifier
 message DepositRequest {
   // The identifier of the deposit
-  string id = 1 [(validator.field) = {string_not_empty : true }];
+  string id = 1;
 }
 
 // A response for a deposit
@@ -1188,7 +1220,7 @@ message LiquidityProvisionsResponse {
 // A request to get a specific oracle spec by identifier
 message OracleSpecRequest {
   // The id to get the oracle spec for
-  string id = 1 [(validator.field) = {string_not_empty : true }];
+  string id = 1;
 }
 
 // A response for a oracle spec
@@ -1210,7 +1242,7 @@ message OracleSpecsResponse {
 // A request to all oracle data broadcast to a given spec
 message OracleDataBySpecRequest {
   // The id to get the oracle spec for
-  string id = 1 [(validator.field) = {string_not_empty : true }];
+  string id = 1;
 }
 
 // The response for a list of all oracle data broadcast to a given spec
@@ -1219,24 +1251,38 @@ message OracleDataBySpecResponse {
   repeated oracles.v1.OracleData oracle_data = 1;
 }
 
-message ObserveRewardDetailsRequest {
+message ObserveRewardsRequest {
   string asset_id = 1;
-  string party = 2; 
+  string party = 2;
 }
 
-message ObserveRewardDetailsResponse {
-  vega.RewardDetails reward_details = 1;
+message ObserveRewardsResponse {
+  vega.Reward reward = 1;
 }
 
 // A request to get reward details for a party
-message GetRewardDetailsRequest {
-  string party_id = 1 [(validator.field) = {string_not_empty : true }];
+message GetRewardSummariesRequest {
+  string party_id = 1;
+  string asset_id = 2;
 }
 
 // The return message with reward details in for a single party
-message GetRewardDetailsResponse {
-  repeated vega.RewardPerAssetDetail reward_details = 1;
+message GetRewardSummariesResponse {
+  repeated vega.RewardSummary summaries = 1;
 }
+
+// A request to get reward details for a party
+message GetRewardsRequest {
+  string party_id = 1;
+  string asset_id = 2;
+  Pagination pagination = 3;
+}
+
+// The return message with reward details in for a single party
+message GetRewardsResponse {
+  repeated vega.Reward rewards = 1;
+}
+
 
 // The actual data regarding a checkpoint
 message Checkpoint {

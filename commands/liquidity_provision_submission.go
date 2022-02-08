@@ -14,8 +14,8 @@ var (
 	ErrOrderInShapeWithoutReference         = errors.New("order in shape without reference")
 	ErrOrderInShapeWithoutProportion        = errors.New("order in shape without a proportion")
 	ErrOrderInBuySideShapeWithBestAskPrice  = errors.New("order in buy side shape with best ask price reference")
-	ErrOrderInBuySideShapeOffsetSup0        = errors.New("order in buy side shape offset must be <= 0")
-	ErrOrderInBuySideShapeOffsetSupEq0      = errors.New("order in buy side shape offset must be < 0")
+	ErrOrderInBuySideShapeOffsetInf0        = errors.New("order in buy side shape offset must be >= 0")
+	ErrOrderInBuySideShapeOffsetInfEq0      = errors.New("order in buy side shape offset must be > 0")
 	ErrOrderInSellSideShapeOffsetInf0       = errors.New("order in sell shape offset must be >= 0")
 	ErrOrderInSellSideShapeWithBestBidPrice = errors.New("order in sell side shape with best bid price reference")
 	ErrOrderInSellSideShapeOffsetInfEq0     = errors.New("order in sell shape offset must be > 0")
@@ -47,10 +47,10 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 
 	if len(cmd.CommitmentAmount) > 0 {
 		if commitment, ok := big.NewInt(0).SetString(cmd.CommitmentAmount, 10); !ok {
-			errs.AddForProperty("liquidity_provision_subission.commitment_amount", ErrNotAValidInteger)
+			errs.AddForProperty("liquidity_provision_submission.commitment_amount", ErrNotAValidInteger)
 		} else {
 			if commitment.Cmp(big.NewInt(0)) == 0 {
-				return errs
+				return errs.FinalAddForProperty("liquidity_provision_submission.commitment_amount", ErrIsNotValidNumber)
 			}
 		}
 	} else { // valida cancellation
@@ -68,17 +68,16 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 		} else if fee < 0 {
 			errs.AddForProperty("liquidity_provision_submission.fee", ErrMustBePositive)
 		}
-
 	}
 
-	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY))
-	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY, false))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL, false))
 
 	return errs
 }
 
 func checkLiquidityProvisionShape(
-	orders []*types.LiquidityOrder, side types.Side,
+	orders []*types.LiquidityOrder, side types.Side, isAmendment bool,
 ) Errors {
 	var (
 		errs           = NewErrors()
@@ -88,11 +87,13 @@ func checkLiquidityProvisionShape(
 		shapeSideField = "liquidity_provision_submission.sells"
 	}
 
-	if len(orders) <= 0 {
+	if len(orders) <= 0 && !isAmendment {
 		errs.AddForProperty(shapeSideField, errors.New("empty shape"))
 		return errs
 
 	}
+
+	zero := big.NewInt(0)
 
 	for idx, order := range orders {
 		if order.Reference == types.PeggedReference_PEGGED_REFERENCE_UNSPECIFIED {
@@ -116,24 +117,54 @@ func checkLiquidityProvisionShape(
 					ErrOrderInBuySideShapeWithBestAskPrice,
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-				if order.Offset > 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
-						ErrOrderInBuySideShapeOffsetSup0,
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrOrderInBuySideShapeOffsetInf0,
 					)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				if order.Offset >= 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
-						ErrOrderInBuySideShapeOffsetSupEq0,
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 || offset.Cmp(zero) == 0 {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrOrderInBuySideShapeOffsetInfEq0,
 					)
 				}
 			}
 		} else {
 			switch order.Reference {
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-				if order.Offset < 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInSellSideShapeOffsetInf0,
@@ -145,7 +176,17 @@ func checkLiquidityProvisionShape(
 					ErrOrderInSellSideShapeWithBestBidPrice,
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				if order.Offset <= 0 {
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
+					errs.AddForProperty(
+						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(zero) == -1 || offset.Cmp(zero) == 0 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInSellSideShapeOffsetInfEq0,
@@ -154,5 +195,52 @@ func checkLiquidityProvisionShape(
 			}
 		}
 	}
+	return errs
+}
+
+func CheckLiquidityProvisionCancellation(cmd *commandspb.LiquidityProvisionCancellation) error {
+	return checkLiquidityProvisionCancellation(cmd).ErrorOrNil()
+}
+
+func checkLiquidityProvisionCancellation(cmd *commandspb.LiquidityProvisionCancellation) Errors {
+	errs := NewErrors()
+
+	if cmd == nil {
+		return errs.FinalAddForProperty("liquidity_provision_cancellation", ErrIsRequired)
+	}
+
+	if len(cmd.MarketId) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_cancellation.market_id", ErrIsRequired)
+	}
+
+	return errs
+}
+
+func CheckLiquidityProvisionAmendment(cmd *commandspb.LiquidityProvisionAmendment) error {
+	return checkLiquidityProvisionAmendment(cmd).ErrorOrNil()
+}
+
+func checkLiquidityProvisionAmendment(cmd *commandspb.LiquidityProvisionAmendment) Errors {
+	errs := NewErrors()
+
+	if cmd == nil {
+		return errs.FinalAddForProperty("liquidity_provision_amendment", ErrIsRequired)
+	}
+
+	if len(cmd.MarketId) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_amendment.market_id", ErrIsRequired)
+	}
+
+	if len(cmd.CommitmentAmount) <= 0 &&
+		len(cmd.Fee) <= 0 &&
+		len(cmd.Sells) <= 0 &&
+		len(cmd.Buys) <= 0 &&
+		len(cmd.Reference) <= 0 {
+		return errs.FinalAddForProperty("liquidity_provision_amendment", ErrIsRequired)
+	}
+
+	errs.Merge(checkLiquidityProvisionShape(cmd.Buys, types.Side_SIDE_BUY, true))
+	errs.Merge(checkLiquidityProvisionShape(cmd.Sells, types.Side_SIDE_SELL, true))
+
 	return errs
 }

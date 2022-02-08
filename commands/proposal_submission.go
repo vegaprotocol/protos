@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"math"
 	"math/big"
 	"strconv"
 	"strings"
@@ -170,15 +171,19 @@ func checkNewAssetChanges(change *types.ProposalTerms_NewAsset) Errors {
 func CheckNewFreeformChanges(change *types.ProposalTerms_NewFreeform) Errors {
 	errs := NewErrors()
 
-	if len(change.NewFreeform.Url) == 0 {
+	if change.NewFreeform.Changes == nil {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.changes", ErrIsRequired)
+	}
+
+	if len(change.NewFreeform.Changes.Url) == 0 {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.url", ErrIsRequired)
 	}
 
-	if len(change.NewFreeform.Description) > 255 {
+	if len(change.NewFreeform.Changes.Description) > 255 {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.description", ErrIsRequired)
 	}
 
-	if len(change.NewFreeform.Hash) == 0 {
+	if len(change.NewFreeform.Changes.Hash) == 0 {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.hash", ErrIsRequired)
 	}
 
@@ -367,6 +372,10 @@ func checkFuture(future *types.FutureProduct) Errors {
 func checkOracleSpec(spec *oraclespb.OracleSpecConfiguration, name string) Errors {
 	errs := NewErrors()
 	if spec != nil {
+		if isBuiltInSpec(spec.Filters) {
+			return checkOracleSpecFilters(spec, name, errs)
+		}
+
 		if len(spec.PubKeys) == 0 {
 			errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".pub_keys", ErrIsRequired)
 		}
@@ -375,35 +384,60 @@ func checkOracleSpec(spec *oraclespb.OracleSpecConfiguration, name string) Error
 				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".pub_keys.%d", i), ErrIsNotValid)
 			}
 		}
-		if len(spec.Filters) == 0 {
-			errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters", ErrIsRequired)
-		} else {
-			for i, filter := range spec.Filters {
-				if filter.Key == nil {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.key", i), ErrIsNotValid)
-				} else {
-					if len(filter.Key.Name) == 0 {
-						errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.key.name", i), ErrIsRequired)
-					}
-					if filter.Key.Type == oraclespb.PropertyKey_TYPE_UNSPECIFIED {
-						errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.key.type", i), ErrIsRequired)
-					}
-				}
 
-				if len(filter.Conditions) != 0 {
-					for j, condition := range filter.Conditions {
-						if len(condition.Value) == 0 {
-							errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.conditions.%d.value", i, j), ErrIsRequired)
-						}
-						if condition.Operator == oraclespb.Condition_OPERATOR_UNSPECIFIED {
-							errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.conditions.%d.operator", i, j), ErrIsRequired)
-						}
-					}
+		return checkOracleSpecFilters(spec, name, errs)
+	} else {
+		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name, ErrIsRequired)
+	}
+
+	return errs
+}
+
+func isBuiltInSpec(filters []*oraclespb.Filter) bool {
+	if len(filters) != 1 {
+		return false
+	}
+
+	if filters[0].Key == nil || filters[0].Conditions == nil {
+		return false
+	}
+
+	if strings.HasPrefix(filters[0].Key.Name, "vegaprotocol.builtin") && filters[0].Key.Type == oraclespb.PropertyKey_TYPE_TIMESTAMP {
+		return true
+	}
+
+	return false
+}
+
+func checkOracleSpecFilters(spec *oraclespb.OracleSpecConfiguration, name string, errs Errors) Errors {
+	if len(spec.Filters) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters", ErrIsRequired)
+
+		return errs
+	}
+
+	for i, filter := range spec.Filters {
+		if filter.Key == nil {
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.key", i), ErrIsNotValid)
+		} else {
+			if len(filter.Key.Name) == 0 {
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.key.name", i), ErrIsRequired)
+			}
+			if filter.Key.Type == oraclespb.PropertyKey_TYPE_UNSPECIFIED {
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.key.type", i), ErrIsRequired)
+			}
+		}
+
+		if len(filter.Conditions) != 0 {
+			for j, condition := range filter.Conditions {
+				if len(condition.Value) == 0 {
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.conditions.%d.value", i, j), ErrIsRequired)
+				}
+				if condition.Operator == oraclespb.Condition_OPERATOR_UNSPECIFIED {
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name+".filters.%d.conditions.%d.operator", i, j), ErrIsRequired)
 				}
 			}
 		}
-	} else {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future."+name, ErrIsRequired)
 	}
 
 	return errs
@@ -544,6 +578,26 @@ func checkLogNormalRiskParameters(params *types.NewMarketConfiguration_LogNormal
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params", ErrIsRequired)
 	}
 
+	if params.LogNormal.RiskAversionParameter <= 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.risk_aversion_parameter", ErrMustBePositive)
+	}
+
+	if params.LogNormal.Tau <= 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.tau", ErrMustBePositive)
+	}
+
+	if math.IsNaN(params.LogNormal.Params.Mu) {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.mu", ErrIsNotValidNumber)
+	}
+
+	if math.IsNaN(params.LogNormal.Params.Sigma) {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma", ErrIsNotValidNumber)
+	}
+
+	if math.IsNaN(params.LogNormal.Params.R) {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.r", ErrIsNotValidNumber)
+	}
+
 	return errs
 }
 
@@ -590,34 +644,54 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 	}
 
 	if len(orders) == 0 {
-		return errs.FinalAddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s", humanizedSide), ErrIsRequired)
+		return errs.FinalAddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s", humanizedSide), ErrIsRequired)
 	}
 
 	for i, order := range orders {
 		if order.Reference == types.PeggedReference_PEGGED_REFERENCE_UNSPECIFIED {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsRequired)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsRequired)
 		}
 		if _, ok := types.PeggedReference_name[int32(order.Reference)]; !ok {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsNotValid)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsNotValid)
 		}
 
 		if order.Proportion == 0 {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.proportion.%d", humanizedSide, i), ErrIsRequired)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.proportion.%d", humanizedSide, i), ErrIsRequired)
 		}
 
 		if side == types.Side_SIDE_BUY {
 			switch order.Reference {
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i),
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i),
 					errors.New("cannot have a reference of type BEST_ASK when on BUY side"),
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-				if order.Offset > 0 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBeNegativeOrZero)
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
+					errs.AddForProperty(
+						fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(big.NewInt(0)) == -1 {
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				if order.Offset >= 0 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBeNegative)
+				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+				if !ok {
+					errs.AddForProperty(
+						fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+						ErrNotAValidInteger,
+					)
+
+					break
+				}
+
+				if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
 				}
 			}
 			continue
@@ -625,16 +699,36 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 
 		switch order.Reference {
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i),
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i),
 				errors.New("cannot have a reference of type BEST_BID when on SELL side"),
 			)
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-			if order.Offset < 0 {
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
+			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+			if !ok {
+				errs.AddForProperty(
+					fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+					ErrNotAValidInteger,
+				)
+
+				break
+			}
+
+			if offset.Cmp(big.NewInt(0)) == -1 {
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
 			}
 		case types.PeggedReference_PEGGED_REFERENCE_MID:
-			if order.Offset <= 0 {
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
+			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
+			if !ok {
+				errs.AddForProperty(
+					fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+					ErrNotAValidInteger,
+				)
+
+				break
+			}
+
+			if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
 			}
 		}
 
