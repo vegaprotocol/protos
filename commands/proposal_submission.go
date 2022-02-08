@@ -594,6 +594,10 @@ func checkLogNormalRiskParameters(params *types.NewMarketConfiguration_LogNormal
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma", ErrIsNotValidNumber)
 	}
 
+	if params.LogNormal.Params.Sigma <= 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma", ErrMustBePositive)
+	}
+
 	if math.IsNaN(params.LogNormal.Params.R) {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.r", ErrIsNotValidNumber)
 	}
