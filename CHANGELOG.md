@@ -9,7 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [281](https://github.com/vegaprotocol/protos/pull/281) - Updated TIF validation for pegged orders
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
