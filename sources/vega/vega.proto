@@ -921,7 +921,7 @@ message PriceMonitoringBounds {
   // Price monitoring trigger associated with the bounds
   PriceMonitoringTrigger trigger = 3;
   // Reference price used to calculate the valid price range
-  double reference_price = 4;
+  string reference_price = 4;
 }
 
 // Represents Vega domain specific error information over gRPC/Protobuf
