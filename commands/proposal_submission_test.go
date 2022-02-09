@@ -94,10 +94,6 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a future market change with settlement asset succeeds", testNewFutureMarketChangeSubmissionWithSettlementAssetSucceeds)
 	t.Run("Submitting a future market change without quote name fails", testNewFutureMarketChangeSubmissionWithoutQuoteNameFails)
 	t.Run("Submitting a future market change with quote name succeeds", testNewFutureMarketChangeSubmissionWithQuoteNameSucceeds)
-	t.Run("Submitting a future market change without maturity fails", testNewFutureMarketChangeSubmissionWithoutMaturityFails)
-	t.Run("Submitting a future market change with maturity succeeds", testNewFutureMarketChangeSubmissionWithMaturitySucceeds)
-	t.Run("Submitting a future market change with wrong maturity date format fails", testNewFutureMarketChangeSubmissionWithWrongMaturityDateFormatFails)
-	t.Run("Submitting a future market change with right maturity date format succeeds", testNewFutureMarketChangeSubmissionWithRightMaturityDateFormatSucceeds)
 	t.Run("Submitting a future market change without oracle spec fails", testNewFutureMarketChangeSubmissionWithoutOracleSpecFails)
 	t.Run("Submitting a future market change without either of the required oracle spec fails", testNewFutureMarketChangeSubmissionMissingSingleOracleSpecFails)
 	t.Run("Submitting a future market change with oracle spec succeeds", testNewFutureMarketChangeSubmissionWithOracleSpecSucceeds)
@@ -124,12 +120,6 @@ func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a future market change with a mismatch between binding property name and filter fails", testNewFutureMarketChangeSubmissionWithMismatchBetweenFilterAndBindingFails)
 	t.Run("Submitting a future market change with match between binding property name and filter succeeds", testNewFutureMarketChangeSubmissionWithNoMismatchBetweenFilterAndBindingSucceeds)
 	t.Run("Submitting a future market change with settlement price and trading termination properties succeeds", testNewFutureMarketChangeSubmissionWithSettlementPricePropertySucceeds)
-	t.Run("Submitting a continuous trading market change without continuous trading mode fails", testNewContinuousTradingMarketChangeSubmissionWithoutContinuousTradingModeFails)
-	t.Run("Submitting a continuous trading market change with continuous trading mode succeeds", testNewContinuousTradingMarketChangeSubmissionWithContinuousTradingModeSucceeds)
-	t.Run("Submitting a discrete trading market change without discrete trading mode fails", testNewDiscreteTradingMarketChangeSubmissionWithoutDiscreteTradingModeFails)
-	t.Run("Submitting a discrete trading market change with discrete trading mode succeeds", testNewDiscreteTradingMarketChangeSubmissionWithDiscreteTradingModeSucceeds)
-	t.Run("Submitting a discrete trading market change without duration fails", testNewDiscreteTradingMarketChangeSubmissionWithWrongDurationFails)
-	t.Run("Submitting a discrete trading market change with duration succeeds", testNewDiscreteTradingMarketChangeSubmissionWithRightDurationSucceeds)
 	t.Run("Submitting a simple risk parameters change without simple risk parameters fails", testNewSimpleRiskParametersChangeSubmissionWithoutSimpleRiskParametersFails)
 	t.Run("Submitting a simple risk parameters change with simple risk parameters succeeds", testNewSimpleRiskParametersChangeSubmissionWithSimpleRiskParametersSucceeds)
 	t.Run("Submitting a simple risk parameters change with min move down fails", testNewSimpleRiskParametersChangeSubmissionWithPositiveMinMoveDownFails)
@@ -1680,95 +1670,6 @@ func testNewFutureMarketChangeSubmissionWithQuoteNameSucceeds(t *testing.T) {
 	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.quote_name"), commands.ErrIsRequired)
 }
 
-func testNewFutureMarketChangeSubmissionWithoutMaturityFails(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						Instrument: &types.InstrumentConfiguration{
-							Product: &types.InstrumentConfiguration_Future{
-								Future: &types.FutureProduct{
-									Maturity: "",
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity"), commands.ErrIsRequired)
-}
-
-func testNewFutureMarketChangeSubmissionWithMaturitySucceeds(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						Instrument: &types.InstrumentConfiguration{
-							Product: &types.InstrumentConfiguration_Future{
-								Future: &types.FutureProduct{
-									Maturity: "2020-10-22T12:00:00Z",
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity"), commands.ErrIsRequired)
-}
-
-func testNewFutureMarketChangeSubmissionWithWrongMaturityDateFormatFails(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						Instrument: &types.InstrumentConfiguration{
-							Product: &types.InstrumentConfiguration_Future{
-								Future: &types.FutureProduct{
-									Maturity: "2020/10/25",
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity"), commands.ErrMustBeValidDate)
-}
-
-func testNewFutureMarketChangeSubmissionWithRightMaturityDateFormatSucceeds(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						Instrument: &types.InstrumentConfiguration{
-							Product: &types.InstrumentConfiguration_Future{
-								Future: &types.FutureProduct{
-									Maturity: "2020-10-22T12:00:00Z",
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity"), commands.ErrIsRequired)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity"), commands.ErrMustBeValidDate)
-}
-
 func testNewFutureMarketChangeSubmissionWithoutOracleSpecFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
@@ -2617,138 +2518,6 @@ func testNewFutureMarketChangeSubmissionWithSettlementPricePropertySucceeds(t *t
 	})
 
 	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.instrument.product.future.oracle_spec_binding.settlement_price_property"), commands.ErrIsRequired)
-}
-
-func testNewContinuousTradingMarketChangeSubmissionWithoutContinuousTradingModeFails(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						TradingMode: &types.NewMarketConfiguration_Continuous{},
-					},
-				},
-			},
-		},
-	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.trading_mode.continuous"), commands.ErrIsRequired)
-}
-
-func testNewContinuousTradingMarketChangeSubmissionWithContinuousTradingModeSucceeds(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						TradingMode: &types.NewMarketConfiguration_Continuous{
-							Continuous: &types.ContinuousTrading{},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.trading_mode.continuous"), commands.ErrIsRequired)
-}
-
-func testNewDiscreteTradingMarketChangeSubmissionWithoutDiscreteTradingModeFails(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						TradingMode: &types.NewMarketConfiguration_Discrete{},
-					},
-				},
-			},
-		},
-	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.trading_mode.discrete"), commands.ErrIsRequired)
-}
-
-func testNewDiscreteTradingMarketChangeSubmissionWithDiscreteTradingModeSucceeds(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						TradingMode: &types.NewMarketConfiguration_Discrete{
-							Discrete: &types.DiscreteTrading{},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.trading_mode.discrete"), commands.ErrIsRequired)
-}
-
-func testNewDiscreteTradingMarketChangeSubmissionWithWrongDurationFails(t *testing.T) {
-	testCases := []struct {
-		msg   string
-		value int64
-	}{
-		{
-			msg:   "with duration of 0",
-			value: 0,
-		}, {
-			msg:   "with duration under 0",
-			value: -1,
-		}, {
-			msg:   "with duration of 2592000000000000",
-			value: 2592000000000000,
-		}, {
-			msg:   "with duration above 2592000000000000",
-			value: 2592000000000001,
-		},
-	}
-	for _, tc := range testCases {
-		t.Run(tc.msg, func(t *testing.T) {
-			err := checkProposalSubmission(&commandspb.ProposalSubmission{
-				Terms: &types.ProposalTerms{
-					Change: &types.ProposalTerms_NewMarket{
-						NewMarket: &types.NewMarket{
-							Changes: &types.NewMarketConfiguration{
-								TradingMode: &types.NewMarketConfiguration_Discrete{
-									Discrete: &types.DiscreteTrading{
-										DurationNs: tc.value,
-									},
-								},
-							},
-						},
-					},
-				},
-			})
-
-			assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.trading_mode.discrete.duration_ns"),
-				errors.New("should be between 0 (excluded) and 2592000000000000 (excluded)"))
-		})
-	}
-}
-
-func testNewDiscreteTradingMarketChangeSubmissionWithRightDurationSucceeds(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{
-					Changes: &types.NewMarketConfiguration{
-						TradingMode: &types.NewMarketConfiguration_Discrete{
-							Discrete: &types.DiscreteTrading{
-								DurationNs: RandomPositiveI64Before(2592000000000000 - 1),
-							},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.trading_mode.discrete.duration_ns"),
-		errors.New("should be between 0 (excluded) and 2592000000000000 (excluded)"))
 }
 
 func testNewSimpleRiskParametersChangeSubmissionWithoutSimpleRiskParametersFails(t *testing.T) {

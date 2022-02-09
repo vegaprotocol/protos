@@ -7,7 +7,6 @@ import (
 	"math/big"
 	"strconv"
 	"strings"
-	"time"
 
 	types "code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
@@ -255,7 +254,6 @@ func checkNewMarketChanges(change *types.ProposalTerms_NewMarket) Errors {
 	errs.Merge(checkPriceMonitoring(changes.PriceMonitoringParameters))
 	errs.Merge(checkLiquidityMonitoring(changes.LiquidityMonitoringParameters))
 	errs.Merge(checkInstrument(changes.Instrument))
-	errs.Merge(checkTradingMode(changes))
 	errs.Merge(checkRiskParameters(changes))
 
 	return errs
@@ -352,14 +350,6 @@ func checkFuture(future *types.FutureProduct) Errors {
 	}
 	if len(future.QuoteName) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future.quote_name", ErrIsRequired)
-	}
-
-	if len(future.Maturity) == 0 {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity", ErrIsRequired)
-	}
-	_, err := time.Parse(time.RFC3339, future.Maturity)
-	if err != nil {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity", ErrMustBeValidDate)
 	}
 
 	errs.Merge(checkOracleSpec(future.OracleSpecForSettlementPrice, "oracle_spec_for_settlement_price"))
@@ -475,50 +465,6 @@ func checkOracleBinding(future *types.FutureProduct) Errors {
 		}
 	} else {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future.oracle_spec_binding", ErrIsRequired)
-	}
-
-	return errs
-}
-
-func checkTradingMode(config *types.NewMarketConfiguration) Errors {
-	errs := NewErrors()
-
-	if config.TradingMode == nil {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode", ErrIsRequired)
-	}
-
-	switch mode := config.TradingMode.(type) {
-	case *types.NewMarketConfiguration_Continuous:
-		errs.Merge(checkContinuousTradingMode(mode))
-	case *types.NewMarketConfiguration_Discrete:
-		errs.Merge(checkDiscreteTradingMode(mode))
-	default:
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode", ErrIsNotValid)
-	}
-
-	return errs
-}
-
-func checkContinuousTradingMode(mode *types.NewMarketConfiguration_Continuous) Errors {
-	errs := NewErrors()
-
-	if mode.Continuous == nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode.continuous", ErrIsRequired)
-	}
-
-	return errs
-}
-
-func checkDiscreteTradingMode(mode *types.NewMarketConfiguration_Discrete) Errors {
-	errs := NewErrors()
-
-	if mode.Discrete == nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode.discrete", ErrIsRequired)
-	}
-
-	if mode.Discrete.DurationNs <= 0 || mode.Discrete.DurationNs >= MaxDuration30DaysNs {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode.discrete.duration_ns",
-			fmt.Errorf(fmt.Sprintf("should be between 0 (excluded) and %d (excluded)", MaxDuration30DaysNs)))
 	}
 
 	return errs
