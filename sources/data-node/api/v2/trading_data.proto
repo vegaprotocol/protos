@@ -7,8 +7,16 @@ import "google/protobuf/wrappers.proto";
 
 package datanode.api.v2;
 
+service TradingDataService {
+    // Get an aggregated list of the changes in balances in a set of accounts over time
+    rpc BalanceQuery(BalanceQueryRequest) returns (BalanceQueryResponse) {}
+}
+
 message BalanceQueryRequest {
+    // Limit the accounts considered according to the filter supplied
     AccountFilter filter = 1;
+    // By default the net balances of all the accounts specified by the filter are returned.
+    // If a list if fields is given in group_by, split out those balances by the supplied crietera.
     repeated AccountField group_by = 2;
 }
 
@@ -16,13 +24,14 @@ message BalanceQueryResponse {
     repeated AggregatedBalance balances = 1;
 }
 
+// A list of the properties of an account, used for grouping
 enum AccountField {
     ACCOUNT_FIELD_UNSPECIFIED = 0;
     ACCOUNT_FIELD_ID = 1;
     ACCOUNT_FIELD_PARTY_ID = 2;
-	ACCOUNT_FIELD_ASSET_ID = 3;
-	ACCOUNT_FIELD_MARKET_ID = 4;
-	ACCOUNT_FIELD_TYPE = 5;
+    ACCOUNT_FIELD_ASSET_ID = 3;
+    ACCOUNT_FIELD_MARKET_ID = 4;
+    ACCOUNT_FIELD_TYPE = 5;
 }
 
 message AggregatedBalance {
@@ -53,7 +62,5 @@ message AccountFilter{
     repeated vega.AccountType account_types = 4;
 }
 
-service TradingDataService {
-    rpc BalanceQuery(BalanceQueryRequest) returns (BalanceQueryResponse) {}
-}
+
 

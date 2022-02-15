@@ -24,6 +24,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+// A list of the properties of an account, used for grouping
 type AccountField int32
 
 const (
@@ -62,7 +63,10 @@ func (AccountField) EnumDescriptor() ([]byte, []int) {
 }
 
 type BalanceQueryRequest struct {
-	Filter               *AccountFilter `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
+	// Limit the accounts considered according to the filter supplied
+	Filter *AccountFilter `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
+	// By default the net balances of all the accounts specified by the filter are returned.
+	// If a list if fields is given in group_by, split out those balances by the supplied crietera.
 	GroupBy              []AccountField `protobuf:"varint,2,rep,packed,name=group_by,json=groupBy,proto3,enum=datanode.api.v2.AccountField" json:"group_by,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
 	XXX_unrecognized     []byte         `json:"-"`
@@ -374,6 +378,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type TradingDataServiceClient interface {
+	// Get an aggregated list of the changes in balances in a set of accounts over time
 	BalanceQuery(ctx context.Context, in *BalanceQueryRequest, opts ...grpc.CallOption) (*BalanceQueryResponse, error)
 }
 
@@ -396,6 +401,7 @@ func (c *tradingDataServiceClient) BalanceQuery(ctx context.Context, in *Balance
 
 // TradingDataServiceServer is the server API for TradingDataService service.
 type TradingDataServiceServer interface {
+	// Get an aggregated list of the changes in balances in a set of accounts over time
 	BalanceQuery(context.Context, *BalanceQueryRequest) (*BalanceQueryResponse, error)
 }
 
