@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
+
+import "vega/vega.proto";
+import "google/protobuf/wrappers.proto";
+
+message BalanceQueryRequest {
+    AccountFilter filter = 1;
+    repeated AccountField group_by = 2;
+}
+
+message BalanceQueryResponse {
+    repeated AggregatedBalance balances = 1;
+}
+
+enum AccountField {
+    AccountID = 0;
+    AccountPartyID = 1;
+	AccountAssetID = 2;
+	AccountMarketID = 3;
+	AccountType = 4;
+}
+
+message AggregatedBalance {
+    // Timestamp to of block the balance is referring to, in nanoseconds since the epoch
+    int64 timestamp = 1;
+    // The balance of the set of requested accounts at the time above
+    string balance = 2;
+    // If grouping by account ID, the account ID
+    google.protobuf.StringValue account_id = 3;
+    // If grouping by party, the party ID
+    google.protobuf.StringValue party_id = 4;
+    // If grouping by asset, the asset ID
+    google.protobuf.StringValue asset_id = 5;
+    // If grouping by market, the market ID
+    google.protobuf.StringValue market_id = 6;
+    // If grouping by account type, the account type
+    vega.AccountType account_type = 7;
+}
+
+message AccountFilter{
+    string asset_id = 1;
+    repeated string party_ids = 2;
+    repeated string market_ids = 3;
+    repeated vega.AccountType account_types = 4;
+}
+
+service TradingDataService {
+    rpc BalanceQuery(BalanceQueryRequest) returns (BalanceQueryResponse) {}
+}
+
