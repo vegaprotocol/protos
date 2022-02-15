@@ -47,6 +47,7 @@
 - [272](https://github.com/vegaprotocol/protos/pull/272) - Update snapshot protos to be able to handle the iavl exported nodes
 - [276](https://github.com/vegaprotocol/protos/pull/276) - Remove maturity from future product, tick size from market and trading mode config from market
 - [277](https://github.com/vegaprotocol/protos/pull/277) - Update validation for risk params for log normal risk model
+- [287](https://github.com/vegaprotocol/protos/pull/287) - Add `QueryBalance` call and associated messages
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
