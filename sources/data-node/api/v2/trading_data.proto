@@ -5,6 +5,8 @@ option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 import "vega/vega.proto";
 import "google/protobuf/wrappers.proto";
 
+package datanode.api.v2;
+
 message BalanceQueryRequest {
     AccountFilter filter = 1;
     repeated AccountField group_by = 2;
@@ -15,11 +17,12 @@ message BalanceQueryResponse {
 }
 
 enum AccountField {
-    AccountID = 0;
-    AccountPartyID = 1;
-	AccountAssetID = 2;
-	AccountMarketID = 3;
-	AccountType = 4;
+    ACCOUNT_FIELD_UNSPECIFIED = 0;
+    ACCOUNT_FIELD_ID = 1;
+    ACCOUNT_FIELD_PARTY_ID = 2;
+	ACCOUNT_FIELD_ASSET_ID = 3;
+	ACCOUNT_FIELD_MARKET_ID = 4;
+	ACCOUNT_FIELD_TYPE = 5;
 }
 
 message AggregatedBalance {
@@ -40,9 +43,13 @@ message AggregatedBalance {
 }
 
 message AccountFilter{
+    // Restrict accounts to those holding balances in this asset ID
     string asset_id = 1;
+    // Restrict accounts to those owned by the parties in this list (pass an empty list for no filter)
     repeated string party_ids = 2;
+    // Restrict accounts to those connected to the marketsin this list (pass an empty list for no filter)
     repeated string market_ids = 3;
+    // Restrict accounts to those connected to any of the types in this list (pass an empty list for no filter)
     repeated vega.AccountType account_types = 4;
 }
 
