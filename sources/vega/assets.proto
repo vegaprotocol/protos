@@ -43,4 +43,10 @@ message BuiltinAsset {
 message ERC20 {
   // The address of the contract for the token, on the ethereum network
   string contract_address = 1;
+  // The lifetime limits deposit per address
+  // note: this is a temporary measure for restricted mainnet
+  string lifetime_limit = 2;
+  // The maximum allowed per withdraw
+  // note: this is a temporary measure for restricted mainnet
+  string withdraw_threshold = 3;
 }

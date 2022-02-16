@@ -239,6 +239,30 @@ func checkERC20AssetSource(s *types.AssetDetails_Erc20) Errors {
 	if len(asset.ContractAddress) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.contract_address", ErrIsRequired)
 	}
+	if len(asset.LifetimeLimit) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.lifetime_limit", ErrIsRequired)
+	} else {
+		lifetimeLimit, overflow := big.NewInt(0).SetString(asset.LifetimeLimit, 10)
+		if overflow {
+			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.lifetime_limit", ErrIsNotValidNumber)
+		} else {
+			if lifetimeLimit.Cmp(big.NewInt(0)) <= 0 {
+				errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.lifetime_limit", ErrMustBePositive)
+			}
+		}
+	}
+	if len(asset.WithdrawThreshold) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold", ErrIsRequired)
+	} else {
+		withdrawThreshold, overflow := big.NewInt(0).SetString(asset.WithdrawThreshold, 10)
+		if overflow {
+			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold", ErrIsNotValidNumber)
+		} else {
+			if withdrawThreshold.Cmp(big.NewInt(0)) <= 0 {
+				errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold", ErrMustBePositive)
+			}
+		}
+	}
 
 	return errs
 }

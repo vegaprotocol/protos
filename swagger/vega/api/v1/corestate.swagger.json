@@ -989,6 +989,14 @@
         "contractAddress": {
           "type": "string",
           "title": "The address of the contract for the token, on the ethereum network"
+        },
+        "lifetimeLimit": {
+          "type": "string",
+          "title": "The lifetime limits deposit per address\nnote: this is a temporary measure for restricted mainnet"
+        },
+        "withdrawThreshold": {
+          "type": "string",
+          "title": "The maximum allowed per withdraw\nnote: this is a temporary measure for restricted mainnet"
         }
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
