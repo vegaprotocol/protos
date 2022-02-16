@@ -27,7 +27,7 @@ proto: ## build proto definitions
 proto_check: ## proto: Check committed files match just-generated files
 	# @make proto_clean 1>/dev/null
 	# @make proto 1>/dev/null
-	# @files="$$(git diff --name-only vega/)" ; \
+	# @files="$$(git diff --name-only vega/ swagger/ data-node/)" ; \
 	# if test -n "$$files" ; then \
 	# 	echo "Committed files do not match just-generated files:" $$files ; \
 	# 	test -n "$(CI)" && git diff vega/ ; \
@@ -36,7 +36,7 @@ proto_check: ## proto: Check committed files match just-generated files
 
 .PHONY: proto_clean
 proto_clean:
-	@find vega -name '*.pb.go' -o -name '*.pb.gw.go' -o -name '*.validator.pb.go' -o -name '*.swagger.json' \
+	@find vega swagger data-node -name '*.pb.go' -o -name '*.pb.gw.go' -o -name '*.validator.pb.go' -o -name '*.swagger.json' \
 		| xargs -r rm
 
 # Misc Targets
