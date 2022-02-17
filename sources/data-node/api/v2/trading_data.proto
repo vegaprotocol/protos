@@ -9,10 +9,10 @@ package datanode.api.v2;
 
 service TradingDataService {
     // Get an aggregated list of the changes in balances in a set of accounts over time
-    rpc BalanceQuery(BalanceQueryRequest) returns (BalanceQueryResponse) {}
+    rpc QueryBalanceHistory(QueryBalanceHistoryRequest) returns (QueryBalanceHistoryResponse) {}
 }
 
-message BalanceQueryRequest {
+message QueryBalanceHistoryRequest {
     // Limit the accounts considered according to the filter supplied
     AccountFilter filter = 1;
     // By default the net balances of all the accounts specified by the filter are returned.
@@ -20,7 +20,7 @@ message BalanceQueryRequest {
     repeated AccountField group_by = 2;
 }
 
-message BalanceQueryResponse {
+message QueryBalanceHistoryResponse {
     repeated AggregatedBalance balances = 1;
 }
 
@@ -40,13 +40,13 @@ message AggregatedBalance {
     // The balance of the set of requested accounts at the time above
     string balance = 2;
     // If grouping by account ID, the account ID
-    google.protobuf.StringValue account_id = 3;
+    optional string account_id = 3;
     // If grouping by party, the party ID
-    google.protobuf.StringValue party_id = 4;
+    optional string party_id = 4;
     // If grouping by asset, the asset ID
-    google.protobuf.StringValue asset_id = 5;
+    optional string asset_id = 5;
     // If grouping by market, the market ID
-    google.protobuf.StringValue market_id = 6;
+    optional string market_id = 6;
     // If grouping by account type, the account type
     vega.AccountType account_type = 7;
 }
