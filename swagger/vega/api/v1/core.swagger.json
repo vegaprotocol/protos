@@ -4,9 +4,10 @@
     "title": "vega/api/v1/core.proto",
     "version": "version not set"
   },
-  "schemes": [
-    "http",
-    "https"
+  "tags": [
+    {
+      "name": "CoreService"
+    }
   ],
   "consumes": [
     "application/json"
@@ -18,42 +19,21 @@
     "/blockchain/height": {
       "get": {
         "summary": "Get the height of the last tendermint block",
-        "operationId": "LastBlockHeight",
+        "operationId": "CoreService_LastBlockHeight",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1LastBlockHeightResponse"
             }
-          }
-        },
-        "tags": [
-          "CoreService"
-        ]
-      }
-    },
-    "/rawtransaction": {
-      "post": {
-        "summary": "Submit a version agnostic signed transaction",
-        "operationId": "SubmitRawTransaction",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
+          },
+          "default": {
+            "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/v1SubmitRawTransactionResponse"
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1SubmitRawTransactionRequest"
-            }
-          }
-        ],
         "tags": [
           "CoreService"
         ]
@@ -62,12 +42,18 @@
     "/statistics": {
       "get": {
         "summary": "Get Statistics on Vega",
-        "operationId": "Statistics",
+        "operationId": "CoreService_Statistics",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1StatisticsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
@@ -79,12 +65,18 @@
     "/time": {
       "get": {
         "summary": "Get Time",
-        "operationId": "GetVegaTime",
+        "operationId": "CoreService_GetVegaTime",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetVegaTimeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
@@ -96,12 +88,18 @@
     "/transaction": {
       "post": {
         "summary": "Submit a signed transaction",
-        "operationId": "SubmitTransaction",
+        "operationId": "CoreService_SubmitTransaction",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1SubmitTransactionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
             }
           }
         },
@@ -184,33 +182,14 @@
       "description": "- VALUE_UNSPECIFIED: Default value, always invalid\n - VALUE_NO: A vote against the proposal\n - VALUE_YES: A vote in favour of the proposal",
       "title": "Vote value"
     },
-    "protobufAny": {
+    "googlerpcStatus": {
       "type": "object",
       "properties": {
-        "type_url": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
-        }
-      }
-    },
-    "runtimeStreamError": {
-      "type": "object",
-      "properties": {
-        "grpc_code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "http_code": {
+        "code": {
           "type": "integer",
           "format": "int32"
         },
         "message": {
-          "type": "string"
-        },
-        "http_status": {
           "type": "string"
         },
         "details": {
@@ -221,21 +200,28 @@
         }
       }
     },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
     "v1AuctionEvent": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the event"
         },
-        "opening_auction": {
+        "openingAuction": {
           "type": "boolean",
-          "format": "boolean",
           "title": "True if the event indicates an auction opening and False otherwise"
         },
         "leave": {
           "type": "boolean",
-          "format": "boolean",
           "title": "True if the event indicates leaving auction mode and False otherwise"
         },
         "start": {
@@ -252,7 +238,7 @@
           "$ref": "#/definitions/vegaAuctionTrigger",
           "title": "the reason this market is/was in auction"
         },
-        "extension_trigger": {
+        "extensionTrigger": {
           "$ref": "#/definitions/vegaAuctionTrigger",
           "title": "If an auction was ongoing, but was extended for whatever reason, this field will\nbe set to the trigger type indicating which component extended the auction"
         }
@@ -274,15 +260,15 @@
           "$ref": "#/definitions/v1BusEventType",
           "title": "The type of bus event (one of the list below)"
         },
-        "time_update": {
+        "timeUpdate": {
           "$ref": "#/definitions/v1TimeUpdate",
           "title": "Time update events - See [TimeUpdate](#vega.TimeUpdate)"
         },
-        "transfer_responses": {
+        "transferResponses": {
           "$ref": "#/definitions/v1TransferResponses",
           "title": "Transfer responses update events - See [TransferResponses](#vega.TransferResponses)"
         },
-        "position_resolution": {
+        "positionResolution": {
           "$ref": "#/definitions/v1PositionResolution",
           "title": "Position resolution events - See [PositionResolution](#vega.PositionResolution)"
         },
@@ -302,7 +288,7 @@
           "$ref": "#/definitions/vegaTrade",
           "title": "Trade events"
         },
-        "margin_levels": {
+        "marginLevels": {
           "$ref": "#/definitions/vegaMarginLevels",
           "title": "Margin level update events"
         },
@@ -314,27 +300,27 @@
           "$ref": "#/definitions/vegaVote",
           "title": "Vote events (for governance)"
         },
-        "market_data": {
+        "marketData": {
           "$ref": "#/definitions/vegaMarketData",
           "title": "Market data events"
         },
-        "node_signature": {
+        "nodeSignature": {
           "$ref": "#/definitions/v1NodeSignature",
           "title": "Node signature events"
         },
-        "loss_socialization": {
+        "lossSocialization": {
           "$ref": "#/definitions/v1LossSocialization",
           "title": "Loss socialization events - See [LossSocialization](#vega.LossSocialization)"
         },
-        "settle_position": {
+        "settlePosition": {
           "$ref": "#/definitions/v1SettlePosition",
           "title": "Position settlement events - See [SettlePosition](#vega.SettlePosition)"
         },
-        "settle_distressed": {
+        "settleDistressed": {
           "$ref": "#/definitions/v1SettleDistressed",
           "title": "Position distressed events - See [SettleDistressed](#vega.SettleDistressed)"
         },
-        "market_created": {
+        "marketCreated": {
           "$ref": "#/definitions/vegaMarket",
           "title": "Market created events"
         },
@@ -342,7 +328,7 @@
           "$ref": "#/definitions/vegaAsset",
           "title": "Asset events"
         },
-        "market_tick": {
+        "marketTick": {
           "$ref": "#/definitions/v1MarketTick",
           "title": "Market tick events - See [MarketTick](#vega.MarketTick)"
         },
@@ -358,51 +344,51 @@
           "$ref": "#/definitions/v1AuctionEvent",
           "title": "Auction events - See [AuctionEvent](#vega.AuctionEvent)"
         },
-        "risk_factor": {
+        "riskFactor": {
           "$ref": "#/definitions/vegaRiskFactor",
           "title": "Risk factor events"
         },
-        "network_parameter": {
+        "networkParameter": {
           "$ref": "#/definitions/vegaNetworkParameter",
           "title": "Network parameter events"
         },
-        "liquidity_provision": {
+        "liquidityProvision": {
           "$ref": "#/definitions/vegaLiquidityProvision",
           "title": "LiquidityProvision  events"
         },
-        "market_updated": {
+        "marketUpdated": {
           "$ref": "#/definitions/vegaMarket",
           "title": "Market created events"
         },
-        "oracle_spec": {
+        "oracleSpec": {
           "$ref": "#/definitions/v1OracleSpec",
           "title": "OracleSpec events"
         },
-        "oracle_data": {
+        "oracleData": {
           "$ref": "#/definitions/v1OracleData",
           "title": "OracleData events"
         },
-        "delegation_balance": {
+        "delegationBalance": {
           "$ref": "#/definitions/v1DelegationBalanceEvent",
           "title": "Delegation balance events"
         },
-        "validator_score": {
+        "validatorScore": {
           "$ref": "#/definitions/v1ValidatorScoreEvent",
           "title": "Validator score calculated"
         },
-        "epoch_event": {
+        "epochEvent": {
           "$ref": "#/definitions/v1EpochEvent",
           "title": "Epoch update events - See [Epoch](#vega.Epoch)"
         },
-        "validator_update": {
+        "validatorUpdate": {
           "$ref": "#/definitions/v1ValidatorUpdate",
           "title": "Validator update events"
         },
-        "stake_linking": {
+        "stakeLinking": {
           "$ref": "#/definitions/v1StakeLinking",
           "title": "Staking event"
         },
-        "reward_payout": {
+        "rewardPayout": {
           "$ref": "#/definitions/v1RewardPayoutEvent",
           "title": "Reward payout event"
         },
@@ -410,15 +396,15 @@
           "$ref": "#/definitions/v1CheckpointEvent",
           "title": "Checkpoint was created"
         },
-        "key_rotation": {
+        "keyRotation": {
           "$ref": "#/definitions/v1KeyRotation",
           "title": "Key rotation took place"
         },
-        "state_var": {
+        "stateVar": {
           "$ref": "#/definitions/v1StateVar",
           "title": "State variable consensus state transition update"
         },
-        "network_limits": {
+        "networkLimits": {
           "$ref": "#/definitions/vegaNetworkLimits",
           "title": "Network limits events"
         },
@@ -426,11 +412,15 @@
           "$ref": "#/definitions/vegaeventsv1Transfer",
           "title": "Transfer event"
         },
+        "rankingEvent": {
+          "$ref": "#/definitions/v1ValidatorRankingEvent",
+          "title": "Ranking event"
+        },
         "market": {
           "$ref": "#/definitions/v1MarketEvent",
           "title": "Market tick events - See [MarketEvent](#vega.MarketEvent)"
         },
-        "tx_err_event": {
+        "txErrEvent": {
           "$ref": "#/definitions/v1TxErrorEvent",
           "title": "Transaction error events, not included in the ALL event type"
         },
@@ -439,10 +429,10 @@
           "format": "int64",
           "title": "Version of bus event"
         },
-        "chain_id": {
+        "chainId": {
           "type": "string"
         },
-        "tx_hash": {
+        "txHash": {
           "type": "string"
         }
       },
@@ -492,17 +482,18 @@
         "BUS_EVENT_TYPE_STATE_VAR",
         "BUS_EVENT_TYPE_NETWORK_LIMITS",
         "BUS_EVENT_TYPE_TRANSFER",
+        "BUS_EVENT_TYPE_VALIDATOR_RANKING",
         "BUS_EVENT_TYPE_MARKET",
         "BUS_EVENT_TYPE_TX_ERROR"
       ],
       "default": "BUS_EVENT_TYPE_UNSPECIFIED",
-      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_STREAM_START: Event indicating stream is starting\n - BUS_EVENT_TYPE_KEY_ROTATION: Event indicating key rotation took place\n - BUS_EVENT_TYPE_STATE_VAR: Event indicating state transitions in state variable consensus\n - BUS_EVENT_TYPE_NETWORK_LIMITS: Event indicating network limits set or updated\n - BUS_EVENT_TYPE_TRANSFER: Event indicating a update for a transfert\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
+      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_STREAM_START: Event indicating stream is starting\n - BUS_EVENT_TYPE_KEY_ROTATION: Event indicating key rotation took place\n - BUS_EVENT_TYPE_STATE_VAR: Event indicating state transitions in state variable consensus\n - BUS_EVENT_TYPE_NETWORK_LIMITS: Event indicating network limits set or updated\n - BUS_EVENT_TYPE_TRANSFER: Event indicating a update for a transfert\n - BUS_EVENT_TYPE_VALIDATOR_RANKING: Event indicating the ranking of validator and their status in vega\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
       "title": "An (event) bus event type is used to specify a type of event\nIt has 2 styles of event:\nSingle values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item\nGroup values (e.g. BUS_EVENT_TYPE_AUCTION) where they represent a group of data items"
     },
     "v1CancelTransfer": {
       "type": "object",
       "properties": {
-        "transfer_id": {
+        "transferId": {
           "type": "string",
           "title": "The ID of the transfer to cancel"
         }
@@ -515,10 +506,10 @@
         "hash": {
           "type": "string"
         },
-        "block_hash": {
+        "blockHash": {
           "type": "string"
         },
-        "block_height": {
+        "blockHeight": {
           "type": "string",
           "format": "uint64"
         }
@@ -541,7 +532,7 @@
     "v1DelegateSubmission": {
       "type": "object",
       "properties": {
-        "node_id": {
+        "nodeId": {
           "type": "string",
           "title": "The ID for the node to delegate to"
         },
@@ -558,13 +549,13 @@
         "party": {
           "type": "string"
         },
-        "node_id": {
+        "nodeId": {
           "type": "string"
         },
         "amount": {
           "type": "string"
         },
-        "epoch_seq": {
+        "epochSeq": {
           "type": "string"
         }
       },
@@ -582,17 +573,17 @@
           "$ref": "#/definitions/vegaEpochAction",
           "title": "Action tells us what action is taking place"
         },
-        "start_time": {
+        "startTime": {
           "type": "string",
           "format": "int64",
           "title": "What time did this epoch start"
         },
-        "expire_time": {
+        "expireTime": {
           "type": "string",
           "format": "int64",
           "title": "What time should this epoch end"
         },
-        "end_time": {
+        "endTime": {
           "type": "string",
           "format": "int64",
           "title": "What time did it actually end"
@@ -631,19 +622,19 @@
     "v1KeyRotation": {
       "type": "object",
       "properties": {
-        "node_id": {
+        "nodeId": {
           "type": "string",
           "title": "Node id of the node"
         },
-        "old_pub_key": {
+        "oldPubKey": {
           "type": "string",
           "title": "Old Vega public key of validator node"
         },
-        "new_pub_key": {
+        "newPubKey": {
           "type": "string",
           "title": "New Vega public key of validator node"
         },
-        "block_height": {
+        "blockHeight": {
           "type": "string",
           "format": "uint64",
           "title": "Height of the block where key rotation took effect"
@@ -664,10 +655,10 @@
     "v1LiquidityProvisionAmendment": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string"
         },
-        "commitment_amount": {
+        "commitmentAmount": {
           "type": "string",
           "title": "From here at least one of the following is required to consider the command valid"
         },
@@ -695,7 +686,7 @@
     "v1LiquidityProvisionCancellation": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string"
         }
       },
@@ -704,11 +695,11 @@
     "v1LiquidityProvisionSubmission": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the order, required field"
         },
-        "commitment_amount": {
+        "commitmentAmount": {
           "type": "string",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
@@ -740,11 +731,11 @@
     "v1LossSocialization": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the event"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Party identifier (public key) for the event"
         },
@@ -758,7 +749,7 @@
     "v1MarketEvent": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the event"
         },
@@ -830,7 +821,7 @@
     "v1OracleData": {
       "type": "object",
       "properties": {
-        "pub_keys": {
+        "pubKeys": {
           "type": "array",
           "items": {
             "type": "string"
@@ -844,14 +835,14 @@
           },
           "title": "data holds all the properties of the oracle data"
         },
-        "matched_spec_ids": {
+        "matchedSpecIds": {
           "type": "array",
           "items": {
             "type": "string"
           },
           "description": "matched_specs_ids lists all the oracle specs that matched this oracle data."
         },
-        "broadcast_at": {
+        "broadcastAt": {
           "type": "string",
           "format": "int64",
           "description": "broadcast_at is the time at which the data was broadcast for the first\ntime."
@@ -866,17 +857,17 @@
           "type": "string",
           "description": "id is a hash generated from the OracleSpec data."
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
           "format": "int64",
           "title": "Creation Date time"
         },
-        "updated_at": {
+        "updatedAt": {
           "type": "string",
           "format": "int64",
           "title": "Last Updated timestamp"
         },
-        "pub_keys": {
+        "pubKeys": {
           "type": "array",
           "items": {
             "type": "string"
@@ -900,7 +891,7 @@
     "v1OracleSpecConfiguration": {
       "type": "object",
       "properties": {
-        "pub_keys": {
+        "pubKeys": {
           "type": "array",
           "items": {
             "type": "string"
@@ -931,11 +922,11 @@
     "v1OrderAmendment": {
       "type": "object",
       "properties": {
-        "order_id": {
+        "orderId": {
           "type": "string",
           "title": "Order identifier, this is required to find the order and will not be updated, required field"
         },
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier, this is required to find the order and will not be updated"
         },
@@ -943,24 +934,24 @@
           "$ref": "#/definitions/vegaPrice",
           "title": "Amend the price for the order, if the Price value is set, otherwise price will remain unchanged - See [`Price`](#vega.Price)"
         },
-        "size_delta": {
+        "sizeDelta": {
           "type": "string",
           "format": "int64",
           "title": "Amend the size for the order by the delta specified:\n- To reduce the size from the current value set a negative integer value\n- To increase the size from the current value, set a positive integer value\n- To leave the size unchanged set a value of zero"
         },
-        "expires_at": {
+        "expiresAt": {
           "$ref": "#/definitions/vegaTimestamp",
           "title": "Amend the expiry time for the order, if the Timestamp value is set, otherwise expiry time will remain unchanged\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
-        "time_in_force": {
+        "timeInForce": {
           "$ref": "#/definitions/OrderTimeInForce",
           "title": "Amend the time in force for the order, set to TIME_IN_FORCE_UNSPECIFIED to remain unchanged\n- See [`TimeInForce`](#api.VegaTimeResponse).`timestamp`"
         },
-        "pegged_offset": {
+        "peggedOffset": {
           "type": "string",
           "title": "Amend the pegged order offset for the order"
         },
-        "pegged_reference": {
+        "peggedReference": {
           "$ref": "#/definitions/vegaPeggedReference",
           "title": "Amend the pegged order reference for the order\n- See [`PeggedReference`](#vega.PeggedReference)"
         }
@@ -970,11 +961,11 @@
     "v1OrderCancellation": {
       "type": "object",
       "properties": {
-        "order_id": {
+        "orderId": {
           "type": "string",
           "title": "Unique identifier for the order (set by the system after consensus), required field"
         },
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the order, required field"
         }
@@ -984,7 +975,7 @@
     "v1OrderSubmission": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the order, required field"
         },
@@ -1001,11 +992,11 @@
           "$ref": "#/definitions/vegaSide",
           "title": "Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)"
         },
-        "time_in_force": {
+        "timeInForce": {
           "$ref": "#/definitions/OrderTimeInForce",
           "title": "Time in force indicates how long an order will remain active before it is executed or expires, required field\n- See [`Order.TimeInForce`](#vega.Order.TimeInForce)"
         },
-        "expires_at": {
+        "expiresAt": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the order will expire, in nanoseconds since the epoch,\nrequired field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
@@ -1018,7 +1009,7 @@
           "type": "string",
           "title": "Reference given for the order, this is typically used to retrieve an order submitted through consensus, currently\nset internally by the node to return a unique reference identifier for the order submission"
         },
-        "pegged_order": {
+        "peggedOrder": {
           "$ref": "#/definitions/vegaPeggedOrder",
           "title": "Used to specify the details for a pegged order\n- See [`PeggedOrder`](#vega.PeggedOrder)"
         }
@@ -1028,7 +1019,7 @@
     "v1PositionResolution": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the event"
         },
@@ -1042,7 +1033,7 @@
           "format": "int64",
           "title": "Number of close outs"
         },
-        "mark_price": {
+        "markPrice": {
           "type": "string",
           "title": "Mark price as a string representing a scaled price"
         }
@@ -1054,7 +1045,6 @@
       "properties": {
         "success": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Success will be true if the event was accepted by the node,\n**Important** - success does not mean that the event is confirmed by consensus"
         }
       },
@@ -1132,7 +1122,7 @@
         "party": {
           "type": "string"
         },
-        "epoch_seq": {
+        "epochSeq": {
           "type": "string"
         },
         "asset": {
@@ -1141,7 +1131,7 @@
         "amount": {
           "type": "string"
         },
-        "percent_of_total_reward": {
+        "percentOfTotalReward": {
           "type": "string"
         },
         "timestamp": {
@@ -1153,11 +1143,11 @@
     "v1SettleDistressed": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the event"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Party identifier (public key) for the event"
         },
@@ -1175,11 +1165,11 @@
     "v1SettlePosition": {
       "type": "object",
       "properties": {
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the event"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Party identifier (public key) for the event"
         },
@@ -1187,7 +1177,7 @@
           "type": "string",
           "title": "Price of settlement as a string"
         },
-        "trade_settlements": {
+        "tradeSettlements": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1TradeSettlement"
@@ -1244,12 +1234,12 @@
           "$ref": "#/definitions/v1StakeLinkingStatus",
           "title": "The status of the event"
         },
-        "finalized_at": {
+        "finalizedAt": {
           "type": "string",
           "format": "int64",
           "title": "The time at which the vega network finalized the state of the event"
         },
-        "tx_hash": {
+        "txHash": {
           "type": "string",
           "title": "The hash of the transaction from which the events happen"
         }
@@ -1283,7 +1273,7 @@
         "id": {
           "type": "string"
         },
-        "event_id": {
+        "eventId": {
           "type": "string"
         },
         "state": {
@@ -1295,30 +1285,30 @@
     "v1Statistics": {
       "type": "object",
       "properties": {
-        "block_height": {
+        "blockHeight": {
           "type": "string",
           "format": "uint64",
           "title": "Current block height as reported by the Vega blockchain"
         },
-        "backlog_length": {
+        "backlogLength": {
           "type": "string",
           "format": "uint64",
           "title": "Current backlog length (number of transactions) that are waiting to be included in a block"
         },
-        "total_peers": {
+        "totalPeers": {
           "type": "string",
           "format": "uint64",
           "title": "Total number of connected peers to this node"
         },
-        "genesis_time": {
+        "genesisTime": {
           "type": "string",
           "title": "Genesis block date and time formatted in ISO-8601 datetime format with nanosecond precision"
         },
-        "current_time": {
+        "currentTime": {
           "type": "string",
           "title": "Current system date and time formatted in ISO-8601 datetime format with nanosecond precision"
         },
-        "vega_time": {
+        "vegaTime": {
           "type": "string",
           "title": "Current Vega date and time formatted in ISO-8601 datetime format with nanosecond precision"
         },
@@ -1326,109 +1316,109 @@
           "$ref": "#/definitions/vegaChainStatus",
           "title": "Status of the connection to the Vega blockchain\n- See [`ChainStatus`](#vega.ChainStatus)"
         },
-        "tx_per_block": {
+        "txPerBlock": {
           "type": "string",
           "format": "uint64",
           "title": "Transactions per block"
         },
-        "average_tx_bytes": {
+        "averageTxBytes": {
           "type": "string",
           "format": "uint64",
           "title": "Average transaction size in bytes"
         },
-        "average_orders_per_block": {
+        "averageOrdersPerBlock": {
           "type": "string",
           "format": "uint64",
           "title": "Average orders per block"
         },
-        "trades_per_second": {
+        "tradesPerSecond": {
           "type": "string",
           "format": "uint64",
           "title": "Trades emitted per second"
         },
-        "orders_per_second": {
+        "ordersPerSecond": {
           "type": "string",
           "format": "uint64",
           "title": "Orders processed per second"
         },
-        "total_markets": {
+        "totalMarkets": {
           "type": "string",
           "format": "uint64",
           "title": "Total markets on this Vega network"
         },
-        "total_amend_order": {
+        "totalAmendOrder": {
           "type": "string",
           "format": "uint64",
           "title": "Total number of order amendments since genesis (on all markets)"
         },
-        "total_cancel_order": {
+        "totalCancelOrder": {
           "type": "string",
           "format": "uint64",
           "title": "Total number of order cancellations since genesis (on all markets)"
         },
-        "total_create_order": {
+        "totalCreateOrder": {
           "type": "string",
           "format": "uint64",
           "title": "Total number of order submissions since genesis (on all markets)"
         },
-        "total_orders": {
+        "totalOrders": {
           "type": "string",
           "format": "uint64",
           "title": "Total number of orders processed since genesis (on all markets)"
         },
-        "total_trades": {
+        "totalTrades": {
           "type": "string",
           "format": "uint64",
           "title": "Total number of trades emitted since genesis (on all markets)"
         },
-        "order_subscriptions": {
+        "orderSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to order data"
         },
-        "trade_subscriptions": {
+        "tradeSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to trade data"
         },
-        "candle_subscriptions": {
+        "candleSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to candle-stick data"
         },
-        "market_depth_subscriptions": {
+        "marketDepthSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to market depth data"
         },
-        "positions_subscriptions": {
+        "positionsSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to positions data"
         },
-        "account_subscriptions": {
+        "accountSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to account data"
         },
-        "market_data_subscriptions": {
+        "marketDataSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to market data"
         },
-        "app_version_hash": {
+        "appVersionHash": {
           "type": "string",
           "title": "The version hash of the Vega node software"
         },
-        "app_version": {
+        "appVersion": {
           "type": "string",
           "title": "The version of the Vega node software"
         },
-        "chain_version": {
+        "chainVersion": {
           "type": "string",
           "title": "The version of the underlying Vega blockchain"
         },
-        "block_duration": {
+        "blockDuration": {
           "type": "string",
           "format": "uint64",
           "title": "Current block duration, in nanoseconds"
@@ -1437,11 +1427,11 @@
           "type": "string",
           "title": "Total uptime for this node formatted in ISO-8601 datetime format with nanosecond precision"
         },
-        "chain_id": {
+        "chainId": {
           "type": "string",
           "title": "Unique identifier for the underlying Vega blockchain"
         },
-        "market_depth_updates_subscriptions": {
+        "marketDepthUpdatesSubscriptions": {
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to market depth update data"
@@ -1456,21 +1446,6 @@
           "$ref": "#/definitions/v1Statistics"
         }
       }
-    },
-    "v1SubmitRawTransactionRequest": {
-      "type": "object",
-      "properties": {
-        "tx": {
-          "type": "string",
-          "format": "byte",
-          "title": "A bundle of signed payload and signature marshalled into a byte array, to form a transaction that will be submitted to the Vega blockchain"
-        },
-        "type": {
-          "$ref": "#/definitions/v1SubmitRawTransactionRequestType",
-          "title": "Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response"
-        }
-      },
-      "title": "Request for submitting a version agnostic transaction on Vega"
     },
     "v1SubmitRawTransactionRequestType": {
       "type": "string",
@@ -1489,10 +1464,9 @@
       "properties": {
         "success": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Success will be true if the transaction was accepted by the node,\n**Important** - success does not mean that the event is confirmed by consensus"
         },
-        "tx_hash": {
+        "txHash": {
           "type": "string",
           "title": "Hash of the transaction, if accepted"
         }
@@ -1530,10 +1504,9 @@
       "properties": {
         "success": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Success will be true if the transaction was accepted by the node,\n**Important** - success does not mean that the event is confirmed by consensus"
         },
-        "tx_hash": {
+        "txHash": {
           "type": "string",
           "title": "Hash of the transaction, if accepted"
         }
@@ -1569,7 +1542,7 @@
     "v1Transaction": {
       "type": "object",
       "properties": {
-        "input_data": {
+        "inputData": {
           "type": "string",
           "format": "byte",
           "description": "One of the set of Vega commands (proto marshalled)."
@@ -1582,7 +1555,7 @@
           "type": "string",
           "description": "The address of the sender (hex-encoded). Not supported yet."
         },
-        "pub_key": {
+        "pubKey": {
           "type": "string",
           "description": "The public key of the sender (hex-encoded)."
         },
@@ -1623,54 +1596,54 @@
     "v1TxErrorEvent": {
       "type": "object",
       "properties": {
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Unique party identifier for the related party"
         },
-        "err_msg": {
+        "errMsg": {
           "type": "string",
           "title": "An error message describing what went wrong"
         },
-        "order_submission": {
+        "orderSubmission": {
           "$ref": "#/definitions/v1OrderSubmission"
         },
-        "order_amendment": {
+        "orderAmendment": {
           "$ref": "#/definitions/v1OrderAmendment"
         },
-        "order_cancellation": {
+        "orderCancellation": {
           "$ref": "#/definitions/v1OrderCancellation"
         },
         "proposal": {
           "$ref": "#/definitions/v1ProposalSubmission"
         },
-        "vote_submission": {
+        "voteSubmission": {
           "$ref": "#/definitions/v1VoteSubmission"
         },
-        "liquidity_provision_submission": {
+        "liquidityProvisionSubmission": {
           "$ref": "#/definitions/v1LiquidityProvisionSubmission"
         },
-        "withdraw_submission": {
+        "withdrawSubmission": {
           "$ref": "#/definitions/v1WithdrawSubmission"
         },
-        "delegate_submission": {
+        "delegateSubmission": {
           "$ref": "#/definitions/v1DelegateSubmission"
         },
-        "undelegate_submission": {
+        "undelegateSubmission": {
           "$ref": "#/definitions/v1UndelegateSubmission"
         },
-        "restore_snapshot": {
+        "restoreSnapshot": {
           "$ref": "#/definitions/v1RestoreSnapshot"
         },
-        "liquidity_provision_cancellation": {
+        "liquidityProvisionCancellation": {
           "$ref": "#/definitions/v1LiquidityProvisionCancellation"
         },
-        "liquidity_provision_amendment": {
+        "liquidityProvisionAmendment": {
           "$ref": "#/definitions/v1LiquidityProvisionAmendment"
         },
         "transfer": {
           "$ref": "#/definitions/vegacommandsv1Transfer"
         },
-        "cancel_transfer": {
+        "cancelTransfer": {
           "$ref": "#/definitions/v1CancelTransfer"
         }
       }
@@ -1678,7 +1651,7 @@
     "v1UndelegateSubmission": {
       "type": "object",
       "properties": {
-        "node_id": {
+        "nodeId": {
           "type": "string"
         },
         "amount": {
@@ -1690,25 +1663,69 @@
         }
       }
     },
+    "v1ValidatorRankingEvent": {
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "type": "string"
+        },
+        "stakeScore": {
+          "type": "string",
+          "title": "stake based score - no anti-whaling"
+        },
+        "performanceScore": {
+          "type": "string",
+          "title": "performance base score"
+        },
+        "rankingScore": {
+          "type": "string",
+          "title": "final score"
+        },
+        "previousStatus": {
+          "type": "string",
+          "title": "the status of the validator in the previous epoch"
+        },
+        "nextStatus": {
+          "type": "string",
+          "title": "the status of the validator in the next epoch"
+        },
+        "epochSeq": {
+          "type": "string",
+          "title": "the epoch seq for which the status is valid"
+        },
+        "tmVotingPower": {
+          "type": "integer",
+          "format": "int64",
+          "title": "tendermint voting power of the validator"
+        }
+      },
+      "title": "An event that explains the status of the validator for the coming epoch"
+    },
     "v1ValidatorScoreEvent": {
       "type": "object",
       "properties": {
-        "node_id": {
+        "nodeId": {
           "type": "string"
         },
-        "epoch_seq": {
+        "epochSeq": {
           "type": "string"
         },
-        "validator_score": {
+        "validatorScore": {
           "type": "string"
         },
-        "normalised_score": {
+        "normalisedScore": {
           "type": "string"
         },
-        "validator_performance": {
+        "validatorPerformance": {
           "type": "string"
         },
-        "raw_validator_score": {
+        "rawValidatorScore": {
+          "type": "string"
+        },
+        "validatorStatus": {
+          "type": "string"
+        },
+        "multisigScore": {
           "type": "string"
         }
       },
@@ -1717,23 +1734,23 @@
     "v1ValidatorUpdate": {
       "type": "object",
       "properties": {
-        "node_id": {
+        "nodeId": {
           "type": "string",
           "title": "Node id of the node"
         },
-        "vega_pub_key": {
+        "vegaPubKey": {
           "type": "string",
           "title": "Vega public key of validator node"
         },
-        "ethereum_address": {
+        "ethereumAddress": {
           "type": "string",
           "title": "Ethereum public key of validator node"
         },
-        "tm_pub_key": {
+        "tmPubKey": {
           "type": "string",
           "title": "Public key of Tendermint"
         },
-        "info_url": {
+        "infoUrl": {
           "type": "string",
           "title": "URL with more info on the node"
         },
@@ -1745,14 +1762,23 @@
           "type": "string",
           "title": "Name of the validator"
         },
-        "avatar_url": {
+        "avatarUrl": {
           "type": "string",
           "title": "AvatarURL of the validator"
         },
-        "vega_pub_key_index": {
+        "vegaPubKeyIndex": {
           "type": "integer",
           "format": "int64",
           "title": "Vega public key derivation index"
+        },
+        "added": {
+          "type": "boolean",
+          "title": "Flag indicating if the validator has been added to or removed from vega"
+        },
+        "fromEpoch": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The epoch from which the validator was added"
         }
       },
       "title": "A validator update event contains information about validator node"
@@ -1760,7 +1786,7 @@
     "v1VoteSubmission": {
       "type": "object",
       "properties": {
-        "proposal_id": {
+        "proposalId": {
           "type": "string",
           "description": "The ID of the proposal to vote for."
         },
@@ -1808,7 +1834,7 @@
           "type": "string",
           "title": "Asset identifier for the account"
         },
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the account, if [`AccountType`](#vega.AccountType).`ACCOUNT_TYPE_GENERAL` this will be empty"
         },
@@ -1870,7 +1896,7 @@
           "type": "string",
           "title": "Symbol of the asset (e.g: GBP)"
         },
-        "total_supply": {
+        "totalSupply": {
           "type": "string",
           "title": "Total circulating supply for the asset"
         },
@@ -1883,7 +1909,7 @@
           "type": "string",
           "title": "The minimum economically meaningful amount in the asset"
         },
-        "builtin_asset": {
+        "builtinAsset": {
           "$ref": "#/definitions/vegaBuiltinAsset",
           "title": "A built-in asset"
         },
@@ -1926,7 +1952,7 @@
     "vegaBuiltinAsset": {
       "type": "object",
       "properties": {
-        "max_faucet_amount_mint": {
+        "maxFaucetAmountMint": {
           "type": "string",
           "title": "Maximum amount that can be requested by a party through the built-in asset faucet at a time"
         }
@@ -1956,7 +1982,7 @@
           "$ref": "#/definitions/vegaDepositStatus",
           "title": "Status of the deposit"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Party identifier of the user initiating the deposit"
         },
@@ -1968,16 +1994,16 @@
           "type": "string",
           "title": "The amount to be deposited"
         },
-        "tx_hash": {
+        "txHash": {
           "type": "string",
           "title": "The hash of the transaction from the foreign chain"
         },
-        "credited_timestamp": {
+        "creditedTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the Vega account was updated with the deposit"
         },
-        "created_timestamp": {
+        "createdTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the deposit was created on the Vega network"
@@ -2000,7 +2026,7 @@
     "vegaERC20": {
       "type": "object",
       "properties": {
-        "contract_address": {
+        "contractAddress": {
           "type": "string",
           "title": "The address of the contract for the token, on the ethereum network"
         }
@@ -2021,7 +2047,7 @@
     "vegaErc20WithdrawExt": {
       "type": "object",
       "properties": {
-        "receiver_address": {
+        "receiverAddress": {
           "type": "string",
           "title": "The address into which the bridge will release the funds"
         }
@@ -2031,15 +2057,15 @@
     "vegaFee": {
       "type": "object",
       "properties": {
-        "maker_fee": {
+        "makerFee": {
           "type": "string",
           "title": "Fee amount paid to the non-aggressive party of the trade"
         },
-        "infrastructure_fee": {
+        "infrastructureFee": {
           "type": "string",
           "title": "Fee amount paid for maintaining the Vega infrastructure"
         },
-        "liquidity_fee": {
+        "liquidityFee": {
           "type": "string",
           "title": "Fee amount paid to market makers"
         }
@@ -2049,15 +2075,15 @@
     "vegaFeeFactors": {
       "type": "object",
       "properties": {
-        "maker_fee": {
+        "makerFee": {
           "type": "string",
           "title": "Maker fee"
         },
-        "infrastructure_fee": {
+        "infrastructureFee": {
           "type": "string",
           "title": "Infrastructure fee"
         },
-        "liquidity_fee": {
+        "liquidityFee": {
           "type": "string",
           "title": "Liquidity fee"
         }
@@ -2077,23 +2103,23 @@
     "vegaFuture": {
       "type": "object",
       "properties": {
-        "settlement_asset": {
+        "settlementAsset": {
           "type": "string",
           "title": "The asset for the future"
         },
-        "quote_name": {
+        "quoteName": {
           "type": "string",
           "title": "Quote name of the instrument"
         },
-        "oracle_spec_for_settlement_price": {
+        "oracleSpecForSettlementPrice": {
           "$ref": "#/definitions/v1OracleSpec",
           "title": "The oracle spec describing the settlement price oracle filter"
         },
-        "oracle_spec_for_trading_termination": {
+        "oracleSpecForTradingTermination": {
           "$ref": "#/definitions/v1OracleSpec",
           "title": "the oracle spec describing the trading termination oracle filter"
         },
-        "oracle_spec_binding": {
+        "oracleSpecBinding": {
           "$ref": "#/definitions/vegaOracleSpecToFutureBinding",
           "title": "The binding between the oracle spec and the oracle data"
         }
@@ -2103,23 +2129,23 @@
     "vegaFutureProduct": {
       "type": "object",
       "properties": {
-        "settlement_asset": {
+        "settlementAsset": {
           "type": "string",
           "title": "Product settlement asset identifier"
         },
-        "quote_name": {
+        "quoteName": {
           "type": "string",
           "title": "Product quote name"
         },
-        "oracle_spec_for_settlement_price": {
+        "oracleSpecForSettlementPrice": {
           "$ref": "#/definitions/v1OracleSpecConfiguration",
           "title": "The oracle spec describing the oracle data of settlement price"
         },
-        "oracle_spec_for_trading_termination": {
+        "oracleSpecForTradingTermination": {
           "$ref": "#/definitions/v1OracleSpecConfiguration",
           "title": "The oracle spec describing the oracle data of trading termination"
         },
-        "oracle_spec_binding": {
+        "oracleSpecBinding": {
           "$ref": "#/definitions/vegaOracleSpecToFutureBinding",
           "title": "The binding between the oracle spec and the settlement price"
         }
@@ -2186,11 +2212,11 @@
     "vegaLedgerEntry": {
       "type": "object",
       "properties": {
-        "from_account": {
+        "fromAccount": {
           "type": "string",
           "title": "One or more accounts to transfer from"
         },
-        "to_account": {
+        "toAccount": {
           "type": "string",
           "title": "One or more accounts to transfer to"
         },
@@ -2217,16 +2243,16 @@
     "vegaLiquidityMonitoringParameters": {
       "type": "object",
       "properties": {
-        "target_stake_parameters": {
+        "targetStakeParameters": {
           "$ref": "#/definitions/vegaTargetStakeParameters",
           "title": "Specifies parameters related to target stake calculation"
         },
-        "triggering_ratio": {
+        "triggeringRatio": {
           "type": "number",
           "format": "double",
           "title": "Specifies the triggering ratio for entering liquidity auction"
         },
-        "auction_extension": {
+        "auctionExtension": {
           "type": "string",
           "format": "int64",
           "title": "Specifies by how many seconds an auction should be extended if leaving the auction were to trigger a liquidity auction"
@@ -2256,11 +2282,11 @@
     "vegaLiquidityOrderReference": {
       "type": "object",
       "properties": {
-        "order_id": {
+        "orderId": {
           "type": "string",
           "title": "Unique identifier of the pegged order generated by the core to fulfil this liquidity order"
         },
-        "liquidity_order": {
+        "liquidityOrder": {
           "$ref": "#/definitions/vegaLiquidityOrder",
           "title": "The liquidity order from the original submission"
         }
@@ -2274,11 +2300,11 @@
           "type": "string",
           "title": "The liquidity provider party id"
         },
-        "equity_like_share": {
+        "equityLikeShare": {
           "type": "string",
           "title": "The share own by this liquidity provider (float)"
         },
-        "average_entry_valuation": {
+        "averageEntryValuation": {
           "type": "string",
           "title": "The average entry valuation of the liquidity provider for the market"
         }
@@ -2292,25 +2318,25 @@
           "type": "string",
           "title": "Unique identifier"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Unique party identifier for the creator of the provision"
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the order was created at, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
-        "updated_at": {
+        "updatedAt": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the order was updated at, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the order, required field"
         },
-        "commitment_amount": {
+        "commitmentAmount": {
           "type": "string",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
@@ -2386,7 +2412,7 @@
     "vegaLogNormalRiskModel": {
       "type": "object",
       "properties": {
-        "risk_aversion_parameter": {
+        "riskAversionParameter": {
           "type": "number",
           "format": "double",
           "title": "Risk Aversion Parameter"
@@ -2406,7 +2432,7 @@
     "vegaMarginCalculator": {
       "type": "object",
       "properties": {
-        "scaling_factors": {
+        "scalingFactors": {
           "$ref": "#/definitions/vegaScalingFactors",
           "title": "Scaling factors for margin calculation"
         }
@@ -2416,27 +2442,27 @@
     "vegaMarginLevels": {
       "type": "object",
       "properties": {
-        "maintenance_margin": {
+        "maintenanceMargin": {
           "type": "string",
           "title": "Maintenance margin value"
         },
-        "search_level": {
+        "searchLevel": {
           "type": "string",
           "title": "Search level value"
         },
-        "initial_margin": {
+        "initialMargin": {
           "type": "string",
           "title": "Initial margin value"
         },
-        "collateral_release_level": {
+        "collateralReleaseLevel": {
           "type": "string",
           "title": "Collateral release level value"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Party identifier"
         },
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier"
         },
@@ -2459,11 +2485,11 @@
           "type": "string",
           "title": "Unique identifier"
         },
-        "tradable_instrument": {
+        "tradableInstrument": {
           "$ref": "#/definitions/vegaTradableInstrument",
           "title": "Tradable instrument configuration"
         },
-        "decimal_places": {
+        "decimalPlaces": {
           "type": "string",
           "format": "uint64",
           "title": "Number of decimal places that a price must be shifted by in order to get a\ncorrect price denominated in the currency of the market, for example:\n`realPrice = price / 10^decimalPlaces`"
@@ -2472,19 +2498,19 @@
           "$ref": "#/definitions/vegaFees",
           "title": "Fees configuration"
         },
-        "opening_auction": {
+        "openingAuction": {
           "$ref": "#/definitions/vegaAuctionDuration",
           "title": "Auction duration specifies how long the opening auction will run (minimum\nduration and optionally a minimum traded volume)"
         },
-        "price_monitoring_settings": {
+        "priceMonitoringSettings": {
           "$ref": "#/definitions/vegaPriceMonitoringSettings",
           "title": "PriceMonitoringSettings for the market"
         },
-        "liquidity_monitoring_parameters": {
+        "liquidityMonitoringParameters": {
           "$ref": "#/definitions/vegaLiquidityMonitoringParameters",
           "title": "LiquidityMonitoringParameters for the market"
         },
-        "trading_mode": {
+        "tradingMode": {
           "$ref": "#/definitions/MarketTradingMode",
           "title": "Current mode of execution of the market"
         },
@@ -2492,7 +2518,7 @@
           "$ref": "#/definitions/vegaMarketState",
           "title": "Current state of the market"
         },
-        "market_timestamps": {
+        "marketTimestamps": {
           "$ref": "#/definitions/vegaMarketTimestamps",
           "title": "Timestamps for when the market stay changes"
         }
@@ -2502,51 +2528,51 @@
     "vegaMarketData": {
       "type": "object",
       "properties": {
-        "mark_price": {
+        "markPrice": {
           "type": "string",
           "title": "Mark price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
-        "best_bid_price": {
+        "bestBidPrice": {
           "type": "string",
           "title": "Highest price level on an order book for buy orders, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
-        "best_bid_volume": {
+        "bestBidVolume": {
           "type": "string",
           "format": "uint64",
           "title": "Aggregated volume being bid at the best bid price"
         },
-        "best_offer_price": {
+        "bestOfferPrice": {
           "type": "string",
           "title": "Lowest price level on an order book for offer orders"
         },
-        "best_offer_volume": {
+        "bestOfferVolume": {
           "type": "string",
           "format": "uint64",
           "title": "Aggregated volume being offered at the best offer price, as an integer, for example `123456` is a correctly\n // formatted price of `1.23456` assuming market configured to 5 decimal places"
         },
-        "best_static_bid_price": {
+        "bestStaticBidPrice": {
           "type": "string",
           "title": "Highest price on the order book for buy orders not including pegged orders"
         },
-        "best_static_bid_volume": {
+        "bestStaticBidVolume": {
           "type": "string",
           "format": "uint64",
           "title": "Total volume at the best static bid price excluding pegged orders"
         },
-        "best_static_offer_price": {
+        "bestStaticOfferPrice": {
           "type": "string",
           "title": "Lowest price on the order book for sell orders not including pegged orders"
         },
-        "best_static_offer_volume": {
+        "bestStaticOfferVolume": {
           "type": "string",
           "format": "uint64",
           "title": "Total volume at the best static offer price excluding pegged orders"
         },
-        "mid_price": {
+        "midPrice": {
           "type": "string",
           "title": "Arithmetic average of the best bid price and best offer price, as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
         },
-        "static_mid_price": {
+        "staticMidPrice": {
           "type": "string",
           "title": "Arithmetic average of the best static bid price and best static offer price"
         },
@@ -2559,31 +2585,31 @@
           "format": "int64",
           "title": "Timestamp at which this mark price was relevant, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
-        "open_interest": {
+        "openInterest": {
           "type": "string",
           "format": "uint64",
           "title": "The sum of the size of all positions greater than 0 on the market"
         },
-        "auction_end": {
+        "auctionEnd": {
           "type": "string",
           "format": "int64",
           "title": "Time in seconds until the end of the auction (0 if currently not in auction period)"
         },
-        "auction_start": {
+        "auctionStart": {
           "type": "string",
           "format": "int64",
           "title": "Time until next auction (used in FBA's) - currently always 0"
         },
-        "indicative_price": {
+        "indicativePrice": {
           "type": "string",
           "title": "Indicative price (zero if not in auction)"
         },
-        "indicative_volume": {
+        "indicativeVolume": {
           "type": "string",
           "format": "uint64",
           "title": "Indicative volume (zero if not in auction)"
         },
-        "market_trading_mode": {
+        "marketTradingMode": {
           "$ref": "#/definitions/MarketTradingMode",
           "title": "The current trading mode for the market"
         },
@@ -2591,30 +2617,30 @@
           "$ref": "#/definitions/vegaAuctionTrigger",
           "title": "When a market is in an auction trading mode, this field indicates what triggered the auction"
         },
-        "extension_trigger": {
+        "extensionTrigger": {
           "$ref": "#/definitions/vegaAuctionTrigger",
           "title": "When a market auction is extended, this field indicates what caused the extension"
         },
-        "target_stake": {
+        "targetStake": {
           "type": "string",
           "title": "Targeted stake for the given market"
         },
-        "supplied_stake": {
+        "suppliedStake": {
           "type": "string",
           "title": "Available stake for the given market"
         },
-        "price_monitoring_bounds": {
+        "priceMonitoringBounds": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/vegaPriceMonitoringBounds"
           },
           "title": "One or more price monitoring bounds for the current timestamp"
         },
-        "market_value_proxy": {
+        "marketValueProxy": {
           "type": "string",
           "title": "the market value proxy"
         },
-        "liquidity_provider_fee_share": {
+        "liquidityProviderFeeShare": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/vegaLiquidityProviderFeeShare"
@@ -2671,47 +2697,41 @@
     "vegaNetworkLimits": {
       "type": "object",
       "properties": {
-        "can_propose_market": {
+        "canProposeMarket": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Are market proposals allowed at this point in time"
         },
-        "can_propose_asset": {
+        "canProposeAsset": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Are asset proposals allowed at this point in time"
         },
-        "bootstrap_finished": {
+        "bootstrapFinished": {
           "type": "boolean",
-          "format": "boolean",
           "title": "True once block count \u003e bootstrapBlockCount"
         },
-        "propose_market_enabled": {
+        "proposeMarketEnabled": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Are market proposals enabled on this chain"
         },
-        "propose_asset_enabled": {
+        "proposeAssetEnabled": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Are asset proposals enabled on this chain"
         },
-        "bootstrap_block_count": {
+        "bootstrapBlockCount": {
           "type": "integer",
           "format": "int64",
           "title": "How many blocks before the chain comes out of bootstrap mode"
         },
-        "genesis_loaded": {
+        "genesisLoaded": {
           "type": "boolean",
-          "format": "boolean",
           "title": "True once the genesis file is loaded"
         },
-        "propose_market_enabled_from": {
+        "proposeMarketEnabledFrom": {
           "type": "string",
           "format": "int64",
           "title": "The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)"
         },
-        "propose_asset_enabled_from": {
+        "proposeAssetEnabledFrom": {
           "type": "string",
           "format": "int64",
           "title": "The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)"
@@ -2777,7 +2797,7 @@
           "$ref": "#/definitions/vegaNewMarketConfiguration",
           "title": "The configuration of the new market"
         },
-        "liquidity_commitment": {
+        "liquidityCommitment": {
           "$ref": "#/definitions/vegaNewMarketCommitment",
           "title": "The commitment from the party creating the NewMarket proposal"
         }
@@ -2787,7 +2807,7 @@
     "vegaNewMarketCommitment": {
       "type": "object",
       "properties": {
-        "commitment_amount": {
+        "commitmentAmount": {
           "type": "string",
           "title": "Specified as a unitless number that represents the amount of settlement asset of the market"
         },
@@ -2823,7 +2843,7 @@
           "$ref": "#/definitions/vegaInstrumentConfiguration",
           "title": "New market instrument configuration"
         },
-        "decimal_places": {
+        "decimalPlaces": {
           "type": "string",
           "format": "uint64",
           "title": "Decimal places used for the new market"
@@ -2835,11 +2855,11 @@
           },
           "title": "Optional new market meta data, tags"
         },
-        "price_monitoring_parameters": {
+        "priceMonitoringParameters": {
           "$ref": "#/definitions/vegaPriceMonitoringParameters",
           "title": "Price monitoring parameters"
         },
-        "liquidity_monitoring_parameters": {
+        "liquidityMonitoringParameters": {
           "$ref": "#/definitions/vegaLiquidityMonitoringParameters",
           "title": "Liquidity monitoring parameters"
         },
@@ -2847,7 +2867,7 @@
           "$ref": "#/definitions/vegaSimpleModelParams",
           "title": "Simple risk model parameters, valid only if MODEL_SIMPLE is selected"
         },
-        "log_normal": {
+        "logNormal": {
           "$ref": "#/definitions/vegaLogNormalRiskModel",
           "title": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
         }
@@ -2857,11 +2877,11 @@
     "vegaOracleSpecToFutureBinding": {
       "type": "object",
       "properties": {
-        "settlement_price_property": {
+        "settlementPriceProperty": {
           "type": "string",
           "description": "settlement_price_property holds the name of the property in the oracle data\nthat should be used as settlement price.\nIf it is set to \"prices.BTC.value\", then the Future will use the value of\nthis property as settlement price."
         },
-        "trading_termination_property": {
+        "tradingTerminationProperty": {
           "type": "string",
           "title": "the name of the property in the oracle data that signals termination of trading"
         }
@@ -2875,11 +2895,11 @@
           "type": "string",
           "title": "Unique identifier for the order (set by the system after consensus)"
         },
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier for the order"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Party identifier for the order"
         },
@@ -2901,7 +2921,7 @@
           "format": "uint64",
           "title": "Size remaining, when this reaches 0 then the order is fully filled and status becomes STATUS_FILLED"
         },
-        "time_in_force": {
+        "timeInForce": {
           "$ref": "#/definitions/OrderTimeInForce",
           "title": "Time in force indicates how long an order will remain active before it is executed or expires.\n- See [`Order.TimeInForce`](#vega.Order.TimeInForce)"
         },
@@ -2909,7 +2929,7 @@
           "$ref": "#/definitions/vegaOrderType",
           "title": "Type for the order - See [`Order.Type`](#vega.Order.Type)"
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the order was created at, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
@@ -2918,7 +2938,7 @@
           "$ref": "#/definitions/vegaOrderStatus",
           "title": "The current status for the order. See [`Order.Status`](#vega.Order.Status)\n- For detail on `STATUS_REJECTED` please check the [`OrderError`](#vega.OrderError) value given in the `reason` field"
         },
-        "expires_at": {
+        "expiresAt": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the order will expire, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`, valid only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`"
@@ -2931,7 +2951,7 @@
           "$ref": "#/definitions/vegaOrderError",
           "title": "If the Order `status` is `STATUS_REJECTED` then an [`OrderError`](#vega.OrderError) reason will be specified\n- The default for this field is `ORDER_ERROR_NONE` which signifies that there were no errors"
         },
-        "updated_at": {
+        "updatedAt": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the Order was last updated, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
@@ -2941,16 +2961,16 @@
           "format": "uint64",
           "title": "The version for the order, initial value is version 1 and is incremented after each successful amend"
         },
-        "batch_id": {
+        "batchId": {
           "type": "string",
           "format": "uint64",
           "title": "Batch identifier for the order, used internally for orders submitted during auctions\nto keep track of the auction batch this order falls under (required for fees calculation)"
         },
-        "pegged_order": {
+        "peggedOrder": {
           "$ref": "#/definitions/vegaPeggedOrder",
           "description": "Pegged order details, used only if the order represents a pegged order."
         },
-        "liquidity_provision_id": {
+        "liquidityProvisionId": {
           "type": "string",
           "description": "Is this order created as part of a liquidity provision, will be empty if not."
         }
@@ -3087,11 +3107,11 @@
     "vegaPriceMonitoringBounds": {
       "type": "object",
       "properties": {
-        "min_valid_price": {
+        "minValidPrice": {
           "type": "string",
           "title": "Minimum price that isn't currently breaching the specified price monitoring trigger"
         },
-        "max_valid_price": {
+        "maxValidPrice": {
           "type": "string",
           "title": "Maximum price that isn't currently breaching the specified price monitoring trigger"
         },
@@ -3099,7 +3119,7 @@
           "$ref": "#/definitions/vegaPriceMonitoringTrigger",
           "title": "Price monitoring trigger associated with the bounds"
         },
-        "reference_price": {
+        "referencePrice": {
           "type": "number",
           "format": "double",
           "title": "Reference price used to calculate the valid price range"
@@ -3126,7 +3146,7 @@
           "$ref": "#/definitions/vegaPriceMonitoringParameters",
           "title": "Specifies price monitoring parameters to be used for price monitoring purposes"
         },
-        "update_frequency": {
+        "updateFrequency": {
           "type": "string",
           "format": "int64",
           "title": "Specifies how often (expressed in seconds) the price monitoring bounds should be updated"
@@ -3147,7 +3167,7 @@
           "format": "double",
           "title": "Price monitoring probability level p"
         },
-        "auction_extension": {
+        "auctionExtension": {
           "type": "string",
           "format": "int64",
           "title": "Price monitoring auction extension duration in seconds should the price\nbreach it's theoretical level over the specified horizon at the specified\nprobability level"
@@ -3166,7 +3186,7 @@
           "type": "string",
           "title": "Proposal reference"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Party identifier of the author (the party submitting the proposal)"
         },
@@ -3187,7 +3207,7 @@
           "$ref": "#/definitions/vegaProposalError",
           "title": "A reason for the current state of the proposal, this may be set in case of REJECTED and FAILED statuses"
         },
-        "error_details": {
+        "errorDetails": {
           "type": "string",
           "description": "The detailed error associated to the reason."
         }
@@ -3253,38 +3273,38 @@
     "vegaProposalTerms": {
       "type": "object",
       "properties": {
-        "closing_timestamp": {
+        "closingTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp (Unix time in seconds) when voting closes for this proposal,\nconstrained by `minClose` and `maxClose` network parameters"
         },
-        "enactment_timestamp": {
+        "enactmentTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnact` and `maxEnact` network parameters"
         },
-        "validation_timestamp": {
+        "validationTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Validation timestamp (Unix time in seconds)"
         },
-        "update_market": {
+        "updateMarket": {
           "$ref": "#/definitions/vegaUpdateMarket",
           "title": "Proposal change for modifying an existing market on Vega"
         },
-        "new_market": {
+        "newMarket": {
           "$ref": "#/definitions/vegaNewMarket",
           "title": "Proposal change for creating new market on Vega"
         },
-        "update_network_parameter": {
+        "updateNetworkParameter": {
           "$ref": "#/definitions/vegaUpdateNetworkParameter",
           "title": "Proposal change for updating Vega network parameters"
         },
-        "new_asset": {
+        "newAsset": {
           "$ref": "#/definitions/vegaNewAsset",
           "title": "Proposal change for creating new assets on Vega"
         },
-        "new_freeform": {
+        "newFreeform": {
           "$ref": "#/definitions/vegaNewFreeform",
           "title": "Proposal change for a freeform voting thing"
         }
@@ -3312,17 +3332,17 @@
     "vegaScalingFactors": {
       "type": "object",
       "properties": {
-        "search_level": {
+        "searchLevel": {
           "type": "number",
           "format": "double",
           "title": "Search level"
         },
-        "initial_margin": {
+        "initialMargin": {
           "type": "number",
           "format": "double",
           "title": "Initial margin level"
         },
-        "collateral_release": {
+        "collateralRelease": {
           "type": "number",
           "format": "double",
           "title": "Collateral release level"
@@ -3344,27 +3364,27 @@
     "vegaSimpleModelParams": {
       "type": "object",
       "properties": {
-        "factor_long": {
+        "factorLong": {
           "type": "number",
           "format": "double",
           "title": "Pre-defined risk factor value for long"
         },
-        "factor_short": {
+        "factorShort": {
           "type": "number",
           "format": "double",
           "title": "Pre-defined risk factor value for short"
         },
-        "max_move_up": {
+        "maxMoveUp": {
           "type": "number",
           "format": "double",
           "title": "Pre-defined maximum price move up that the model considers as valid"
         },
-        "min_move_down": {
+        "minMoveDown": {
           "type": "number",
           "format": "double",
           "title": "Pre-defined minimum price move down that the model considers as valid"
         },
-        "probability_of_trading": {
+        "probabilityOfTrading": {
           "type": "number",
           "format": "double",
           "title": "Pre-defined constant probability of trading"
@@ -3385,12 +3405,12 @@
     "vegaTargetStakeParameters": {
       "type": "object",
       "properties": {
-        "time_window": {
+        "timeWindow": {
           "type": "string",
           "format": "int64",
           "title": "Specifies length of time window expressed in seconds for target stake calculation"
         },
-        "scaling_factor": {
+        "scalingFactor": {
           "type": "number",
           "format": "double",
           "title": "Specifies scaling factors used in target stake calculation"
@@ -3416,15 +3436,15 @@
           "$ref": "#/definitions/vegaInstrument",
           "title": "Instrument details"
         },
-        "margin_calculator": {
+        "marginCalculator": {
           "$ref": "#/definitions/vegaMarginCalculator",
           "title": "Margin calculator for the instrument"
         },
-        "log_normal_risk_model": {
+        "logNormalRiskModel": {
           "$ref": "#/definitions/vegaLogNormalRiskModel",
           "title": "Log normal"
         },
-        "simple_risk_model": {
+        "simpleRiskModel": {
           "$ref": "#/definitions/vegaSimpleRiskModel",
           "title": "Simple"
         }
@@ -3438,7 +3458,7 @@
           "type": "string",
           "title": "Unique identifier for the trade (generated by Vega)"
         },
-        "market_id": {
+        "marketId": {
           "type": "string",
           "title": "Market identifier (the market that the trade occurred on)"
         },
@@ -3463,11 +3483,11 @@
           "$ref": "#/definitions/vegaSide",
           "title": "Direction of the aggressive party e.g. SIDE_BUY or SIDE_SELL - See [`Side`](#vega.Side)"
         },
-        "buy_order": {
+        "buyOrder": {
           "type": "string",
           "title": "Identifier of the order from the buy side"
         },
-        "sell_order": {
+        "sellOrder": {
           "type": "string",
           "title": "Identifier of the order from the sell side"
         },
@@ -3480,20 +3500,20 @@
           "$ref": "#/definitions/vegaTradeType",
           "title": "Type for the trade - See [`Trade.Type`](#vega.Trade.Type)"
         },
-        "buyer_fee": {
+        "buyerFee": {
           "$ref": "#/definitions/vegaFee",
           "title": "Fee amount charged to the buyer party for the trade"
         },
-        "seller_fee": {
+        "sellerFee": {
           "$ref": "#/definitions/vegaFee",
           "title": "Fee amount charged to the seller party for the trade"
         },
-        "buyer_auction_batch": {
+        "buyerAuctionBatch": {
           "type": "string",
           "format": "uint64",
           "title": "Auction batch number that the buy side order was placed in"
         },
-        "seller_auction_batch": {
+        "sellerAuctionBatch": {
           "type": "string",
           "format": "uint64",
           "title": "Auction batch number that the sell side order was placed in"
@@ -3573,7 +3593,7 @@
     "vegaVote": {
       "type": "object",
       "properties": {
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Voter's party identifier"
         },
@@ -3581,7 +3601,7 @@
           "$ref": "#/definitions/VoteValue",
           "title": "Actual vote"
         },
-        "proposal_id": {
+        "proposalId": {
           "type": "string",
           "title": "Identifier of the proposal being voted on"
         },
@@ -3590,11 +3610,11 @@
           "format": "int64",
           "title": "Vote timestamp for date and time (in nanoseconds) when vote was submitted to the network"
         },
-        "total_governance_token_balance": {
+        "totalGovernanceTokenBalance": {
           "type": "string",
           "title": "Total number of governance token for the party that casted the vote"
         },
-        "total_governance_token_weight": {
+        "totalGovernanceTokenWeight": {
           "type": "string",
           "title": "The weight of this vote based on the total of governance token"
         }
@@ -3618,7 +3638,7 @@
           "type": "string",
           "title": "Unique identifier for the withdrawal"
         },
-        "party_id": {
+        "partyId": {
           "type": "string",
           "title": "Unique party identifier of the user initiating the withdrawal"
         },
@@ -3643,16 +3663,16 @@
           "format": "int64",
           "title": "The time until when the withdrawal is valid"
         },
-        "tx_hash": {
+        "txHash": {
           "type": "string",
           "title": "The hash of the foreign chain for this transaction"
         },
-        "created_timestamp": {
+        "createdTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the network started to process this withdrawal"
         },
-        "withdrawn_timestamp": {
+        "withdrawnTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp for when the withdrawal was finalised by the network"
@@ -3679,7 +3699,7 @@
     "vegacommandsv1OneOffTransfer": {
       "type": "object",
       "properties": {
-        "deliver_on": {
+        "deliverOn": {
           "type": "string",
           "format": "int64",
           "title": "A unix timestamp in second. Time at which the\ntransfer should be delivered in the to account"
@@ -3690,12 +3710,12 @@
     "vegacommandsv1RecurringTransfer": {
       "type": "object",
       "properties": {
-        "start_epoch": {
+        "startEpoch": {
           "type": "string",
           "format": "uint64",
           "title": "The first epoch from which this transfer shall be paid"
         },
-        "end_epoch": {
+        "endEpoch": {
           "$ref": "#/definitions/vegaUint64Value",
           "title": "The last epoch at which this transfer shall be paid"
         },
@@ -3709,7 +3729,7 @@
     "vegacommandsv1Transfer": {
       "type": "object",
       "properties": {
-        "from_account_type": {
+        "fromAccountType": {
           "$ref": "#/definitions/vegaAccountType",
           "title": "The account type from which the funds of the party\nshould be taken"
         },
@@ -3717,7 +3737,7 @@
           "type": "string",
           "title": "The public key of the destination account"
         },
-        "to_account_type": {
+        "toAccountType": {
           "$ref": "#/definitions/vegaAccountType",
           "title": "The type of the destination account"
         },
@@ -3733,7 +3753,7 @@
           "type": "string",
           "title": "The reference to be attached to the transfer"
         },
-        "one_off": {
+        "oneOff": {
           "$ref": "#/definitions/vegacommandsv1OneOffTransfer"
         },
         "recurring": {
@@ -3745,7 +3765,7 @@
     "vegaeventsv1OneOffTransfer": {
       "type": "object",
       "properties": {
-        "deliver_on": {
+        "deliverOn": {
           "type": "string",
           "format": "int64"
         }
@@ -3754,11 +3774,11 @@
     "vegaeventsv1RecurringTransfer": {
       "type": "object",
       "properties": {
-        "start_epoch": {
+        "startEpoch": {
           "type": "string",
           "format": "uint64"
         },
-        "end_epoch": {
+        "endEpoch": {
           "$ref": "#/definitions/vegaUint64Value"
         },
         "factor": {
@@ -3775,13 +3795,13 @@
         "from": {
           "type": "string"
         },
-        "from_account_type": {
+        "fromAccountType": {
           "$ref": "#/definitions/vegaAccountType"
         },
         "to": {
           "type": "string"
         },
-        "to_account_type": {
+        "toAccountType": {
           "$ref": "#/definitions/vegaAccountType"
         },
         "asset": {
@@ -3800,27 +3820,13 @@
           "type": "string",
           "format": "int64"
         },
-        "one_off": {
+        "oneOff": {
           "$ref": "#/definitions/vegaeventsv1OneOffTransfer"
         },
         "recurring": {
           "$ref": "#/definitions/vegaeventsv1RecurringTransfer"
         }
       }
-    }
-  },
-  "x-stream-definitions": {
-    "v1ObserveEventBusResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/v1ObserveEventBusResponse"
-        },
-        "error": {
-          "$ref": "#/definitions/runtimeStreamError"
-        }
-      },
-      "title": "Stream result of v1ObserveEventBusResponse"
     }
   }
 }

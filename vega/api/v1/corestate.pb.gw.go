@@ -13,20 +13,23 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/golang/protobuf/proto"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/grpc-ecosystem/grpc-gateway/utilities"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/proto"
 )
 
+// Suppress "imported and not used" errors
 var _ codes.Code
 var _ io.Reader
 var _ status.Status
 var _ = runtime.String
 var _ = utilities.NewDoubleArray
+var _ = metadata.Join
 
 var (
 	filter_CoreStateService_ListAccounts_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
@@ -36,11 +39,30 @@ func request_CoreStateService_ListAccounts_0(ctx context.Context, marshaler runt
 	var protoReq ListAccountsRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListAccounts_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListAccounts_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListAccounts(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListAccounts_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListAccountsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListAccounts_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListAccounts(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -53,11 +75,30 @@ func request_CoreStateService_ListAssets_0(ctx context.Context, marshaler runtim
 	var protoReq ListAssetsRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListAssets_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListAssets_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListAssets(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListAssets_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListAssetsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListAssets_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListAssets(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -70,11 +111,30 @@ func request_CoreStateService_ListNetworkParameters_0(ctx context.Context, marsh
 	var protoReq ListNetworkParametersRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListNetworkParameters_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListNetworkParameters_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListNetworkParameters(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListNetworkParameters_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListNetworkParametersRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListNetworkParameters_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListNetworkParameters(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -88,11 +148,29 @@ func request_CoreStateService_ListNetworkLimits_0(ctx context.Context, marshaler
 
 }
 
+func local_request_CoreStateService_ListNetworkLimits_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListNetworkLimitsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.ListNetworkLimits(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_CoreStateService_ListParties_0(ctx context.Context, marshaler runtime.Marshaler, client CoreStateServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListPartiesRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := client.ListParties(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListParties_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListPartiesRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.ListParties(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -106,6 +184,15 @@ func request_CoreStateService_ListValidators_0(ctx context.Context, marshaler ru
 
 }
 
+func local_request_CoreStateService_ListValidators_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListValidatorsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.ListValidators(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 var (
 	filter_CoreStateService_ListMarkets_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
@@ -114,11 +201,30 @@ func request_CoreStateService_ListMarkets_0(ctx context.Context, marshaler runti
 	var protoReq ListMarketsRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListMarkets_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListMarkets_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListMarkets(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListMarkets_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListMarketsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListMarkets_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListMarkets(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -131,11 +237,30 @@ func request_CoreStateService_ListProposals_0(ctx context.Context, marshaler run
 	var protoReq ListProposalsRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListProposals_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListProposals_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListProposals(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListProposals_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListProposalsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListProposals_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListProposals(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -148,11 +273,30 @@ func request_CoreStateService_ListMarketsData_0(ctx context.Context, marshaler r
 	var protoReq ListMarketsDataRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListMarketsData_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListMarketsData_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListMarketsData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListMarketsData_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListMarketsDataRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListMarketsData_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListMarketsData(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -165,11 +309,30 @@ func request_CoreStateService_ListVotes_0(ctx context.Context, marshaler runtime
 	var protoReq ListVotesRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListVotes_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListVotes_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListVotes(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListVotes_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListVotesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListVotes_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListVotes(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -182,11 +345,30 @@ func request_CoreStateService_ListPartiesStake_0(ctx context.Context, marshaler 
 	var protoReq ListPartiesStakeRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListPartiesStake_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListPartiesStake_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListPartiesStake(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreStateService_ListPartiesStake_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListPartiesStakeRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListPartiesStake_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListPartiesStake(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -199,13 +381,317 @@ func request_CoreStateService_ListDelegations_0(ctx context.Context, marshaler r
 	var protoReq ListDelegationsRequest
 	var metadata runtime.ServerMetadata
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_CoreStateService_ListDelegations_0); err != nil {
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListDelegations_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.ListDelegations(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
+}
+
+func local_request_CoreStateService_ListDelegations_0(ctx context.Context, marshaler runtime.Marshaler, server CoreStateServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListDelegationsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CoreStateService_ListDelegations_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListDelegations(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+// RegisterCoreStateServiceHandlerServer registers the http handlers for service CoreStateService to "mux".
+// UnaryRPC     :call CoreStateServiceServer directly.
+// StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterCoreStateServiceHandlerFromEndpoint instead.
+func RegisterCoreStateServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server CoreStateServiceServer) error {
+
+	mux.Handle("GET", pattern_CoreStateService_ListAccounts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListAccounts", runtime.WithHTTPPathPattern("/accounts"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListAccounts_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListAccounts_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListAssets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListAssets", runtime.WithHTTPPathPattern("/assets"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListAssets_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListAssets_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListNetworkParameters_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListNetworkParameters", runtime.WithHTTPPathPattern("/network/parameters"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListNetworkParameters_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListNetworkParameters_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListNetworkLimits_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListNetworkLimits", runtime.WithHTTPPathPattern("/network/limits"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListNetworkLimits_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListNetworkLimits_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListParties_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListParties", runtime.WithHTTPPathPattern("/parties"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListParties_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListParties_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListValidators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListValidators", runtime.WithHTTPPathPattern("/validators"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListValidators_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListValidators_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListMarkets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListMarkets", runtime.WithHTTPPathPattern("/markets"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListMarkets_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListMarkets_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListProposals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListProposals", runtime.WithHTTPPathPattern("/proposals"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListProposals_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListProposals_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListMarketsData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListMarketsData", runtime.WithHTTPPathPattern("/markets/data"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListMarketsData_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListMarketsData_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListVotes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListVotes", runtime.WithHTTPPathPattern("/votes"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListVotes_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListVotes_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListPartiesStake_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListPartiesStake", runtime.WithHTTPPathPattern("/parties/stake"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListPartiesStake_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListPartiesStake_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreStateService_ListDelegations_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListDelegations", runtime.WithHTTPPathPattern("/delegations"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreStateService_ListDelegations_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreStateService_ListDelegations_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	return nil
 }
 
 // RegisterCoreStateServiceHandlerFromEndpoint is same as RegisterCoreStateServiceHandler but
@@ -250,7 +736,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListAccounts", runtime.WithHTTPPathPattern("/accounts"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -270,7 +756,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListAssets", runtime.WithHTTPPathPattern("/assets"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -290,7 +776,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListNetworkParameters", runtime.WithHTTPPathPattern("/network/parameters"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -310,7 +796,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListNetworkLimits", runtime.WithHTTPPathPattern("/network/limits"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -330,7 +816,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListParties", runtime.WithHTTPPathPattern("/parties"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -350,7 +836,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListValidators", runtime.WithHTTPPathPattern("/validators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -370,7 +856,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListMarkets", runtime.WithHTTPPathPattern("/markets"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -390,7 +876,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListProposals", runtime.WithHTTPPathPattern("/proposals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -410,7 +896,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListMarketsData", runtime.WithHTTPPathPattern("/markets/data"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -430,7 +916,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListVotes", runtime.WithHTTPPathPattern("/votes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -450,7 +936,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListPartiesStake", runtime.WithHTTPPathPattern("/parties/stake"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -470,7 +956,7 @@ func RegisterCoreStateServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreStateService/ListDelegations", runtime.WithHTTPPathPattern("/delegations"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

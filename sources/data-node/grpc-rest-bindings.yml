@@ -47,11 +47,6 @@ http:
     - selector: datanode.api.v1.TradingDataService.MarketDataByID
       get: "/markets-data/{market_id}"
 
-    # transaction bundles
-    - selector: datanode.api.v1.TradingProxyService.SubmitTransaction
-      post: "/transaction"
-      body: "*"
-
     # Orders
     - selector: datanode.api.v1.TradingDataService.OrderByReference
       get: "/orders/{reference}"
@@ -131,10 +126,6 @@ http:
       get: "/liquidity-provisions/party/{party}/market/{market}"
 
     # Miscellaneous
-    - selector: datanode.api.v1.TradingDataService.Statistics
-      get: "/statistics"
-    - selector: datanode.api.v1.TradingDataService.LastBlockHeight
-      get: "/blockchain/height"
     - selector: datanode.api.v1.TradingDataService.GetVegaTime
       get: "/time"
 
@@ -167,8 +158,6 @@ http:
     # Key rotations
     - selector: datanode.api.v1.TradingDataService.GetKeyRotations
       get: "/key-rotations"
-    - selector: datanode.api.v1.TradingDataService.GetKeyRotationsByNodeID
-      get: "/key-rotations/node/{id}"
 
     # Transfers
     - selector: datanode.api.v1.TradingDataService.Transfers

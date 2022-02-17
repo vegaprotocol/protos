@@ -13,20 +13,23 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/golang/protobuf/proto"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/grpc-ecosystem/grpc-gateway/utilities"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/proto"
 )
 
+// Suppress "imported and not used" errors
 var _ codes.Code
 var _ io.Reader
 var _ status.Status
 var _ = runtime.String
 var _ = utilities.NewDoubleArray
+var _ = metadata.Join
 
 func request_CoreService_SubmitTransaction_0(ctx context.Context, marshaler runtime.Marshaler, client CoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq SubmitTransactionRequest
@@ -45,11 +48,37 @@ func request_CoreService_SubmitTransaction_0(ctx context.Context, marshaler runt
 
 }
 
+func local_request_CoreService_SubmitTransaction_0(ctx context.Context, marshaler runtime.Marshaler, server CoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq SubmitTransactionRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.SubmitTransaction(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_CoreService_Statistics_0(ctx context.Context, marshaler runtime.Marshaler, client CoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq StatisticsRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := client.Statistics(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_CoreService_Statistics_0(ctx context.Context, marshaler runtime.Marshaler, server CoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq StatisticsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.Statistics(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -63,6 +92,15 @@ func request_CoreService_LastBlockHeight_0(ctx context.Context, marshaler runtim
 
 }
 
+func local_request_CoreService_LastBlockHeight_0(ctx context.Context, marshaler runtime.Marshaler, server CoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq LastBlockHeightRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.LastBlockHeight(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_CoreService_GetVegaTime_0(ctx context.Context, marshaler runtime.Marshaler, client CoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetVegaTimeRequest
 	var metadata runtime.ServerMetadata
@@ -72,21 +110,114 @@ func request_CoreService_GetVegaTime_0(ctx context.Context, marshaler runtime.Ma
 
 }
 
-func request_CoreService_SubmitRawTransaction_0(ctx context.Context, marshaler runtime.Marshaler, client CoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SubmitRawTransactionRequest
+func local_request_CoreService_GetVegaTime_0(ctx context.Context, marshaler runtime.Marshaler, server CoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetVegaTimeRequest
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.SubmitRawTransaction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := server.GetVegaTime(ctx, &protoReq)
 	return msg, metadata, err
 
+}
+
+// RegisterCoreServiceHandlerServer registers the http handlers for service CoreService to "mux".
+// UnaryRPC     :call CoreServiceServer directly.
+// StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterCoreServiceHandlerFromEndpoint instead.
+func RegisterCoreServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server CoreServiceServer) error {
+
+	mux.Handle("POST", pattern_CoreService_SubmitTransaction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreService/SubmitTransaction", runtime.WithHTTPPathPattern("/transaction"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreService_SubmitTransaction_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreService_SubmitTransaction_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreService_Statistics_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreService/Statistics", runtime.WithHTTPPathPattern("/statistics"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreService_Statistics_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreService_Statistics_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreService_LastBlockHeight_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreService/LastBlockHeight", runtime.WithHTTPPathPattern("/blockchain/height"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreService_LastBlockHeight_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreService_LastBlockHeight_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_CoreService_GetVegaTime_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/vega.api.v1.CoreService/GetVegaTime", runtime.WithHTTPPathPattern("/time"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CoreService_GetVegaTime_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_CoreService_GetVegaTime_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	return nil
 }
 
 // RegisterCoreServiceHandlerFromEndpoint is same as RegisterCoreServiceHandler but
@@ -131,7 +262,7 @@ func RegisterCoreServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreService/SubmitTransaction", runtime.WithHTTPPathPattern("/transaction"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -151,7 +282,7 @@ func RegisterCoreServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreService/Statistics", runtime.WithHTTPPathPattern("/statistics"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -171,7 +302,7 @@ func RegisterCoreServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreService/LastBlockHeight", runtime.WithHTTPPathPattern("/blockchain/height"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -191,7 +322,7 @@ func RegisterCoreServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/vega.api.v1.CoreService/GetVegaTime", runtime.WithHTTPPathPattern("/time"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -207,26 +338,6 @@ func RegisterCoreServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 
 	})
 
-	mux.Handle("POST", pattern_CoreService_SubmitRawTransaction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_CoreService_SubmitRawTransaction_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_CoreService_SubmitRawTransaction_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	return nil
 }
 
@@ -238,8 +349,6 @@ var (
 	pattern_CoreService_LastBlockHeight_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"blockchain", "height"}, ""))
 
 	pattern_CoreService_GetVegaTime_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"time"}, ""))
-
-	pattern_CoreService_SubmitRawTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"rawtransaction"}, ""))
 )
 
 var (
@@ -250,6 +359,4 @@ var (
 	forward_CoreService_LastBlockHeight_0 = runtime.ForwardResponseMessage
 
 	forward_CoreService_GetVegaTime_0 = runtime.ForwardResponseMessage
-
-	forward_CoreService_SubmitRawTransaction_0 = runtime.ForwardResponseMessage
 )

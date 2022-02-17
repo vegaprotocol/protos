@@ -20,6 +20,7 @@
 ### 🚨 Breaking changes
 - [218](https://github.com/vegaprotocol/protos/pull/) - Restructure EthereumConfig to separate staking and vesting contract addresses, plus add block height at which they have been added respectively
 - [256](https://github.com/vegaprotocol/protos/pull/) - Rework freeform proposal protos so that they align with other proposals
+- [290](https://github.com/vegaprotocol/protos/pull/290) - Generate stubs using new versions of `protoc-gen-xxx`
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -44,6 +45,8 @@
 - [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash
 - [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
 - [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
+- [266](https://github.com/vegaprotocol/protos/pull/266) - Improve validator score event and add validator ranking event and proto definitions for topology snapshot
+- [263](https://github.com/vegaprotocol/protos/pull/263) - Add new validator commands
 - [272](https://github.com/vegaprotocol/protos/pull/272) - Update snapshot protos to be able to handle the iavl exported nodes
 - [276](https://github.com/vegaprotocol/protos/pull/276) - Remove maturity from future product, tick size from market and trading mode config from market
 - [277](https://github.com/vegaprotocol/protos/pull/277) - Update validation for risk params for log normal risk model
