@@ -9,7 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [293](https://github.com/vegaprotocol/protos/pull/293) - Re-enable proto check
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -

@@ -25,14 +25,14 @@ proto: ## build proto definitions
 
 .PHONY: proto_check
 proto_check: ## proto: Check committed files match just-generated files
-	# @make proto_clean 1>/dev/null
-	# @make proto 1>/dev/null
-	# @files="$$(git diff --name-only vega/ swagger/ data-node/)" ; \
-	# if test -n "$$files" ; then \
-	# 	echo "Committed files do not match just-generated files:" $$files ; \
-	# 	test -n "$(CI)" && git diff vega/ ; \
-	# 	exit 1 ; \
-	# fi
+	@make proto_clean 1>/dev/null
+	@make proto 1>/dev/null
+	@files="$$(git diff --name-only vega/ swagger/ data-node/)" ; \
+	if test -n "$$files" ; then \
+		echo "Committed files do not match just-generated files:" $$files ; \
+		test -n "$(CI)" && git diff vega/ ; \
+		exit 1 ; \
+	fi
 
 .PHONY: proto_clean
 proto_clean:
