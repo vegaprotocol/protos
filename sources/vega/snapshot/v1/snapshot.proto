@@ -105,7 +105,6 @@ message Payload {
     LiquidityProvisions liquidity_provisions = 42;
     LiquiditySupplied liquidity_supplied= 43;
     LiquidityTarget liquidity_target= 44;
-    ValidatorPerformance validator_performance = 45;
     FloatingPointConsensus floating_point_consensus = 46;
     FeesTracker fees_tracker = 47;
     MarketTracker market_tracker = 48;
@@ -588,6 +587,31 @@ message PendingKeyRotation {
   uint32 new_pub_key_index = 4;
 }
 
+message Topology {
+  repeated ValidatorState validator_data = 1;
+  repeated string chain_keys = 2;
+  repeated PendingKeyRotation pending_pub_key_rotations = 3;
+  ValidatorPerformance validator_performance = 4;
+}
+
+message ValidatorState {
+  vega.events.v1.ValidatorUpdate validator_update = 1;
+  uint64 block_added = 2;
+  int32 status = 3;
+  uint64 status_change_block = 4;
+  uint64 last_block_with_positive_ranking = 5;
+  uint64 eth_events_forwarded = 6;
+  HeartbeatTracker heartbeat_tracker = 7;
+  int64 validator_power = 8;
+}
+
+message HeartbeatTracker {
+  string expected_next_hash = 1;
+  int64 expected_next_hash_since = 2;
+  int32 block_index = 3;
+  repeated bool block_sigs = 4;
+}
+
 message PerformanceStats {
   string validator_address = 1;
   uint64 proposed = 2;
@@ -596,18 +620,10 @@ message PerformanceStats {
   int64 last_height_voted = 5;
   int64 last_height_proposed = 6;
   int64 last_height_elected = 7;
-
 }
 
 message ValidatorPerformance {
   repeated PerformanceStats validator_perf_stats = 1;
-}
-
-message Topology {
-  repeated vega.events.v1.ValidatorUpdate validator_data = 1;
-  repeated string chain_keys = 2;
-  repeated PendingKeyRotation pending_pub_key_rotations = 3;
-  ValidatorPerformance validator_performance = 4;
 }
 
 message LiquidityParameters {

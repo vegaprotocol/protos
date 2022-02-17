@@ -44,6 +44,8 @@
 - [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash
 - [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
 - [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
+- [266](https://github.com/vegaprotocol/protos/pull/266) - Improve validator score event and add validator ranking event and proto definitions for topology snapshot
+- [263](https://github.com/vegaprotocol/protos/pull/263) - Add new validator commands
 - [272](https://github.com/vegaprotocol/protos/pull/272) - Update snapshot protos to be able to handle the iavl exported nodes
 - [276](https://github.com/vegaprotocol/protos/pull/276) - Remove maturity from future product, tick size from market and trading mode config from market
 - [277](https://github.com/vegaprotocol/protos/pull/277) - Update validation for risk params for log normal risk model
