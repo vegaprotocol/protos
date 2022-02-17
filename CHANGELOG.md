@@ -82,7 +82,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [288](https://github.com/vegaprotocol/protos/pull/288) - Implements bridge limits
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
