@@ -24,8 +24,8 @@ message Checkpoint {
   bytes epoch = 6; // will just be an epoch event
   bytes block = 7;
   bytes rewards = 8;
-  bytes key_rotations = 9;
-  bytes banking = 10;
+  bytes banking = 9;
+  bytes validators = 10;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -116,10 +116,6 @@ message PendingKeyRotation {
   uint32 new_pub_key_index = 4;
 }
 
-message KeyRotations {
-  repeated PendingKeyRotation pending_key_rotations = 1;
-}
-
 message ScheduledTransfer {
   vega.Transfer transfer = 1;
   vega.AccountType account_type = 2;
@@ -139,4 +135,17 @@ message RecurringTransfers {
 message Banking {
   repeated ScheduledTransferAtTime transfers_at_time = 1;
   RecurringTransfers recurring_transfers = 2;
+}
+
+
+message Validators {
+  repeated ValidatorState validator_state = 1;
+  repeated PendingKeyRotation pending_key_rotations = 2;
+}
+
+message ValidatorState {
+  vega.events.v1.ValidatorUpdate validator_update = 1;
+  int32 status = 2;
+  uint64 eth_events_forwarded = 3;
+  int64 validator_power = 4;
 }
