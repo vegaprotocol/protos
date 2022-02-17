@@ -24,6 +24,17 @@ message QueryBalanceHistoryResponse {
     repeated AggregatedBalance balances = 1;
 }
 
+message AccountFilter{
+    // Restrict accounts to those holding balances in this asset ID
+    string asset_id = 1;
+    // Restrict accounts to those owned by the parties in this list (pass an empty list for no filter)
+    repeated string party_ids = 2;
+    // Restrict accounts to those connected to the marketsin this list (pass an empty list for no filter)
+    repeated string market_ids = 3;
+    // Restrict accounts to those connected to any of the types in this list (pass an empty list for no filter)
+    repeated vega.AccountType account_types = 4;
+}
+
 // A list of the properties of an account, used for grouping
 enum AccountField {
     ACCOUNT_FIELD_UNSPECIFIED = 0;
@@ -51,16 +62,6 @@ message AggregatedBalance {
     vega.AccountType account_type = 7;
 }
 
-message AccountFilter{
-    // Restrict accounts to those holding balances in this asset ID
-    string asset_id = 1;
-    // Restrict accounts to those owned by the parties in this list (pass an empty list for no filter)
-    repeated string party_ids = 2;
-    // Restrict accounts to those connected to the marketsin this list (pass an empty list for no filter)
-    repeated string market_ids = 3;
-    // Restrict accounts to those connected to any of the types in this list (pass an empty list for no filter)
-    repeated vega.AccountType account_types = 4;
-}
 
 
 
