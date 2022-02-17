@@ -842,6 +842,15 @@
           "type": "integer",
           "format": "int64",
           "title": "Vega public key derivation index"
+        },
+        "added": {
+          "type": "boolean",
+          "title": "Flag indicating if the validator has been added to or removed from vega"
+        },
+        "fromEpoch": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The epoch from which the validator was added"
         }
       },
       "title": "A validator update event contains information about validator node"
