@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LogNormalModelParams",
+    "definitions": {
+        "LogNormalModelParams": {
+            "properties": {
+                "mu": {
+                    "type": "number",
+                    "description": "Mu param"
+                },
+                "r": {
+                    "type": "number",
+                    "description": "R param"
+                },
+                "sigma": {
+                    "type": "number",
+                    "description": "Sigma param"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Log Normal Model Params",
+            "description": "Risk model parameters for log normal"
+        }
+    }
+}

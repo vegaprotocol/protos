@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/OrderByIDRequest",
+    "definitions": {
+        "OrderByIDRequest": {
+            "properties": {
+                "order_id": {
+                    "type": "string",
+                    "description": "Order identifier, required field"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Version of the order: - Set `version` to 0 for most recent version of the order - Set `1` for original version of the order - Set `2` for first amendment, `3` for second amendment, etc"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Order By ID Request",
+            "description": "Request for an order with the specified order identifier Optionally, return a specific version of the order with the `version` field"
+        }
+    }
+}

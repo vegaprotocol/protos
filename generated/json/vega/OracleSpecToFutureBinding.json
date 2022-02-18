@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/OracleSpecToFutureBinding",
+    "definitions": {
+        "OracleSpecToFutureBinding": {
+            "properties": {
+                "settlement_price_property": {
+                    "type": "string",
+                    "description": "settlement_price_property holds the name of the property in the oracle data that should be used as settlement price. If it is set to \"prices.BTC.value\", then the Future will use the value of this property as settlement price."
+                },
+                "trading_termination_property": {
+                    "type": "string",
+                    "description": "the name of the property in the oracle data that signals termination of trading"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Spec To Future Binding",
+            "description": "OracleSpecToFutureBinding tells on which property oracle data should be used as settlement price and which to use the trading terminated trigger"
+        }
+    }
+}

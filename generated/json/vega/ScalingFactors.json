@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ScalingFactors",
+    "definitions": {
+        "ScalingFactors": {
+            "properties": {
+                "search_level": {
+                    "type": "number",
+                    "description": "Search level"
+                },
+                "initial_margin": {
+                    "type": "number",
+                    "description": "Initial margin level"
+                },
+                "collateral_release": {
+                    "type": "number",
+                    "description": "Collateral release level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Scaling Factors",
+            "description": "Scaling Factors (for use in margin calculation)"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetProposalByIDRequest",
+    "definitions": {
+        "GetProposalByIDRequest": {
+            "properties": {
+                "proposal_id": {
+                    "type": "string",
+                    "description": "Proposal identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Proposal By ID Request",
+            "description": "Request for a governance proposal given a proposal identifier"
+        }
+    }
+}

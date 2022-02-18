@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PriceMonitoringSettings",
+    "definitions": {
+        "PriceMonitoringSettings": {
+            "properties": {
+                "parameters": {
+                    "$ref": "#/definitions/vega.PriceMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Specifies price monitoring parameters to be used for price monitoring purposes"
+                },
+                "update_frequency": {
+                    "type": "string",
+                    "description": "Specifies how often (expressed in seconds) the price monitoring bounds should be updated"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Settings",
+            "description": "PriceMonitoringSettings contains the settings for price monitoring"
+        },
+        "vega.PriceMonitoringParameters": {
+            "properties": {
+                "triggers": {
+                    "items": {
+                        "$ref": "#/definitions/vega.PriceMonitoringTrigger"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Parameters",
+            "description": "PriceMonitoringParameters contains a collection of triggers to be used for a given market"
+        },
+        "vega.PriceMonitoringTrigger": {
+            "properties": {
+                "horizon": {
+                    "type": "string",
+                    "description": "Price monitoring projection horizon τ in seconds"
+                },
+                "probability": {
+                    "type": "number",
+                    "description": "Price monitoring probability level p"
+                },
+                "auction_extension": {
+                    "type": "string",
+                    "description": "Price monitoring auction extension duration in seconds should the price breach it's theoretical level over the specified horizon at the specified probability level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Trigger",
+            "description": "PriceMonitoringTrigger holds together price projection horizon τ, probability level p, and auction extension duration"
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CandlesSubscribeRequest",
+    "definitions": {
+        "CandlesSubscribeRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                },
+                "interval": {
+                    "enum": [
+                        "INTERVAL_UNSPECIFIED",
+                        0,
+                        "INTERVAL_I1M",
+                        60,
+                        "INTERVAL_I5M",
+                        300,
+                        "INTERVAL_I15M",
+                        900,
+                        "INTERVAL_I1H",
+                        3600,
+                        "INTERVAL_I6H",
+                        21600,
+                        "INTERVAL_I1D",
+                        86400
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Interval",
+                    "description": "Represents a set of time intervals that are used when querying for candle-stick data"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candles Subscribe Request",
+            "description": "Request to subscribe to a stream of (Candles)[#vega.Candle]"
+        }
+    }
+}

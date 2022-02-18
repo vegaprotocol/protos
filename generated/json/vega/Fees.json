@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Fees",
+    "definitions": {
+        "Fees": {
+            "properties": {
+                "factors": {
+                    "$ref": "#/definitions/vega.FeeFactors",
+                    "additionalProperties": true,
+                    "description": "Fee factors"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fees",
+            "description": "Fees definition"
+        },
+        "vega.FeeFactors": {
+            "properties": {
+                "maker_fee": {
+                    "type": "string",
+                    "description": "Maker fee"
+                },
+                "infrastructure_fee": {
+                    "type": "string",
+                    "description": "Infrastructure fee"
+                },
+                "liquidity_fee": {
+                    "type": "string",
+                    "description": "Liquidity fee"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fee Factors",
+            "description": "Fee factors definition"
+        }
+    }
+}

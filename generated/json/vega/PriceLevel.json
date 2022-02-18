@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PriceLevel",
+    "definitions": {
+        "PriceLevel": {
+            "properties": {
+                "price": {
+                    "type": "string",
+                    "description": "Price for the price level, the price is an integer, for example `123456` is a correctly formatted price of `1.23456` assuming market configured to 5 decimal places"
+                },
+                "number_of_orders": {
+                    "type": "string",
+                    "description": "Number of orders at the price level"
+                },
+                "volume": {
+                    "type": "string",
+                    "description": "Volume at the price level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Level",
+            "description": "Represents a price level from market depth or order book data"
+        }
+    }
+}

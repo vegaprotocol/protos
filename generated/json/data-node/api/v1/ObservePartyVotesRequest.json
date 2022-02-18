@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ObservePartyVotesRequest",
+    "definitions": {
+        "ObservePartyVotesRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observe Party Votes Request",
+            "description": "Request to subscribe to a stream of governance votes for a party"
+        }
+    }
+}

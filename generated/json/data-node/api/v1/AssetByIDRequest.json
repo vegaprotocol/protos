@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/AssetByIDRequest",
+    "definitions": {
+        "AssetByIDRequest": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Asset identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Asset By ID Request",
+            "description": "Request for an asset given an asset identifier"
+        }
+    }
+}

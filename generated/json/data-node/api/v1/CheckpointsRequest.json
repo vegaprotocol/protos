@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CheckpointsRequest",
+    "definitions": {
+        "CheckpointsRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Checkpoints Request",
+            "description": "Request to get all checkpoints. Currently no fields, probably will be expanded to allow filtering data"
+        }
+    }
+}

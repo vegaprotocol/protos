@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TargetStakeParameters",
+    "definitions": {
+        "TargetStakeParameters": {
+            "properties": {
+                "time_window": {
+                    "type": "string",
+                    "description": "Specifies length of time window expressed in seconds for target stake calculation"
+                },
+                "scaling_factor": {
+                    "type": "number",
+                    "description": "Specifies scaling factors used in target stake calculation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Target Stake Parameters",
+            "description": "TargetStakeParameters contains parameters used in target stake calculation"
+        }
+    }
+}

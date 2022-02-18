@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PartyByIDResponse",
+    "definitions": {
+        "PartyByIDResponse": {
+            "properties": {
+                "party": {
+                    "$ref": "#/definitions/vega.Party",
+                    "additionalProperties": true,
+                    "description": "A party, if found"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party By ID Response",
+            "description": "Response for a party given a party identifier"
+        },
+        "vega.Party": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "A unique identifier for the party, typically represented by a public key"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party",
+            "description": "A party represents an entity who wishes to trade on or query a Vega network"
+        }
+    }
+}

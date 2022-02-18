@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TradesByPartyRequest",
+    "definitions": {
+        "TradesByPartyRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier. Required field"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v1.Pagination",
+                    "additionalProperties": true,
+                    "description": "Pagination controls"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Trades By Party Request",
+            "description": "Request for a list of trades relating to the given party Optionally, the list can be additionally filtered for trades by market"
+        },
+        "datanode.api.v1.Pagination": {
+            "properties": {
+                "skip": {
+                    "type": "string",
+                    "description": "Skip the number of records specified, default is 0"
+                },
+                "limit": {
+                    "type": "string",
+                    "description": "Limit the number of returned records to the value specified, default is 50"
+                },
+                "descending": {
+                    "type": "boolean",
+                    "description": "Descending reverses the order of the records returned, default is true, if false the results will be returned in ascending order"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Pagination controls"
+        }
+    }
+}

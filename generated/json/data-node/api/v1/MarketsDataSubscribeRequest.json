@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarketsDataSubscribeRequest",
+    "definitions": {
+        "MarketsDataSubscribeRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Markets Data Subscribe Request",
+            "description": "Request to subscribe to a stream of MarketsData Optionally, the list can be additionally filtered by market"
+        }
+    }
+}

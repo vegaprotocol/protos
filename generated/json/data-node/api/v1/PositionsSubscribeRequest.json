@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PositionsSubscribeRequest",
+    "definitions": {
+        "PositionsSubscribeRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier, optional field"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, optional field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Positions Subscribe Request",
+            "description": "Request to subscribe to a stream of (Positions)[#vega.Position]"
+        }
+    }
+}

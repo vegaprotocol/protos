@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PositionsByPartyRequest",
+    "definitions": {
+        "PositionsByPartyRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier, required field"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Positions By Party Request",
+            "description": "Request for a list of positions for a party Optionally, if a market identifier is set, the results will be filtered for that market only"
+        }
+    }
+}

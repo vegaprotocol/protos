@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarketDepthRequest",
+    "definitions": {
+        "MarketDepthRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                },
+                "max_depth": {
+                    "type": "string",
+                    "description": "Max depth limits the number of levels returned. Default is 0, which returns all levels"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Market Depth Request",
+            "description": "Request for the market depth/order book price levels on a market Optionally, a maximum depth can be set to limit the number of levels returned"
+        }
+    }
+}

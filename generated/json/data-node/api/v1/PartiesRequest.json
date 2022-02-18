@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PartiesRequest",
+    "definitions": {
+        "PartiesRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Parties Request",
+            "description": "Request for a list of all parties"
+        }
+    }
+}

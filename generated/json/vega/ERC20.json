@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20",
+    "definitions": {
+        "ERC20": {
+            "properties": {
+                "contract_address": {
+                    "type": "string",
+                    "description": "The address of the contract for the token, on the ethereum network"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20",
+            "description": "An ERC20 token based asset, living on the ethereum network"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PriceMonitoringTrigger",
+    "definitions": {
+        "PriceMonitoringTrigger": {
+            "properties": {
+                "horizon": {
+                    "type": "string",
+                    "description": "Price monitoring projection horizon τ in seconds"
+                },
+                "probability": {
+                    "type": "number",
+                    "description": "Price monitoring probability level p"
+                },
+                "auction_extension": {
+                    "type": "string",
+                    "description": "Price monitoring auction extension duration in seconds should the price breach it's theoretical level over the specified horizon at the specified probability level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Trigger",
+            "description": "PriceMonitoringTrigger holds together price projection horizon τ, probability level p, and auction extension duration"
+        }
+    }
+}

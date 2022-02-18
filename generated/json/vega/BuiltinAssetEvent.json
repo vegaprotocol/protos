@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/BuiltinAssetEvent",
+    "definitions": {
+        "BuiltinAssetEvent": {
+            "properties": {
+                "deposit": {
+                    "$ref": "#/definitions/vega.BuiltinAssetDeposit",
+                    "additionalProperties": true,
+                    "description": "Built-in asset deposit"
+                },
+                "withdrawal": {
+                    "$ref": "#/definitions/vega.BuiltinAssetWithdrawal",
+                    "additionalProperties": true,
+                    "description": "Built-in asset withdrawal"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Builtin Asset Event",
+            "description": "An event related to a Vega built-in asset"
+        },
+        "vega.BuiltinAssetDeposit": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "A Vega network internal asset identifier"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "A Vega party identifier (pub-key)"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be deposited"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Builtin Asset Deposit",
+            "description": "A deposit for a Vega built-in asset"
+        },
+        "vega.BuiltinAssetWithdrawal": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "A Vega network internal asset identifier"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "A Vega network party identifier (pub-key)"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be withdrawn"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Builtin Asset Withdrawal",
+            "description": "A withdrawal for a Vega built-in asset"
+        }
+    }
+}

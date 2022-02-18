@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetEpochRequest",
+    "definitions": {
+        "GetEpochRequest": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Optional - if id omitted it gets the current epoch"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Epoch Request"
+        }
+    }
+}

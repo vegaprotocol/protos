@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DepositsResponse",
+    "definitions": {
+        "DepositsResponse": {
+            "properties": {
+                "deposits": {
+                    "items": {
+                        "$ref": "#/definitions/vega.Deposit"
+                    },
+                    "type": "array",
+                    "description": "The list of deposits for the specified party"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Deposits Response",
+            "description": "The response for a list of deposits"
+        },
+        "vega.Deposit": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the deposit"
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_OPEN",
+                        1,
+                        "STATUS_CANCELLED",
+                        2,
+                        "STATUS_FINALIZED",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status",
+                    "description": "The status of the deposit"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier of the user initiating the deposit"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "The Vega asset targeted by this deposit"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be deposited"
+                },
+                "tx_hash": {
+                    "type": "string",
+                    "description": "The hash of the transaction from the foreign chain"
+                },
+                "credited_timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for when the Vega account was updated with the deposit"
+                },
+                "created_timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for when the deposit was created on the Vega network"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Deposit",
+            "description": "A deposit on to the Vega network"
+        }
+    }
+}

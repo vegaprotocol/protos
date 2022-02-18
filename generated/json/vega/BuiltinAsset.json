@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/BuiltinAsset",
+    "definitions": {
+        "BuiltinAsset": {
+            "properties": {
+                "max_faucet_amount_mint": {
+                    "type": "string",
+                    "description": "Maximum amount that can be requested by a party through the built-in asset faucet at a time"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Builtin Asset",
+            "description": "A Vega internal asset"
+        }
+    }
+}
