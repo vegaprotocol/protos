@@ -6,6 +6,7 @@ gettools_develop() {
 	tools="github.com/bufbuild/buf/cmd/buf@v1.0.0-rc12
 google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
 google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
+github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@latest
 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v2.7.3
 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@v2.7.3
 "
