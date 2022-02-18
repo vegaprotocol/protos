@@ -260,7 +260,7 @@ message DelegationAuto {
   repeated string parties = 1;
 }
 
-message ProposalData{
+message ProposalData {
   vega.Proposal proposal = 1;
   repeated vega.Vote yes = 2;
   repeated vega.Vote no = 3;
