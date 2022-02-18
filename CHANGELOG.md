@@ -26,6 +26,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
+- [294](https://github.com/vegaprotocol/protos/pull/294) - Add json proto generation to script
 - [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 - [212](https://github.com/vegaprotocol/protos/pull/212) - Add pagination field to DelegationRequest
