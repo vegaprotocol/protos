@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/FeeFactors",
+    "definitions": {
+        "FeeFactors": {
+            "properties": {
+                "maker_fee": {
+                    "type": "string",
+                    "description": "Maker fee"
+                },
+                "infrastructure_fee": {
+                    "type": "string",
+                    "description": "Infrastructure fee"
+                },
+                "liquidity_fee": {
+                    "type": "string",
+                    "description": "Liquidity fee"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fee Factors",
+            "description": "Fee factors definition"
+        }
+    }
+}

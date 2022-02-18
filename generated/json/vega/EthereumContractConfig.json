@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/EthereumContractConfig",
+    "definitions": {
+        "EthereumContractConfig": {
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "description": "Address of the contract for this Ethereum network. The address should start with \"0x\"."
+                },
+                "deployment_block_height": {
+                    "type": "string",
+                    "description": "Block height at which the stacking contract has been deployed for this Ethereum network."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ethereum Contract Config"
+        }
+    }
+}

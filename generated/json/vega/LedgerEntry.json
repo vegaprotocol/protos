@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LedgerEntry",
+    "definitions": {
+        "LedgerEntry": {
+            "properties": {
+                "from_account": {
+                    "type": "string",
+                    "description": "One or more accounts to transfer from"
+                },
+                "to_account": {
+                    "type": "string",
+                    "description": "One or more accounts to transfer to"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "An amount to transfer"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "A reference for auditing purposes"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of ledger entry"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for the time the ledger entry was created, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ledger Entry",
+            "description": "Represents a ledger entry on Vega"
+        }
+    }
+}

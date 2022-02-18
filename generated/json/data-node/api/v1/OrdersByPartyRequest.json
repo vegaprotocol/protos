@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/OrdersByPartyRequest",
+    "definitions": {
+        "OrdersByPartyRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier, required field"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v1.Pagination",
+                    "additionalProperties": true,
+                    "description": "Pagination controls"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Orders By Party Request",
+            "description": "Request for a list of orders for a party"
+        },
+        "datanode.api.v1.Pagination": {
+            "properties": {
+                "skip": {
+                    "type": "string",
+                    "description": "Skip the number of records specified, default is 0"
+                },
+                "limit": {
+                    "type": "string",
+                    "description": "Limit the number of returned records to the value specified, default is 50"
+                },
+                "descending": {
+                    "type": "boolean",
+                    "description": "Descending reverses the order of the records returned, default is true, if false the results will be returned in ascending order"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Pagination controls"
+        }
+    }
+}

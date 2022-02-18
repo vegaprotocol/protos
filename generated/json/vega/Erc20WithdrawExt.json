@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Erc20WithdrawExt",
+    "definitions": {
+        "Erc20WithdrawExt": {
+            "properties": {
+                "receiver_address": {
+                    "type": "string",
+                    "description": "The address into which the bridge will release the funds"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Erc 20 Withdraw Ext",
+            "description": "An extension of data required for the withdraw submissions"
+        }
+    }
+}

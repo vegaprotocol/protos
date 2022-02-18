@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CheckpointsResponse",
+    "definitions": {
+        "CheckpointsResponse": {
+            "properties": {
+                "checkpoints": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v1.Checkpoint"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Checkpoints Response",
+            "description": "Response message containing all checkpoints requested"
+        },
+        "datanode.api.v1.Checkpoint": {
+            "properties": {
+                "hash": {
+                    "type": "string"
+                },
+                "block_hash": {
+                    "type": "string"
+                },
+                "at_block": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Checkpoint",
+            "description": "The actual data regarding a checkpoint"
+        }
+    }
+}

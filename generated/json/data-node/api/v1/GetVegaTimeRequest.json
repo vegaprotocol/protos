@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetVegaTimeRequest",
+    "definitions": {
+        "GetVegaTimeRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Vega Time Request",
+            "description": "Request for the current time of the vega network"
+        }
+    }
+}

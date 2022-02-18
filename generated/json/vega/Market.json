@@ -1,0 +1,658 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Market",
+    "definitions": {
+        "Market": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                },
+                "tradable_instrument": {
+                    "$ref": "#/definitions/vega.TradableInstrument",
+                    "additionalProperties": true,
+                    "description": "Tradable instrument configuration"
+                },
+                "decimal_places": {
+                    "type": "string",
+                    "description": "Number of decimal places that a price must be shifted by in order to get a correct price denominated in the currency of the market, for example: `realPrice = price / 10^decimalPlaces`"
+                },
+                "fees": {
+                    "$ref": "#/definitions/vega.Fees",
+                    "additionalProperties": true,
+                    "description": "Fees configuration"
+                },
+                "opening_auction": {
+                    "$ref": "#/definitions/vega.AuctionDuration",
+                    "additionalProperties": true,
+                    "description": "Auction duration specifies how long the opening auction will run (minimum duration and optionally a minimum traded volume)"
+                },
+                "price_monitoring_settings": {
+                    "$ref": "#/definitions/vega.PriceMonitoringSettings",
+                    "additionalProperties": true,
+                    "description": "PriceMonitoringSettings for the market"
+                },
+                "liquidity_monitoring_parameters": {
+                    "$ref": "#/definitions/vega.LiquidityMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "LiquidityMonitoringParameters for the market"
+                },
+                "trading_mode": {
+                    "enum": [
+                        "TRADING_MODE_UNSPECIFIED",
+                        0,
+                        "TRADING_MODE_CONTINUOUS",
+                        1,
+                        "TRADING_MODE_BATCH_AUCTION",
+                        2,
+                        "TRADING_MODE_OPENING_AUCTION",
+                        3,
+                        "TRADING_MODE_MONITORING_AUCTION",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Trading Mode",
+                    "description": "The trading mode the market is currently running, also referred to as 'market state'"
+                },
+                "state": {
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        0,
+                        "STATE_PROPOSED",
+                        1,
+                        "STATE_REJECTED",
+                        2,
+                        "STATE_PENDING",
+                        3,
+                        "STATE_CANCELLED",
+                        4,
+                        "STATE_ACTIVE",
+                        5,
+                        "STATE_SUSPENDED",
+                        6,
+                        "STATE_CLOSED",
+                        7,
+                        "STATE_TRADING_TERMINATED",
+                        8,
+                        "STATE_SETTLED",
+                        9
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "State",
+                    "description": "The current state of the Market"
+                },
+                "market_timestamps": {
+                    "$ref": "#/definitions/vega.MarketTimestamps",
+                    "additionalProperties": true,
+                    "description": "Timestamps for when the market stay changes"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Market",
+            "description": "Market definition"
+        },
+        "oracles.v1.Condition": {
+            "properties": {
+                "operator": {
+                    "enum": [
+                        "OPERATOR_UNSPECIFIED",
+                        0,
+                        "OPERATOR_EQUALS",
+                        1,
+                        "OPERATOR_GREATER_THAN",
+                        2,
+                        "OPERATOR_GREATER_THAN_OR_EQUAL",
+                        3,
+                        "OPERATOR_LESS_THAN",
+                        4,
+                        "OPERATOR_LESS_THAN_OR_EQUAL",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Operator",
+                    "description": "Comparator describes the type of comparison."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "value is used by the comparator."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Condition",
+            "description": "Condition describes the condition that must be validated by the"
+        },
+        "oracles.v1.Filter": {
+            "properties": {
+                "key": {
+                    "$ref": "#/definitions/oracles.v1.PropertyKey",
+                    "additionalProperties": true,
+                    "description": "key is the oracle data property key targeted by the filter."
+                },
+                "conditions": {
+                    "items": {
+                        "$ref": "#/definitions/oracles.v1.Condition"
+                    },
+                    "type": "array",
+                    "description": "conditions are the conditions that should be matched by the data to be considered of interest."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Filter",
+            "description": "Filter describes the conditions under which an oracle data is considered of interest or not."
+        },
+        "oracles.v1.OracleSpec": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "id is a hash generated from the OracleSpec data."
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Creation Date time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Last Updated timestamp"
+                },
+                "pub_keys": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "pubKeys is the list of authorized public keys that signed the data for this oracle. All the public keys in the oracle data should be contained in these public keys."
+                },
+                "filters": {
+                    "items": {
+                        "$ref": "#/definitions/oracles.v1.Filter"
+                    },
+                    "type": "array",
+                    "description": "filters describes which oracle data are considered of interest or not for the product (or the risk model)."
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_ACTIVE",
+                        1,
+                        "STATUS_DEACTIVATED",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status",
+                    "description": "Status describe the status of the oracle spec"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Spec",
+            "description": "An oracle spec describe the oracle data that a product (or a risk model) wants to get from the oracle engine. This message contains additional information used by the API."
+        },
+        "oracles.v1.PropertyKey": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "name is the name of the property."
+                },
+                "type": {
+                    "enum": [
+                        "TYPE_UNSPECIFIED",
+                        0,
+                        "TYPE_EMPTY",
+                        1,
+                        "TYPE_INTEGER",
+                        2,
+                        "TYPE_STRING",
+                        3,
+                        "TYPE_BOOLEAN",
+                        4,
+                        "TYPE_DECIMAL",
+                        5,
+                        "TYPE_TIMESTAMP",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type",
+                    "description": "Type describes the type of properties that are supported by the oracle engine."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Property Key",
+            "description": "PropertyKey describes the property key contained in an oracle data."
+        },
+        "vega.AuctionDuration": {
+            "properties": {
+                "duration": {
+                    "type": "string",
+                    "description": "Duration of the auction in seconds"
+                },
+                "volume": {
+                    "type": "string",
+                    "description": "Target uncrossing trading volume"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Auction Duration",
+            "description": "An auction duration is used to configure 3 auction periods: 1. `duration \u003e 0`, `volume == 0`:   The auction will last for at least N seconds 2. `duration == 0`, `volume \u003e 0`:   The auction will end once we can close with given traded volume 3. `duration \u003e 0`, `volume \u003e 0`:   The auction will take at least N seconds, but can end sooner if we can trade a certain volume"
+        },
+        "vega.FeeFactors": {
+            "properties": {
+                "maker_fee": {
+                    "type": "string",
+                    "description": "Maker fee"
+                },
+                "infrastructure_fee": {
+                    "type": "string",
+                    "description": "Infrastructure fee"
+                },
+                "liquidity_fee": {
+                    "type": "string",
+                    "description": "Liquidity fee"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fee Factors",
+            "description": "Fee factors definition"
+        },
+        "vega.Fees": {
+            "properties": {
+                "factors": {
+                    "$ref": "#/definitions/vega.FeeFactors",
+                    "additionalProperties": true,
+                    "description": "Fee factors"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fees",
+            "description": "Fees definition"
+        },
+        "vega.Future": {
+            "properties": {
+                "settlement_asset": {
+                    "type": "string",
+                    "description": "The asset for the future"
+                },
+                "quote_name": {
+                    "type": "string",
+                    "description": "Quote name of the instrument"
+                },
+                "oracle_spec_for_settlement_price": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "additionalProperties": true,
+                    "description": "The oracle spec describing the settlement price oracle filter"
+                },
+                "oracle_spec_for_trading_termination": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "additionalProperties": true,
+                    "description": "the oracle spec describing the trading termination oracle filter"
+                },
+                "oracle_spec_binding": {
+                    "$ref": "#/definitions/vega.OracleSpecToFutureBinding",
+                    "additionalProperties": true,
+                    "description": "The binding between the oracle spec and the oracle data"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Future",
+            "description": "Future product definition"
+        },
+        "vega.Instrument": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Instrument identifier"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "Code for the instrument"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the instrument"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/vega.InstrumentMetadata",
+                    "additionalProperties": true,
+                    "description": "A collection of instrument meta-data"
+                },
+                "future": {
+                    "$ref": "#/definitions/vega.Future",
+                    "additionalProperties": true,
+                    "description": "Future"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Instrument",
+            "description": "Instrument definition"
+        },
+        "vega.InstrumentMetadata": {
+            "properties": {
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "A list of 0 or more tags"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Instrument Metadata",
+            "description": "Instrument metadata definition"
+        },
+        "vega.LiquidityMonitoringParameters": {
+            "properties": {
+                "target_stake_parameters": {
+                    "$ref": "#/definitions/vega.TargetStakeParameters",
+                    "additionalProperties": true,
+                    "description": "Specifies parameters related to target stake calculation"
+                },
+                "triggering_ratio": {
+                    "type": "number",
+                    "description": "Specifies the triggering ratio for entering liquidity auction"
+                },
+                "auction_extension": {
+                    "type": "string",
+                    "description": "Specifies by how many seconds an auction should be extended if leaving the auction were to trigger a liquidity auction"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Liquidity Monitoring Parameters",
+            "description": "LiquidityMonitoringParameters contains settings used for liquidity monitoring"
+        },
+        "vega.LogNormalModelParams": {
+            "properties": {
+                "mu": {
+                    "type": "number",
+                    "description": "Mu param"
+                },
+                "r": {
+                    "type": "number",
+                    "description": "R param"
+                },
+                "sigma": {
+                    "type": "number",
+                    "description": "Sigma param"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Log Normal Model Params",
+            "description": "Risk model parameters for log normal"
+        },
+        "vega.LogNormalRiskModel": {
+            "properties": {
+                "risk_aversion_parameter": {
+                    "type": "number",
+                    "description": "Risk Aversion Parameter"
+                },
+                "tau": {
+                    "type": "number",
+                    "description": "Tau"
+                },
+                "params": {
+                    "$ref": "#/definitions/vega.LogNormalModelParams",
+                    "additionalProperties": true,
+                    "description": "Risk model parameters for log normal"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Log Normal Risk Model",
+            "description": "Risk model for log normal"
+        },
+        "vega.MarginCalculator": {
+            "properties": {
+                "scaling_factors": {
+                    "$ref": "#/definitions/vega.ScalingFactors",
+                    "additionalProperties": true,
+                    "description": "Scaling factors for margin calculation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Margin Calculator",
+            "description": "Margin Calculator definition"
+        },
+        "vega.MarketTimestamps": {
+            "properties": {
+                "proposed": {
+                    "type": "string",
+                    "description": "Time when the market is first proposed"
+                },
+                "pending": {
+                    "type": "string",
+                    "description": "Time when the market has been voted in and is created into an opening auction"
+                },
+                "open": {
+                    "type": "string",
+                    "description": "Time when the market has left the opening auction and is ready to accept trades"
+                },
+                "close": {
+                    "type": "string",
+                    "description": "Time when the market is closed"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Market Timestamps",
+            "description": "Time stamps for important times about creating, enacting etc the market"
+        },
+        "vega.OracleSpecToFutureBinding": {
+            "properties": {
+                "settlement_price_property": {
+                    "type": "string",
+                    "description": "settlement_price_property holds the name of the property in the oracle data that should be used as settlement price. If it is set to \"prices.BTC.value\", then the Future will use the value of this property as settlement price."
+                },
+                "trading_termination_property": {
+                    "type": "string",
+                    "description": "the name of the property in the oracle data that signals termination of trading"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Spec To Future Binding",
+            "description": "OracleSpecToFutureBinding tells on which property oracle data should be used as settlement price and which to use the trading terminated trigger"
+        },
+        "vega.PriceMonitoringParameters": {
+            "properties": {
+                "triggers": {
+                    "items": {
+                        "$ref": "#/definitions/vega.PriceMonitoringTrigger"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Parameters",
+            "description": "PriceMonitoringParameters contains a collection of triggers to be used for a given market"
+        },
+        "vega.PriceMonitoringSettings": {
+            "properties": {
+                "parameters": {
+                    "$ref": "#/definitions/vega.PriceMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Specifies price monitoring parameters to be used for price monitoring purposes"
+                },
+                "update_frequency": {
+                    "type": "string",
+                    "description": "Specifies how often (expressed in seconds) the price monitoring bounds should be updated"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Settings",
+            "description": "PriceMonitoringSettings contains the settings for price monitoring"
+        },
+        "vega.PriceMonitoringTrigger": {
+            "properties": {
+                "horizon": {
+                    "type": "string",
+                    "description": "Price monitoring projection horizon τ in seconds"
+                },
+                "probability": {
+                    "type": "number",
+                    "description": "Price monitoring probability level p"
+                },
+                "auction_extension": {
+                    "type": "string",
+                    "description": "Price monitoring auction extension duration in seconds should the price breach it's theoretical level over the specified horizon at the specified probability level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Trigger",
+            "description": "PriceMonitoringTrigger holds together price projection horizon τ, probability level p, and auction extension duration"
+        },
+        "vega.ScalingFactors": {
+            "properties": {
+                "search_level": {
+                    "type": "number",
+                    "description": "Search level"
+                },
+                "initial_margin": {
+                    "type": "number",
+                    "description": "Initial margin level"
+                },
+                "collateral_release": {
+                    "type": "number",
+                    "description": "Collateral release level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Scaling Factors",
+            "description": "Scaling Factors (for use in margin calculation)"
+        },
+        "vega.SimpleModelParams": {
+            "properties": {
+                "factor_long": {
+                    "type": "number",
+                    "description": "Pre-defined risk factor value for long"
+                },
+                "factor_short": {
+                    "type": "number",
+                    "description": "Pre-defined risk factor value for short"
+                },
+                "max_move_up": {
+                    "type": "number",
+                    "description": "Pre-defined maximum price move up that the model considers as valid"
+                },
+                "min_move_down": {
+                    "type": "number",
+                    "description": "Pre-defined minimum price move down that the model considers as valid"
+                },
+                "probability_of_trading": {
+                    "type": "number",
+                    "description": "Pre-defined constant probability of trading"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Simple Model Params",
+            "description": "Risk model parameters for simple modelling"
+        },
+        "vega.SimpleRiskModel": {
+            "properties": {
+                "params": {
+                    "$ref": "#/definitions/vega.SimpleModelParams",
+                    "additionalProperties": true,
+                    "description": "Risk model params for simple modelling"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Simple Risk Model",
+            "description": "Risk model for simple modelling"
+        },
+        "vega.TargetStakeParameters": {
+            "properties": {
+                "time_window": {
+                    "type": "string",
+                    "description": "Specifies length of time window expressed in seconds for target stake calculation"
+                },
+                "scaling_factor": {
+                    "type": "number",
+                    "description": "Specifies scaling factors used in target stake calculation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Target Stake Parameters",
+            "description": "TargetStakeParameters contains parameters used in target stake calculation"
+        },
+        "vega.TradableInstrument": {
+            "properties": {
+                "instrument": {
+                    "$ref": "#/definitions/vega.Instrument",
+                    "additionalProperties": true,
+                    "description": "Instrument details"
+                },
+                "margin_calculator": {
+                    "$ref": "#/definitions/vega.MarginCalculator",
+                    "additionalProperties": true,
+                    "description": "Margin calculator for the instrument"
+                },
+                "log_normal_risk_model": {
+                    "$ref": "#/definitions/vega.LogNormalRiskModel",
+                    "additionalProperties": true,
+                    "description": "Log normal"
+                },
+                "simple_risk_model": {
+                    "$ref": "#/definitions/vega.SimpleRiskModel",
+                    "additionalProperties": true,
+                    "description": "Simple"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Tradable Instrument",
+            "description": "Tradable Instrument definition"
+        }
+    }
+}

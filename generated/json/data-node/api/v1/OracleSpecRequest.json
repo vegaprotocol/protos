@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/OracleSpecRequest",
+    "definitions": {
+        "OracleSpecRequest": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The id to get the oracle spec for"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Spec Request",
+            "description": "A request to get a specific oracle spec by identifier"
+        }
+    }
+}

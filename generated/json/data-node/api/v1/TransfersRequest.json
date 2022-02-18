@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TransfersRequest",
+    "definitions": {
+        "TransfersRequest": {
+            "properties": {
+                "pubkey": {
+                    "type": "string"
+                },
+                "is_from": {
+                    "type": "boolean"
+                },
+                "is_to": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfers Request"
+        }
+    }
+}

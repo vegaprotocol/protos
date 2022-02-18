@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/WithdrawalsRequest",
+    "definitions": {
+        "WithdrawalsRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "The party to get the withdrawals for"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Withdrawals Request",
+            "description": "A request to get a list of withdrawal from a given party"
+        }
+    }
+}

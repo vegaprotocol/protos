@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LiquidityProviderFeeShare",
+    "definitions": {
+        "LiquidityProviderFeeShare": {
+            "properties": {
+                "party": {
+                    "type": "string",
+                    "description": "The liquidity provider party id"
+                },
+                "equity_like_share": {
+                    "type": "string",
+                    "description": "The share own by this liquidity provider (float)"
+                },
+                "average_entry_valuation": {
+                    "type": "string",
+                    "description": "The average entry valuation of the liquidity provider for the market"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Liquidity Provider Fee Share",
+            "description": "The equity like share of liquidity fee for each liquidity provider"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20AssetDelist",
+    "definitions": {
+        "ERC20AssetDelist": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Asset Delist",
+            "description": "An asset deny-listing for an ERC20 token"
+        }
+    }
+}

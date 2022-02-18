@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/WithdrawalRequest",
+    "definitions": {
+        "WithdrawalRequest": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The identifier of the withdrawal"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Withdrawal Request",
+            "description": "A request to get a specific withdrawal by identifier"
+        }
+    }
+}

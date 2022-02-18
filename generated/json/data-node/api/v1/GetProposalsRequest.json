@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetProposalsRequest",
+    "definitions": {
+        "GetProposalsRequest": {
+            "properties": {
+                "select_in_state": {
+                    "$ref": "#/definitions/datanode.api.v1.OptionalProposalState",
+                    "additionalProperties": true,
+                    "description": "Optional proposal state"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Proposals Request",
+            "description": "Request for a list of proposals"
+        },
+        "datanode.api.v1.OptionalProposalState": {
+            "properties": {
+                "value": {
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        0,
+                        "STATE_FAILED",
+                        1,
+                        "STATE_OPEN",
+                        2,
+                        "STATE_PASSED",
+                        3,
+                        "STATE_REJECTED",
+                        4,
+                        "STATE_DECLINED",
+                        5,
+                        "STATE_ENACTED",
+                        6,
+                        "STATE_WAITING_FOR_NODE_VOTE",
+                        7
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "State",
+                    "description": "Proposal state transition: Open -\u003e   - Passed -\u003e Enacted.   - Passed -\u003e Failed.   - Declined Rejected Proposal can enter Failed state from any other state"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Optional Proposal State",
+            "description": "Optional proposal state"
+        }
+    }
+}

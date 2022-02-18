@@ -1,0 +1,99 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GlobalRewardPoolAccountsResponse",
+    "definitions": {
+        "GlobalRewardPoolAccountsResponse": {
+            "properties": {
+                "accounts": {
+                    "items": {
+                        "$ref": "#/definitions/vega.Account"
+                    },
+                    "type": "array",
+                    "description": "A list of 0 or more global reward pool accounts"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Global Reward Pool Accounts Response",
+            "description": "Response for a list of global reward pool accounts"
+        },
+        "vega.Account": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique account identifier (used internally by Vega)"
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "The party that the account belongs to, special values include `network`, which represents the Vega network and is most commonly seen during liquidation of distressed trading positions"
+                },
+                "balance": {
+                    "type": "string",
+                    "description": "Balance of the asset, the balance is an integer, for example `123456` is a correctly formatted price of `1.23456` assuming market configured to 5 decimal places and importantly balances cannot be negative"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier for the account"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier for the account, if [`AccountType`](#vega.AccountType).`ACCOUNT_TYPE_GENERAL` this will be empty"
+                },
+                "type": {
+                    "enum": [
+                        "ACCOUNT_TYPE_UNSPECIFIED",
+                        0,
+                        "ACCOUNT_TYPE_INSURANCE",
+                        1,
+                        "ACCOUNT_TYPE_SETTLEMENT",
+                        2,
+                        "ACCOUNT_TYPE_MARGIN",
+                        3,
+                        "ACCOUNT_TYPE_GENERAL",
+                        4,
+                        "ACCOUNT_TYPE_FEES_INFRASTRUCTURE",
+                        5,
+                        "ACCOUNT_TYPE_FEES_LIQUIDITY",
+                        6,
+                        "ACCOUNT_TYPE_FEES_MAKER",
+                        7,
+                        "ACCOUNT_TYPE_LOCK_WITHDRAW",
+                        8,
+                        "ACCOUNT_TYPE_BOND",
+                        9,
+                        "ACCOUNT_TYPE_EXTERNAL",
+                        10,
+                        "ACCOUNT_TYPE_GLOBAL_INSURANCE",
+                        11,
+                        "ACCOUNT_TYPE_GLOBAL_REWARD",
+                        12,
+                        "ACCOUNT_TYPE_PENDING_TRANSFERS",
+                        13,
+                        "ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES",
+                        14,
+                        "ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES",
+                        15,
+                        "ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES",
+                        16,
+                        "ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS",
+                        17
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Account Type",
+                    "description": "Various collateral/account types as used by Vega"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Account",
+            "description": "Represents an account for an asset on Vega for a particular owner or party"
+        }
+    }
+}

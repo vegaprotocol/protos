@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarketDepthUpdatesSubscribeRequest",
+    "definitions": {
+        "MarketDepthUpdatesSubscribeRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Market Depth Updates Subscribe Request",
+            "description": "Request to subscribe to a stream of (MarketDepth Update)[#vega.MarketDepthUpdate] data"
+        }
+    }
+}

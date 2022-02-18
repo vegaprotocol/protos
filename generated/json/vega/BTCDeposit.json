@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/BTCDeposit",
+    "definitions": {
+        "BTCDeposit": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                },
+                "source_btc_address": {
+                    "type": "string",
+                    "description": "The BTC wallet initiating the deposit"
+                },
+                "target_party_id": {
+                    "type": "string",
+                    "description": "The Vega party identifier (pub-key) which is the target of the deposit"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "BTC Deposit",
+            "description": "A Bitcoin deposit into Vega"
+        }
+    }
+}

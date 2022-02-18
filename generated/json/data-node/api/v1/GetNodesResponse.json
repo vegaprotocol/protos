@@ -1,0 +1,169 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetNodesResponse",
+    "definitions": {
+        "GetNodesResponse": {
+            "properties": {
+                "nodes": {
+                    "items": {
+                        "$ref": "#/definitions/vega.Node"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Nodes Response",
+            "description": "Response with all nodes"
+        },
+        "vega.Delegation": {
+            "properties": {
+                "party": {
+                    "type": "string",
+                    "description": "Party which is delegating"
+                },
+                "node_id": {
+                    "type": "string",
+                    "description": "Node ID"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "Amount delegated"
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "Epoch of delegation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Delegation"
+        },
+        "vega.EpochData": {
+            "properties": {
+                "total": {
+                    "type": "integer",
+                    "description": "Total number of epochs since node was created"
+                },
+                "offline": {
+                    "type": "integer",
+                    "description": "Total number of offline epochs since node was created"
+                },
+                "online": {
+                    "type": "integer",
+                    "description": "Total number of online epochs since node was created"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Epoch Data"
+        },
+        "vega.Node": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The node ID (wallet ID)"
+                },
+                "pub_key": {
+                    "type": "string",
+                    "description": "Pub key of the node operator"
+                },
+                "tm_pub_key": {
+                    "type": "string",
+                    "description": "Public key of Tendermint"
+                },
+                "ethereum_adddress": {
+                    "type": "string",
+                    "description": "Ethereum public key of the node"
+                },
+                "info_url": {
+                    "type": "string",
+                    "description": "URL where I can find out more info on the node"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "Country code for the location of the node"
+                },
+                "staked_by_operator": {
+                    "type": "string",
+                    "description": "The amount the node has put up themselves"
+                },
+                "staked_by_delegates": {
+                    "type": "string",
+                    "description": "The amount of stake that has been delegated by token holders"
+                },
+                "staked_total": {
+                    "type": "string",
+                    "description": "Total amount staked on node"
+                },
+                "max_intended_stake": {
+                    "type": "string",
+                    "description": "Max amount of (wanted) stake, is this a network param or a node param"
+                },
+                "pending_stake": {
+                    "type": "string",
+                    "description": "Amount of stake on the next epoch"
+                },
+                "epoch_data": {
+                    "$ref": "#/definitions/vega.EpochData",
+                    "additionalProperties": true,
+                    "description": "Informantion about epoch"
+                },
+                "status": {
+                    "enum": [
+                        "NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "NODE_STATUS_VALIDATOR",
+                        1,
+                        "NODE_STATUS_NON_VALIDATOR",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Node Status",
+                    "description": "Node status type"
+                },
+                "delegations": {
+                    "items": {
+                        "$ref": "#/definitions/vega.Delegation"
+                    },
+                    "type": "array",
+                    "description": "Node's delegations"
+                },
+                "score": {
+                    "type": "string",
+                    "description": "Node score"
+                },
+                "normalised_score": {
+                    "type": "string",
+                    "description": "Node normalised score"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Node name"
+                },
+                "avatar_url": {
+                    "type": "string",
+                    "description": "Avatar url"
+                },
+                "performance": {
+                    "type": "string",
+                    "description": "Performance"
+                },
+                "raw_score": {
+                    "type": "string",
+                    "description": "Raw Score"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node"
+        }
+    }
+}

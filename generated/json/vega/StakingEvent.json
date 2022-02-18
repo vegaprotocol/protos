@@ -1,0 +1,94 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/StakingEvent",
+    "definitions": {
+        "StakingEvent": {
+            "properties": {
+                "index": {
+                    "type": "string",
+                    "description": "Index of the log in the transaction"
+                },
+                "block": {
+                    "type": "string",
+                    "description": "The block in which the transaction was added"
+                },
+                "stake_deposited": {
+                    "$ref": "#/definitions/vega.StakeDeposited",
+                    "additionalProperties": true
+                },
+                "stake_removed": {
+                    "$ref": "#/definitions/vega.StakeRemoved",
+                    "additionalProperties": true
+                },
+                "total_supply": {
+                    "$ref": "#/definitions/vega.StakeTotalSupply",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Staking Event"
+        },
+        "vega.StakeDeposited": {
+            "properties": {
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "Ethereum Address of the user depositing stake (hex encode with 0x prefix)"
+                },
+                "vega_public_key": {
+                    "type": "string",
+                    "description": "The public of the party receiving the stake deposit (hex encode)"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount deposited (base 10)"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake started to be available."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stake Deposited"
+        },
+        "vega.StakeRemoved": {
+            "properties": {
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "Ethereum address of the user removing stake (hex encode with 0x prefix)"
+                },
+                "vega_public_key": {
+                    "type": "string",
+                    "description": "The public key of the party from which to remove stake (hex encode)"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount removed (base 10)"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stake Removed"
+        },
+        "vega.StakeTotalSupply": {
+            "properties": {
+                "token_address": {
+                    "type": "string",
+                    "description": "The address of the staking asset"
+                },
+                "total_supply": {
+                    "type": "string",
+                    "description": "The total supply observed for the token"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stake Total Supply"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarketDataByIDRequest",
+    "definitions": {
+        "MarketDataByIDRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Market Data By ID Request",
+            "description": "Request for market data for a market"
+        }
+    }
+}

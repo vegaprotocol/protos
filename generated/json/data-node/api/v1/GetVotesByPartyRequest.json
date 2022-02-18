@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetVotesByPartyRequest",
+    "definitions": {
+        "GetVotesByPartyRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Votes By Party Request",
+            "description": "Request for a list of votes for a party"
+        }
+    }
+}

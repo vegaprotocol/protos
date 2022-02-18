@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20AssetList",
+    "definitions": {
+        "ERC20AssetList": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Asset List",
+            "description": "An asset allow-listing for an ERC20 token"
+        }
+    }
+}

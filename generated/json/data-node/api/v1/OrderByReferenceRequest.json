@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/OrderByReferenceRequest",
+    "definitions": {
+        "OrderByReferenceRequest": {
+            "properties": {
+                "reference": {
+                    "type": "string",
+                    "description": "Unique reference, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Order By Reference Request",
+            "description": "Request for an order given an order reference"
+        }
+    }
+}

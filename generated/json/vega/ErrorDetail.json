@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ErrorDetail",
+    "definitions": {
+        "ErrorDetail": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "description": "A Vega API domain specific unique error code, useful for client side mappings, e.g. 10004"
+                },
+                "message": {
+                    "type": "string",
+                    "description": "A message that describes the error in more detail, should describe the problem encountered"
+                },
+                "inner": {
+                    "type": "string",
+                    "description": "Any inner error information that could add more context, or be helpful for error reporting"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Error Detail",
+            "description": "Represents Vega domain specific error information over gRPC/Protobuf"
+        }
+    }
+}
