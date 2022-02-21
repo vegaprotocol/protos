@@ -4,6 +4,7 @@ package vega
 
 import (
 	fmt "fmt"
+	"math/big"
 	"strconv"
 	"time"
 )
@@ -40,12 +41,13 @@ func (o *Order) Update(t time.Time) *Order {
 // A persistent order is a Limit type order that might be
 // matched in the future.
 func (o *Order) IsPersistent() bool {
+	remaining, _ := big.NewInt(0).SetString(o.Remaining, 10)
 	return (o.TimeInForce == Order_TIME_IN_FORCE_GTC ||
 		o.TimeInForce == Order_TIME_IN_FORCE_GTT ||
 		o.TimeInForce == Order_TIME_IN_FORCE_GFN ||
 		o.TimeInForce == Order_TIME_IN_FORCE_GFA) &&
 		o.Type == Order_TYPE_LIMIT &&
-		o.Remaining > 0
+		remaining.Cmp(big.NewInt(0)) > 0
 }
 
 func (o *Order) IsExpireable() bool {

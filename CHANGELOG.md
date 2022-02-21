@@ -3,7 +3,7 @@
 ## Unreleased (0.49.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [298](https://github.com/vegaprotocol/protos/pull/298) - Add support for fractional order sizes
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -

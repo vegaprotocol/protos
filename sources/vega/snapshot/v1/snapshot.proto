@@ -114,7 +114,7 @@ message Payload {
 }
 
 message TimestampedOpenInterest {
-  uint64 open_interest = 1;
+  string open_interest = 1;
   int64 time = 2;
 }
 
@@ -122,7 +122,7 @@ message LiquidityTarget {
   string market_id = 1;
   int64 current_time = 2;
   int64 scheduled_truncate = 3;
-  repeated uint64 current_open_interests = 4;
+  repeated string current_open_interests = 4;
   repeated TimestampedOpenInterest previous_open_interests = 5;
   TimestampedOpenInterest max_open_interests = 6;
 }
@@ -315,7 +315,7 @@ message TimePrice {
 
 message PriceVolume {
   string price = 1;
-  uint64 volume = 2;
+  string volume = 2;
 }
 
 message PriceRange {
@@ -338,7 +338,7 @@ message PriceRangeCache {
 
 message CurrentPrice {
   string price = 1;
-  uint64 volume = 2;
+  string volume = 2;
 }
 
 message PastPrice {
@@ -416,9 +416,9 @@ message ExecutionMarkets {
 
 message Position {
   string party_id = 1;
-  int64 size = 2;
-  int64 buy = 3;
-  int64 sell = 4;
+  string size = 2;
+  string buy = 3;
+  string sell = 4;
   string price = 5;
   string vw_buy_price = 6;
   string vw_sell_price = 7;

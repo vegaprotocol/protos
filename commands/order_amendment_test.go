@@ -34,9 +34,10 @@ func testNilOrderAmendmentFails(t *testing.T) {
 
 func testAmendOrderJustPriceSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:  "orderid",
-		MarketId: "marketid",
-		Price:    &proto.Price{Value: "1000"},
+		OrderId:   "orderid",
+		MarketId:  "marketid",
+		Price:     &proto.Price{Value: "1000"},
+		SizeDelta: "0",
 	}
 	err := checkOrderAmendment(arg)
 
@@ -47,7 +48,7 @@ func testAmendOrderJustReduceSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:   "orderid",
 		MarketId:  "marketid",
-		SizeDelta: -10,
+		SizeDelta: "-10",
 	}
 	err := checkOrderAmendment(arg)
 	assert.NoError(t, err.ErrorOrNil())
@@ -57,7 +58,7 @@ func testAmendOrderJustIncreaseSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:   "orderid",
 		MarketId:  "marketid",
-		SizeDelta: 10,
+		SizeDelta: "10",
 	}
 	err := checkOrderAmendment(arg)
 	assert.NoError(t, err.ErrorOrNil())
@@ -70,6 +71,7 @@ func testAmendOrderJustExpirySuccess(t *testing.T) {
 		OrderId:   "orderid",
 		MarketId:  "marketid",
 		ExpiresAt: &proto.Timestamp{Value: expires.UnixNano()},
+		SizeDelta: "0",
 	}
 	err := checkOrderAmendment(arg)
 	assert.NoError(t, err.ErrorOrNil())
@@ -80,6 +82,7 @@ func testAmendOrderJustTIFSuccess(t *testing.T) {
 		OrderId:     "orderid",
 		MarketId:    "marketid",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GTC,
+		SizeDelta:   "0",
 	}
 	err := checkOrderAmendment(arg)
 	assert.NoError(t, err.ErrorOrNil())
@@ -135,6 +138,7 @@ func testAmendOrderPastExpiry(t *testing.T) {
 		MarketId:    "marketid",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GTT,
 		ExpiresAt:   &proto.Timestamp{Value: 10},
+		SizeDelta:   "0",
 	}
 	err := checkOrderAmendment(arg)
 	assert.NoError(t, err.ErrorOrNil())

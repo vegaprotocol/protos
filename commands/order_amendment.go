@@ -51,7 +51,10 @@ func checkOrderAmendment(cmd *commandspb.OrderAmendment) Errors {
 		}
 	}
 
-	if cmd.SizeDelta != 0 {
+	sizeDelta, ok := big.NewInt(0).SetString(cmd.SizeDelta, 10)
+	if !ok {
+		errs.AddForProperty("order_amendment.size", ErrNotAValidInteger)
+	} else if sizeDelta.Cmp(big.NewInt(0)) != 0 {
 		isAmending = true
 	}
 

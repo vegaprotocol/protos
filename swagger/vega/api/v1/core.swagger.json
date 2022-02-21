@@ -936,8 +936,7 @@
         },
         "sizeDelta": {
           "type": "string",
-          "format": "int64",
-          "title": "Amend the size for the order by the delta specified:\n- To reduce the size from the current value set a negative integer value\n- To increase the size from the current value, set a positive integer value\n- To leave the size unchanged set a value of zero"
+          "title": "Amend the size for the order by the delta specified:\n- To reduce the size from the current value set a negative value as an integer in the market position decimal places\n- To increase the size from the current value, set a positive value as an integer in the market position decimal places\n- To leave the size unchanged set a value of zero"
         },
         "expiresAt": {
           "$ref": "#/definitions/vegaTimestamp",
@@ -985,8 +984,7 @@
         },
         "size": {
           "type": "string",
-          "format": "uint64",
-          "title": "Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative"
+          "title": "Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative, represented in the market position decimal places"
         },
         "side": {
           "$ref": "#/definitions/vegaSide",
@@ -1529,8 +1527,7 @@
       "properties": {
         "size": {
           "type": "string",
-          "format": "int64",
-          "title": "Size of trade settlement"
+          "title": "Size of trade settlement in the market position decimal places"
         },
         "price": {
           "type": "string",
@@ -2521,6 +2518,11 @@
         "marketTimestamps": {
           "$ref": "#/definitions/vegaMarketTimestamps",
           "title": "Timestamps for when the market stay changes"
+        },
+        "positionDecimalPlaces": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The number of decimal places for orders and positions"
         }
       },
       "title": "Market definition"
@@ -2538,8 +2540,7 @@
         },
         "bestBidVolume": {
           "type": "string",
-          "format": "uint64",
-          "title": "Aggregated volume being bid at the best bid price"
+          "title": "Aggregated volume being bid at the best bid price, as an interger formatted in the market position decimal places"
         },
         "bestOfferPrice": {
           "type": "string",
@@ -2547,8 +2548,7 @@
         },
         "bestOfferVolume": {
           "type": "string",
-          "format": "uint64",
-          "title": "Aggregated volume being offered at the best offer price, as an integer, for example `123456` is a correctly\n // formatted price of `1.23456` assuming market configured to 5 decimal places"
+          "title": "Aggregated volume being offered at the best offer price, as an interger formatted in the market position decimal places"
         },
         "bestStaticBidPrice": {
           "type": "string",
@@ -2556,7 +2556,6 @@
         },
         "bestStaticBidVolume": {
           "type": "string",
-          "format": "uint64",
           "title": "Total volume at the best static bid price excluding pegged orders"
         },
         "bestStaticOfferPrice": {
@@ -2565,7 +2564,6 @@
         },
         "bestStaticOfferVolume": {
           "type": "string",
-          "format": "uint64",
           "title": "Total volume at the best static offer price excluding pegged orders"
         },
         "midPrice": {
@@ -2587,7 +2585,6 @@
         },
         "openInterest": {
           "type": "string",
-          "format": "uint64",
           "title": "The sum of the size of all positions greater than 0 on the market"
         },
         "auctionEnd": {
@@ -2606,7 +2603,6 @@
         },
         "indicativeVolume": {
           "type": "string",
-          "format": "uint64",
           "title": "Indicative volume (zero if not in auction)"
         },
         "marketTradingMode": {
@@ -2870,6 +2866,11 @@
         "logNormal": {
           "$ref": "#/definitions/vegaLogNormalRiskModel",
           "title": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+        },
+        "positionDecimalPlaces": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Decimal places for order sizes"
         }
       },
       "title": "Configuration for a new market on Vega"
@@ -2913,12 +2914,10 @@
         },
         "size": {
           "type": "string",
-          "format": "uint64",
-          "title": "Size for the order, for example, in a futures market the size equals the number of contracts"
+          "title": "Size for the order, for example, in a futures market the size equals the fractional number of contracts as an integer in the number of decimal places of market position"
         },
         "remaining": {
           "type": "string",
-          "format": "uint64",
           "title": "Size remaining, when this reaches 0 then the order is fully filled and status becomes STATUS_FILLED"
         },
         "timeInForce": {
@@ -3468,8 +3467,7 @@
         },
         "size": {
           "type": "string",
-          "format": "uint64",
-          "title": "Size filled for the trade"
+          "title": "Size filled for the trade with the market position decimal places"
         },
         "buyer": {
           "type": "string",

@@ -49,6 +49,12 @@ message Price {
   string value = 1;
 }
 
+message Size {
+   // Size value, given as an integer, for example `123456` is a correctly
+  // formatted price of `1.23456` assuming market configured to 5 decimal places for position
+  string value = 1;
+}
+
 // A timestamp in nanoseconds since epoch
 // See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
 message Timestamp {
@@ -188,10 +194,10 @@ message Order {
   // Price for the order, the price is an integer, for example `123456` is a correctly
   // formatted price of `1.23456` assuming market configured to 5 decimal places
   string price = 5;
-  // Size for the order, for example, in a futures market the size equals the number of contracts
-  uint64 size = 6;
+  // Size for the order, for example, in a futures market the size equals the fractional number of contracts as an integer in the number of decimal places of market position
+  string size = 6;
   // Size remaining, when this reaches 0 then the order is fully filled and status becomes STATUS_FILLED
-  uint64 remaining = 7;
+  string remaining = 7;
   // Time in force indicates how long an order will remain active before it is executed or expires.
   // - See [`Order.TimeInForce`](#vega.Order.TimeInForce)
   TimeInForce time_in_force = 8;
@@ -390,8 +396,8 @@ message Trade {
   // Price for the trade, the price is an integer, for example `123456` is a correctly
   // formatted price of `1.23456` assuming market configured to 5 decimal places
   string price = 3;
-  // Size filled for the trade
-  uint64 size = 4;
+  // Size filled for the trade with the market position decimal places
+  string size = 4;
   // Unique party identifier for the buyer
   string buyer = 5;
   // Unique party identifier for the seller
@@ -448,8 +454,8 @@ message Candle {
   string open = 5;
   // Closing trade price
   string close = 6;
-  // Total trading volume during the candle interval
-  uint64 volume = 7;
+  // Total trading volume during the candle interval in the market position decimal places
+  string volume = 7;
   // Time interval for the candle - See [`Interval`](#vega.Interval)
   Interval interval = 8;
 }
@@ -461,8 +467,8 @@ message PriceLevel {
   string price = 1;
   // Number of orders at the price level
   uint64 number_of_orders = 2;
-  // Volume at the price level
-  uint64 volume = 3;
+  // Volume at the price level in the market position decimal places
+  string volume = 3;
 }
 
 // Represents market depth or order book data for the specified market on Vega
@@ -495,8 +501,8 @@ message Position {
   string market_id = 1;
   // Party identifier
   string party_id = 2;
-  // Open volume for the position, value is signed +ve for long and -ve for short
-  int64 open_volume = 3;
+  // Open volume for the position, value is signed +ve for long and -ve for short in the decimal places of the market position
+  string open_volume = 3;
   // Realised profit and loss for the position, value is signed +ve for long and -ve for short
   string realised_pnl = 4;
   // Unrealised profit and loss for the position, value is signed +ve for long and -ve for short
@@ -509,8 +515,9 @@ message Position {
 }
 
 message PositionTrade {
-  // Volume for the position trade, value is signed +ve for long and -ve for short
-  int64 volume = 1;
+  // Volume for the position trade, value is signed +ve for long and -ve for short with the market position decimal places, e.g. `123456` with 
+  // 5 market position dp refers to a positive position of `1.23456`
+  string volume = 1;
   // Price for the position trade, the price is an integer, for example `123456` is a correctly
   // formatted price of `1.23456` assuming market configured to 5 decimal places
   string price = 2;
@@ -848,21 +855,20 @@ message MarketData {
   // Highest price level on an order book for buy orders, as an integer, for example `123456` is a correctly
   // formatted price of `1.23456` assuming market configured to 5 decimal places
   string best_bid_price = 2;
-  // Aggregated volume being bid at the best bid price
-  uint64 best_bid_volume = 3;
+  // Aggregated volume being bid at the best bid price, as an interger formatted in the market position decimal places
+  string best_bid_volume = 3;
   // Lowest price level on an order book for offer orders
   string best_offer_price = 4;
-  // Aggregated volume being offered at the best offer price, as an integer, for example `123456` is a correctly
-  //  // formatted price of `1.23456` assuming market configured to 5 decimal places
-  uint64 best_offer_volume = 5;
+  // Aggregated volume being offered at the best offer price, as an interger formatted in the market position decimal places
+  string best_offer_volume = 5;
   // Highest price on the order book for buy orders not including pegged orders
   string best_static_bid_price = 6;
   // Total volume at the best static bid price excluding pegged orders
-  uint64 best_static_bid_volume = 7;
+  string best_static_bid_volume = 7;
   // Lowest price on the order book for sell orders not including pegged orders
   string best_static_offer_price = 8;
   // Total volume at the best static offer price excluding pegged orders
-  uint64 best_static_offer_volume = 9;
+  string best_static_offer_volume = 9;
   // Arithmetic average of the best bid price and best offer price, as an integer, for example `123456` is a correctly
   // formatted price of `1.23456` assuming market configured to 5 decimal places
   string mid_price = 10;
@@ -874,7 +880,7 @@ message MarketData {
   // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
   int64 timestamp = 13;
   // The sum of the size of all positions greater than 0 on the market
-  uint64 open_interest = 14;
+  string open_interest = 14;
   // Time in seconds until the end of the auction (0 if currently not in auction period)
   int64 auction_end = 15;
   // Time until next auction (used in FBA's) - currently always 0
@@ -882,7 +888,7 @@ message MarketData {
   // Indicative price (zero if not in auction)
   string indicative_price = 17;
   // Indicative volume (zero if not in auction)
-  uint64 indicative_volume = 18;
+  string indicative_volume = 18;
   // The current trading mode for the market
   Market.TradingMode market_trading_mode = 19;
   // When a market is in an auction trading mode, this field indicates what triggered the auction

@@ -20,8 +20,8 @@ message OrderSubmission {
   // formatted price of `1.23456` assuming market configured to 5 decimal places,
   // , required field for limit orders, however it is not required for market orders
   string price = 2;
-  // Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative
-  uint64 size = 3;
+  // Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative, represented in the market position decimal places
+  string size = 3;
   // Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)
   vega.Side side = 4;
   // Time in force indicates how long an order will remain active before it is executed or expires, required field
@@ -63,10 +63,10 @@ message OrderAmendment {
   // Amend the price for the order, if the Price value is set, otherwise price will remain unchanged - See [`Price`](#vega.Price)
   vega.Price price = 3;
   // Amend the size for the order by the delta specified:
-  // - To reduce the size from the current value set a negative integer value
-  // - To increase the size from the current value, set a positive integer value
+  // - To reduce the size from the current value set a negative value as an integer in the market position decimal places
+  // - To increase the size from the current value, set a positive value as an integer in the market position decimal places
   // - To leave the size unchanged set a value of zero
-  int64 size_delta = 4;
+  string size_delta = 4;
   // Amend the expiry time for the order, if the Timestamp value is set, otherwise expiry time will remain unchanged
   // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
   vega.Timestamp expires_at = 5;

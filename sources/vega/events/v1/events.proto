@@ -219,8 +219,8 @@ message LossSocialization {
 
 // A trade settlement is part of the settle position event
 message TradeSettlement {
-  // Size of trade settlement
-  int64 size = 1;
+  // Size of trade settlement in the market position decimal places 
+  string size = 1;
   // Price of settlement as string
   string price = 2;
 }

@@ -1262,6 +1262,11 @@
         "marketTimestamps": {
           "$ref": "#/definitions/vegaMarketTimestamps",
           "title": "Timestamps for when the market stay changes"
+        },
+        "positionDecimalPlaces": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The number of decimal places for orders and positions"
         }
       },
       "title": "Market definition"
@@ -1279,8 +1284,7 @@
         },
         "bestBidVolume": {
           "type": "string",
-          "format": "uint64",
-          "title": "Aggregated volume being bid at the best bid price"
+          "title": "Aggregated volume being bid at the best bid price, as an interger formatted in the market position decimal places"
         },
         "bestOfferPrice": {
           "type": "string",
@@ -1288,8 +1292,7 @@
         },
         "bestOfferVolume": {
           "type": "string",
-          "format": "uint64",
-          "title": "Aggregated volume being offered at the best offer price, as an integer, for example `123456` is a correctly\n // formatted price of `1.23456` assuming market configured to 5 decimal places"
+          "title": "Aggregated volume being offered at the best offer price, as an interger formatted in the market position decimal places"
         },
         "bestStaticBidPrice": {
           "type": "string",
@@ -1297,7 +1300,6 @@
         },
         "bestStaticBidVolume": {
           "type": "string",
-          "format": "uint64",
           "title": "Total volume at the best static bid price excluding pegged orders"
         },
         "bestStaticOfferPrice": {
@@ -1306,7 +1308,6 @@
         },
         "bestStaticOfferVolume": {
           "type": "string",
-          "format": "uint64",
           "title": "Total volume at the best static offer price excluding pegged orders"
         },
         "midPrice": {
@@ -1328,7 +1329,6 @@
         },
         "openInterest": {
           "type": "string",
-          "format": "uint64",
           "title": "The sum of the size of all positions greater than 0 on the market"
         },
         "auctionEnd": {
@@ -1347,7 +1347,6 @@
         },
         "indicativeVolume": {
           "type": "string",
-          "format": "uint64",
           "title": "Indicative volume (zero if not in auction)"
         },
         "marketTradingMode": {
@@ -1611,6 +1610,11 @@
         "logNormal": {
           "$ref": "#/definitions/vegaLogNormalRiskModel",
           "title": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+        },
+        "positionDecimalPlaces": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Decimal places for order sizes"
         }
       },
       "title": "Configuration for a new market on Vega"

@@ -129,7 +129,7 @@ func testOrderSubmissionWithNonPositiveSizeFails(t *testing.T) {
 	// FIXME(big int) doesn't test negative numbers since it's an unsigned int
 	// 	but that will definitely be needed when moving to big int.
 	err := checkOrderSubmission(&commandspb.OrderSubmission{
-		Size: 0,
+		Size: "0",
 	})
 
 	assert.Contains(t, err.Get("order_submission.size"), commands.ErrMustBePositive)

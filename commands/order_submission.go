@@ -47,7 +47,8 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 		errs.AddForProperty("order_submission.time_in_force", ErrIsNotValid)
 	}
 
-	if cmd.Size <= 0 {
+	size, ok := big.NewInt(0).SetString(cmd.Size, 10)
+	if !ok || size.Cmp(big.NewInt(0)) <= 0 {
 		errs.AddForProperty("order_submission.size", ErrMustBePositive)
 	}
 
