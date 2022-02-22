@@ -10,17 +10,8 @@ package datanode.api.v2;
 service TradingDataService {
   // Get an aggregated list of the changes in balances in a set of accounts over time
   rpc QueryBalanceHistory(QueryBalanceHistoryRequest) returns (QueryBalanceHistoryResponse) {}
-  // -- Market Data --
-  // Get Market Data by Market ID
-  rpc GetMarketDataByID(GetMarketDataByIDRequest) returns (GetMarketDataByIDResponse);
-  // Get a list of Market Data
-  rpc GetMarketsData(GetMarketsDataRequest) returns (GetMarketsDataResponse);
   // Get Market Data History for a Market ID between given dates
   rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
-  // Get all Market Data history for a Market ID from a given start date
-  rpc GetMarketDataHistoryFromDateByID(GetMarketDataHistoryFromDateByIDRequest) returns (GetMarketDataHistoryFromDateByIDResponse);
-  // Get all Market Data history for a Market ID up to a given date
-  rpc GetMarketDataHistoryToDateByID(GetMarketDataHistoryToDateByIDRequest) returns (GetMarketDataHistoryToDateByIDResponse);
 }
 
 message QueryBalanceHistoryRequest {
@@ -73,59 +64,14 @@ message AggregatedBalance {
     vega.AccountType account_type = 7;
 }
 
-
-// Request for market data for a market
-message GetMarketDataByIDRequest {
-  // Market identifier
-  string market_id = 1;
-}
-
-// Response for market data for a market
-message GetMarketDataByIDResponse {
-  // Market data, if found
-  vega.MarketData market_data = 1;
-}
-
-// Request for market data
-message GetMarketsDataRequest {}
-
-// Response for market data
-message GetMarketsDataResponse {
-  // A list of 0 or more market data
-  repeated vega.MarketData markets_data = 1;
-}
-
 // Request for Market Data History
 message GetMarketDataHistoryByIDRequest {
     string market_id = 1;
-    int64 start_timestamp = 2;
-    int64 end_timestamp = 3;
+    optional int64 start_timestamp = 2;
+    optional int64 end_timestamp = 3;
 }
 
 // Response for Market Data History
 message GetMarketDataHistoryByIDResponse {
     repeated vega.MarketData market_data = 1;
 }
-
-// Request for Market Data History since a given date
-message GetMarketDataHistoryFromDateByIDRequest {
-    string market_id = 1;
-    int64 start_timestamp = 2;
-}
-
-// Response for Market Data History since a given date
-message GetMarketDataHistoryFromDateByIDResponse {
-    repeated vega.MarketData market_data = 1;
-}
-
-// Request for all Market Data History until a given date
-message GetMarketDataHistoryToDateByIDRequest {
-    string market_id = 1;
-    int64 end_timestamp = 2;
-}
-
-// Response for all Market Data History until a given date
-message GetMarketDataHistoryToDateByIDResponse {
-    repeated vega.MarketData market_data = 1;
-}
-
