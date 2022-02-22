@@ -73,6 +73,10 @@ message ERC20SignerAdded {
   string new_signer = 1;
   // The nonce create by the vega network used for this new signer
   string nonce = 2;
+  // The time at which the block was produced
+  // will be used to inform the core at what time
+  // the stake was made unavailable.
+  int64 block_time = 3;
 }
 
 // A signer removed from the ERC20 bridge
@@ -81,6 +85,10 @@ message ERC20SignerRemoved {
   string old_signer = 1;
   // The nonce create by the vega network used for this old signer
   string nonce = 2;
+  // The time at which the block was produced
+  // will be used to inform the core at what time
+  // the stake was made unavailable.
+  int64 block_time = 3;
 }
 
 // The threshold have been updated on the multisigcontrol
@@ -89,6 +97,10 @@ message ERC20ThresholdSet {
   uint32 new_threshold = 1;
   // The nonce create by the vega network
   string nonce = 2;
+  // The time at which the block was produced
+  // will be used to inform the core at what time
+  // the stake was made unavailable.
+  int64 block_time = 3;
 }
 
 // An event related to an ERC20 token

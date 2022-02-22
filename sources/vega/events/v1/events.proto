@@ -97,6 +97,29 @@ message StakeLinking {
   string tx_hash = 8;
 }
 
+message ERC20MultiSigSignerEvent {
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_ADDED = 1;
+    TYPE_REMOVED = 2;
+  }
+
+  string id = 1;
+  Type type = 2;
+  string signer = 3;
+  string nonce = 4;
+  int64 block_time = 5;
+  string tx_hash = 6;
+}
+
+message ERC20MultiSigThresholdSetEvent {
+  string id = 1;
+  uint32 new_threshold = 2;
+  string nonce = 3;
+  int64 block_time = 4;
+  string tx_hash = 5;
+}
+
 message CheckpointEvent {
   string hash = 1;
   string block_hash = 2;
@@ -313,7 +336,7 @@ message ValidatorRankingEvent {
   string node_id = 1;
   // stake based score - no anti-whaling
   string stake_score = 2;
-  // performance base score 
+  // performance base score
   string performance_score = 3;
   // final score
   string ranking_score = 4;
@@ -436,6 +459,10 @@ enum BusEventType {
   BUS_EVENT_TYPE_TRANSFER = 40;
   // Event indicating the ranking of validator and their status in vega
   BUS_EVENT_TYPE_VALIDATOR_RANKING = 41;
+  // Event indicating a new multi sig signer event have been processed
+  BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_EVENT = 42;
+  // Event indicating the erc20 multi sig threshold have been updated
+  BUS_EVENT_TYPE_ERC20_MULTI_SIG_SET_THRESHOLD = 43;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -530,6 +557,10 @@ message BusEvent {
     Transfer transfer = 139;
     // Ranking event
     ValidatorRankingEvent ranking_event = 140;
+    // ERC20 multi sig signer event
+    ERC20MultiSigSignerEvent erc20_multisig_signer_event = 141;
+    // ERC20 multi sig set threshold event
+    ERC20MultiSigThresholdSetEvent erc20_multisig_set_threshold_event = 142;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
