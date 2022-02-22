@@ -12,6 +12,7 @@
 - [285](https://github.com/vegaprotocol/protos/pull/285) - Update snapshot protos to store enough data to restore `corestate` service
 - [296](https://github.com/vegaprotocol/protos/pull/296) - Remove old id generator fields from execution engine's snapshot
 - [293](https://github.com/vegaprotocol/protos/pull/293) - Re-enable proto check
+- [306](https://github.com/vegaprotocol/protos/pull/306) - Add initial v2 orders API
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
