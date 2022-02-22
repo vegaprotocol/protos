@@ -33,7 +33,7 @@ service CoreService {
   // Check a signed transaction
   rpc CheckTransaction(CheckTransactionRequest) returns (CheckTransactionResponse);
    // Check a raw signed transaction
-  rpc CheckRawTransaction(CheckRawTransactionRequest) returns (CheckTransactionResponse);
+  rpc CheckRawTransaction(CheckRawTransactionRequest) returns (CheckRawTransactionResponse);
 }
 
 // Request for a new event sent by the blockchain queue to be propagated on Vega
