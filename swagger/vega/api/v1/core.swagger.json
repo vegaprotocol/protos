@@ -192,7 +192,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CheckTransactionResponse"
+              "$ref": "#/definitions/v1CheckRawTransactionResponse"
             }
           },
           "default": {
@@ -609,6 +609,31 @@
         }
       },
       "title": "Request for checking a version agnostic transaction on Vega"
+    },
+    "v1CheckRawTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success will be true if the transaction was checked by the node"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Check code result"
+        },
+        "gasWanted": {
+          "type": "string",
+          "format": "int64",
+          "title": "Gas wanted for transaction"
+        },
+        "gasUsed": {
+          "type": "string",
+          "format": "int64",
+          "title": "Gas used for transaction"
+        }
+      },
+      "title": "Response for checking a version agnostic transaction on Vega"
     },
     "v1CheckTransactionRequest": {
       "type": "object",

@@ -39,7 +39,7 @@ type CoreServiceClient interface {
 	// Check a signed transaction
 	CheckTransaction(ctx context.Context, in *CheckTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error)
 	// Check a raw signed transaction
-	CheckRawTransaction(ctx context.Context, in *CheckRawTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error)
+	CheckRawTransaction(ctx context.Context, in *CheckRawTransactionRequest, opts ...grpc.CallOption) (*CheckRawTransactionResponse, error)
 }
 
 type coreServiceClient struct {
@@ -144,8 +144,8 @@ func (c *coreServiceClient) CheckTransaction(ctx context.Context, in *CheckTrans
 	return out, nil
 }
 
-func (c *coreServiceClient) CheckRawTransaction(ctx context.Context, in *CheckRawTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error) {
-	out := new(CheckTransactionResponse)
+func (c *coreServiceClient) CheckRawTransaction(ctx context.Context, in *CheckRawTransactionRequest, opts ...grpc.CallOption) (*CheckRawTransactionResponse, error) {
+	out := new(CheckRawTransactionResponse)
 	err := c.cc.Invoke(ctx, "/vega.api.v1.CoreService/CheckRawTransaction", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -174,7 +174,7 @@ type CoreServiceServer interface {
 	// Check a signed transaction
 	CheckTransaction(context.Context, *CheckTransactionRequest) (*CheckTransactionResponse, error)
 	// Check a raw signed transaction
-	CheckRawTransaction(context.Context, *CheckRawTransactionRequest) (*CheckTransactionResponse, error)
+	CheckRawTransaction(context.Context, *CheckRawTransactionRequest) (*CheckRawTransactionResponse, error)
 	mustEmbedUnimplementedCoreServiceServer()
 }
 
@@ -206,7 +206,7 @@ func (UnimplementedCoreServiceServer) SubmitRawTransaction(context.Context, *Sub
 func (UnimplementedCoreServiceServer) CheckTransaction(context.Context, *CheckTransactionRequest) (*CheckTransactionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckTransaction not implemented")
 }
-func (UnimplementedCoreServiceServer) CheckRawTransaction(context.Context, *CheckRawTransactionRequest) (*CheckTransactionResponse, error) {
+func (UnimplementedCoreServiceServer) CheckRawTransaction(context.Context, *CheckRawTransactionRequest) (*CheckRawTransactionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckRawTransaction not implemented")
 }
 func (UnimplementedCoreServiceServer) mustEmbedUnimplementedCoreServiceServer() {}
