@@ -26,15 +26,15 @@ type TradingDataServiceClient interface {
 	QueryBalanceHistory(ctx context.Context, in *QueryBalanceHistoryRequest, opts ...grpc.CallOption) (*QueryBalanceHistoryResponse, error)
 	// -- Market Data --
 	// Get Market Data by Market ID
-	GetMarketDataByID(ctx context.Context, in *MarketDataByIDRequest, opts ...grpc.CallOption) (*MarketDataByIDResponse, error)
+	GetMarketDataByID(ctx context.Context, in *GetMarketDataByIDRequest, opts ...grpc.CallOption) (*GetMarketDataByIDResponse, error)
 	// Get a list of Market Data
-	GetMarketsData(ctx context.Context, in *MarketsDataRequest, opts ...grpc.CallOption) (*MarketsDataResponse, error)
+	GetMarketsData(ctx context.Context, in *GetMarketsDataRequest, opts ...grpc.CallOption) (*GetMarketsDataResponse, error)
 	// Get Market Data History for a Market ID between given dates
-	GetMarketDataHistoryByID(ctx context.Context, in *MarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*MarketDataHistoryByIDResponse, error)
+	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// Get all Market Data history for a Market ID from a given start date
-	GetMarketDataHistoryFromDateByID(ctx context.Context, in *MarketDataHistoryFromDateByIDRequest, opts ...grpc.CallOption) (*MarketDataHistoryFromDateByIDResponse, error)
+	GetMarketDataHistoryFromDateByID(ctx context.Context, in *GetMarketDataHistoryFromDateByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryFromDateByIDResponse, error)
 	// Get all Market Data history for a Market ID up to a given date
-	GetMarketDataHistoryToDateByID(ctx context.Context, in *MarketDataHistoryToDateByIDRequest, opts ...grpc.CallOption) (*MarketDataHistoryToDateByIDResponse, error)
+	GetMarketDataHistoryToDateByID(ctx context.Context, in *GetMarketDataHistoryToDateByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryToDateByIDResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -54,8 +54,8 @@ func (c *tradingDataServiceClient) QueryBalanceHistory(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetMarketDataByID(ctx context.Context, in *MarketDataByIDRequest, opts ...grpc.CallOption) (*MarketDataByIDResponse, error) {
-	out := new(MarketDataByIDResponse)
+func (c *tradingDataServiceClient) GetMarketDataByID(ctx context.Context, in *GetMarketDataByIDRequest, opts ...grpc.CallOption) (*GetMarketDataByIDResponse, error) {
+	out := new(GetMarketDataByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataByID", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *tradingDataServiceClient) GetMarketDataByID(ctx context.Context, in *Ma
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetMarketsData(ctx context.Context, in *MarketsDataRequest, opts ...grpc.CallOption) (*MarketsDataResponse, error) {
-	out := new(MarketsDataResponse)
+func (c *tradingDataServiceClient) GetMarketsData(ctx context.Context, in *GetMarketsDataRequest, opts ...grpc.CallOption) (*GetMarketsDataResponse, error) {
+	out := new(GetMarketsDataResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketsData", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -72,8 +72,8 @@ func (c *tradingDataServiceClient) GetMarketsData(ctx context.Context, in *Marke
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context, in *MarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*MarketDataHistoryByIDResponse, error) {
-	out := new(MarketDataHistoryByIDResponse)
+func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error) {
+	out := new(GetMarketDataHistoryByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -81,8 +81,8 @@ func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context,
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetMarketDataHistoryFromDateByID(ctx context.Context, in *MarketDataHistoryFromDateByIDRequest, opts ...grpc.CallOption) (*MarketDataHistoryFromDateByIDResponse, error) {
-	out := new(MarketDataHistoryFromDateByIDResponse)
+func (c *tradingDataServiceClient) GetMarketDataHistoryFromDateByID(ctx context.Context, in *GetMarketDataHistoryFromDateByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryFromDateByIDResponse, error) {
+	out := new(GetMarketDataHistoryFromDateByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryFromDateByID", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -90,8 +90,8 @@ func (c *tradingDataServiceClient) GetMarketDataHistoryFromDateByID(ctx context.
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetMarketDataHistoryToDateByID(ctx context.Context, in *MarketDataHistoryToDateByIDRequest, opts ...grpc.CallOption) (*MarketDataHistoryToDateByIDResponse, error) {
-	out := new(MarketDataHistoryToDateByIDResponse)
+func (c *tradingDataServiceClient) GetMarketDataHistoryToDateByID(ctx context.Context, in *GetMarketDataHistoryToDateByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryToDateByIDResponse, error) {
+	out := new(GetMarketDataHistoryToDateByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryToDateByID", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -107,15 +107,15 @@ type TradingDataServiceServer interface {
 	QueryBalanceHistory(context.Context, *QueryBalanceHistoryRequest) (*QueryBalanceHistoryResponse, error)
 	// -- Market Data --
 	// Get Market Data by Market ID
-	GetMarketDataByID(context.Context, *MarketDataByIDRequest) (*MarketDataByIDResponse, error)
+	GetMarketDataByID(context.Context, *GetMarketDataByIDRequest) (*GetMarketDataByIDResponse, error)
 	// Get a list of Market Data
-	GetMarketsData(context.Context, *MarketsDataRequest) (*MarketsDataResponse, error)
+	GetMarketsData(context.Context, *GetMarketsDataRequest) (*GetMarketsDataResponse, error)
 	// Get Market Data History for a Market ID between given dates
-	GetMarketDataHistoryByID(context.Context, *MarketDataHistoryByIDRequest) (*MarketDataHistoryByIDResponse, error)
+	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// Get all Market Data history for a Market ID from a given start date
-	GetMarketDataHistoryFromDateByID(context.Context, *MarketDataHistoryFromDateByIDRequest) (*MarketDataHistoryFromDateByIDResponse, error)
+	GetMarketDataHistoryFromDateByID(context.Context, *GetMarketDataHistoryFromDateByIDRequest) (*GetMarketDataHistoryFromDateByIDResponse, error)
 	// Get all Market Data history for a Market ID up to a given date
-	GetMarketDataHistoryToDateByID(context.Context, *MarketDataHistoryToDateByIDRequest) (*MarketDataHistoryToDateByIDResponse, error)
+	GetMarketDataHistoryToDateByID(context.Context, *GetMarketDataHistoryToDateByIDRequest) (*GetMarketDataHistoryToDateByIDResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -126,19 +126,19 @@ type UnimplementedTradingDataServiceServer struct {
 func (UnimplementedTradingDataServiceServer) QueryBalanceHistory(context.Context, *QueryBalanceHistoryRequest) (*QueryBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryBalanceHistory not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetMarketDataByID(context.Context, *MarketDataByIDRequest) (*MarketDataByIDResponse, error) {
+func (UnimplementedTradingDataServiceServer) GetMarketDataByID(context.Context, *GetMarketDataByIDRequest) (*GetMarketDataByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataByID not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetMarketsData(context.Context, *MarketsDataRequest) (*MarketsDataResponse, error) {
+func (UnimplementedTradingDataServiceServer) GetMarketsData(context.Context, *GetMarketsDataRequest) (*GetMarketsDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketsData not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *MarketDataHistoryByIDRequest) (*MarketDataHistoryByIDResponse, error) {
+func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryFromDateByID(context.Context, *MarketDataHistoryFromDateByIDRequest) (*MarketDataHistoryFromDateByIDResponse, error) {
+func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryFromDateByID(context.Context, *GetMarketDataHistoryFromDateByIDRequest) (*GetMarketDataHistoryFromDateByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryFromDateByID not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryToDateByID(context.Context, *MarketDataHistoryToDateByIDRequest) (*MarketDataHistoryToDateByIDResponse, error) {
+func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryToDateByID(context.Context, *GetMarketDataHistoryToDateByIDRequest) (*GetMarketDataHistoryToDateByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryToDateByID not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
@@ -173,7 +173,7 @@ func _TradingDataService_QueryBalanceHistory_Handler(srv interface{}, ctx contex
 }
 
 func _TradingDataService_GetMarketDataByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MarketDataByIDRequest)
+	in := new(GetMarketDataByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -185,13 +185,13 @@ func _TradingDataService_GetMarketDataByID_Handler(srv interface{}, ctx context.
 		FullMethod: "/datanode.api.v2.TradingDataService/GetMarketDataByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetMarketDataByID(ctx, req.(*MarketDataByIDRequest))
+		return srv.(TradingDataServiceServer).GetMarketDataByID(ctx, req.(*GetMarketDataByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TradingDataService_GetMarketsData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MarketsDataRequest)
+	in := new(GetMarketsDataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -203,13 +203,13 @@ func _TradingDataService_GetMarketsData_Handler(srv interface{}, ctx context.Con
 		FullMethod: "/datanode.api.v2.TradingDataService/GetMarketsData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetMarketsData(ctx, req.(*MarketsDataRequest))
+		return srv.(TradingDataServiceServer).GetMarketsData(ctx, req.(*GetMarketsDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MarketDataHistoryByIDRequest)
+	in := new(GetMarketDataHistoryByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -221,13 +221,13 @@ func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx c
 		FullMethod: "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, req.(*MarketDataHistoryByIDRequest))
+		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, req.(*GetMarketDataHistoryByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TradingDataService_GetMarketDataHistoryFromDateByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MarketDataHistoryFromDateByIDRequest)
+	in := new(GetMarketDataHistoryFromDateByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -239,13 +239,13 @@ func _TradingDataService_GetMarketDataHistoryFromDateByID_Handler(srv interface{
 		FullMethod: "/datanode.api.v2.TradingDataService/GetMarketDataHistoryFromDateByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetMarketDataHistoryFromDateByID(ctx, req.(*MarketDataHistoryFromDateByIDRequest))
+		return srv.(TradingDataServiceServer).GetMarketDataHistoryFromDateByID(ctx, req.(*GetMarketDataHistoryFromDateByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TradingDataService_GetMarketDataHistoryToDateByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MarketDataHistoryToDateByIDRequest)
+	in := new(GetMarketDataHistoryToDateByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -257,7 +257,7 @@ func _TradingDataService_GetMarketDataHistoryToDateByID_Handler(srv interface{},
 		FullMethod: "/datanode.api.v2.TradingDataService/GetMarketDataHistoryToDateByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetMarketDataHistoryToDateByID(ctx, req.(*MarketDataHistoryToDateByIDRequest))
+		return srv.(TradingDataServiceServer).GetMarketDataHistoryToDateByID(ctx, req.(*GetMarketDataHistoryToDateByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

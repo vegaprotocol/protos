@@ -12,15 +12,15 @@ service TradingDataService {
   rpc QueryBalanceHistory(QueryBalanceHistoryRequest) returns (QueryBalanceHistoryResponse) {}
   // -- Market Data --
   // Get Market Data by Market ID
-  rpc GetMarketDataByID(MarketDataByIDRequest) returns (MarketDataByIDResponse);
+  rpc GetMarketDataByID(GetMarketDataByIDRequest) returns (GetMarketDataByIDResponse);
   // Get a list of Market Data
-  rpc GetMarketsData(MarketsDataRequest) returns (MarketsDataResponse);
+  rpc GetMarketsData(GetMarketsDataRequest) returns (GetMarketsDataResponse);
   // Get Market Data History for a Market ID between given dates
-  rpc GetMarketDataHistoryByID(MarketDataHistoryByIDRequest) returns (MarketDataHistoryByIDResponse);
+  rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
   // Get all Market Data history for a Market ID from a given start date
-  rpc GetMarketDataHistoryFromDateByID(MarketDataHistoryFromDateByIDRequest) returns (MarketDataHistoryFromDateByIDResponse);
+  rpc GetMarketDataHistoryFromDateByID(GetMarketDataHistoryFromDateByIDRequest) returns (GetMarketDataHistoryFromDateByIDResponse);
   // Get all Market Data history for a Market ID up to a given date
-  rpc GetMarketDataHistoryToDateByID(MarketDataHistoryToDateByIDRequest) returns (MarketDataHistoryToDateByIDResponse);
+  rpc GetMarketDataHistoryToDateByID(GetMarketDataHistoryToDateByIDRequest) returns (GetMarketDataHistoryToDateByIDResponse);
 }
 
 message QueryBalanceHistoryRequest {
@@ -75,57 +75,57 @@ message AggregatedBalance {
 
 
 // Request for market data for a market
-message MarketDataByIDRequest {
+message GetMarketDataByIDRequest {
   // Market identifier
   string market_id = 1;
 }
 
 // Response for market data for a market
-message MarketDataByIDResponse {
+message GetMarketDataByIDResponse {
   // Market data, if found
   vega.MarketData market_data = 1;
 }
 
 // Request for market data
-message MarketsDataRequest {}
+message GetMarketsDataRequest {}
 
 // Response for market data
-message MarketsDataResponse {
+message GetMarketsDataResponse {
   // A list of 0 or more market data
   repeated vega.MarketData markets_data = 1;
 }
 
 // Request for Market Data History
-message MarketDataHistoryByIDRequest {
+message GetMarketDataHistoryByIDRequest {
     string market_id = 1;
     int64 start_timestamp = 2;
     int64 end_timestamp = 3;
 }
 
 // Response for Market Data History
-message MarketDataHistoryByIDResponse {
+message GetMarketDataHistoryByIDResponse {
     repeated vega.MarketData market_data = 1;
 }
 
 // Request for Market Data History since a given date
-message MarketDataHistoryFromDateByIDRequest {
+message GetMarketDataHistoryFromDateByIDRequest {
     string market_id = 1;
     int64 start_timestamp = 2;
 }
 
 // Response for Market Data History since a given date
-message MarketDataHistoryFromDateByIDResponse {
+message GetMarketDataHistoryFromDateByIDResponse {
     repeated vega.MarketData market_data = 1;
 }
 
 // Request for all Market Data History until a given date
-message MarketDataHistoryToDateByIDRequest {
+message GetMarketDataHistoryToDateByIDRequest {
     string market_id = 1;
     int64 end_timestamp = 2;
 }
 
 // Response for all Market Data History until a given date
-message MarketDataHistoryToDateByIDResponse {
+message GetMarketDataHistoryToDateByIDResponse {
     repeated vega.MarketData market_data = 1;
 }
 
