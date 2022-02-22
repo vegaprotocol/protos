@@ -79,6 +79,21 @@ message SubmitTransactionResponse {
   string tx_hash = 2;
 }
 
+// Request for checking a transaction v2 on Vega
+message CheckTransactionRequest {
+  // A bundle of signed payload and signature, to form a transaction that would be submitted to the Vega blockchain
+  vega.commands.v1.Transaction tx = 1;
+}
+
+message CheckTransactionResponse {
+  // Success will be true if the transaction was checked by the node
+  bool success      = 1;
+
+  uint32 code       = 2;
+  int64 gas_wanted  = 3;
+  int64 gas_used    = 4;
+}
+
 
 // Request for submitting a version agnostic transaction on Vega
 message SubmitRawTransactionRequest {
