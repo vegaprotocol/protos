@@ -36,6 +36,10 @@ type CoreServiceClient interface {
 	ObserveEventBus(ctx context.Context, opts ...grpc.CallOption) (CoreService_ObserveEventBusClient, error)
 	// Submit a version agnostic signed transaction
 	SubmitRawTransaction(ctx context.Context, in *SubmitRawTransactionRequest, opts ...grpc.CallOption) (*SubmitRawTransactionResponse, error)
+	// Check a signed transaction
+	CheckTransaction(ctx context.Context, in *CheckTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error)
+	// Check a raw signed transaction
+	CheckRawTransaction(ctx context.Context, in *CheckRawTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error)
 }
 
 type coreServiceClient struct {
@@ -131,6 +135,24 @@ func (c *coreServiceClient) SubmitRawTransaction(ctx context.Context, in *Submit
 	return out, nil
 }
 
+func (c *coreServiceClient) CheckTransaction(ctx context.Context, in *CheckTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error) {
+	out := new(CheckTransactionResponse)
+	err := c.cc.Invoke(ctx, "/vega.api.v1.CoreService/CheckTransaction", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) CheckRawTransaction(ctx context.Context, in *CheckRawTransactionRequest, opts ...grpc.CallOption) (*CheckTransactionResponse, error) {
+	out := new(CheckTransactionResponse)
+	err := c.cc.Invoke(ctx, "/vega.api.v1.CoreService/CheckRawTransaction", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreServiceServer is the server API for CoreService service.
 // All implementations must embed UnimplementedCoreServiceServer
 // for forward compatibility
@@ -149,6 +171,10 @@ type CoreServiceServer interface {
 	ObserveEventBus(CoreService_ObserveEventBusServer) error
 	// Submit a version agnostic signed transaction
 	SubmitRawTransaction(context.Context, *SubmitRawTransactionRequest) (*SubmitRawTransactionResponse, error)
+	// Check a signed transaction
+	CheckTransaction(context.Context, *CheckTransactionRequest) (*CheckTransactionResponse, error)
+	// Check a raw signed transaction
+	CheckRawTransaction(context.Context, *CheckRawTransactionRequest) (*CheckTransactionResponse, error)
 	mustEmbedUnimplementedCoreServiceServer()
 }
 
@@ -176,6 +202,12 @@ func (UnimplementedCoreServiceServer) ObserveEventBus(CoreService_ObserveEventBu
 }
 func (UnimplementedCoreServiceServer) SubmitRawTransaction(context.Context, *SubmitRawTransactionRequest) (*SubmitRawTransactionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SubmitRawTransaction not implemented")
+}
+func (UnimplementedCoreServiceServer) CheckTransaction(context.Context, *CheckTransactionRequest) (*CheckTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckTransaction not implemented")
+}
+func (UnimplementedCoreServiceServer) CheckRawTransaction(context.Context, *CheckRawTransactionRequest) (*CheckTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckRawTransaction not implemented")
 }
 func (UnimplementedCoreServiceServer) mustEmbedUnimplementedCoreServiceServer() {}
 
@@ -324,6 +356,42 @@ func _CoreService_SubmitRawTransaction_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CoreService_CheckTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).CheckTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/vega.api.v1.CoreService/CheckTransaction",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).CheckTransaction(ctx, req.(*CheckTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_CheckRawTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckRawTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).CheckRawTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/vega.api.v1.CoreService/CheckRawTransaction",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).CheckRawTransaction(ctx, req.(*CheckRawTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CoreService_ServiceDesc is the grpc.ServiceDesc for CoreService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -354,6 +422,14 @@ var CoreService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SubmitRawTransaction",
 			Handler:    _CoreService_SubmitRawTransaction_Handler,
+		},
+		{
+			MethodName: "CheckTransaction",
+			Handler:    _CoreService_CheckTransaction_Handler,
+		},
+		{
+			MethodName: "CheckRawTransaction",
+			Handler:    _CoreService_CheckRawTransaction_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
