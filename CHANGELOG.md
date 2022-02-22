@@ -51,6 +51,7 @@
 - [276](https://github.com/vegaprotocol/protos/pull/276) - Remove maturity from future product, tick size from market and trading mode config from market
 - [277](https://github.com/vegaprotocol/protos/pull/277) - Update validation for risk params for log normal risk model
 - [287](https://github.com/vegaprotocol/protos/pull/287) - Add `QueryBalanceHistory` call and associated messages
+- [300](https://github.com/vegaprotocol/protos/pull/300) - Add market data endpoints for trading data service version 2
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
