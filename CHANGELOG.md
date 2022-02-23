@@ -15,7 +15,7 @@
 - [306](https://github.com/vegaprotocol/protos/pull/306) - Add initial v2 orders API
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [308](https://github.com/vegaprotocol/protos/pull/308) - Validate order price and fail if not positive
 
 
 ## 0.48.0

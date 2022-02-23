@@ -28,6 +28,7 @@ func TestCheckOrderSubmission(t *testing.T) {
 	t.Run("Submitting an order with MARKET type and price fails", testOrderSubmissionWithMarketTypeAndPriceFails)
 	t.Run("Submitting an order with MARKET type and wrong time in force fails", testOrderSubmissionWithMarketTypeAndWrongTimeInForceFails)
 	t.Run("Submitting an order with LIMIT type and no price fails", testOrderSubmissionWithLimitTypeAndNoPriceFails)
+	t.Run("Submitting an order with LIMIT type and negative price fails", testOrderSubmissionWithLimitTypeAndNegativePriceFails)
 	t.Run("Submitting a pegged order with LIMIT type and no price succeeds", testPeggedOrderSubmissionWithLimitTypeAndNoPriceSucceeds)
 	t.Run("Submitting a pegged order with undefined time in force fails", testPeggedOrderSubmissionWithUndefinedReferenceFails)
 	t.Run("Submitting a pegged order with unspecified time in force fails", testPeggedOrderSubmissionWithUnspecifiedReferenceFails)
@@ -240,6 +241,15 @@ func testOrderSubmissionWithLimitTypeAndNoPriceFails(t *testing.T) {
 	})
 
 	assert.Contains(t, err.Get("order_submission.price"), errors.New("is required when the order is of type LIMIT"))
+}
+
+func testOrderSubmissionWithLimitTypeAndNegativePriceFails(t *testing.T) {
+	err := checkOrderSubmission(&commandspb.OrderSubmission{
+		Type:  types.Order_TYPE_LIMIT,
+		Price: "-1000",
+	})
+
+	assert.Contains(t, err.Get("order_submission.price"), errors.New("must be positive when the order is of type LIMIT"))
 }
 
 func testPeggedOrderSubmissionWithLimitTypeAndNoPriceSucceeds(t *testing.T) {
