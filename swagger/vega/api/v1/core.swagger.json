@@ -117,6 +117,105 @@
           "CoreService"
         ]
       }
+    },
+    "/transaction/check": {
+      "post": {
+        "summary": "Check a signed transaction",
+        "operationId": "CoreService_CheckTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CheckTransactionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CheckTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CoreService"
+        ]
+      }
+    },
+    "/transaction/raw": {
+      "post": {
+        "summary": "Submit a version agnostic signed transaction",
+        "operationId": "CoreService_SubmitRawTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SubmitRawTransactionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SubmitRawTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CoreService"
+        ]
+      }
+    },
+    "/transaction/raw/check": {
+      "post": {
+        "summary": "Check a raw signed transaction",
+        "operationId": "CoreService_CheckRawTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CheckRawTransactionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CheckRawTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CoreService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -499,6 +598,76 @@
         }
       },
       "title": "A request for cancelling a recurring transfer"
+    },
+    "v1CheckRawTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "tx": {
+          "type": "string",
+          "format": "byte",
+          "title": "A bundle of signed payload and signature marshalled into a byte array, to form a transaction that would be submitted to the Vega blockchain"
+        }
+      },
+      "title": "Request for checking a version agnostic transaction on Vega"
+    },
+    "v1CheckRawTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success will be true if the transaction was checked by the node"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Check code result"
+        },
+        "gasWanted": {
+          "type": "string",
+          "format": "int64",
+          "title": "Gas wanted for transaction"
+        },
+        "gasUsed": {
+          "type": "string",
+          "format": "int64",
+          "title": "Gas used for transaction"
+        }
+      },
+      "title": "Response for checking a version agnostic transaction on Vega"
+    },
+    "v1CheckTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "tx": {
+          "$ref": "#/definitions/v1Transaction",
+          "title": "A bundle of signed payload and signature, to form a transaction that would be submitted to the Vega blockchain"
+        }
+      },
+      "title": "Request for checking a transaction v2 on Vega"
+    },
+    "v1CheckTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success will be true if the transaction was checked by the node"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Check code result"
+        },
+        "gasWanted": {
+          "type": "string",
+          "format": "int64",
+          "title": "Gas wanted for transaction"
+        },
+        "gasUsed": {
+          "type": "string",
+          "format": "int64",
+          "title": "Gas used for transaction"
+        }
+      }
     },
     "v1CheckpointEvent": {
       "type": "object",
@@ -1446,6 +1615,21 @@
           "$ref": "#/definitions/v1Statistics"
         }
       }
+    },
+    "v1SubmitRawTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "tx": {
+          "type": "string",
+          "format": "byte",
+          "title": "A bundle of signed payload and signature marshalled into a byte array, to form a transaction that will be submitted to the Vega blockchain"
+        },
+        "type": {
+          "$ref": "#/definitions/v1SubmitRawTransactionRequestType",
+          "title": "Type of transaction request, for example ASYNC, meaning the transaction will be submitted and not block on a response"
+        }
+      },
+      "title": "Request for submitting a version agnostic transaction on Vega"
     },
     "v1SubmitRawTransactionRequestType": {
       "type": "string",

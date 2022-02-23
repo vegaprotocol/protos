@@ -9,7 +9,10 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [285](https://github.com/vegaprotocol/protos/pull/285) - Update snapshot protos to store enough data to restore `corestate` service
+- [296](https://github.com/vegaprotocol/protos/pull/296) - Remove old id generator fields from execution engine's snapshot
+- [293](https://github.com/vegaprotocol/protos/pull/293) - Re-enable proto check
+- [306](https://github.com/vegaprotocol/protos/pull/306) - Add initial v2 orders API
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -26,6 +29,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
+- [303](https://github.com/vegaprotocol/protos/pull/303) - Add types for CheckTransaction and CheckRawTransaction for vega
 - [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 - [212](https://github.com/vegaprotocol/protos/pull/212) - Add pagination field to DelegationRequest
@@ -55,7 +59,7 @@
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
-- [214](https://github.com/vegaprotocol/protos/pull/214) Rewording of transaction nonce and block_height
+- [214](https://github.com/vegaprotocol/protos/pull/214) - Rewording of transaction nonce and block_height
 
 
 ## 0.47.0

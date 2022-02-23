@@ -260,7 +260,7 @@ message DelegationAuto {
   repeated string parties = 1;
 }
 
-message PendingProposal {
+message ProposalData {
   vega.Proposal proposal = 1;
   repeated vega.Vote yes = 2;
   repeated vega.Vote no = 3;
@@ -268,11 +268,11 @@ message PendingProposal {
 }
 
 message GovernanceEnacted {
-  repeated vega.Proposal proposals = 1;
+  repeated ProposalData proposals = 1;
 }
 
 message GovernanceActive {
-  repeated PendingProposal proposals = 1;
+  repeated ProposalData proposals = 1;
 }
 
 message GovernanceNode {
@@ -406,12 +406,6 @@ message Market {
 
 message ExecutionMarkets {
   repeated Market markets = 1;
-  // Which batch are we on
-  uint64 batches = 2;
-  // How many orders in this batch
-  uint64 orders = 3;
-  // How many proposals in this batch
-  uint64 proposals = 4;
 }
 
 message Position {
@@ -433,6 +427,7 @@ message AppState {
   uint64 height = 1;
   string block = 2;
   int64 time = 3;
+  string chain_id = 4;
 }
 
 // EpochState details

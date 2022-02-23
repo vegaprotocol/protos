@@ -30,6 +30,10 @@ service CoreService {
   rpc ObserveEventBus(stream ObserveEventBusRequest) returns (stream ObserveEventBusResponse);
   // Submit a version agnostic signed transaction
   rpc SubmitRawTransaction(SubmitRawTransactionRequest) returns (SubmitRawTransactionResponse);
+  // Check a signed transaction
+  rpc CheckTransaction(CheckTransactionRequest) returns (CheckTransactionResponse);
+   // Check a raw signed transaction
+  rpc CheckRawTransaction(CheckRawTransactionRequest) returns (CheckRawTransactionResponse);
 }
 
 // Request for a new event sent by the blockchain queue to be propagated on Vega
@@ -79,6 +83,23 @@ message SubmitTransactionResponse {
   string tx_hash = 2;
 }
 
+// Request for checking a transaction v2 on Vega
+message CheckTransactionRequest {
+  // A bundle of signed payload and signature, to form a transaction that would be submitted to the Vega blockchain
+  vega.commands.v1.Transaction tx = 1;
+}
+
+message CheckTransactionResponse {
+  // Success will be true if the transaction was checked by the node
+  bool success      = 1;
+
+  // Check code result
+  uint32 code       = 2;
+  // Gas wanted for transaction
+  int64 gas_wanted  = 3;
+  // Gas used for transaction
+  int64 gas_used    = 4;
+}
 
 // Request for submitting a version agnostic transaction on Vega
 message SubmitRawTransactionRequest {
@@ -108,6 +129,25 @@ message SubmitRawTransactionResponse {
   bool success = 1;
   // Hash of the transaction, if accepted
   string tx_hash = 2;
+}
+
+// Request for checking a version agnostic transaction on Vega
+message CheckRawTransactionRequest {
+  // A bundle of signed payload and signature marshalled into a byte array, to form a transaction that would be submitted to the Vega blockchain
+  bytes tx = 1;
+}
+
+// Response for checking a version agnostic transaction on Vega
+message CheckRawTransactionResponse {
+  // Success will be true if the transaction was checked by the node
+  bool success      = 1;
+
+  // Check code result
+  uint32 code       = 2;
+  // Gas wanted for transaction
+  int64 gas_wanted  = 3;
+  // Gas used for transaction
+  int64 gas_used    = 4;
 }
 
 // Request for the current time of the vega network
