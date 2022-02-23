@@ -28,6 +28,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
+- [303](https://github.com/vegaprotocol/protos/pull/303) - Add types for CheckTransaction and CheckRawTransaction for vega
 - [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 - [212](https://github.com/vegaprotocol/protos/pull/212) - Add pagination field to DelegationRequest
