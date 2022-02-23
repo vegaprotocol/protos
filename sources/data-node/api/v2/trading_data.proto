@@ -178,12 +178,6 @@ message AggregatedBalance {
     vega.AccountType account_type = 7;
 }
 
-// Request for Market Data History
-message GetMarketDataHistoryByIDRequest {
-    string market_id = 1;
-    optional int64 start_timestamp = 2;
-    optional int64 end_timestamp = 3;
-}
 // Pagination controls
 message Pagination {
     // Skip the number of records specified, default is 0
@@ -193,7 +187,19 @@ message Pagination {
     // Descending reverses the order of the records returned,
     // default is true, if false the results will be returned in ascending order
     bool descending = 3;
-  }
+}
+
+// Request for Market Data History
+message GetMarketDataHistoryByIDRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional Unix time in nanoseconds
+    optional int64 start_timestamp = 2;
+    // Optional Unix time in nanoseconds
+    optional int64 end_timestamp = 3;
+    // Optional pagination control
+    optional Pagination pagination = 4;
+}
 
 // Response for Market Data History
 message GetMarketDataHistoryByIDResponse {
