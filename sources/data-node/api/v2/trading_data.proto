@@ -8,11 +8,122 @@ import "google/protobuf/wrappers.proto";
 package datanode.api.v2;
 
 service TradingDataService {
+    // -- Orders --
+    // For now, duplicate the v1 api so we can run the system tests against it
+
+    // Get an Order by Market and Order ID
+    // TODO: Is this needed? Isn't ID sufficiently unique?
+    rpc OrderByMarketAndID(OrderByMarketAndIDRequest) returns (OrderByMarketAndIDResponse);
+
+    // Get an Order by Pending Order reference (UUID)
+    // TODO: References are not enforced to be unique, this should return a list
+    rpc OrderByReference(OrderByReferenceRequest) returns (OrderByReferenceResponse);
+
+    // Get a list of Orders by Market
+    rpc OrdersByMarket(OrdersByMarketRequest) returns (OrdersByMarketResponse);
+
+    // Get a list of Orders by Party
+    rpc OrdersByParty(OrdersByPartyRequest) returns (OrdersByPartyResponse);
+
+    // Get a specific order by order ID
+    rpc OrderByID(OrderByIDRequest) returns (OrderByIDResponse);
+
+    // Get all versions of the order by its orderID
+    rpc OrderVersionsByID(OrderVersionsByIDRequest) returns (OrderVersionsByIDResponse);
+
+    // -- Balances --
+
     // Get an aggregated list of the changes in balances in a set of accounts over time
     rpc QueryBalanceHistory(QueryBalanceHistoryRequest) returns (QueryBalanceHistoryResponse) {}
 }
 
-message QueryBalanceHistoryRequest {
+// Request for an order on a market given an order identifier
+message OrderByMarketAndIDRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Order identifier, required field
+    string order_id = 2;
+}
+
+// Response for an order on a market given an order identifier
+message OrderByMarketAndIDResponse {
+    // An order, if found
+    vega.Order order = 1;
+}
+
+// Request for an order given an order reference
+message OrderByReferenceRequest {
+    // Unique reference, required field
+    string reference = 1;
+  }
+
+// Response for an order given an order reference
+message OrderByReferenceResponse {
+    // An order, if found
+    vega.Order order = 1;
+  }
+
+// Request for a list of orders for a market
+message OrdersByMarketRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional pagination controls
+    Pagination pagination = 2;
+}
+
+// Response for a list of orders for a market
+message OrdersByMarketResponse {
+    // A list of 0 or more orders
+    repeated vega.Order orders = 1;
+}
+
+
+// Request for a list of all versions of an order given the specified order identifier
+message OrderVersionsByIDRequest {
+    // Order identifier, required field
+    string order_id = 1;
+    // Pagination controls
+    Pagination pagination = 2;
+}
+
+  // Response to a request for a list of all versions of an order
+message OrderVersionsByIDResponse {
+    // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
+    repeated vega.Order orders = 1;
+}
+
+// Request for a list of orders for a party
+message OrdersByPartyRequest {
+    // Party identifier, required field
+    string party_id = 1;
+    // Pagination controls
+    Pagination pagination = 2;
+}
+
+// Response for a list of orders for a party
+message OrdersByPartyResponse {
+    // A list of 0 or more orders
+    repeated vega.Order orders = 1;
+}
+
+
+// Request for an order with the specified order identifier
+// Optionally, return a specific version of the order with the `version` field
+message OrderByIDRequest {
+    // Order identifier, required field
+    string order_id = 1;
+    // Version of the order:
+    // - Set `version` to 0 for most recent version of the order
+    // - Set `1` for original version of the order
+    // - Set `2` for first amendment, `3` for second amendment, etc
+    uint64 version = 2;
+  }
+
+  message OrderByIDResponse {
+    vega.Order order = 1;
+  }
+
+  message QueryBalanceHistoryRequest {
     // Limit the accounts considered according to the filter supplied
     AccountFilter filter = 1;
     // By default the net balances of all the accounts specified by the filter are returned.
@@ -62,6 +173,15 @@ message AggregatedBalance {
     vega.AccountType account_type = 7;
 }
 
-
+// Pagination controls
+message Pagination {
+    // Skip the number of records specified, default is 0
+    uint64 skip = 1;
+    // Limit the number of returned records to the value specified, default is 50
+    uint64 limit = 2;
+    // Descending reverses the order of the records returned,
+    // default is true, if false the results will be returned in ascending order
+    bool descending = 3;
+  }
 
 
