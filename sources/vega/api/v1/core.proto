@@ -133,14 +133,14 @@ message SubmitRawTransactionRequest {
 message SubmitRawTransactionResponse {
   // Success will be true if the transaction was accepted by the node,
   // **Important** - success does not mean that the event is confirmed by consensus
-  bool success = 1;
+  bool success   = 1;
   // Hash of the transaction, if accepted
   string tx_hash = 2;
 
-  uint32 Code     = 3;
-	string Data     = 4;
-  string Log = 5;
-	int64 height = 6;
+  uint32 Code    = 3;
+  string Data    = 4;
+  string Log     = 5;
+  int64 height   = 6;
 }
 
 // Request for checking a version agnostic transaction on Vega

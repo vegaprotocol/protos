@@ -22,6 +22,7 @@
 ## 0.48.0
 
 ### 🚨 Breaking changes
+- [314](https://github.com/vegaprotocol/protos/pull/314) - Add more data to submit transaction endpoints
 - [218](https://github.com/vegaprotocol/protos/pull/) - Restructure EthereumConfig to separate staking and vesting contract addresses, plus add block height at which they have been added respectively
 - [256](https://github.com/vegaprotocol/protos/pull/) - Rework freeform proposal protos so that they align with other proposals
 - [290](https://github.com/vegaprotocol/protos/pull/290) - Generate stubs using new versions of `protoc-gen-xxx`
