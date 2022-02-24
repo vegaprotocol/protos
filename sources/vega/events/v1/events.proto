@@ -235,6 +235,8 @@ message SettlePosition {
   string price = 3;
   // A collection of 1 or more trade settlements
   repeated TradeSettlement trade_settlements = 4;
+  // Position factor - 10 ^ number of position decimal places
+  string position_factor = 5;
 }
 
 // A settle distressed event contains information on distressed trading parties who are closed out

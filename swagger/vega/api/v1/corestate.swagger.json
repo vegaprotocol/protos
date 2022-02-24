@@ -1262,6 +1262,11 @@
         "marketTimestamps": {
           "$ref": "#/definitions/vegaMarketTimestamps",
           "title": "Timestamps for when the market stay changes"
+        },
+        "positionDecimalPlaces": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The number of decimal places for position"
         }
       },
       "title": "Market definition"
@@ -1611,6 +1616,11 @@
         "logNormal": {
           "$ref": "#/definitions/vegaLogNormalRiskModel",
           "title": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+        },
+        "positionDecimalPlaces": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Decimal places for order sizes"
         }
       },
       "title": "Configuration for a new market on Vega"
