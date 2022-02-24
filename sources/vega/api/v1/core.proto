@@ -82,10 +82,10 @@ message SubmitTransactionResponse {
   // Hash of the transaction, if accepted
   string tx_hash = 2;
   // Result code success if unsucessful
-  uint32 Code     = 3;
+  uint32 code     = 3;
   // Data for details
-  string Data     = 4;
-  string Log = 5 ;
+  string data     = 4;
+  string log = 5 ;
   // Height for commit
   int64 height = 6;
 }
@@ -137,9 +137,9 @@ message SubmitRawTransactionResponse {
   // Hash of the transaction, if accepted
   string tx_hash = 2;
 
-  uint32 Code    = 3;
-  string Data    = 4;
-  string Log     = 5;
+  uint32 code    = 3;
+  string data    = 4;
+  string log     = 5;
   int64 height   = 6;
 }
 
