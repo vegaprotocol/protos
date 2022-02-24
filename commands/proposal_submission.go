@@ -251,6 +251,12 @@ func checkNewMarketChanges(change *types.ProposalTerms_NewMarket) Errors {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.decimal_places", ErrMustBeLessThan150)
 	}
 
+	if changes.PositionDecimalPlaces < 0 {
+		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.position_decimal_places", ErrMustBePositiveOrZero)
+	} else if changes.DecimalPlaces > 6 {
+		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.position_decimal_places", ErrMustBeLessThan7)
+	}
+
 	errs.Merge(checkPriceMonitoring(changes.PriceMonitoringParameters))
 	errs.Merge(checkLiquidityMonitoring(changes.LiquidityMonitoringParameters))
 	errs.Merge(checkInstrument(changes.Instrument))
