@@ -385,6 +385,11 @@ message EquityShare {
   repeated EquityShareLP lps = 3;
 }
 
+message FeeSplitter {
+  int64  time_window_start = 1;
+  string trade_value = 2;
+}
+
 message Market {
   vega.Market market = 1;
   PriceMonitor price_monitor = 2;
@@ -402,6 +407,7 @@ message Market {
   string risk_factor_short = 14;
   string risk_factor_long = 15;
   bool risk_factor_consensus_reached = 16;
+  FeeSplitter fee_splitter = 17;
 }
 
 message ExecutionMarkets {
