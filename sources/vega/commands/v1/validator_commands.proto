@@ -90,6 +90,8 @@ message ChainEvent {
     vega.ERC20Event erc20 = 1002;
     // Ethereum Staking event
     vega.StakingEvent staking_event = 1005;
+    // Ethereum ERC20 multisig event
+    vega.ERC20MultiSigEvent erc20_multisig = 1006;
   }
 }
 

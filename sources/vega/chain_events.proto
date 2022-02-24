@@ -67,6 +67,25 @@ message ERC20Withdrawal {
   string reference_nonce = 3;
 }
 
+// An event related to an ERC20 token
+message ERC20Event {
+  // Index of the log in the transaction
+  uint64 index = 1;
+  // The block in which the transaction was added
+  uint64 block = 2;
+  // The action
+  oneof action {
+    // List an ERC20 asset
+    ERC20AssetList asset_list = 1001;
+    // De-list an ERC20 asset
+    ERC20AssetDelist asset_delist = 1002;
+    // Deposit ERC20 asset
+    ERC20Deposit deposit = 1003;
+    // Withdraw ERC20 asset
+    ERC20Withdrawal withdrawal = 1004;
+  }
+}
+
 // A new signer added to the ERC20 bridge
 message ERC20SignerAdded {
   // The ethereum address of the new signer
@@ -103,28 +122,20 @@ message ERC20ThresholdSet {
   int64 block_time = 3;
 }
 
-// An event related to an ERC20 token
-message ERC20Event {
+// An event related to the ERC20 MultiSig
+message ERC20MultiSigEvent {
   // Index of the log in the transaction
   uint64 index = 1;
   // The block in which the transaction was added
   uint64 block = 2;
   // The action
   oneof action {
-    // List an ERC20 asset
-    ERC20AssetList asset_list = 1001;
-    // De-list an ERC20 asset
-    ERC20AssetDelist asset_delist = 1002;
-    // Deposit ERC20 asset
-    ERC20Deposit deposit = 1003;
-    // Withdraw ERC20 asset
-    ERC20Withdrawal withdrawal = 1004;
     // Add a signer to the erc20 bridge
-    ERC20SignerAdded signer_added = 1005;
+    ERC20SignerAdded signer_added = 1001;
     // Remove a signer from the erc20 bridge
-    ERC20SignerRemoved signer_removed = 1006;
+    ERC20SignerRemoved signer_removed = 1002;
     // Threshold set
-    ERC20ThresholdSet threshold_set = 1007;
+    ERC20ThresholdSet threshold_set = 1003;
   }
 }
 
