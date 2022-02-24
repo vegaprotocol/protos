@@ -40,6 +40,19 @@ service TradingDataService {
 
     // Get Market Data History for a Market ID between given dates
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
+
+    // -- Network Limits --
+
+    // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
+    rpc GetNetworkLimits(GetNetworkLimitsRequest) returns (GetNetworkLimitsResponse);
+}
+
+// Request for the current network limits
+message GetNetworkLimitsRequest {}
+
+// Response for the current network limits
+message GetNetworkLimitsResponse {
+    vega.NetworkLimits limits = 1;
 }
 
 // Request for an order on a market given an order identifier
