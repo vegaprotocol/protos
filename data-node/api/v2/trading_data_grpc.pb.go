@@ -40,6 +40,8 @@ type TradingDataServiceClient interface {
 	QueryBalanceHistory(ctx context.Context, in *QueryBalanceHistoryRequest, opts ...grpc.CallOption) (*QueryBalanceHistoryResponse, error)
 	// Get Market Data History for a Market ID between given dates
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
+	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
+	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -122,6 +124,15 @@ func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context,
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error) {
+	out := new(GetNetworkLimitsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetNetworkLimits", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -144,6 +155,8 @@ type TradingDataServiceServer interface {
 	QueryBalanceHistory(context.Context, *QueryBalanceHistoryRequest) (*QueryBalanceHistoryResponse, error)
 	// Get Market Data History for a Market ID between given dates
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
+	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
+	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -174,6 +187,9 @@ func (UnimplementedTradingDataServiceServer) QueryBalanceHistory(context.Context
 }
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -332,6 +348,24 @@ func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetNetworkLimits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNetworkLimitsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetNetworkLimits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetNetworkLimits",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetNetworkLimits(ctx, req.(*GetNetworkLimitsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -370,6 +404,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMarketDataHistoryByID",
 			Handler:    _TradingDataService_GetMarketDataHistoryByID_Handler,
+		},
+		{
+			MethodName: "GetNetworkLimits",
+			Handler:    _TradingDataService_GetNetworkLimits_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

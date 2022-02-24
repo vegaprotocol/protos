@@ -13,6 +13,7 @@
 - [296](https://github.com/vegaprotocol/protos/pull/296) - Remove old id generator fields from execution engine's snapshot
 - [293](https://github.com/vegaprotocol/protos/pull/293) - Re-enable proto check
 - [306](https://github.com/vegaprotocol/protos/pull/306) - Add initial v2 orders API
+- [312](https://github.com/vegaprotocol/protos/pull/306) - Add rpc call to get network limits
 
 ### 🐛 Fixes
 - [308](https://github.com/vegaprotocol/protos/pull/308) - Validate order price and fail if not positive
