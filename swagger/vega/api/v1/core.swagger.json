@@ -1654,14 +1654,14 @@
           "type": "string",
           "title": "Hash of the transaction, if accepted"
         },
-        "Code": {
+        "code": {
           "type": "integer",
           "format": "int64"
         },
-        "Data": {
+        "data": {
           "type": "string"
         },
-        "Log": {
+        "log": {
           "type": "string"
         },
         "height": {
@@ -1708,16 +1708,16 @@
           "type": "string",
           "title": "Hash of the transaction, if accepted"
         },
-        "Code": {
+        "code": {
           "type": "integer",
           "format": "int64",
           "title": "Result code success if unsucessful"
         },
-        "Data": {
+        "data": {
           "type": "string",
           "title": "Data for details"
         },
-        "Log": {
+        "log": {
           "type": "string"
         },
         "height": {
