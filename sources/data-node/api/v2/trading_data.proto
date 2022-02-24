@@ -35,6 +35,11 @@ service TradingDataService {
 
     // Get an aggregated list of the changes in balances in a set of accounts over time
     rpc QueryBalanceHistory(QueryBalanceHistoryRequest) returns (QueryBalanceHistoryResponse) {}
+
+    // -- Market Data --
+
+    // Get Market Data History for a Market ID between given dates
+    rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
 }
 
 // Request for an order on a market given an order identifier
@@ -182,6 +187,21 @@ message Pagination {
     // Descending reverses the order of the records returned,
     // default is true, if false the results will be returned in ascending order
     bool descending = 3;
-  }
+}
 
+// Request for Market Data History
+message GetMarketDataHistoryByIDRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional Unix time in nanoseconds
+    optional int64 start_timestamp = 2;
+    // Optional Unix time in nanoseconds
+    optional int64 end_timestamp = 3;
+    // Optional pagination control
+    optional Pagination pagination = 4;
+}
 
+// Response for Market Data History
+message GetMarketDataHistoryByIDResponse {
+    repeated vega.MarketData market_data = 1;
+}

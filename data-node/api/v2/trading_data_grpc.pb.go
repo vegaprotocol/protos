@@ -38,6 +38,8 @@ type TradingDataServiceClient interface {
 	OrderVersionsByID(ctx context.Context, in *OrderVersionsByIDRequest, opts ...grpc.CallOption) (*OrderVersionsByIDResponse, error)
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	QueryBalanceHistory(ctx context.Context, in *QueryBalanceHistoryRequest, opts ...grpc.CallOption) (*QueryBalanceHistoryResponse, error)
+	// Get Market Data History for a Market ID between given dates
+	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -111,6 +113,15 @@ func (c *tradingDataServiceClient) QueryBalanceHistory(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error) {
+	out := new(GetMarketDataHistoryByIDResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -131,6 +142,8 @@ type TradingDataServiceServer interface {
 	OrderVersionsByID(context.Context, *OrderVersionsByIDRequest) (*OrderVersionsByIDResponse, error)
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	QueryBalanceHistory(context.Context, *QueryBalanceHistoryRequest) (*QueryBalanceHistoryResponse, error)
+	// Get Market Data History for a Market ID between given dates
+	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -158,6 +171,9 @@ func (UnimplementedTradingDataServiceServer) OrderVersionsByID(context.Context, 
 }
 func (UnimplementedTradingDataServiceServer) QueryBalanceHistory(context.Context, *QueryBalanceHistoryRequest) (*QueryBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryBalanceHistory not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -298,6 +314,24 @@ func _TradingDataService_QueryBalanceHistory_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMarketDataHistoryByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, req.(*GetMarketDataHistoryByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -332,6 +366,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryBalanceHistory",
 			Handler:    _TradingDataService_QueryBalanceHistory_Handler,
+		},
+		{
+			MethodName: "GetMarketDataHistoryByID",
+			Handler:    _TradingDataService_GetMarketDataHistoryByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
