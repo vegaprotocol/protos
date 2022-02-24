@@ -1653,6 +1653,20 @@
         "txHash": {
           "type": "string",
           "title": "Hash of the transaction, if accepted"
+        },
+        "Code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Data": {
+          "type": "string"
+        },
+        "Log": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string",
+          "format": "int64"
         }
       },
       "title": "Response for submitting a version agnostic transaction on Vega"
@@ -1693,6 +1707,23 @@
         "txHash": {
           "type": "string",
           "title": "Hash of the transaction, if accepted"
+        },
+        "Code": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Result code success if unsucessful"
+        },
+        "Data": {
+          "type": "string",
+          "title": "Data for details"
+        },
+        "Log": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string",
+          "format": "int64",
+          "title": "Height for commit"
         }
       },
       "title": "Response for submitting a transaction v2 on Vega"

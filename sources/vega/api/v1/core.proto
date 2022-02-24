@@ -81,6 +81,13 @@ message SubmitTransactionResponse {
   bool success = 1;
   // Hash of the transaction, if accepted
   string tx_hash = 2;
+  // Result code success if unsucessful
+  uint32 Code     = 3;
+  // Data for details
+  string Data     = 4;
+  string Log = 5 ;
+  // Height for commit
+  int64 height = 6;
 }
 
 // Request for checking a transaction v2 on Vega
@@ -129,6 +136,11 @@ message SubmitRawTransactionResponse {
   bool success = 1;
   // Hash of the transaction, if accepted
   string tx_hash = 2;
+
+  uint32 Code     = 3;
+	string Data     = 4;
+  string Log = 5;
+	int64 height = 6;
 }
 
 // Request for checking a version agnostic transaction on Vega
