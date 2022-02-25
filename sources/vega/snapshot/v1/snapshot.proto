@@ -31,7 +31,7 @@ message Snapshot {
   bytes metadata = 5;
 }
 
-// NodeHash represents an exported node from the AVL tree and contains all the data necessary to recontruct and identical copy of the 
+// NodeHash represents an exported node from the AVL tree and contains all the data necessary to recontruct and identical copy of the
 // AVL tree after we've serialised it
 message NodeHash {
   // The node's full key, for example epoch.all
@@ -110,6 +110,8 @@ message Payload {
     MarketTracker market_tracker = 48;
     BankingRecurringTransfers banking_recurring_transfers = 49;
     BankingScheduledTransfers banking_scheduled_transfers = 50;
+    ERC20MultiSigTopologyVerified erc20_multisig_topology_verified = 51;
+    ERC20MultiSigTopologyPending erc20_multisig_topology_pending = 52;
   }
 }
 
@@ -698,4 +700,23 @@ message MarketVolumeTracker {
   string proposer = 2;
   bool bonus_paid = 3;
   string volume_traded = 4;
+}
+
+message SignerEventsPerAddress {
+  string address = 1;
+  repeated vega.events.v1.ERC20MultiSigSignerEvent events = 2;
+}
+
+message ERC20MultiSigTopologyVerified {
+  repeated string signers = 1;
+  repeated SignerEventsPerAddress events_per_address = 2;
+  vega.events.v1.ERC20MultiSigThresholdSetEvent threshold = 3;
+  repeated string seen_events = 4;
+}
+
+message ERC20MultiSigTopologyPending {
+  repeated vega.events.v1.ERC20MultiSigSignerEvent pending_signers = 1;
+  repeated vega.events.v1.ERC20MultiSigThresholdSetEvent pending_threshold_set = 2;
+  repeated string witnessed_signers = 3;
+  repeated string witnessed_threshold_sets = 4;
 }

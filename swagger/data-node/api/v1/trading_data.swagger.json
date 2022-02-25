@@ -2649,6 +2649,14 @@
         },
         "txHash": {
           "type": "string"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -2680,6 +2688,14 @@
         },
         "txHash": {
           "type": "string"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
