@@ -7,7 +7,6 @@ import (
 	"math/big"
 	"strconv"
 	"strings"
-	"time"
 
 	types "code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
@@ -252,10 +251,15 @@ func checkNewMarketChanges(change *types.ProposalTerms_NewMarket) Errors {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.decimal_places", ErrMustBeLessThan150)
 	}
 
+	if changes.PositionDecimalPlaces < 0 {
+		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.position_decimal_places", ErrMustBePositiveOrZero)
+	} else if changes.DecimalPlaces > 6 {
+		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.position_decimal_places", ErrMustBeLessThan7)
+	}
+
 	errs.Merge(checkPriceMonitoring(changes.PriceMonitoringParameters))
 	errs.Merge(checkLiquidityMonitoring(changes.LiquidityMonitoringParameters))
 	errs.Merge(checkInstrument(changes.Instrument))
-	errs.Merge(checkTradingMode(changes))
 	errs.Merge(checkRiskParameters(changes))
 
 	return errs
@@ -352,14 +356,6 @@ func checkFuture(future *types.FutureProduct) Errors {
 	}
 	if len(future.QuoteName) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future.quote_name", ErrIsRequired)
-	}
-
-	if len(future.Maturity) == 0 {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity", ErrIsRequired)
-	}
-	_, err := time.Parse(time.RFC3339, future.Maturity)
-	if err != nil {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.instrument.product.future.maturity", ErrMustBeValidDate)
 	}
 
 	errs.Merge(checkOracleSpec(future.OracleSpecForSettlementPrice, "oracle_spec_for_settlement_price"))
@@ -480,50 +476,6 @@ func checkOracleBinding(future *types.FutureProduct) Errors {
 	return errs
 }
 
-func checkTradingMode(config *types.NewMarketConfiguration) Errors {
-	errs := NewErrors()
-
-	if config.TradingMode == nil {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode", ErrIsRequired)
-	}
-
-	switch mode := config.TradingMode.(type) {
-	case *types.NewMarketConfiguration_Continuous:
-		errs.Merge(checkContinuousTradingMode(mode))
-	case *types.NewMarketConfiguration_Discrete:
-		errs.Merge(checkDiscreteTradingMode(mode))
-	default:
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode", ErrIsNotValid)
-	}
-
-	return errs
-}
-
-func checkContinuousTradingMode(mode *types.NewMarketConfiguration_Continuous) Errors {
-	errs := NewErrors()
-
-	if mode.Continuous == nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode.continuous", ErrIsRequired)
-	}
-
-	return errs
-}
-
-func checkDiscreteTradingMode(mode *types.NewMarketConfiguration_Discrete) Errors {
-	errs := NewErrors()
-
-	if mode.Discrete == nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode.discrete", ErrIsRequired)
-	}
-
-	if mode.Discrete.DurationNs <= 0 || mode.Discrete.DurationNs >= MaxDuration30DaysNs {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.trading_mode.discrete.duration_ns",
-			fmt.Errorf(fmt.Sprintf("should be between 0 (excluded) and %d (excluded)", MaxDuration30DaysNs)))
-	}
-
-	return errs
-}
-
 func checkRiskParameters(config *types.NewMarketConfiguration) Errors {
 	errs := NewErrors()
 
@@ -594,6 +546,10 @@ func checkLogNormalRiskParameters(params *types.NewMarketConfiguration_LogNormal
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma", ErrIsNotValidNumber)
 	}
 
+	if params.LogNormal.Params.Sigma <= 0 {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma", ErrMustBePositive)
+	}
+
 	if math.IsNaN(params.LogNormal.Params.R) {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.r", ErrIsNotValidNumber)
 	}
@@ -644,32 +600,32 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 	}
 
 	if len(orders) == 0 {
-		return errs.FinalAddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s", humanizedSide), ErrIsRequired)
+		return errs.FinalAddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s", humanizedSide), ErrIsRequired)
 	}
 
 	for i, order := range orders {
 		if order.Reference == types.PeggedReference_PEGGED_REFERENCE_UNSPECIFIED {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsRequired)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsRequired)
 		}
 		if _, ok := types.PeggedReference_name[int32(order.Reference)]; !ok {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsNotValid)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i), ErrIsNotValid)
 		}
 
 		if order.Proportion == 0 {
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.proportion.%d", humanizedSide, i), ErrIsRequired)
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.proportion.%d", humanizedSide, i), ErrIsRequired)
 		}
 
 		if side == types.Side_SIDE_BUY {
 			switch order.Reference {
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i),
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i),
 					errors.New("cannot have a reference of type BEST_ASK when on BUY side"),
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
 				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 				if !ok {
 					errs.AddForProperty(
-						fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+						fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 						ErrNotAValidInteger,
 					)
 
@@ -677,13 +633,13 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 				}
 
 				if offset.Cmp(big.NewInt(0)) == -1 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
 				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 				if !ok {
 					errs.AddForProperty(
-						fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+						fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 						ErrNotAValidInteger,
 					)
 
@@ -691,7 +647,7 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 				}
 
 				if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
-					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
+					errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
 				}
 			}
 			continue
@@ -699,14 +655,14 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 
 		switch order.Reference {
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.reference.%d", humanizedSide, i),
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.reference.%d", humanizedSide, i),
 				errors.New("cannot have a reference of type BEST_BID when on SELL side"),
 			)
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
 			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 			if !ok {
 				errs.AddForProperty(
-					fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+					fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 					ErrNotAValidInteger,
 				)
 
@@ -714,13 +670,13 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 			}
 
 			if offset.Cmp(big.NewInt(0)) == -1 {
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositiveOrZero)
 			}
 		case types.PeggedReference_PEGGED_REFERENCE_MID:
 			offset, ok := big.NewInt(0).SetString(order.Offset, 10)
 			if !ok {
 				errs.AddForProperty(
-					fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i),
+					fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i),
 					ErrNotAValidInteger,
 				)
 
@@ -728,7 +684,7 @@ func checkShape(orders []*types.LiquidityOrder, side types.Side) Errors {
 			}
 
 			if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
-				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
+				errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_asset.liquidity_commitment.%s.offset.%d", humanizedSide, i), ErrMustBePositive)
 			}
 		}
 

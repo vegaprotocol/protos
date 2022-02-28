@@ -31,7 +31,7 @@ message Snapshot {
   bytes metadata = 5;
 }
 
-// NodeHash represents an exported node from the AVL tree and contains all the data necessary to recontruct and identical copy of the 
+// NodeHash represents an exported node from the AVL tree and contains all the data necessary to recontruct and identical copy of the
 // AVL tree after we've serialised it
 message NodeHash {
   // The node's full key, for example epoch.all
@@ -105,12 +105,13 @@ message Payload {
     LiquidityProvisions liquidity_provisions = 42;
     LiquiditySupplied liquidity_supplied= 43;
     LiquidityTarget liquidity_target= 44;
-    ValidatorPerformance validator_performance = 45;
     FloatingPointConsensus floating_point_consensus = 46;
     FeesTracker fees_tracker = 47;
     MarketTracker market_tracker = 48;
     BankingRecurringTransfers banking_recurring_transfers = 49;
     BankingScheduledTransfers banking_scheduled_transfers = 50;
+    ERC20MultiSigTopologyVerified erc20_multisig_topology_verified = 51;
+    ERC20MultiSigTopologyPending erc20_multisig_topology_pending = 52;
   }
 }
 
@@ -261,7 +262,7 @@ message DelegationAuto {
   repeated string parties = 1;
 }
 
-message PendingProposal {
+message ProposalData {
   vega.Proposal proposal = 1;
   repeated vega.Vote yes = 2;
   repeated vega.Vote no = 3;
@@ -269,11 +270,11 @@ message PendingProposal {
 }
 
 message GovernanceEnacted {
-  repeated vega.Proposal proposals = 1;
+  repeated ProposalData proposals = 1;
 }
 
 message GovernanceActive {
-  repeated PendingProposal proposals = 1;
+  repeated ProposalData proposals = 1;
 }
 
 message GovernanceNode {
@@ -386,6 +387,11 @@ message EquityShare {
   repeated EquityShareLP lps = 3;
 }
 
+message FeeSplitter {
+  int64  time_window_start = 1;
+  string trade_value = 2;
+}
+
 message Market {
   vega.Market market = 1;
   PriceMonitor price_monitor = 2;
@@ -403,16 +409,11 @@ message Market {
   string risk_factor_short = 14;
   string risk_factor_long = 15;
   bool risk_factor_consensus_reached = 16;
+  FeeSplitter fee_splitter = 17;
 }
 
 message ExecutionMarkets {
   repeated Market markets = 1;
-  // Which batch are we on
-  uint64 batches = 2;
-  // How many orders in this batch
-  uint64 orders = 3;
-  // How many proposals in this batch
-  uint64 proposals = 4;
 }
 
 message Position {
@@ -434,6 +435,7 @@ message AppState {
   uint64 height = 1;
   string block = 2;
   int64 time = 3;
+  string chain_id = 4;
 }
 
 // EpochState details
@@ -548,11 +550,14 @@ message Notary {
 }
 
 message ReplayProtection {
-  repeated RecentBlocksTransactions recent_blocks_transactions = 1;
+  repeated TransactionAtHeight transactions = 1;
+  uint64 back_tol = 2;
+  uint64 forward_tol = 3;
 }
 
-message RecentBlocksTransactions {
-  repeated string tx = 1;
+message TransactionAtHeight {
+  string tx = 1;
+  uint64 height = 2;
 }
 
 message FutureState {
@@ -587,6 +592,31 @@ message PendingKeyRotation {
   uint32 new_pub_key_index = 4;
 }
 
+message Topology {
+  repeated ValidatorState validator_data = 1;
+  repeated string chain_keys = 2;
+  repeated PendingKeyRotation pending_pub_key_rotations = 3;
+  ValidatorPerformance validator_performance = 4;
+}
+
+message ValidatorState {
+  vega.events.v1.ValidatorUpdate validator_update = 1;
+  uint64 block_added = 2;
+  int32 status = 3;
+  uint64 status_change_block = 4;
+  uint64 last_block_with_positive_ranking = 5;
+  uint64 eth_events_forwarded = 6;
+  HeartbeatTracker heartbeat_tracker = 7;
+  int64 validator_power = 8;
+}
+
+message HeartbeatTracker {
+  string expected_next_hash = 1;
+  int64 expected_next_hash_since = 2;
+  int32 block_index = 3;
+  repeated bool block_sigs = 4;
+}
+
 message PerformanceStats {
   string validator_address = 1;
   uint64 proposed = 2;
@@ -595,18 +625,10 @@ message PerformanceStats {
   int64 last_height_voted = 5;
   int64 last_height_proposed = 6;
   int64 last_height_elected = 7;
-
 }
 
 message ValidatorPerformance {
   repeated PerformanceStats validator_perf_stats = 1;
-}
-
-message Topology {
-  repeated vega.events.v1.ValidatorUpdate validator_data = 1;
-  repeated string chain_keys = 2;
-  repeated PendingKeyRotation pending_pub_key_rotations = 3;
-  ValidatorPerformance validator_performance = 4;
 }
 
 message LiquidityParameters {
@@ -678,4 +700,23 @@ message MarketVolumeTracker {
   string proposer = 2;
   bool bonus_paid = 3;
   string volume_traded = 4;
+}
+
+message SignerEventsPerAddress {
+  string address = 1;
+  repeated vega.events.v1.ERC20MultiSigSignerEvent events = 2;
+}
+
+message ERC20MultiSigTopologyVerified {
+  repeated string signers = 1;
+  repeated SignerEventsPerAddress events_per_address = 2;
+  vega.events.v1.ERC20MultiSigThresholdSetEvent threshold = 3;
+  repeated string seen_events = 4;
+}
+
+message ERC20MultiSigTopologyPending {
+  repeated vega.events.v1.ERC20MultiSigSignerEvent pending_signers = 1;
+  repeated vega.events.v1.ERC20MultiSigThresholdSetEvent pending_threshold_set = 2;
+  repeated string witnessed_signers = 3;
+  repeated string witnessed_threshold_sets = 4;
 }

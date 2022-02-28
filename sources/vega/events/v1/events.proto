@@ -97,6 +97,33 @@ message StakeLinking {
   string tx_hash = 8;
 }
 
+message ERC20MultiSigSignerEvent {
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_ADDED = 1;
+    TYPE_REMOVED = 2;
+  }
+
+  string id = 1;
+  Type type = 2;
+  string signer = 3;
+  string nonce = 4;
+  int64 block_time = 5;
+  string tx_hash = 6;
+  uint64 log_index = 7;
+  uint64 block_number = 8;
+}
+
+message ERC20MultiSigThresholdSetEvent {
+  string id = 1;
+  uint32 new_threshold = 2;
+  string nonce = 3;
+  int64 block_time = 4;
+  string tx_hash = 5;
+  uint64 log_index = 6;
+  uint64 block_number = 7;
+}
+
 message CheckpointEvent {
   string hash = 1;
   string block_hash = 2;
@@ -124,6 +151,8 @@ message ValidatorScoreEvent {
   string normalised_score = 4;
   string validator_performance = 5;
   string raw_validator_score = 6;
+  string validator_status = 7;
+  string multisig_score = 8;
 }
 
 //DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect
@@ -233,6 +262,8 @@ message SettlePosition {
   string price = 3;
   // A collection of 1 or more trade settlements
   repeated TradeSettlement trade_settlements = 4;
+  // Position factor - 10 ^ number of position decimal places
+  string position_factor = 5;
 }
 
 // A settle distressed event contains information on distressed trading parties who are closed out
@@ -298,7 +329,31 @@ message ValidatorUpdate {
   string avatar_url = 8;
   // Vega public key derivation index
   uint32 vega_pub_key_index = 9;
+  // Flag indicating if the validator has been added to or removed from vega
+  bool added = 10;
+  // The epoch from which the validator was added
+  uint64 from_epoch = 11;
 }
+
+// An event that explains the status of the validator for the coming epoch
+message ValidatorRankingEvent {
+  string node_id = 1;
+  // stake based score - no anti-whaling
+  string stake_score = 2;
+  // performance base score
+  string performance_score = 3;
+  // final score
+  string ranking_score = 4;
+  // the status of the validator in the previous epoch
+  string previous_status = 5;
+  // the status of the validator in the next epoch
+  string next_status = 6;
+  // the epoch seq for which the status is valid
+  string epoch_seq = 7;
+  // tendermint voting power of the validator
+  uint32 tm_voting_power = 8;
+}
+
 
 // A key rotation events contains information about Vega key rotation
 message KeyRotation {
@@ -406,6 +461,12 @@ enum BusEventType {
   BUS_EVENT_TYPE_NETWORK_LIMITS = 39;
   // Event indicating a update for a transfert
   BUS_EVENT_TYPE_TRANSFER = 40;
+  // Event indicating the ranking of validator and their status in vega
+  BUS_EVENT_TYPE_VALIDATOR_RANKING = 41;
+  // Event indicating a new multi sig signer event have been processed
+  BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_EVENT = 42;
+  // Event indicating the erc20 multi sig threshold have been updated
+  BUS_EVENT_TYPE_ERC20_MULTI_SIG_SET_THRESHOLD = 43;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -498,7 +559,12 @@ message BusEvent {
     NetworkLimits network_limits = 138;
     // Transfer event
     Transfer transfer = 139;
-
+    // Ranking event
+    ValidatorRankingEvent ranking_event = 140;
+    // ERC20 multi sig signer event
+    ERC20MultiSigSignerEvent erc20_multisig_signer_event = 141;
+    // ERC20 multi sig set threshold event
+    ERC20MultiSigThresholdSetEvent erc20_multisig_set_threshold_event = 142;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;

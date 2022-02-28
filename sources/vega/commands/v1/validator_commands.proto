@@ -5,9 +5,21 @@ option go_package = "code.vegaprotocol.io/protos/vega/commands/v1";
 
 import "vega/vega.proto";
 import "vega/chain_events.proto";
+import "vega/commands/v1/signature.proto";
 
-// Used to Register a node as a validator during network start-up
-message NodeRegistration {
+// A message from a validator signaling they are still online and validating blocks
+// or ready to validate block when they are till a potential validator
+message ValidatorHeartbeat {
+  // the id of the node emitting the heartbeat
+  string node_id = 1;
+  // Signature from the validator made using the ethereum wallet
+  Signature ethereum_signature = 2;
+  // Signature from the validator made using the vega wallet
+  Signature vega_signature = 3;
+}
+
+// Used announce a node as a new potential validator
+message AnnounceNode {
   // Vega public key, required field
   string vega_pub_key = 1;
   // Ethereum public key, required field
@@ -26,8 +38,14 @@ message NodeRegistration {
   string avatar_url = 8;
   // Vega public key derivation index
   uint32 vega_pub_key_index = 9;
+  // The epoch from which the validator is expected
+  // to be ready to validate blocks
+  uint64 from_epoch = 10;
+  // Signature from the validator made using the ethereum wallet
+  Signature ethereum_signature = 11;
+  // Signature from the validator made using the vega wallet
+  Signature vega_signature = 12;
 }
-
 // Used when a node votes for validating a given resource exists or is valid,
 // for example, an ERC20 deposit is valid and exists on ethereum
 message NodeVote {
@@ -59,6 +77,7 @@ message NodeSignature {
 
 // An event forwarded to the Vega network to provide information on events happening on other networks
 message ChainEvent {
+  reserved 1003, 1004;
   // The identifier of the transaction in which the events happened, usually a hash
   string tx_id = 1;
   // Arbitrary one-time integer used to prevent replay attacks
@@ -69,12 +88,10 @@ message ChainEvent {
     vega.BuiltinAssetEvent builtin = 1001;
     // Ethereum ERC20 event
     vega.ERC20Event erc20 = 1002;
-    // Bitcoin BTC event
-    vega.BTCEvent btc = 1003;
-    // Validator event
-    vega.ValidatorEvent validator = 1004;
     // Ethereum Staking event
     vega.StakingEvent staking_event = 1005;
+    // Ethereum ERC20 multisig event
+    vega.ERC20MultiSigEvent erc20_multisig = 1006;
   }
 }
 

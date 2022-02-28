@@ -19,24 +19,8 @@ message AuctionDuration {
   uint64 volume = 2;
 }
 
-// Continuous trading
-message ContinuousTrading {
-  // Tick size
-  string tick_size = 1;
-}
-
-// Discrete trading
-message DiscreteTrading {
-  // Duration in nanoseconds, maximum 1 month (2592000000000000 ns)
-  int64 duration_ns = 1;
-  // Tick size
-  string tick_size = 2;
-}
-
 // Future product definition
 message Future {
-  // The maturity for the future
-  string maturity = 1;
   // The asset for the future
   string settlement_asset = 2;
   // Quote name of the instrument
@@ -276,13 +260,6 @@ message Market {
   // Auction duration specifies how long the opening auction will run (minimum
   // duration and optionally a minimum traded volume)
   AuctionDuration opening_auction = 5;
-  // Trading mode for the market
-  oneof trading_mode_config {
-    // Continuous
-    ContinuousTrading continuous = 100;
-    // Discrete
-    DiscreteTrading discrete = 101;
-  }
   // PriceMonitoringSettings for the market
   PriceMonitoringSettings price_monitoring_settings = 6;
   // LiquidityMonitoringParameters for the market
@@ -293,6 +270,8 @@ message Market {
   State state = 9;
   // Timestamps for when the market stay changes
   MarketTimestamps market_timestamps = 10;
+  // The number of decimal places for position
+  uint64 position_decimal_places = 11;
 }
 
 // Time stamps for important times about creating, enacting etc the market

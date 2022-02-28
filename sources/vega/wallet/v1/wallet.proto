@@ -8,6 +8,8 @@ import "vega/commands/v1/validator_commands.proto";
 import "vega/commands/v1/oracles.proto";
 
 message SubmitTransactionRequest {
+  reserved 2001;
+
   string pub_key = 1;
   bool propagate = 2;
 
@@ -24,12 +26,17 @@ message SubmitTransactionRequest {
     commands.v1.UndelegateSubmission undelegate_submission = 1009;
     commands.v1.LiquidityProvisionCancellation liquidity_provision_cancellation = 1010;
     commands.v1.LiquidityProvisionAmendment liquidity_provision_amendment = 1011;
+    commands.v1.Transfer transfer = 1012;
+    commands.v1.CancelTransfer cancel_transfer = 1013;
+    commands.v1.AnnounceNode announce_node = 1014;
 
     // Validator commands
-    commands.v1.NodeRegistration node_registration = 2001;
     commands.v1.NodeVote node_vote = 2002;
     commands.v1.NodeSignature node_signature = 2003;
     commands.v1.ChainEvent chain_event = 2004;
+    commands.v1.KeyRotateSubmission key_rotate_submission = 2005;
+    commands.v1.StateVariableProposal state_variable_proposal = 2006;
+    commands.v1.ValidatorHeartbeat validator_heartbeat = 2007;
 
     // Oracle commands
     commands.v1.OracleDataSubmission oracle_data_submission = 3001;

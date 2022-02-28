@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased (0.49.0)
+## Unreleased (0.50.0)
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -15,16 +15,36 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 
+## 0.49.0
+
+### 🚨 Breaking changes
+[298](https://github.com/vegaprotocol/protos/pull/298) - Add support for fractional order sizes
+
+### 🛠 Improvements
+- [285](https://github.com/vegaprotocol/protos/pull/285) - Update snapshot protos to store enough data to restore `corestate` service
+- [296](https://github.com/vegaprotocol/protos/pull/296) - Remove old id generator fields from execution engine's snapshot
+- [293](https://github.com/vegaprotocol/protos/pull/293) - Re-enable proto check
+- [306](https://github.com/vegaprotocol/protos/pull/306) - Add initial v2 orders API
+- [312](https://github.com/vegaprotocol/protos/pull/306) - Add rpc call to get network limits
+
+### 🐛 Fixes
+- [308](https://github.com/vegaprotocol/protos/pull/308) - Validate order price and fail if not positive
+- [310](https://github.com/vegaprotocol/protos/pull/310) - Add `feesplitter` state to snapshot to allow markets to restore
+
+
 ## 0.48.0
 
 ### 🚨 Breaking changes
+- [314](https://github.com/vegaprotocol/protos/pull/314) - Add more data to submit transaction endpoints
 - [218](https://github.com/vegaprotocol/protos/pull/) - Restructure EthereumConfig to separate staking and vesting contract addresses, plus add block height at which they have been added respectively
 - [256](https://github.com/vegaprotocol/protos/pull/) - Rework freeform proposal protos so that they align with other proposals
+- [290](https://github.com/vegaprotocol/protos/pull/290) - Generate stubs using new versions of `protoc-gen-xxx`
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
+- [303](https://github.com/vegaprotocol/protos/pull/303) - Add types for CheckTransaction and CheckRawTransaction for vega
 - [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 - [212](https://github.com/vegaprotocol/protos/pull/212) - Add pagination field to DelegationRequest
@@ -44,12 +64,17 @@
 - [250](https://github.com/vegaprotocol/protos/pull/250) - Rename transaction hash to tx hash
 - [253](https://github.com/vegaprotocol/protos/pull/253) - Allow `OracleSpec` for internal oracle to be defined without public keys
 - [261](https://github.com/vegaprotocol/protos/pull/261) - Add `staking_asset_total_supply` to staking accounts snapshot
+- [266](https://github.com/vegaprotocol/protos/pull/266) - Improve validator score event and add validator ranking event and proto definitions for topology snapshot
+- [263](https://github.com/vegaprotocol/protos/pull/263) - Add new validator commands
 - [272](https://github.com/vegaprotocol/protos/pull/272) - Update snapshot protos to be able to handle the iavl exported nodes
+- [276](https://github.com/vegaprotocol/protos/pull/276) - Remove maturity from future product, tick size from market and trading mode config from market
 - [277](https://github.com/vegaprotocol/protos/pull/277) - Update validation for risk params for log normal risk model
+- [287](https://github.com/vegaprotocol/protos/pull/287) - Add `QueryBalanceHistory` call and associated messages
+- [300](https://github.com/vegaprotocol/protos/pull/300) - Add market data endpoints for trading data service version 2
 
 ### 🐛 Fixes
 - [202](https://github.com/vegaprotocol/protos/pull/202) - Replaces Withdrawal Status Cancelled with Rejected which is more accurate.
-- [214](https://github.com/vegaprotocol/protos/pull/214) Rewording of transaction nonce and block_height
+- [214](https://github.com/vegaprotocol/protos/pull/214) - Rewording of transaction nonce and block_height
 
 
 ## 0.47.0

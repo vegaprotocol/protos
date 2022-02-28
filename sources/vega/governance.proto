@@ -10,8 +10,6 @@ import "vega/oracles/v1/spec.proto";
 
 // Future product configuration
 message FutureProduct {
-  // Future product maturity (ISO8601/RFC3339 timestamp)
-  string maturity = 1;
   // Product settlement asset identifier
   string settlement_asset = 2 ;
   // Product quote name
@@ -56,13 +54,8 @@ message NewMarketConfiguration {
     // Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected
     LogNormalRiskModel log_normal = 101;
   }
-  // Trading mode for the new market
-  oneof trading_mode {
-    // Continuous trading
-    ContinuousTrading continuous = 200;
-    // Discrete trading
-    DiscreteTrading discrete = 201;
-  }
+  // Decimal places for order sizes
+  uint64 position_decimal_places = 6;
 }
 
 // A commitment of liquidity to be made by the party which proposes a market
@@ -74,7 +67,7 @@ message NewMarketCommitment {
   // A set of liquidity sell orders to meet the liquidity provision obligation
   repeated LiquidityOrder sells = 3;
   // A set of liquidity buy orders to meet the liquidity provision obligation
-  repeated LiquidityOrder buys  = 4;
+  repeated LiquidityOrder buys = 4;
   // A reference to be associated to all orders created from this commitment
   string reference = 5;
 
@@ -92,7 +85,7 @@ message NewMarket {
 }
 
 // Update an existing market on Vega
-message UpdateMarket { }
+message UpdateMarket {}
 
 // Update network configuration on Vega
 message UpdateNetworkParameter {
@@ -236,10 +229,6 @@ enum ProposalError {
   PROPOSAL_ERROR_NO_PRODUCT = 7;
   // The specified product is not supported
   PROPOSAL_ERROR_UNSUPPORTED_PRODUCT = 8;
-  // Invalid future maturity timestamp (expect RFC3339)
-  PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT_TIMESTAMP = 9;
-  // The product maturity is past
-  PROPOSAL_ERROR_PRODUCT_MATURITY_IS_PASSED = 10;
   // The proposal has no trading mode
   PROPOSAL_ERROR_NO_TRADING_MODE = 11;
   // The proposal has an unsupported trading mode
@@ -280,12 +269,18 @@ enum ProposalError {
   PROPOSAL_ERROR_INVALID_SHAPE = 29;
   // Market proposal invalid risk parameter
   PROPOSAL_ERROR_INVALID_RISK_PARAMETER = 30;
-  // Proposal was declined because vote didn't reach the majority thershold required
+  // Proposal was declined because vote didn't reach the majority threshold required
   PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED = 31;
   // Proposal declined because the participation threshold was not reached
   PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED = 32;
   // Asset proposal invalid asset details
   PROPOSAL_ERROR_INVALID_ASSET_DETAILS = 33;
+  // Proposal is an unknown type.
+  PROPOSAL_ERROR_UNKNOWN_TYPE = 34;
+  // Proposal has an unknown risk parameter type.
+  PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE = 35;
+  // Validation failed for freeform proposal.
+  PROPOSAL_ERROR_INVALID_FREEFORM = 36;
 }
 
 // Governance vote
@@ -296,7 +291,7 @@ message Vote {
     // Default value, always invalid
     VALUE_UNSPECIFIED = 0;
     // A vote against the proposal
-    VALUE_NO  = 1;
+    VALUE_NO = 1;
     // A vote in favour of the proposal
     VALUE_YES = 2;
 
