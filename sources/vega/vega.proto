@@ -1050,6 +1050,8 @@ message EthereumConfig {
   EthereumContractConfig staking_bridge_contract = 5;
   // Contract configuration of the token vesting contract for this Ethereum network.
   EthereumContractConfig token_vesting_contract = 6;
+  // Contract configuration of the multisig controld contract for this Ethereum network.
+  EthereumContractConfig  multisig_control_contract = 7;
 }
 
 message EthereumContractConfig {
