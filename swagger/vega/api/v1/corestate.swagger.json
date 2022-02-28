@@ -1384,6 +1384,7 @@
         },
         "marketValueProxy": {
           "type": "string",
+          "format": "uint64",
           "title": "the market value proxy"
         },
         "liquidityProviderFeeShare": {
@@ -1677,8 +1678,7 @@
           "title": "Price monitoring trigger associated with the bounds"
         },
         "referencePrice": {
-          "type": "number",
-          "format": "double",
+          "type": "string",
           "title": "Reference price used to calculate the valid price range"
         }
       },
@@ -1720,8 +1720,7 @@
           "title": "Price monitoring projection horizon τ in seconds"
         },
         "probability": {
-          "type": "number",
-          "format": "double",
+          "type": "string",
           "title": "Price monitoring probability level p"
         },
         "auctionExtension": {

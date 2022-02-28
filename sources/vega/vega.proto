@@ -896,7 +896,7 @@ message MarketData {
   // One or more price monitoring bounds for the current timestamp
   repeated PriceMonitoringBounds price_monitoring_bounds = 24;
   // the market value proxy
-  string market_value_proxy = 25;
+  uint64 market_value_proxy = 25;
   // the equity like share of liquidity fee for each liquidity provider
   repeated LiquidityProviderFeeShare liquidity_provider_fee_share = 26;
 }
@@ -921,7 +921,7 @@ message PriceMonitoringBounds {
   // Price monitoring trigger associated with the bounds
   PriceMonitoringTrigger trigger = 3;
   // Reference price used to calculate the valid price range
-  double reference_price = 4;
+  string reference_price = 4;
 }
 
 // Represents Vega domain specific error information over gRPC/Protobuf
