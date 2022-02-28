@@ -1384,7 +1384,6 @@
         },
         "marketValueProxy": {
           "type": "string",
-          "format": "uint64",
           "title": "the market value proxy"
         },
         "liquidityProviderFeeShare": {
