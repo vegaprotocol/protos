@@ -18,7 +18,7 @@
 ### 🐛 Fixes
 - [308](https://github.com/vegaprotocol/protos/pull/308) - Validate order price and fail if not positive
 - [310](https://github.com/vegaprotocol/protos/pull/310) - Add `feesplitter` state to snapshot to allow markets to restore
-
+- [319](https://github.com/vegaprotocol/protos/pull/319) - Fix incorrect data types on `MarketData` message definition
 
 ## 0.48.0
 
