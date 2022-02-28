@@ -548,11 +548,14 @@ message Notary {
 }
 
 message ReplayProtection {
-  repeated RecentBlocksTransactions recent_blocks_transactions = 1;
+  repeated TransactionAtHeight transactions = 1;
+  uint64 back_tol = 2;
+  uint64 forward_tol = 3;
 }
 
-message RecentBlocksTransactions {
-  repeated string tx = 1;
+message TransactionAtHeight {
+  string tx = 1;
+  uint64 height = 2;
 }
 
 message FutureState {
