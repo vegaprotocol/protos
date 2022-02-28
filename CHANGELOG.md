@@ -1,12 +1,24 @@
 # Changelog
 
-## Unreleased (0.49.0)
+## Unreleased (0.50.0)
 
 ### 🚨 Breaking changes
-[298](https://github.com/vegaprotocol/protos/pull/298) - Add support for fractional order sizes
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🛠 Improvements
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🐛 Fixes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.49.0
+
+### 🚨 Breaking changes
+[298](https://github.com/vegaprotocol/protos/pull/298) - Add support for fractional order sizes
 
 ### 🛠 Improvements
 - [285](https://github.com/vegaprotocol/protos/pull/285) - Update snapshot protos to store enough data to restore `corestate` service
