@@ -1311,10 +1311,10 @@ func testPriceMonitoringChangeSubmissionWithWrongTriggerProbabilityFails(t *test
 								PriceMonitoringParameters: &types.PriceMonitoringParameters{
 									Triggers: []*types.PriceMonitoringTrigger{
 										{
-											Probability: tc.value,
+											Probability: fmt.Sprintf("%f", tc.value),
 										},
 										{
-											Probability: tc.value,
+											Probability: fmt.Sprintf("%f", tc.value),
 										},
 									},
 								},
@@ -1341,10 +1341,10 @@ func testPriceMonitoringChangeSubmissionWithRightTriggerProbabilitySucceeds(t *t
 						PriceMonitoringParameters: &types.PriceMonitoringParameters{
 							Triggers: []*types.PriceMonitoringTrigger{
 								{
-									Probability: 0.01,
+									Probability: "0.01",
 								},
 								{
-									Probability: 0.9,
+									Probability: "0.9",
 								},
 							},
 						},
