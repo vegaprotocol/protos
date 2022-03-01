@@ -22,18 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TradingDataServiceClient interface {
-	// Get an Order by Market and Order ID
-	// TODO: Is this needed? Isn't ID sufficiently unique?
-	OrderByMarketAndID(ctx context.Context, in *OrderByMarketAndIDRequest, opts ...grpc.CallOption) (*OrderByMarketAndIDResponse, error)
-	// Get an Order by Pending Order reference (UUID)
-	// TODO: References are not enforced to be unique, this should return a list
-	OrderByReference(ctx context.Context, in *OrderByReferenceRequest, opts ...grpc.CallOption) (*OrderByReferenceResponse, error)
 	// Get a list of Orders by Market
 	OrdersByMarket(ctx context.Context, in *OrdersByMarketRequest, opts ...grpc.CallOption) (*OrdersByMarketResponse, error)
-	// Get a list of Orders by Party
-	OrdersByParty(ctx context.Context, in *OrdersByPartyRequest, opts ...grpc.CallOption) (*OrdersByPartyResponse, error)
-	// Get a specific order by order ID
-	OrderByID(ctx context.Context, in *OrderByIDRequest, opts ...grpc.CallOption) (*OrderByIDResponse, error)
 	// Get all versions of the order by its orderID
 	OrderVersionsByID(ctx context.Context, in *OrderVersionsByIDRequest, opts ...grpc.CallOption) (*OrderVersionsByIDResponse, error)
 	// Get an aggregated list of the changes in balances in a set of accounts over time
@@ -52,45 +42,9 @@ func NewTradingDataServiceClient(cc grpc.ClientConnInterface) TradingDataService
 	return &tradingDataServiceClient{cc}
 }
 
-func (c *tradingDataServiceClient) OrderByMarketAndID(ctx context.Context, in *OrderByMarketAndIDRequest, opts ...grpc.CallOption) (*OrderByMarketAndIDResponse, error) {
-	out := new(OrderByMarketAndIDResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/OrderByMarketAndID", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *tradingDataServiceClient) OrderByReference(ctx context.Context, in *OrderByReferenceRequest, opts ...grpc.CallOption) (*OrderByReferenceResponse, error) {
-	out := new(OrderByReferenceResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/OrderByReference", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *tradingDataServiceClient) OrdersByMarket(ctx context.Context, in *OrdersByMarketRequest, opts ...grpc.CallOption) (*OrdersByMarketResponse, error) {
 	out := new(OrdersByMarketResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/OrdersByMarket", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *tradingDataServiceClient) OrdersByParty(ctx context.Context, in *OrdersByPartyRequest, opts ...grpc.CallOption) (*OrdersByPartyResponse, error) {
-	out := new(OrdersByPartyResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/OrdersByParty", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *tradingDataServiceClient) OrderByID(ctx context.Context, in *OrderByIDRequest, opts ...grpc.CallOption) (*OrderByIDResponse, error) {
-	out := new(OrderByIDResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/OrderByID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,18 +91,8 @@ func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *Get
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
 type TradingDataServiceServer interface {
-	// Get an Order by Market and Order ID
-	// TODO: Is this needed? Isn't ID sufficiently unique?
-	OrderByMarketAndID(context.Context, *OrderByMarketAndIDRequest) (*OrderByMarketAndIDResponse, error)
-	// Get an Order by Pending Order reference (UUID)
-	// TODO: References are not enforced to be unique, this should return a list
-	OrderByReference(context.Context, *OrderByReferenceRequest) (*OrderByReferenceResponse, error)
 	// Get a list of Orders by Market
 	OrdersByMarket(context.Context, *OrdersByMarketRequest) (*OrdersByMarketResponse, error)
-	// Get a list of Orders by Party
-	OrdersByParty(context.Context, *OrdersByPartyRequest) (*OrdersByPartyResponse, error)
-	// Get a specific order by order ID
-	OrderByID(context.Context, *OrderByIDRequest) (*OrderByIDResponse, error)
 	// Get all versions of the order by its orderID
 	OrderVersionsByID(context.Context, *OrderVersionsByIDRequest) (*OrderVersionsByIDResponse, error)
 	// Get an aggregated list of the changes in balances in a set of accounts over time
@@ -164,20 +108,8 @@ type TradingDataServiceServer interface {
 type UnimplementedTradingDataServiceServer struct {
 }
 
-func (UnimplementedTradingDataServiceServer) OrderByMarketAndID(context.Context, *OrderByMarketAndIDRequest) (*OrderByMarketAndIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OrderByMarketAndID not implemented")
-}
-func (UnimplementedTradingDataServiceServer) OrderByReference(context.Context, *OrderByReferenceRequest) (*OrderByReferenceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OrderByReference not implemented")
-}
 func (UnimplementedTradingDataServiceServer) OrdersByMarket(context.Context, *OrdersByMarketRequest) (*OrdersByMarketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OrdersByMarket not implemented")
-}
-func (UnimplementedTradingDataServiceServer) OrdersByParty(context.Context, *OrdersByPartyRequest) (*OrdersByPartyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OrdersByParty not implemented")
-}
-func (UnimplementedTradingDataServiceServer) OrderByID(context.Context, *OrderByIDRequest) (*OrderByIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OrderByID not implemented")
 }
 func (UnimplementedTradingDataServiceServer) OrderVersionsByID(context.Context, *OrderVersionsByIDRequest) (*OrderVersionsByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OrderVersionsByID not implemented")
@@ -204,42 +136,6 @@ func RegisterTradingDataServiceServer(s grpc.ServiceRegistrar, srv TradingDataSe
 	s.RegisterService(&TradingDataService_ServiceDesc, srv)
 }
 
-func _TradingDataService_OrderByMarketAndID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OrderByMarketAndIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).OrderByMarketAndID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/OrderByMarketAndID",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).OrderByMarketAndID(ctx, req.(*OrderByMarketAndIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TradingDataService_OrderByReference_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OrderByReferenceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).OrderByReference(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/OrderByReference",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).OrderByReference(ctx, req.(*OrderByReferenceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _TradingDataService_OrdersByMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrdersByMarketRequest)
 	if err := dec(in); err != nil {
@@ -254,42 +150,6 @@ func _TradingDataService_OrdersByMarket_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TradingDataServiceServer).OrdersByMarket(ctx, req.(*OrdersByMarketRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TradingDataService_OrdersByParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OrdersByPartyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).OrdersByParty(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/OrdersByParty",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).OrdersByParty(ctx, req.(*OrdersByPartyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TradingDataService_OrderByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OrderByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).OrderByID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/OrderByID",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).OrderByID(ctx, req.(*OrderByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -374,24 +234,8 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*TradingDataServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "OrderByMarketAndID",
-			Handler:    _TradingDataService_OrderByMarketAndID_Handler,
-		},
-		{
-			MethodName: "OrderByReference",
-			Handler:    _TradingDataService_OrderByReference_Handler,
-		},
-		{
 			MethodName: "OrdersByMarket",
 			Handler:    _TradingDataService_OrdersByMarket_Handler,
-		},
-		{
-			MethodName: "OrdersByParty",
-			Handler:    _TradingDataService_OrdersByParty_Handler,
-		},
-		{
-			MethodName: "OrderByID",
-			Handler:    _TradingDataService_OrderByID_Handler,
 		},
 		{
 			MethodName: "OrderVersionsByID",
