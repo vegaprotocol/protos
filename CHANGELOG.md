@@ -9,7 +9,8 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [325](https://github.com/vegaprotocol/protos/pull/325) - v2 data node API holds only new API methods 
+- [329](https://github.com/vegaprotocol/protos/pull/329) - remove unused request response types from v2 API 
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
