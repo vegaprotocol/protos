@@ -279,7 +279,16 @@ func checkPriceMonitoring(parameters *types.PriceMonitoringParameters) Errors {
 		if trigger.AuctionExtension <= 0 {
 			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.price_monitoring_parameters.triggers.%d.auction_extension", i), ErrMustBePositive)
 		}
-		if trigger.Probability <= 0 || trigger.Probability >= 1 {
+
+		probability, err := strconv.ParseFloat(trigger.Probability, 64)
+
+		if err != nil {
+			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.price_monitoring_parameters.triggers.%d.probability", i),
+				errors.New("must be numeric and be between 0 (exclusive) and 1 (exclusive)"),
+			)
+		}
+
+		if probability <= 0 || probability >= 1 {
 			errs.AddForProperty(fmt.Sprintf("proposal_submission.terms.change.new_market.changes.price_monitoring_parameters.triggers.%d.probability", i),
 				errors.New("should be between 0 (exclusive) and 1 (exclusive)"),
 			)
