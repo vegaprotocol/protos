@@ -9,24 +9,10 @@ package datanode.api.v2;
 
 service TradingDataService {
     // -- Orders --
-    // For now, duplicate the v1 api so we can run the system tests against it
-
-    // Get an Order by Market and Order ID
-    // TODO: Is this needed? Isn't ID sufficiently unique?
-    rpc OrderByMarketAndID(OrderByMarketAndIDRequest) returns (OrderByMarketAndIDResponse);
-
-    // Get an Order by Pending Order reference (UUID)
-    // TODO: References are not enforced to be unique, this should return a list
-    rpc OrderByReference(OrderByReferenceRequest) returns (OrderByReferenceResponse);
 
     // Get a list of Orders by Market
     rpc OrdersByMarket(OrdersByMarketRequest) returns (OrdersByMarketResponse);
 
-    // Get a list of Orders by Party
-    rpc OrdersByParty(OrdersByPartyRequest) returns (OrdersByPartyResponse);
-
-    // Get a specific order by order ID
-    rpc OrderByID(OrderByIDRequest) returns (OrderByIDResponse);
 
     // Get all versions of the order by its orderID
     rpc OrderVersionsByID(OrderVersionsByIDRequest) returns (OrderVersionsByIDResponse);
