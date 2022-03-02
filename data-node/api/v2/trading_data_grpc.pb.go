@@ -32,6 +32,10 @@ type TradingDataServiceClient interface {
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
+	// Get an asset by its identifier
+	AssetByID(ctx context.Context, in *AssetByIDRequest, opts ...grpc.CallOption) (*AssetByIDResponse, error)
+	// Get a list of all assets on Vega
+	Assets(ctx context.Context, in *AssetsRequest, opts ...grpc.CallOption) (*AssetsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -87,6 +91,24 @@ func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) AssetByID(ctx context.Context, in *AssetByIDRequest, opts ...grpc.CallOption) (*AssetByIDResponse, error) {
+	out := new(AssetByIDResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/AssetByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) Assets(ctx context.Context, in *AssetsRequest, opts ...grpc.CallOption) (*AssetsResponse, error) {
+	out := new(AssetsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/Assets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -101,6 +123,10 @@ type TradingDataServiceServer interface {
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
+	// Get an asset by its identifier
+	AssetByID(context.Context, *AssetByIDRequest) (*AssetByIDResponse, error)
+	// Get a list of all assets on Vega
+	Assets(context.Context, *AssetsRequest) (*AssetsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -122,6 +148,12 @@ func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Co
 }
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
+}
+func (UnimplementedTradingDataServiceServer) AssetByID(context.Context, *AssetByIDRequest) (*AssetByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AssetByID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) Assets(context.Context, *AssetsRequest) (*AssetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Assets not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -226,6 +258,42 @@ func _TradingDataService_GetNetworkLimits_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_AssetByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AssetByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).AssetByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/AssetByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).AssetByID(ctx, req.(*AssetByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_Assets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AssetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).Assets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/Assets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).Assets(ctx, req.(*AssetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -252,6 +320,14 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNetworkLimits",
 			Handler:    _TradingDataService_GetNetworkLimits_Handler,
+		},
+		{
+			MethodName: "AssetByID",
+			Handler:    _TradingDataService_AssetByID_Handler,
+		},
+		{
+			MethodName: "Assets",
+			Handler:    _TradingDataService_Assets_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

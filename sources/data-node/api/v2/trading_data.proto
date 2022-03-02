@@ -3,6 +3,7 @@ syntax = "proto3";
 option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 
 import "vega/vega.proto";
+import "vega/assets.proto";
 import "google/protobuf/wrappers.proto";
 
 package datanode.api.v2;
@@ -31,6 +32,15 @@ service TradingDataService {
 
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
     rpc GetNetworkLimits(GetNetworkLimitsRequest) returns (GetNetworkLimitsResponse);
+
+    // -- Assets --
+
+    // Get an asset by its identifier
+    rpc AssetByID(AssetByIDRequest) returns (AssetByIDResponse);
+
+    // Get a list of all assets on Vega
+    rpc Assets(AssetsRequest) returns (AssetsResponse);
+
 }
 
 // Request for the current network limits
@@ -148,3 +158,25 @@ message GetMarketDataHistoryByIDRequest {
 message GetMarketDataHistoryByIDResponse {
     repeated vega.MarketData market_data = 1;
 }
+
+// Request for a list of all assets enabled on Vega
+message AssetsRequest { }
+
+// Response for a list of all assets enabled on Vega
+message AssetsResponse {
+    // A list of 0 or more assets
+    repeated vega.Asset assets = 1;
+}
+
+// Request for an asset given an asset identifier
+message AssetByIDRequest {
+    // Asset identifier, required field
+    string id = 1;
+}
+
+// Response for an asset given an asset identifier
+message AssetByIDResponse {
+    // An asset record, if found
+    vega.Asset asset = 1;
+}
+
