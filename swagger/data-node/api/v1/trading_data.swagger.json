@@ -5858,13 +5858,13 @@
           },
           "title": "Node's delegations"
         },
-        "score": {
-          "type": "string",
-          "title": "Node score"
+        "rewardScore": {
+          "$ref": "#/definitions/vegaRewardScore",
+          "title": "Node reward score"
         },
-        "normalisedScore": {
-          "type": "string",
-          "title": "Node normalised score"
+        "rankingScore": {
+          "$ref": "#/definitions/vegaRankingScore",
+          "title": "Node ranking information"
         },
         "name": {
           "type": "string",
@@ -5873,14 +5873,6 @@
         "avatarUrl": {
           "type": "string",
           "title": "Avatar url"
-        },
-        "performance": {
-          "type": "string",
-          "title": "Performance"
-        },
-        "rawScore": {
-          "type": "string",
-          "title": "Raw Score"
         }
       }
     },
@@ -6418,6 +6410,36 @@
       },
       "title": "Terms for a governance proposal on Vega"
     },
+    "vegaRankingScore": {
+      "type": "object",
+      "properties": {
+        "stakeScore": {
+          "type": "string",
+          "title": "stake based score - no anti-whaling"
+        },
+        "performanceScore": {
+          "type": "string",
+          "title": "performance based score"
+        },
+        "previousStatus": {
+          "$ref": "#/definitions/vegaValidatorNodeStatus",
+          "title": "the status of the validator in the previous epoch"
+        },
+        "status": {
+          "$ref": "#/definitions/vegaValidatorNodeStatus",
+          "title": "the status of the validator in the current epoch"
+        },
+        "votingPower": {
+          "type": "integer",
+          "format": "int64",
+          "title": "tendermint voting power of the validator"
+        },
+        "rankingScore": {
+          "type": "string",
+          "title": "final score"
+        }
+      }
+    },
     "vegaReward": {
       "type": "object",
       "properties": {
@@ -6443,6 +6465,35 @@
         }
       },
       "title": "Details for a single reward payment"
+    },
+    "vegaRewardScore": {
+      "type": "object",
+      "properties": {
+        "rawValidatorScore": {
+          "type": "string",
+          "title": "stake based score - with anti-whaling"
+        },
+        "performanceScore": {
+          "type": "string",
+          "title": "performance based score"
+        },
+        "multisigScore": {
+          "type": "string",
+          "title": "multisig score"
+        },
+        "validatorScore": {
+          "type": "string",
+          "title": "un-normalised score"
+        },
+        "normalisedScore": {
+          "type": "string",
+          "title": "normalised validator score for rewards"
+        },
+        "validatorStatus": {
+          "$ref": "#/definitions/vegaValidatorNodeStatus",
+          "title": "the status of the validator for reward"
+        }
+      }
     },
     "vegaRewardSummary": {
       "type": "object",
@@ -6738,6 +6789,18 @@
         }
       },
       "title": "Update network configuration on Vega"
+    },
+    "vegaValidatorNodeStatus": {
+      "type": "string",
+      "enum": [
+        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+        "VALIDATOR_NODE_STATUS_TENDERMINT",
+        "VALIDATOR_NODE_STATUS_ERSATZ",
+        "VALIDATOR_NODE_STATUS_PENDING"
+      ],
+      "default": "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+      "description": "- VALIDATOR_NODE_STATUS_TENDERMINT: The node is a tendermint validator\n - VALIDATOR_NODE_STATUS_ERSATZ: The node is an ersatz validator\n - VALIDATOR_NODE_STATUS_PENDING: The node is a pending validator",
+      "title": "Validation status of the node"
     },
     "vegaVote": {
       "type": "object",

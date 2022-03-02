@@ -148,4 +148,5 @@ message ValidatorState {
   int32 status = 2;
   uint64 eth_events_forwarded = 3;
   int64 validator_power = 4;
+  vega.RankingScore ranking_score = 5;
 }

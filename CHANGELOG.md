@@ -3,7 +3,7 @@
 ## Unreleased (0.50.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [334](https://github.com/vegaprotocol/protos/issues/334) - Add ranking scores and reward score to node. 
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
