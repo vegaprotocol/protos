@@ -12,6 +12,43 @@ import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/validator_commands.proto";
 
+message ERC20MultiSigSignerAdded {
+  // The identifier of the signature bundle
+  string signature_id = 1;
+  // The vega node ID of the node to be added
+  string validator_id = 2;
+  // the time at which this happened
+  int64 timestamp = 3;
+ // The ethereum address of the new signer
+  string new_signer = 4;
+  // The address of the submitter of the transaction
+  string submitter = 5;
+  // The nonce used.
+  string nonce = 6;
+}
+
+message ERC20MulistSigSignerRemovedSubmitter {
+  // The ID of this signature bundle
+  string signature_id = 1;
+  // The address of the submitter of the transaction
+  string submitter = 2;
+}
+
+message ERC20MultiSigSignerRemoved {
+  // A list containing all the IDs of bundle generated
+  // There should be one bundle generated for every validators
+  // in the validator set
+  repeated ERC20MulistSigSignerRemovedSubmitter signature_submitters = 1;
+  // The vega node ID of the node which is to be removed
+  string validator_id = 2;
+  // the time at which this happened
+  int64 timestamp = 3;
+  // The ethereum address of the signer to be removed
+  string old_signer = 4;
+  // The nonce used.
+  string nonce = 5;
+}
+
 message Transfer {
   enum Status {
     // Default value
@@ -467,6 +504,10 @@ enum BusEventType {
   BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_EVENT = 42;
   // Event indicating the erc20 multi sig threshold have been updated
   BUS_EVENT_TYPE_ERC20_MULTI_SIG_SET_THRESHOLD = 43;
+  // Event indicating a new signer has been added to the erc20 multisig
+  BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_ADDED = 44;
+  // Event indicating a signer has been removed from the erc20 multisig
+  BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED = 45;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -565,6 +606,10 @@ message BusEvent {
     ERC20MultiSigSignerEvent erc20_multisig_signer_event = 141;
     // ERC20 multi sig set threshold event
     ERC20MultiSigThresholdSetEvent erc20_multisig_set_threshold_event = 142;
+    // ERC20 multi sig signer added
+    ERC20MultiSigSignerAdded erc20_multisig_signer_added = 143;
+    // ERC20 multi sig signer removed
+    ERC20MultiSigSignerRemoved erc20_multisig_signer_removed = 144;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
