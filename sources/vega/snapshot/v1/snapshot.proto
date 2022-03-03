@@ -608,6 +608,7 @@ message ValidatorState {
   uint64 eth_events_forwarded = 6;
   HeartbeatTracker heartbeat_tracker = 7;
   int64 validator_power = 8;
+  vega.RankingScore ranking_score = 9;
 }
 
 message HeartbeatTracker {

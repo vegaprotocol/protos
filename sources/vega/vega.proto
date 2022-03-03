@@ -1123,6 +1123,47 @@ message EpochData {
   int32 online = 3;
 }
 
+// Validation status of the node
+enum ValidatorNodeStatus {
+  VALIDATOR_NODE_STATUS_UNSPECIFIED = 0;
+  // The node is a tendermint validator
+  VALIDATOR_NODE_STATUS_TENDERMINT = 1;
+  // The node is an ersatz validator
+  VALIDATOR_NODE_STATUS_ERSATZ = 2;
+  // The node is a pending validator
+  VALIDATOR_NODE_STATUS_PENDING = 3;
+}
+
+message RankingScore {
+  // stake based score - no anti-whaling
+  string stake_score = 1;
+  // performance based score 
+  string performance_score = 2;
+  // the status of the validator in the previous epoch
+  ValidatorNodeStatus previous_status = 3;
+  // the status of the validator in the current epoch
+  ValidatorNodeStatus status = 4;
+  // tendermint voting power of the validator
+  uint32 voting_power = 5;
+  // final score
+  string ranking_score = 6;
+}
+
+message RewardScore {
+  // stake based score - with anti-whaling
+  string raw_validator_score = 1;
+  // performance based score 
+  string performance_score = 2;
+  // multisig score 
+  string multisig_score = 3;
+  // un-normalised score
+  string validator_score = 4;
+  // normalised validator score for rewards
+  string normalised_score = 5;
+  // the status of the validator for reward
+  ValidatorNodeStatus validator_status = 6;
+}
+
 message Node {
   // The node ID (wallet ID)
   string id = 1;
@@ -1152,18 +1193,14 @@ message Node {
   NodeStatus status = 13;
   // Node's delegations
   repeated Delegation delegations = 14;
-  // Node score
-  string score = 15;
-  // Node normalised score
-  string normalised_score = 16;
+  // Node reward score
+  RewardScore reward_score = 15;
+  // Node ranking information 
+  RankingScore ranking_score = 16;
   // Node name
   string name = 17;
   // Avatar url
-  string avatar_url = 18;
-  // Performance
-  string performance = 19;
-  // Raw Score
-  string raw_score=20;
+  string avatar_url = 18;  
 }
 
 message NodeData {
