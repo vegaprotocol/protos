@@ -3973,9 +3973,84 @@
         }
       }
     },
+    "vegaUpdateFutureProduct": {
+      "type": "object",
+      "properties": {
+        "quoteName": {
+          "type": "string",
+          "title": "Product quote name"
+        },
+        "oracleSpecForSettlementPrice": {
+          "$ref": "#/definitions/v1OracleSpecConfiguration",
+          "title": "The oracle spec describing the oracle data of settlement price"
+        },
+        "oracleSpecForTradingTermination": {
+          "$ref": "#/definitions/v1OracleSpecConfiguration",
+          "title": "The oracle spec describing the oracle data of trading termination"
+        },
+        "oracleSpecBinding": {
+          "$ref": "#/definitions/vegaOracleSpecToFutureBinding",
+          "title": "The binding between the oracle spec and the settlement price"
+        }
+      },
+      "title": "Future product configuration"
+    },
+    "vegaUpdateInstrumentConfiguration": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "title": "Instrument code"
+        },
+        "future": {
+          "$ref": "#/definitions/vegaUpdateFutureProduct",
+          "title": "Future"
+        }
+      },
+      "title": "Instrument configuration"
+    },
     "vegaUpdateMarket": {
       "type": "object",
+      "properties": {
+        "changes": {
+          "$ref": "#/definitions/vegaUpdateMarketConfiguration",
+          "title": "The updated configuration of the market"
+        }
+      },
       "title": "Update an existing market on Vega"
+    },
+    "vegaUpdateMarketConfiguration": {
+      "type": "object",
+      "properties": {
+        "instrument": {
+          "$ref": "#/definitions/vegaUpdateInstrumentConfiguration",
+          "title": "Updated market instrument configuration"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Optional market metadata, tags"
+        },
+        "priceMonitoringParameters": {
+          "$ref": "#/definitions/vegaPriceMonitoringParameters",
+          "title": "Price monitoring parameters"
+        },
+        "liquidityMonitoringParameters": {
+          "$ref": "#/definitions/vegaLiquidityMonitoringParameters",
+          "title": "Liquidity monitoring parameters"
+        },
+        "simple": {
+          "$ref": "#/definitions/vegaSimpleModelParams",
+          "title": "Simple risk model parameters, valid only if MODEL_SIMPLE is selected"
+        },
+        "logNormal": {
+          "$ref": "#/definitions/vegaLogNormalRiskModel",
+          "title": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+        }
+      },
+      "title": "Configuration to update a market on Vega"
     },
     "vegaUpdateNetworkParameter": {
       "type": "object",
