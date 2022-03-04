@@ -281,6 +281,11 @@ enum ProposalError {
   PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE = 35;
   // Validation failed for freeform proposal.
   PROPOSAL_ERROR_INVALID_FREEFORM = 36;
+  // The party doesn't have enough equity-like share to propose an update on the market
+  // targeted by the proposal.
+  PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE = 37;
+  // The market targeted by the proposal does not exist or is not eligible to modification.
+  PROPOSAL_ERROR_INVALID_MARKET = 38;
 }
 
 // Governance vote
@@ -312,4 +317,6 @@ message Vote {
   string total_governance_token_balance = 5;
   // The weight of this vote based on the total of governance token
   string total_governance_token_weight = 6;
+  // The weight of the vote compared to the total number of equity-like share on the market.
+  string total_equity_like_share_weight = 7;
 }
