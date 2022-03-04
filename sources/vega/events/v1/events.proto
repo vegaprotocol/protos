@@ -132,6 +132,12 @@ message StakeLinking {
   int64 finalized_at = 7;
   // The hash of the transaction from which the events happen
   string tx_hash = 8;
+  // The block when the event happened
+  uint64 block_height = 9;
+  // The block time
+  int64 block_time = 10;
+  // The log index
+  uint64 log_index = 11;
 }
 
 message ERC20MultiSigSignerEvent {
