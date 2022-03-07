@@ -1,20 +1,32 @@
 # Changelog
 
+
+
 ## Unreleased (0.50.0)
 
 ### 🚨 Breaking changes
-- [334](https://github.com/vegaprotocol/protos/issues/334) - Add ranking scores and reward score to node. 
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [325](https://github.com/vegaprotocol/protos/pull/325) - v2 data node API holds only new API methods 
-- [329](https://github.com/vegaprotocol/protos/pull/329) - remove unused request response types from v2 API 
-- [329](https://github.com/vegaprotocol/protos/pull/329) - Add proposal for market update and its validation.
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+## 0.49.1
+
+### 🚨 Breaking changes
+- [334](https://github.com/vegaprotocol/protos/issues/334) - Add ranking scores and reward score to node.
+
+
+### 🛠 Improvements
+- [325](https://github.com/vegaprotocol/protos/pull/325) - v2 data node API holds only new API methods
+- [329](https://github.com/vegaprotocol/protos/pull/329) - remove unused request response types from v2 API
+- [329](https://github.com/vegaprotocol/protos/pull/329) - Add proposal for market update and its validation.
+
 
 
 ## 0.49.0
