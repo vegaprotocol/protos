@@ -1,9 +1,11 @@
 # Changelog
 
+
+
 ## Unreleased (0.50.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -13,6 +15,18 @@
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+## 0.49.1
+
+### 🚨 Breaking changes
+- [334](https://github.com/vegaprotocol/protos/issues/334) - Add ranking scores and reward score to node.
+
+
+### 🛠 Improvements
+- [325](https://github.com/vegaprotocol/protos/pull/325) - v2 data node API holds only new API methods
+- [329](https://github.com/vegaprotocol/protos/pull/329) - remove unused request response types from v2 API
+- [329](https://github.com/vegaprotocol/protos/pull/329) - Add proposal for market update and its validation.
+
 
 
 ## 0.49.0
@@ -30,7 +44,7 @@
 ### 🐛 Fixes
 - [308](https://github.com/vegaprotocol/protos/pull/308) - Validate order price and fail if not positive
 - [310](https://github.com/vegaprotocol/protos/pull/310) - Add `feesplitter` state to snapshot to allow markets to restore
-
+- [319](https://github.com/vegaprotocol/protos/pull/319) - Fix incorrect data types on `MarketData` message definition
 
 ## 0.48.0
 
