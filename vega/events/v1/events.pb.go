@@ -2467,6 +2467,107 @@ func (x *SettlePosition) GetPositionFactor() string {
 	return ""
 }
 
+// A position state event contains the current position state for a single party in a single market
+type PositionState struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Party identifier for this position update
+	PartyId string `protobuf:"bytes,1,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
+	// Market identifier for this position update
+	MarketId string `protobuf:"bytes,2,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
+	// Current position
+	Size int64 `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	// Potential orders
+	PotentialBuys  int64 `protobuf:"varint,4,opt,name=potential_buys,json=potentialBuys,proto3" json:"potential_buys,omitempty"`
+	PotentialSells int64 `protobuf:"varint,5,opt,name=potential_sells,json=potentialSells,proto3" json:"potential_sells,omitempty"`
+	// Volume weighted prices
+	VwBuyPrice  string `protobuf:"bytes,6,opt,name=vwBuyPrice,proto3" json:"vwBuyPrice,omitempty"`
+	VwSellPrice string `protobuf:"bytes,7,opt,name=vwSellPrice,proto3" json:"vwSellPrice,omitempty"`
+}
+
+func (x *PositionState) Reset() {
+	*x = PositionState{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_vega_events_v1_events_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PositionState) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PositionState) ProtoMessage() {}
+
+func (x *PositionState) ProtoReflect() protoreflect.Message {
+	mi := &file_vega_events_v1_events_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PositionState.ProtoReflect.Descriptor instead.
+func (*PositionState) Descriptor() ([]byte, []int) {
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *PositionState) GetPartyId() string {
+	if x != nil {
+		return x.PartyId
+	}
+	return ""
+}
+
+func (x *PositionState) GetMarketId() string {
+	if x != nil {
+		return x.MarketId
+	}
+	return ""
+}
+
+func (x *PositionState) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *PositionState) GetPotentialBuys() int64 {
+	if x != nil {
+		return x.PotentialBuys
+	}
+	return 0
+}
+
+func (x *PositionState) GetPotentialSells() int64 {
+	if x != nil {
+		return x.PotentialSells
+	}
+	return 0
+}
+
+func (x *PositionState) GetVwBuyPrice() string {
+	if x != nil {
+		return x.VwBuyPrice
+	}
+	return ""
+}
+
+func (x *PositionState) GetVwSellPrice() string {
+	if x != nil {
+		return x.VwSellPrice
+	}
+	return ""
+}
+
 // A settle distressed event contains information on distressed trading parties who are closed out
 type SettleDistressed struct {
 	state         protoimpl.MessageState
@@ -2488,7 +2589,7 @@ type SettleDistressed struct {
 func (x *SettleDistressed) Reset() {
 	*x = SettleDistressed{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[23]
+		mi := &file_vega_events_v1_events_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2501,7 +2602,7 @@ func (x *SettleDistressed) String() string {
 func (*SettleDistressed) ProtoMessage() {}
 
 func (x *SettleDistressed) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[23]
+	mi := &file_vega_events_v1_events_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2514,7 +2615,7 @@ func (x *SettleDistressed) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SettleDistressed.ProtoReflect.Descriptor instead.
 func (*SettleDistressed) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{23}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *SettleDistressed) GetMarketId() string {
@@ -2560,7 +2661,7 @@ type MarketTick struct {
 func (x *MarketTick) Reset() {
 	*x = MarketTick{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[24]
+		mi := &file_vega_events_v1_events_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2573,7 +2674,7 @@ func (x *MarketTick) String() string {
 func (*MarketTick) ProtoMessage() {}
 
 func (x *MarketTick) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[24]
+	mi := &file_vega_events_v1_events_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2586,7 +2687,7 @@ func (x *MarketTick) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MarketTick.ProtoReflect.Descriptor instead.
 func (*MarketTick) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{24}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *MarketTick) GetId() string {
@@ -2629,7 +2730,7 @@ type AuctionEvent struct {
 func (x *AuctionEvent) Reset() {
 	*x = AuctionEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[25]
+		mi := &file_vega_events_v1_events_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2642,7 +2743,7 @@ func (x *AuctionEvent) String() string {
 func (*AuctionEvent) ProtoMessage() {}
 
 func (x *AuctionEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[25]
+	mi := &file_vega_events_v1_events_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2655,7 +2756,7 @@ func (x *AuctionEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuctionEvent.ProtoReflect.Descriptor instead.
 func (*AuctionEvent) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{25}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *AuctionEvent) GetMarketId() string {
@@ -2740,7 +2841,7 @@ type ValidatorUpdate struct {
 func (x *ValidatorUpdate) Reset() {
 	*x = ValidatorUpdate{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[26]
+		mi := &file_vega_events_v1_events_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2753,7 +2854,7 @@ func (x *ValidatorUpdate) String() string {
 func (*ValidatorUpdate) ProtoMessage() {}
 
 func (x *ValidatorUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[26]
+	mi := &file_vega_events_v1_events_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2766,7 +2867,7 @@ func (x *ValidatorUpdate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidatorUpdate.ProtoReflect.Descriptor instead.
 func (*ValidatorUpdate) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{26}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *ValidatorUpdate) GetNodeId() string {
@@ -2872,7 +2973,7 @@ type ValidatorRankingEvent struct {
 func (x *ValidatorRankingEvent) Reset() {
 	*x = ValidatorRankingEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[27]
+		mi := &file_vega_events_v1_events_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2885,7 +2986,7 @@ func (x *ValidatorRankingEvent) String() string {
 func (*ValidatorRankingEvent) ProtoMessage() {}
 
 func (x *ValidatorRankingEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[27]
+	mi := &file_vega_events_v1_events_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2898,7 +2999,7 @@ func (x *ValidatorRankingEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidatorRankingEvent.ProtoReflect.Descriptor instead.
 func (*ValidatorRankingEvent) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{27}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *ValidatorRankingEvent) GetNodeId() string {
@@ -2976,7 +3077,7 @@ type KeyRotation struct {
 func (x *KeyRotation) Reset() {
 	*x = KeyRotation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[28]
+		mi := &file_vega_events_v1_events_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2989,7 +3090,7 @@ func (x *KeyRotation) String() string {
 func (*KeyRotation) ProtoMessage() {}
 
 func (x *KeyRotation) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[28]
+	mi := &file_vega_events_v1_events_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3002,7 +3103,7 @@ func (x *KeyRotation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KeyRotation.ProtoReflect.Descriptor instead.
 func (*KeyRotation) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{28}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *KeyRotation) GetNodeId() string {
@@ -3047,7 +3148,7 @@ type StateVar struct {
 func (x *StateVar) Reset() {
 	*x = StateVar{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[29]
+		mi := &file_vega_events_v1_events_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3060,7 +3161,7 @@ func (x *StateVar) String() string {
 func (*StateVar) ProtoMessage() {}
 
 func (x *StateVar) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[29]
+	mi := &file_vega_events_v1_events_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3073,7 +3174,7 @@ func (x *StateVar) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StateVar.ProtoReflect.Descriptor instead.
 func (*StateVar) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{29}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *StateVar) GetId() string {
@@ -3165,7 +3266,7 @@ type BusEvent struct {
 func (x *BusEvent) Reset() {
 	*x = BusEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_vega_events_v1_events_proto_msgTypes[30]
+		mi := &file_vega_events_v1_events_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3178,7 +3279,7 @@ func (x *BusEvent) String() string {
 func (*BusEvent) ProtoMessage() {}
 
 func (x *BusEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_vega_events_v1_events_proto_msgTypes[30]
+	mi := &file_vega_events_v1_events_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3191,7 +3292,7 @@ func (x *BusEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BusEvent.ProtoReflect.Descriptor instead.
 func (*BusEvent) Descriptor() ([]byte, []int) {
-	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{30}
+	return file_vega_events_v1_events_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *BusEvent) GetId() string {
@@ -4232,7 +4333,22 @@ var file_vega_events_v1_events_proto_rawDesc = []byte{
 	0x6e, 0x74, 0x52, 0x10, 0x74, 0x72, 0x61, 0x64, 0x65, 0x53, 0x65, 0x74, 0x74, 0x6c, 0x65, 0x6d,
 	0x65, 0x6e, 0x74, 0x73, 0x12, 0x27, 0x0a, 0x0f, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e,
 	0x5f, 0x66, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x70,
-	0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x22, 0x78, 0x0a,
+	0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x22, 0xed, 0x01,
+	0x0a, 0x0d, 0x50, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12,
+	0x19, 0x0a, 0x08, 0x70, 0x61, 0x72, 0x74, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x70, 0x61, 0x72, 0x74, 0x79, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x61,
+	0x72, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6d,
+	0x61, 0x72, 0x6b, 0x65, 0x74, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x70,
+	0x6f, 0x74, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x5f, 0x62, 0x75, 0x79, 0x73, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x0d, 0x70, 0x6f, 0x74, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x42, 0x75,
+	0x79, 0x73, 0x12, 0x27, 0x0a, 0x0f, 0x70, 0x6f, 0x74, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x5f,
+	0x73, 0x65, 0x6c, 0x6c, 0x73, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0e, 0x70, 0x6f, 0x74,
+	0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x6c, 0x6c, 0x73, 0x12, 0x1e, 0x0a, 0x0a, 0x76,
+	0x77, 0x42, 0x75, 0x79, 0x50, 0x72, 0x69, 0x63, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0a, 0x76, 0x77, 0x42, 0x75, 0x79, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x76,
+	0x77, 0x53, 0x65, 0x6c, 0x6c, 0x50, 0x72, 0x69, 0x63, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x0b, 0x76, 0x77, 0x53, 0x65, 0x6c, 0x6c, 0x50, 0x72, 0x69, 0x63, 0x65, 0x22, 0x78, 0x0a,
 	0x10, 0x53, 0x65, 0x74, 0x74, 0x6c, 0x65, 0x44, 0x69, 0x73, 0x74, 0x72, 0x65, 0x73, 0x73, 0x65,
 	0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x49, 0x64, 0x12, 0x19,
@@ -4637,7 +4753,7 @@ func file_vega_events_v1_events_proto_rawDescGZIP() []byte {
 }
 
 var file_vega_events_v1_events_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
-var file_vega_events_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
+var file_vega_events_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
 var file_vega_events_v1_events_proto_goTypes = []interface{}{
 	(BusEventType)(0),                            // 0: vega.events.v1.BusEventType
 	(Transfer_Status)(0),                         // 1: vega.events.v1.Transfer.Status
@@ -4667,123 +4783,124 @@ var file_vega_events_v1_events_proto_goTypes = []interface{}{
 	(*LossSocialization)(nil),                    // 25: vega.events.v1.LossSocialization
 	(*TradeSettlement)(nil),                      // 26: vega.events.v1.TradeSettlement
 	(*SettlePosition)(nil),                       // 27: vega.events.v1.SettlePosition
-	(*SettleDistressed)(nil),                     // 28: vega.events.v1.SettleDistressed
-	(*MarketTick)(nil),                           // 29: vega.events.v1.MarketTick
-	(*AuctionEvent)(nil),                         // 30: vega.events.v1.AuctionEvent
-	(*ValidatorUpdate)(nil),                      // 31: vega.events.v1.ValidatorUpdate
-	(*ValidatorRankingEvent)(nil),                // 32: vega.events.v1.ValidatorRankingEvent
-	(*KeyRotation)(nil),                          // 33: vega.events.v1.KeyRotation
-	(*StateVar)(nil),                             // 34: vega.events.v1.StateVar
-	(*BusEvent)(nil),                             // 35: vega.events.v1.BusEvent
-	(vega.AccountType)(0),                        // 36: vega.AccountType
-	(*vega.Uint64Value)(nil),                     // 37: vega.Uint64Value
-	(*v1.OrderSubmission)(nil),                   // 38: vega.commands.v1.OrderSubmission
-	(*v1.OrderAmendment)(nil),                    // 39: vega.commands.v1.OrderAmendment
-	(*v1.OrderCancellation)(nil),                 // 40: vega.commands.v1.OrderCancellation
-	(*v1.ProposalSubmission)(nil),                // 41: vega.commands.v1.ProposalSubmission
-	(*v1.VoteSubmission)(nil),                    // 42: vega.commands.v1.VoteSubmission
-	(*v1.LiquidityProvisionSubmission)(nil),      // 43: vega.commands.v1.LiquidityProvisionSubmission
-	(*v1.WithdrawSubmission)(nil),                // 44: vega.commands.v1.WithdrawSubmission
-	(*v1.DelegateSubmission)(nil),                // 45: vega.commands.v1.DelegateSubmission
-	(*v1.UndelegateSubmission)(nil),              // 46: vega.commands.v1.UndelegateSubmission
-	(*v1.RestoreSnapshot)(nil),                   // 47: vega.commands.v1.RestoreSnapshot
-	(*v1.LiquidityProvisionCancellation)(nil),    // 48: vega.commands.v1.LiquidityProvisionCancellation
-	(*v1.LiquidityProvisionAmendment)(nil),       // 49: vega.commands.v1.LiquidityProvisionAmendment
-	(*v1.Transfer)(nil),                          // 50: vega.commands.v1.Transfer
-	(*v1.CancelTransfer)(nil),                    // 51: vega.commands.v1.CancelTransfer
-	(vega.EpochAction)(0),                        // 52: vega.EpochAction
-	(*vega.TransferResponse)(nil),                // 53: vega.TransferResponse
-	(vega.AuctionTrigger)(0),                     // 54: vega.AuctionTrigger
-	(*vega.Order)(nil),                           // 55: vega.Order
-	(*vega.Account)(nil),                         // 56: vega.Account
-	(*vega.Party)(nil),                           // 57: vega.Party
-	(*vega.Trade)(nil),                           // 58: vega.Trade
-	(*vega.MarginLevels)(nil),                    // 59: vega.MarginLevels
-	(*vega.Proposal)(nil),                        // 60: vega.Proposal
-	(*vega.Vote)(nil),                            // 61: vega.Vote
-	(*vega.MarketData)(nil),                      // 62: vega.MarketData
-	(*v1.NodeSignature)(nil),                     // 63: vega.commands.v1.NodeSignature
-	(*vega.Market)(nil),                          // 64: vega.Market
-	(*vega.Asset)(nil),                           // 65: vega.Asset
-	(*vega.Withdrawal)(nil),                      // 66: vega.Withdrawal
-	(*vega.Deposit)(nil),                         // 67: vega.Deposit
-	(*vega.RiskFactor)(nil),                      // 68: vega.RiskFactor
-	(*vega.NetworkParameter)(nil),                // 69: vega.NetworkParameter
-	(*vega.LiquidityProvision)(nil),              // 70: vega.LiquidityProvision
-	(*v11.OracleSpec)(nil),                       // 71: oracles.v1.OracleSpec
-	(*v11.OracleData)(nil),                       // 72: oracles.v1.OracleData
-	(*vega.NetworkLimits)(nil),                   // 73: vega.NetworkLimits
+	(*PositionState)(nil),                        // 28: vega.events.v1.PositionState
+	(*SettleDistressed)(nil),                     // 29: vega.events.v1.SettleDistressed
+	(*MarketTick)(nil),                           // 30: vega.events.v1.MarketTick
+	(*AuctionEvent)(nil),                         // 31: vega.events.v1.AuctionEvent
+	(*ValidatorUpdate)(nil),                      // 32: vega.events.v1.ValidatorUpdate
+	(*ValidatorRankingEvent)(nil),                // 33: vega.events.v1.ValidatorRankingEvent
+	(*KeyRotation)(nil),                          // 34: vega.events.v1.KeyRotation
+	(*StateVar)(nil),                             // 35: vega.events.v1.StateVar
+	(*BusEvent)(nil),                             // 36: vega.events.v1.BusEvent
+	(vega.AccountType)(0),                        // 37: vega.AccountType
+	(*vega.Uint64Value)(nil),                     // 38: vega.Uint64Value
+	(*v1.OrderSubmission)(nil),                   // 39: vega.commands.v1.OrderSubmission
+	(*v1.OrderAmendment)(nil),                    // 40: vega.commands.v1.OrderAmendment
+	(*v1.OrderCancellation)(nil),                 // 41: vega.commands.v1.OrderCancellation
+	(*v1.ProposalSubmission)(nil),                // 42: vega.commands.v1.ProposalSubmission
+	(*v1.VoteSubmission)(nil),                    // 43: vega.commands.v1.VoteSubmission
+	(*v1.LiquidityProvisionSubmission)(nil),      // 44: vega.commands.v1.LiquidityProvisionSubmission
+	(*v1.WithdrawSubmission)(nil),                // 45: vega.commands.v1.WithdrawSubmission
+	(*v1.DelegateSubmission)(nil),                // 46: vega.commands.v1.DelegateSubmission
+	(*v1.UndelegateSubmission)(nil),              // 47: vega.commands.v1.UndelegateSubmission
+	(*v1.RestoreSnapshot)(nil),                   // 48: vega.commands.v1.RestoreSnapshot
+	(*v1.LiquidityProvisionCancellation)(nil),    // 49: vega.commands.v1.LiquidityProvisionCancellation
+	(*v1.LiquidityProvisionAmendment)(nil),       // 50: vega.commands.v1.LiquidityProvisionAmendment
+	(*v1.Transfer)(nil),                          // 51: vega.commands.v1.Transfer
+	(*v1.CancelTransfer)(nil),                    // 52: vega.commands.v1.CancelTransfer
+	(vega.EpochAction)(0),                        // 53: vega.EpochAction
+	(*vega.TransferResponse)(nil),                // 54: vega.TransferResponse
+	(vega.AuctionTrigger)(0),                     // 55: vega.AuctionTrigger
+	(*vega.Order)(nil),                           // 56: vega.Order
+	(*vega.Account)(nil),                         // 57: vega.Account
+	(*vega.Party)(nil),                           // 58: vega.Party
+	(*vega.Trade)(nil),                           // 59: vega.Trade
+	(*vega.MarginLevels)(nil),                    // 60: vega.MarginLevels
+	(*vega.Proposal)(nil),                        // 61: vega.Proposal
+	(*vega.Vote)(nil),                            // 62: vega.Vote
+	(*vega.MarketData)(nil),                      // 63: vega.MarketData
+	(*v1.NodeSignature)(nil),                     // 64: vega.commands.v1.NodeSignature
+	(*vega.Market)(nil),                          // 65: vega.Market
+	(*vega.Asset)(nil),                           // 66: vega.Asset
+	(*vega.Withdrawal)(nil),                      // 67: vega.Withdrawal
+	(*vega.Deposit)(nil),                         // 68: vega.Deposit
+	(*vega.RiskFactor)(nil),                      // 69: vega.RiskFactor
+	(*vega.NetworkParameter)(nil),                // 70: vega.NetworkParameter
+	(*vega.LiquidityProvision)(nil),              // 71: vega.LiquidityProvision
+	(*v11.OracleSpec)(nil),                       // 72: oracles.v1.OracleSpec
+	(*v11.OracleData)(nil),                       // 73: oracles.v1.OracleData
+	(*vega.NetworkLimits)(nil),                   // 74: vega.NetworkLimits
 }
 var file_vega_events_v1_events_proto_depIdxs = []int32{
 	6,  // 0: vega.events.v1.ERC20MultiSigSignerRemoved.signature_submitters:type_name -> vega.events.v1.ERC20MulistSigSignerRemovedSubmitter
-	36, // 1: vega.events.v1.Transfer.from_account_type:type_name -> vega.AccountType
-	36, // 2: vega.events.v1.Transfer.to_account_type:type_name -> vega.AccountType
+	37, // 1: vega.events.v1.Transfer.from_account_type:type_name -> vega.AccountType
+	37, // 2: vega.events.v1.Transfer.to_account_type:type_name -> vega.AccountType
 	1,  // 3: vega.events.v1.Transfer.status:type_name -> vega.events.v1.Transfer.Status
 	9,  // 4: vega.events.v1.Transfer.one_off:type_name -> vega.events.v1.OneOffTransfer
 	10, // 5: vega.events.v1.Transfer.recurring:type_name -> vega.events.v1.RecurringTransfer
-	37, // 6: vega.events.v1.RecurringTransfer.end_epoch:type_name -> vega.Uint64Value
+	38, // 6: vega.events.v1.RecurringTransfer.end_epoch:type_name -> vega.Uint64Value
 	2,  // 7: vega.events.v1.StakeLinking.type:type_name -> vega.events.v1.StakeLinking.Type
 	3,  // 8: vega.events.v1.StakeLinking.status:type_name -> vega.events.v1.StakeLinking.Status
 	4,  // 9: vega.events.v1.ERC20MultiSigSignerEvent.type:type_name -> vega.events.v1.ERC20MultiSigSignerEvent.Type
-	38, // 10: vega.events.v1.TxErrorEvent.order_submission:type_name -> vega.commands.v1.OrderSubmission
-	39, // 11: vega.events.v1.TxErrorEvent.order_amendment:type_name -> vega.commands.v1.OrderAmendment
-	40, // 12: vega.events.v1.TxErrorEvent.order_cancellation:type_name -> vega.commands.v1.OrderCancellation
-	41, // 13: vega.events.v1.TxErrorEvent.proposal:type_name -> vega.commands.v1.ProposalSubmission
-	42, // 14: vega.events.v1.TxErrorEvent.vote_submission:type_name -> vega.commands.v1.VoteSubmission
-	43, // 15: vega.events.v1.TxErrorEvent.liquidity_provision_submission:type_name -> vega.commands.v1.LiquidityProvisionSubmission
-	44, // 16: vega.events.v1.TxErrorEvent.withdraw_submission:type_name -> vega.commands.v1.WithdrawSubmission
-	45, // 17: vega.events.v1.TxErrorEvent.delegate_submission:type_name -> vega.commands.v1.DelegateSubmission
-	46, // 18: vega.events.v1.TxErrorEvent.undelegate_submission:type_name -> vega.commands.v1.UndelegateSubmission
-	47, // 19: vega.events.v1.TxErrorEvent.restore_snapshot:type_name -> vega.commands.v1.RestoreSnapshot
-	48, // 20: vega.events.v1.TxErrorEvent.liquidity_provision_cancellation:type_name -> vega.commands.v1.LiquidityProvisionCancellation
-	49, // 21: vega.events.v1.TxErrorEvent.liquidity_provision_amendment:type_name -> vega.commands.v1.LiquidityProvisionAmendment
-	50, // 22: vega.events.v1.TxErrorEvent.transfer:type_name -> vega.commands.v1.Transfer
-	51, // 23: vega.events.v1.TxErrorEvent.cancel_transfer:type_name -> vega.commands.v1.CancelTransfer
-	52, // 24: vega.events.v1.EpochEvent.action:type_name -> vega.EpochAction
-	53, // 25: vega.events.v1.TransferResponses.responses:type_name -> vega.TransferResponse
+	39, // 10: vega.events.v1.TxErrorEvent.order_submission:type_name -> vega.commands.v1.OrderSubmission
+	40, // 11: vega.events.v1.TxErrorEvent.order_amendment:type_name -> vega.commands.v1.OrderAmendment
+	41, // 12: vega.events.v1.TxErrorEvent.order_cancellation:type_name -> vega.commands.v1.OrderCancellation
+	42, // 13: vega.events.v1.TxErrorEvent.proposal:type_name -> vega.commands.v1.ProposalSubmission
+	43, // 14: vega.events.v1.TxErrorEvent.vote_submission:type_name -> vega.commands.v1.VoteSubmission
+	44, // 15: vega.events.v1.TxErrorEvent.liquidity_provision_submission:type_name -> vega.commands.v1.LiquidityProvisionSubmission
+	45, // 16: vega.events.v1.TxErrorEvent.withdraw_submission:type_name -> vega.commands.v1.WithdrawSubmission
+	46, // 17: vega.events.v1.TxErrorEvent.delegate_submission:type_name -> vega.commands.v1.DelegateSubmission
+	47, // 18: vega.events.v1.TxErrorEvent.undelegate_submission:type_name -> vega.commands.v1.UndelegateSubmission
+	48, // 19: vega.events.v1.TxErrorEvent.restore_snapshot:type_name -> vega.commands.v1.RestoreSnapshot
+	49, // 20: vega.events.v1.TxErrorEvent.liquidity_provision_cancellation:type_name -> vega.commands.v1.LiquidityProvisionCancellation
+	50, // 21: vega.events.v1.TxErrorEvent.liquidity_provision_amendment:type_name -> vega.commands.v1.LiquidityProvisionAmendment
+	51, // 22: vega.events.v1.TxErrorEvent.transfer:type_name -> vega.commands.v1.Transfer
+	52, // 23: vega.events.v1.TxErrorEvent.cancel_transfer:type_name -> vega.commands.v1.CancelTransfer
+	53, // 24: vega.events.v1.EpochEvent.action:type_name -> vega.EpochAction
+	54, // 25: vega.events.v1.TransferResponses.responses:type_name -> vega.TransferResponse
 	26, // 26: vega.events.v1.SettlePosition.trade_settlements:type_name -> vega.events.v1.TradeSettlement
-	54, // 27: vega.events.v1.AuctionEvent.trigger:type_name -> vega.AuctionTrigger
-	54, // 28: vega.events.v1.AuctionEvent.extension_trigger:type_name -> vega.AuctionTrigger
+	55, // 27: vega.events.v1.AuctionEvent.trigger:type_name -> vega.AuctionTrigger
+	55, // 28: vega.events.v1.AuctionEvent.extension_trigger:type_name -> vega.AuctionTrigger
 	0,  // 29: vega.events.v1.BusEvent.type:type_name -> vega.events.v1.BusEventType
 	21, // 30: vega.events.v1.BusEvent.time_update:type_name -> vega.events.v1.TimeUpdate
 	23, // 31: vega.events.v1.BusEvent.transfer_responses:type_name -> vega.events.v1.TransferResponses
 	24, // 32: vega.events.v1.BusEvent.position_resolution:type_name -> vega.events.v1.PositionResolution
-	55, // 33: vega.events.v1.BusEvent.order:type_name -> vega.Order
-	56, // 34: vega.events.v1.BusEvent.account:type_name -> vega.Account
-	57, // 35: vega.events.v1.BusEvent.party:type_name -> vega.Party
-	58, // 36: vega.events.v1.BusEvent.trade:type_name -> vega.Trade
-	59, // 37: vega.events.v1.BusEvent.margin_levels:type_name -> vega.MarginLevels
-	60, // 38: vega.events.v1.BusEvent.proposal:type_name -> vega.Proposal
-	61, // 39: vega.events.v1.BusEvent.vote:type_name -> vega.Vote
-	62, // 40: vega.events.v1.BusEvent.market_data:type_name -> vega.MarketData
-	63, // 41: vega.events.v1.BusEvent.node_signature:type_name -> vega.commands.v1.NodeSignature
+	56, // 33: vega.events.v1.BusEvent.order:type_name -> vega.Order
+	57, // 34: vega.events.v1.BusEvent.account:type_name -> vega.Account
+	58, // 35: vega.events.v1.BusEvent.party:type_name -> vega.Party
+	59, // 36: vega.events.v1.BusEvent.trade:type_name -> vega.Trade
+	60, // 37: vega.events.v1.BusEvent.margin_levels:type_name -> vega.MarginLevels
+	61, // 38: vega.events.v1.BusEvent.proposal:type_name -> vega.Proposal
+	62, // 39: vega.events.v1.BusEvent.vote:type_name -> vega.Vote
+	63, // 40: vega.events.v1.BusEvent.market_data:type_name -> vega.MarketData
+	64, // 41: vega.events.v1.BusEvent.node_signature:type_name -> vega.commands.v1.NodeSignature
 	25, // 42: vega.events.v1.BusEvent.loss_socialization:type_name -> vega.events.v1.LossSocialization
 	27, // 43: vega.events.v1.BusEvent.settle_position:type_name -> vega.events.v1.SettlePosition
-	28, // 44: vega.events.v1.BusEvent.settle_distressed:type_name -> vega.events.v1.SettleDistressed
-	64, // 45: vega.events.v1.BusEvent.market_created:type_name -> vega.Market
-	65, // 46: vega.events.v1.BusEvent.asset:type_name -> vega.Asset
-	29, // 47: vega.events.v1.BusEvent.market_tick:type_name -> vega.events.v1.MarketTick
-	66, // 48: vega.events.v1.BusEvent.withdrawal:type_name -> vega.Withdrawal
-	67, // 49: vega.events.v1.BusEvent.deposit:type_name -> vega.Deposit
-	30, // 50: vega.events.v1.BusEvent.auction:type_name -> vega.events.v1.AuctionEvent
-	68, // 51: vega.events.v1.BusEvent.risk_factor:type_name -> vega.RiskFactor
-	69, // 52: vega.events.v1.BusEvent.network_parameter:type_name -> vega.NetworkParameter
-	70, // 53: vega.events.v1.BusEvent.liquidity_provision:type_name -> vega.LiquidityProvision
-	64, // 54: vega.events.v1.BusEvent.market_updated:type_name -> vega.Market
-	71, // 55: vega.events.v1.BusEvent.oracle_spec:type_name -> oracles.v1.OracleSpec
-	72, // 56: vega.events.v1.BusEvent.oracle_data:type_name -> oracles.v1.OracleData
+	29, // 44: vega.events.v1.BusEvent.settle_distressed:type_name -> vega.events.v1.SettleDistressed
+	65, // 45: vega.events.v1.BusEvent.market_created:type_name -> vega.Market
+	66, // 46: vega.events.v1.BusEvent.asset:type_name -> vega.Asset
+	30, // 47: vega.events.v1.BusEvent.market_tick:type_name -> vega.events.v1.MarketTick
+	67, // 48: vega.events.v1.BusEvent.withdrawal:type_name -> vega.Withdrawal
+	68, // 49: vega.events.v1.BusEvent.deposit:type_name -> vega.Deposit
+	31, // 50: vega.events.v1.BusEvent.auction:type_name -> vega.events.v1.AuctionEvent
+	69, // 51: vega.events.v1.BusEvent.risk_factor:type_name -> vega.RiskFactor
+	70, // 52: vega.events.v1.BusEvent.network_parameter:type_name -> vega.NetworkParameter
+	71, // 53: vega.events.v1.BusEvent.liquidity_provision:type_name -> vega.LiquidityProvision
+	65, // 54: vega.events.v1.BusEvent.market_updated:type_name -> vega.Market
+	72, // 55: vega.events.v1.BusEvent.oracle_spec:type_name -> oracles.v1.OracleSpec
+	73, // 56: vega.events.v1.BusEvent.oracle_data:type_name -> oracles.v1.OracleData
 	18, // 57: vega.events.v1.BusEvent.delegation_balance:type_name -> vega.events.v1.DelegationBalanceEvent
 	17, // 58: vega.events.v1.BusEvent.validator_score:type_name -> vega.events.v1.ValidatorScoreEvent
 	22, // 59: vega.events.v1.BusEvent.epoch_event:type_name -> vega.events.v1.EpochEvent
-	31, // 60: vega.events.v1.BusEvent.validator_update:type_name -> vega.events.v1.ValidatorUpdate
+	32, // 60: vega.events.v1.BusEvent.validator_update:type_name -> vega.events.v1.ValidatorUpdate
 	11, // 61: vega.events.v1.BusEvent.stake_linking:type_name -> vega.events.v1.StakeLinking
 	16, // 62: vega.events.v1.BusEvent.reward_payout:type_name -> vega.events.v1.RewardPayoutEvent
 	14, // 63: vega.events.v1.BusEvent.checkpoint:type_name -> vega.events.v1.CheckpointEvent
-	33, // 64: vega.events.v1.BusEvent.key_rotation:type_name -> vega.events.v1.KeyRotation
-	34, // 65: vega.events.v1.BusEvent.state_var:type_name -> vega.events.v1.StateVar
-	73, // 66: vega.events.v1.BusEvent.network_limits:type_name -> vega.NetworkLimits
+	34, // 64: vega.events.v1.BusEvent.key_rotation:type_name -> vega.events.v1.KeyRotation
+	35, // 65: vega.events.v1.BusEvent.state_var:type_name -> vega.events.v1.StateVar
+	74, // 66: vega.events.v1.BusEvent.network_limits:type_name -> vega.NetworkLimits
 	8,  // 67: vega.events.v1.BusEvent.transfer:type_name -> vega.events.v1.Transfer
-	32, // 68: vega.events.v1.BusEvent.ranking_event:type_name -> vega.events.v1.ValidatorRankingEvent
+	33, // 68: vega.events.v1.BusEvent.ranking_event:type_name -> vega.events.v1.ValidatorRankingEvent
 	12, // 69: vega.events.v1.BusEvent.erc20_multisig_signer_event:type_name -> vega.events.v1.ERC20MultiSigSignerEvent
 	13, // 70: vega.events.v1.BusEvent.erc20_multisig_set_threshold_event:type_name -> vega.events.v1.ERC20MultiSigThresholdSetEvent
 	5,  // 71: vega.events.v1.BusEvent.erc20_multisig_signer_added:type_name -> vega.events.v1.ERC20MultiSigSignerAdded
@@ -5080,7 +5197,7 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SettleDistressed); i {
+			switch v := v.(*PositionState); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5092,7 +5209,7 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MarketTick); i {
+			switch v := v.(*SettleDistressed); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5104,7 +5221,7 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuctionEvent); i {
+			switch v := v.(*MarketTick); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5116,7 +5233,7 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValidatorUpdate); i {
+			switch v := v.(*AuctionEvent); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5128,7 +5245,7 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValidatorRankingEvent); i {
+			switch v := v.(*ValidatorUpdate); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5140,7 +5257,7 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KeyRotation); i {
+			switch v := v.(*ValidatorRankingEvent); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5152,7 +5269,7 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StateVar); i {
+			switch v := v.(*KeyRotation); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5164,6 +5281,18 @@ func file_vega_events_v1_events_proto_init() {
 			}
 		}
 		file_vega_events_v1_events_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StateVar); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_vega_events_v1_events_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BusEvent); i {
 			case 0:
 				return &v.state
@@ -5196,7 +5325,7 @@ func file_vega_events_v1_events_proto_init() {
 		(*TxErrorEvent_Transfer)(nil),
 		(*TxErrorEvent_CancelTransfer)(nil),
 	}
-	file_vega_events_v1_events_proto_msgTypes[30].OneofWrappers = []interface{}{
+	file_vega_events_v1_events_proto_msgTypes[31].OneofWrappers = []interface{}{
 		(*BusEvent_TimeUpdate)(nil),
 		(*BusEvent_TransferResponses)(nil),
 		(*BusEvent_PositionResolution)(nil),
@@ -5249,7 +5378,7 @@ func file_vega_events_v1_events_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_vega_events_v1_events_proto_rawDesc,
 			NumEnums:      5,
-			NumMessages:   31,
+			NumMessages:   32,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

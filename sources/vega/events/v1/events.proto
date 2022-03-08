@@ -303,6 +303,22 @@ message SettlePosition {
   string position_factor = 5;
 }
 
+// A position state event contains the current position state for a single party in a single market
+message PositionState {
+  // Party identifier for this position update
+  string party_id = 1;
+  // Market identifier for this position update
+  string market_id = 2;
+  // Current position
+	int64 size = 3;
+  // Potential orders
+  int64 potential_buys = 4;
+	int64 potential_sells = 5;
+  // Volume weighted prices
+	string vwBuyPrice = 6;
+  string vwSellPrice = 7;
+}
+
 // A settle distressed event contains information on distressed trading parties who are closed out
 message SettleDistressed {
   // Note: Any PositionResolution event (market level) will most likely be followed by a number of these events
