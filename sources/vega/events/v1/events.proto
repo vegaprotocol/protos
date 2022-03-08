@@ -138,6 +138,8 @@ message StakeLinking {
   int64 block_time = 10;
   // The log index
   uint64 log_index = 11;
+  // the ethereum address from which the stake link was iniated
+  string ethereum_address = 12;
 }
 
 message ERC20MultiSigSignerEvent {

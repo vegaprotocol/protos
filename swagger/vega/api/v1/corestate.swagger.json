@@ -793,6 +793,10 @@
           "type": "string",
           "format": "uint64",
           "title": "The log index"
+        },
+        "ethereumAddress": {
+          "type": "string",
+          "title": "the ethereum address from which the stake link was iniated"
         }
       },
       "title": "StakeLinking - an event notifying of stake being deposited or removed for a given party\nThese events are emitted for every Staking deposit or removed accepted by the network"
