@@ -27,6 +27,7 @@ message Checkpoint {
   bytes banking = 9;
   bytes validators = 10;
   bytes staking = 11;
+  bytes multisig_control = 12;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -138,7 +139,6 @@ message Banking {
   RecurringTransfers recurring_transfers = 2;
 }
 
-
 message Validators {
   repeated ValidatorState validator_state = 1;
   repeated PendingKeyRotation pending_key_rotations = 2;
@@ -155,4 +155,10 @@ message ValidatorState {
 message Staking {
   repeated vega.events.v1.StakeLinking accepted = 1;
   uint64 last_block_seen = 2;
+}
+
+message MultisigControl {
+  repeated vega.events.v1.ERC20MultiSigSignerEvent signers = 1;
+  vega.events.v1.ERC20MultiSigThresholdSetEvent threshold_set = 2;
+  uint64 last_block_seen = 3;
 }
