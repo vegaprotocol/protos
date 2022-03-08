@@ -154,5 +154,5 @@ message ValidatorState {
 
 message Staking {
   repeated vega.events.v1.StakeLinking accepted = 1;
-  repeated vega.events.v1.StakeLinking pending = 2;
+  uint64 last_block_seen = 2;
 }
