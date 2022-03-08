@@ -315,8 +315,8 @@ message PositionState {
   int64 potential_buys = 4;
 	int64 potential_sells = 5;
   // Volume weighted prices
-	string vwBuyPrice = 6;
-  string vwSellPrice = 7;
+	string vw_buy_price = 6;
+  string vw_sell_price = 7;
 }
 
 // A settle distressed event contains information on distressed trading parties who are closed out
