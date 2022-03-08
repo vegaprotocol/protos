@@ -313,9 +313,9 @@ message PositionStateEvent {
 	int64 size = 3;
   // Potential orders
   int64 potential_buys = 4;
-	int64 potential_sells = 5;
+  int64 potential_sells = 5;
   // Volume weighted prices
-	string vw_buy_price = 6;
+  string vw_buy_price = 6;
   string vw_sell_price = 7;
 }
 
