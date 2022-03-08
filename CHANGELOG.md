@@ -11,7 +11,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [339](https://github.com/vegaprotocol/protos/pull/339) - Added position state message
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
