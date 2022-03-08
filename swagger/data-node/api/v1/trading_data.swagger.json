@@ -2406,7 +2406,7 @@
           "$ref": "#/definitions/v1ERC20MultiSigSignerRemoved",
           "title": "ERC20 multi sig signer removed"
         },
-        "positionStatusEvent": {
+        "positionStateEvent": {
           "$ref": "#/definitions/v1PositionStateEvent",
           "title": "Position status for a party in a market"
         },

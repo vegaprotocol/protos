@@ -629,7 +629,7 @@ message BusEvent {
     // ERC20 multi sig signer removed
     ERC20MultiSigSignerRemoved erc20_multisig_signer_removed = 144;
     // Position status for a party in a market
-    PositionStateEvent position_status_event = 145;
+    PositionStateEvent position_state_event = 145;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
