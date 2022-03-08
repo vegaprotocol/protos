@@ -26,6 +26,7 @@ message Checkpoint {
   bytes rewards = 8;
   bytes banking = 9;
   bytes validators = 10;
+  bytes staking = 11;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -149,4 +150,9 @@ message ValidatorState {
   uint64 eth_events_forwarded = 3;
   int64 validator_power = 4;
   vega.RankingScore ranking_score = 5;
+}
+
+message Staking {
+  repeated vega.events.v1.StakeLinking accepted = 1;
+  repeated vega.events.v1.StakeLinking pending = 2;
 }
