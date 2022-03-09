@@ -310,7 +310,7 @@ message PositionStateEvent {
   // Market identifier for this position update
   string market_id = 2;
   // Current position
-	int64 size = 3;
+  int64 size = 3;
   // Potential orders
   int64 potential_buys = 4;
   int64 potential_sells = 5;
