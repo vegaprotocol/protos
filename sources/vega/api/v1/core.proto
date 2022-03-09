@@ -270,6 +270,8 @@ message Statistics {
   string chain_id = 33;
   // Current number of stream subscribers to market depth update data
   uint32 market_depth_updates_subscriptions = 34;
+  // Current block hash
+  string block_hash = 35;
 }
 
 // A request to get the height of the very last block processed
@@ -280,4 +282,5 @@ message LastBlockHeightRequest {}
 // tendermint
 message LastBlockHeightResponse {
   uint64 height = 1;
+  string hash = 2;
 }

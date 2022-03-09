@@ -985,6 +985,9 @@
         "height": {
           "type": "string",
           "format": "uint64"
+        },
+        "hash": {
+          "type": "string"
         }
       },
       "title": "A response with the height of the last block processed by\ntendermint"
@@ -1813,6 +1816,10 @@
           "type": "integer",
           "format": "int64",
           "title": "Current number of stream subscribers to market depth update data"
+        },
+        "blockHash": {
+          "type": "string",
+          "title": "Current block hash"
         }
       },
       "title": "Vega domain specific statistics as reported by the node the caller is connected to"
