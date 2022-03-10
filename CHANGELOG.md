@@ -13,6 +13,7 @@
 ### 🛠 Improvements
 - [339](https://github.com/vegaprotocol/protos/pull/339) - Added position state message
 - [341](https://github.com/vegaprotocol/protos/issues/341) - https://github.com/vegaprotocol/protos/issues/341
+- [344](https://github.com/vegaprotocol/protos/issues/344) - Add the data structures for staking and `multisigcontrol` checkpoints
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
