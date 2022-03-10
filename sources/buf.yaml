@@ -1,8 +1,5 @@
-version: v1beta1
+version: v1
 
-build:
-  roots:
-    - sources
 lint:
   use:
     - DEFAULT
@@ -16,4 +13,5 @@ lint:
       - vega/tm/replay.proto
 breaking:
   use:
+    - FILE
     - WIRE_JSON
