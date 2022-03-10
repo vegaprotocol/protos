@@ -4,8 +4,6 @@ package vega;
 option go_package = "code.vegaprotocol.io/protos/vega";
 
 import "vega/markets.proto";
-import "vega/assets.proto";
-
 
 // A side relates to the direction of an order, to Buy, or Sell
 enum Side {

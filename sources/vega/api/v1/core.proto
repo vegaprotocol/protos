@@ -5,15 +5,8 @@ package vega.api.v1;
 option go_package = "code.vegaprotocol.io/protos/vega/api/v1";
 
 import "vega/vega.proto";
-import "vega/markets.proto";
-import "vega/governance.proto";
-import "vega/assets.proto";
 import "vega/events/v1/events.proto";
-import "vega/oracles/v1/spec.proto";
-import "vega/oracles/v1/data.proto";
-import "vega/commands/v1/commands.proto";
 import "vega/commands/v1/transaction.proto";
-import "vega/commands/v1/validator_commands.proto";
 
 service CoreService {
   // Submit a signed transaction

@@ -3,7 +3,7 @@
 # Note: Make sure the versions match the ones in devops-infra/docker/cipipeline/Dockerfile
 
 gettools_develop() {
-	tools="github.com/bufbuild/buf/cmd/buf@v1.0.0-rc12
+	tools="github.com/bufbuild/buf/cmd/buf@v1.1.0
 google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
 google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v2.7.3
