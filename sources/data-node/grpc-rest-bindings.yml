@@ -124,6 +124,8 @@ http:
     # LiquidityProvision
     - selector: datanode.api.v1.TradingDataService.LiquidityProvisions
       get: "/liquidity-provisions/party/{party}/market/{market}"
+    - selector: datanode.api.v1.TradingDataService.LiquidityProvisions
+      get: "/liquidity-provisions/market/{market}"
 
     # Miscellaneous
     - selector: datanode.api.v1.TradingDataService.GetVegaTime
