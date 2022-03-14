@@ -132,6 +132,14 @@ message StakeLinking {
   int64 finalized_at = 7;
   // The hash of the transaction from which the events happen
   string tx_hash = 8;
+  // The block when the event happened
+  uint64 block_height = 9;
+  // The block time
+  int64 block_time = 10;
+  // The log index
+  uint64 log_index = 11;
+  // the ethereum address from which the stake link was iniated
+  string ethereum_address = 12;
 }
 
 message ERC20MultiSigSignerEvent {
@@ -301,6 +309,22 @@ message SettlePosition {
   repeated TradeSettlement trade_settlements = 4;
   // Position factor - 10 ^ number of position decimal places
   string position_factor = 5;
+}
+
+// A position state event contains the current position state for a single party in a single market
+message PositionStateEvent {
+  // Party identifier for this position update
+  string party_id = 1;
+  // Market identifier for this position update
+  string market_id = 2;
+  // Current position
+  int64 size = 3;
+  // Potential orders
+  int64 potential_buys = 4;
+  int64 potential_sells = 5;
+  // Volume weighted prices
+  string vw_buy_price = 6;
+  string vw_sell_price = 7;
 }
 
 // A settle distressed event contains information on distressed trading parties who are closed out
@@ -508,6 +532,8 @@ enum BusEventType {
   BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_ADDED = 44;
   // Event indicating a signer has been removed from the erc20 multisig
   BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED = 45;
+  // Event indicting that a party's position has changed
+  BUS_EVENT_TYPE_POSITION_STATE = 46;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -610,6 +636,8 @@ message BusEvent {
     ERC20MultiSigSignerAdded erc20_multisig_signer_added = 143;
     // ERC20 multi sig signer removed
     ERC20MultiSigSignerRemoved erc20_multisig_signer_removed = 144;
+    // Position status for a party in a market
+    PositionStateEvent position_state_event = 145;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
