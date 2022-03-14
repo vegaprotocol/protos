@@ -32,6 +32,10 @@ type TradingDataServiceClient interface {
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
+	// Get a list of Candles by Market
+	Candles(ctx context.Context, in *CandlesRequest, opts ...grpc.CallOption) (*CandlesResponse, error)
+	// Subscribe to a stream of Candles
+	CandlesSubscribe(ctx context.Context, in *CandlesSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_CandlesSubscribeClient, error)
 }
 
 type tradingDataServiceClient struct {
@@ -87,6 +91,47 @@ func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) Candles(ctx context.Context, in *CandlesRequest, opts ...grpc.CallOption) (*CandlesResponse, error) {
+	out := new(CandlesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/Candles", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) CandlesSubscribe(ctx context.Context, in *CandlesSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_CandlesSubscribeClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/CandlesSubscribe", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceCandlesSubscribeClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_CandlesSubscribeClient interface {
+	Recv() (*CandlesSubscribeResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceCandlesSubscribeClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceCandlesSubscribeClient) Recv() (*CandlesSubscribeResponse, error) {
+	m := new(CandlesSubscribeResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -101,6 +146,10 @@ type TradingDataServiceServer interface {
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
+	// Get a list of Candles by Market
+	Candles(context.Context, *CandlesRequest) (*CandlesResponse, error)
+	// Subscribe to a stream of Candles
+	CandlesSubscribe(*CandlesSubscribeRequest, TradingDataService_CandlesSubscribeServer) error
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -122,6 +171,12 @@ func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Co
 }
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
+}
+func (UnimplementedTradingDataServiceServer) Candles(context.Context, *CandlesRequest) (*CandlesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Candles not implemented")
+}
+func (UnimplementedTradingDataServiceServer) CandlesSubscribe(*CandlesSubscribeRequest, TradingDataService_CandlesSubscribeServer) error {
+	return status.Errorf(codes.Unimplemented, "method CandlesSubscribe not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -226,6 +281,45 @@ func _TradingDataService_GetNetworkLimits_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_Candles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CandlesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).Candles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/Candles",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).Candles(ctx, req.(*CandlesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_CandlesSubscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CandlesSubscribeRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).CandlesSubscribe(m, &tradingDataServiceCandlesSubscribeServer{stream})
+}
+
+type TradingDataService_CandlesSubscribeServer interface {
+	Send(*CandlesSubscribeResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceCandlesSubscribeServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceCandlesSubscribeServer) Send(m *CandlesSubscribeResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -253,7 +347,17 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "GetNetworkLimits",
 			Handler:    _TradingDataService_GetNetworkLimits_Handler,
 		},
+		{
+			MethodName: "Candles",
+			Handler:    _TradingDataService_Candles_Handler,
+		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "CandlesSubscribe",
+			Handler:       _TradingDataService_CandlesSubscribe_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "data-node/api/v2/trading_data.proto",
 }
