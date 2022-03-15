@@ -182,9 +182,9 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 				errs.AddForProperty("order_submission.price", ErrNotAValidInteger)
 			}
 
-			if price.Cmp(big.NewInt(0)) == 0 {
+			if price.Cmp(big.NewInt(0)) != 1 {
 				errs.AddForProperty("order_submission.price",
-					errors.New("is required when the order is of type LIMIT"),
+					errors.New("must be positive when the order is of type LIMIT"),
 				)
 			}
 		}

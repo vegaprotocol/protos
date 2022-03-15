@@ -30,6 +30,10 @@ service CoreService {
   rpc ObserveEventBus(stream ObserveEventBusRequest) returns (stream ObserveEventBusResponse);
   // Submit a version agnostic signed transaction
   rpc SubmitRawTransaction(SubmitRawTransactionRequest) returns (SubmitRawTransactionResponse);
+  // Check a signed transaction
+  rpc CheckTransaction(CheckTransactionRequest) returns (CheckTransactionResponse);
+   // Check a raw signed transaction
+  rpc CheckRawTransaction(CheckRawTransactionRequest) returns (CheckRawTransactionResponse);
 }
 
 // Request for a new event sent by the blockchain queue to be propagated on Vega
@@ -77,8 +81,32 @@ message SubmitTransactionResponse {
   bool success = 1;
   // Hash of the transaction, if accepted
   string tx_hash = 2;
+  // Result code success if unsucessful
+  uint32 code     = 3;
+  // Data for details
+  string data     = 4;
+  string log = 5 ;
+  // Height for commit
+  int64 height = 6;
 }
 
+// Request for checking a transaction v2 on Vega
+message CheckTransactionRequest {
+  // A bundle of signed payload and signature, to form a transaction that would be submitted to the Vega blockchain
+  vega.commands.v1.Transaction tx = 1;
+}
+
+message CheckTransactionResponse {
+  // Success will be true if the transaction was checked by the node
+  bool success      = 1;
+
+  // Check code result
+  uint32 code       = 2;
+  // Gas wanted for transaction
+  int64 gas_wanted  = 3;
+  // Gas used for transaction
+  int64 gas_used    = 4;
+}
 
 // Request for submitting a version agnostic transaction on Vega
 message SubmitRawTransactionRequest {
@@ -105,9 +133,33 @@ message SubmitRawTransactionRequest {
 message SubmitRawTransactionResponse {
   // Success will be true if the transaction was accepted by the node,
   // **Important** - success does not mean that the event is confirmed by consensus
-  bool success = 1;
+  bool success   = 1;
   // Hash of the transaction, if accepted
   string tx_hash = 2;
+
+  uint32 code    = 3;
+  string data    = 4;
+  string log     = 5;
+  int64 height   = 6;
+}
+
+// Request for checking a version agnostic transaction on Vega
+message CheckRawTransactionRequest {
+  // A bundle of signed payload and signature marshalled into a byte array, to form a transaction that would be submitted to the Vega blockchain
+  bytes tx = 1;
+}
+
+// Response for checking a version agnostic transaction on Vega
+message CheckRawTransactionResponse {
+  // Success will be true if the transaction was checked by the node
+  bool success      = 1;
+
+  // Check code result
+  uint32 code       = 2;
+  // Gas wanted for transaction
+  int64 gas_wanted  = 3;
+  // Gas used for transaction
+  int64 gas_used    = 4;
 }
 
 // Request for the current time of the vega network
@@ -218,6 +270,8 @@ message Statistics {
   string chain_id = 33;
   // Current number of stream subscribers to market depth update data
   uint32 market_depth_updates_subscriptions = 34;
+  // Current block hash
+  string block_hash = 35;
 }
 
 // A request to get the height of the very last block processed
@@ -228,4 +282,5 @@ message LastBlockHeightRequest {}
 // tendermint
 message LastBlockHeightResponse {
   uint64 height = 1;
+  string hash = 2;
 }

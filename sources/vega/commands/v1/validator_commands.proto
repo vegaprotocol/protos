@@ -63,6 +63,10 @@ enum NodeSignatureKind {
   NODE_SIGNATURE_KIND_ASSET_NEW = 1;
   // Represents a signature for an asset withdrawal
   NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL = 2;
+  // Represents a signature for a new signer added to the erc20 multisig contract
+  NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_ADDED = 3;
+  // Represents a signature for a signer removed from the erc20 multisig contract
+  NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_REMOVED = 4;
 }
 
 // Represents a signature from a validator, to be used by a foreign chain in order to recognise a decision taken by the Vega network
@@ -77,6 +81,7 @@ message NodeSignature {
 
 // An event forwarded to the Vega network to provide information on events happening on other networks
 message ChainEvent {
+  reserved 1003, 1004;
   // The identifier of the transaction in which the events happened, usually a hash
   string tx_id = 1;
   // Arbitrary one-time integer used to prevent replay attacks
@@ -87,12 +92,10 @@ message ChainEvent {
     vega.BuiltinAssetEvent builtin = 1001;
     // Ethereum ERC20 event
     vega.ERC20Event erc20 = 1002;
-    // Bitcoin BTC event
-    vega.BTCEvent btc = 1003;
-    // Validator event
-    vega.ValidatorEvent validator = 1004;
     // Ethereum Staking event
     vega.StakingEvent staking_event = 1005;
+    // Ethereum ERC20 multisig event
+    vega.ERC20MultiSigEvent erc20_multisig = 1006;
   }
 }
 

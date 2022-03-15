@@ -8,8 +8,134 @@ import "google/protobuf/wrappers.proto";
 package datanode.api.v2;
 
 service TradingDataService {
+    // -- Orders --
+
+    // Get a list of Orders by Market
+    rpc OrdersByMarket(OrdersByMarketRequest) returns (OrdersByMarketResponse);
+
+
+    // Get all versions of the order by its orderID
+    rpc OrderVersionsByID(OrderVersionsByIDRequest) returns (OrderVersionsByIDResponse);
+
+    // -- Balances --
+
     // Get an aggregated list of the changes in balances in a set of accounts over time
     rpc QueryBalanceHistory(QueryBalanceHistoryRequest) returns (QueryBalanceHistoryResponse) {}
+
+    // -- Market Data --
+
+    // Get Market Data History for a Market ID between given dates
+    rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
+
+    // -- Network Limits --
+
+    // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
+    rpc GetNetworkLimits(GetNetworkLimitsRequest) returns (GetNetworkLimitsResponse);
+
+    // -- Candles --
+
+    // Get a list of Candles by Market
+    rpc Candles(CandlesRequest) returns (CandlesResponse);
+
+    // Subscribe to a stream of Candles
+    rpc CandlesSubscribe(CandlesSubscribeRequest) returns (stream CandlesSubscribeResponse);
+}
+
+// Represents the high, low, open, and closing prices for an interval of trading,
+// referred to commonly as a candlestick or candle
+message Candle {
+    // Timestamp for the point in time when the candle was initially created/opened, in nanoseconds since the epoch
+    // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+    int64 start = 1;
+    // Timestamp for the point in time when the candle was last updated, in nanoseconds since the epoch
+    // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+    int64 last_update = 2;
+    // Highest price for trading during the candle interval
+    string high = 3;
+    // Lowest price for trading during the candle interval
+    string low = 4;
+    // Open trade price
+    string open = 5;
+    // Closing trade price
+    string close = 6;
+    // Total trading volume during the candle interval
+    uint64 volume = 7;
+}
+
+// Request to subscribe to a stream of (Candles)[#vega.Candle]
+message CandlesSubscribeRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Time interval for the candles, required field specified as a valid postgres interval
+    string interval = 2;
+}
+
+message CandlesSubscribeResponse {
+    Candle candle = 1;
+}
+
+// Request for a list of candles for a market at an interval
+message CandlesRequest {
+    // Market identifier, required field.
+    string market_id = 1;
+
+    // Timestamp to retrieve candles since, in nanoseconds since the epoch,
+    // required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+    int64 from_timestamp = 2;
+
+    // Timestamp to retrieve candles since, in nanoseconds since the epoch,
+    // required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+    int64 to_timestamp = 3;
+
+    // Time interval for the candles, required field specified as a valid postgres interval
+    string interval = 4;
+
+    // Optional pagination controls
+    Pagination pagination = 5;
+}
+
+// Response for a list of candles for a market at an interval
+message CandlesResponse {
+    // A list of 0 or more candles
+    repeated Candle candles = 1;
+}
+
+// Request for the current network limits
+message GetNetworkLimitsRequest {}
+
+// Response for the current network limits
+message GetNetworkLimitsResponse {
+    vega.NetworkLimits limits = 1;
+}
+
+
+// Request for a list of orders for a market
+message OrdersByMarketRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional pagination controls
+    Pagination pagination = 2;
+}
+
+// Response for a list of orders for a market
+message OrdersByMarketResponse {
+    // A list of 0 or more orders
+    repeated vega.Order orders = 1;
+}
+
+
+// Request for a list of all versions of an order given the specified order identifier
+message OrderVersionsByIDRequest {
+    // Order identifier, required field
+    string order_id = 1;
+    // Pagination controls
+    Pagination pagination = 2;
+}
+
+  // Response to a request for a list of all versions of an order
+message OrderVersionsByIDResponse {
+    // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
+    repeated vega.Order orders = 1;
 }
 
 message QueryBalanceHistoryRequest {
@@ -62,6 +188,30 @@ message AggregatedBalance {
     vega.AccountType account_type = 7;
 }
 
+// Pagination controls
+message Pagination {
+    // Skip the number of records specified, default is 0
+    uint64 skip = 1;
+    // Limit the number of returned records to the value specified, default is 50
+    uint64 limit = 2;
+    // Descending reverses the order of the records returned,
+    // default is true, if false the results will be returned in ascending order
+    bool descending = 3;
+}
 
+// Request for Market Data History
+message GetMarketDataHistoryByIDRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional Unix time in nanoseconds
+    optional int64 start_timestamp = 2;
+    // Optional Unix time in nanoseconds
+    optional int64 end_timestamp = 3;
+    // Optional pagination control
+    optional Pagination pagination = 4;
+}
 
-
+// Response for Market Data History
+message GetMarketDataHistoryByIDResponse {
+    repeated vega.MarketData market_data = 1;
+}
