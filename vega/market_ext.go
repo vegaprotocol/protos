@@ -3,6 +3,7 @@ package vega
 import (
 	"errors"
 	fmt "fmt"
+	"strconv"
 )
 
 var (
@@ -35,10 +36,17 @@ func (p *PriceMonitoringTrigger) Validate() error {
 	if !(p.Horizon > 0) {
 		return fmt.Errorf("invalid field Triggers.Horizon: value '%v' must be greater than '0'", p.Horizon)
 	}
-	if !(p.Probability > 0) {
+
+	probability, err := strconv.ParseFloat(p.Probability, 64)
+
+	if err != nil {
+		return fmt.Errorf("invalid field Triggers.Probability: value '%v' must be numeric and between 0 and 1", p.Probability)
+	}
+
+	if !(probability > 0) {
 		return fmt.Errorf("invalid field Triggers.Probability: value '%v' must be strictly greater than '0'", p.Probability)
 	}
-	if !(p.Probability < 1) {
+	if !(probability < 1) {
 		return fmt.Errorf("invalid field Triggers.Probability: value '%v' must be strictly lower than '1'", p.Probability)
 	}
 	if !(p.AuctionExtension > 0) {
