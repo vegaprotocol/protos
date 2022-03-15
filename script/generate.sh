@@ -45,7 +45,14 @@ function gen_json() {
 	protoc --jsonschema_out=./generated/json/data-node/api/v2 --proto_path=./sources sources/data-node/api/v2/*.proto
 }
 
+function gen_docs() {
+  mkdir -p generated
+
+  protoc --doc_out=./generated --doc_opt=json,doc.json --proto_path=sources/ sources/**/*.proto
+}
+
 check
 gen_code
 gen_swagger
 gen_json
+gen_docs
