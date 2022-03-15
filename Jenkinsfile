@@ -26,7 +26,7 @@ pipeline {
                 stage('proto check') {
                     steps {
                         retry(3) {
-                            sh "./scripts/gettools.sh ${BRANCH_NAME}"
+                            sh "./script/gettools.sh ${BRANCH_NAME}"
                             sh 'make proto_check'
                         }
                     }
