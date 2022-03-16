@@ -3,7 +3,6 @@ syntax = "proto3";
 option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 
 import "vega/vega.proto";
-import "google/protobuf/wrappers.proto";
 
 package datanode.api.v2;
 
