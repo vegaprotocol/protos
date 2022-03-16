@@ -15,6 +15,9 @@ github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1"
 	echo "$tools" | while read -r toolurl ; do
 		go install "$toolurl"
 	done
+
+  # Try to install protoc locally
+  sudo apt -y install protobuf-compiler 
 }
 
 # # #
