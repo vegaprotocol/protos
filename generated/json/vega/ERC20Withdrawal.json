@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20Withdrawal",
+    "definitions": {
+        "ERC20Withdrawal": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                },
+                "target_ethereum_address": {
+                    "type": "string",
+                    "description": "The target Ethereum wallet address"
+                },
+                "reference_nonce": {
+                    "type": "string",
+                    "description": "The reference nonce used for the transaction"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Withdrawal",
+            "description": "An asset withdrawal for an ERC20 token"
+        }
+    }
+}

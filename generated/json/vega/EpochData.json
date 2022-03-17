@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/EpochData",
+    "definitions": {
+        "EpochData": {
+            "properties": {
+                "total": {
+                    "type": "integer",
+                    "description": "Total number of epochs since node was created"
+                },
+                "offline": {
+                    "type": "integer",
+                    "description": "Total number of offline epochs since node was created"
+                },
+                "online": {
+                    "type": "integer",
+                    "description": "Total number of online epochs since node was created"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Epoch Data"
+        }
+    }
+}

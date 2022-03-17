@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Vote",
+    "definitions": {
+        "Vote": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Voter's party identifier"
+                },
+                "value": {
+                    "enum": [
+                        "VALUE_UNSPECIFIED",
+                        0,
+                        "VALUE_NO",
+                        1,
+                        "VALUE_YES",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Value",
+                    "description": "Vote value"
+                },
+                "proposal_id": {
+                    "type": "string",
+                    "description": "Identifier of the proposal being voted on"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Vote timestamp for date and time (in nanoseconds) when vote was submitted to the network"
+                },
+                "total_governance_token_balance": {
+                    "type": "string",
+                    "description": "Total number of governance token for the party that casted the vote"
+                },
+                "total_governance_token_weight": {
+                    "type": "string",
+                    "description": "The weight of this vote based on the total of governance token"
+                },
+                "total_equity_like_share_weight": {
+                    "type": "string",
+                    "description": "The weight of the vote compared to the total number of equity-like share on the market."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Vote",
+            "description": "Governance vote"
+        }
+    }
+}

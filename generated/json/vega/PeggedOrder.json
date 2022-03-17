@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PeggedOrder",
+    "definitions": {
+        "PeggedOrder": {
+            "properties": {
+                "reference": {
+                    "enum": [
+                        "PEGGED_REFERENCE_UNSPECIFIED",
+                        0,
+                        "PEGGED_REFERENCE_MID",
+                        1,
+                        "PEGGED_REFERENCE_BEST_BID",
+                        2,
+                        "PEGGED_REFERENCE_BEST_ASK",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Pegged Reference",
+                    "description": "A pegged reference defines which price point a pegged order is linked to - meaning the price for a pegged order is calculated from the value of the reference price point"
+                },
+                "offset": {
+                    "type": "string",
+                    "description": "Offset from the price reference"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pegged Order",
+            "description": "Pegged orders are limit orders where the price is specified in the form REFERENCE +/- OFFSET They can be used for any limit order that is valid during continuous trading"
+        }
+    }
+}

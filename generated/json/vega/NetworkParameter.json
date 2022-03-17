@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NetworkParameter",
+    "definitions": {
+        "NetworkParameter": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The unique key"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value for the network parameter"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Network Parameter",
+            "description": "Represents a network parameter on Vega"
+        }
+    }
+}

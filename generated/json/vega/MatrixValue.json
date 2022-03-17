@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MatrixValue",
+    "definitions": {
+        "MatrixValue": {
+            "properties": {
+                "value": {
+                    "items": {
+                        "$ref": "#/definitions/vega.VectorValue"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Matrix Value"
+        },
+        "vega.VectorValue": {
+            "properties": {
+                "value": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Vector Value"
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RankingScore",
+    "definitions": {
+        "RankingScore": {
+            "properties": {
+                "stake_score": {
+                    "type": "string",
+                    "description": "stake based score - no anti-whaling"
+                },
+                "performance_score": {
+                    "type": "string",
+                    "description": "performance based score"
+                },
+                "previous_status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                },
+                "status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                },
+                "voting_power": {
+                    "type": "integer",
+                    "description": "tendermint voting power of the validator"
+                },
+                "ranking_score": {
+                    "type": "string",
+                    "description": "final score"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ranking Score"
+        }
+    }
+}

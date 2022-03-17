@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetVegaTimeResponse",
+    "definitions": {
+        "GetVegaTimeResponse": {
+            "properties": {
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp representation of current VegaTime as represented in Nanoseconds since the epoch, for example `1580473859111222333` corresponds to `2020-01-31T12:30:59.111222333Z`"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Vega Time Response",
+            "description": "Response for the current consensus coordinated time on the Vega network, referred to as \"VegaTime\""
+        }
+    }
+}

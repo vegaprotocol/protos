@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarginLevelsSubscribeRequest",
+    "definitions": {
+        "MarginLevelsSubscribeRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier, required field"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Margin Levels Subscribe Request",
+            "description": "Request to subscribe to a stream of MarginLevels data matching the given party identifier Optionally, the list can be additionally filtered by market"
+        }
+    }
+}

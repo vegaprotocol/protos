@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/StakeDeposited",
+    "definitions": {
+        "StakeDeposited": {
+            "properties": {
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "Ethereum Address of the user depositing stake (hex encode with 0x prefix)"
+                },
+                "vega_public_key": {
+                    "type": "string",
+                    "description": "The public of the party receiving the stake deposit (hex encode)"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount deposited (base 10)"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake started to be available."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stake Deposited"
+        }
+    }
+}

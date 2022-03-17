@@ -26,6 +26,7 @@ pipeline {
                 stage('proto check') {
                     steps {
                         retry(3) {
+                            sh "./script/gettools.sh develop"
                             sh 'make proto_check'
                         }
                     }

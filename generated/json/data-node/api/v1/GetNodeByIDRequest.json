@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetNodeByIDRequest",
+    "definitions": {
+        "GetNodeByIDRequest": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Required id of node"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Node By ID Request",
+            "description": "Request to list all nodes"
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetNodesRequest",
+    "definitions": {
+        "GetNodesRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Nodes Request",
+            "description": "Request to list all nodes"
+        }
+    }
+}

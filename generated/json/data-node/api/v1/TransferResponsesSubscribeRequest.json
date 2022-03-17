@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TransferResponsesSubscribeRequest",
+    "definitions": {
+        "TransferResponsesSubscribeRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Responses Subscribe Request"
+        }
+    }
+}

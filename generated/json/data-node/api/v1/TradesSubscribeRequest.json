@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TradesSubscribeRequest",
+    "definitions": {
+        "TradesSubscribeRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Trades Subscribe Request",
+            "description": "Request to subscribe to a stream of (Trades)[#vega.Trade]  The fields for market identifier and party identifier are optional filters: If omitted all trades, for all parties on all markets will be returned on the stream If market identifier is given, trades from that market will be returned on the stream If party identifier is given, trades from that party will be returned on the stream Both filters can be combined"
+        }
+    }
+}

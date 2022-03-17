@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PriceMonitoringBounds",
+    "definitions": {
+        "PriceMonitoringBounds": {
+            "properties": {
+                "min_valid_price": {
+                    "type": "string",
+                    "description": "Minimum price that isn't currently breaching the specified price monitoring trigger"
+                },
+                "max_valid_price": {
+                    "type": "string",
+                    "description": "Maximum price that isn't currently breaching the specified price monitoring trigger"
+                },
+                "trigger": {
+                    "$ref": "#/definitions/vega.PriceMonitoringTrigger",
+                    "additionalProperties": true,
+                    "description": "Price monitoring trigger associated with the bounds"
+                },
+                "reference_price": {
+                    "type": "string",
+                    "description": "Reference price used to calculate the valid price range"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Bounds",
+            "description": "Represents a list of valid (at the current timestamp) price ranges per associated trigger"
+        },
+        "vega.PriceMonitoringTrigger": {
+            "properties": {
+                "horizon": {
+                    "type": "string",
+                    "description": "Price monitoring projection horizon τ in seconds"
+                },
+                "probability": {
+                    "type": "string",
+                    "description": "Price monitoring probability level p"
+                },
+                "auction_extension": {
+                    "type": "string",
+                    "description": "Price monitoring auction extension duration in seconds should the price breach it's theoretical level over the specified horizon at the specified probability level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price Monitoring Trigger",
+            "description": "PriceMonitoringTrigger holds together price projection horizon τ, probability level p, and auction extension duration"
+        }
+    }
+}

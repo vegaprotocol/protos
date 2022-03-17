@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ObserveGovernanceRequest",
+    "definitions": {
+        "ObserveGovernanceRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observe Governance Request",
+            "description": "Request to obsever all event related to governance"
+        }
+    }
+}

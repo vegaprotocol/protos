@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Delegation",
+    "definitions": {
+        "Delegation": {
+            "properties": {
+                "party": {
+                    "type": "string",
+                    "description": "Party which is delegating"
+                },
+                "node_id": {
+                    "type": "string",
+                    "description": "Node ID"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "Amount delegated"
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "Epoch of delegation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Delegation"
+        }
+    }
+}

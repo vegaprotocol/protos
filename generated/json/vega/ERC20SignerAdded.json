@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20SignerAdded",
+    "definitions": {
+        "ERC20SignerAdded": {
+            "properties": {
+                "new_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the new signer"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce create by the vega network used for this new signer"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Signer Added",
+            "description": "A new signer added to the ERC20 bridge"
+        }
+    }
+}

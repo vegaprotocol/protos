@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TradesByOrderRequest",
+    "definitions": {
+        "TradesByOrderRequest": {
+            "properties": {
+                "order_id": {
+                    "type": "string",
+                    "description": "Order identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Trades By Order Request",
+            "description": "Request for a list of trades related to an order"
+        }
+    }
+}

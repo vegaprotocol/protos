@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Reward",
+    "definitions": {
+        "Reward": {
+            "properties": {
+                "asset_id": {
+                    "type": "string"
+                },
+                "party_id": {
+                    "type": "string"
+                },
+                "epoch": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "string"
+                },
+                "percentage_of_total": {
+                    "type": "string"
+                },
+                "received_at": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Reward",
+            "description": "Details for a single reward payment"
+        }
+    }
+}

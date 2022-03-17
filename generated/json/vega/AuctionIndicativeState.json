@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/AuctionIndicativeState",
+    "definitions": {
+        "AuctionIndicativeState": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "The market identifier for which this state relates to"
+                },
+                "indicative_price": {
+                    "type": "string",
+                    "description": "The Indicative Uncrossing Price is the price at which all trades would occur if we uncrossed the auction now"
+                },
+                "indicative_volume": {
+                    "type": "string",
+                    "description": "The Indicative Uncrossing Volume is the volume available at the Indicative crossing price if we uncrossed the auction now"
+                },
+                "auction_start": {
+                    "type": "string",
+                    "description": "The timestamp at which the auction started"
+                },
+                "auction_end": {
+                    "type": "string",
+                    "description": "The timestamp at which the auction is meant to stop"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Auction Indicative State",
+            "description": "AuctionIndicativeState is used to emit an event with the indicative price/volume per market during an auction"
+        }
+    }
+}

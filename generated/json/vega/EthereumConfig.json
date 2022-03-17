@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/EthereumConfig",
+    "definitions": {
+        "EthereumConfig": {
+            "properties": {
+                "network_id": {
+                    "type": "string",
+                    "description": "Network identifier of this Ethereum network."
+                },
+                "chain_id": {
+                    "type": "string",
+                    "description": "Chain identifier of this Ethereum network."
+                },
+                "collateral_bridge_contract": {
+                    "$ref": "#/definitions/vega.EthereumContractConfig",
+                    "additionalProperties": true,
+                    "description": "// Contract configuration of the collateral bridge contract for this Ethereum network."
+                },
+                "confirmations": {
+                    "type": "integer",
+                    "description": "Number of block confirmations to wait to consider an Ethereum transaction trusted. An Ethereum block is trusted when there are at least \"n\" blocks confirmed by the network, \"n\" being the number of `confirmations` required. If `confirmations` was set to `3`, and the current block to be forged (or mined) on Ethereum is block 14, block 10 would be considered as trusted, but not block 11."
+                },
+                "staking_bridge_contract": {
+                    "$ref": "#/definitions/vega.EthereumContractConfig",
+                    "additionalProperties": true,
+                    "description": "Contract configuration of the stacking bridge contract for this Ethereum network."
+                },
+                "token_vesting_contract": {
+                    "$ref": "#/definitions/vega.EthereumContractConfig",
+                    "additionalProperties": true,
+                    "description": "Contract configuration of the token vesting contract for this Ethereum network."
+                },
+                "multisig_control_contract": {
+                    "$ref": "#/definitions/vega.EthereumContractConfig",
+                    "additionalProperties": true,
+                    "description": "Contract configuration of the multisig controld contract for this Ethereum network."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ethereum Config",
+            "description": "Ethereum configuration details."
+        },
+        "vega.EthereumContractConfig": {
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "description": "Address of the contract for this Ethereum network. The address should start with \"0x\"."
+                },
+                "deployment_block_height": {
+                    "type": "string",
+                    "description": "Block height at which the stacking contract has been deployed for this Ethereum network."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ethereum Contract Config"
+        }
+    }
+}

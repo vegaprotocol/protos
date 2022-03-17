@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/StakeTotalSupply",
+    "definitions": {
+        "StakeTotalSupply": {
+            "properties": {
+                "token_address": {
+                    "type": "string",
+                    "description": "The address of the staking asset"
+                },
+                "total_supply": {
+                    "type": "string",
+                    "description": "The total supply observed for the token"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stake Total Supply"
+        }
+    }
+}

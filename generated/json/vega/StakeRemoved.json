@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/StakeRemoved",
+    "definitions": {
+        "StakeRemoved": {
+            "properties": {
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "Ethereum address of the user removing stake (hex encode with 0x prefix)"
+                },
+                "vega_public_key": {
+                    "type": "string",
+                    "description": "The public key of the party from which to remove stake (hex encode)"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount removed (base 10)"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stake Removed"
+        }
+    }
+}

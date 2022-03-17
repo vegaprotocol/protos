@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Price",
+    "definitions": {
+        "Price": {
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "description": "Price value, given as an integer, for example `123456` is a correctly formatted price of `1.23456` assuming market configured to 5 decimal places"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Price"
+        }
+    }
+}

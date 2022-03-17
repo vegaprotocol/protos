@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/FinancialAmount",
+    "definitions": {
+        "FinancialAmount": {
+            "properties": {
+                "amount": {
+                    "type": "string",
+                    "description": "A signed integer amount of asset"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Financial Amount",
+            "description": "Asset value information used within a transfer"
+        }
+    }
+}

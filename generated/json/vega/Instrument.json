@@ -1,0 +1,250 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Instrument",
+    "definitions": {
+        "Instrument": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Instrument identifier"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "Code for the instrument"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the instrument"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/vega.InstrumentMetadata",
+                    "additionalProperties": true,
+                    "description": "A collection of instrument meta-data"
+                },
+                "future": {
+                    "$ref": "#/definitions/vega.Future",
+                    "additionalProperties": true,
+                    "description": "Future"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Instrument",
+            "description": "Instrument definition"
+        },
+        "oracles.v1.Condition": {
+            "properties": {
+                "operator": {
+                    "enum": [
+                        "OPERATOR_UNSPECIFIED",
+                        0,
+                        "OPERATOR_EQUALS",
+                        1,
+                        "OPERATOR_GREATER_THAN",
+                        2,
+                        "OPERATOR_GREATER_THAN_OR_EQUAL",
+                        3,
+                        "OPERATOR_LESS_THAN",
+                        4,
+                        "OPERATOR_LESS_THAN_OR_EQUAL",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Operator",
+                    "description": "Comparator describes the type of comparison."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "value is used by the comparator."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Condition",
+            "description": "Condition describes the condition that must be validated by the"
+        },
+        "oracles.v1.Filter": {
+            "properties": {
+                "key": {
+                    "$ref": "#/definitions/oracles.v1.PropertyKey",
+                    "additionalProperties": true,
+                    "description": "key is the oracle data property key targeted by the filter."
+                },
+                "conditions": {
+                    "items": {
+                        "$ref": "#/definitions/oracles.v1.Condition"
+                    },
+                    "type": "array",
+                    "description": "conditions are the conditions that should be matched by the data to be considered of interest."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Filter",
+            "description": "Filter describes the conditions under which an oracle data is considered of interest or not."
+        },
+        "oracles.v1.OracleSpec": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "id is a hash generated from the OracleSpec data."
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Creation Date time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Last Updated timestamp"
+                },
+                "pub_keys": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "pubKeys is the list of authorized public keys that signed the data for this oracle. All the public keys in the oracle data should be contained in these public keys."
+                },
+                "filters": {
+                    "items": {
+                        "$ref": "#/definitions/oracles.v1.Filter"
+                    },
+                    "type": "array",
+                    "description": "filters describes which oracle data are considered of interest or not for the product (or the risk model)."
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_ACTIVE",
+                        1,
+                        "STATUS_DEACTIVATED",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status",
+                    "description": "Status describe the status of the oracle spec"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Spec",
+            "description": "An oracle spec describe the oracle data that a product (or a risk model) wants to get from the oracle engine. This message contains additional information used by the API."
+        },
+        "oracles.v1.PropertyKey": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "name is the name of the property."
+                },
+                "type": {
+                    "enum": [
+                        "TYPE_UNSPECIFIED",
+                        0,
+                        "TYPE_EMPTY",
+                        1,
+                        "TYPE_INTEGER",
+                        2,
+                        "TYPE_STRING",
+                        3,
+                        "TYPE_BOOLEAN",
+                        4,
+                        "TYPE_DECIMAL",
+                        5,
+                        "TYPE_TIMESTAMP",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type",
+                    "description": "Type describes the type of properties that are supported by the oracle engine."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Property Key",
+            "description": "PropertyKey describes the property key contained in an oracle data."
+        },
+        "vega.Future": {
+            "properties": {
+                "settlement_asset": {
+                    "type": "string",
+                    "description": "The asset for the future"
+                },
+                "quote_name": {
+                    "type": "string",
+                    "description": "Quote name of the instrument"
+                },
+                "oracle_spec_for_settlement_price": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "additionalProperties": true,
+                    "description": "The oracle spec describing the settlement price oracle filter"
+                },
+                "oracle_spec_for_trading_termination": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "additionalProperties": true,
+                    "description": "the oracle spec describing the trading termination oracle filter"
+                },
+                "oracle_spec_binding": {
+                    "$ref": "#/definitions/vega.OracleSpecToFutureBinding",
+                    "additionalProperties": true,
+                    "description": "The binding between the oracle spec and the oracle data"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Future",
+            "description": "Future product definition"
+        },
+        "vega.InstrumentMetadata": {
+            "properties": {
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "A list of 0 or more tags"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Instrument Metadata",
+            "description": "Instrument metadata definition"
+        },
+        "vega.OracleSpecToFutureBinding": {
+            "properties": {
+                "settlement_price_property": {
+                    "type": "string",
+                    "description": "settlement_price_property holds the name of the property in the oracle data that should be used as settlement price. If it is set to \"prices.BTC.value\", then the Future will use the value of this property as settlement price."
+                },
+                "trading_termination_property": {
+                    "type": "string",
+                    "description": "the name of the property in the oracle data that signals termination of trading"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Spec To Future Binding",
+            "description": "OracleSpecToFutureBinding tells on which property oracle data should be used as settlement price and which to use the trading terminated trigger"
+        }
+    }
+}

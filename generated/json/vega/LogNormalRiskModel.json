@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LogNormalRiskModel",
+    "definitions": {
+        "LogNormalRiskModel": {
+            "properties": {
+                "risk_aversion_parameter": {
+                    "type": "number",
+                    "description": "Risk Aversion Parameter"
+                },
+                "tau": {
+                    "type": "number",
+                    "description": "Tau"
+                },
+                "params": {
+                    "$ref": "#/definitions/vega.LogNormalModelParams",
+                    "additionalProperties": true,
+                    "description": "Risk model parameters for log normal"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Log Normal Risk Model",
+            "description": "Risk model for log normal"
+        },
+        "vega.LogNormalModelParams": {
+            "properties": {
+                "mu": {
+                    "type": "number",
+                    "description": "Mu param"
+                },
+                "r": {
+                    "type": "number",
+                    "description": "R param"
+                },
+                "sigma": {
+                    "type": "number",
+                    "description": "Sigma param"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Log Normal Model Params",
+            "description": "Risk model parameters for log normal"
+        }
+    }
+}
