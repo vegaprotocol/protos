@@ -94,7 +94,7 @@ message CandlesRequest {
     Pagination pagination = 5;
 }
 
-// Response for a list of candles for a market at an interval
+// Response for list of candles for a market at an interval
 message CandlesResponse {
     // A list of 0 or more candles
     repeated Candle candles = 1;
