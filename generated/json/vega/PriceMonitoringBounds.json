@@ -18,7 +18,7 @@
                     "description": "Price monitoring trigger associated with the bounds"
                 },
                 "reference_price": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Reference price used to calculate the valid price range"
                 }
             },
@@ -34,7 +34,7 @@
                     "description": "Price monitoring projection horizon τ in seconds"
                 },
                 "probability": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Price monitoring probability level p"
                 },
                 "auction_extension": {

@@ -40,7 +40,7 @@
                     "description": "Price monitoring projection horizon τ in seconds"
                 },
                 "probability": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Price monitoring probability level p"
                 },
                 "auction_extension": {

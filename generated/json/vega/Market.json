@@ -99,6 +99,10 @@
                     "$ref": "#/definitions/vega.MarketTimestamps",
                     "additionalProperties": true,
                     "description": "Timestamps for when the market stay changes"
+                },
+                "position_decimal_places": {
+                    "type": "string",
+                    "description": "The number of decimal places for position"
                 }
             },
             "additionalProperties": true,
@@ -536,7 +540,7 @@
                     "description": "Price monitoring projection horizon τ in seconds"
                 },
                 "probability": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Price monitoring probability level p"
                 },
                 "auction_extension": {

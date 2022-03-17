@@ -544,6 +544,10 @@
                     "$ref": "#/definitions/vega.LogNormalRiskModel",
                     "additionalProperties": true,
                     "description": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+                },
+                "position_decimal_places": {
+                    "type": "string",
+                    "description": "Decimal places for order sizes"
                 }
             },
             "additionalProperties": true,
@@ -588,7 +592,7 @@
                     "description": "Price monitoring projection horizon τ in seconds"
                 },
                 "probability": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Price monitoring probability level p"
                 },
                 "auction_extension": {
@@ -719,7 +723,17 @@
                         "PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED",
                         32,
                         "PROPOSAL_ERROR_INVALID_ASSET_DETAILS",
-                        33
+                        33,
+                        "PROPOSAL_ERROR_UNKNOWN_TYPE",
+                        34,
+                        "PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE",
+                        35,
+                        "PROPOSAL_ERROR_INVALID_FREEFORM",
+                        36,
+                        "PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE",
+                        37,
+                        "PROPOSAL_ERROR_INVALID_MARKET",
+                        38
                     ],
                     "oneOf": [
                         {
@@ -831,11 +845,102 @@
             "title": "Target Stake Parameters",
             "description": "TargetStakeParameters contains parameters used in target stake calculation"
         },
+        "vega.UpdateFutureProduct": {
+            "properties": {
+                "quote_name": {
+                    "type": "string",
+                    "description": "Product quote name"
+                },
+                "oracle_spec_for_settlement_price": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "additionalProperties": true,
+                    "description": "The oracle spec describing the oracle data of settlement price"
+                },
+                "oracle_spec_for_trading_termination": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "additionalProperties": true,
+                    "description": "The oracle spec describing the oracle data of trading termination"
+                },
+                "oracle_spec_binding": {
+                    "$ref": "#/definitions/vega.OracleSpecToFutureBinding",
+                    "additionalProperties": true,
+                    "description": "The binding between the oracle spec and the settlement price"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Update Future Product",
+            "description": "Future product configuration"
+        },
+        "vega.UpdateInstrumentConfiguration": {
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Instrument code"
+                },
+                "future": {
+                    "$ref": "#/definitions/vega.UpdateFutureProduct",
+                    "additionalProperties": true,
+                    "description": "Future"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Update Instrument Configuration",
+            "description": "Instrument configuration"
+        },
         "vega.UpdateMarket": {
+            "properties": {
+                "changes": {
+                    "$ref": "#/definitions/vega.UpdateMarketConfiguration",
+                    "additionalProperties": true,
+                    "description": "The updated configuration of the market"
+                }
+            },
             "additionalProperties": true,
             "type": "object",
             "title": "Update Market",
             "description": "Update an existing market on Vega"
+        },
+        "vega.UpdateMarketConfiguration": {
+            "properties": {
+                "instrument": {
+                    "$ref": "#/definitions/vega.UpdateInstrumentConfiguration",
+                    "additionalProperties": true,
+                    "description": "Updated market instrument configuration"
+                },
+                "metadata": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Optional market metadata, tags"
+                },
+                "price_monitoring_parameters": {
+                    "$ref": "#/definitions/vega.PriceMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Price monitoring parameters"
+                },
+                "liquidity_monitoring_parameters": {
+                    "$ref": "#/definitions/vega.LiquidityMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Liquidity monitoring parameters"
+                },
+                "simple": {
+                    "$ref": "#/definitions/vega.SimpleModelParams",
+                    "additionalProperties": true,
+                    "description": "Simple risk model parameters, valid only if MODEL_SIMPLE is selected"
+                },
+                "log_normal": {
+                    "$ref": "#/definitions/vega.LogNormalRiskModel",
+                    "additionalProperties": true,
+                    "description": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Update Market Configuration",
+            "description": "Configuration to update a market on Vega"
         },
         "vega.UpdateNetworkParameter": {
             "properties": {
@@ -891,6 +996,10 @@
                 "total_governance_token_weight": {
                     "type": "string",
                     "description": "The weight of this vote based on the total of governance token"
+                },
+                "total_equity_like_share_weight": {
+                    "type": "string",
+                    "description": "The weight of the vote compared to the total number of equity-like share on the market."
                 }
             },
             "additionalProperties": true,

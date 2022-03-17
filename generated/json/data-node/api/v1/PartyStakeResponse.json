@@ -83,6 +83,22 @@
                 "tx_hash": {
                     "type": "string",
                     "description": "The hash of the transaction from which the events happen"
+                },
+                "block_height": {
+                    "type": "string",
+                    "description": "The block when the event happened"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The block time"
+                },
+                "log_index": {
+                    "type": "string",
+                    "description": "The log index"
+                },
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "the ethereum address from which the stake link was iniated"
                 }
             },
             "additionalProperties": true,

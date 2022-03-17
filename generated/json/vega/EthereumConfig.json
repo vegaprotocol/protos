@@ -30,6 +30,11 @@
                     "$ref": "#/definitions/vega.EthereumContractConfig",
                     "additionalProperties": true,
                     "description": "Contract configuration of the token vesting contract for this Ethereum network."
+                },
+                "multisig_control_contract": {
+                    "$ref": "#/definitions/vega.EthereumContractConfig",
+                    "additionalProperties": true,
+                    "description": "Contract configuration of the multisig controld contract for this Ethereum network."
                 }
             },
             "additionalProperties": true,

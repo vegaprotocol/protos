@@ -36,7 +36,11 @@
                         "NODE_SIGNATURE_KIND_ASSET_NEW",
                         1,
                         "NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL",
-                        2
+                        2,
+                        "NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_ADDED",
+                        3,
+                        "NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_REMOVED",
+                        4
                     ],
                     "oneOf": [
                         {

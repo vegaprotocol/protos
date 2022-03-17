@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RewardScore",
+    "definitions": {
+        "RewardScore": {
+            "properties": {
+                "raw_validator_score": {
+                    "type": "string",
+                    "description": "stake based score - with anti-whaling"
+                },
+                "performance_score": {
+                    "type": "string",
+                    "description": "performance based score"
+                },
+                "multisig_score": {
+                    "type": "string",
+                    "description": "multisig score"
+                },
+                "validator_score": {
+                    "type": "string",
+                    "description": "un-normalised score"
+                },
+                "normalised_score": {
+                    "type": "string",
+                    "description": "normalised validator score for rewards"
+                },
+                "validator_status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Reward Score"
+        }
+    }
+}

@@ -1,19 +1,46 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/UpdateMarket",
+    "$ref": "#/definitions/UpdateMarketConfiguration",
     "definitions": {
-        "UpdateMarket": {
+        "UpdateMarketConfiguration": {
             "properties": {
-                "changes": {
-                    "$ref": "#/definitions/vega.UpdateMarketConfiguration",
+                "instrument": {
+                    "$ref": "#/definitions/vega.UpdateInstrumentConfiguration",
                     "additionalProperties": true,
-                    "description": "The updated configuration of the market"
+                    "description": "Updated market instrument configuration"
+                },
+                "metadata": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Optional market metadata, tags"
+                },
+                "price_monitoring_parameters": {
+                    "$ref": "#/definitions/vega.PriceMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Price monitoring parameters"
+                },
+                "liquidity_monitoring_parameters": {
+                    "$ref": "#/definitions/vega.LiquidityMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Liquidity monitoring parameters"
+                },
+                "simple": {
+                    "$ref": "#/definitions/vega.SimpleModelParams",
+                    "additionalProperties": true,
+                    "description": "Simple risk model parameters, valid only if MODEL_SIMPLE is selected"
+                },
+                "log_normal": {
+                    "$ref": "#/definitions/vega.LogNormalRiskModel",
+                    "additionalProperties": true,
+                    "description": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Update Market",
-            "description": "Update an existing market on Vega"
+            "title": "Update Market Configuration",
+            "description": "Configuration to update a market on Vega"
         },
         "oracles.v1.Condition": {
             "properties": {
@@ -334,46 +361,6 @@
             "type": "object",
             "title": "Update Instrument Configuration",
             "description": "Instrument configuration"
-        },
-        "vega.UpdateMarketConfiguration": {
-            "properties": {
-                "instrument": {
-                    "$ref": "#/definitions/vega.UpdateInstrumentConfiguration",
-                    "additionalProperties": true,
-                    "description": "Updated market instrument configuration"
-                },
-                "metadata": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array",
-                    "description": "Optional market metadata, tags"
-                },
-                "price_monitoring_parameters": {
-                    "$ref": "#/definitions/vega.PriceMonitoringParameters",
-                    "additionalProperties": true,
-                    "description": "Price monitoring parameters"
-                },
-                "liquidity_monitoring_parameters": {
-                    "$ref": "#/definitions/vega.LiquidityMonitoringParameters",
-                    "additionalProperties": true,
-                    "description": "Liquidity monitoring parameters"
-                },
-                "simple": {
-                    "$ref": "#/definitions/vega.SimpleModelParams",
-                    "additionalProperties": true,
-                    "description": "Simple risk model parameters, valid only if MODEL_SIMPLE is selected"
-                },
-                "log_normal": {
-                    "$ref": "#/definitions/vega.LogNormalRiskModel",
-                    "additionalProperties": true,
-                    "description": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Update Market Configuration",
-            "description": "Configuration to update a market on Vega"
         }
     }
 }

@@ -363,6 +363,10 @@
                     "$ref": "#/definitions/vega.LogNormalRiskModel",
                     "additionalProperties": true,
                     "description": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+                },
+                "position_decimal_places": {
+                    "type": "string",
+                    "description": "Decimal places for order sizes"
                 }
             },
             "additionalProperties": true,
@@ -407,7 +411,7 @@
                     "description": "Price monitoring projection horizon τ in seconds"
                 },
                 "probability": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Price monitoring probability level p"
                 },
                 "auction_extension": {

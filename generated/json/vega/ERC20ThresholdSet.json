@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20ThresholdSet",
+    "definitions": {
+        "ERC20ThresholdSet": {
+            "properties": {
+                "new_threshold": {
+                    "type": "integer",
+                    "description": "The new threshold"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce create by the vega network"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Threshold Set",
+            "description": "The threshold have been updated on the multisigcontrol"
+        }
+    }
+}

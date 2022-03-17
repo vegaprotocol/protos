@@ -1069,6 +1069,10 @@
                     "$ref": "#/definitions/vega.MarketTimestamps",
                     "additionalProperties": true,
                     "description": "Timestamps for when the market stay changes"
+                },
+                "position_decimal_places": {
+                    "type": "string",
+                    "description": "The number of decimal places for position"
                 }
             },
             "additionalProperties": true,
@@ -1472,6 +1476,10 @@
                     "$ref": "#/definitions/vega.LogNormalRiskModel",
                     "additionalProperties": true,
                     "description": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+                },
+                "position_decimal_places": {
+                    "type": "string",
+                    "description": "Decimal places for order sizes"
                 }
             },
             "additionalProperties": true,
@@ -1841,7 +1849,7 @@
                     "description": "Price monitoring trigger associated with the bounds"
                 },
                 "reference_price": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Reference price used to calculate the valid price range"
                 }
             },
@@ -1888,7 +1896,7 @@
                     "description": "Price monitoring projection horizon τ in seconds"
                 },
                 "probability": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Price monitoring probability level p"
                 },
                 "auction_extension": {
@@ -2019,7 +2027,17 @@
                         "PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED",
                         32,
                         "PROPOSAL_ERROR_INVALID_ASSET_DETAILS",
-                        33
+                        33,
+                        "PROPOSAL_ERROR_UNKNOWN_TYPE",
+                        34,
+                        "PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE",
+                        35,
+                        "PROPOSAL_ERROR_INVALID_FREEFORM",
+                        36,
+                        "PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE",
+                        37,
+                        "PROPOSAL_ERROR_INVALID_MARKET",
+                        38
                     ],
                     "oneOf": [
                         {
@@ -2377,11 +2395,102 @@
             "type": "object",
             "title": "Uint 64 Value"
         },
+        "vega.UpdateFutureProduct": {
+            "properties": {
+                "quote_name": {
+                    "type": "string",
+                    "description": "Product quote name"
+                },
+                "oracle_spec_for_settlement_price": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "additionalProperties": true,
+                    "description": "The oracle spec describing the oracle data of settlement price"
+                },
+                "oracle_spec_for_trading_termination": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "additionalProperties": true,
+                    "description": "The oracle spec describing the oracle data of trading termination"
+                },
+                "oracle_spec_binding": {
+                    "$ref": "#/definitions/vega.OracleSpecToFutureBinding",
+                    "additionalProperties": true,
+                    "description": "The binding between the oracle spec and the settlement price"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Update Future Product",
+            "description": "Future product configuration"
+        },
+        "vega.UpdateInstrumentConfiguration": {
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Instrument code"
+                },
+                "future": {
+                    "$ref": "#/definitions/vega.UpdateFutureProduct",
+                    "additionalProperties": true,
+                    "description": "Future"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Update Instrument Configuration",
+            "description": "Instrument configuration"
+        },
         "vega.UpdateMarket": {
+            "properties": {
+                "changes": {
+                    "$ref": "#/definitions/vega.UpdateMarketConfiguration",
+                    "additionalProperties": true,
+                    "description": "The updated configuration of the market"
+                }
+            },
             "additionalProperties": true,
             "type": "object",
             "title": "Update Market",
             "description": "Update an existing market on Vega"
+        },
+        "vega.UpdateMarketConfiguration": {
+            "properties": {
+                "instrument": {
+                    "$ref": "#/definitions/vega.UpdateInstrumentConfiguration",
+                    "additionalProperties": true,
+                    "description": "Updated market instrument configuration"
+                },
+                "metadata": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Optional market metadata, tags"
+                },
+                "price_monitoring_parameters": {
+                    "$ref": "#/definitions/vega.PriceMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Price monitoring parameters"
+                },
+                "liquidity_monitoring_parameters": {
+                    "$ref": "#/definitions/vega.LiquidityMonitoringParameters",
+                    "additionalProperties": true,
+                    "description": "Liquidity monitoring parameters"
+                },
+                "simple": {
+                    "$ref": "#/definitions/vega.SimpleModelParams",
+                    "additionalProperties": true,
+                    "description": "Simple risk model parameters, valid only if MODEL_SIMPLE is selected"
+                },
+                "log_normal": {
+                    "$ref": "#/definitions/vega.LogNormalRiskModel",
+                    "additionalProperties": true,
+                    "description": "Log normal risk model parameters, valid only if MODEL_LOG_NORMAL is selected"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Update Market Configuration",
+            "description": "Configuration to update a market on Vega"
         },
         "vega.UpdateNetworkParameter": {
             "properties": {
@@ -2437,6 +2546,10 @@
                 "total_governance_token_weight": {
                     "type": "string",
                     "description": "The weight of this vote based on the total of governance token"
+                },
+                "total_equity_like_share_weight": {
+                    "type": "string",
+                    "description": "The weight of the vote compared to the total number of equity-like share on the market."
                 }
             },
             "additionalProperties": true,
@@ -2663,7 +2776,11 @@
                         "NODE_SIGNATURE_KIND_ASSET_NEW",
                         1,
                         "NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL",
-                        2
+                        2,
+                        "NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_ADDED",
+                        3,
+                        "NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_REMOVED",
+                        4
                     ],
                     "oneOf": [
                         {
@@ -3341,6 +3458,16 @@
                         40,
                         "BUS_EVENT_TYPE_VALIDATOR_RANKING",
                         41,
+                        "BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_EVENT",
+                        42,
+                        "BUS_EVENT_TYPE_ERC20_MULTI_SIG_SET_THRESHOLD",
+                        43,
+                        "BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_ADDED",
+                        44,
+                        "BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED",
+                        45,
+                        "BUS_EVENT_TYPE_POSITION_STATE",
+                        46,
                         "BUS_EVENT_TYPE_MARKET",
                         101,
                         "BUS_EVENT_TYPE_TX_ERROR",
@@ -3552,6 +3679,31 @@
                     "additionalProperties": true,
                     "description": "Ranking event"
                 },
+                "erc20_multisig_signer_event": {
+                    "$ref": "#/definitions/vega.events.v1.ERC20MultiSigSignerEvent",
+                    "additionalProperties": true,
+                    "description": "ERC20 multi sig signer event"
+                },
+                "erc20_multisig_set_threshold_event": {
+                    "$ref": "#/definitions/vega.events.v1.ERC20MultiSigThresholdSetEvent",
+                    "additionalProperties": true,
+                    "description": "ERC20 multi sig set threshold event"
+                },
+                "erc20_multisig_signer_added": {
+                    "$ref": "#/definitions/vega.events.v1.ERC20MultiSigSignerAdded",
+                    "additionalProperties": true,
+                    "description": "ERC20 multi sig signer added"
+                },
+                "erc20_multisig_signer_removed": {
+                    "$ref": "#/definitions/vega.events.v1.ERC20MultiSigSignerRemoved",
+                    "additionalProperties": true,
+                    "description": "ERC20 multi sig signer removed"
+                },
+                "position_state_event": {
+                    "$ref": "#/definitions/vega.events.v1.PositionStateEvent",
+                    "additionalProperties": true,
+                    "description": "Position status for a party in a market"
+                },
                 "market": {
                     "$ref": "#/definitions/vega.events.v1.MarketEvent",
                     "additionalProperties": true,
@@ -3613,6 +3765,157 @@
             "type": "object",
             "title": "Delegation Balance Event",
             "description": "DelegationBalanceEvent - updates on the delegation balance of a party to a node in the current epoch in effect"
+        },
+        "vega.events.v1.ERC20MulistSigSignerRemovedSubmitter": {
+            "properties": {
+                "signature_id": {
+                    "type": "string",
+                    "description": "The ID of this signature bundle"
+                },
+                "submitter": {
+                    "type": "string",
+                    "description": "The address of the submitter of the transaction"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Mulist Sig Signer Removed Submitter"
+        },
+        "vega.events.v1.ERC20MultiSigSignerAdded": {
+            "properties": {
+                "signature_id": {
+                    "type": "string",
+                    "description": "The identifier of the signature bundle"
+                },
+                "validator_id": {
+                    "type": "string",
+                    "description": "The vega node ID of the node to be added"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "the time at which this happened"
+                },
+                "new_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the new signer"
+                },
+                "submitter": {
+                    "type": "string",
+                    "description": "The address of the submitter of the transaction"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce used."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Multi Sig Signer Added"
+        },
+        "vega.events.v1.ERC20MultiSigSignerEvent": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "TYPE_UNSPECIFIED",
+                        0,
+                        "TYPE_ADDED",
+                        1,
+                        "TYPE_REMOVED",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "signer": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "string"
+                },
+                "block_time": {
+                    "type": "string"
+                },
+                "tx_hash": {
+                    "type": "string"
+                },
+                "log_index": {
+                    "type": "string"
+                },
+                "block_number": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Multi Sig Signer Event"
+        },
+        "vega.events.v1.ERC20MultiSigSignerRemoved": {
+            "properties": {
+                "signature_submitters": {
+                    "items": {
+                        "$ref": "#/definitions/vega.events.v1.ERC20MulistSigSignerRemovedSubmitter"
+                    },
+                    "type": "array",
+                    "description": "A list containing all the IDs of bundle generated There should be one bundle generated for every validators in the validator set"
+                },
+                "validator_id": {
+                    "type": "string",
+                    "description": "The vega node ID of the node which is to be removed"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "the time at which this happened"
+                },
+                "old_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the signer to be removed"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce used."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Multi Sig Signer Removed"
+        },
+        "vega.events.v1.ERC20MultiSigThresholdSetEvent": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "new_threshold": {
+                    "type": "integer"
+                },
+                "nonce": {
+                    "type": "string"
+                },
+                "block_time": {
+                    "type": "string"
+                },
+                "tx_hash": {
+                    "type": "string"
+                },
+                "log_index": {
+                    "type": "string"
+                },
+                "block_number": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Multi Sig Threshold Set Event"
         },
         "vega.events.v1.EpochEvent": {
             "properties": {
@@ -3768,6 +4071,40 @@
             "title": "Position Resolution",
             "description": "A position resolution event contains information on distressed trades"
         },
+        "vega.events.v1.PositionStateEvent": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier for this position update"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier for this position update"
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Current position"
+                },
+                "potential_buys": {
+                    "type": "string",
+                    "description": "Potential orders"
+                },
+                "potential_sells": {
+                    "type": "string"
+                },
+                "vw_buy_price": {
+                    "type": "string",
+                    "description": "Volume weighted prices"
+                },
+                "vw_sell_price": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Position State Event",
+            "description": "A position state event contains the current position state for a single party in a single market"
+        },
         "vega.events.v1.RecurringTransfer": {
             "properties": {
                 "start_epoch": {
@@ -3854,6 +4191,10 @@
                     },
                     "type": "array",
                     "description": "A collection of 1 or more trade settlements"
+                },
+                "position_factor": {
+                    "type": "string",
+                    "description": "Position factor - 10 ^ number of position decimal places"
                 }
             },
             "additionalProperties": true,
@@ -3926,6 +4267,22 @@
                 "tx_hash": {
                     "type": "string",
                     "description": "The hash of the transaction from which the events happen"
+                },
+                "block_height": {
+                    "type": "string",
+                    "description": "The block when the event happened"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The block time"
+                },
+                "log_index": {
+                    "type": "string",
+                    "description": "The log index"
+                },
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "the ethereum address from which the stake link was iniated"
                 }
             },
             "additionalProperties": true,

@@ -1,0 +1,97 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20MultiSigEvent",
+    "definitions": {
+        "ERC20MultiSigEvent": {
+            "properties": {
+                "index": {
+                    "type": "string",
+                    "description": "Index of the log in the transaction"
+                },
+                "block": {
+                    "type": "string",
+                    "description": "The block in which the transaction was added"
+                },
+                "signer_added": {
+                    "$ref": "#/definitions/vega.ERC20SignerAdded",
+                    "additionalProperties": true,
+                    "description": "Add a signer to the erc20 bridge"
+                },
+                "signer_removed": {
+                    "$ref": "#/definitions/vega.ERC20SignerRemoved",
+                    "additionalProperties": true,
+                    "description": "Remove a signer from the erc20 bridge"
+                },
+                "threshold_set": {
+                    "$ref": "#/definitions/vega.ERC20ThresholdSet",
+                    "additionalProperties": true,
+                    "description": "Threshold set"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Multi Sig Event",
+            "description": "An event related to the ERC20 MultiSig"
+        },
+        "vega.ERC20SignerAdded": {
+            "properties": {
+                "new_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the new signer"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce create by the vega network used for this new signer"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Signer Added",
+            "description": "A new signer added to the ERC20 bridge"
+        },
+        "vega.ERC20SignerRemoved": {
+            "properties": {
+                "old_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the old signer"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce create by the vega network used for this old signer"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Signer Removed",
+            "description": "A signer removed from the ERC20 bridge"
+        },
+        "vega.ERC20ThresholdSet": {
+            "properties": {
+                "new_threshold": {
+                    "type": "integer",
+                    "description": "The new threshold"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce create by the vega network"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Threshold Set",
+            "description": "The threshold have been updated on the multisigcontrol"
+        }
+    }
+}

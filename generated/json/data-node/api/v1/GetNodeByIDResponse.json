@@ -134,13 +134,15 @@
                     "type": "array",
                     "description": "Node's delegations"
                 },
-                "score": {
-                    "type": "string",
-                    "description": "Node score"
+                "reward_score": {
+                    "$ref": "#/definitions/vega.RewardScore",
+                    "additionalProperties": true,
+                    "description": "Node reward score"
                 },
-                "normalised_score": {
-                    "type": "string",
-                    "description": "Node normalised score"
+                "ranking_score": {
+                    "$ref": "#/definitions/vega.RankingScore",
+                    "additionalProperties": true,
+                    "description": "Node ranking information"
                 },
                 "name": {
                     "type": "string",
@@ -149,19 +151,127 @@
                 "avatar_url": {
                     "type": "string",
                     "description": "Avatar url"
-                },
-                "performance": {
-                    "type": "string",
-                    "description": "Performance"
-                },
-                "raw_score": {
-                    "type": "string",
-                    "description": "Raw Score"
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "Node"
+        },
+        "vega.RankingScore": {
+            "properties": {
+                "stake_score": {
+                    "type": "string",
+                    "description": "stake based score - no anti-whaling"
+                },
+                "performance_score": {
+                    "type": "string",
+                    "description": "performance based score"
+                },
+                "previous_status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                },
+                "status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                },
+                "voting_power": {
+                    "type": "integer",
+                    "description": "tendermint voting power of the validator"
+                },
+                "ranking_score": {
+                    "type": "string",
+                    "description": "final score"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ranking Score"
+        },
+        "vega.RewardScore": {
+            "properties": {
+                "raw_validator_score": {
+                    "type": "string",
+                    "description": "stake based score - with anti-whaling"
+                },
+                "performance_score": {
+                    "type": "string",
+                    "description": "performance based score"
+                },
+                "multisig_score": {
+                    "type": "string",
+                    "description": "multisig score"
+                },
+                "validator_score": {
+                    "type": "string",
+                    "description": "un-normalised score"
+                },
+                "normalised_score": {
+                    "type": "string",
+                    "description": "normalised validator score for rewards"
+                },
+                "validator_status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Reward Score"
         }
     }
 }
