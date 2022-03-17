@@ -21,7 +21,7 @@ func NewTransaction(pubKey string, data []byte, signature *commandspb.Signature)
 		From: &commandspb.Transaction_PubKey{
 			PubKey: pubKey,
 		},
-		Version: 1,
+		Version: 2,
 	}
 }
 

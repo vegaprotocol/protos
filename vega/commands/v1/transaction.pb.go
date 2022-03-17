@@ -438,6 +438,8 @@ type Transaction struct {
 	// A version of the transaction, to be used in the future in case changes are implemented
 	// to the Transaction format.
 	Version uint32 `protobuf:"varint,2000,opt,name=version,proto3" json:"version,omitempty"`
+	// Proof of work contains the random transaction id used by the client and the nonce.
+	Pow *ProofOfWork `protobuf:"bytes,3000,opt,name=pow,proto3" json:"pow,omitempty"`
 }
 
 func (x *Transaction) Reset() {
@@ -514,6 +516,13 @@ func (x *Transaction) GetVersion() uint32 {
 	return 0
 }
 
+func (x *Transaction) GetPow() *ProofOfWork {
+	if x != nil {
+		return x.Pow
+	}
+	return nil
+}
+
 type isTransaction_From interface {
 	isTransaction_From()
 }
@@ -531,6 +540,69 @@ type Transaction_PubKey struct {
 func (*Transaction_Address) isTransaction_From() {}
 
 func (*Transaction_PubKey) isTransaction_From() {}
+
+type ProofOfWork struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Tid          string `protobuf:"bytes,1,opt,name=tid,proto3" json:"tid,omitempty"`
+	Nonce        uint64 `protobuf:"varint,2,opt,name=nonce,proto3" json:"nonce,omitempty"`
+	HashFunction string `protobuf:"bytes,3,opt,name=hash_function,json=hashFunction,proto3" json:"hash_function,omitempty"`
+}
+
+func (x *ProofOfWork) Reset() {
+	*x = ProofOfWork{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_vega_commands_v1_transaction_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProofOfWork) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProofOfWork) ProtoMessage() {}
+
+func (x *ProofOfWork) ProtoReflect() protoreflect.Message {
+	mi := &file_vega_commands_v1_transaction_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProofOfWork.ProtoReflect.Descriptor instead.
+func (*ProofOfWork) Descriptor() ([]byte, []int) {
+	return file_vega_commands_v1_transaction_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ProofOfWork) GetTid() string {
+	if x != nil {
+		return x.Tid
+	}
+	return ""
+}
+
+func (x *ProofOfWork) GetNonce() uint64 {
+	if x != nil {
+		return x.Nonce
+	}
+	return 0
+}
+
+func (x *ProofOfWork) GetHashFunction() string {
+	if x != nil {
+		return x.HashFunction
+	}
+	return ""
+}
 
 var File_vega_commands_v1_transaction_proto protoreflect.FileDescriptor
 
@@ -674,7 +746,7 @@ var file_vega_commands_v1_transaction_proto_rawDesc = []byte{
 	0x6f, 0x72, 0x65, 0x53, 0x6e, 0x61, 0x70, 0x73, 0x68, 0x6f, 0x74, 0x48, 0x00, 0x52, 0x19, 0x72,
 	0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x53, 0x6e, 0x61, 0x70, 0x73, 0x68, 0x6f, 0x74, 0x53, 0x75,
 	0x62, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x09, 0x0a, 0x07, 0x63, 0x6f, 0x6d, 0x6d,
-	0x61, 0x6e, 0x64, 0x22, 0xc3, 0x01, 0x0a, 0x0b, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74,
+	0x61, 0x6e, 0x64, 0x22, 0xf5, 0x01, 0x0a, 0x0b, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74,
 	0x69, 0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x69, 0x6e, 0x70, 0x75, 0x74, 0x5f, 0x64, 0x61, 0x74,
 	0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x09, 0x69, 0x6e, 0x70, 0x75, 0x74, 0x44, 0x61,
 	0x74, 0x61, 0x12, 0x39, 0x0a, 0x09, 0x73, 0x69, 0x67, 0x6e, 0x61, 0x74, 0x75, 0x72, 0x65, 0x18,
@@ -686,11 +758,19 @@ var file_vega_commands_v1_transaction_proto_rawDesc = []byte{
 	0x62, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0xea, 0x07, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x06,
 	0x70, 0x75, 0x62, 0x4b, 0x65, 0x79, 0x12, 0x19, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f,
 	0x6e, 0x18, 0xd0, 0x0f, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f,
-	0x6e, 0x42, 0x06, 0x0a, 0x04, 0x66, 0x72, 0x6f, 0x6d, 0x42, 0x2e, 0x5a, 0x2c, 0x63, 0x6f, 0x64,
-	0x65, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x69,
-	0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x76, 0x65, 0x67, 0x61, 0x2f, 0x63, 0x6f,
-	0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x73, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x6e, 0x12, 0x30, 0x0a, 0x03, 0x70, 0x6f, 0x77, 0x18, 0xb8, 0x17, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1d, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x73, 0x2e,
+	0x76, 0x31, 0x2e, 0x50, 0x72, 0x6f, 0x6f, 0x66, 0x4f, 0x66, 0x57, 0x6f, 0x72, 0x6b, 0x52, 0x03,
+	0x70, 0x6f, 0x77, 0x42, 0x06, 0x0a, 0x04, 0x66, 0x72, 0x6f, 0x6d, 0x22, 0x5a, 0x0a, 0x0b, 0x50,
+	0x72, 0x6f, 0x6f, 0x66, 0x4f, 0x66, 0x57, 0x6f, 0x72, 0x6b, 0x12, 0x10, 0x0a, 0x03, 0x74, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x74, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05,
+	0x6e, 0x6f, 0x6e, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x6e, 0x6f, 0x6e,
+	0x63, 0x65, 0x12, 0x23, 0x0a, 0x0d, 0x68, 0x61, 0x73, 0x68, 0x5f, 0x66, 0x75, 0x6e, 0x63, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x68, 0x61, 0x73, 0x68, 0x46,
+	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x2e, 0x5a, 0x2c, 0x63, 0x6f, 0x64, 0x65, 0x2e,
+	0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x69, 0x6f, 0x2f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x76, 0x65, 0x67, 0x61, 0x2f, 0x63, 0x6f, 0x6d, 0x6d,
+	0x61, 0x6e, 0x64, 0x73, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -705,63 +785,65 @@ func file_vega_commands_v1_transaction_proto_rawDescGZIP() []byte {
 	return file_vega_commands_v1_transaction_proto_rawDescData
 }
 
-var file_vega_commands_v1_transaction_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_vega_commands_v1_transaction_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_vega_commands_v1_transaction_proto_goTypes = []interface{}{
 	(*InputData)(nil),                      // 0: vega.commands.v1.InputData
 	(*Transaction)(nil),                    // 1: vega.commands.v1.Transaction
-	(*OrderSubmission)(nil),                // 2: vega.commands.v1.OrderSubmission
-	(*OrderCancellation)(nil),              // 3: vega.commands.v1.OrderCancellation
-	(*OrderAmendment)(nil),                 // 4: vega.commands.v1.OrderAmendment
-	(*WithdrawSubmission)(nil),             // 5: vega.commands.v1.WithdrawSubmission
-	(*ProposalSubmission)(nil),             // 6: vega.commands.v1.ProposalSubmission
-	(*VoteSubmission)(nil),                 // 7: vega.commands.v1.VoteSubmission
-	(*LiquidityProvisionSubmission)(nil),   // 8: vega.commands.v1.LiquidityProvisionSubmission
-	(*DelegateSubmission)(nil),             // 9: vega.commands.v1.DelegateSubmission
-	(*UndelegateSubmission)(nil),           // 10: vega.commands.v1.UndelegateSubmission
-	(*LiquidityProvisionCancellation)(nil), // 11: vega.commands.v1.LiquidityProvisionCancellation
-	(*LiquidityProvisionAmendment)(nil),    // 12: vega.commands.v1.LiquidityProvisionAmendment
-	(*Transfer)(nil),                       // 13: vega.commands.v1.Transfer
-	(*CancelTransfer)(nil),                 // 14: vega.commands.v1.CancelTransfer
-	(*AnnounceNode)(nil),                   // 15: vega.commands.v1.AnnounceNode
-	(*NodeVote)(nil),                       // 16: vega.commands.v1.NodeVote
-	(*NodeSignature)(nil),                  // 17: vega.commands.v1.NodeSignature
-	(*ChainEvent)(nil),                     // 18: vega.commands.v1.ChainEvent
-	(*KeyRotateSubmission)(nil),            // 19: vega.commands.v1.KeyRotateSubmission
-	(*StateVariableProposal)(nil),          // 20: vega.commands.v1.StateVariableProposal
-	(*ValidatorHeartbeat)(nil),             // 21: vega.commands.v1.ValidatorHeartbeat
-	(*OracleDataSubmission)(nil),           // 22: vega.commands.v1.OracleDataSubmission
-	(*RestoreSnapshot)(nil),                // 23: vega.commands.v1.RestoreSnapshot
-	(*Signature)(nil),                      // 24: vega.commands.v1.Signature
+	(*ProofOfWork)(nil),                    // 2: vega.commands.v1.ProofOfWork
+	(*OrderSubmission)(nil),                // 3: vega.commands.v1.OrderSubmission
+	(*OrderCancellation)(nil),              // 4: vega.commands.v1.OrderCancellation
+	(*OrderAmendment)(nil),                 // 5: vega.commands.v1.OrderAmendment
+	(*WithdrawSubmission)(nil),             // 6: vega.commands.v1.WithdrawSubmission
+	(*ProposalSubmission)(nil),             // 7: vega.commands.v1.ProposalSubmission
+	(*VoteSubmission)(nil),                 // 8: vega.commands.v1.VoteSubmission
+	(*LiquidityProvisionSubmission)(nil),   // 9: vega.commands.v1.LiquidityProvisionSubmission
+	(*DelegateSubmission)(nil),             // 10: vega.commands.v1.DelegateSubmission
+	(*UndelegateSubmission)(nil),           // 11: vega.commands.v1.UndelegateSubmission
+	(*LiquidityProvisionCancellation)(nil), // 12: vega.commands.v1.LiquidityProvisionCancellation
+	(*LiquidityProvisionAmendment)(nil),    // 13: vega.commands.v1.LiquidityProvisionAmendment
+	(*Transfer)(nil),                       // 14: vega.commands.v1.Transfer
+	(*CancelTransfer)(nil),                 // 15: vega.commands.v1.CancelTransfer
+	(*AnnounceNode)(nil),                   // 16: vega.commands.v1.AnnounceNode
+	(*NodeVote)(nil),                       // 17: vega.commands.v1.NodeVote
+	(*NodeSignature)(nil),                  // 18: vega.commands.v1.NodeSignature
+	(*ChainEvent)(nil),                     // 19: vega.commands.v1.ChainEvent
+	(*KeyRotateSubmission)(nil),            // 20: vega.commands.v1.KeyRotateSubmission
+	(*StateVariableProposal)(nil),          // 21: vega.commands.v1.StateVariableProposal
+	(*ValidatorHeartbeat)(nil),             // 22: vega.commands.v1.ValidatorHeartbeat
+	(*OracleDataSubmission)(nil),           // 23: vega.commands.v1.OracleDataSubmission
+	(*RestoreSnapshot)(nil),                // 24: vega.commands.v1.RestoreSnapshot
+	(*Signature)(nil),                      // 25: vega.commands.v1.Signature
 }
 var file_vega_commands_v1_transaction_proto_depIdxs = []int32{
-	2,  // 0: vega.commands.v1.InputData.order_submission:type_name -> vega.commands.v1.OrderSubmission
-	3,  // 1: vega.commands.v1.InputData.order_cancellation:type_name -> vega.commands.v1.OrderCancellation
-	4,  // 2: vega.commands.v1.InputData.order_amendment:type_name -> vega.commands.v1.OrderAmendment
-	5,  // 3: vega.commands.v1.InputData.withdraw_submission:type_name -> vega.commands.v1.WithdrawSubmission
-	6,  // 4: vega.commands.v1.InputData.proposal_submission:type_name -> vega.commands.v1.ProposalSubmission
-	7,  // 5: vega.commands.v1.InputData.vote_submission:type_name -> vega.commands.v1.VoteSubmission
-	8,  // 6: vega.commands.v1.InputData.liquidity_provision_submission:type_name -> vega.commands.v1.LiquidityProvisionSubmission
-	9,  // 7: vega.commands.v1.InputData.delegate_submission:type_name -> vega.commands.v1.DelegateSubmission
-	10, // 8: vega.commands.v1.InputData.undelegate_submission:type_name -> vega.commands.v1.UndelegateSubmission
-	11, // 9: vega.commands.v1.InputData.liquidity_provision_cancellation:type_name -> vega.commands.v1.LiquidityProvisionCancellation
-	12, // 10: vega.commands.v1.InputData.liquidity_provision_amendment:type_name -> vega.commands.v1.LiquidityProvisionAmendment
-	13, // 11: vega.commands.v1.InputData.transfer:type_name -> vega.commands.v1.Transfer
-	14, // 12: vega.commands.v1.InputData.cancel_transfer:type_name -> vega.commands.v1.CancelTransfer
-	15, // 13: vega.commands.v1.InputData.announce_node:type_name -> vega.commands.v1.AnnounceNode
-	16, // 14: vega.commands.v1.InputData.node_vote:type_name -> vega.commands.v1.NodeVote
-	17, // 15: vega.commands.v1.InputData.node_signature:type_name -> vega.commands.v1.NodeSignature
-	18, // 16: vega.commands.v1.InputData.chain_event:type_name -> vega.commands.v1.ChainEvent
-	19, // 17: vega.commands.v1.InputData.key_rotate_submission:type_name -> vega.commands.v1.KeyRotateSubmission
-	20, // 18: vega.commands.v1.InputData.state_variable_proposal:type_name -> vega.commands.v1.StateVariableProposal
-	21, // 19: vega.commands.v1.InputData.validator_heartbeat:type_name -> vega.commands.v1.ValidatorHeartbeat
-	22, // 20: vega.commands.v1.InputData.oracle_data_submission:type_name -> vega.commands.v1.OracleDataSubmission
-	23, // 21: vega.commands.v1.InputData.restore_snapshot_submission:type_name -> vega.commands.v1.RestoreSnapshot
-	24, // 22: vega.commands.v1.Transaction.signature:type_name -> vega.commands.v1.Signature
-	23, // [23:23] is the sub-list for method output_type
-	23, // [23:23] is the sub-list for method input_type
-	23, // [23:23] is the sub-list for extension type_name
-	23, // [23:23] is the sub-list for extension extendee
-	0,  // [0:23] is the sub-list for field type_name
+	3,  // 0: vega.commands.v1.InputData.order_submission:type_name -> vega.commands.v1.OrderSubmission
+	4,  // 1: vega.commands.v1.InputData.order_cancellation:type_name -> vega.commands.v1.OrderCancellation
+	5,  // 2: vega.commands.v1.InputData.order_amendment:type_name -> vega.commands.v1.OrderAmendment
+	6,  // 3: vega.commands.v1.InputData.withdraw_submission:type_name -> vega.commands.v1.WithdrawSubmission
+	7,  // 4: vega.commands.v1.InputData.proposal_submission:type_name -> vega.commands.v1.ProposalSubmission
+	8,  // 5: vega.commands.v1.InputData.vote_submission:type_name -> vega.commands.v1.VoteSubmission
+	9,  // 6: vega.commands.v1.InputData.liquidity_provision_submission:type_name -> vega.commands.v1.LiquidityProvisionSubmission
+	10, // 7: vega.commands.v1.InputData.delegate_submission:type_name -> vega.commands.v1.DelegateSubmission
+	11, // 8: vega.commands.v1.InputData.undelegate_submission:type_name -> vega.commands.v1.UndelegateSubmission
+	12, // 9: vega.commands.v1.InputData.liquidity_provision_cancellation:type_name -> vega.commands.v1.LiquidityProvisionCancellation
+	13, // 10: vega.commands.v1.InputData.liquidity_provision_amendment:type_name -> vega.commands.v1.LiquidityProvisionAmendment
+	14, // 11: vega.commands.v1.InputData.transfer:type_name -> vega.commands.v1.Transfer
+	15, // 12: vega.commands.v1.InputData.cancel_transfer:type_name -> vega.commands.v1.CancelTransfer
+	16, // 13: vega.commands.v1.InputData.announce_node:type_name -> vega.commands.v1.AnnounceNode
+	17, // 14: vega.commands.v1.InputData.node_vote:type_name -> vega.commands.v1.NodeVote
+	18, // 15: vega.commands.v1.InputData.node_signature:type_name -> vega.commands.v1.NodeSignature
+	19, // 16: vega.commands.v1.InputData.chain_event:type_name -> vega.commands.v1.ChainEvent
+	20, // 17: vega.commands.v1.InputData.key_rotate_submission:type_name -> vega.commands.v1.KeyRotateSubmission
+	21, // 18: vega.commands.v1.InputData.state_variable_proposal:type_name -> vega.commands.v1.StateVariableProposal
+	22, // 19: vega.commands.v1.InputData.validator_heartbeat:type_name -> vega.commands.v1.ValidatorHeartbeat
+	23, // 20: vega.commands.v1.InputData.oracle_data_submission:type_name -> vega.commands.v1.OracleDataSubmission
+	24, // 21: vega.commands.v1.InputData.restore_snapshot_submission:type_name -> vega.commands.v1.RestoreSnapshot
+	25, // 22: vega.commands.v1.Transaction.signature:type_name -> vega.commands.v1.Signature
+	2,  // 23: vega.commands.v1.Transaction.pow:type_name -> vega.commands.v1.ProofOfWork
+	24, // [24:24] is the sub-list for method output_type
+	24, // [24:24] is the sub-list for method input_type
+	24, // [24:24] is the sub-list for extension type_name
+	24, // [24:24] is the sub-list for extension extendee
+	0,  // [0:24] is the sub-list for field type_name
 }
 
 func init() { file_vega_commands_v1_transaction_proto_init() }
@@ -788,6 +870,18 @@ func file_vega_commands_v1_transaction_proto_init() {
 		}
 		file_vega_commands_v1_transaction_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Transaction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_vega_commands_v1_transaction_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProofOfWork); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -833,7 +927,7 @@ func file_vega_commands_v1_transaction_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_vega_commands_v1_transaction_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

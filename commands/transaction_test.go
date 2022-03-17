@@ -138,6 +138,6 @@ func newValidTransaction() *commandspb.Transaction {
 		From: &commandspb.Transaction_PubKey{
 			PubKey: "b82756d3a3c5beff01152d3565e0c5c2235ccbe9c9d29ea4e760d981f53db7c6",
 		},
-		Version: 1,
+		Version: 2,
 	}
 }

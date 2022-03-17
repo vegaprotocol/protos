@@ -984,10 +984,35 @@
       "properties": {
         "height": {
           "type": "string",
-          "format": "uint64"
+          "format": "uint64",
+          "title": "last block height"
         },
         "hash": {
-          "type": "string"
+          "type": "string",
+          "title": "last block hash"
+        },
+        "spamPowHashFunction": {
+          "type": "string",
+          "title": "supported proof of work hash function"
+        },
+        "spamPowDifficulty": {
+          "type": "integer",
+          "format": "int64",
+          "title": "the difficulty of the proof of work (target number of zeros)"
+        },
+        "spamPowNumberOfPastBlocks": {
+          "type": "integer",
+          "format": "int64",
+          "title": "supported proof of work number of blocks behind current height allowed"
+        },
+        "spamPowNumberOfTxPerBlock": {
+          "type": "integer",
+          "format": "int64",
+          "title": "allowed number of transactions per block"
+        },
+        "spamPowIncreasingDifficulty": {
+          "type": "boolean",
+          "title": "is increasing difficulty allowed for using the same height for more than `spam_pow_number_of_past_blocks` transactions"
         }
       },
       "title": "A response with the height of the last block processed by\ntendermint"
@@ -1416,6 +1441,21 @@
         }
       },
       "title": "A position state event contains the current position state for a single party in a single market"
+    },
+    "v1ProofOfWork": {
+      "type": "object",
+      "properties": {
+        "tid": {
+          "type": "string"
+        },
+        "nonce": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "hashFunction": {
+          "type": "string"
+        }
+      }
     },
     "v1PropagateChainEventResponse": {
       "type": "object",
@@ -2013,6 +2053,10 @@
           "type": "integer",
           "format": "int64",
           "description": "A version of the transaction, to be used in the future in case changes are implemented\nto the Transaction format."
+        },
+        "pow": {
+          "$ref": "#/definitions/v1ProofOfWork",
+          "description": "Proof of work contains the random transaction id used by the client and the nonce."
         }
       },
       "description": "Represents a transaction to be sent to Vega."
