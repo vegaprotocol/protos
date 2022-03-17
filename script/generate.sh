@@ -48,7 +48,17 @@ function gen_json() {
 function gen_docs() {
   mkdir -p generated
 
-  protoc --doc_out=./generated --doc_opt=json,doc.json --proto_path=sources/ sources/**/*.proto
+  protoc --doc_out=./generated --doc_opt=json,doc.json --proto_path=sources/ \
+  sources/vega/*.proto \
+  sources/vega/oracles/**/*.proto \
+  sources/vega/commands/**/*.proto \
+  sources/vega/events/**/*.proto \
+  sources/vega/api/**/*.proto \
+  sources/vega/checkpoint/**/*.proto \
+  sources/vega/snapshot/**/*.proto \
+  sources/vega/tm/*.proto \
+  sources/vega/events/**/*.proto \
+  sources/vega/wallet/**/*.proto
 }
 
 check
