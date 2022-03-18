@@ -84,4 +84,13 @@ message Transaction {
   // A version of the transaction, to be used in the future in case changes are implemented
   // to the Transaction format.
   uint32 version = 2000;
+
+  // Proof of work contains the random transaction id used by the client and the nonce. 
+  ProofOfWork pow = 3000;
+}
+
+message ProofOfWork {
+  string tid = 1;
+  uint64 nonce = 2;
+  string hash_function = 3;
 }

@@ -274,6 +274,18 @@ message LastBlockHeightRequest {}
 // A response with the height of the last block processed by
 // tendermint
 message LastBlockHeightResponse {
+  // last block height
   uint64 height = 1;
+  // last block hash
   string hash = 2;
+  // supported proof of work hash function
+  string spam_pow_hash_function = 3;
+  // the difficulty of the proof of work (target number of zeros)
+  uint32 spam_pow_difficulty = 4;
+  // supported proof of work number of blocks behind current height allowed
+  uint32 spam_pow_number_of_past_blocks = 5;
+  // allowed number of transactions per block
+  uint32 spam_pow_number_of_tx_per_block = 6;
+  // is increasing difficulty allowed for using the same height for more than `spam_pow_number_of_past_blocks` transactions
+  bool spam_pow_increasing_difficulty = 7;
 }
