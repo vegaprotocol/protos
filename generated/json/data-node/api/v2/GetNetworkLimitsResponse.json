@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetNetworkLimitsResponse",
+    "definitions": {
+        "GetNetworkLimitsResponse": {
+            "properties": {
+                "limits": {
+                    "$ref": "#/definitions/vega.NetworkLimits",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Network Limits Response",
+            "description": "Response for the current network limits"
+        },
+        "vega.NetworkLimits": {
+            "properties": {
+                "can_propose_market": {
+                    "type": "boolean",
+                    "description": "Are market proposals allowed at this point in time"
+                },
+                "can_propose_asset": {
+                    "type": "boolean",
+                    "description": "Are asset proposals allowed at this point in time"
+                },
+                "bootstrap_finished": {
+                    "type": "boolean",
+                    "description": "True once block count \u003e bootstrapBlockCount"
+                },
+                "propose_market_enabled": {
+                    "type": "boolean",
+                    "description": "Are market proposals enabled on this chain"
+                },
+                "propose_asset_enabled": {
+                    "type": "boolean",
+                    "description": "Are asset proposals enabled on this chain"
+                },
+                "bootstrap_block_count": {
+                    "type": "integer",
+                    "description": "How many blocks before the chain comes out of bootstrap mode"
+                },
+                "genesis_loaded": {
+                    "type": "boolean",
+                    "description": "True once the genesis file is loaded"
+                },
+                "propose_market_enabled_from": {
+                    "type": "string",
+                    "description": "The date/timestamp in unix nanoseconds at which market proposals will be enabled (0 indicates not set)"
+                },
+                "propose_asset_enabled_from": {
+                    "type": "string",
+                    "description": "The date/timestamp in unix nanoseconds at which asset proposals will be enabled (0 indicates not set)"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Network Limits",
+            "description": "Network limits, defined in the genesis file"
+        }
+    }
+}
