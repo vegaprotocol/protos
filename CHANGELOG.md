@@ -12,10 +12,11 @@
 ### 🛠 Improvements
 - [351](https://github.com/vegaprotocol/protos/pull/351) - Add no party binding for data-node liquidity provision requests 
 - [339](https://github.com/vegaprotocol/protos/pull/339) - Added position state message
-- [341](https://github.com/vegaprotocol/protos/issues/341) - https://github.com/vegaprotocol/protos/issues/341
+- [341](https://github.com/vegaprotocol/protos/issues/341) - Add block hash to statistics and to height response.
 - [344](https://github.com/vegaprotocol/protos/issues/344) - Add the data structures for staking and `multisigcontrol` checkpoints
 - [348](https://github.com/vegaprotocol/protos/issues/348) - Add candles V2 API
 - [345](https://github.com/vegaprotocol/protos/issues/345) - Added proof of work to transaction
+- [297](https://github.com/vegaprotocol/protos/issues/297) - Add market ID to market update proposal.
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -45,9 +46,7 @@
 ### 🛠 Improvements
 - [325](https://github.com/vegaprotocol/protos/pull/325) - v2 data node API holds only new API methods
 - [329](https://github.com/vegaprotocol/protos/pull/329) - remove unused request response types from v2 API
-- [329](https://github.com/vegaprotocol/protos/pull/329) - Add proposal for market update and its validation.
-
-
+- [297](https://github.com/vegaprotocol/protos/issues/297) - Add proposal for market update and its validation.
 
 ## 0.49.0
 

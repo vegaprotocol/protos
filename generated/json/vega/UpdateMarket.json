@@ -4,6 +4,10 @@
     "definitions": {
         "UpdateMarket": {
             "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "The market to update"
+                },
                 "changes": {
                     "$ref": "#/definitions/vega.UpdateMarketConfiguration",
                     "additionalProperties": true,

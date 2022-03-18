@@ -4122,6 +4122,10 @@
     "vegaUpdateMarket": {
       "type": "object",
       "properties": {
+        "marketId": {
+          "type": "string",
+          "title": "The market to update"
+        },
         "changes": {
           "$ref": "#/definitions/vegaUpdateMarketConfiguration",
           "title": "The updated configuration of the market"
