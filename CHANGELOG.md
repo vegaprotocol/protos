@@ -19,7 +19,7 @@
 - [297](https://github.com/vegaprotocol/protos/issues/297) - Add market ID to market update proposal.
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [357](https://github.com/vegaprotocol/protos/issues/357) - make oracle spec ids deterministic across all machines
 
 
 ## 0.49.2
