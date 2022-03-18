@@ -91,6 +91,8 @@ func TestCheckProposalSubmissionForUpdateMarket(t *testing.T) {
 	t.Run("Submitting a update market with a too long reference fails", testUpdateMarketSubmissionWithTooLongReferenceFails)
 	t.Run("Submitting a future market with internal time for trade termination succeeds", testUpdateMarketFutureMarketSubmissionWithInternalTimestampForTradingTerminationSucceeds)
 	t.Run("Submitting a future market with trade termination from external oracle with no public key fails", testUpdateMarketFutureMarketSubmissionWithExternalTradingTerminationNoPublicKeyFails)
+	t.Run("Submitting a market with market ID succeeds", testUpdateMarketWithMarketIDSucceeds)
+	t.Run("Submitting a market without market ID fails", testUpdateMarketWithoutMarketIDFails)
 }
 
 func testUpdateMarketChangeSubmissionWithoutUpdateMarketFails(t *testing.T) {
@@ -2207,4 +2209,30 @@ func testUpdateMarketFutureMarketSubmissionWithExternalTradingTerminationNoPubli
 	})
 
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_market.changes.instrument.product.future.oracle_spec_for_trading_termination.pub_keys"), commands.ErrIsRequired)
+}
+
+func testUpdateMarketWithMarketIDSucceeds(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_UpdateMarket{
+				UpdateMarket: &types.UpdateMarket{
+					MarketId: "12345",
+				},
+			},
+		},
+	})
+
+	assert.NotContains(t, err.Get("proposal_submission.terms.change.update_market.market_id"), commands.ErrIsRequired)
+}
+
+func testUpdateMarketWithoutMarketIDFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_UpdateMarket{
+				UpdateMarket: &types.UpdateMarket{},
+			},
+		},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change.update_market.market_id"), commands.ErrIsRequired)
 }

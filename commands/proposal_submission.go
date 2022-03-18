@@ -274,6 +274,10 @@ func checkUpdateMarketChanges(change *types.ProposalTerms_UpdateMarket) Errors {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.update_market", ErrIsRequired)
 	}
 
+	if len(change.UpdateMarket.MarketId) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_market.market_id", ErrIsRequired)
+	}
+
 	if change.UpdateMarket.Changes == nil {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.update_market.changes", ErrIsRequired)
 	}

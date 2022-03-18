@@ -2199,6 +2199,18 @@
           "extensions": [],
           "fields": [
             {
+              "name": "market_id",
+              "description": "The market to update",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
               "name": "changes",
               "description": "The updated configuration of the market",
               "label": "",
@@ -10564,6 +10576,54 @@
           ]
         },
         {
+          "name": "ProofOfWork",
+          "longName": "ProofOfWork",
+          "fullName": "vega.commands.v1.ProofOfWork",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tid",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "nonce",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash_function",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "Transaction",
           "longName": "Transaction",
           "fullName": "vega.commands.v1.Transaction",
@@ -10628,6 +10688,18 @@
               "type": "uint32",
               "longType": "uint32",
               "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pow",
+              "description": "Proof of work contains the random transaction id used by the client and the nonce.",
+              "label": "",
+              "type": "ProofOfWork",
+              "longType": "ProofOfWork",
+              "fullType": "vega.commands.v1.ProofOfWork",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -14780,7 +14852,7 @@
           "fields": [
             {
               "name": "height",
-              "description": "",
+              "description": "last block height",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
@@ -14792,11 +14864,71 @@
             },
             {
               "name": "hash",
-              "description": "",
+              "description": "last block hash",
               "label": "",
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spam_pow_hash_function",
+              "description": "supported proof of work hash function",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spam_pow_difficulty",
+              "description": "the difficulty of the proof of work (target number of zeros)",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spam_pow_number_of_past_blocks",
+              "description": "supported proof of work number of blocks behind current height allowed",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spam_pow_number_of_tx_per_block",
+              "description": "allowed number of transactions per block",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spam_pow_increasing_difficulty",
+              "description": "is increasing difficulty allowed for using the same height for more than `spam_pow_number_of_past_blocks` transactions",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -21402,6 +21534,18 @@
               "isoneof": true,
               "oneofdecl": "data",
               "defaultValue": ""
+            },
+            {
+              "name": "proof_of_work",
+              "description": "",
+              "label": "",
+              "type": "ProofOfWork",
+              "longType": "ProofOfWork",
+              "fullType": "vega.snapshot.v1.ProofOfWork",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "data",
+              "defaultValue": ""
             }
           ]
         },
@@ -22010,6 +22154,102 @@
               "type": "uint64",
               "longType": "uint64",
               "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ProofOfWork",
+          "longName": "ProofOfWork",
+          "fullName": "vega.snapshot.v1.ProofOfWork",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "block_height",
+              "description": "",
+              "label": "repeated",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "block_hash",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "seen_tx",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "tx_at_height",
+              "description": "",
+              "label": "repeated",
+              "type": "TransactionsAtHeight",
+              "longType": "TransactionsAtHeight",
+              "fullType": "vega.snapshot.v1.TransactionsAtHeight",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "seen_tid",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "tid_at_height",
+              "description": "",
+              "label": "repeated",
+              "type": "TransactionsAtHeight",
+              "longType": "TransactionsAtHeight",
+              "fullType": "vega.snapshot.v1.TransactionsAtHeight",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "banned",
+              "description": "",
+              "label": "repeated",
+              "type": "BannedParty",
+              "longType": "BannedParty",
+              "fullType": "vega.snapshot.v1.BannedParty",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -22982,6 +23222,42 @@
               "type": "uint64",
               "longType": "uint64",
               "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TransactionsAtHeight",
+          "longName": "TransactionsAtHeight",
+          "fullName": "vega.snapshot.v1.TransactionsAtHeight",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "height",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "transactions",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
