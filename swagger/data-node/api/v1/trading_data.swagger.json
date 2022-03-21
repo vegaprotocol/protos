@@ -4156,6 +4156,14 @@
         }
       }
     },
+    "v1RiskFactorsResponse": {
+      "type": "object",
+      "properties": {
+        "riskFactor": {
+          "$ref": "#/definitions/vegaRiskFactor"
+        }
+      }
+    },
     "v1SettleDistressed": {
       "type": "object",
       "properties": {
