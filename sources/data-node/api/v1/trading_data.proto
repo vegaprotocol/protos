@@ -277,7 +277,7 @@ service TradingDataService {
   rpc Transfers(TransfersRequest) returns (TransfersResponse);
 
   // Get Risk Factor data for a given market
-  rpc GetRiskFactors(RiskFactorsRequest) returns (RiskFactorsResponse);
+  rpc GetRiskFactors(GetRiskFactorsRequest) returns (GetRiskFactorsResponse);
 }
 
 message TransfersRequest {
@@ -1300,10 +1300,10 @@ message CheckpointsResponse {
   repeated Checkpoint checkpoints = 1;
 }
 
-message RiskFactorsRequest {
+message GetRiskFactorsRequest {
   string market_id = 1;
 }
 
-message RiskFactorsResponse {
+message GetRiskFactorsResponse {
   vega.RiskFactor risk_factor = 1;
 }

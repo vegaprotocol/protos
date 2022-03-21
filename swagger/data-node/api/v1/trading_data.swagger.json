@@ -3153,6 +3153,14 @@
       },
       "title": "The return message with reward details in for a single party"
     },
+    "v1GetRiskFactorsResponse": {
+      "type": "object",
+      "properties": {
+        "riskFactor": {
+          "$ref": "#/definitions/vegaRiskFactor"
+        }
+      }
+    },
     "v1GetUpdateMarketProposalsResponse": {
       "type": "object",
       "properties": {
@@ -4153,14 +4161,6 @@
         "timestamp": {
           "type": "string",
           "format": "int64"
-        }
-      }
-    },
-    "v1RiskFactorsResponse": {
-      "type": "object",
-      "properties": {
-        "riskFactor": {
-          "$ref": "#/definitions/vegaRiskFactor"
         }
       }
     },

@@ -183,7 +183,7 @@ type TradingDataServiceClient interface {
 	PartyStake(ctx context.Context, in *PartyStakeRequest, opts ...grpc.CallOption) (*PartyStakeResponse, error)
 	Transfers(ctx context.Context, in *TransfersRequest, opts ...grpc.CallOption) (*TransfersResponse, error)
 	// Get Risk Factor data for a given market
-	GetRiskFactors(ctx context.Context, in *RiskFactorsRequest, opts ...grpc.CallOption) (*RiskFactorsResponse, error)
+	GetRiskFactors(ctx context.Context, in *GetRiskFactorsRequest, opts ...grpc.CallOption) (*GetRiskFactorsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -1295,8 +1295,8 @@ func (c *tradingDataServiceClient) Transfers(ctx context.Context, in *TransfersR
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetRiskFactors(ctx context.Context, in *RiskFactorsRequest, opts ...grpc.CallOption) (*RiskFactorsResponse, error) {
-	out := new(RiskFactorsResponse)
+func (c *tradingDataServiceClient) GetRiskFactors(ctx context.Context, in *GetRiskFactorsRequest, opts ...grpc.CallOption) (*GetRiskFactorsResponse, error) {
+	out := new(GetRiskFactorsResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v1.TradingDataService/GetRiskFactors", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -1469,7 +1469,7 @@ type TradingDataServiceServer interface {
 	PartyStake(context.Context, *PartyStakeRequest) (*PartyStakeResponse, error)
 	Transfers(context.Context, *TransfersRequest) (*TransfersResponse, error)
 	// Get Risk Factor data for a given market
-	GetRiskFactors(context.Context, *RiskFactorsRequest) (*RiskFactorsResponse, error)
+	GetRiskFactors(context.Context, *GetRiskFactorsRequest) (*GetRiskFactorsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -1714,7 +1714,7 @@ func (UnimplementedTradingDataServiceServer) PartyStake(context.Context, *PartyS
 func (UnimplementedTradingDataServiceServer) Transfers(context.Context, *TransfersRequest) (*TransfersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Transfers not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetRiskFactors(context.Context, *RiskFactorsRequest) (*RiskFactorsResponse, error) {
+func (UnimplementedTradingDataServiceServer) GetRiskFactors(context.Context, *GetRiskFactorsRequest) (*GetRiskFactorsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRiskFactors not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
@@ -3209,7 +3209,7 @@ func _TradingDataService_Transfers_Handler(srv interface{}, ctx context.Context,
 }
 
 func _TradingDataService_GetRiskFactors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RiskFactorsRequest)
+	in := new(GetRiskFactorsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -3221,7 +3221,7 @@ func _TradingDataService_GetRiskFactors_Handler(srv interface{}, ctx context.Con
 		FullMethod: "/datanode.api.v1.TradingDataService/GetRiskFactors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetRiskFactors(ctx, req.(*RiskFactorsRequest))
+		return srv.(TradingDataServiceServer).GetRiskFactors(ctx, req.(*GetRiskFactorsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
