@@ -1,0 +1,100 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/QueryBalanceHistoryResponse",
+    "definitions": {
+        "QueryBalanceHistoryResponse": {
+            "properties": {
+                "balances": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.AggregatedBalance"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Query Balance History Response"
+        },
+        "datanode.api.v2.AggregatedBalance": {
+            "properties": {
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp to of block the balance is referring to, in nanoseconds since the epoch"
+                },
+                "balance": {
+                    "type": "string",
+                    "description": "The balance of the set of requested accounts at the time above"
+                },
+                "account_id": {
+                    "type": "string",
+                    "description": "If grouping by account ID, the account ID"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "If grouping by party, the party ID"
+                },
+                "asset_id": {
+                    "type": "string",
+                    "description": "If grouping by asset, the asset ID"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "If grouping by market, the market ID"
+                },
+                "account_type": {
+                    "enum": [
+                        "ACCOUNT_TYPE_UNSPECIFIED",
+                        0,
+                        "ACCOUNT_TYPE_INSURANCE",
+                        1,
+                        "ACCOUNT_TYPE_SETTLEMENT",
+                        2,
+                        "ACCOUNT_TYPE_MARGIN",
+                        3,
+                        "ACCOUNT_TYPE_GENERAL",
+                        4,
+                        "ACCOUNT_TYPE_FEES_INFRASTRUCTURE",
+                        5,
+                        "ACCOUNT_TYPE_FEES_LIQUIDITY",
+                        6,
+                        "ACCOUNT_TYPE_FEES_MAKER",
+                        7,
+                        "ACCOUNT_TYPE_LOCK_WITHDRAW",
+                        8,
+                        "ACCOUNT_TYPE_BOND",
+                        9,
+                        "ACCOUNT_TYPE_EXTERNAL",
+                        10,
+                        "ACCOUNT_TYPE_GLOBAL_INSURANCE",
+                        11,
+                        "ACCOUNT_TYPE_GLOBAL_REWARD",
+                        12,
+                        "ACCOUNT_TYPE_PENDING_TRANSFERS",
+                        13,
+                        "ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES",
+                        14,
+                        "ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES",
+                        15,
+                        "ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES",
+                        16,
+                        "ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS",
+                        17
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Account Type",
+                    "description": "Various collateral/account types as used by Vega"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Aggregated Balance"
+        }
+    }
+}

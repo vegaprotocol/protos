@@ -515,6 +515,45 @@
         ]
       }
     },
+    "/liquidity-provisions/market/{market}": {
+      "get": {
+        "summary": "Get the liquidity provision orders",
+        "operationId": "TradingDataService_LiquidityProvisions2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LiquidityProvisionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "market",
+            "description": "The target market for the liquidity provision orders",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "party",
+            "description": "The party which submitted the liquidity provision orders.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TradingDataService"
+        ]
+      }
+    },
     "/liquidity-provisions/party/{party}/market/{market}": {
       "get": {
         "summary": "Get the liquidity provision orders",
@@ -3113,6 +3152,14 @@
         }
       },
       "title": "The return message with reward details in for a single party"
+    },
+    "v1GetRiskFactorsResponse": {
+      "type": "object",
+      "properties": {
+        "riskFactor": {
+          "$ref": "#/definitions/vegaRiskFactor"
+        }
+      }
     },
     "v1GetUpdateMarketProposalsResponse": {
       "type": "object",
@@ -6960,6 +7007,10 @@
     "vegaUpdateMarket": {
       "type": "object",
       "properties": {
+        "marketId": {
+          "type": "string",
+          "title": "The market to update"
+        },
         "changes": {
           "$ref": "#/definitions/vegaUpdateMarketConfiguration",
           "title": "The updated configuration of the market"

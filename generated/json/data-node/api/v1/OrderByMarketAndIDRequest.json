@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/OrderByMarketAndIDRequest",
+    "definitions": {
+        "OrderByMarketAndIDRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                },
+                "order_id": {
+                    "type": "string",
+                    "description": "Order identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Order By Market And ID Request",
+            "description": "Request for an order on a market given an order identifier"
+        }
+    }
+}

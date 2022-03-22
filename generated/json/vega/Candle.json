@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Candle",
+    "definitions": {
+        "Candle": {
+            "properties": {
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for the point in time when the candle was initially created/opened, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                },
+                "datetime": {
+                    "type": "string",
+                    "description": "An ISO-8601 datetime with nanosecond precision for when the candle was last updated"
+                },
+                "high": {
+                    "type": "string",
+                    "description": "Highest price for trading during the candle interval"
+                },
+                "low": {
+                    "type": "string",
+                    "description": "Lowest price for trading during the candle interval"
+                },
+                "open": {
+                    "type": "string",
+                    "description": "Open trade price"
+                },
+                "close": {
+                    "type": "string",
+                    "description": "Closing trade price"
+                },
+                "volume": {
+                    "type": "string",
+                    "description": "Total trading volume during the candle interval"
+                },
+                "interval": {
+                    "enum": [
+                        "INTERVAL_UNSPECIFIED",
+                        0,
+                        "INTERVAL_I1M",
+                        60,
+                        "INTERVAL_I5M",
+                        300,
+                        "INTERVAL_I15M",
+                        900,
+                        "INTERVAL_I1H",
+                        3600,
+                        "INTERVAL_I6H",
+                        21600,
+                        "INTERVAL_I1D",
+                        86400
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Interval",
+                    "description": "Represents a set of time intervals that are used when querying for candle-stick data"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candle",
+            "description": "Represents the high, low, open, and closing prices for an interval of trading, referred to commonly as a candlestick or candle"
+        }
+    }
+}

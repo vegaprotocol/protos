@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20Deposit",
+    "definitions": {
+        "ERC20Deposit": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The vega network internal identifier of the asset"
+                },
+                "source_ethereum_address": {
+                    "type": "string",
+                    "description": "The Ethereum wallet that initiated the deposit"
+                },
+                "target_party_id": {
+                    "type": "string",
+                    "description": "The Vega party identifier (pub-key) which is the target of the deposit"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be deposited"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Deposit",
+            "description": "An asset deposit for an ERC20 token"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GlobalRewardPoolAccountsRequest",
+    "definitions": {
+        "GlobalRewardPoolAccountsRequest": {
+            "properties": {
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier, required field - Set to an empty string to return all accounts - Set to an asset ID to return a single global reward pool account for a given asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Global Reward Pool Accounts Request",
+            "description": "Request for a list of global reward pool accounts"
+        }
+    }
+}

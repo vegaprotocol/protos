@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/EstimateFeeResponse",
+    "definitions": {
+        "EstimateFeeResponse": {
+            "properties": {
+                "fee": {
+                    "$ref": "#/definitions/vega.Fee",
+                    "additionalProperties": true,
+                    "description": "Summary of the estimated fees for this order if it were to trade now"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Estimate Fee Response",
+            "description": "Response to a EstimateFeeRequest, containing the estimated fees for a given order"
+        },
+        "vega.Fee": {
+            "properties": {
+                "maker_fee": {
+                    "type": "string",
+                    "description": "Fee amount paid to the non-aggressive party of the trade"
+                },
+                "infrastructure_fee": {
+                    "type": "string",
+                    "description": "Fee amount paid for maintaining the Vega infrastructure"
+                },
+                "liquidity_fee": {
+                    "type": "string",
+                    "description": "Fee amount paid to market makers"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fee",
+            "description": "Represents any fees paid by a party, resulting from a trade"
+        }
+    }
+}

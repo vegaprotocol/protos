@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NetworkParametersRequest",
+    "definitions": {
+        "NetworkParametersRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Network Parameters Request",
+            "description": "A message requesting for the list of all network parameters"
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DelegationsResponse",
+    "definitions": {
+        "DelegationsResponse": {
+            "properties": {
+                "delegations": {
+                    "items": {
+                        "$ref": "#/definitions/vega.Delegation"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Delegations Response"
+        },
+        "vega.Delegation": {
+            "properties": {
+                "party": {
+                    "type": "string",
+                    "description": "Party which is delegating"
+                },
+                "node_id": {
+                    "type": "string",
+                    "description": "Node ID"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "Amount delegated"
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "Epoch of delegation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Delegation"
+        }
+    }
+}

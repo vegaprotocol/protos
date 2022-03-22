@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PartyStakeResponse",
+    "definitions": {
+        "PartyStakeResponse": {
+            "properties": {
+                "current_stake_available": {
+                    "type": "string"
+                },
+                "stake_linkings": {
+                    "items": {
+                        "$ref": "#/definitions/vega.events.v1.StakeLinking"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party Stake Response"
+        },
+        "vega.events.v1.StakeLinking": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The internal ID for this staking event"
+                },
+                "type": {
+                    "enum": [
+                        "TYPE_UNSPECIFIED",
+                        0,
+                        "TYPE_LINK",
+                        1,
+                        "TYPE_UNLINK",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "ts": {
+                    "type": "string",
+                    "description": "The timestamps at which the event was emitted by ethereum"
+                },
+                "party": {
+                    "type": "string",
+                    "description": "The party to whom the event is directed at."
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount of stake deposited or removed"
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_PENDING",
+                        1,
+                        "STATUS_ACCEPTED",
+                        2,
+                        "STATUS_REJECTED",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status"
+                },
+                "finalized_at": {
+                    "type": "string",
+                    "description": "The time at which the vega network finalized the state of the event"
+                },
+                "tx_hash": {
+                    "type": "string",
+                    "description": "The hash of the transaction from which the events happen"
+                },
+                "block_height": {
+                    "type": "string",
+                    "description": "The block when the event happened"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The block time"
+                },
+                "log_index": {
+                    "type": "string",
+                    "description": "The log index"
+                },
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "the ethereum address from which the stake link was iniated"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stake Linking",
+            "description": "StakeLinking - an event notifying of stake being deposited or removed for a given party These events are emitted for every Staking deposit or removed accepted by the network"
+        }
+    }
+}

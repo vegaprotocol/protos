@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LiquidityProvisionsRequest",
+    "definitions": {
+        "LiquidityProvisionsRequest": {
+            "properties": {
+                "market": {
+                    "type": "string",
+                    "description": "The target market for the liquidity provision orders"
+                },
+                "party": {
+                    "type": "string",
+                    "description": "The party which submitted the liquidity provision orders"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Liquidity Provisions Request",
+            "description": "A message requesting for the list of liquidity provision orders for markets One of the two filters is required (or both)"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetKeyRotationsByNodeResponse",
+    "definitions": {
+        "GetKeyRotationsByNodeResponse": {
+            "properties": {
+                "rotations": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v1.KeyRotation"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Key Rotations By Node Response",
+            "description": "Response with all key rotations per node"
+        },
+        "datanode.api.v1.KeyRotation": {
+            "properties": {
+                "node_id": {
+                    "type": "string"
+                },
+                "old_pub_key": {
+                    "type": "string"
+                },
+                "new_pub_key": {
+                    "type": "string"
+                },
+                "block_height": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Key Rotation"
+        }
+    }
+}

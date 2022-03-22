@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetNodeDataResponse",
+    "definitions": {
+        "GetNodeDataResponse": {
+            "properties": {
+                "node_data": {
+                    "$ref": "#/definitions/vega.NodeData",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Node Data Response",
+            "description": "Response with node data"
+        },
+        "vega.NodeData": {
+            "properties": {
+                "staked_total": {
+                    "type": "string",
+                    "description": "Total staked amount across all nodes"
+                },
+                "total_nodes": {
+                    "type": "integer",
+                    "description": "Total number of nodes"
+                },
+                "inactive_nodes": {
+                    "type": "integer",
+                    "description": "Number of inactive nodes"
+                },
+                "validating_nodes": {
+                    "type": "integer",
+                    "description": "Number of nodes validating"
+                },
+                "uptime": {
+                    "type": "number",
+                    "description": "Total uptime for all epochs across all nodes"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Data"
+        }
+    }
+}

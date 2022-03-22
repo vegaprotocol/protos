@@ -20,7 +20,12 @@ func NewOracleSpec(pubKeys []string, filters []*Filter) *OracleSpec {
 func newID(pubKeys []string, filters []*Filter) string {
 	buf := []byte{}
 	for _, filter := range filters {
-		buf = append(buf, []byte(filter.String())...)
+		s := filter.Key.Name + filter.Key.Type.String()
+		for _, c := range filter.Conditions {
+			s += c.Operator.String() + c.Value
+		}
+
+		buf = append(buf, []byte(s)...)
 	}
 	buf = append(buf, []byte(strings.Join(pubKeys, ""))...)
 

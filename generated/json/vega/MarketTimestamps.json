@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarketTimestamps",
+    "definitions": {
+        "MarketTimestamps": {
+            "properties": {
+                "proposed": {
+                    "type": "string",
+                    "description": "Time when the market is first proposed"
+                },
+                "pending": {
+                    "type": "string",
+                    "description": "Time when the market has been voted in and is created into an opening auction"
+                },
+                "open": {
+                    "type": "string",
+                    "description": "Time when the market has left the opening auction and is ready to accept trades"
+                },
+                "close": {
+                    "type": "string",
+                    "description": "Time when the market is closed"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Market Timestamps",
+            "description": "Time stamps for important times about creating, enacting etc the market"
+        }
+    }
+}

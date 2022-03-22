@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## Unreleased (0.50.0)
 
 ### 🚨 Breaking changes
@@ -10,13 +9,26 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [339](https://github.com/vegaprotocol/protos/pull/339) - Added position state message
-- [341](https://github.com/vegaprotocol/protos/issues/341) - https://github.com/vegaprotocol/protos/issues/341
-- [344](https://github.com/vegaprotocol/protos/issues/344) - Add the data structures for staking and `multisigcontrol` checkpoints
-- [348](https://github.com/vegaprotocol/protos/issues/348) - Add candles V2 API
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.49.3
+
+### 🛠 Improvements
+- [351](https://github.com/vegaprotocol/protos/pull/351) - Add no party binding for data-node liquidity provision requests
+- [339](https://github.com/vegaprotocol/protos/pull/339) - Added position state message
+- [341](https://github.com/vegaprotocol/protos/issues/341) - Add block hash to statistics and to height response.
+- [344](https://github.com/vegaprotocol/protos/issues/344) - Add the data structures for staking and `multisigcontrol` checkpoints
+- [348](https://github.com/vegaprotocol/protos/issues/348) - Add candles V2 API
+- [345](https://github.com/vegaprotocol/protos/issues/345) - Added proof of work to transaction
+- [297](https://github.com/vegaprotocol/protos/issues/297) - Add market ID to market update proposal.
+- [364](https://github.com/vegaprotocol/protos/issues/364) - Update candles v2 api
+
+### 🐛 Fixes
+- [357](https://github.com/vegaprotocol/protos/issues/357) - make oracle spec ids deterministic across all machines
 
 
 ## 0.49.2
@@ -43,9 +55,7 @@
 ### 🛠 Improvements
 - [325](https://github.com/vegaprotocol/protos/pull/325) - v2 data node API holds only new API methods
 - [329](https://github.com/vegaprotocol/protos/pull/329) - remove unused request response types from v2 API
-- [329](https://github.com/vegaprotocol/protos/pull/329) - Add proposal for market update and its validation.
-
-
+- [297](https://github.com/vegaprotocol/protos/issues/297) - Add proposal for market update and its validation.
 
 ## 0.49.0
 
@@ -77,6 +87,7 @@
 
 ### 🛠 Improvements
 - [303](https://github.com/vegaprotocol/protos/pull/303) - Add types for CheckTransaction and CheckRawTransaction for vega
+- [294](https://github.com/vegaprotocol/protos/pull/294) - Add json proto generation to script
 - [191](https://github.com/vegaprotocol/protos/pull/191) - Add details on transaction nonce and block_height documentation
 - [196](https://github.com/vegaprotocol/protos/pull/199) - Get rid of risk result and change risk factors to string
 - [212](https://github.com/vegaprotocol/protos/pull/212) - Add pagination field to DelegationRequest

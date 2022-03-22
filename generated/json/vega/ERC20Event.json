@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20Event",
+    "definitions": {
+        "ERC20Event": {
+            "properties": {
+                "index": {
+                    "type": "string",
+                    "description": "Index of the log in the transaction"
+                },
+                "block": {
+                    "type": "string",
+                    "description": "The block in which the transaction was added"
+                },
+                "asset_list": {
+                    "$ref": "#/definitions/vega.ERC20AssetList",
+                    "additionalProperties": true,
+                    "description": "List an ERC20 asset"
+                },
+                "asset_delist": {
+                    "$ref": "#/definitions/vega.ERC20AssetDelist",
+                    "additionalProperties": true,
+                    "description": "De-list an ERC20 asset"
+                },
+                "deposit": {
+                    "$ref": "#/definitions/vega.ERC20Deposit",
+                    "additionalProperties": true,
+                    "description": "Deposit ERC20 asset"
+                },
+                "withdrawal": {
+                    "$ref": "#/definitions/vega.ERC20Withdrawal",
+                    "additionalProperties": true,
+                    "description": "Withdraw ERC20 asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Event",
+            "description": "An event related to an ERC20 token"
+        },
+        "vega.ERC20AssetDelist": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Asset Delist",
+            "description": "An asset deny-listing for an ERC20 token"
+        },
+        "vega.ERC20AssetList": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Asset List",
+            "description": "An asset allow-listing for an ERC20 token"
+        },
+        "vega.ERC20Deposit": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The vega network internal identifier of the asset"
+                },
+                "source_ethereum_address": {
+                    "type": "string",
+                    "description": "The Ethereum wallet that initiated the deposit"
+                },
+                "target_party_id": {
+                    "type": "string",
+                    "description": "The Vega party identifier (pub-key) which is the target of the deposit"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be deposited"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Deposit",
+            "description": "An asset deposit for an ERC20 token"
+        },
+        "vega.ERC20Withdrawal": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                },
+                "target_ethereum_address": {
+                    "type": "string",
+                    "description": "The target Ethereum wallet address"
+                },
+                "reference_nonce": {
+                    "type": "string",
+                    "description": "The reference nonce used for the transaction"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Withdrawal",
+            "description": "An asset withdrawal for an ERC20 token"
+        }
+    }
+}

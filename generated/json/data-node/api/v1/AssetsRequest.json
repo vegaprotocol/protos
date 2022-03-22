@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/AssetsRequest",
+    "definitions": {
+        "AssetsRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Assets Request",
+            "description": "Request for a list of all assets enabled on Vega"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/BuiltinAssetWithdrawal",
+    "definitions": {
+        "BuiltinAssetWithdrawal": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "A Vega network internal asset identifier"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "A Vega network party identifier (pub-key)"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be withdrawn"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Builtin Asset Withdrawal",
+            "description": "A withdrawal for a Vega built-in asset"
+        }
+    }
+}

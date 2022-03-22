@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetNodeDataRequest",
+    "definitions": {
+        "GetNodeDataRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Node Data Request",
+            "description": "Request for current Node data"
+        }
+    }
+}

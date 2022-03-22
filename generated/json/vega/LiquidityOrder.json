@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LiquidityOrder",
+    "definitions": {
+        "LiquidityOrder": {
+            "properties": {
+                "reference": {
+                    "enum": [
+                        "PEGGED_REFERENCE_UNSPECIFIED",
+                        0,
+                        "PEGGED_REFERENCE_MID",
+                        1,
+                        "PEGGED_REFERENCE_BEST_BID",
+                        2,
+                        "PEGGED_REFERENCE_BEST_ASK",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Pegged Reference",
+                    "description": "A pegged reference defines which price point a pegged order is linked to - meaning the price for a pegged order is calculated from the value of the reference price point"
+                },
+                "proportion": {
+                    "type": "integer",
+                    "description": "The relative proportion of the commitment to be allocated at a price level"
+                },
+                "offset": {
+                    "type": "string",
+                    "description": "The offset/amount of units away for the order"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Liquidity Order",
+            "description": "Represents a liquidity order"
+        }
+    }
+}

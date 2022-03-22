@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DepositsRequest",
+    "definitions": {
+        "DepositsRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "The party to get the deposits for"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Deposits Request",
+            "description": "A request to get a list of deposit from a given party"
+        }
+    }
+}

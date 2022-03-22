@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetNodeSignaturesAggregateRequest",
+    "definitions": {
+        "GetNodeSignaturesAggregateRequest": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Resource identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Node Signatures Aggregate Request",
+            "description": "Request to specify the identifier of the resource we want to retrieve aggregated signatures for"
+        }
+    }
+}

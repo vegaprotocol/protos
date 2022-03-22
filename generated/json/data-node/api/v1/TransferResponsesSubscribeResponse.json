@@ -1,0 +1,166 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TransferResponsesSubscribeResponse",
+    "definitions": {
+        "TransferResponsesSubscribeResponse": {
+            "properties": {
+                "response": {
+                    "$ref": "#/definitions/vega.TransferResponse",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Responses Subscribe Response"
+        },
+        "vega.Account": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique account identifier (used internally by Vega)"
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "The party that the account belongs to, special values include `network`, which represents the Vega network and is most commonly seen during liquidation of distressed trading positions"
+                },
+                "balance": {
+                    "type": "string",
+                    "description": "Balance of the asset, the balance is an integer, for example `123456` is a correctly formatted price of `1.23456` assuming market configured to 5 decimal places and importantly balances cannot be negative"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier for the account"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier for the account, if [`AccountType`](#vega.AccountType).`ACCOUNT_TYPE_GENERAL` this will be empty"
+                },
+                "type": {
+                    "enum": [
+                        "ACCOUNT_TYPE_UNSPECIFIED",
+                        0,
+                        "ACCOUNT_TYPE_INSURANCE",
+                        1,
+                        "ACCOUNT_TYPE_SETTLEMENT",
+                        2,
+                        "ACCOUNT_TYPE_MARGIN",
+                        3,
+                        "ACCOUNT_TYPE_GENERAL",
+                        4,
+                        "ACCOUNT_TYPE_FEES_INFRASTRUCTURE",
+                        5,
+                        "ACCOUNT_TYPE_FEES_LIQUIDITY",
+                        6,
+                        "ACCOUNT_TYPE_FEES_MAKER",
+                        7,
+                        "ACCOUNT_TYPE_LOCK_WITHDRAW",
+                        8,
+                        "ACCOUNT_TYPE_BOND",
+                        9,
+                        "ACCOUNT_TYPE_EXTERNAL",
+                        10,
+                        "ACCOUNT_TYPE_GLOBAL_INSURANCE",
+                        11,
+                        "ACCOUNT_TYPE_GLOBAL_REWARD",
+                        12,
+                        "ACCOUNT_TYPE_PENDING_TRANSFERS",
+                        13,
+                        "ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES",
+                        14,
+                        "ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES",
+                        15,
+                        "ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES",
+                        16,
+                        "ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS",
+                        17
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Account Type",
+                    "description": "Various collateral/account types as used by Vega"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Account",
+            "description": "Represents an account for an asset on Vega for a particular owner or party"
+        },
+        "vega.LedgerEntry": {
+            "properties": {
+                "from_account": {
+                    "type": "string",
+                    "description": "One or more accounts to transfer from"
+                },
+                "to_account": {
+                    "type": "string",
+                    "description": "One or more accounts to transfer to"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "An amount to transfer"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "A reference for auditing purposes"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of ledger entry"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for the time the ledger entry was created, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ledger Entry",
+            "description": "Represents a ledger entry on Vega"
+        },
+        "vega.TransferBalance": {
+            "properties": {
+                "account": {
+                    "$ref": "#/definitions/vega.Account",
+                    "additionalProperties": true,
+                    "description": "The account relating to the transfer"
+                },
+                "balance": {
+                    "type": "string",
+                    "description": "The balance relating to the transfer"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Balance",
+            "description": "Represents the balance for an account during a transfer"
+        },
+        "vega.TransferResponse": {
+            "properties": {
+                "transfers": {
+                    "items": {
+                        "$ref": "#/definitions/vega.LedgerEntry"
+                    },
+                    "type": "array",
+                    "description": "One or more ledger entries representing the transfers"
+                },
+                "balances": {
+                    "items": {
+                        "$ref": "#/definitions/vega.TransferBalance"
+                    },
+                    "type": "array",
+                    "description": "One or more account balances"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Response",
+            "description": "Represents the response from a transfer"
+        }
+    }
+}

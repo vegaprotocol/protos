@@ -9,8 +9,6 @@ import "vega/assets.proto";
 import "vega/events/v1/events.proto";
 import "vega/oracles/v1/spec.proto";
 import "vega/oracles/v1/data.proto";
-import "vega/commands/v1/commands.proto";
-import "vega/commands/v1/transaction.proto";
 import "vega/commands/v1/validator_commands.proto";
 
 package datanode.api.v1;
@@ -277,6 +275,9 @@ service TradingDataService {
   rpc PartyStake(PartyStakeRequest) returns (PartyStakeResponse);
 
   rpc Transfers(TransfersRequest) returns (TransfersResponse);
+
+  // Get Risk Factor data for a given market
+  rpc GetRiskFactors(GetRiskFactorsRequest) returns (GetRiskFactorsResponse);
 }
 
 message TransfersRequest {
@@ -1297,4 +1298,12 @@ message CheckpointsRequest {}
 // Response message containing all checkpoints requested
 message CheckpointsResponse {
   repeated Checkpoint checkpoints = 1;
+}
+
+message GetRiskFactorsRequest {
+  string market_id = 1;
+}
+
+message GetRiskFactorsResponse {
+  vega.RiskFactor risk_factor = 1;
 }

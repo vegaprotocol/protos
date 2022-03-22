@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarginLevelsSubscribeResponse",
+    "definitions": {
+        "MarginLevelsSubscribeResponse": {
+            "properties": {
+                "margin_levels": {
+                    "$ref": "#/definitions/vega.MarginLevels",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Margin Levels Subscribe Response"
+        },
+        "vega.MarginLevels": {
+            "properties": {
+                "maintenance_margin": {
+                    "type": "string",
+                    "description": "Maintenance margin value"
+                },
+                "search_level": {
+                    "type": "string",
+                    "description": "Search level value"
+                },
+                "initial_margin": {
+                    "type": "string",
+                    "description": "Initial margin value"
+                },
+                "collateral_release_level": {
+                    "type": "string",
+                    "description": "Collateral release level value"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for the time the ledger entry was created, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Margin Levels",
+            "description": "Represents the margin levels for a party on a market at a given time"
+        }
+    }
+}

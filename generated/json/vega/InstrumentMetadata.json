@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/InstrumentMetadata",
+    "definitions": {
+        "InstrumentMetadata": {
+            "properties": {
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "A list of 0 or more tags"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Instrument Metadata",
+            "description": "Instrument metadata definition"
+        }
+    }
+}

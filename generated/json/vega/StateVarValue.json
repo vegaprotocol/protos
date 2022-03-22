@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/StateVarValue",
+    "definitions": {
+        "StateVarValue": {
+            "properties": {
+                "scalar_val": {
+                    "$ref": "#/definitions/vega.ScalarValue",
+                    "additionalProperties": true
+                },
+                "vector_val": {
+                    "$ref": "#/definitions/vega.VectorValue",
+                    "additionalProperties": true
+                },
+                "matrix_val": {
+                    "$ref": "#/definitions/vega.MatrixValue",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "State Var Value"
+        },
+        "vega.MatrixValue": {
+            "properties": {
+                "value": {
+                    "items": {
+                        "$ref": "#/definitions/vega.VectorValue"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Matrix Value"
+        },
+        "vega.ScalarValue": {
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Scalar Value"
+        },
+        "vega.VectorValue": {
+            "properties": {
+                "value": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Vector Value"
+        }
+    }
+}

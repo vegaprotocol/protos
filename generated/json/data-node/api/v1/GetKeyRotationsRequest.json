@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetKeyRotationsRequest",
+    "definitions": {
+        "GetKeyRotationsRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Key Rotations Request",
+            "description": "Request to list all key rotations"
+        }
+    }
+}

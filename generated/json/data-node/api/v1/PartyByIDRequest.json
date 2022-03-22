@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PartyByIDRequest",
+    "definitions": {
+        "PartyByIDRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party By ID Request",
+            "description": "Request for a party given a party identifier"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LastTradeRequest",
+    "definitions": {
+        "LastTradeRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Last Trade Request",
+            "description": "Request for the latest trade that occurred on Vega for a given market"
+        }
+    }
+}

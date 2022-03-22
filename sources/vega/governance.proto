@@ -86,8 +86,10 @@ message NewMarket {
 
 // Update an existing market on Vega
 message UpdateMarket {
+  // The market to update
+  string market_id = 1;
   // The updated configuration of the market
-  UpdateMarketConfiguration changes = 1;
+  UpdateMarketConfiguration changes = 2;
 }
 
 // Configuration to update a market on Vega

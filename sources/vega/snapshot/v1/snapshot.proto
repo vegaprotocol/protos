@@ -112,6 +112,7 @@ message Payload {
     BankingScheduledTransfers banking_scheduled_transfers = 50;
     ERC20MultiSigTopologyVerified erc20_multisig_topology_verified = 51;
     ERC20MultiSigTopologyPending erc20_multisig_topology_pending = 52;
+    ProofOfWork proof_of_work = 53;
   }
 }
 
@@ -720,4 +721,18 @@ message ERC20MultiSigTopologyPending {
   repeated vega.events.v1.ERC20MultiSigThresholdSetEvent pending_threshold_set = 2;
   repeated string witnessed_signers = 3;
   repeated string witnessed_threshold_sets = 4;
+}
+
+message ProofOfWork {
+  repeated uint64 block_height = 1;
+  repeated string block_hash = 2;
+  repeated string seen_tx = 3;
+  repeated TransactionsAtHeight tx_at_height = 4;
+  repeated string seen_tid = 5;
+  repeated TransactionsAtHeight tid_at_height = 6;
+  repeated BannedParty banned = 7;	
+}
+message TransactionsAtHeight {
+  uint64 height = 1;
+  repeated string transactions = 2;
 }

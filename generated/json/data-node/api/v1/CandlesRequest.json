@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CandlesRequest",
+    "definitions": {
+        "CandlesRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field."
+                },
+                "since_timestamp": {
+                    "type": "string",
+                    "description": "Timestamp to retrieve candles since, in nanoseconds since the epoch, required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                },
+                "interval": {
+                    "enum": [
+                        "INTERVAL_UNSPECIFIED",
+                        0,
+                        "INTERVAL_I1M",
+                        60,
+                        "INTERVAL_I5M",
+                        300,
+                        "INTERVAL_I15M",
+                        900,
+                        "INTERVAL_I1H",
+                        3600,
+                        "INTERVAL_I6H",
+                        21600,
+                        "INTERVAL_I1D",
+                        86400
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Interval",
+                    "description": "Represents a set of time intervals that are used when querying for candle-stick data"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candles Request",
+            "description": "Request for a list of candles for a market at an interval"
+        }
+    }
+}

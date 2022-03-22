@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetKeyRotationsByNodeRequest",
+    "definitions": {
+        "GetKeyRotationsByNodeRequest": {
+            "properties": {
+                "node_id": {
+                    "type": "string",
+                    "description": "Required id of node"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Key Rotations By Node Request",
+            "description": "Request to list all key rotations per node"
+        }
+    }
+}

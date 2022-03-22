@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20SignerRemoved",
+    "definitions": {
+        "ERC20SignerRemoved": {
+            "properties": {
+                "old_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the old signer"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce create by the vega network used for this old signer"
+                },
+                "block_time": {
+                    "type": "string",
+                    "description": "The time at which the block was produced will be used to inform the core at what time the stake was made unavailable."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Signer Removed",
+            "description": "A signer removed from the ERC20 bridge"
+        }
+    }
+}

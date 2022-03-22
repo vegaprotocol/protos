@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarketAccountsRequest",
+    "definitions": {
+        "MarketAccountsRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Market Accounts Request",
+            "description": "Request for a list of accounts for a market"
+        }
+    }
+}

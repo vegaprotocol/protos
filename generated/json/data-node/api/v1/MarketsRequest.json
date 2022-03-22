@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MarketsRequest",
+    "definitions": {
+        "MarketsRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Markets Request",
+            "description": "Request for a list of markets on Vega"
+        }
+    }
+}
