@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CandlesForMarketResponse",
+    "definitions": {
+        "CandlesForMarketResponse": {
+            "properties": {
+                "intervalToCandleId": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.IntervalToCandleId"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candles For Market Response",
+            "description": "A list of interval to candle id mappings for a given market"
+        },
+        "datanode.api.v2.IntervalToCandleId": {
+            "properties": {
+                "interval": {
+                    "type": "string",
+                    "description": "The interval for the candle"
+                },
+                "candle_id": {
+                    "type": "string",
+                    "description": "The unique id of the candle"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Interval To Candle Id",
+            "description": "Maps an interval for a given market to its corresponding candle_id"
+        }
+    }
+}

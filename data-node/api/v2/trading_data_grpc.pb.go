@@ -32,10 +32,12 @@ type TradingDataServiceClient interface {
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
-	// Get a list of Candles by Market
-	Candles(ctx context.Context, in *CandlesRequest, opts ...grpc.CallOption) (*CandlesResponse, error)
-	// Subscribe to a stream of Candles
-	CandlesSubscribe(ctx context.Context, in *CandlesSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_CandlesSubscribeClient, error)
+	// Get candle data for a given candle id
+	GetCandleData(ctx context.Context, in *GetCandleDataRequest, opts ...grpc.CallOption) (*GetCandleDataResponse, error)
+	// Subscribe to a stream of Candle updates
+	SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error)
+	// Gets all available intervals for a given market along with the corresponding candle id
+	GetCandlesForMarket(ctx context.Context, in *GetCandlesForMarketRequest, opts ...grpc.CallOption) (*GetCandlesForMarketResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -91,21 +93,21 @@ func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *Get
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) Candles(ctx context.Context, in *CandlesRequest, opts ...grpc.CallOption) (*CandlesResponse, error) {
-	out := new(CandlesResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/Candles", in, out, opts...)
+func (c *tradingDataServiceClient) GetCandleData(ctx context.Context, in *GetCandleDataRequest, opts ...grpc.CallOption) (*GetCandleDataResponse, error) {
+	out := new(GetCandleDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetCandleData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) CandlesSubscribe(ctx context.Context, in *CandlesSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_CandlesSubscribeClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/CandlesSubscribe", opts...)
+func (c *tradingDataServiceClient) SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &tradingDataServiceCandlesSubscribeClient{stream}
+	x := &tradingDataServiceSubscribeToCandleDataClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -115,21 +117,30 @@ func (c *tradingDataServiceClient) CandlesSubscribe(ctx context.Context, in *Can
 	return x, nil
 }
 
-type TradingDataService_CandlesSubscribeClient interface {
-	Recv() (*CandlesSubscribeResponse, error)
+type TradingDataService_SubscribeToCandleDataClient interface {
+	Recv() (*SubscribeToCandleDataResponse, error)
 	grpc.ClientStream
 }
 
-type tradingDataServiceCandlesSubscribeClient struct {
+type tradingDataServiceSubscribeToCandleDataClient struct {
 	grpc.ClientStream
 }
 
-func (x *tradingDataServiceCandlesSubscribeClient) Recv() (*CandlesSubscribeResponse, error) {
-	m := new(CandlesSubscribeResponse)
+func (x *tradingDataServiceSubscribeToCandleDataClient) Recv() (*SubscribeToCandleDataResponse, error) {
+	m := new(SubscribeToCandleDataResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
+}
+
+func (c *tradingDataServiceClient) GetCandlesForMarket(ctx context.Context, in *GetCandlesForMarketRequest, opts ...grpc.CallOption) (*GetCandlesForMarketResponse, error) {
+	out := new(GetCandlesForMarketResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetCandlesForMarket", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 // TradingDataServiceServer is the server API for TradingDataService service.
@@ -146,10 +157,12 @@ type TradingDataServiceServer interface {
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
-	// Get a list of Candles by Market
-	Candles(context.Context, *CandlesRequest) (*CandlesResponse, error)
-	// Subscribe to a stream of Candles
-	CandlesSubscribe(*CandlesSubscribeRequest, TradingDataService_CandlesSubscribeServer) error
+	// Get candle data for a given candle id
+	GetCandleData(context.Context, *GetCandleDataRequest) (*GetCandleDataResponse, error)
+	// Subscribe to a stream of Candle updates
+	SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error
+	// Gets all available intervals for a given market along with the corresponding candle id
+	GetCandlesForMarket(context.Context, *GetCandlesForMarketRequest) (*GetCandlesForMarketResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -172,11 +185,14 @@ func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Co
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
 }
-func (UnimplementedTradingDataServiceServer) Candles(context.Context, *CandlesRequest) (*CandlesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Candles not implemented")
+func (UnimplementedTradingDataServiceServer) GetCandleData(context.Context, *GetCandleDataRequest) (*GetCandleDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCandleData not implemented")
 }
-func (UnimplementedTradingDataServiceServer) CandlesSubscribe(*CandlesSubscribeRequest, TradingDataService_CandlesSubscribeServer) error {
-	return status.Errorf(codes.Unimplemented, "method CandlesSubscribe not implemented")
+func (UnimplementedTradingDataServiceServer) SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error {
+	return status.Errorf(codes.Unimplemented, "method SubscribeToCandleData not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetCandlesForMarket(context.Context, *GetCandlesForMarketRequest) (*GetCandlesForMarketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCandlesForMarket not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -281,43 +297,61 @@ func _TradingDataService_GetNetworkLimits_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_Candles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CandlesRequest)
+func _TradingDataService_GetCandleData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCandleDataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).Candles(ctx, in)
+		return srv.(TradingDataServiceServer).GetCandleData(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/Candles",
+		FullMethod: "/datanode.api.v2.TradingDataService/GetCandleData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).Candles(ctx, req.(*CandlesRequest))
+		return srv.(TradingDataServiceServer).GetCandleData(ctx, req.(*GetCandleDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_CandlesSubscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(CandlesSubscribeRequest)
+func _TradingDataService_SubscribeToCandleData_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SubscribeToCandleDataRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(TradingDataServiceServer).CandlesSubscribe(m, &tradingDataServiceCandlesSubscribeServer{stream})
+	return srv.(TradingDataServiceServer).SubscribeToCandleData(m, &tradingDataServiceSubscribeToCandleDataServer{stream})
 }
 
-type TradingDataService_CandlesSubscribeServer interface {
-	Send(*CandlesSubscribeResponse) error
+type TradingDataService_SubscribeToCandleDataServer interface {
+	Send(*SubscribeToCandleDataResponse) error
 	grpc.ServerStream
 }
 
-type tradingDataServiceCandlesSubscribeServer struct {
+type tradingDataServiceSubscribeToCandleDataServer struct {
 	grpc.ServerStream
 }
 
-func (x *tradingDataServiceCandlesSubscribeServer) Send(m *CandlesSubscribeResponse) error {
+func (x *tradingDataServiceSubscribeToCandleDataServer) Send(m *SubscribeToCandleDataResponse) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _TradingDataService_GetCandlesForMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCandlesForMarketRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetCandlesForMarket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetCandlesForMarket",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetCandlesForMarket(ctx, req.(*GetCandlesForMarketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
@@ -348,14 +382,18 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetNetworkLimits_Handler,
 		},
 		{
-			MethodName: "Candles",
-			Handler:    _TradingDataService_Candles_Handler,
+			MethodName: "GetCandleData",
+			Handler:    _TradingDataService_GetCandleData_Handler,
+		},
+		{
+			MethodName: "GetCandlesForMarket",
+			Handler:    _TradingDataService_GetCandlesForMarket_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "CandlesSubscribe",
-			Handler:       _TradingDataService_CandlesSubscribe_Handler,
+			StreamName:    "SubscribeToCandleData",
+			Handler:       _TradingDataService_SubscribeToCandleData_Handler,
 			ServerStreams: true,
 		},
 	},

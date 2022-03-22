@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/IntervalToCandleId",
+    "definitions": {
+        "IntervalToCandleId": {
+            "properties": {
+                "interval": {
+                    "type": "string",
+                    "description": "The interval for the candle"
+                },
+                "candle_id": {
+                    "type": "string",
+                    "description": "The unique id of the candle"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Interval To Candle Id",
+            "description": "Maps an interval for a given market to its corresponding candle_id"
+        }
+    }
+}
