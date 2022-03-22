@@ -81,6 +81,161 @@ func (AccountField) EnumDescriptor() ([]byte, []int) {
 	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{0}
 }
 
+// Request to get a list of supported intervals for the given market along with the corresponding candle id
+type CandlesForMarketRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The unique identifier for the market
+	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
+}
+
+func (x *CandlesForMarketRequest) Reset() {
+	*x = CandlesForMarketRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CandlesForMarketRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CandlesForMarketRequest) ProtoMessage() {}
+
+func (x *CandlesForMarketRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CandlesForMarketRequest.ProtoReflect.Descriptor instead.
+func (*CandlesForMarketRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CandlesForMarketRequest) GetMarketId() string {
+	if x != nil {
+		return x.MarketId
+	}
+	return ""
+}
+
+// Maps an interval for a given market to its corresponding candle_id
+type IntervalToCandleId struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The interval for the candle
+	Interval string `protobuf:"bytes,1,opt,name=interval,proto3" json:"interval,omitempty"`
+	// The unique id of the candle
+	CandleId string `protobuf:"bytes,2,opt,name=candle_id,json=candleId,proto3" json:"candle_id,omitempty"`
+}
+
+func (x *IntervalToCandleId) Reset() {
+	*x = IntervalToCandleId{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IntervalToCandleId) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IntervalToCandleId) ProtoMessage() {}
+
+func (x *IntervalToCandleId) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IntervalToCandleId.ProtoReflect.Descriptor instead.
+func (*IntervalToCandleId) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *IntervalToCandleId) GetInterval() string {
+	if x != nil {
+		return x.Interval
+	}
+	return ""
+}
+
+func (x *IntervalToCandleId) GetCandleId() string {
+	if x != nil {
+		return x.CandleId
+	}
+	return ""
+}
+
+// A list of interval to candle id mappings for a given market
+type CandlesForMarketResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IntervalToCandleId []*IntervalToCandleId `protobuf:"bytes,1,rep,name=intervalToCandleId,proto3" json:"intervalToCandleId,omitempty"`
+}
+
+func (x *CandlesForMarketResponse) Reset() {
+	*x = CandlesForMarketResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CandlesForMarketResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CandlesForMarketResponse) ProtoMessage() {}
+
+func (x *CandlesForMarketResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CandlesForMarketResponse.ProtoReflect.Descriptor instead.
+func (*CandlesForMarketResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CandlesForMarketResponse) GetIntervalToCandleId() []*IntervalToCandleId {
+	if x != nil {
+		return x.IntervalToCandleId
+	}
+	return nil
+}
+
 // Represents the high, low, open, and closing prices for an interval of trading,
 // referred to commonly as a candlestick or candle
 type Candle struct {
@@ -109,7 +264,7 @@ type Candle struct {
 func (x *Candle) Reset() {
 	*x = Candle{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[0]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -122,7 +277,7 @@ func (x *Candle) String() string {
 func (*Candle) ProtoMessage() {}
 
 func (x *Candle) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[0]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -135,7 +290,7 @@ func (x *Candle) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Candle.ProtoReflect.Descriptor instead.
 func (*Candle) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{0}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Candle) GetStart() int64 {
@@ -188,34 +343,32 @@ func (x *Candle) GetVolume() uint64 {
 }
 
 // Request to subscribe to a stream of (Candles)[#vega.Candle]
-type CandlesSubscribeRequest struct {
+type CandleSubscribeRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Market identifier, required field
-	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
-	// Time interval for the candles, required field specified as a valid postgres interval
-	Interval string `protobuf:"bytes,2,opt,name=interval,proto3" json:"interval,omitempty"`
+	// The unique identifier for the candle
+	CandleId string `protobuf:"bytes,1,opt,name=candle_id,json=candleId,proto3" json:"candle_id,omitempty"`
 }
 
-func (x *CandlesSubscribeRequest) Reset() {
-	*x = CandlesSubscribeRequest{}
+func (x *CandleSubscribeRequest) Reset() {
+	*x = CandleSubscribeRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[1]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *CandlesSubscribeRequest) String() string {
+func (x *CandleSubscribeRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CandlesSubscribeRequest) ProtoMessage() {}
+func (*CandleSubscribeRequest) ProtoMessage() {}
 
-func (x *CandlesSubscribeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[1]
+func (x *CandleSubscribeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -226,26 +379,19 @@ func (x *CandlesSubscribeRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CandlesSubscribeRequest.ProtoReflect.Descriptor instead.
-func (*CandlesSubscribeRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{1}
+// Deprecated: Use CandleSubscribeRequest.ProtoReflect.Descriptor instead.
+func (*CandleSubscribeRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *CandlesSubscribeRequest) GetMarketId() string {
+func (x *CandleSubscribeRequest) GetCandleId() string {
 	if x != nil {
-		return x.MarketId
+		return x.CandleId
 	}
 	return ""
 }
 
-func (x *CandlesSubscribeRequest) GetInterval() string {
-	if x != nil {
-		return x.Interval
-	}
-	return ""
-}
-
-type CandlesSubscribeResponse struct {
+type CandleSubscribeResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -253,23 +399,23 @@ type CandlesSubscribeResponse struct {
 	Candle *Candle `protobuf:"bytes,1,opt,name=candle,proto3" json:"candle,omitempty"`
 }
 
-func (x *CandlesSubscribeResponse) Reset() {
-	*x = CandlesSubscribeResponse{}
+func (x *CandleSubscribeResponse) Reset() {
+	*x = CandleSubscribeResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[2]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *CandlesSubscribeResponse) String() string {
+func (x *CandleSubscribeResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CandlesSubscribeResponse) ProtoMessage() {}
+func (*CandleSubscribeResponse) ProtoMessage() {}
 
-func (x *CandlesSubscribeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[2]
+func (x *CandleSubscribeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -280,12 +426,12 @@ func (x *CandlesSubscribeResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CandlesSubscribeResponse.ProtoReflect.Descriptor instead.
-func (*CandlesSubscribeResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{2}
+// Deprecated: Use CandleSubscribeResponse.ProtoReflect.Descriptor instead.
+func (*CandleSubscribeResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *CandlesSubscribeResponse) GetCandle() *Candle {
+func (x *CandleSubscribeResponse) GetCandle() *Candle {
 	if x != nil {
 		return x.Candle
 	}
@@ -293,13 +439,13 @@ func (x *CandlesSubscribeResponse) GetCandle() *Candle {
 }
 
 // Request for a list of candles for a market at an interval
-type CandlesRequest struct {
+type CandleDataRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Market identifier, required field.
-	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
+	// Candle identifier, required field.
+	CandleId string `protobuf:"bytes,1,opt,name=candle_id,json=candleId,proto3" json:"candle_id,omitempty"`
 	// Timestamp to retrieve candles since, in nanoseconds since the epoch,
 	// required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
 	FromTimestamp int64 `protobuf:"varint,2,opt,name=from_timestamp,json=fromTimestamp,proto3" json:"from_timestamp,omitempty"`
@@ -312,23 +458,23 @@ type CandlesRequest struct {
 	Pagination *Pagination `protobuf:"bytes,5,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (x *CandlesRequest) Reset() {
-	*x = CandlesRequest{}
+func (x *CandleDataRequest) Reset() {
+	*x = CandleDataRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[3]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *CandlesRequest) String() string {
+func (x *CandleDataRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CandlesRequest) ProtoMessage() {}
+func (*CandleDataRequest) ProtoMessage() {}
 
-func (x *CandlesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[3]
+func (x *CandleDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -339,48 +485,48 @@ func (x *CandlesRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CandlesRequest.ProtoReflect.Descriptor instead.
-func (*CandlesRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{3}
+// Deprecated: Use CandleDataRequest.ProtoReflect.Descriptor instead.
+func (*CandleDataRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *CandlesRequest) GetMarketId() string {
+func (x *CandleDataRequest) GetCandleId() string {
 	if x != nil {
-		return x.MarketId
+		return x.CandleId
 	}
 	return ""
 }
 
-func (x *CandlesRequest) GetFromTimestamp() int64 {
+func (x *CandleDataRequest) GetFromTimestamp() int64 {
 	if x != nil {
 		return x.FromTimestamp
 	}
 	return 0
 }
 
-func (x *CandlesRequest) GetToTimestamp() int64 {
+func (x *CandleDataRequest) GetToTimestamp() int64 {
 	if x != nil {
 		return x.ToTimestamp
 	}
 	return 0
 }
 
-func (x *CandlesRequest) GetInterval() string {
+func (x *CandleDataRequest) GetInterval() string {
 	if x != nil {
 		return x.Interval
 	}
 	return ""
 }
 
-func (x *CandlesRequest) GetPagination() *Pagination {
+func (x *CandleDataRequest) GetPagination() *Pagination {
 	if x != nil {
 		return x.Pagination
 	}
 	return nil
 }
 
-// Response for a list of candles for a market at an interval
-type CandlesResponse struct {
+// Response for list of candles for a market at an interval
+type CandleDataResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -389,23 +535,23 @@ type CandlesResponse struct {
 	Candles []*Candle `protobuf:"bytes,1,rep,name=candles,proto3" json:"candles,omitempty"`
 }
 
-func (x *CandlesResponse) Reset() {
-	*x = CandlesResponse{}
+func (x *CandleDataResponse) Reset() {
+	*x = CandleDataResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[4]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *CandlesResponse) String() string {
+func (x *CandleDataResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CandlesResponse) ProtoMessage() {}
+func (*CandleDataResponse) ProtoMessage() {}
 
-func (x *CandlesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[4]
+func (x *CandleDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -416,12 +562,12 @@ func (x *CandlesResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CandlesResponse.ProtoReflect.Descriptor instead.
-func (*CandlesResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{4}
+// Deprecated: Use CandleDataResponse.ProtoReflect.Descriptor instead.
+func (*CandleDataResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *CandlesResponse) GetCandles() []*Candle {
+func (x *CandleDataResponse) GetCandles() []*Candle {
 	if x != nil {
 		return x.Candles
 	}
@@ -438,7 +584,7 @@ type GetNetworkLimitsRequest struct {
 func (x *GetNetworkLimitsRequest) Reset() {
 	*x = GetNetworkLimitsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[5]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -451,7 +597,7 @@ func (x *GetNetworkLimitsRequest) String() string {
 func (*GetNetworkLimitsRequest) ProtoMessage() {}
 
 func (x *GetNetworkLimitsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[5]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -464,7 +610,7 @@ func (x *GetNetworkLimitsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNetworkLimitsRequest.ProtoReflect.Descriptor instead.
 func (*GetNetworkLimitsRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{5}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{8}
 }
 
 // Response for the current network limits
@@ -479,7 +625,7 @@ type GetNetworkLimitsResponse struct {
 func (x *GetNetworkLimitsResponse) Reset() {
 	*x = GetNetworkLimitsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[6]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -492,7 +638,7 @@ func (x *GetNetworkLimitsResponse) String() string {
 func (*GetNetworkLimitsResponse) ProtoMessage() {}
 
 func (x *GetNetworkLimitsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[6]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -505,7 +651,7 @@ func (x *GetNetworkLimitsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNetworkLimitsResponse.ProtoReflect.Descriptor instead.
 func (*GetNetworkLimitsResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{6}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetNetworkLimitsResponse) GetLimits() *vega.NetworkLimits {
@@ -530,7 +676,7 @@ type OrdersByMarketRequest struct {
 func (x *OrdersByMarketRequest) Reset() {
 	*x = OrdersByMarketRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[7]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -543,7 +689,7 @@ func (x *OrdersByMarketRequest) String() string {
 func (*OrdersByMarketRequest) ProtoMessage() {}
 
 func (x *OrdersByMarketRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[7]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -556,7 +702,7 @@ func (x *OrdersByMarketRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrdersByMarketRequest.ProtoReflect.Descriptor instead.
 func (*OrdersByMarketRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{7}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *OrdersByMarketRequest) GetMarketId() string {
@@ -586,7 +732,7 @@ type OrdersByMarketResponse struct {
 func (x *OrdersByMarketResponse) Reset() {
 	*x = OrdersByMarketResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[8]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -599,7 +745,7 @@ func (x *OrdersByMarketResponse) String() string {
 func (*OrdersByMarketResponse) ProtoMessage() {}
 
 func (x *OrdersByMarketResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[8]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -612,7 +758,7 @@ func (x *OrdersByMarketResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrdersByMarketResponse.ProtoReflect.Descriptor instead.
 func (*OrdersByMarketResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{8}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *OrdersByMarketResponse) GetOrders() []*vega.Order {
@@ -637,7 +783,7 @@ type OrderVersionsByIDRequest struct {
 func (x *OrderVersionsByIDRequest) Reset() {
 	*x = OrderVersionsByIDRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[9]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -650,7 +796,7 @@ func (x *OrderVersionsByIDRequest) String() string {
 func (*OrderVersionsByIDRequest) ProtoMessage() {}
 
 func (x *OrderVersionsByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[9]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -663,7 +809,7 @@ func (x *OrderVersionsByIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderVersionsByIDRequest.ProtoReflect.Descriptor instead.
 func (*OrderVersionsByIDRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{9}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *OrderVersionsByIDRequest) GetOrderId() string {
@@ -693,7 +839,7 @@ type OrderVersionsByIDResponse struct {
 func (x *OrderVersionsByIDResponse) Reset() {
 	*x = OrderVersionsByIDResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[10]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -706,7 +852,7 @@ func (x *OrderVersionsByIDResponse) String() string {
 func (*OrderVersionsByIDResponse) ProtoMessage() {}
 
 func (x *OrderVersionsByIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[10]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -719,7 +865,7 @@ func (x *OrderVersionsByIDResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderVersionsByIDResponse.ProtoReflect.Descriptor instead.
 func (*OrderVersionsByIDResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{10}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *OrderVersionsByIDResponse) GetOrders() []*vega.Order {
@@ -744,7 +890,7 @@ type QueryBalanceHistoryRequest struct {
 func (x *QueryBalanceHistoryRequest) Reset() {
 	*x = QueryBalanceHistoryRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[11]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -757,7 +903,7 @@ func (x *QueryBalanceHistoryRequest) String() string {
 func (*QueryBalanceHistoryRequest) ProtoMessage() {}
 
 func (x *QueryBalanceHistoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[11]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -770,7 +916,7 @@ func (x *QueryBalanceHistoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryBalanceHistoryRequest.ProtoReflect.Descriptor instead.
 func (*QueryBalanceHistoryRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{11}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *QueryBalanceHistoryRequest) GetFilter() *AccountFilter {
@@ -798,7 +944,7 @@ type QueryBalanceHistoryResponse struct {
 func (x *QueryBalanceHistoryResponse) Reset() {
 	*x = QueryBalanceHistoryResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[12]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -811,7 +957,7 @@ func (x *QueryBalanceHistoryResponse) String() string {
 func (*QueryBalanceHistoryResponse) ProtoMessage() {}
 
 func (x *QueryBalanceHistoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[12]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -824,7 +970,7 @@ func (x *QueryBalanceHistoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryBalanceHistoryResponse.ProtoReflect.Descriptor instead.
 func (*QueryBalanceHistoryResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{12}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *QueryBalanceHistoryResponse) GetBalances() []*AggregatedBalance {
@@ -852,7 +998,7 @@ type AccountFilter struct {
 func (x *AccountFilter) Reset() {
 	*x = AccountFilter{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[13]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -865,7 +1011,7 @@ func (x *AccountFilter) String() string {
 func (*AccountFilter) ProtoMessage() {}
 
 func (x *AccountFilter) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[13]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -878,7 +1024,7 @@ func (x *AccountFilter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AccountFilter.ProtoReflect.Descriptor instead.
 func (*AccountFilter) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{13}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *AccountFilter) GetAssetId() string {
@@ -933,7 +1079,7 @@ type AggregatedBalance struct {
 func (x *AggregatedBalance) Reset() {
 	*x = AggregatedBalance{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[14]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -946,7 +1092,7 @@ func (x *AggregatedBalance) String() string {
 func (*AggregatedBalance) ProtoMessage() {}
 
 func (x *AggregatedBalance) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[14]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -959,7 +1105,7 @@ func (x *AggregatedBalance) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AggregatedBalance.ProtoReflect.Descriptor instead.
 func (*AggregatedBalance) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{14}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *AggregatedBalance) GetTimestamp() int64 {
@@ -1029,7 +1175,7 @@ type Pagination struct {
 func (x *Pagination) Reset() {
 	*x = Pagination{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[15]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1042,7 +1188,7 @@ func (x *Pagination) String() string {
 func (*Pagination) ProtoMessage() {}
 
 func (x *Pagination) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[15]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1055,7 +1201,7 @@ func (x *Pagination) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Pagination.ProtoReflect.Descriptor instead.
 func (*Pagination) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{15}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *Pagination) GetSkip() uint64 {
@@ -1098,7 +1244,7 @@ type GetMarketDataHistoryByIDRequest struct {
 func (x *GetMarketDataHistoryByIDRequest) Reset() {
 	*x = GetMarketDataHistoryByIDRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[16]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1111,7 +1257,7 @@ func (x *GetMarketDataHistoryByIDRequest) String() string {
 func (*GetMarketDataHistoryByIDRequest) ProtoMessage() {}
 
 func (x *GetMarketDataHistoryByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[16]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1124,7 +1270,7 @@ func (x *GetMarketDataHistoryByIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMarketDataHistoryByIDRequest.ProtoReflect.Descriptor instead.
 func (*GetMarketDataHistoryByIDRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{16}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetMarketDataHistoryByIDRequest) GetMarketId() string {
@@ -1167,7 +1313,7 @@ type GetMarketDataHistoryByIDResponse struct {
 func (x *GetMarketDataHistoryByIDResponse) Reset() {
 	*x = GetMarketDataHistoryByIDResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[17]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1180,7 +1326,7 @@ func (x *GetMarketDataHistoryByIDResponse) String() string {
 func (*GetMarketDataHistoryByIDResponse) ProtoMessage() {}
 
 func (x *GetMarketDataHistoryByIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[17]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1193,7 +1339,7 @@ func (x *GetMarketDataHistoryByIDResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMarketDataHistoryByIDResponse.ProtoReflect.Descriptor instead.
 func (*GetMarketDataHistoryByIDResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{17}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetMarketDataHistoryByIDResponse) GetMarketData() []*vega.MarketData {
@@ -1212,41 +1358,55 @@ var file_data_node_api_v2_trading_data_proto_rawDesc = []byte{
 	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x1a, 0x0f, 0x76, 0x65, 0x67, 0x61, 0x2f, 0x76, 0x65, 0x67,
 	0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x77, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72,
-	0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xa7, 0x01, 0x0a, 0x06, 0x43, 0x61, 0x6e, 0x64,
-	0x6c, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x6c, 0x61, 0x73, 0x74,
-	0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x6c,
-	0x61, 0x73, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x68, 0x69, 0x67,
-	0x68, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x68, 0x69, 0x67, 0x68, 0x12, 0x10, 0x0a,
-	0x03, 0x6c, 0x6f, 0x77, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6c, 0x6f, 0x77, 0x12,
-	0x12, 0x0a, 0x04, 0x6f, 0x70, 0x65, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6f,
-	0x70, 0x65, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6c, 0x6f, 0x73, 0x65, 0x18, 0x06, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x05, 0x63, 0x6c, 0x6f, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x76, 0x6f, 0x6c,
-	0x75, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x76, 0x6f, 0x6c, 0x75, 0x6d,
-	0x65, 0x22, 0x52, 0x0a, 0x17, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73, 0x53, 0x75, 0x62, 0x73,
-	0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09,
-	0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x08, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x69, 0x6e, 0x74,
-	0x65, 0x72, 0x76, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x69, 0x6e, 0x74,
-	0x65, 0x72, 0x76, 0x61, 0x6c, 0x22, 0x4b, 0x0a, 0x18, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73,
-	0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x2f, 0x0a, 0x06, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x17, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x52, 0x06, 0x63, 0x61, 0x6e, 0x64,
-	0x6c, 0x65, 0x22, 0xd0, 0x01, 0x0a, 0x0e, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x5f,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74,
-	0x49, 0x64, 0x12, 0x25, 0x0a, 0x0e, 0x66, 0x72, 0x6f, 0x6d, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x73,
-	0x74, 0x61, 0x6d, 0x70, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0d, 0x66, 0x72, 0x6f, 0x6d,
-	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x21, 0x0a, 0x0c, 0x74, 0x6f, 0x5f,
-	0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52,
-	0x0b, 0x74, 0x6f, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x1a, 0x0a, 0x08,
-	0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
-	0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69,
-	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64,
-	0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50,
-	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x44, 0x0a, 0x0f, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73,
+	0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x36, 0x0a, 0x17, 0x43, 0x61, 0x6e, 0x64, 0x6c,
+	0x65, 0x73, 0x46, 0x6f, 0x72, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x49, 0x64, 0x22,
+	0x4d, 0x0a, 0x12, 0x49, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x54, 0x6f, 0x43, 0x61, 0x6e,
+	0x64, 0x6c, 0x65, 0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61,
+	0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61,
+	0x6c, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x49, 0x64, 0x22, 0x6f,
+	0x0a, 0x18, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73, 0x46, 0x6f, 0x72, 0x4d, 0x61, 0x72, 0x6b,
+	0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x53, 0x0a, 0x12, 0x69, 0x6e,
+	0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x54, 0x6f, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x49, 0x64,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64,
+	0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x49, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61,
+	0x6c, 0x54, 0x6f, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x49, 0x64, 0x52, 0x12, 0x69, 0x6e, 0x74,
+	0x65, 0x72, 0x76, 0x61, 0x6c, 0x54, 0x6f, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x49, 0x64, 0x22,
+	0xa7, 0x01, 0x0a, 0x06, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x74,
+	0x61, 0x72, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x12, 0x1f, 0x0a, 0x0b, 0x6c, 0x61, 0x73, 0x74, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x6c, 0x61, 0x73, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x12, 0x12, 0x0a, 0x04, 0x68, 0x69, 0x67, 0x68, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x04, 0x68, 0x69, 0x67, 0x68, 0x12, 0x10, 0x0a, 0x03, 0x6c, 0x6f, 0x77, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x03, 0x6c, 0x6f, 0x77, 0x12, 0x12, 0x0a, 0x04, 0x6f, 0x70, 0x65, 0x6e, 0x18,
+	0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6f, 0x70, 0x65, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x63,
+	0x6c, 0x6f, 0x73, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x63, 0x6c, 0x6f, 0x73,
+	0x65, 0x12, 0x16, 0x0a, 0x06, 0x76, 0x6f, 0x6c, 0x75, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x06, 0x76, 0x6f, 0x6c, 0x75, 0x6d, 0x65, 0x22, 0x35, 0x0a, 0x16, 0x43, 0x61, 0x6e,
+	0x64, 0x6c, 0x65, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x5f, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x49, 0x64,
+	0x22, 0x4a, 0x0a, 0x17, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72,
+	0x69, 0x62, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x63,
+	0x61, 0x6e, 0x64, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x64, 0x61,
+	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61,
+	0x6e, 0x64, 0x6c, 0x65, 0x52, 0x06, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x22, 0xd3, 0x01, 0x0a,
+	0x11, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x5f, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x49, 0x64, 0x12,
+	0x25, 0x0a, 0x0e, 0x66, 0x72, 0x6f, 0x6d, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d,
+	0x70, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0d, 0x66, 0x72, 0x6f, 0x6d, 0x54, 0x69, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x21, 0x0a, 0x0c, 0x74, 0x6f, 0x5f, 0x74, 0x69, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x74, 0x6f,
+	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x1a, 0x0a, 0x08, 0x69, 0x6e, 0x74,
+	0x65, 0x72, 0x76, 0x61, 0x6c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x69, 0x6e, 0x74,
+	0x65, 0x72, 0x76, 0x61, 0x6c, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61,
+	0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x69,
+	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x22, 0x47, 0x0a, 0x12, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x31, 0x0a, 0x07, 0x63, 0x61, 0x6e, 0x64,
 	0x6c, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x64, 0x61, 0x74, 0x61,
 	0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e, 0x64,
@@ -1363,7 +1523,7 @@ var file_data_node_api_v2_trading_data_proto_rawDesc = []byte{
 	0x54, 0x5f, 0x49, 0x44, 0x10, 0x03, 0x12, 0x1b, 0x0a, 0x17, 0x41, 0x43, 0x43, 0x4f, 0x55, 0x4e,
 	0x54, 0x5f, 0x46, 0x49, 0x45, 0x4c, 0x44, 0x5f, 0x4d, 0x41, 0x52, 0x4b, 0x45, 0x54, 0x5f, 0x49,
 	0x44, 0x10, 0x04, 0x12, 0x16, 0x0a, 0x12, 0x41, 0x43, 0x43, 0x4f, 0x55, 0x4e, 0x54, 0x5f, 0x46,
-	0x49, 0x45, 0x4c, 0x44, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10, 0x05, 0x32, 0xfa, 0x05, 0x0a, 0x12,
+	0x49, 0x45, 0x4c, 0x44, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10, 0x05, 0x32, 0xf5, 0x06, 0x0a, 0x12,
 	0x54, 0x72, 0x61, 0x64, 0x69, 0x6e, 0x67, 0x44, 0x61, 0x74, 0x61, 0x53, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x12, 0x61, 0x0a, 0x0e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x42, 0x79, 0x4d, 0x61,
 	0x72, 0x6b, 0x65, 0x74, 0x12, 0x26, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
@@ -1400,21 +1560,29 @@ var file_data_node_api_v2_trading_data_proto_rawDesc = []byte{
 	0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
 	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72,
 	0x6b, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x4c, 0x0a, 0x07, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73, 0x12, 0x1f, 0x2e, 0x64, 0x61, 0x74,
-	0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e,
-	0x64, 0x6c, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x64, 0x61,
+	0x58, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61,
+	0x12, 0x22, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x44, 0x61, 0x74,
+	0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6c, 0x0a, 0x15, 0x53, 0x75, 0x62,
+	0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x54, 0x6f, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x44, 0x61,
+	0x74, 0x61, 0x12, 0x27, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x53, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x64, 0x61,
 	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61,
-	0x6e, 0x64, 0x6c, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x69, 0x0a,
-	0x10, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62,
-	0x65, 0x12, 0x28, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73, 0x53, 0x75, 0x62, 0x73, 0x63,
-	0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x64, 0x61,
-	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61,
-	0x6e, 0x64, 0x6c, 0x65, 0x73, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x42, 0x2e, 0x5a, 0x2c, 0x63, 0x6f, 0x64, 0x65,
-	0x2e, 0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x69, 0x6f,
-	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2d, 0x6e, 0x6f, 0x64,
-	0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x32, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x64, 0x6c, 0x65, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x12, 0x6a, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x43, 0x61,
+	0x6e, 0x64, 0x6c, 0x65, 0x73, 0x46, 0x6f, 0x72, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x12, 0x28,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32,
+	0x2e, 0x43, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x73, 0x46, 0x6f, 0x72, 0x4d, 0x61, 0x72, 0x6b, 0x65,
+	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e,
+	0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x61, 0x6e, 0x64, 0x6c,
+	0x65, 0x73, 0x46, 0x6f, 0x72, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x42, 0x2e, 0x5a, 0x2c, 0x63, 0x6f, 0x64, 0x65, 0x2e, 0x76, 0x65, 0x67, 0x61,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x69, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x73, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2d, 0x6e, 0x6f, 0x64, 0x65, 0x2f, 0x61, 0x70, 0x69,
+	0x2f, 0x76, 0x32, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1430,67 +1598,73 @@ func file_data_node_api_v2_trading_data_proto_rawDescGZIP() []byte {
 }
 
 var file_data_node_api_v2_trading_data_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_data_node_api_v2_trading_data_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_data_node_api_v2_trading_data_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_data_node_api_v2_trading_data_proto_goTypes = []interface{}{
 	(AccountField)(0),                        // 0: datanode.api.v2.AccountField
-	(*Candle)(nil),                           // 1: datanode.api.v2.Candle
-	(*CandlesSubscribeRequest)(nil),          // 2: datanode.api.v2.CandlesSubscribeRequest
-	(*CandlesSubscribeResponse)(nil),         // 3: datanode.api.v2.CandlesSubscribeResponse
-	(*CandlesRequest)(nil),                   // 4: datanode.api.v2.CandlesRequest
-	(*CandlesResponse)(nil),                  // 5: datanode.api.v2.CandlesResponse
-	(*GetNetworkLimitsRequest)(nil),          // 6: datanode.api.v2.GetNetworkLimitsRequest
-	(*GetNetworkLimitsResponse)(nil),         // 7: datanode.api.v2.GetNetworkLimitsResponse
-	(*OrdersByMarketRequest)(nil),            // 8: datanode.api.v2.OrdersByMarketRequest
-	(*OrdersByMarketResponse)(nil),           // 9: datanode.api.v2.OrdersByMarketResponse
-	(*OrderVersionsByIDRequest)(nil),         // 10: datanode.api.v2.OrderVersionsByIDRequest
-	(*OrderVersionsByIDResponse)(nil),        // 11: datanode.api.v2.OrderVersionsByIDResponse
-	(*QueryBalanceHistoryRequest)(nil),       // 12: datanode.api.v2.QueryBalanceHistoryRequest
-	(*QueryBalanceHistoryResponse)(nil),      // 13: datanode.api.v2.QueryBalanceHistoryResponse
-	(*AccountFilter)(nil),                    // 14: datanode.api.v2.AccountFilter
-	(*AggregatedBalance)(nil),                // 15: datanode.api.v2.AggregatedBalance
-	(*Pagination)(nil),                       // 16: datanode.api.v2.Pagination
-	(*GetMarketDataHistoryByIDRequest)(nil),  // 17: datanode.api.v2.GetMarketDataHistoryByIDRequest
-	(*GetMarketDataHistoryByIDResponse)(nil), // 18: datanode.api.v2.GetMarketDataHistoryByIDResponse
-	(*vega.NetworkLimits)(nil),               // 19: vega.NetworkLimits
-	(*vega.Order)(nil),                       // 20: vega.Order
-	(vega.AccountType)(0),                    // 21: vega.AccountType
-	(*vega.MarketData)(nil),                  // 22: vega.MarketData
+	(*CandlesForMarketRequest)(nil),          // 1: datanode.api.v2.CandlesForMarketRequest
+	(*IntervalToCandleId)(nil),               // 2: datanode.api.v2.IntervalToCandleId
+	(*CandlesForMarketResponse)(nil),         // 3: datanode.api.v2.CandlesForMarketResponse
+	(*Candle)(nil),                           // 4: datanode.api.v2.Candle
+	(*CandleSubscribeRequest)(nil),           // 5: datanode.api.v2.CandleSubscribeRequest
+	(*CandleSubscribeResponse)(nil),          // 6: datanode.api.v2.CandleSubscribeResponse
+	(*CandleDataRequest)(nil),                // 7: datanode.api.v2.CandleDataRequest
+	(*CandleDataResponse)(nil),               // 8: datanode.api.v2.CandleDataResponse
+	(*GetNetworkLimitsRequest)(nil),          // 9: datanode.api.v2.GetNetworkLimitsRequest
+	(*GetNetworkLimitsResponse)(nil),         // 10: datanode.api.v2.GetNetworkLimitsResponse
+	(*OrdersByMarketRequest)(nil),            // 11: datanode.api.v2.OrdersByMarketRequest
+	(*OrdersByMarketResponse)(nil),           // 12: datanode.api.v2.OrdersByMarketResponse
+	(*OrderVersionsByIDRequest)(nil),         // 13: datanode.api.v2.OrderVersionsByIDRequest
+	(*OrderVersionsByIDResponse)(nil),        // 14: datanode.api.v2.OrderVersionsByIDResponse
+	(*QueryBalanceHistoryRequest)(nil),       // 15: datanode.api.v2.QueryBalanceHistoryRequest
+	(*QueryBalanceHistoryResponse)(nil),      // 16: datanode.api.v2.QueryBalanceHistoryResponse
+	(*AccountFilter)(nil),                    // 17: datanode.api.v2.AccountFilter
+	(*AggregatedBalance)(nil),                // 18: datanode.api.v2.AggregatedBalance
+	(*Pagination)(nil),                       // 19: datanode.api.v2.Pagination
+	(*GetMarketDataHistoryByIDRequest)(nil),  // 20: datanode.api.v2.GetMarketDataHistoryByIDRequest
+	(*GetMarketDataHistoryByIDResponse)(nil), // 21: datanode.api.v2.GetMarketDataHistoryByIDResponse
+	(*vega.NetworkLimits)(nil),               // 22: vega.NetworkLimits
+	(*vega.Order)(nil),                       // 23: vega.Order
+	(vega.AccountType)(0),                    // 24: vega.AccountType
+	(*vega.MarketData)(nil),                  // 25: vega.MarketData
 }
 var file_data_node_api_v2_trading_data_proto_depIdxs = []int32{
-	1,  // 0: datanode.api.v2.CandlesSubscribeResponse.candle:type_name -> datanode.api.v2.Candle
-	16, // 1: datanode.api.v2.CandlesRequest.pagination:type_name -> datanode.api.v2.Pagination
-	1,  // 2: datanode.api.v2.CandlesResponse.candles:type_name -> datanode.api.v2.Candle
-	19, // 3: datanode.api.v2.GetNetworkLimitsResponse.limits:type_name -> vega.NetworkLimits
-	16, // 4: datanode.api.v2.OrdersByMarketRequest.pagination:type_name -> datanode.api.v2.Pagination
-	20, // 5: datanode.api.v2.OrdersByMarketResponse.orders:type_name -> vega.Order
-	16, // 6: datanode.api.v2.OrderVersionsByIDRequest.pagination:type_name -> datanode.api.v2.Pagination
-	20, // 7: datanode.api.v2.OrderVersionsByIDResponse.orders:type_name -> vega.Order
-	14, // 8: datanode.api.v2.QueryBalanceHistoryRequest.filter:type_name -> datanode.api.v2.AccountFilter
-	0,  // 9: datanode.api.v2.QueryBalanceHistoryRequest.group_by:type_name -> datanode.api.v2.AccountField
-	15, // 10: datanode.api.v2.QueryBalanceHistoryResponse.balances:type_name -> datanode.api.v2.AggregatedBalance
-	21, // 11: datanode.api.v2.AccountFilter.account_types:type_name -> vega.AccountType
-	21, // 12: datanode.api.v2.AggregatedBalance.account_type:type_name -> vega.AccountType
-	16, // 13: datanode.api.v2.GetMarketDataHistoryByIDRequest.pagination:type_name -> datanode.api.v2.Pagination
-	22, // 14: datanode.api.v2.GetMarketDataHistoryByIDResponse.market_data:type_name -> vega.MarketData
-	8,  // 15: datanode.api.v2.TradingDataService.OrdersByMarket:input_type -> datanode.api.v2.OrdersByMarketRequest
-	10, // 16: datanode.api.v2.TradingDataService.OrderVersionsByID:input_type -> datanode.api.v2.OrderVersionsByIDRequest
-	12, // 17: datanode.api.v2.TradingDataService.QueryBalanceHistory:input_type -> datanode.api.v2.QueryBalanceHistoryRequest
-	17, // 18: datanode.api.v2.TradingDataService.GetMarketDataHistoryByID:input_type -> datanode.api.v2.GetMarketDataHistoryByIDRequest
-	6,  // 19: datanode.api.v2.TradingDataService.GetNetworkLimits:input_type -> datanode.api.v2.GetNetworkLimitsRequest
-	4,  // 20: datanode.api.v2.TradingDataService.Candles:input_type -> datanode.api.v2.CandlesRequest
-	2,  // 21: datanode.api.v2.TradingDataService.CandlesSubscribe:input_type -> datanode.api.v2.CandlesSubscribeRequest
-	9,  // 22: datanode.api.v2.TradingDataService.OrdersByMarket:output_type -> datanode.api.v2.OrdersByMarketResponse
-	11, // 23: datanode.api.v2.TradingDataService.OrderVersionsByID:output_type -> datanode.api.v2.OrderVersionsByIDResponse
-	13, // 24: datanode.api.v2.TradingDataService.QueryBalanceHistory:output_type -> datanode.api.v2.QueryBalanceHistoryResponse
-	18, // 25: datanode.api.v2.TradingDataService.GetMarketDataHistoryByID:output_type -> datanode.api.v2.GetMarketDataHistoryByIDResponse
-	7,  // 26: datanode.api.v2.TradingDataService.GetNetworkLimits:output_type -> datanode.api.v2.GetNetworkLimitsResponse
-	5,  // 27: datanode.api.v2.TradingDataService.Candles:output_type -> datanode.api.v2.CandlesResponse
-	3,  // 28: datanode.api.v2.TradingDataService.CandlesSubscribe:output_type -> datanode.api.v2.CandlesSubscribeResponse
-	22, // [22:29] is the sub-list for method output_type
-	15, // [15:22] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	2,  // 0: datanode.api.v2.CandlesForMarketResponse.intervalToCandleId:type_name -> datanode.api.v2.IntervalToCandleId
+	4,  // 1: datanode.api.v2.CandleSubscribeResponse.candle:type_name -> datanode.api.v2.Candle
+	19, // 2: datanode.api.v2.CandleDataRequest.pagination:type_name -> datanode.api.v2.Pagination
+	4,  // 3: datanode.api.v2.CandleDataResponse.candles:type_name -> datanode.api.v2.Candle
+	22, // 4: datanode.api.v2.GetNetworkLimitsResponse.limits:type_name -> vega.NetworkLimits
+	19, // 5: datanode.api.v2.OrdersByMarketRequest.pagination:type_name -> datanode.api.v2.Pagination
+	23, // 6: datanode.api.v2.OrdersByMarketResponse.orders:type_name -> vega.Order
+	19, // 7: datanode.api.v2.OrderVersionsByIDRequest.pagination:type_name -> datanode.api.v2.Pagination
+	23, // 8: datanode.api.v2.OrderVersionsByIDResponse.orders:type_name -> vega.Order
+	17, // 9: datanode.api.v2.QueryBalanceHistoryRequest.filter:type_name -> datanode.api.v2.AccountFilter
+	0,  // 10: datanode.api.v2.QueryBalanceHistoryRequest.group_by:type_name -> datanode.api.v2.AccountField
+	18, // 11: datanode.api.v2.QueryBalanceHistoryResponse.balances:type_name -> datanode.api.v2.AggregatedBalance
+	24, // 12: datanode.api.v2.AccountFilter.account_types:type_name -> vega.AccountType
+	24, // 13: datanode.api.v2.AggregatedBalance.account_type:type_name -> vega.AccountType
+	19, // 14: datanode.api.v2.GetMarketDataHistoryByIDRequest.pagination:type_name -> datanode.api.v2.Pagination
+	25, // 15: datanode.api.v2.GetMarketDataHistoryByIDResponse.market_data:type_name -> vega.MarketData
+	11, // 16: datanode.api.v2.TradingDataService.OrdersByMarket:input_type -> datanode.api.v2.OrdersByMarketRequest
+	13, // 17: datanode.api.v2.TradingDataService.OrderVersionsByID:input_type -> datanode.api.v2.OrderVersionsByIDRequest
+	15, // 18: datanode.api.v2.TradingDataService.QueryBalanceHistory:input_type -> datanode.api.v2.QueryBalanceHistoryRequest
+	20, // 19: datanode.api.v2.TradingDataService.GetMarketDataHistoryByID:input_type -> datanode.api.v2.GetMarketDataHistoryByIDRequest
+	9,  // 20: datanode.api.v2.TradingDataService.GetNetworkLimits:input_type -> datanode.api.v2.GetNetworkLimitsRequest
+	7,  // 21: datanode.api.v2.TradingDataService.GetCandleData:input_type -> datanode.api.v2.CandleDataRequest
+	5,  // 22: datanode.api.v2.TradingDataService.SubscribeToCandleData:input_type -> datanode.api.v2.CandleSubscribeRequest
+	1,  // 23: datanode.api.v2.TradingDataService.GetCandlesForMarket:input_type -> datanode.api.v2.CandlesForMarketRequest
+	12, // 24: datanode.api.v2.TradingDataService.OrdersByMarket:output_type -> datanode.api.v2.OrdersByMarketResponse
+	14, // 25: datanode.api.v2.TradingDataService.OrderVersionsByID:output_type -> datanode.api.v2.OrderVersionsByIDResponse
+	16, // 26: datanode.api.v2.TradingDataService.QueryBalanceHistory:output_type -> datanode.api.v2.QueryBalanceHistoryResponse
+	21, // 27: datanode.api.v2.TradingDataService.GetMarketDataHistoryByID:output_type -> datanode.api.v2.GetMarketDataHistoryByIDResponse
+	10, // 28: datanode.api.v2.TradingDataService.GetNetworkLimits:output_type -> datanode.api.v2.GetNetworkLimitsResponse
+	8,  // 29: datanode.api.v2.TradingDataService.GetCandleData:output_type -> datanode.api.v2.CandleDataResponse
+	6,  // 30: datanode.api.v2.TradingDataService.SubscribeToCandleData:output_type -> datanode.api.v2.CandleSubscribeResponse
+	3,  // 31: datanode.api.v2.TradingDataService.GetCandlesForMarket:output_type -> datanode.api.v2.CandlesForMarketResponse
+	24, // [24:32] is the sub-list for method output_type
+	16, // [16:24] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_data_node_api_v2_trading_data_proto_init() }
@@ -1500,7 +1674,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_data_node_api_v2_trading_data_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Candle); i {
+			switch v := v.(*CandlesForMarketRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1512,7 +1686,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CandlesSubscribeRequest); i {
+			switch v := v.(*IntervalToCandleId); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1524,7 +1698,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CandlesSubscribeResponse); i {
+			switch v := v.(*CandlesForMarketResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1536,7 +1710,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CandlesRequest); i {
+			switch v := v.(*Candle); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1548,7 +1722,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CandlesResponse); i {
+			switch v := v.(*CandleSubscribeRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1560,7 +1734,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetNetworkLimitsRequest); i {
+			switch v := v.(*CandleSubscribeResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1572,7 +1746,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetNetworkLimitsResponse); i {
+			switch v := v.(*CandleDataRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1584,7 +1758,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*OrdersByMarketRequest); i {
+			switch v := v.(*CandleDataResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1596,7 +1770,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*OrdersByMarketResponse); i {
+			switch v := v.(*GetNetworkLimitsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1608,7 +1782,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*OrderVersionsByIDRequest); i {
+			switch v := v.(*GetNetworkLimitsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1620,7 +1794,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*OrderVersionsByIDResponse); i {
+			switch v := v.(*OrdersByMarketRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1632,7 +1806,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*QueryBalanceHistoryRequest); i {
+			switch v := v.(*OrdersByMarketResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1644,7 +1818,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*QueryBalanceHistoryResponse); i {
+			switch v := v.(*OrderVersionsByIDRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1656,7 +1830,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AccountFilter); i {
+			switch v := v.(*OrderVersionsByIDResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1668,7 +1842,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AggregatedBalance); i {
+			switch v := v.(*QueryBalanceHistoryRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1680,7 +1854,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Pagination); i {
+			switch v := v.(*QueryBalanceHistoryResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1692,7 +1866,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetMarketDataHistoryByIDRequest); i {
+			switch v := v.(*AccountFilter); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1704,6 +1878,42 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AggregatedBalance); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Pagination); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetMarketDataHistoryByIDRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetMarketDataHistoryByIDResponse); i {
 			case 0:
 				return &v.state
@@ -1716,15 +1926,15 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 	}
-	file_data_node_api_v2_trading_data_proto_msgTypes[14].OneofWrappers = []interface{}{}
-	file_data_node_api_v2_trading_data_proto_msgTypes[16].OneofWrappers = []interface{}{}
+	file_data_node_api_v2_trading_data_proto_msgTypes[17].OneofWrappers = []interface{}{}
+	file_data_node_api_v2_trading_data_proto_msgTypes[19].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_data_node_api_v2_trading_data_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   18,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
