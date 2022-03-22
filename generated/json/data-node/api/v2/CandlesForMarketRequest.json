@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CandlesForMarketRequest",
+    "definitions": {
+        "CandlesForMarketRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "The unique identifier for the market"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candles For Market Request",
+            "description": "Request to get a list of supported intervals for the given market along with the corresponding candle id"
+        }
+    }
+}

@@ -17,6 +17,7 @@
 - [348](https://github.com/vegaprotocol/protos/issues/348) - Add candles V2 API
 - [345](https://github.com/vegaprotocol/protos/issues/345) - Added proof of work to transaction
 - [297](https://github.com/vegaprotocol/protos/issues/297) - Add market ID to market update proposal.
+- [364](https://github.com/vegaprotocol/protos/issues/364) - Update candles v2 api 
 
 ### 🐛 Fixes
 - [357](https://github.com/vegaprotocol/protos/issues/357) - make oracle spec ids deterministic across all machines

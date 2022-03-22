@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CandleSubscribeRequest",
+    "definitions": {
+        "CandleSubscribeRequest": {
+            "properties": {
+                "candle_id": {
+                    "type": "string",
+                    "description": "The unique identifier for the candle"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candle Subscribe Request",
+            "description": "Request to subscribe to a stream of (Candles)[#vega.Candle]"
+        }
+    }
+}
