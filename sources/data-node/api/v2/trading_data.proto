@@ -34,12 +34,37 @@ service TradingDataService {
 
     // -- Candles --
 
-    // Get a list of Candles by Market
-    rpc Candles(CandlesRequest) returns (CandlesResponse);
+    // Get candle data for a given candle id
+    rpc GetCandleData(CandleDataRequest) returns (CandleDataResponse);
 
-    // Subscribe to a stream of Candles
-    rpc CandlesSubscribe(CandlesSubscribeRequest) returns (stream CandlesSubscribeResponse);
+    // Subscribe to a stream of Candle updates
+    rpc SubscribeToCandleData(CandleSubscribeRequest) returns (stream CandleSubscribeResponse);
+
+    // Gets all available intervals for a given market along with the corresponding candle id
+    rpc GetCandlesForMarket(CandlesForMarketRequest) returns (CandlesForMarketResponse);
+
 }
+
+// Request to get a list of supported intervals for the given market along with the corresponding candle id
+message CandlesForMarketRequest {
+    // The unique identifier for the market
+    string market_id = 1;
+}
+
+// Maps an interval for a given market to its corresponding candle_id
+message IntervalToCandleId {
+    // The interval for the candle
+    string interval = 1;
+
+    // The unique id of the candle
+    string candle_id=2;
+}
+
+// A list of interval to candle id mappings for a given market
+message CandlesForMarketResponse {
+    repeated IntervalToCandleId intervalToCandleId = 1;
+}
+
 
 // Represents the high, low, open, and closing prices for an interval of trading,
 // referred to commonly as a candlestick or candle
@@ -63,21 +88,19 @@ message Candle {
 }
 
 // Request to subscribe to a stream of (Candles)[#vega.Candle]
-message CandlesSubscribeRequest {
-    // Market identifier, required field
-    string market_id = 1;
-    // Time interval for the candles, required field specified as a valid postgres interval
-    string interval = 2;
+message CandleSubscribeRequest {
+    // The unique identifier for the candle
+    string candle_id = 1;
 }
 
-message CandlesSubscribeResponse {
+message CandleSubscribeResponse {
     Candle candle = 1;
 }
 
 // Request for a list of candles for a market at an interval
-message CandlesRequest {
-    // Market identifier, required field.
-    string market_id = 1;
+message CandleDataRequest {
+    // Candle identifier, required field.
+    string candle_id = 1;
 
     // Timestamp to retrieve candles since, in nanoseconds since the epoch,
     // required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
@@ -95,7 +118,7 @@ message CandlesRequest {
 }
 
 // Response for list of candles for a market at an interval
-message CandlesResponse {
+message CandleDataResponse {
     // A list of 0 or more candles
     repeated Candle candles = 1;
 }
