@@ -23,6 +23,7 @@ message OrderSubmission {
   // Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative
   uint64 size = 3;
   // Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field
+  // - See `Side`
   vega.Side side = 4;
   // Time in force indicates how long an order will remain active before it is executed or expires, required field
   // - See `Order.TimeInForce`
