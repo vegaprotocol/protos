@@ -136,22 +136,23 @@ type OrderSubmission struct {
 	Price string `protobuf:"bytes,2,opt,name=price,proto3" json:"price,omitempty"`
 	// Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative
 	Size uint64 `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
-	// Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)
+	// Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field
+	// - See `Side`
 	Side vega.Side `protobuf:"varint,4,opt,name=side,proto3,enum=vega.Side" json:"side,omitempty"`
 	// Time in force indicates how long an order will remain active before it is executed or expires, required field
-	// - See [`Order.TimeInForce`](#vega.Order.TimeInForce)
+	// - See `Order.TimeInForce`
 	TimeInForce vega.Order_TimeInForce `protobuf:"varint,5,opt,name=time_in_force,json=timeInForce,proto3,enum=vega.Order_TimeInForce" json:"time_in_force,omitempty"`
 	// Timestamp for when the order will expire, in nanoseconds since the epoch,
-	// required field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`
-	// - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+	// required field only for `Order.TimeInForce`.TIME_IN_FORCE_GTT`
+	// - See `VegaTimeResponse`.`timestamp`
 	ExpiresAt int64 `protobuf:"varint,6,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
-	// Type for the order, required field - See [`Order.Type`](#vega.Order.Type)
+	// Type for the order, required field - See `Order.Type`
 	Type vega.Order_Type `protobuf:"varint,7,opt,name=type,proto3,enum=vega.Order_Type" json:"type,omitempty"`
 	// Reference given for the order, this is typically used to retrieve an order submitted through consensus, currently
 	// set internally by the node to return a unique reference identifier for the order submission
 	Reference string `protobuf:"bytes,8,opt,name=reference,proto3" json:"reference,omitempty"`
 	// Used to specify the details for a pegged order
-	// - See [`PeggedOrder`](#vega.PeggedOrder)
+	// - See `PeggedOrder`
 	PeggedOrder *vega.PeggedOrder `protobuf:"bytes,9,opt,name=pegged_order,json=peggedOrder,proto3" json:"pegged_order,omitempty"`
 }
 
@@ -436,7 +437,7 @@ type LiquidityProvisionSubmission struct {
 	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
 	// Specified as a unitless number that represents the amount of settlement asset of the market
 	CommitmentAmount string `protobuf:"bytes,2,opt,name=commitment_amount,json=commitmentAmount,proto3" json:"commitment_amount,omitempty"`
-	// Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers
+	// Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per setting fees and rewarding liquidity providers
 	Fee string `protobuf:"bytes,3,opt,name=fee,proto3" json:"fee,omitempty"`
 	// A set of liquidity sell orders to meet the liquidity provision obligation
 	Sells []*vega.LiquidityOrder `protobuf:"bytes,4,rep,name=sells,proto3" json:"sells,omitempty"`
@@ -526,7 +527,7 @@ type LiquidityProvisionCancellation struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"` // this can be remove if we get a nice way to get provisions IDs to market
+	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"` // Unique ID for the market with the liquidity provision to be cancelled
 }
 
 func (x *LiquidityProvisionCancellation) Reset() {
@@ -574,7 +575,7 @@ type LiquidityProvisionAmendment struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"` // this can be remove if we get a nice way to get provisions IDs to market
+	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"` // Unique ID for the market with the liquidity provision to be amended
 	// From here at least one of the following is required to consider the command valid
 	CommitmentAmount string                 `protobuf:"bytes,2,opt,name=commitment_amount,json=commitmentAmount,proto3" json:"commitment_amount,omitempty"` // an empty strings means no change
 	Fee              string                 `protobuf:"bytes,3,opt,name=fee,proto3" json:"fee,omitempty"`                                                   // an empty strings means no change
@@ -665,7 +666,7 @@ type WithdrawSubmission struct {
 
 	// The amount to be withdrawn
 	Amount string `protobuf:"bytes,1,opt,name=amount,proto3" json:"amount,omitempty"`
-	// The asset we want to withdraw
+	// The asset to be withdrawn
 	Asset string `protobuf:"bytes,2,opt,name=asset,proto3" json:"asset,omitempty"`
 	// Foreign chain specifics
 	Ext *vega.WithdrawExt `protobuf:"bytes,3,opt,name=ext,proto3" json:"ext,omitempty"`
@@ -725,7 +726,7 @@ func (x *WithdrawSubmission) GetExt() *vega.WithdrawExt {
 }
 
 // A command to submit a new proposal for the
-// vega network governance
+// Vega network governance
 type ProposalSubmission struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

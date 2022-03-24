@@ -9309,7 +9309,7 @@
           "fields": [
             {
               "name": "market_id",
-              "description": "this can be remove if we get a nice way to get provisions IDs to market",
+              "description": "Unique ID for the market with the liquidity provision to be amended",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -9393,7 +9393,7 @@
           "fields": [
             {
               "name": "market_id",
-              "description": "this can be remove if we get a nice way to get provisions IDs to market",
+              "description": "Unique ID for the market with the liquidity provision to be cancelled",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -9441,7 +9441,7 @@
             },
             {
               "name": "fee",
-              "description": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers",
+              "description": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per setting fees and rewarding liquidity providers",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -9517,7 +9517,7 @@
           "name": "OrderAmendment",
           "longName": "OrderAmendment",
           "fullName": "vega.commands.v1.OrderAmendment",
-          "description": "An order amendment is a request to amend or update an existing order on Vega\n\nThe `orderID`, `partyID` and `marketID` fields are used for lookup of the order only and cannot be amended by this command",
+          "description": "An order amendment is a request to amend or update an existing order on Vega\n\nThe `orderID`, `partyID` and `marketID` fields are used for looking up the order only and cannot be amended by this command",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -9705,7 +9705,7 @@
             },
             {
               "name": "side",
-              "description": "Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)",
+              "description": "Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field\n- See `Side`",
               "label": "",
               "type": "Side",
               "longType": "vega.Side",
@@ -9717,7 +9717,7 @@
             },
             {
               "name": "time_in_force",
-              "description": "Time in force indicates how long an order will remain active before it is executed or expires, required field\n- See [`Order.TimeInForce`](#vega.Order.TimeInForce)",
+              "description": "Time in force indicates how long an order will remain active before it is executed or expires, required field\n- See `Order.TimeInForce`",
               "label": "",
               "type": "TimeInForce",
               "longType": "vega.Order.TimeInForce",
@@ -9729,7 +9729,7 @@
             },
             {
               "name": "expires_at",
-              "description": "Timestamp for when the order will expire, in nanoseconds since the epoch,\nrequired field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
+              "description": "Timestamp for when the order will expire, in nanoseconds since the epoch,\nrequired field only for `Order.TimeInForce`.TIME_IN_FORCE_GTT`\n- See `VegaTimeResponse`.`timestamp`",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -9741,7 +9741,7 @@
             },
             {
               "name": "type",
-              "description": "Type for the order, required field - See [`Order.Type`](#vega.Order.Type)",
+              "description": "Type for the order, required field - See `Order.Type`",
               "label": "",
               "type": "Type",
               "longType": "vega.Order.Type",
@@ -9765,7 +9765,7 @@
             },
             {
               "name": "pegged_order",
-              "description": "Used to specify the details for a pegged order\n- See [`PeggedOrder`](#vega.PeggedOrder)",
+              "description": "Used to specify the details for a pegged order\n- See `PeggedOrder`",
               "label": "",
               "type": "PeggedOrder",
               "longType": "vega.PeggedOrder",
@@ -9781,7 +9781,7 @@
           "name": "ProposalSubmission",
           "longName": "ProposalSubmission",
           "fullName": "vega.commands.v1.ProposalSubmission",
-          "description": "A command to submit a new proposal for the\nvega network governance",
+          "description": "A command to submit a new proposal for the\nVega network governance",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -10101,7 +10101,7 @@
             },
             {
               "name": "asset",
-              "description": "The asset we want to withdraw",
+              "description": "The asset to be withdrawn",
               "label": "",
               "type": "string",
               "longType": "string",

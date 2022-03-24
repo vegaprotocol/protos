@@ -100,6 +100,7 @@ message LiquidityProvisionSubmission {
 // Cancel a liquidity provision request
 message LiquidityProvisionCancellation {
   string market_id = 1; // Unique ID for the market with the liquidity provision to be cancelled
+}
 
 // Amend a liquidity provision request
 message LiquidityProvisionAmendment {
