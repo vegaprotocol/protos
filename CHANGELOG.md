@@ -9,7 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [366](https://github.com/vegaprotocol/protos/issue/366) - Improved comments
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -

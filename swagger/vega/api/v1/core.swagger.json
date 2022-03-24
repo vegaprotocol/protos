@@ -1070,7 +1070,7 @@
         },
         "fee": {
           "type": "string",
-          "title": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers"
+          "title": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per setting fees and rewarding liquidity providers"
         },
         "sells": {
           "type": "array",
@@ -1357,20 +1357,20 @@
         },
         "side": {
           "$ref": "#/definitions/vegaSide",
-          "title": "Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)"
+          "title": "Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field\n- See `Side`"
         },
         "timeInForce": {
           "$ref": "#/definitions/OrderTimeInForce",
-          "title": "Time in force indicates how long an order will remain active before it is executed or expires, required field\n- See [`Order.TimeInForce`](#vega.Order.TimeInForce)"
+          "title": "Time in force indicates how long an order will remain active before it is executed or expires, required field\n- See `Order.TimeInForce`"
         },
         "expiresAt": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp for when the order will expire, in nanoseconds since the epoch,\nrequired field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+          "title": "Timestamp for when the order will expire, in nanoseconds since the epoch,\nrequired field only for `Order.TimeInForce`.TIME_IN_FORCE_GTT`\n- See `VegaTimeResponse`.`timestamp`"
         },
         "type": {
           "$ref": "#/definitions/vegaOrderType",
-          "title": "Type for the order, required field - See [`Order.Type`](#vega.Order.Type)"
+          "title": "Type for the order, required field - See `Order.Type`"
         },
         "reference": {
           "type": "string",
@@ -1378,7 +1378,7 @@
         },
         "peggedOrder": {
           "$ref": "#/definitions/vegaPeggedOrder",
-          "title": "Used to specify the details for a pegged order\n- See [`PeggedOrder`](#vega.PeggedOrder)"
+          "title": "Used to specify the details for a pegged order\n- See `PeggedOrder`"
         }
       },
       "title": "An order submission is a request to submit or create a new order on Vega"
@@ -1521,7 +1521,7 @@
           "title": "Proposal configuration and the actual change that is meant to be executed when proposal is enacted"
         }
       },
-      "title": "A command to submit a new proposal for the\nvega network governance"
+      "title": "A command to submit a new proposal for the\nVega network governance"
     },
     "v1RestoreSnapshot": {
       "type": "object",
@@ -2300,7 +2300,7 @@
         },
         "asset": {
           "type": "string",
-          "title": "The asset we want to withdraw"
+          "title": "The asset to be withdrawn"
         },
         "ext": {
           "$ref": "#/definitions/vegaWithdrawExt",

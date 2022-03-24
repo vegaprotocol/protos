@@ -2677,7 +2677,7 @@
             "properties": {
                 "market_id": {
                     "type": "string",
-                    "description": "this can be remove if we get a nice way to get provisions IDs to market"
+                    "description": "Unique ID for the market with the liquidity provision to be amended"
                 },
                 "commitment_amount": {
                     "type": "string",
@@ -2715,7 +2715,7 @@
             "properties": {
                 "market_id": {
                     "type": "string",
-                    "description": "this can be remove if we get a nice way to get provisions IDs to market"
+                    "description": "Unique ID for the market with the liquidity provision to be cancelled"
                 }
             },
             "additionalProperties": true,
@@ -2735,7 +2735,7 @@
                 },
                 "fee": {
                     "type": "string",
-                    "description": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers"
+                    "description": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per setting fees and rewarding liquidity providers"
                 },
                 "sells": {
                     "items": {
@@ -2898,7 +2898,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Order Amendment",
-            "description": "An order amendment is a request to amend or update an existing order on Vega  The `orderID`, `partyID` and `marketID` fields are used for lookup of the order only and cannot be amended by this command"
+            "description": "An order amendment is a request to amend or update an existing order on Vega  The `orderID`, `partyID` and `marketID` fields are used for looking up the order only and cannot be amended by this command"
         },
         "vega.commands.v1.OrderCancellation": {
             "properties": {
@@ -2980,7 +2980,7 @@
                 },
                 "expires_at": {
                     "type": "string",
-                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch, required field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT` - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch, required field only for `Order.TimeInForce`.TIME_IN_FORCE_GTT` - See `VegaTimeResponse`.`timestamp`"
                 },
                 "type": {
                     "enum": [
@@ -3011,7 +3011,7 @@
                 "pegged_order": {
                     "$ref": "#/definitions/vega.PeggedOrder",
                     "additionalProperties": true,
-                    "description": "Used to specify the details for a pegged order - See [`PeggedOrder`](#vega.PeggedOrder)"
+                    "description": "Used to specify the details for a pegged order - See `PeggedOrder`"
                 }
             },
             "additionalProperties": true,
@@ -3034,7 +3034,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Proposal Submission",
-            "description": "A command to submit a new proposal for the vega network governance"
+            "description": "A command to submit a new proposal for the Vega network governance"
         },
         "vega.commands.v1.RecurringTransfer": {
             "properties": {
@@ -3277,7 +3277,7 @@
                 },
                 "asset": {
                     "type": "string",
-                    "description": "The asset we want to withdraw"
+                    "description": "The asset to be withdrawn"
                 },
                 "ext": {
                     "$ref": "#/definitions/vega.WithdrawExt",
