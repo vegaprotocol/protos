@@ -10,6 +10,7 @@ import "vega/vega.proto";
 import "vega/oracles/v1/spec.proto";
 import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
+import "vega/commands/v1/oracles.proto";
 import "vega/commands/v1/validator_commands.proto";
 
 message ERC20MultiSigSignerAdded {
@@ -238,6 +239,8 @@ message TxErrorEvent {
     commands.v1.LiquidityProvisionAmendment liquidity_provision_amendment = 112;
     commands.v1.Transfer transfer = 113;
     commands.v1.CancelTransfer cancel_transfer = 114;
+    commands.v1.AnnounceNode announce_node = 115;
+    commands.v1.OracleDataSubmission oracle_data_submission = 116;
   }
 }
 
