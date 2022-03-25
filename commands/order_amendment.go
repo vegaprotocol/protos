@@ -44,10 +44,8 @@ func checkOrderAmendment(cmd *commandspb.OrderAmendment) Errors {
 		isAmending = true
 		if price, ok := big.NewInt(0).SetString(cmd.Price.Value, 10); !ok {
 			errs.AddForProperty("order_amendment.price", ErrNotAValidInteger)
-		} else {
-			if price.Cmp(big.NewInt(0)) == 0 {
-				errs.AddForProperty("order_amendment.price", ErrIsRequired)
-			}
+		} else if price.Cmp(big.NewInt(0)) <= 0 {
+			errs.AddForProperty("order_amendment.price", ErrIsRequired)
 		}
 	}
 

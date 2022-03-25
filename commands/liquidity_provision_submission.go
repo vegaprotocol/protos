@@ -48,13 +48,12 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 	if len(cmd.CommitmentAmount) > 0 {
 		if commitment, ok := big.NewInt(0).SetString(cmd.CommitmentAmount, 10); !ok {
 			errs.AddForProperty("liquidity_provision_submission.commitment_amount", ErrNotAValidInteger)
-		} else {
-			if commitment.Cmp(big.NewInt(0)) == 0 {
-				return errs.FinalAddForProperty("liquidity_provision_submission.commitment_amount", ErrIsNotValidNumber)
-			}
+		} else if commitment.Cmp(big.NewInt(0)) <= 0 {
+			return errs.FinalAddForProperty("liquidity_provision_submission.commitment_amount", ErrIsNotValidNumber)
+
 		}
-	} else { // valida cancellation
-		return errs
+	} else {
+		errs.AddForProperty("liquidity_provision_submission.commitment_amount", ErrIsRequired)
 	}
 
 	if len(cmd.Fee) <= 0 {
@@ -117,34 +116,24 @@ func checkLiquidityProvisionShape(
 					ErrOrderInBuySideShapeWithBestAskPrice,
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-				if !ok {
+				if offset, ok := big.NewInt(0).SetString(order.Offset, 10); !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrNotAValidInteger,
 					)
-
-					break
-				}
-
-				if offset.Cmp(zero) == -1 {
+				} else if offset.Cmp(zero) == -1 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInBuySideShapeOffsetInf0,
 					)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-				if !ok {
+				if offset, ok := big.NewInt(0).SetString(order.Offset, 10); !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrNotAValidInteger,
 					)
-
-					break
-				}
-
-				if offset.Cmp(zero) == -1 || offset.Cmp(zero) == 0 {
+				} else if offset.Cmp(zero) <= 0 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInBuySideShapeOffsetInfEq0,
@@ -154,17 +143,12 @@ func checkLiquidityProvisionShape(
 		} else {
 			switch order.Reference {
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-				if !ok {
+				if offset, ok := big.NewInt(0).SetString(order.Offset, 10); !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrNotAValidInteger,
 					)
-
-					break
-				}
-
-				if offset.Cmp(zero) == -1 {
+				} else if offset.Cmp(zero) == -1 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInSellSideShapeOffsetInf0,
@@ -176,17 +160,12 @@ func checkLiquidityProvisionShape(
 					ErrOrderInSellSideShapeWithBestBidPrice,
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				offset, ok := big.NewInt(0).SetString(order.Offset, 10)
-				if !ok {
+				if offset, ok := big.NewInt(0).SetString(order.Offset, 10); !ok {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrNotAValidInteger,
 					)
-
-					break
-				}
-
-				if offset.Cmp(zero) == -1 || offset.Cmp(zero) == 0 {
+				} else if offset.Cmp(zero) <= 0 {
 					errs.AddForProperty(
 						fmt.Sprintf("%v.%d.offset", shapeSideField, idx),
 						ErrOrderInSellSideShapeOffsetInfEq0,

@@ -148,13 +148,12 @@ func checkNewAssetChanges(change *types.ProposalTerms_NewAsset) Errors {
 	}
 	if len(change.NewAsset.Changes.TotalSupply) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.total_supply", ErrIsRequired)
-	}
-
-	totalSupply, err := strconv.ParseUint(change.NewAsset.Changes.TotalSupply, 10, 64)
-	if err != nil {
-		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.total_supply", ErrIsNotValidNumber)
-	} else if totalSupply == 0 {
-		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.total_supply", ErrMustBePositive)
+	} else {
+		if totalSupply, ok := big.NewInt(0).SetString(change.NewAsset.Changes.TotalSupply, 10); !ok {
+			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.total_supply", ErrIsNotValidNumber)
+		} else if totalSupply.Cmp(big.NewInt(0)) <= 0 {
+			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.total_supply", ErrMustBePositive)
+		}
 	}
 
 	switch s := change.NewAsset.Changes.Source.(type) {
@@ -202,15 +201,12 @@ func checkBuiltinAssetSource(s *types.AssetDetails_BuiltinAsset) Errors {
 
 	if len(asset.MaxFaucetAmountMint) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint", ErrIsRequired)
-	}
-
-	maxFaucetAmount, err := strconv.ParseUint(asset.MaxFaucetAmountMint, 10, 64)
-	if err != nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint", ErrIsNotValidNumber)
-	}
-
-	if maxFaucetAmount == 0 {
-		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint", ErrMustBePositive)
+	} else {
+		if maxFaucetAmount, ok := big.NewInt(0).SetString(asset.MaxFaucetAmountMint, 10); !ok {
+			return errs.FinalAddForProperty("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint", ErrIsNotValidNumber)
+		} else if maxFaucetAmount.Cmp(big.NewInt(0)) <= 0 {
+			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint", ErrMustBePositive)
+		}
 	}
 
 	return errs
@@ -247,15 +243,11 @@ func checkNewMarketChanges(change *types.ProposalTerms_NewMarket) Errors {
 
 	changes := change.NewMarket.Changes
 
-	if changes.DecimalPlaces < 0 {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.decimal_places", ErrMustBePositiveOrZero)
-	} else if changes.DecimalPlaces >= 150 {
+	if changes.DecimalPlaces >= 150 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.decimal_places", ErrMustBeLessThan150)
 	}
 
-	if changes.PositionDecimalPlaces < 0 {
-		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.position_decimal_places", ErrMustBePositiveOrZero)
-	} else if changes.PositionDecimalPlaces >= 7 {
+	if changes.PositionDecimalPlaces >= 7 {
 		errs.AddForProperty("proposal_submission.terms.change.new_market.changes.position_decimal_places", ErrMustBeLessThan7)
 	}
 

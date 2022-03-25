@@ -24,10 +24,8 @@ func checkWithdrawSubmission(cmd *commandspb.WithdrawSubmission) Errors {
 	} else {
 		if amount, ok := big.NewInt(0).SetString(cmd.Amount, 10); !ok {
 			errs.AddForProperty("withdraw_submission.amount", ErrNotAValidInteger)
-		} else {
-			if amount.Cmp(big.NewInt(0)) <= 0 {
-				errs.AddForProperty("withdraw_submission.amount", ErrIsRequired)
-			}
+		} else if amount.Cmp(big.NewInt(0)) <= 0 {
+			errs.AddForProperty("withdraw_submission.amount", ErrIsRequired)
 		}
 	}
 

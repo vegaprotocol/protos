@@ -12,7 +12,7 @@
 - [366](https://github.com/vegaprotocol/protos/issue/366) - Improved comments
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [369](https://github.com/vegaprotocol/protos/pull/369) - Various validations fixes
 
 
 ## 0.49.3
