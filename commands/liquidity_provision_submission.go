@@ -48,13 +48,12 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 	if len(cmd.CommitmentAmount) > 0 {
 		if commitment, ok := big.NewInt(0).SetString(cmd.CommitmentAmount, 10); !ok {
 			errs.AddForProperty("liquidity_provision_submission.commitment_amount", ErrNotAValidInteger)
-		} else {
-			if commitment.Cmp(big.NewInt(0)) == 0 {
-				return errs.FinalAddForProperty("liquidity_provision_submission.commitment_amount", ErrIsNotValidNumber)
-			}
+		} else if commitment.Cmp(big.NewInt(0)) <= 0 {
+			return errs.FinalAddForProperty("liquidity_provision_submission.commitment_amount", ErrIsNotValidNumber)
+
 		}
-	} else { // valida cancellation
-		return errs
+	} else {
+		errs.AddForProperty("liquidity_provision_submission.commitment_amount", ErrIsRequired)
 	}
 
 	if len(cmd.Fee) <= 0 {
