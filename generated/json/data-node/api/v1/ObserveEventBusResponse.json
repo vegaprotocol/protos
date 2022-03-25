@@ -2645,6 +2645,64 @@
             "title": "Withdrawal",
             "description": "A withdrawal from the Vega network"
         },
+        "vega.commands.v1.AnnounceNode": {
+            "properties": {
+                "vega_pub_key": {
+                    "type": "string",
+                    "description": "Vega public key, required field"
+                },
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "Ethereum public key, required field"
+                },
+                "chain_pub_key": {
+                    "type": "string",
+                    "description": "Public key for the blockchain, required field"
+                },
+                "info_url": {
+                    "type": "string",
+                    "description": "URL with more info on the node"
+                },
+                "country": {
+                    "type": "string",
+                    "description": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "ID of the validator, (public master key)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the validator"
+                },
+                "avatar_url": {
+                    "type": "string",
+                    "description": "AvatarURL of the validator"
+                },
+                "vega_pub_key_index": {
+                    "type": "integer",
+                    "description": "Vega public key derivation index"
+                },
+                "from_epoch": {
+                    "type": "string",
+                    "description": "The epoch from which the validator is expected to be ready to validate blocks"
+                },
+                "ethereum_signature": {
+                    "$ref": "#/definitions/vega.commands.v1.Signature",
+                    "additionalProperties": true,
+                    "description": "Signature from the validator made using the ethereum wallet"
+                },
+                "vega_signature": {
+                    "$ref": "#/definitions/vega.commands.v1.Signature",
+                    "additionalProperties": true,
+                    "description": "Signature from the validator made using the vega wallet"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Announce Node",
+            "description": "Used announce a node as a new potential validator"
+        },
         "vega.commands.v1.CancelTransfer": {
             "properties": {
                 "transfer_id": {
@@ -2814,6 +2872,40 @@
             "type": "object",
             "title": "One Off Transfer",
             "description": "Specific details for a one off transfer"
+        },
+        "vega.commands.v1.OracleDataSubmission": {
+            "properties": {
+                "source": {
+                    "enum": [
+                        "ORACLE_SOURCE_UNSPECIFIED",
+                        0,
+                        "ORACLE_SOURCE_OPEN_ORACLE",
+                        1,
+                        "ORACLE_SOURCE_JSON",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Oracle Source",
+                    "description": "The supported Oracle sources"
+                },
+                "payload": {
+                    "type": "string",
+                    "description": "The data provided by the third party provider",
+                    "format": "binary",
+                    "binaryEncoding": "base64"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Data Submission",
+            "description": "Command to submit new Oracle data from third party providers"
         },
         "vega.commands.v1.OrderAmendment": {
             "properties": {
@@ -3069,6 +3161,26 @@
             "type": "object",
             "title": "Restore Snapshot",
             "description": "A command that loads the state from a given checkpoint"
+        },
+        "vega.commands.v1.Signature": {
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "description": "The bytes of the signature (hex-encoded)."
+                },
+                "algo": {
+                    "type": "string",
+                    "description": "The algorithm used to create the signature."
+                },
+                "version": {
+                    "type": "integer",
+                    "description": "The version of the signature used to create the signature."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Signature",
+            "description": "A signature to authenticate a transaction and to be verified by the Vega network."
         },
         "vega.commands.v1.Transfer": {
             "properties": {
@@ -4579,6 +4691,14 @@
                 },
                 "cancel_transfer": {
                     "$ref": "#/definitions/vega.commands.v1.CancelTransfer",
+                    "additionalProperties": true
+                },
+                "announce_node": {
+                    "$ref": "#/definitions/vega.commands.v1.AnnounceNode",
+                    "additionalProperties": true
+                },
+                "oracle_data_submission": {
+                    "$ref": "#/definitions/vega.commands.v1.OracleDataSubmission",
                     "additionalProperties": true
                 }
             },

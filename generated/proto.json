@@ -14192,6 +14192,30 @@
               "isoneof": true,
               "oneofdecl": "transaction",
               "defaultValue": ""
+            },
+            {
+              "name": "announce_node",
+              "description": "",
+              "label": "",
+              "type": "AnnounceNode",
+              "longType": "vega.commands.v1.AnnounceNode",
+              "fullType": "vega.commands.v1.AnnounceNode",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "transaction",
+              "defaultValue": ""
+            },
+            {
+              "name": "oracle_data_submission",
+              "description": "",
+              "label": "",
+              "type": "OracleDataSubmission",
+              "longType": "vega.commands.v1.OracleDataSubmission",
+              "fullType": "vega.commands.v1.OracleDataSubmission",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "transaction",
+              "defaultValue": ""
             }
           ]
         },
@@ -27660,6 +27684,30 @@
               "type": "CancelTransfer",
               "longType": "vega.commands.v1.CancelTransfer",
               "fullType": "vega.commands.v1.CancelTransfer",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "transaction",
+              "defaultValue": ""
+            },
+            {
+              "name": "announce_node",
+              "description": "",
+              "label": "",
+              "type": "AnnounceNode",
+              "longType": "vega.commands.v1.AnnounceNode",
+              "fullType": "vega.commands.v1.AnnounceNode",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "transaction",
+              "defaultValue": ""
+            },
+            {
+              "name": "oracle_data_submission",
+              "description": "",
+              "label": "",
+              "type": "OracleDataSubmission",
+              "longType": "vega.commands.v1.OracleDataSubmission",
+              "fullType": "vega.commands.v1.OracleDataSubmission",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "transaction",
