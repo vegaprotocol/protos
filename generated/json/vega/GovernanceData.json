@@ -719,7 +719,7 @@
                         37,
                         "PROPOSAL_ERROR_INVALID_MARKET",
                         38,
-                        "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACE",
+                        "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES",
                         39,
                         "PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS",
                         40

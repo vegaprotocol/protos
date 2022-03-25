@@ -1273,7 +1273,7 @@
               "description": "The market targeted by the proposal does not exist or is not eligible to modification."
             },
             {
-              "name": "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACE",
+              "name": "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES",
               "number": "39",
               "description": "The market proposal decimal place is higher to the market settlement asset decimal places"
             },
