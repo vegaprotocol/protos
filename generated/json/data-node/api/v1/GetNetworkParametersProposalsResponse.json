@@ -733,7 +733,11 @@
                         "PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE",
                         37,
                         "PROPOSAL_ERROR_INVALID_MARKET",
-                        38
+                        38,
+                        "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACE",
+                        39,
+                        "PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS",
+                        40
                     ],
                     "oneOf": [
                         {

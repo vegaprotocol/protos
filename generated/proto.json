@@ -1271,6 +1271,16 @@
               "name": "PROPOSAL_ERROR_INVALID_MARKET",
               "number": "38",
               "description": "The market targeted by the proposal does not exist or is not eligible to modification."
+            },
+            {
+              "name": "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACE",
+              "number": "39",
+              "description": "The market proposal decimal place is higher to the market settlement asset decimal places"
+            },
+            {
+              "name": "PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS",
+              "number": "40",
+              "description": "The market proposal contains too many price monitoring triggers"
             }
           ]
         },

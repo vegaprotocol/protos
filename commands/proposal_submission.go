@@ -291,6 +291,10 @@ func checkPriceMonitoring(parameters *types.PriceMonitoringParameters, parentPro
 		return errs
 	}
 
+	if len(parameters.Triggers) > 5 {
+		errs.AddForProperty(fmt.Sprintf("%s.price_monitoring_parameters.triggers", parentProperty), errors.New("maximum 5 triggers allowed"))
+	}
+
 	for i, trigger := range parameters.Triggers {
 		if trigger.Horizon <= 0 {
 			errs.AddForProperty(fmt.Sprintf("%s.price_monitoring_parameters.triggers.%d.horizon", parentProperty, i), ErrMustBePositive)
