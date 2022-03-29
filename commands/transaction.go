@@ -149,6 +149,8 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkCancelTransfer(cmd.CancelTransfer))
 		case *commandspb.InputData_ValidatorHeartbeat:
 			errs.Merge(checkValidatorHeartbeat(cmd.ValidatorHeartbeat))
+		case *commandspb.InputData_EthereumKeyRotateSubmission:
+			errs.Merge(checkEthereumKeyRotateSubmission(cmd.EthereumKeyRotateSubmission))
 		case *commandspb.InputData_RestoreSnapshotSubmission:
 			break // nothing to verify as such
 		default:

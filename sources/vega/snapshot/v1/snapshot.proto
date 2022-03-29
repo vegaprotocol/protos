@@ -593,11 +593,18 @@ message PendingKeyRotation {
   uint32 new_pub_key_index = 4;
 }
 
+message PendingEthereumKeyRotation {
+  uint64 block_height = 1;
+  string node_id = 2;
+  string new_address = 3;
+}
+
 message Topology {
   repeated ValidatorState validator_data = 1;
   repeated string chain_keys = 2;
   repeated PendingKeyRotation pending_pub_key_rotations = 3;
   ValidatorPerformance validator_performance = 4;
+  repeated PendingEthereumKeyRotation pending_ethereum_key_rotations = 5;
 }
 
 message ValidatorState {
