@@ -41,19 +41,6 @@ enum Interval {
   //       - gateway/graphql/schema.graphql (enum Interval)
 }
 
-message Price {
-  // Price value, given as an integer, for example `123456` is a correctly
-  // formatted price of `1.23456` assuming market configured to 5 decimal places
-  string value = 1;
-}
-
-// A timestamp in nanoseconds since epoch
-// See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
-message Timestamp {
-  // Timestamp value
-  int64 value = 1;
-}
-
 // A party represents an entity who wishes to trade on or query a Vega network
 message Party {
   // A unique identifier for the party, typically represented by a public key
@@ -1135,7 +1122,7 @@ enum ValidatorNodeStatus {
 message RankingScore {
   // stake based score - no anti-whaling
   string stake_score = 1;
-  // performance based score 
+  // performance based score
   string performance_score = 2;
   // the status of the validator in the previous epoch
   ValidatorNodeStatus previous_status = 3;
@@ -1150,9 +1137,9 @@ message RankingScore {
 message RewardScore {
   // stake based score - with anti-whaling
   string raw_validator_score = 1;
-  // performance based score 
+  // performance based score
   string performance_score = 2;
-  // multisig score 
+  // multisig score
   string multisig_score = 3;
   // un-normalised score
   string validator_score = 4;
@@ -1193,12 +1180,12 @@ message Node {
   repeated Delegation delegations = 14;
   // Node reward score
   RewardScore reward_score = 15;
-  // Node ranking information 
+  // Node ranking information
   RankingScore ranking_score = 16;
   // Node name
   string name = 17;
   // Avatar url
-  string avatar_url = 18;  
+  string avatar_url = 18;
 }
 
 message NodeData {
@@ -1276,8 +1263,4 @@ message VectorValue {
 
 message MatrixValue {
   repeated VectorValue value = 1;
-}
-
-message Uint64Value {
-  uint64 value = 1;
 }

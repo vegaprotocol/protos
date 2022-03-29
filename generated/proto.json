@@ -7452,30 +7452,6 @@
           ]
         },
         {
-          "name": "Price",
-          "longName": "Price",
-          "fullName": "vega.Price",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "value",
-              "description": "Price value, given as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "PriceLevel",
           "longName": "PriceLevel",
           "fullName": "vega.PriceLevel",
@@ -8052,30 +8028,6 @@
           ]
         },
         {
-          "name": "Timestamp",
-          "longName": "Timestamp",
-          "fullName": "vega.Timestamp",
-          "description": "A timestamp in nanoseconds since epoch\nSee [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "value",
-              "description": "Timestamp value",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "Trade",
           "longName": "Trade",
           "fullName": "vega.Trade",
@@ -8500,30 +8452,6 @@
               "type": "TransferBalance",
               "longType": "TransferBalance",
               "fullType": "vega.TransferBalance",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "Uint64Value",
-          "longName": "Uint64Value",
-          "fullName": "vega.Uint64Value",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "value",
-              "description": "",
-              "label": "",
-              "type": "uint64",
-              "longType": "uint64",
-              "fullType": "uint64",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -9284,30 +9212,6 @@
           ]
         },
         {
-          "name": "Int64Value",
-          "longName": "Int64Value",
-          "fullName": "vega.commands.v1.Int64Value",
-          "description": "Replacement for the google well-known type until we can get rid of this\nentirely",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "value",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "LiquidityProvisionAmendment",
           "longName": "LiquidityProvisionAmendment",
           "fullName": "vega.commands.v1.LiquidityProvisionAmendment",
@@ -9530,7 +9434,7 @@
           "description": "An order amendment is a request to amend or update an existing order on Vega\n\nThe `orderID`, `partyID` and `marketID` fields are used for looking up the order only and cannot be amended by this command",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
@@ -9560,13 +9464,13 @@
             {
               "name": "price",
               "description": "Amend the price for the order, if the Price value is set, otherwise price will remain unchanged - See [`Price`](#vega.Price)",
-              "label": "",
-              "type": "Price",
-              "longType": "vega.Price",
-              "fullType": "vega.Price",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_price",
               "defaultValue": ""
             },
             {
@@ -9584,13 +9488,13 @@
             {
               "name": "expires_at",
               "description": "Amend the expiry time for the order, if the Timestamp value is set, otherwise expiry time will remain unchanged\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
-              "label": "",
-              "type": "Timestamp",
-              "longType": "vega.Timestamp",
-              "fullType": "vega.Timestamp",
+              "label": "optional",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_expires_at",
               "defaultValue": ""
             },
             {
@@ -9830,7 +9734,7 @@
           "description": "Specific details for a recurring transfer",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
@@ -9848,13 +9752,13 @@
             {
               "name": "end_epoch",
               "description": "The last epoch at which this transfer shall be paid",
-              "label": "",
-              "type": "Uint64Value",
-              "longType": "vega.Uint64Value",
-              "fullType": "vega.Uint64Value",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_end_epoch",
               "defaultValue": ""
             },
             {
@@ -13276,7 +13180,7 @@
           "description": "",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
@@ -13294,13 +13198,13 @@
             {
               "name": "end_epoch",
               "description": "",
-              "label": "",
-              "type": "Uint64Value",
-              "longType": "vega.Uint64Value",
-              "fullType": "vega.Uint64Value",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_end_epoch",
               "defaultValue": ""
             },
             {
@@ -25738,7 +25642,7 @@
           "description": "",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
@@ -25756,13 +25660,13 @@
             {
               "name": "end_epoch",
               "description": "",
-              "label": "",
-              "type": "Uint64Value",
-              "longType": "vega.Uint64Value",
-              "fullType": "vega.Uint64Value",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_end_epoch",
               "defaultValue": ""
             },
             {

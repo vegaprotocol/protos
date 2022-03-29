@@ -1822,17 +1822,6 @@
             "title": "Pegged Order",
             "description": "Pegged orders are limit orders where the price is specified in the form REFERENCE +/- OFFSET They can be used for any limit order that is valid during continuous trading"
         },
-        "vega.Price": {
-            "properties": {
-                "value": {
-                    "type": "string",
-                    "description": "Price value, given as an integer, for example `123456` is a correctly formatted price of `1.23456` assuming market configured to 5 decimal places"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Price"
-        },
         "vega.PriceMonitoringBounds": {
             "properties": {
                 "min_valid_price": {
@@ -2206,18 +2195,6 @@
             "title": "Target Stake Parameters",
             "description": "TargetStakeParameters contains parameters used in target stake calculation"
         },
-        "vega.Timestamp": {
-            "properties": {
-                "value": {
-                    "type": "string",
-                    "description": "Timestamp value"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Timestamp",
-            "description": "A timestamp in nanoseconds since epoch See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
-        },
         "vega.TradableInstrument": {
             "properties": {
                 "instrument": {
@@ -2388,16 +2365,6 @@
             "type": "object",
             "title": "Transfer Response",
             "description": "Represents the response from a transfer"
-        },
-        "vega.Uint64Value": {
-            "properties": {
-                "value": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Uint 64 Value"
         },
         "vega.UpdateFutureProduct": {
             "properties": {
@@ -2922,8 +2889,7 @@
                     "description": "Market identifier, this is required to find the order and will not be updated"
                 },
                 "price": {
-                    "$ref": "#/definitions/vega.Price",
-                    "additionalProperties": true,
+                    "type": "string",
                     "title": "All fields below can be altered by this command:",
                     "description": "All fields below can be altered by this command:  Amend the price for the order, if the Price value is set, otherwise price will remain unchanged - See [`Price`](#vega.Price)"
                 },
@@ -2932,8 +2898,7 @@
                     "description": "Amend the size for the order by the delta specified: - To reduce the size from the current value set a negative integer value - To increase the size from the current value, set a positive integer value - To leave the size unchanged set a value of zero"
                 },
                 "expires_at": {
-                    "$ref": "#/definitions/vega.Timestamp",
-                    "additionalProperties": true,
+                    "type": "string",
                     "description": "Amend the expiry time for the order, if the Timestamp value is set, otherwise expiry time will remain unchanged - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
                 },
                 "time_in_force": {
@@ -3139,8 +3104,7 @@
                     "description": "The first epoch from which this transfer shall be paid"
                 },
                 "end_epoch": {
-                    "$ref": "#/definitions/vega.Uint64Value",
-                    "additionalProperties": true,
+                    "type": "string",
                     "description": "The last epoch at which this transfer shall be paid"
                 },
                 "factor": {
@@ -4231,8 +4195,7 @@
                     "type": "string"
                 },
                 "end_epoch": {
-                    "$ref": "#/definitions/vega.Uint64Value",
-                    "additionalProperties": true
+                    "type": "string"
                 },
                 "factor": {
                     "type": "string"

@@ -1380,7 +1380,7 @@
           "title": "Market identifier, this is required to find the order and will not be updated"
         },
         "price": {
-          "$ref": "#/definitions/vegaPrice",
+          "type": "string",
           "title": "Amend the price for the order, if the Price value is set, otherwise price will remain unchanged - See [`Price`](#vega.Price)"
         },
         "sizeDelta": {
@@ -1389,7 +1389,8 @@
           "title": "Amend the size for the order by the delta specified:\n- To reduce the size from the current value set a negative integer value\n- To increase the size from the current value, set a positive integer value\n- To leave the size unchanged set a value of zero"
         },
         "expiresAt": {
-          "$ref": "#/definitions/vegaTimestamp",
+          "type": "string",
+          "format": "int64",
           "title": "Amend the expiry time for the order, if the Timestamp value is set, otherwise expiry time will remain unchanged\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
         },
         "timeInForce": {
@@ -3687,15 +3688,6 @@
       "description": "- PEGGED_REFERENCE_UNSPECIFIED: Default value for PeggedReference, no reference given\n - PEGGED_REFERENCE_MID: Mid price reference\n - PEGGED_REFERENCE_BEST_BID: Best bid price reference\n - PEGGED_REFERENCE_BEST_ASK: Best ask price reference",
       "title": "A pegged reference defines which price point a pegged order is linked to - meaning\nthe price for a pegged order is calculated from the value of the reference price point"
     },
-    "vegaPrice": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string",
-          "title": "Price value, given as an integer, for example `123456` is a correctly\nformatted price of `1.23456` assuming market configured to 5 decimal places"
-        }
-      }
-    },
     "vegaPriceMonitoringBounds": {
       "type": "object",
       "properties": {
@@ -4015,17 +4007,6 @@
       },
       "title": "TargetStakeParameters contains parameters used in target stake calculation"
     },
-    "vegaTimestamp": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string",
-          "format": "int64",
-          "title": "Timestamp value"
-        }
-      },
-      "title": "A timestamp in nanoseconds since epoch\nSee [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
-    },
     "vegaTradableInstrument": {
       "type": "object",
       "properties": {
@@ -4163,15 +4144,6 @@
         }
       },
       "title": "Represents the response from a transfer"
-    },
-    "vegaUint64Value": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
     },
     "vegaUpdateFutureProduct": {
       "type": "object",
@@ -4396,7 +4368,8 @@
           "title": "The first epoch from which this transfer shall be paid"
         },
         "endEpoch": {
-          "$ref": "#/definitions/vegaUint64Value",
+          "type": "string",
+          "format": "uint64",
           "title": "The last epoch at which this transfer shall be paid"
         },
         "factor": {
@@ -4459,7 +4432,8 @@
           "format": "uint64"
         },
         "endEpoch": {
-          "$ref": "#/definitions/vegaUint64Value"
+          "type": "string",
+          "format": "uint64"
         },
         "factor": {
           "type": "string"

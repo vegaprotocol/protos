@@ -202,10 +202,8 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 0,
-						EndEpoch: &vega.Uint64Value{
-							Value: 10,
-						},
-						Factor: "1",
+						EndEpoch:   Uint64Ptr(10),
+						Factor:     "1",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
@@ -222,10 +220,8 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 10,
-						EndEpoch: &vega.Uint64Value{
-							Value: 0,
-						},
-						Factor: "1",
+						EndEpoch:   Uint64Ptr(0),
+						Factor:     "1",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
@@ -242,10 +238,8 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 10,
-						EndEpoch: &vega.Uint64Value{
-							Value: 11,
-						},
-						Factor: "-1",
+						EndEpoch:   Uint64Ptr(11),
+						Factor:     "-1",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",
@@ -262,10 +256,8 @@ func TestTransferFunds(t *testing.T) {
 				Kind: &commandspb.Transfer_Recurring{
 					Recurring: &commandspb.RecurringTransfer{
 						StartEpoch: 10,
-						EndEpoch: &vega.Uint64Value{
-							Value: 11,
-						},
-						Factor: "0.01",
+						EndEpoch:   Uint64Ptr(11),
+						Factor:     "0.01",
 					},
 				},
 				To:        "84e2b15102a8d6c1c6b4bdf40af8a0dc21b040eaaa1c94cd10d17604b75fdc35",

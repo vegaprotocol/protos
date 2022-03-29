@@ -36,7 +36,7 @@ func testAmendOrderJustPriceSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:  "orderid",
 		MarketId: "marketid",
-		Price:    &proto.Price{Value: "1000"},
+		Price:    StringPtr("1000"),
 	}
 	err := checkOrderAmendment(arg)
 
@@ -69,7 +69,7 @@ func testAmendOrderJustExpirySuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:   "orderid",
 		MarketId:  "marketid",
-		ExpiresAt: &proto.Timestamp{Value: expires.UnixNano()},
+		ExpiresAt: Int64Ptr(expires.UnixNano()),
 	}
 	err := checkOrderAmendment(arg)
 	assert.NoError(t, err.ErrorOrNil())
@@ -111,7 +111,7 @@ func testAmendOrderInvalidExpiryFail(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:     "orderid",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GTC,
-		ExpiresAt:   &proto.Timestamp{Value: 10},
+		ExpiresAt:   Int64Ptr(10),
 	}
 	err := checkOrderAmendment(arg)
 	assert.Error(t, err)
@@ -134,7 +134,7 @@ func testAmendOrderPastExpiry(t *testing.T) {
 		OrderId:     "orderid",
 		MarketId:    "marketid",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GTT,
-		ExpiresAt:   &proto.Timestamp{Value: 10},
+		ExpiresAt:   Int64Ptr(10),
 	}
 	err := checkOrderAmendment(arg)
 	assert.NoError(t, err.ErrorOrNil())
@@ -144,7 +144,7 @@ func testAmendOrderToGFN(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:     "orderid",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GFN,
-		ExpiresAt:   &proto.Timestamp{Value: 10},
+		ExpiresAt:   Int64Ptr(10),
 	}
 	err := checkOrderAmendment(arg)
 	assert.Error(t, err)
@@ -154,7 +154,7 @@ func testAmendOrderToGFA(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
 		OrderId:     "orderid",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GFA,
-		ExpiresAt:   &proto.Timestamp{Value: 10},
+		ExpiresAt:   Int64Ptr(10),
 	}
 	err := checkOrderAmendment(arg)
 	assert.Error(t, err)

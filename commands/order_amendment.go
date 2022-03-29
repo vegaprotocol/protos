@@ -42,7 +42,7 @@ func checkOrderAmendment(cmd *commandspb.OrderAmendment) Errors {
 
 	if cmd.Price != nil {
 		isAmending = true
-		if price, ok := big.NewInt(0).SetString(cmd.Price.Value, 10); !ok {
+		if price, ok := big.NewInt(0).SetString(*cmd.Price, 10); !ok {
 			errs.AddForProperty("order_amendment.price", ErrNotAValidInteger)
 		} else if price.Cmp(big.NewInt(0)) <= 0 {
 			errs.AddForProperty("order_amendment.price", ErrIsRequired)
@@ -75,7 +75,7 @@ func checkOrderAmendment(cmd *commandspb.OrderAmendment) Errors {
 		}
 	}
 
-	if cmd.ExpiresAt != nil && cmd.ExpiresAt.Value > 0 {
+	if cmd.ExpiresAt != nil && *cmd.ExpiresAt > 0 {
 		isAmending = true
 		if cmd.TimeInForce != types.Order_TIME_IN_FORCE_GTT &&
 			cmd.TimeInForce != types.Order_TIME_IN_FORCE_UNSPECIFIED {
