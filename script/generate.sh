@@ -56,7 +56,6 @@ function gen_docs() {
   sources/vega/api/**/*.proto \
   sources/vega/checkpoint/**/*.proto \
   sources/vega/snapshot/**/*.proto \
-  sources/vega/tm/*.proto \
   sources/vega/events/**/*.proto \
   sources/vega/wallet/**/*.proto
 }
