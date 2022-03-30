@@ -4110,7 +4110,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Ethereum Key Rotation",
-            "description": "A key rotation events contains information about Ethereum key rotation"
+            "description": "An Ethereum key rotation events contains information about Ethereum key rotation"
         },
         "vega.events.v1.KeyRotation": {
             "properties": {

@@ -1021,7 +1021,7 @@
           "title": "Height of the block where key rotation took effect"
         }
       },
-      "title": "A key rotation events contains information about Ethereum key rotation"
+      "title": "An Ethereum key rotation events contains information about Ethereum key rotation"
     },
     "v1Filter": {
       "type": "object",

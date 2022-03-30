@@ -3206,7 +3206,7 @@ func (x *KeyRotation) GetBlockHeight() uint64 {
 	return 0
 }
 
-// A key rotation events contains information about Ethereum key rotation
+// An Ethereum key rotation events contains information about Ethereum key rotation
 type EthereumKeyRotation struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
