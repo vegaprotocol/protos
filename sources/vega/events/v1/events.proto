@@ -431,7 +431,7 @@ message KeyRotation {
   uint64 block_height = 4;
 }
 
-// A key rotation events contains information about Ethereum key rotation
+// An Ethereum key rotation events contains information about Ethereum key rotation
 message EthereumKeyRotation {
   // Node id of the node
   string node_id = 1;
