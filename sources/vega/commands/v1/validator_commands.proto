@@ -116,9 +116,9 @@ message EthereumKeyRotateSubmission {
   // Target block at which the key rotation will take effect on
   uint64 target_block = 1;
   // The new adress to rotate to
-  string new_address = 3;
+  string new_address = 2;
   // Currently used public address
-  string current_address= 4;
+  string current_address = 3;
 }
 
 message StateVariableProposal {
