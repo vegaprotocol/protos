@@ -3588,6 +3588,8 @@
                         45,
                         "BUS_EVENT_TYPE_POSITION_STATE",
                         46,
+                        "BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION",
+                        47,
                         "BUS_EVENT_TYPE_MARKET",
                         101,
                         "BUS_EVENT_TYPE_TX_ERROR",
@@ -3823,6 +3825,11 @@
                     "$ref": "#/definitions/vega.events.v1.PositionStateEvent",
                     "additionalProperties": true,
                     "description": "Position status for a party in a market"
+                },
+                "ethereum_key_rotation": {
+                    "$ref": "#/definitions/vega.events.v1.EthereumKeyRotation",
+                    "additionalProperties": true,
+                    "description": "Ethereum key rotation took place"
                 },
                 "market": {
                     "$ref": "#/definitions/vega.events.v1.MarketEvent",
@@ -4080,6 +4087,30 @@
             "type": "object",
             "title": "Epoch Event",
             "description": "Epoch details"
+        },
+        "vega.events.v1.EthereumKeyRotation": {
+            "properties": {
+                "node_id": {
+                    "type": "string",
+                    "description": "Node id of the node"
+                },
+                "old_address": {
+                    "type": "string",
+                    "description": "Old Ethereum address of validator node"
+                },
+                "new_address": {
+                    "type": "string",
+                    "description": "New Ethereum address of validator node"
+                },
+                "block_height": {
+                    "type": "string",
+                    "description": "Height of the block where key rotation took effect"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ethereum Key Rotation",
+            "description": "An Ethereum key rotation events contains information about Ethereum key rotation"
         },
         "vega.events.v1.KeyRotation": {
             "properties": {

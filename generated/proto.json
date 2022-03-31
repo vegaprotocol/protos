@@ -10560,6 +10560,18 @@
               "defaultValue": ""
             },
             {
+              "name": "ethereum_key_rotate_submission",
+              "description": "",
+              "label": "",
+              "type": "EthereumKeyRotateSubmission",
+              "longType": "EthereumKeyRotateSubmission",
+              "fullType": "vega.commands.v1.EthereumKeyRotateSubmission",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "command",
+              "defaultValue": ""
+            },
+            {
               "name": "oracle_data_submission",
               "description": "Oracles",
               "label": "",
@@ -11001,6 +11013,54 @@
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "event",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EthereumKeyRotateSubmission",
+          "longName": "EthereumKeyRotateSubmission",
+          "fullName": "vega.commands.v1.EthereumKeyRotateSubmission",
+          "description": "A transaction to allow validator to rotate their ethereum keys",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "target_block",
+              "description": "Target block at which the key rotation will take effect on",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "new_address",
+              "description": "The new adress to rotate to",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "current_address",
+              "description": "Currently used public address",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
@@ -11473,6 +11533,11 @@
               "name": "BUS_EVENT_TYPE_POSITION_STATE",
               "number": "46",
               "description": "Event indicting that a party's position has changed"
+            },
+            {
+              "name": "BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION",
+              "number": "47",
+              "description": "Event indicating Ethereum key rotation took place"
             },
             {
               "name": "BUS_EVENT_TYPE_MARKET",
@@ -12272,6 +12337,18 @@
               "defaultValue": ""
             },
             {
+              "name": "ethereum_key_rotation",
+              "description": "Ethereum key rotation took place",
+              "label": "",
+              "type": "EthereumKeyRotation",
+              "longType": "EthereumKeyRotation",
+              "fullType": "vega.events.v1.EthereumKeyRotation",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
               "name": "market",
               "description": "Market tick events - See [MarketEvent](#vega.MarketEvent)",
               "label": "",
@@ -12902,6 +12979,66 @@
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EthereumKeyRotation",
+          "longName": "EthereumKeyRotation",
+          "fullName": "vega.events.v1.EthereumKeyRotation",
+          "description": "An Ethereum key rotation events contains information about Ethereum key rotation",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node_id",
+              "description": "Node id of the node",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "old_address",
+              "description": "Old Ethereum address of validator node",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "new_address",
+              "description": "New Ethereum address of validator node",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "block_height",
+              "description": "Height of the block where key rotation took effect",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -17437,6 +17574,54 @@
           ]
         },
         {
+          "name": "PendingEthereumKeyRotation",
+          "longName": "PendingEthereumKeyRotation",
+          "fullName": "vega.checkpoint.v1.PendingEthereumKeyRotation",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "relative_target_block_height",
+              "description": "Relative target block height is: target block height - current block height.\nUseful for cross blockchain compatibility.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "node_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "new_address",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "PendingKeyRotation",
           "longName": "PendingKeyRotation",
           "fullName": "vega.checkpoint.v1.PendingKeyRotation",
@@ -17921,6 +18106,18 @@
               "type": "PendingKeyRotation",
               "longType": "PendingKeyRotation",
               "fullType": "vega.checkpoint.v1.PendingKeyRotation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pending_ethereum_key_rotations",
+              "description": "",
+              "label": "repeated",
+              "type": "PendingEthereumKeyRotation",
+              "longType": "PendingEthereumKeyRotation",
+              "fullType": "vega.checkpoint.v1.PendingEthereumKeyRotation",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -21608,6 +21805,54 @@
           ]
         },
         {
+          "name": "PendingEthereumKeyRotation",
+          "longName": "PendingEthereumKeyRotation",
+          "fullName": "vega.snapshot.v1.PendingEthereumKeyRotation",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "block_height",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "node_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "new_address",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "PendingKeyRotation",
           "longName": "PendingKeyRotation",
           "fullName": "vega.snapshot.v1.PendingKeyRotation",
@@ -23224,6 +23469,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "pending_ethereum_key_rotations",
+              "description": "",
+              "label": "repeated",
+              "type": "PendingEthereumKeyRotation",
+              "longType": "PendingEthereumKeyRotation",
+              "fullType": "vega.snapshot.v1.PendingEthereumKeyRotation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -23935,6 +24192,11 @@
               "name": "BUS_EVENT_TYPE_POSITION_STATE",
               "number": "46",
               "description": "Event indicting that a party's position has changed"
+            },
+            {
+              "name": "BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION",
+              "number": "47",
+              "description": "Event indicating Ethereum key rotation took place"
             },
             {
               "name": "BUS_EVENT_TYPE_MARKET",
@@ -24734,6 +24996,18 @@
               "defaultValue": ""
             },
             {
+              "name": "ethereum_key_rotation",
+              "description": "Ethereum key rotation took place",
+              "label": "",
+              "type": "EthereumKeyRotation",
+              "longType": "EthereumKeyRotation",
+              "fullType": "vega.events.v1.EthereumKeyRotation",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
               "name": "market",
               "description": "Market tick events - See [MarketEvent](#vega.MarketEvent)",
               "label": "",
@@ -25364,6 +25638,66 @@
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EthereumKeyRotation",
+          "longName": "EthereumKeyRotation",
+          "fullName": "vega.events.v1.EthereumKeyRotation",
+          "description": "An Ethereum key rotation events contains information about Ethereum key rotation",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node_id",
+              "description": "Node id of the node",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "old_address",
+              "description": "Old Ethereum address of validator node",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "new_address",
+              "description": "New Ethereum address of validator node",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "block_height",
+              "description": "Height of the block where key rotation took effect",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -27334,6 +27668,18 @@
               "type": "ValidatorHeartbeat",
               "longType": "vega.commands.v1.ValidatorHeartbeat",
               "fullType": "vega.commands.v1.ValidatorHeartbeat",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "command",
+              "defaultValue": ""
+            },
+            {
+              "name": "ethereum_key_rotate_submission",
+              "description": "",
+              "label": "",
+              "type": "EthereumKeyRotateSubmission",
+              "longType": "vega.commands.v1.EthereumKeyRotateSubmission",
+              "fullType": "vega.commands.v1.EthereumKeyRotateSubmission",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "command",

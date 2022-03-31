@@ -55,6 +55,8 @@ message InputData {
     KeyRotateSubmission key_rotate_submission = 2005;
     StateVariableProposal state_variable_proposal = 2006;
     ValidatorHeartbeat validator_heartbeat = 2007;
+    EthereumKeyRotateSubmission ethereum_key_rotate_submission = 2008;
+
 
     // Oracles
     OracleDataSubmission oracle_data_submission = 3001;
