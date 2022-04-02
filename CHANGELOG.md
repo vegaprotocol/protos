@@ -11,6 +11,7 @@
 ### 🛠 Improvements
 - [366](https://github.com/vegaprotocol/protos/issue/366) - Improved comments
 - [373](https://github.com/vegaprotocol/protos/issue/373) - Add Ethereum key rotation support
+- [376](https://github.com/vegaprotocol/protos/issue/376) - Add Block End Message 
 
 ### 🐛 Fixes
 - [369](https://github.com/vegaprotocol/protos/pull/369) - Various validations fixes
