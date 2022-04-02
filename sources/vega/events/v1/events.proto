@@ -250,8 +250,8 @@ message TimeUpdate {
   int64 timestamp = 1;
 }
 
-// A block end message indicates that all events in the block have been sent
-message BlockEnd {
+// Sent when the block is committed
+message BlockCommit {
 }
 
 // Epoch details
@@ -556,7 +556,7 @@ enum BusEventType {
   // Event indicating Ethereum key rotation took place
   BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION = 47;
   // Event indicating the end of events for the block
-  BUS_EVENT_TYPE_BLOCK_END = 48;
+  BUS_EVENT_TYPE_BLOCK_COMMIT = 48;
 
 
   // Event indicating a market related event, for example when a market opens
@@ -665,7 +665,7 @@ message BusEvent {
     // Ethereum key rotation took place
     EthereumKeyRotation ethereum_key_rotation = 146;
     // Block end event
-    BlockEnd block_end = 147;
+    BlockCommit block_commit = 147;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
