@@ -244,10 +244,14 @@ message TxErrorEvent {
   }
 }
 
-// A time update event contains the latest time update from Vega blockchain
+// A time update event contains the latest time update from Vega blockchain and indicates the start of a new block
 message TimeUpdate {
   // Timestamp containing latest update from Vega blockchain aka Vega-time
   int64 timestamp = 1;
+}
+
+// A block end message indicates that all events in the block have been sent
+message BlockEnd {
 }
 
 // Epoch details
@@ -551,6 +555,9 @@ enum BusEventType {
   BUS_EVENT_TYPE_POSITION_STATE = 46;
   // Event indicating Ethereum key rotation took place
   BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION = 47;
+  // Event indicating the end of events for the block
+  BUS_EVENT_TYPE_BLOCK_END = 48;
+
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -657,6 +664,8 @@ message BusEvent {
     PositionStateEvent position_state_event = 145;
     // Ethereum key rotation took place
     EthereumKeyRotation ethereum_key_rotation = 146;
+    // Block end event
+    BlockEnd block_end = 147;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;
