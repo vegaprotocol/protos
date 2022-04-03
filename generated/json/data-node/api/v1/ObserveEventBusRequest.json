@@ -103,8 +103,6 @@
                             46,
                             "BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION",
                             47,
-                            "BUS_EVENT_TYPE_BLOCK_COMMIT",
-                            48,
                             "BUS_EVENT_TYPE_MARKET",
                             101,
                             "BUS_EVENT_TYPE_TX_ERROR",
