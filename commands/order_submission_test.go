@@ -2,7 +2,6 @@ package commands_test
 
 import (
 	"errors"
-	"fmt"
 	"testing"
 
 	"code.vegaprotocol.io/protos/commands"
@@ -198,7 +197,7 @@ func testOrderSubmissionWithoutGTTAndExpirationDateFails(t *testing.T) {
 func testOrderSubmissionWithMarketTypeAndPriceFails(t *testing.T) {
 	err := checkOrderSubmission(&commandspb.OrderSubmission{
 		Type:  types.Order_TYPE_MARKET,
-		Price: fmt.Sprintf("%d", RandomPositiveU64()),
+		Price: RandomPositiveU64AsString(),
 	})
 
 	assert.Contains(t, err.Get("order_submission.price"), errors.New("is unavailable when the order is of type MARKET"))

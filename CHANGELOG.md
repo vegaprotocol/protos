@@ -14,6 +14,7 @@
 
 ### 🐛 Fixes
 - [369](https://github.com/vegaprotocol/protos/pull/369) - Various validations fixes
+- [382](https://github.com/vegaprotocol/protos/pull/382) - Prevent negative commitment amount in new market proposal
 
 
 ## 0.49.3
