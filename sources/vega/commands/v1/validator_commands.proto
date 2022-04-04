@@ -49,6 +49,8 @@ message AnnounceNode {
 // Used when a node votes for validating a given resource exists or is valid,
 // for example, an ERC20 deposit is valid and exists on ethereum
 message NodeVote {
+  // Previous public key field.
+  reserved 1;
   // Reference, required field
   string reference = 2;
 }
