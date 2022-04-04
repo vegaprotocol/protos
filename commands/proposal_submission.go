@@ -752,7 +752,7 @@ func checkLiquidityCommitment(commitment *types.NewMarketCommitment) Errors {
 		if commitmentAmount, ok := big.NewInt(0).SetString(commitment.CommitmentAmount, 10); !ok {
 			errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrNotAValidInteger)
 		} else {
-			if commitmentAmount.Cmp(big.NewInt(0)) == 0 {
+			if commitmentAmount.Cmp(big.NewInt(0)) != 1 {
 				errs.AddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount", ErrMustBePositive)
 			}
 		}
