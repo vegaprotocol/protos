@@ -11184,18 +11184,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "pub_key",
-              "description": "Public key, required field",
-              "label": "",
-              "type": "bytes",
-              "longType": "bytes",
-              "fullType": "bytes",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "reference",
               "description": "Reference, required field",
               "label": "",
