@@ -43,7 +43,7 @@ func (x *Account) Reset() {
 	}
 }
 
-func (x *Account) String() string {
+func (x *Account) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -119,7 +119,7 @@ func (x *ListAccountsRequest) Reset() {
 	}
 }
 
-func (x *ListAccountsRequest) String() string {
+func (x *ListAccountsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -173,7 +173,7 @@ func (x *ListAccountsResponse) Reset() {
 	}
 }
 
-func (x *ListAccountsResponse) String() string {
+func (x *ListAccountsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -220,7 +220,7 @@ func (x *ListAssetsRequest) Reset() {
 	}
 }
 
-func (x *ListAssetsRequest) String() string {
+func (x *ListAssetsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -267,7 +267,7 @@ func (x *ListAssetsResponse) Reset() {
 	}
 }
 
-func (x *ListAssetsResponse) String() string {
+func (x *ListAssetsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -314,7 +314,7 @@ func (x *ListNetworkParametersRequest) Reset() {
 	}
 }
 
-func (x *ListNetworkParametersRequest) String() string {
+func (x *ListNetworkParametersRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -361,7 +361,7 @@ func (x *ListNetworkParametersResponse) Reset() {
 	}
 }
 
-func (x *ListNetworkParametersResponse) String() string {
+func (x *ListNetworkParametersResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -406,7 +406,7 @@ func (x *ListNetworkLimitsRequest) Reset() {
 	}
 }
 
-func (x *ListNetworkLimitsRequest) String() string {
+func (x *ListNetworkLimitsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -446,7 +446,7 @@ func (x *ListNetworkLimitsResponse) Reset() {
 	}
 }
 
-func (x *ListNetworkLimitsResponse) String() string {
+func (x *ListNetworkLimitsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -491,7 +491,7 @@ func (x *ListPartiesRequest) Reset() {
 	}
 }
 
-func (x *ListPartiesRequest) String() string {
+func (x *ListPartiesRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -531,7 +531,7 @@ func (x *ListPartiesResponse) Reset() {
 	}
 }
 
-func (x *ListPartiesResponse) String() string {
+func (x *ListPartiesResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -576,7 +576,7 @@ func (x *ListValidatorsRequest) Reset() {
 	}
 }
 
-func (x *ListValidatorsRequest) String() string {
+func (x *ListValidatorsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -616,7 +616,7 @@ func (x *ListValidatorsResponse) Reset() {
 	}
 }
 
-func (x *ListValidatorsResponse) String() string {
+func (x *ListValidatorsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -663,7 +663,7 @@ func (x *ListMarketsRequest) Reset() {
 	}
 }
 
-func (x *ListMarketsRequest) String() string {
+func (x *ListMarketsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -710,7 +710,7 @@ func (x *ListMarketsResponse) Reset() {
 	}
 }
 
-func (x *ListMarketsResponse) String() string {
+func (x *ListMarketsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -758,7 +758,7 @@ func (x *ListProposalsRequest) Reset() {
 	}
 }
 
-func (x *ListProposalsRequest) String() string {
+func (x *ListProposalsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -812,7 +812,7 @@ func (x *ListProposalsResponse) Reset() {
 	}
 }
 
-func (x *ListProposalsResponse) String() string {
+func (x *ListProposalsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -859,7 +859,7 @@ func (x *ListMarketsDataRequest) Reset() {
 	}
 }
 
-func (x *ListMarketsDataRequest) String() string {
+func (x *ListMarketsDataRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -906,7 +906,7 @@ func (x *ListMarketsDataResponse) Reset() {
 	}
 }
 
-func (x *ListMarketsDataResponse) String() string {
+func (x *ListMarketsDataResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -954,7 +954,7 @@ func (x *ListVotesRequest) Reset() {
 	}
 }
 
-func (x *ListVotesRequest) String() string {
+func (x *ListVotesRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1008,7 +1008,7 @@ func (x *ListVotesResponse) Reset() {
 	}
 }
 
-func (x *ListVotesResponse) String() string {
+func (x *ListVotesResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1057,7 +1057,7 @@ func (x *PartyStake) Reset() {
 	}
 }
 
-func (x *PartyStake) String() string {
+func (x *PartyStake) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1118,7 +1118,7 @@ func (x *ListPartiesStakeRequest) Reset() {
 	}
 }
 
-func (x *ListPartiesStakeRequest) String() string {
+func (x *ListPartiesStakeRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1165,7 +1165,7 @@ func (x *ListPartiesStakeResponse) Reset() {
 	}
 }
 
-func (x *ListPartiesStakeResponse) String() string {
+func (x *ListPartiesStakeResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1214,7 +1214,7 @@ func (x *ListDelegationsRequest) Reset() {
 	}
 }
 
-func (x *ListDelegationsRequest) String() string {
+func (x *ListDelegationsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1275,7 +1275,7 @@ func (x *ListDelegationsResponse) Reset() {
 	}
 }
 
-func (x *ListDelegationsResponse) String() string {
+func (x *ListDelegationsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

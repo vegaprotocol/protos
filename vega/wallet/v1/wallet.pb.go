@@ -63,7 +63,7 @@ func (x *SubmitTransactionRequest) Reset() {
 	}
 }
 
-func (x *SubmitTransactionRequest) String() string {
+func (x *SubmitTransactionRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

@@ -59,7 +59,7 @@ func (x Format) Enum() *Format {
 	return p
 }
 
-func (x Format) String() string {
+func (x Format) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -101,7 +101,7 @@ func (x *Snapshot) Reset() {
 	}
 }
 
-func (x *Snapshot) String() string {
+func (x *Snapshot) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -187,7 +187,7 @@ func (x *NodeHash) Reset() {
 	}
 }
 
-func (x *NodeHash) String() string {
+func (x *NodeHash) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -264,7 +264,7 @@ func (x *Metadata) Reset() {
 	}
 }
 
-func (x *Metadata) String() string {
+func (x *Metadata) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -329,7 +329,7 @@ func (x *Chunk) Reset() {
 	}
 }
 
-func (x *Chunk) String() string {
+func (x *Chunk) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -442,7 +442,7 @@ func (x *Payload) Reset() {
 	}
 }
 
-func (x *Payload) String() string {
+func (x *Payload) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1157,7 +1157,7 @@ func (x *TimestampedOpenInterest) Reset() {
 	}
 }
 
-func (x *TimestampedOpenInterest) String() string {
+func (x *TimestampedOpenInterest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1216,7 +1216,7 @@ func (x *LiquidityTarget) Reset() {
 	}
 }
 
-func (x *LiquidityTarget) String() string {
+func (x *LiquidityTarget) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1299,7 +1299,7 @@ func (x *LiquidityPriceProbabilityPair) Reset() {
 	}
 }
 
-func (x *LiquidityPriceProbabilityPair) String() string {
+func (x *LiquidityPriceProbabilityPair) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1356,7 +1356,7 @@ func (x *LiquiditySupplied) Reset() {
 	}
 }
 
-func (x *LiquiditySupplied) String() string {
+func (x *LiquiditySupplied) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1424,7 +1424,7 @@ func (x *OracleDataBatch) Reset() {
 	}
 }
 
-func (x *OracleDataBatch) String() string {
+func (x *OracleDataBatch) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1472,7 +1472,7 @@ func (x *OracleData) Reset() {
 	}
 }
 
-func (x *OracleData) String() string {
+func (x *OracleData) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1527,7 +1527,7 @@ func (x *OracleDataPair) Reset() {
 	}
 }
 
-func (x *OracleDataPair) String() string {
+func (x *OracleDataPair) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1582,7 +1582,7 @@ func (x *Witness) Reset() {
 	}
 }
 
-func (x *Witness) String() string {
+func (x *Witness) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1639,7 +1639,7 @@ func (x *Resource) Reset() {
 	}
 }
 
-func (x *Resource) String() string {
+func (x *Resource) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1707,7 +1707,7 @@ func (x *EventForwarder) Reset() {
 	}
 }
 
-func (x *EventForwarder) String() string {
+func (x *EventForwarder) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1754,7 +1754,7 @@ func (x *CollateralAccounts) Reset() {
 	}
 }
 
-func (x *CollateralAccounts) String() string {
+func (x *CollateralAccounts) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1801,7 +1801,7 @@ func (x *CollateralAssets) Reset() {
 	}
 }
 
-func (x *CollateralAssets) String() string {
+func (x *CollateralAssets) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1848,7 +1848,7 @@ func (x *ActiveAssets) Reset() {
 	}
 }
 
-func (x *ActiveAssets) String() string {
+func (x *ActiveAssets) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1895,7 +1895,7 @@ func (x *PendingAssets) Reset() {
 	}
 }
 
-func (x *PendingAssets) String() string {
+func (x *PendingAssets) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1943,7 +1943,7 @@ func (x *Withdrawal) Reset() {
 	}
 }
 
-func (x *Withdrawal) String() string {
+func (x *Withdrawal) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1998,7 +1998,7 @@ func (x *Deposit) Reset() {
 	}
 }
 
-func (x *Deposit) String() string {
+func (x *Deposit) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2055,7 +2055,7 @@ func (x *TxRef) Reset() {
 	}
 }
 
-func (x *TxRef) String() string {
+func (x *TxRef) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2131,7 +2131,7 @@ func (x *AssetAction) Reset() {
 	}
 }
 
-func (x *AssetAction) String() string {
+func (x *AssetAction) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2234,7 +2234,7 @@ func (x *BankingWithdrawals) Reset() {
 	}
 }
 
-func (x *BankingWithdrawals) String() string {
+func (x *BankingWithdrawals) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2281,7 +2281,7 @@ func (x *BankingDeposits) Reset() {
 	}
 }
 
-func (x *BankingDeposits) String() string {
+func (x *BankingDeposits) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2328,7 +2328,7 @@ func (x *BankingSeen) Reset() {
 	}
 }
 
-func (x *BankingSeen) String() string {
+func (x *BankingSeen) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2375,7 +2375,7 @@ func (x *BankingAssetActions) Reset() {
 	}
 }
 
-func (x *BankingAssetActions) String() string {
+func (x *BankingAssetActions) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2422,7 +2422,7 @@ func (x *BankingRecurringTransfers) Reset() {
 	}
 }
 
-func (x *BankingRecurringTransfers) String() string {
+func (x *BankingRecurringTransfers) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2469,7 +2469,7 @@ func (x *BankingScheduledTransfers) Reset() {
 	}
 }
 
-func (x *BankingScheduledTransfers) String() string {
+func (x *BankingScheduledTransfers) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2516,7 +2516,7 @@ func (x *Checkpoint) Reset() {
 	}
 }
 
-func (x *Checkpoint) String() string {
+func (x *Checkpoint) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2563,7 +2563,7 @@ func (x *DelegationLastReconciliationTime) Reset() {
 	}
 }
 
-func (x *DelegationLastReconciliationTime) String() string {
+func (x *DelegationLastReconciliationTime) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2610,7 +2610,7 @@ func (x *DelegationActive) Reset() {
 	}
 }
 
-func (x *DelegationActive) String() string {
+func (x *DelegationActive) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2658,7 +2658,7 @@ func (x *DelegationPending) Reset() {
 	}
 }
 
-func (x *DelegationPending) String() string {
+func (x *DelegationPending) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2712,7 +2712,7 @@ func (x *DelegationAuto) Reset() {
 	}
 }
 
-func (x *DelegationAuto) String() string {
+func (x *DelegationAuto) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2762,7 +2762,7 @@ func (x *ProposalData) Reset() {
 	}
 }
 
-func (x *ProposalData) String() string {
+func (x *ProposalData) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2830,7 +2830,7 @@ func (x *GovernanceEnacted) Reset() {
 	}
 }
 
-func (x *GovernanceEnacted) String() string {
+func (x *GovernanceEnacted) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2877,7 +2877,7 @@ func (x *GovernanceActive) Reset() {
 	}
 }
 
-func (x *GovernanceActive) String() string {
+func (x *GovernanceActive) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2924,7 +2924,7 @@ func (x *GovernanceNode) Reset() {
 	}
 }
 
-func (x *GovernanceNode) String() string {
+func (x *GovernanceNode) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2973,7 +2973,7 @@ func (x *StakingAccount) Reset() {
 	}
 }
 
-func (x *StakingAccount) String() string {
+func (x *StakingAccount) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3035,7 +3035,7 @@ func (x *StakingAccounts) Reset() {
 	}
 }
 
-func (x *StakingAccounts) String() string {
+func (x *StakingAccounts) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3094,7 +3094,7 @@ func (x *MatchingBook) Reset() {
 	}
 }
 
-func (x *MatchingBook) String() string {
+func (x *MatchingBook) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3176,7 +3176,7 @@ func (x *NetParams) Reset() {
 	}
 }
 
-func (x *NetParams) String() string {
+func (x *NetParams) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3224,7 +3224,7 @@ func (x *DecimalMap) Reset() {
 	}
 }
 
-func (x *DecimalMap) String() string {
+func (x *DecimalMap) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3279,7 +3279,7 @@ func (x *TimePrice) Reset() {
 	}
 }
 
-func (x *TimePrice) String() string {
+func (x *TimePrice) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3334,7 +3334,7 @@ func (x *PriceVolume) Reset() {
 	}
 }
 
-func (x *PriceVolume) String() string {
+func (x *PriceVolume) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3390,7 +3390,7 @@ func (x *PriceRange) Reset() {
 	}
 }
 
-func (x *PriceRange) String() string {
+func (x *PriceRange) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3454,7 +3454,7 @@ func (x *PriceBound) Reset() {
 	}
 }
 
-func (x *PriceBound) String() string {
+func (x *PriceBound) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3523,7 +3523,7 @@ func (x *PriceRangeCache) Reset() {
 	}
 }
 
-func (x *PriceRangeCache) String() string {
+func (x *PriceRangeCache) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3578,7 +3578,7 @@ func (x *CurrentPrice) Reset() {
 	}
 }
 
-func (x *CurrentPrice) String() string {
+func (x *CurrentPrice) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3633,7 +3633,7 @@ func (x *PastPrice) Reset() {
 	}
 }
 
-func (x *PastPrice) String() string {
+func (x *PastPrice) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3698,7 +3698,7 @@ func (x *PriceMonitor) Reset() {
 	}
 }
 
-func (x *PriceMonitor) String() string {
+func (x *PriceMonitor) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3829,7 +3829,7 @@ func (x *AuctionState) Reset() {
 	}
 }
 
-func (x *AuctionState) String() string {
+func (x *AuctionState) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3928,7 +3928,7 @@ func (x *EquityShareLP) Reset() {
 	}
 }
 
-func (x *EquityShareLP) String() string {
+func (x *EquityShareLP) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3998,7 +3998,7 @@ func (x *EquityShare) Reset() {
 	}
 }
 
-func (x *EquityShare) String() string {
+func (x *EquityShare) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4060,7 +4060,7 @@ func (x *FeeSplitter) Reset() {
 	}
 }
 
-func (x *FeeSplitter) String() string {
+func (x *FeeSplitter) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4130,7 +4130,7 @@ func (x *Market) Reset() {
 	}
 }
 
-func (x *Market) String() string {
+func (x *Market) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4289,7 +4289,7 @@ func (x *ExecutionMarkets) Reset() {
 	}
 }
 
-func (x *ExecutionMarkets) String() string {
+func (x *ExecutionMarkets) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4342,7 +4342,7 @@ func (x *Position) Reset() {
 	}
 }
 
-func (x *Position) String() string {
+func (x *Position) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4432,7 +4432,7 @@ func (x *MarketPositions) Reset() {
 	}
 }
 
-func (x *MarketPositions) String() string {
+func (x *MarketPositions) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4489,7 +4489,7 @@ func (x *AppState) Reset() {
 	}
 }
 
-func (x *AppState) String() string {
+func (x *AppState) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4567,7 +4567,7 @@ func (x *EpochState) Reset() {
 	}
 }
 
-func (x *EpochState) String() string {
+func (x *EpochState) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4642,7 +4642,7 @@ func (x *RewardsPendingPayouts) Reset() {
 	}
 }
 
-func (x *RewardsPendingPayouts) String() string {
+func (x *RewardsPendingPayouts) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4690,7 +4690,7 @@ func (x *ScheduledRewardsPayout) Reset() {
 	}
 }
 
-func (x *ScheduledRewardsPayout) String() string {
+func (x *ScheduledRewardsPayout) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4749,7 +4749,7 @@ func (x *RewardsPayout) Reset() {
 	}
 }
 
-func (x *RewardsPayout) String() string {
+func (x *RewardsPayout) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4832,7 +4832,7 @@ func (x *RewardsPartyAmount) Reset() {
 	}
 }
 
-func (x *RewardsPartyAmount) String() string {
+func (x *RewardsPartyAmount) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -4899,7 +4899,7 @@ func (x *LimitState) Reset() {
 	}
 }
 
-func (x *LimitState) String() string {
+func (x *LimitState) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5002,7 +5002,7 @@ func (x *VoteSpamPolicy) Reset() {
 	}
 }
 
-func (x *VoteSpamPolicy) String() string {
+func (x *VoteSpamPolicy) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5100,7 +5100,7 @@ func (x *PartyProposalVoteCount) Reset() {
 	}
 }
 
-func (x *PartyProposalVoteCount) String() string {
+func (x *PartyProposalVoteCount) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5162,7 +5162,7 @@ func (x *BannedParty) Reset() {
 	}
 }
 
-func (x *BannedParty) String() string {
+func (x *BannedParty) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5217,7 +5217,7 @@ func (x *PartyTokenBalance) Reset() {
 	}
 }
 
-func (x *PartyTokenBalance) String() string {
+func (x *PartyTokenBalance) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5272,7 +5272,7 @@ func (x *BlockRejectStats) Reset() {
 	}
 }
 
-func (x *BlockRejectStats) String() string {
+func (x *BlockRejectStats) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5327,7 +5327,7 @@ func (x *SpamPartyTransactionCount) Reset() {
 	}
 }
 
-func (x *SpamPartyTransactionCount) String() string {
+func (x *SpamPartyTransactionCount) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5385,7 +5385,7 @@ func (x *SimpleSpamPolicy) Reset() {
 	}
 }
 
-func (x *SimpleSpamPolicy) String() string {
+func (x *SimpleSpamPolicy) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5463,7 +5463,7 @@ func (x *NotarySigs) Reset() {
 	}
 }
 
-func (x *NotarySigs) String() string {
+func (x *NotarySigs) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5531,7 +5531,7 @@ func (x *Notary) Reset() {
 	}
 }
 
-func (x *Notary) String() string {
+func (x *Notary) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5580,7 +5580,7 @@ func (x *ReplayProtection) Reset() {
 	}
 }
 
-func (x *ReplayProtection) String() string {
+func (x *ReplayProtection) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5642,7 +5642,7 @@ func (x *TransactionAtHeight) Reset() {
 	}
 }
 
-func (x *TransactionAtHeight) String() string {
+func (x *TransactionAtHeight) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5698,7 +5698,7 @@ func (x *FutureState) Reset() {
 	}
 }
 
-func (x *FutureState) String() string {
+func (x *FutureState) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5759,7 +5759,7 @@ func (x *StakeVerifierDeposited) Reset() {
 	}
 }
 
-func (x *StakeVerifierDeposited) String() string {
+func (x *StakeVerifierDeposited) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5806,7 +5806,7 @@ func (x *StakeVerifierRemoved) Reset() {
 	}
 }
 
-func (x *StakeVerifierRemoved) String() string {
+func (x *StakeVerifierRemoved) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5860,7 +5860,7 @@ func (x *StakeVerifierPending) Reset() {
 	}
 }
 
-func (x *StakeVerifierPending) String() string {
+func (x *StakeVerifierPending) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -5959,7 +5959,7 @@ func (x *PendingKeyRotation) Reset() {
 	}
 }
 
-func (x *PendingKeyRotation) String() string {
+func (x *PendingKeyRotation) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6029,7 +6029,7 @@ func (x *PendingEthereumKeyRotation) Reset() {
 	}
 }
 
-func (x *PendingEthereumKeyRotation) String() string {
+func (x *PendingEthereumKeyRotation) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6094,7 +6094,7 @@ func (x *Topology) Reset() {
 	}
 }
 
-func (x *Topology) String() string {
+func (x *Topology) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6177,7 +6177,7 @@ func (x *ValidatorState) Reset() {
 	}
 }
 
-func (x *ValidatorState) String() string {
+func (x *ValidatorState) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6283,7 +6283,7 @@ func (x *HeartbeatTracker) Reset() {
 	}
 }
 
-func (x *HeartbeatTracker) String() string {
+func (x *HeartbeatTracker) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6357,7 +6357,7 @@ func (x *PerformanceStats) Reset() {
 	}
 }
 
-func (x *PerformanceStats) String() string {
+func (x *PerformanceStats) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6446,7 +6446,7 @@ func (x *ValidatorPerformance) Reset() {
 	}
 }
 
-func (x *ValidatorPerformance) String() string {
+func (x *ValidatorPerformance) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6497,7 +6497,7 @@ func (x *LiquidityParameters) Reset() {
 	}
 }
 
-func (x *LiquidityParameters) String() string {
+func (x *LiquidityParameters) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6567,7 +6567,7 @@ func (x *LiquidityPendingProvisions) Reset() {
 	}
 }
 
-func (x *LiquidityPendingProvisions) String() string {
+func (x *LiquidityPendingProvisions) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6623,7 +6623,7 @@ func (x *LiquidityPartiesLiquidityOrders) Reset() {
 	}
 }
 
-func (x *LiquidityPartiesLiquidityOrders) String() string {
+func (x *LiquidityPartiesLiquidityOrders) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6679,7 +6679,7 @@ func (x *LiquidityPartiesOrders) Reset() {
 	}
 }
 
-func (x *LiquidityPartiesOrders) String() string {
+func (x *LiquidityPartiesOrders) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6735,7 +6735,7 @@ func (x *LiquidityProvisions) Reset() {
 	}
 }
 
-func (x *LiquidityProvisions) String() string {
+func (x *LiquidityProvisions) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6790,7 +6790,7 @@ func (x *FloatingPointConsensus) Reset() {
 	}
 }
 
-func (x *FloatingPointConsensus) String() string {
+func (x *FloatingPointConsensus) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6840,7 +6840,7 @@ func (x *NextTimeTrigger) Reset() {
 	}
 }
 
-func (x *NextTimeTrigger) String() string {
+func (x *NextTimeTrigger) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6908,7 +6908,7 @@ func (x *FeesTracker) Reset() {
 	}
 }
 
-func (x *FeesTracker) String() string {
+func (x *FeesTracker) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -6958,7 +6958,7 @@ func (x *AssetFees) Reset() {
 	}
 }
 
-func (x *AssetFees) String() string {
+func (x *AssetFees) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7027,7 +7027,7 @@ func (x *PartyFees) Reset() {
 	}
 }
 
-func (x *PartyFees) String() string {
+func (x *PartyFees) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7081,7 +7081,7 @@ func (x *MarketTracker) Reset() {
 	}
 }
 
-func (x *MarketTracker) String() string {
+func (x *MarketTracker) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7131,7 +7131,7 @@ func (x *MarketVolumeTracker) Reset() {
 	}
 }
 
-func (x *MarketVolumeTracker) String() string {
+func (x *MarketVolumeTracker) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7200,7 +7200,7 @@ func (x *SignerEventsPerAddress) Reset() {
 	}
 }
 
-func (x *SignerEventsPerAddress) String() string {
+func (x *SignerEventsPerAddress) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7257,7 +7257,7 @@ func (x *ERC20MultiSigTopologyVerified) Reset() {
 	}
 }
 
-func (x *ERC20MultiSigTopologyVerified) String() string {
+func (x *ERC20MultiSigTopologyVerified) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7328,7 +7328,7 @@ func (x *ERC20MultiSigTopologyPending) Reset() {
 	}
 }
 
-func (x *ERC20MultiSigTopologyPending) String() string {
+func (x *ERC20MultiSigTopologyPending) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7402,7 +7402,7 @@ func (x *ProofOfWork) Reset() {
 	}
 }
 
-func (x *ProofOfWork) String() string {
+func (x *ProofOfWork) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -7492,7 +7492,7 @@ func (x *TransactionsAtHeight) Reset() {
 	}
 }
 
-func (x *TransactionsAtHeight) String() string {
+func (x *TransactionsAtHeight) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

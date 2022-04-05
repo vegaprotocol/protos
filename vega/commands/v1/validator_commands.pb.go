@@ -61,7 +61,7 @@ func (x NodeSignatureKind) Enum() *NodeSignatureKind {
 	return p
 }
 
-func (x NodeSignatureKind) String() string {
+func (x NodeSignatureKind) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -106,7 +106,7 @@ func (x *ValidatorHeartbeat) Reset() {
 	}
 }
 
-func (x *ValidatorHeartbeat) String() string {
+func (x *ValidatorHeartbeat) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -192,7 +192,7 @@ func (x *AnnounceNode) Reset() {
 	}
 }
 
-func (x *AnnounceNode) String() string {
+func (x *AnnounceNode) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -319,7 +319,7 @@ func (x *NodeVote) Reset() {
 	}
 }
 
-func (x *NodeVote) String() string {
+func (x *NodeVote) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -372,7 +372,7 @@ func (x *NodeSignature) Reset() {
 	}
 }
 
-func (x *NodeSignature) String() string {
+func (x *NodeSignature) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -445,7 +445,7 @@ func (x *ChainEvent) Reset() {
 	}
 }
 
-func (x *ChainEvent) String() string {
+func (x *ChainEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -574,7 +574,7 @@ func (x *KeyRotateSubmission) Reset() {
 	}
 }
 
-func (x *KeyRotateSubmission) String() string {
+func (x *KeyRotateSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -648,7 +648,7 @@ func (x *EthereumKeyRotateSubmission) Reset() {
 	}
 }
 
-func (x *EthereumKeyRotateSubmission) String() string {
+func (x *EthereumKeyRotateSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -710,7 +710,7 @@ func (x *StateVariableProposal) Reset() {
 	}
 }
 
-func (x *StateVariableProposal) String() string {
+func (x *StateVariableProposal) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

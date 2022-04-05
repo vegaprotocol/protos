@@ -41,7 +41,7 @@ func (x *Asset) Reset() {
 	}
 }
 
-func (x *Asset) String() string {
+func (x *Asset) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -111,7 +111,7 @@ func (x *AssetDetails) Reset() {
 	}
 }
 
-func (x *AssetDetails) String() string {
+func (x *AssetDetails) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -227,7 +227,7 @@ func (x *BuiltinAsset) Reset() {
 	}
 }
 
-func (x *BuiltinAsset) String() string {
+func (x *BuiltinAsset) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -276,7 +276,7 @@ func (x *ERC20) Reset() {
 	}
 }
 
-func (x *ERC20) String() string {
+func (x *ERC20) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

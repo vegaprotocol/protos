@@ -60,7 +60,7 @@ func (x SubmitTransactionRequest_Type) Enum() *SubmitTransactionRequest_Type {
 	return p
 }
 
-func (x SubmitTransactionRequest_Type) String() string {
+func (x SubmitTransactionRequest_Type) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -118,7 +118,7 @@ func (x SubmitRawTransactionRequest_Type) Enum() *SubmitRawTransactionRequest_Ty
 	return p
 }
 
-func (x SubmitRawTransactionRequest_Type) String() string {
+func (x SubmitRawTransactionRequest_Type) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -162,7 +162,7 @@ func (x *PropagateChainEventRequest) Reset() {
 	}
 }
 
-func (x *PropagateChainEventRequest) String() string {
+func (x *PropagateChainEventRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -226,7 +226,7 @@ func (x *PropagateChainEventResponse) Reset() {
 	}
 }
 
-func (x *PropagateChainEventResponse) String() string {
+func (x *PropagateChainEventResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -277,7 +277,7 @@ func (x *SubmitTransactionRequest) Reset() {
 	}
 }
 
-func (x *SubmitTransactionRequest) String() string {
+func (x *SubmitTransactionRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -343,7 +343,7 @@ func (x *SubmitTransactionResponse) Reset() {
 	}
 }
 
-func (x *SubmitTransactionResponse) String() string {
+func (x *SubmitTransactionResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -427,7 +427,7 @@ func (x *CheckTransactionRequest) Reset() {
 	}
 }
 
-func (x *CheckTransactionRequest) String() string {
+func (x *CheckTransactionRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -481,7 +481,7 @@ func (x *CheckTransactionResponse) Reset() {
 	}
 }
 
-func (x *CheckTransactionResponse) String() string {
+func (x *CheckTransactionResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -553,7 +553,7 @@ func (x *SubmitRawTransactionRequest) Reset() {
 	}
 }
 
-func (x *SubmitRawTransactionRequest) String() string {
+func (x *SubmitRawTransactionRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -616,7 +616,7 @@ func (x *SubmitRawTransactionResponse) Reset() {
 	}
 }
 
-func (x *SubmitRawTransactionResponse) String() string {
+func (x *SubmitRawTransactionResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -700,7 +700,7 @@ func (x *CheckRawTransactionRequest) Reset() {
 	}
 }
 
-func (x *CheckRawTransactionRequest) String() string {
+func (x *CheckRawTransactionRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -755,7 +755,7 @@ func (x *CheckRawTransactionResponse) Reset() {
 	}
 }
 
-func (x *CheckRawTransactionResponse) String() string {
+func (x *CheckRawTransactionResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -822,7 +822,7 @@ func (x *GetVegaTimeRequest) Reset() {
 	}
 }
 
-func (x *GetVegaTimeRequest) String() string {
+func (x *GetVegaTimeRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -865,7 +865,7 @@ func (x *GetVegaTimeResponse) Reset() {
 	}
 }
 
-func (x *GetVegaTimeResponse) String() string {
+func (x *GetVegaTimeResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -926,7 +926,7 @@ func (x *ObserveEventBusRequest) Reset() {
 	}
 }
 
-func (x *ObserveEventBusRequest) String() string {
+func (x *ObserveEventBusRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -996,7 +996,7 @@ func (x *ObserveEventBusResponse) Reset() {
 	}
 }
 
-func (x *ObserveEventBusResponse) String() string {
+func (x *ObserveEventBusResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1042,7 +1042,7 @@ func (x *StatisticsRequest) Reset() {
 	}
 }
 
-func (x *StatisticsRequest) String() string {
+func (x *StatisticsRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1082,7 +1082,7 @@ func (x *StatisticsResponse) Reset() {
 	}
 }
 
-func (x *StatisticsResponse) String() string {
+func (x *StatisticsResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1196,7 +1196,7 @@ func (x *Statistics) Reset() {
 	}
 }
 
-func (x *Statistics) String() string {
+func (x *Statistics) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1467,7 +1467,7 @@ func (x *LastBlockHeightRequest) Reset() {
 	}
 }
 
-func (x *LastBlockHeightRequest) String() string {
+func (x *LastBlockHeightRequest) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1522,7 +1522,7 @@ func (x *LastBlockHeightResponse) Reset() {
 	}
 }
 
-func (x *LastBlockHeightResponse) String() string {
+func (x *LastBlockHeightResponse) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

@@ -43,7 +43,7 @@ func (x *BuiltinAssetDeposit) Reset() {
 	}
 }
 
-func (x *BuiltinAssetDeposit) String() string {
+func (x *BuiltinAssetDeposit) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -110,7 +110,7 @@ func (x *BuiltinAssetWithdrawal) Reset() {
 	}
 }
 
-func (x *BuiltinAssetWithdrawal) String() string {
+func (x *BuiltinAssetWithdrawal) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -175,7 +175,7 @@ func (x *BuiltinAssetEvent) Reset() {
 	}
 }
 
-func (x *BuiltinAssetEvent) String() string {
+func (x *BuiltinAssetEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -256,7 +256,7 @@ func (x *ERC20AssetList) Reset() {
 	}
 }
 
-func (x *ERC20AssetList) String() string {
+func (x *ERC20AssetList) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -305,7 +305,7 @@ func (x *ERC20AssetDelist) Reset() {
 	}
 }
 
-func (x *ERC20AssetDelist) String() string {
+func (x *ERC20AssetDelist) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -360,7 +360,7 @@ func (x *ERC20Deposit) Reset() {
 	}
 }
 
-func (x *ERC20Deposit) String() string {
+func (x *ERC20Deposit) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -434,7 +434,7 @@ func (x *ERC20Withdrawal) Reset() {
 	}
 }
 
-func (x *ERC20Withdrawal) String() string {
+func (x *ERC20Withdrawal) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -507,7 +507,7 @@ func (x *ERC20Event) Reset() {
 	}
 }
 
-func (x *ERC20Event) String() string {
+func (x *ERC20Event) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -636,7 +636,7 @@ func (x *ERC20SignerAdded) Reset() {
 	}
 }
 
-func (x *ERC20SignerAdded) String() string {
+func (x *ERC20SignerAdded) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -705,7 +705,7 @@ func (x *ERC20SignerRemoved) Reset() {
 	}
 }
 
-func (x *ERC20SignerRemoved) String() string {
+func (x *ERC20SignerRemoved) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -774,7 +774,7 @@ func (x *ERC20ThresholdSet) Reset() {
 	}
 }
 
-func (x *ERC20ThresholdSet) String() string {
+func (x *ERC20ThresholdSet) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -846,7 +846,7 @@ func (x *ERC20MultiSigEvent) Reset() {
 	}
 }
 
-func (x *ERC20MultiSigEvent) String() string {
+func (x *ERC20MultiSigEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -961,7 +961,7 @@ func (x *StakingEvent) Reset() {
 	}
 }
 
-func (x *StakingEvent) String() string {
+func (x *StakingEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1074,7 +1074,7 @@ func (x *StakeDeposited) Reset() {
 	}
 }
 
-func (x *StakeDeposited) String() string {
+func (x *StakeDeposited) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1151,7 +1151,7 @@ func (x *StakeRemoved) Reset() {
 	}
 }
 
-func (x *StakeRemoved) String() string {
+func (x *StakeRemoved) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1222,7 +1222,7 @@ func (x *StakeTotalSupply) Reset() {
 	}
 }
 
-func (x *StakeTotalSupply) String() string {
+func (x *StakeTotalSupply) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

@@ -81,7 +81,7 @@ func (x *InputData) Reset() {
 	}
 }
 
-func (x *InputData) String() string {
+func (x *InputData) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -465,7 +465,7 @@ func (x *Transaction) Reset() {
 	}
 }
 
-func (x *Transaction) String() string {
+func (x *Transaction) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -574,7 +574,7 @@ func (x *ProofOfWork) Reset() {
 	}
 }
 
-func (x *ProofOfWork) String() string {
+func (x *ProofOfWork) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

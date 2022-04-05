@@ -48,7 +48,7 @@ func (x *OracleData) Reset() {
 	}
 }
 
-func (x *OracleData) String() string {
+func (x *OracleData) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -120,7 +120,7 @@ func (x *Property) Reset() {
 	}
 }
 
-func (x *Property) String() string {
+func (x *Property) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

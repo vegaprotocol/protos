@@ -44,7 +44,7 @@ func (x *Signature) Reset() {
 	}
 }
 
-func (x *Signature) String() string {
+func (x *Signature) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

@@ -198,7 +198,7 @@ func (x ProposalError) Enum() *ProposalError {
 	return p
 }
 
-func (x ProposalError) String() string {
+func (x ProposalError) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -277,7 +277,7 @@ func (x Proposal_State) Enum() *Proposal_State {
 	return p
 }
 
-func (x Proposal_State) String() string {
+func (x Proposal_State) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -330,7 +330,7 @@ func (x Vote_Value) Enum() *Vote_Value {
 	return p
 }
 
-func (x Vote_Value) String() string {
+func (x Vote_Value) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -378,7 +378,7 @@ func (x *FutureProduct) Reset() {
 	}
 }
 
-func (x *FutureProduct) String() string {
+func (x *FutureProduct) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -462,7 +462,7 @@ func (x *InstrumentConfiguration) Reset() {
 	}
 }
 
-func (x *InstrumentConfiguration) String() string {
+func (x *InstrumentConfiguration) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -559,7 +559,7 @@ func (x *NewMarketConfiguration) Reset() {
 	}
 }
 
-func (x *NewMarketConfiguration) String() string {
+func (x *NewMarketConfiguration) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -690,7 +690,7 @@ func (x *NewMarketCommitment) Reset() {
 	}
 }
 
-func (x *NewMarketCommitment) String() string {
+func (x *NewMarketCommitment) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -769,7 +769,7 @@ func (x *NewMarket) Reset() {
 	}
 }
 
-func (x *NewMarket) String() string {
+func (x *NewMarket) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -827,7 +827,7 @@ func (x *UpdateMarket) Reset() {
 	}
 }
 
-func (x *UpdateMarket) String() string {
+func (x *UpdateMarket) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -895,7 +895,7 @@ func (x *UpdateMarketConfiguration) Reset() {
 	}
 }
 
-func (x *UpdateMarketConfiguration) String() string {
+func (x *UpdateMarketConfiguration) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1009,7 +1009,7 @@ func (x *UpdateInstrumentConfiguration) Reset() {
 	}
 }
 
-func (x *UpdateInstrumentConfiguration) String() string {
+func (x *UpdateInstrumentConfiguration) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1089,7 +1089,7 @@ func (x *UpdateFutureProduct) Reset() {
 	}
 }
 
-func (x *UpdateFutureProduct) String() string {
+func (x *UpdateFutureProduct) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1159,7 +1159,7 @@ func (x *UpdateNetworkParameter) Reset() {
 	}
 }
 
-func (x *UpdateNetworkParameter) String() string {
+func (x *UpdateNetworkParameter) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1208,7 +1208,7 @@ func (x *NewAsset) Reset() {
 	}
 }
 
-func (x *NewAsset) String() string {
+func (x *NewAsset) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1260,7 +1260,7 @@ func (x *NewFreeformDetails) Reset() {
 	}
 }
 
-func (x *NewFreeformDetails) String() string {
+func (x *NewFreeformDetails) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1323,7 +1323,7 @@ func (x *NewFreeform) Reset() {
 	}
 }
 
-func (x *NewFreeform) String() string {
+func (x *NewFreeform) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1387,7 +1387,7 @@ func (x *ProposalTerms) Reset() {
 	}
 }
 
-func (x *ProposalTerms) String() string {
+func (x *ProposalTerms) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1543,7 +1543,7 @@ func (x *GovernanceData) Reset() {
 	}
 }
 
-func (x *GovernanceData) String() string {
+func (x *GovernanceData) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1634,7 +1634,7 @@ func (x *Proposal) Reset() {
 	}
 }
 
-func (x *Proposal) String() string {
+func (x *Proposal) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1744,7 +1744,7 @@ func (x *Vote) Reset() {
 	}
 }
 
-func (x *Vote) String() string {
+func (x *Vote) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

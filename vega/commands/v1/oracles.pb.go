@@ -52,7 +52,7 @@ func (x OracleDataSubmission_OracleSource) Enum() *OracleDataSubmission_OracleSo
 	return p
 }
 
-func (x OracleDataSubmission_OracleSource) String() string {
+func (x OracleDataSubmission_OracleSource) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -94,7 +94,7 @@ func (x *OracleDataSubmission) Reset() {
 	}
 }
 
-func (x *OracleDataSubmission) String() string {
+func (x *OracleDataSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

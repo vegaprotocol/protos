@@ -52,7 +52,7 @@ func (x UndelegateSubmission_Method) Enum() *UndelegateSubmission_Method {
 	return p
 }
 
-func (x UndelegateSubmission_Method) String() string {
+func (x UndelegateSubmission_Method) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -92,7 +92,7 @@ func (x *Int64Value) Reset() {
 	}
 }
 
-func (x *Int64Value) String() string {
+func (x *Int64Value) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -165,7 +165,7 @@ func (x *OrderSubmission) Reset() {
 	}
 }
 
-func (x *OrderSubmission) String() string {
+func (x *OrderSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -272,7 +272,7 @@ func (x *OrderCancellation) Reset() {
 	}
 }
 
-func (x *OrderCancellation) String() string {
+func (x *OrderCancellation) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -348,7 +348,7 @@ func (x *OrderAmendment) Reset() {
 	}
 }
 
-func (x *OrderAmendment) String() string {
+func (x *OrderAmendment) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -456,7 +456,7 @@ func (x *LiquidityProvisionSubmission) Reset() {
 	}
 }
 
-func (x *LiquidityProvisionSubmission) String() string {
+func (x *LiquidityProvisionSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -539,7 +539,7 @@ func (x *LiquidityProvisionCancellation) Reset() {
 	}
 }
 
-func (x *LiquidityProvisionCancellation) String() string {
+func (x *LiquidityProvisionCancellation) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -593,7 +593,7 @@ func (x *LiquidityProvisionAmendment) Reset() {
 	}
 }
 
-func (x *LiquidityProvisionAmendment) String() string {
+func (x *LiquidityProvisionAmendment) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -681,7 +681,7 @@ func (x *WithdrawSubmission) Reset() {
 	}
 }
 
-func (x *WithdrawSubmission) String() string {
+func (x *WithdrawSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -747,7 +747,7 @@ func (x *ProposalSubmission) Reset() {
 	}
 }
 
-func (x *ProposalSubmission) String() string {
+func (x *ProposalSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -806,7 +806,7 @@ func (x *VoteSubmission) Reset() {
 	}
 }
 
-func (x *VoteSubmission) String() string {
+func (x *VoteSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -864,7 +864,7 @@ func (x *DelegateSubmission) Reset() {
 	}
 }
 
-func (x *DelegateSubmission) String() string {
+func (x *DelegateSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -921,7 +921,7 @@ func (x *UndelegateSubmission) Reset() {
 	}
 }
 
-func (x *UndelegateSubmission) String() string {
+func (x *UndelegateSubmission) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -983,7 +983,7 @@ func (x *RestoreSnapshot) Reset() {
 	}
 }
 
-func (x *RestoreSnapshot) String() string {
+func (x *RestoreSnapshot) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1049,7 +1049,7 @@ func (x *Transfer) Reset() {
 	}
 }
 
-func (x *Transfer) String() string {
+func (x *Transfer) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1171,7 +1171,7 @@ func (x *OneOffTransfer) Reset() {
 	}
 }
 
-func (x *OneOffTransfer) String() string {
+func (x *OneOffTransfer) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1224,7 +1224,7 @@ func (x *RecurringTransfer) Reset() {
 	}
 }
 
-func (x *RecurringTransfer) String() string {
+func (x *RecurringTransfer) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1287,7 +1287,7 @@ func (x *CancelTransfer) Reset() {
 	}
 }
 
-func (x *CancelTransfer) String() string {
+func (x *CancelTransfer) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

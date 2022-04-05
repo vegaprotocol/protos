@@ -246,7 +246,7 @@ func (x BusEventType) Enum() *BusEventType {
 	return p
 }
 
-func (x BusEventType) String() string {
+func (x BusEventType) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -311,7 +311,7 @@ func (x Transfer_Status) Enum() *Transfer_Status {
 	return p
 }
 
-func (x Transfer_Status) String() string {
+func (x Transfer_Status) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -363,7 +363,7 @@ func (x StakeLinking_Type) Enum() *StakeLinking_Type {
 	return p
 }
 
-func (x StakeLinking_Type) String() string {
+func (x StakeLinking_Type) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -419,7 +419,7 @@ func (x StakeLinking_Status) Enum() *StakeLinking_Status {
 	return p
 }
 
-func (x StakeLinking_Status) String() string {
+func (x StakeLinking_Status) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -468,7 +468,7 @@ func (x ERC20MultiSigSignerEvent_Type) Enum() *ERC20MultiSigSignerEvent_Type {
 	return p
 }
 
-func (x ERC20MultiSigSignerEvent_Type) String() string {
+func (x ERC20MultiSigSignerEvent_Type) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -517,7 +517,7 @@ func (x *ERC20MultiSigSignerAdded) Reset() {
 	}
 }
 
-func (x *ERC20MultiSigSignerAdded) String() string {
+func (x *ERC20MultiSigSignerAdded) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -602,7 +602,7 @@ func (x *ERC20MulistSigSignerRemovedSubmitter) Reset() {
 	}
 }
 
-func (x *ERC20MulistSigSignerRemovedSubmitter) String() string {
+func (x *ERC20MulistSigSignerRemovedSubmitter) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -667,7 +667,7 @@ func (x *ERC20MultiSigSignerRemoved) Reset() {
 	}
 }
 
-func (x *ERC20MultiSigSignerRemoved) String() string {
+func (x *ERC20MultiSigSignerRemoved) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -755,7 +755,7 @@ func (x *Transfer) Reset() {
 	}
 }
 
-func (x *Transfer) String() string {
+func (x *Transfer) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -902,7 +902,7 @@ func (x *OneOffTransfer) Reset() {
 	}
 }
 
-func (x *OneOffTransfer) String() string {
+func (x *OneOffTransfer) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -951,7 +951,7 @@ func (x *RecurringTransfer) Reset() {
 	}
 }
 
-func (x *RecurringTransfer) String() string {
+func (x *RecurringTransfer) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1037,7 +1037,7 @@ func (x *StakeLinking) Reset() {
 	}
 }
 
-func (x *StakeLinking) String() string {
+func (x *StakeLinking) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1168,7 +1168,7 @@ func (x *ERC20MultiSigSignerEvent) Reset() {
 	}
 }
 
-func (x *ERC20MultiSigSignerEvent) String() string {
+func (x *ERC20MultiSigSignerEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1270,7 +1270,7 @@ func (x *ERC20MultiSigThresholdSetEvent) Reset() {
 	}
 }
 
-func (x *ERC20MultiSigThresholdSetEvent) String() string {
+func (x *ERC20MultiSigThresholdSetEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1361,7 +1361,7 @@ func (x *CheckpointEvent) Reset() {
 	}
 }
 
-func (x *CheckpointEvent) String() string {
+func (x *CheckpointEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1422,7 +1422,7 @@ func (x *StreamStartEvent) Reset() {
 	}
 }
 
-func (x *StreamStartEvent) String() string {
+func (x *StreamStartEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1474,7 +1474,7 @@ func (x *RewardPayoutEvent) Reset() {
 	}
 }
 
-func (x *RewardPayoutEvent) String() string {
+func (x *RewardPayoutEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1564,7 +1564,7 @@ func (x *ValidatorScoreEvent) Reset() {
 	}
 }
 
-func (x *ValidatorScoreEvent) String() string {
+func (x *ValidatorScoreEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1664,7 +1664,7 @@ func (x *DelegationBalanceEvent) Reset() {
 	}
 }
 
-func (x *DelegationBalanceEvent) String() string {
+func (x *DelegationBalanceEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1737,7 +1737,7 @@ func (x *MarketEvent) Reset() {
 	}
 }
 
-func (x *MarketEvent) String() string {
+func (x *MarketEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -1814,7 +1814,7 @@ func (x *TxErrorEvent) Reset() {
 	}
 }
 
-func (x *TxErrorEvent) String() string {
+func (x *TxErrorEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2089,7 +2089,7 @@ func (x *TimeUpdate) Reset() {
 	}
 }
 
-func (x *TimeUpdate) String() string {
+func (x *TimeUpdate) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2146,7 +2146,7 @@ func (x *EpochEvent) Reset() {
 	}
 }
 
-func (x *EpochEvent) String() string {
+func (x *EpochEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2223,7 +2223,7 @@ func (x *TransferResponses) Reset() {
 	}
 }
 
-func (x *TransferResponses) String() string {
+func (x *TransferResponses) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2278,7 +2278,7 @@ func (x *PositionResolution) Reset() {
 	}
 }
 
-func (x *PositionResolution) String() string {
+func (x *PositionResolution) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2352,7 +2352,7 @@ func (x *LossSocialization) Reset() {
 	}
 }
 
-func (x *LossSocialization) String() string {
+func (x *LossSocialization) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2417,7 +2417,7 @@ func (x *TradeSettlement) Reset() {
 	}
 }
 
-func (x *TradeSettlement) String() string {
+func (x *TradeSettlement) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2481,7 +2481,7 @@ func (x *SettlePosition) Reset() {
 	}
 }
 
-func (x *SettlePosition) String() string {
+func (x *SettlePosition) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2568,7 +2568,7 @@ func (x *PositionStateEvent) Reset() {
 	}
 }
 
-func (x *PositionStateEvent) String() string {
+func (x *PositionStateEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2667,7 +2667,7 @@ func (x *SettleDistressed) Reset() {
 	}
 }
 
-func (x *SettleDistressed) String() string {
+func (x *SettleDistressed) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2739,7 +2739,7 @@ func (x *MarketTick) Reset() {
 	}
 }
 
-func (x *MarketTick) String() string {
+func (x *MarketTick) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2808,7 +2808,7 @@ func (x *AuctionEvent) Reset() {
 	}
 }
 
-func (x *AuctionEvent) String() string {
+func (x *AuctionEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -2919,7 +2919,7 @@ func (x *ValidatorUpdate) Reset() {
 	}
 }
 
-func (x *ValidatorUpdate) String() string {
+func (x *ValidatorUpdate) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3051,7 +3051,7 @@ func (x *ValidatorRankingEvent) Reset() {
 	}
 }
 
-func (x *ValidatorRankingEvent) String() string {
+func (x *ValidatorRankingEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3155,7 +3155,7 @@ func (x *KeyRotation) Reset() {
 	}
 }
 
-func (x *KeyRotation) String() string {
+func (x *KeyRotation) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3231,7 +3231,7 @@ func (x *EthereumKeyRotation) Reset() {
 	}
 }
 
-func (x *EthereumKeyRotation) String() string {
+func (x *EthereumKeyRotation) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3302,7 +3302,7 @@ func (x *StateVar) Reset() {
 	}
 }
 
-func (x *StateVar) String() string {
+func (x *StateVar) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -3422,7 +3422,7 @@ func (x *BusEvent) Reset() {
 	}
 }
 
-func (x *BusEvent) String() string {
+func (x *BusEvent) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

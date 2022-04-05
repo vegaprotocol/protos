@@ -53,7 +53,7 @@ func (x OracleSpec_Status) Enum() *OracleSpec_Status {
 	return p
 }
 
-func (x OracleSpec_Status) String() string {
+func (x OracleSpec_Status) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -123,7 +123,7 @@ func (x PropertyKey_Type) Enum() *PropertyKey_Type {
 	return p
 }
 
-func (x PropertyKey_Type) String() string {
+func (x PropertyKey_Type) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -190,7 +190,7 @@ func (x Condition_Operator) Enum() *Condition_Operator {
 	return p
 }
 
-func (x Condition_Operator) String() string {
+func (x Condition_Operator) NonDeterministicString() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
@@ -236,7 +236,7 @@ func (x *OracleSpecConfiguration) Reset() {
 	}
 }
 
-func (x *OracleSpecConfiguration) String() string {
+func (x *OracleSpecConfiguration) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -307,7 +307,7 @@ func (x *OracleSpec) Reset() {
 	}
 }
 
-func (x *OracleSpec) String() string {
+func (x *OracleSpec) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -395,7 +395,7 @@ func (x *Filter) Reset() {
 	}
 }
 
-func (x *Filter) String() string {
+func (x *Filter) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -453,7 +453,7 @@ func (x *PropertyKey) Reset() {
 	}
 }
 
-func (x *PropertyKey) String() string {
+func (x *PropertyKey) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
@@ -511,7 +511,7 @@ func (x *Condition) Reset() {
 	}
 }
 
-func (x *Condition) String() string {
+func (x *Condition) NonDeterministicString() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 

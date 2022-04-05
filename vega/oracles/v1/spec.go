@@ -20,9 +20,9 @@ func NewOracleSpec(pubKeys []string, filters []*Filter) *OracleSpec {
 func newID(pubKeys []string, filters []*Filter) string {
 	buf := []byte{}
 	for _, filter := range filters {
-		s := filter.Key.Name + filter.Key.Type.String()
+		s := filter.Key.Name + filter.Key.Type.NonDeterministicString()
 		for _, c := range filter.Conditions {
-			s += c.Operator.String() + c.Value
+			s += c.Operator.NonDeterministicString() + c.Value
 		}
 
 		buf = append(buf, []byte(s)...)
