@@ -26,6 +26,10 @@
                     "$ref": "#/definitions/vega.OracleSpecToFutureBinding",
                     "additionalProperties": true,
                     "description": "The binding between the oracle spec and the oracle data"
+                },
+                "settlement_price_decimals": {
+                    "type": "integer",
+                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
