@@ -2110,6 +2110,17 @@
       "description": "- TRADING_MODE_UNSPECIFIED: Default value, this is invalid\n - TRADING_MODE_CONTINUOUS: Normal trading\n - TRADING_MODE_BATCH_AUCTION: Auction trading (FBA)\n - TRADING_MODE_OPENING_AUCTION: Opening auction\n - TRADING_MODE_MONITORING_AUCTION: Auction triggered by monitoring",
       "title": "The trading mode the market is currently running, also referred to as 'market state'"
     },
+    "OracleDataSubmissionOracleSource": {
+      "type": "string",
+      "enum": [
+        "ORACLE_SOURCE_UNSPECIFIED",
+        "ORACLE_SOURCE_OPEN_ORACLE",
+        "ORACLE_SOURCE_JSON"
+      ],
+      "default": "ORACLE_SOURCE_UNSPECIFIED",
+      "description": "- ORACLE_SOURCE_UNSPECIFIED: The default value\n - ORACLE_SOURCE_OPEN_ORACLE: Support for Open Oracle standard\n - ORACLE_SOURCE_JSON: Support for custom JSON data",
+      "title": "The supported Oracle sources"
+    },
     "OrderTimeInForce": {
       "type": "string",
       "enum": [
@@ -2198,6 +2209,62 @@
           "$ref": "#/definitions/vegaAccount"
         }
       }
+    },
+    "v1AnnounceNode": {
+      "type": "object",
+      "properties": {
+        "vegaPubKey": {
+          "type": "string",
+          "title": "Vega public key, required field"
+        },
+        "ethereumAddress": {
+          "type": "string",
+          "title": "Ethereum public key, required field"
+        },
+        "chainPubKey": {
+          "type": "string",
+          "title": "Public key for the blockchain, required field"
+        },
+        "infoUrl": {
+          "type": "string",
+          "title": "URL with more info on the node"
+        },
+        "country": {
+          "type": "string",
+          "title": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+        },
+        "id": {
+          "type": "string",
+          "title": "ID of the validator, (public master key)"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name of the validator"
+        },
+        "avatarUrl": {
+          "type": "string",
+          "title": "AvatarURL of the validator"
+        },
+        "vegaPubKeyIndex": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Vega public key derivation index"
+        },
+        "fromEpoch": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The epoch from which the validator is expected\nto be ready to validate blocks"
+        },
+        "ethereumSignature": {
+          "$ref": "#/definitions/v1Signature",
+          "title": "Signature from the validator made using the ethereum wallet"
+        },
+        "vegaSignature": {
+          "$ref": "#/definitions/v1Signature",
+          "title": "Signature from the validator made using the vega wallet"
+        }
+      },
+      "title": "Used announce a node as a new potential validator"
     },
     "v1AssetByIDResponse": {
       "type": "object",
@@ -2449,6 +2516,10 @@
           "$ref": "#/definitions/v1PositionStateEvent",
           "title": "Position status for a party in a market"
         },
+        "ethereumKeyRotation": {
+          "$ref": "#/definitions/v1EthereumKeyRotation",
+          "title": "Ethereum key rotation took place"
+        },
         "market": {
           "$ref": "#/definitions/v1MarketEvent",
           "title": "Market tick events - See [MarketEvent](#vega.MarketEvent)"
@@ -2521,11 +2592,12 @@
         "BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_ADDED",
         "BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED",
         "BUS_EVENT_TYPE_POSITION_STATE",
+        "BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION",
         "BUS_EVENT_TYPE_MARKET",
         "BUS_EVENT_TYPE_TX_ERROR"
       ],
       "default": "BUS_EVENT_TYPE_UNSPECIFIED",
-      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_STREAM_START: Event indicating stream is starting\n - BUS_EVENT_TYPE_KEY_ROTATION: Event indicating key rotation took place\n - BUS_EVENT_TYPE_STATE_VAR: Event indicating state transitions in state variable consensus\n - BUS_EVENT_TYPE_NETWORK_LIMITS: Event indicating network limits set or updated\n - BUS_EVENT_TYPE_TRANSFER: Event indicating a update for a transfert\n - BUS_EVENT_TYPE_VALIDATOR_RANKING: Event indicating the ranking of validator and their status in vega\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_EVENT: Event indicating a new multi sig signer event have been processed\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SET_THRESHOLD: Event indicating the erc20 multi sig threshold have been updated\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_ADDED: Event indicating a new signer has been added to the erc20 multisig\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED: Event indicating a signer has been removed from the erc20 multisig\n - BUS_EVENT_TYPE_POSITION_STATE: Event indicting that a party's position has changed\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
+      "description": "- BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid\n - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus\n - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates\n - BUS_EVENT_TYPE_TRANSFER_RESPONSES: Event for when a transfer happens internally, contains the transfer information\n - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred\n - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders\n - BUS_EVENT_TYPE_ACCOUNT: Event for account updates\n - BUS_EVENT_TYPE_PARTY: Event for party updates\n - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred\n - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party\n - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)\n - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)\n - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates\n - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node\n - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party\n - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled\n - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed\n - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega\n - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event\n - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs\n - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs\n - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction\n - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated\n - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated\n - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated\n - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created\n - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated\n - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast\n - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed\n - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch\n - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch\n - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated\n - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network\n - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated\n - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created\n - BUS_EVENT_TYPE_STREAM_START: Event indicating stream is starting\n - BUS_EVENT_TYPE_KEY_ROTATION: Event indicating key rotation took place\n - BUS_EVENT_TYPE_STATE_VAR: Event indicating state transitions in state variable consensus\n - BUS_EVENT_TYPE_NETWORK_LIMITS: Event indicating network limits set or updated\n - BUS_EVENT_TYPE_TRANSFER: Event indicating a update for a transfert\n - BUS_EVENT_TYPE_VALIDATOR_RANKING: Event indicating the ranking of validator and their status in vega\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_EVENT: Event indicating a new multi sig signer event have been processed\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SET_THRESHOLD: Event indicating the erc20 multi sig threshold have been updated\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_ADDED: Event indicating a new signer has been added to the erc20 multisig\n - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED: Event indicating a signer has been removed from the erc20 multisig\n - BUS_EVENT_TYPE_POSITION_STATE: Event indicting that a party's position has changed\n - BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION: Event indicating Ethereum key rotation took place\n - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens\n - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type",
       "title": "An (event) bus event type is used to specify a type of event\nIt has 2 styles of event:\nSingle values (e.g. BUS_EVENT_TYPE_ORDER) where they represent one data item\nGroup values (e.g. BUS_EVENT_TYPE_AUCTION) where they represent a group of data items"
     },
     "v1CancelTransfer": {
@@ -2926,6 +2998,29 @@
       },
       "title": "Response to a EstimateMarginRequest, containing the estimated marginLevels for a given order"
     },
+    "v1EthereumKeyRotation": {
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "type": "string",
+          "title": "Node id of the node"
+        },
+        "oldAddress": {
+          "type": "string",
+          "title": "Old Ethereum address of validator node"
+        },
+        "newAddress": {
+          "type": "string",
+          "title": "New Ethereum address of validator node"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Height of the block where key rotation took effect"
+        }
+      },
+      "title": "An Ethereum key rotation events contains information about Ethereum key rotation"
+    },
     "v1FeeInfrastructureAccountsResponse": {
       "type": "object",
       "properties": {
@@ -3274,7 +3369,7 @@
         },
         "fee": {
           "type": "string",
-          "title": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers"
+          "title": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per setting fees and rewarding liquidity providers"
         },
         "sells": {
           "type": "array",
@@ -3655,6 +3750,21 @@
       },
       "title": "The response for a list of all oracle data broadcast to a given spec"
     },
+    "v1OracleDataSubmission": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/OracleDataSubmissionOracleSource",
+          "title": "The source from which the data is coming from"
+        },
+        "payload": {
+          "type": "string",
+          "format": "byte",
+          "title": "The data provided by the third party provider"
+        }
+      },
+      "title": "Command to submit new Oracle data from third party providers"
+    },
     "v1OracleSpec": {
       "type": "object",
       "properties": {
@@ -3846,20 +3956,20 @@
         },
         "side": {
           "$ref": "#/definitions/vegaSide",
-          "title": "Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)"
+          "title": "Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field\n- See `Side`"
         },
         "timeInForce": {
           "$ref": "#/definitions/OrderTimeInForce",
-          "title": "Time in force indicates how long an order will remain active before it is executed or expires, required field\n- See [`Order.TimeInForce`](#vega.Order.TimeInForce)"
+          "title": "Time in force indicates how long an order will remain active before it is executed or expires, required field\n- See `Order.TimeInForce`"
         },
         "expiresAt": {
           "type": "string",
           "format": "int64",
-          "title": "Timestamp for when the order will expire, in nanoseconds since the epoch,\nrequired field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+          "title": "Timestamp for when the order will expire, in nanoseconds since the epoch,\nrequired field only for `Order.TimeInForce`.TIME_IN_FORCE_GTT`\n- See `VegaTimeResponse`.`timestamp`"
         },
         "type": {
           "$ref": "#/definitions/vegaOrderType",
-          "title": "Type for the order, required field - See [`Order.Type`](#vega.Order.Type)"
+          "title": "Type for the order, required field - See `Order.Type`"
         },
         "reference": {
           "type": "string",
@@ -3867,7 +3977,7 @@
         },
         "peggedOrder": {
           "$ref": "#/definitions/vegaPeggedOrder",
-          "title": "Used to specify the details for a pegged order\n- See [`PeggedOrder`](#vega.PeggedOrder)"
+          "title": "Used to specify the details for a pegged order\n- See `PeggedOrder`"
         }
       },
       "title": "An order submission is a request to submit or create a new order on Vega"
@@ -4128,7 +4238,7 @@
           "title": "Proposal configuration and the actual change that is meant to be executed when proposal is enacted"
         }
       },
-      "title": "A command to submit a new proposal for the\nvega network governance"
+      "title": "A command to submit a new proposal for the\nVega network governance"
     },
     "v1RestoreSnapshot": {
       "type": "object",
@@ -4214,6 +4324,25 @@
         }
       },
       "title": "A settle position event contains position settlement information for a party"
+    },
+    "v1Signature": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The bytes of the signature (hex-encoded)."
+        },
+        "algo": {
+          "type": "string",
+          "description": "The algorithm used to create the signature."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The version of the signature used to create the signature."
+        }
+      },
+      "description": "A signature to authenticate a transaction and to be verified by the Vega\nnetwork."
     },
     "v1StakeLinking": {
       "type": "object",
@@ -4319,7 +4448,7 @@
           "title": "Timestamp containing latest update from Vega blockchain aka Vega-time"
         }
       },
-      "title": "A time update event contains the latest time update from Vega blockchain"
+      "title": "A time update event contains the latest time update from Vega blockchain and indicates the start of a new block"
     },
     "v1TradeSettlement": {
       "type": "object",
@@ -4485,6 +4614,12 @@
         },
         "cancelTransfer": {
           "$ref": "#/definitions/v1CancelTransfer"
+        },
+        "announceNode": {
+          "$ref": "#/definitions/v1AnnounceNode"
+        },
+        "oracleDataSubmission": {
+          "$ref": "#/definitions/v1OracleDataSubmission"
         }
       }
     },
@@ -4646,7 +4781,7 @@
         },
         "asset": {
           "type": "string",
-          "title": "The asset we want to withdraw"
+          "title": "The asset to be withdrawn"
         },
         "ext": {
           "$ref": "#/definitions/vegaWithdrawExt",
@@ -5113,6 +5248,11 @@
         "oracleSpecBinding": {
           "$ref": "#/definitions/vegaOracleSpecToFutureBinding",
           "title": "The binding between the oracle spec and the oracle data"
+        },
+        "settlementPriceDecimals": {
+          "type": "integer",
+          "format": "int64",
+          "title": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
         }
       },
       "title": "Future product definition"
@@ -6539,10 +6679,12 @@
         "PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE",
         "PROPOSAL_ERROR_INVALID_FREEFORM",
         "PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE",
-        "PROPOSAL_ERROR_INVALID_MARKET"
+        "PROPOSAL_ERROR_INVALID_MARKET",
+        "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES",
+        "PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS"
       ],
       "default": "PROPOSAL_ERROR_UNSPECIFIED",
-      "description": "- PROPOSAL_ERROR_UNSPECIFIED: Default value\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON: The specified close time is too early base on network parameters\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE: The specified close time is too late based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_SOON: The specified enact time is too early based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_LATE: The specified enact time is too late based on network parameters\n - PROPOSAL_ERROR_INSUFFICIENT_TOKENS: The proposer for this proposal as insufficient tokens\n - PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY: The instrument quote name and base name were the same\n - PROPOSAL_ERROR_NO_PRODUCT: The proposal has no product\n - PROPOSAL_ERROR_UNSUPPORTED_PRODUCT: The specified product is not supported\n - PROPOSAL_ERROR_NO_TRADING_MODE: The proposal has no trading mode\n - PROPOSAL_ERROR_UNSUPPORTED_TRADING_MODE: The proposal has an unsupported trading mode\n - PROPOSAL_ERROR_NODE_VALIDATION_FAILED: The proposal failed node validation\n - PROPOSAL_ERROR_MISSING_BUILTIN_ASSET_FIELD: A field is missing in a builtin asset source\n - PROPOSAL_ERROR_MISSING_ERC20_CONTRACT_ADDRESS: The contract address is missing in the ERC20 asset source\n - PROPOSAL_ERROR_INVALID_ASSET: The asset identifier is invalid or does not exist on the Vega network\n - PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS: Proposal terms timestamps are not compatible (Validation \u003c Closing \u003c Enactment)\n - PROPOSAL_ERROR_NO_RISK_PARAMETERS: No risk parameters were specified\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_KEY: Invalid key in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE: Invalid valid in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED: Validation failed for network parameter proposal\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_SMALL: Opening auction duration is less than the network minimum opening auction time\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_LARGE: Opening auction duration is more than the network minimum opening auction time\n - PROPOSAL_ERROR_MARKET_MISSING_LIQUIDITY_COMMITMENT: Market proposal is missing a liquidity commitment\n - PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET: Market proposal market could not be instantiate in execution\n - PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT: Market proposal market contained invalid product definition\n - PROPOSAL_ERROR_MISSING_COMMITMENT_AMOUNT: Market proposal is missing commitment amount\n - PROPOSAL_ERROR_INVALID_FEE_AMOUNT: Market proposal have invalid fee\n - PROPOSAL_ERROR_INVALID_SHAPE: Market proposal have invalid shape\n - PROPOSAL_ERROR_INVALID_RISK_PARAMETER: Market proposal invalid risk parameter\n - PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED: Proposal was declined because vote didn't reach the majority threshold required\n - PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED: Proposal declined because the participation threshold was not reached\n - PROPOSAL_ERROR_INVALID_ASSET_DETAILS: Asset proposal invalid asset details\n - PROPOSAL_ERROR_UNKNOWN_TYPE: Proposal is an unknown type.\n - PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE: Proposal has an unknown risk parameter type.\n - PROPOSAL_ERROR_INVALID_FREEFORM: Validation failed for freeform proposal.\n - PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE: The party doesn't have enough equity-like share to propose an update on the market\ntargeted by the proposal.\n - PROPOSAL_ERROR_INVALID_MARKET: The market targeted by the proposal does not exist or is not eligible to modification.",
+      "description": "- PROPOSAL_ERROR_UNSPECIFIED: Default value\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON: The specified close time is too early base on network parameters\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE: The specified close time is too late based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_SOON: The specified enact time is too early based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_LATE: The specified enact time is too late based on network parameters\n - PROPOSAL_ERROR_INSUFFICIENT_TOKENS: The proposer for this proposal as insufficient tokens\n - PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY: The instrument quote name and base name were the same\n - PROPOSAL_ERROR_NO_PRODUCT: The proposal has no product\n - PROPOSAL_ERROR_UNSUPPORTED_PRODUCT: The specified product is not supported\n - PROPOSAL_ERROR_NO_TRADING_MODE: The proposal has no trading mode\n - PROPOSAL_ERROR_UNSUPPORTED_TRADING_MODE: The proposal has an unsupported trading mode\n - PROPOSAL_ERROR_NODE_VALIDATION_FAILED: The proposal failed node validation\n - PROPOSAL_ERROR_MISSING_BUILTIN_ASSET_FIELD: A field is missing in a builtin asset source\n - PROPOSAL_ERROR_MISSING_ERC20_CONTRACT_ADDRESS: The contract address is missing in the ERC20 asset source\n - PROPOSAL_ERROR_INVALID_ASSET: The asset identifier is invalid or does not exist on the Vega network\n - PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS: Proposal terms timestamps are not compatible (Validation \u003c Closing \u003c Enactment)\n - PROPOSAL_ERROR_NO_RISK_PARAMETERS: No risk parameters were specified\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_KEY: Invalid key in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE: Invalid valid in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED: Validation failed for network parameter proposal\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_SMALL: Opening auction duration is less than the network minimum opening auction time\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_LARGE: Opening auction duration is more than the network minimum opening auction time\n - PROPOSAL_ERROR_MARKET_MISSING_LIQUIDITY_COMMITMENT: Market proposal is missing a liquidity commitment\n - PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET: Market proposal market could not be instantiate in execution\n - PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT: Market proposal market contained invalid product definition\n - PROPOSAL_ERROR_MISSING_COMMITMENT_AMOUNT: Market proposal is missing commitment amount\n - PROPOSAL_ERROR_INVALID_FEE_AMOUNT: Market proposal have invalid fee\n - PROPOSAL_ERROR_INVALID_SHAPE: Market proposal have invalid shape\n - PROPOSAL_ERROR_INVALID_RISK_PARAMETER: Market proposal invalid risk parameter\n - PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED: Proposal was declined because vote didn't reach the majority threshold required\n - PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED: Proposal declined because the participation threshold was not reached\n - PROPOSAL_ERROR_INVALID_ASSET_DETAILS: Asset proposal invalid asset details\n - PROPOSAL_ERROR_UNKNOWN_TYPE: Proposal is an unknown type.\n - PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE: Proposal has an unknown risk parameter type.\n - PROPOSAL_ERROR_INVALID_FREEFORM: Validation failed for freeform proposal.\n - PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE: The party doesn't have enough equity-like share to propose an update on the market\ntargeted by the proposal.\n - PROPOSAL_ERROR_INVALID_MARKET: The market targeted by the proposal does not exist or is not eligible to modification.\n - PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES: The market proposal decimal place is higher to the market settlement asset decimal places\n - PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS: The market proposal contains too many price monitoring triggers",
       "title": "A list of possible errors that can cause a proposal to be in state rejected or failed"
     },
     "vegaProposalState": {

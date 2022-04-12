@@ -49,8 +49,8 @@ message AnnounceNode {
 // Used when a node votes for validating a given resource exists or is valid,
 // for example, an ERC20 deposit is valid and exists on ethereum
 message NodeVote {
-  // Public key, required field
-  bytes pub_key = 1;
+  // Previous public key field.
+  reserved 1;
   // Reference, required field
   string reference = 2;
 }
@@ -109,6 +109,16 @@ message KeyRotateSubmission {
   string new_pub_key = 3;
   // Hash of currently used public key
   string current_pub_key_hash = 4;
+}
+
+// A transaction to allow validator to rotate their ethereum keys
+message EthereumKeyRotateSubmission {
+  // Target block at which the key rotation will take effect on
+  uint64 target_block = 1;
+  // The new adress to rotate to
+  string new_address = 2;
+  // Currently used public address
+  string current_address = 3;
 }
 
 message StateVariableProposal {

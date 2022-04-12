@@ -89,31 +89,21 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 					errors.New("cannot have a reference of type BEST_ASK when on BUY side"),
 				)
 			case types.PeggedReference_PEGGED_REFERENCE_BEST_BID:
-				offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-				if !ok {
+				if offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10); !ok {
 					errs.AddForProperty(
 						"order_submission.pegged_order.offset",
 						ErrNotAValidInteger,
 					)
-
-					break
-				}
-
-				if offset.Cmp(big.NewInt(0)) == -1 {
+				} else if offset.Cmp(big.NewInt(0)) == -1 {
 					errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositiveOrZero)
 				}
 			case types.PeggedReference_PEGGED_REFERENCE_MID:
-				offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-				if !ok {
+				if offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10); !ok {
 					errs.AddForProperty(
 						"order_submission.pegged_order.offset",
 						ErrNotAValidInteger,
 					)
-
-					break
-				}
-
-				if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
+				} else if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
 					errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositive)
 				}
 			}
@@ -126,31 +116,21 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 				errors.New("cannot have a reference of type BEST_BID when on SELL side"),
 			)
 		case types.PeggedReference_PEGGED_REFERENCE_BEST_ASK:
-			offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-			if !ok {
+			if offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10); !ok {
 				errs.AddForProperty(
 					"order_submission.pegged_order.offset",
 					ErrNotAValidInteger,
 				)
-
-				break
-			}
-
-			if offset.Cmp(big.NewInt(0)) == -1 {
+			} else if offset.Cmp(big.NewInt(0)) == -1 {
 				errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositiveOrZero)
 			}
 		case types.PeggedReference_PEGGED_REFERENCE_MID:
-			offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10)
-			if !ok {
+			if offset, ok := big.NewInt(0).SetString(cmd.PeggedOrder.Offset, 10); !ok {
 				errs.AddForProperty(
 					"order_submission.pegged_order.offset",
 					ErrNotAValidInteger,
 				)
-
-				break
-			}
-
-			if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
+			} else if offset.Cmp(big.NewInt(0)) == -1 || offset.Cmp(big.NewInt(0)) == 0 {
 				errs.AddForProperty("order_submission.pegged_order.offset", ErrMustBePositive)
 			}
 		}
@@ -158,8 +138,8 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 		return errs
 	}
 
-	if cmd.Type == types.Order_TYPE_MARKET {
-
+	switch cmd.Type {
+	case types.Order_TYPE_MARKET:
 		if len(cmd.Price) > 0 {
 			errs.AddForProperty("order_submission.price",
 				errors.New("is unavailable when the order is of type MARKET"),
@@ -171,18 +151,15 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 				errors.New("is expected to be of type FOK or IOC when order is of type MARKET"),
 			)
 		}
-	} else if cmd.Type == types.Order_TYPE_LIMIT {
+	case types.Order_TYPE_LIMIT:
 		if len(cmd.Price) <= 0 {
 			errs.AddForProperty("order_submission.price",
 				errors.New("is required when the order is of type LIMIT"),
 			)
 		} else {
-			price, ok := big.NewInt(0).SetString(cmd.Price, 10)
-			if !ok {
+			if price, ok := big.NewInt(0).SetString(cmd.Price, 10); !ok {
 				errs.AddForProperty("order_submission.price", ErrNotAValidInteger)
-			}
-
-			if price.Cmp(big.NewInt(0)) != 1 {
+			} else if price.Cmp(big.NewInt(0)) != 1 {
 				errs.AddForProperty("order_submission.price",
 					errors.New("must be positive when the order is of type LIMIT"),
 				)

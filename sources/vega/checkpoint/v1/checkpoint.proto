@@ -118,6 +118,14 @@ message PendingKeyRotation {
   uint32 new_pub_key_index = 4;
 }
 
+message PendingEthereumKeyRotation {
+  // Relative target block height is: target block height - current block height.
+  // Useful for cross blockchain compatibility.
+  uint64 relative_target_block_height = 1;
+  string node_id = 2;
+  string new_address = 3;
+}
+
 message ScheduledTransfer {
   vega.Transfer transfer = 1;
   vega.AccountType account_type = 2;
@@ -142,6 +150,7 @@ message Banking {
 message Validators {
   repeated ValidatorState validator_state = 1;
   repeated PendingKeyRotation pending_key_rotations = 2;
+  repeated PendingEthereumKeyRotation pending_ethereum_key_rotations = 3;
 }
 
 message ValidatorState {

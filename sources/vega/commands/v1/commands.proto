@@ -22,22 +22,23 @@ message OrderSubmission {
   string price = 2;
   // Size for the order, for example, in a futures market the size equals the number of contracts, cannot be negative
   uint64 size = 3;
-  // Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field - See [`Side`](#vega.Side)
+  // Side for the order, e.g. SIDE_BUY or SIDE_SELL, required field
+  // - See `Side`
   vega.Side side = 4;
   // Time in force indicates how long an order will remain active before it is executed or expires, required field
-  // - See [`Order.TimeInForce`](#vega.Order.TimeInForce)
+  // - See `Order.TimeInForce`
   vega.Order.TimeInForce time_in_force = 5;
   // Timestamp for when the order will expire, in nanoseconds since the epoch,
-  // required field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`
-  // - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
+  // required field only for `Order.TimeInForce`.TIME_IN_FORCE_GTT`
+  // - See `VegaTimeResponse`.`timestamp`
   int64 expires_at = 6;
-  // Type for the order, required field - See [`Order.Type`](#vega.Order.Type)
+  // Type for the order, required field - See `Order.Type`
   vega.Order.Type type = 7;
   // Reference given for the order, this is typically used to retrieve an order submitted through consensus, currently
   // set internally by the node to return a unique reference identifier for the order submission
   string reference = 8;
   // Used to specify the details for a pegged order
-  // - See [`PeggedOrder`](#vega.PeggedOrder)
+  // - See `PeggedOrder`
   vega.PeggedOrder pegged_order = 9;
 }
 
@@ -51,7 +52,7 @@ message OrderCancellation {
 
 // An order amendment is a request to amend or update an existing order on Vega
 message OrderAmendment {
-  // The `orderID`, `partyID` and `marketID` fields are used for lookup of the order only and cannot be amended by this command
+  // The `orderID`, `partyID` and `marketID` fields are used for looking up the order only and cannot be amended by this command
 
   // Order identifier, this is required to find the order and will not be updated, required field
   string order_id = 1;
@@ -86,7 +87,7 @@ message LiquidityProvisionSubmission {
   string market_id = 1;
   // Specified as a unitless number that represents the amount of settlement asset of the market
   string commitment_amount = 2;
-  // Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers
+  // Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per setting fees and rewarding liquidity providers
   string fee = 3;
   // A set of liquidity sell orders to meet the liquidity provision obligation
   repeated vega.LiquidityOrder sells = 4;
@@ -98,12 +99,12 @@ message LiquidityProvisionSubmission {
 
 // Cancel a liquidity provision request
 message LiquidityProvisionCancellation {
-  string market_id = 1; // this can be remove if we get a nice way to get provisions IDs to market
+  string market_id = 1; // Unique ID for the market with the liquidity provision to be cancelled
 }
 
 // Amend a liquidity provision request
 message LiquidityProvisionAmendment {
-  string market_id = 1; // this can be remove if we get a nice way to get provisions IDs to market
+  string market_id = 1; // Unique ID for the market with the liquidity provision to be amended
 
   // From here at least one of the following is required to consider the command valid
   string commitment_amount = 2; // an empty strings means no change
@@ -117,14 +118,14 @@ message LiquidityProvisionAmendment {
 message WithdrawSubmission {
   // The amount to be withdrawn
   string amount = 1;
-  // The asset we want to withdraw
+  // The asset to be withdrawn
   string asset = 2;
   // Foreign chain specifics
   vega.WithdrawExt ext = 3;
 }
 
 // A command to submit a new proposal for the
-// vega network governance
+// Vega network governance
 message ProposalSubmission {
   // Proposal reference
   string reference = 1;

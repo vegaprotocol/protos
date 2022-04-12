@@ -18,6 +18,7 @@ import (
 func TestCheckProposalSubmissionForNewMarket(t *testing.T) {
 	t.Run("Submitting a market change without new market fails", testNewMarketChangeSubmissionWithoutNewMarketFails)
 	t.Run("Submitting a market change without changes fails", testNewMarketChangeSubmissionWithoutChangesFails)
+	t.Run("Submitting a market change without too many pm trigger fails", testNewMarketChangeSubmissionWithTooManyPMTriggersFails)
 	t.Run("Submitting a market change without decimal places succeeds", testNewMarketChangeSubmissionWithoutDecimalPlacesSucceeds)
 	t.Run("Submitting a market change with decimal places equal to 0 succeeds", testNewMarketChangeSubmissionWithDecimalPlacesEqualTo0Succeeds)
 	t.Run("Submitting a market change with decimal places above or equal to 150 fails", testNewMarketChangeSubmissionWithDecimalPlacesAboveOrEqualTo150Fails)
@@ -104,6 +105,7 @@ func TestCheckProposalSubmissionForNewMarket(t *testing.T) {
 	t.Run("Submitting a new market with liquidity commitment succeeds", testNewMarketSubmissionWithLiquidityCommitmentSucceeds)
 	t.Run("Submitting a new market without commitment amount fails", testNewMarketSubmissionWithoutCommitmentAmountFails)
 	t.Run("Submitting a new market with commitment amount succeeds", testNewMarketSubmissionWithCommitmentAmountSucceeds)
+	t.Run("Submitting a new market with negative commitment amount fails", testNewMarketSubmissionWithNegativeCommitmentAmountFails)
 	t.Run("Submitting a new market without fee fails", testNewMarketSubmissionWithoutFeeFails)
 	t.Run("Submitting a new market with wrong fee fails", testNewMarketSubmissionWithWrongFeeFails)
 	t.Run("Submitting a new market with non-positive fee fails", testNewMarketSubmissionWithNonPositiveFeeFails)
@@ -589,6 +591,31 @@ func testPriceMonitoringChangeSubmissionWithTriggersSucceeds(t *testing.T) {
 	})
 
 	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.changes.price_monitoring_parameters.triggers"), commands.ErrIsRequired)
+}
+
+func testNewMarketChangeSubmissionWithTooManyPMTriggersFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					Changes: &types.NewMarketConfiguration{
+						PriceMonitoringParameters: &types.PriceMonitoringParameters{
+							Triggers: []*types.PriceMonitoringTrigger{
+								{},
+								{},
+								{},
+								{},
+								{},
+								{},
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.price_monitoring_parameters.triggers"), errors.New("maximum 5 triggers allowed"))
 }
 
 func testPriceMonitoringChangeSubmissionWithoutTriggerHorizonFails(t *testing.T) {
@@ -2431,7 +2458,7 @@ func testNewMarketSubmissionWithCommitmentAmountSucceeds(t *testing.T) {
 			Change: &types.ProposalTerms_NewMarket{
 				NewMarket: &types.NewMarket{
 					LiquidityCommitment: &types.NewMarketCommitment{
-						CommitmentAmount: fmt.Sprintf("%d", RandomPositiveU64()),
+						CommitmentAmount: RandomPositiveU64AsString(),
 					},
 				},
 			},
@@ -2439,6 +2466,22 @@ func testNewMarketSubmissionWithCommitmentAmountSucceeds(t *testing.T) {
 	})
 
 	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount"), commands.ErrMustBePositive)
+}
+
+func testNewMarketSubmissionWithNegativeCommitmentAmountFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewMarket{
+				NewMarket: &types.NewMarket{
+					LiquidityCommitment: &types.NewMarketCommitment{
+						CommitmentAmount: RandomNegativeI64AsString(),
+					},
+				},
+			},
+		},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment.commitment_amount"), commands.ErrMustBePositive)
 }
 
 func testNewMarketSubmissionWithoutFeeFails(t *testing.T) {

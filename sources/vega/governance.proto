@@ -333,6 +333,10 @@ enum ProposalError {
   PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE = 37;
   // The market targeted by the proposal does not exist or is not eligible to modification.
   PROPOSAL_ERROR_INVALID_MARKET = 38;
+  // The market proposal decimal place is higher to the market settlement asset decimal places
+  PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES = 39;
+  // The market proposal contains too many price monitoring triggers
+  PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS = 40;
 }
 
 // Governance vote

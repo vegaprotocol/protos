@@ -1,6 +1,7 @@
 # Changelog
 
-## Unreleased (0.50.0)
+
+## Unreleased (0.51.0)
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/issues/) -
@@ -13,6 +14,19 @@
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.50.0
+
+### 🛠 Improvements
+- [366](https://github.com/vegaprotocol/protos/issue/366) - Improved comments
+- [373](https://github.com/vegaprotocol/protos/issue/373) - Add Ethereum key rotation support
+- [391](https://github.com/vegaprotocol/protos/issue/391) - Add decimal place definition for settlement price in market oracle
+
+### 🐛 Fixes
+- [369](https://github.com/vegaprotocol/protos/pull/369) - Various validations fixes
+- [382](https://github.com/vegaprotocol/protos/pull/382) - Prevent negative commitment amount in new market proposal
+- [16](https://github.com/vegaprotocol/protos/pull/16) - Remove pubkey from node vote
 
 
 ## 0.49.3

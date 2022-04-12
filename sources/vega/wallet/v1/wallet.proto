@@ -37,6 +37,7 @@ message SubmitTransactionRequest {
     commands.v1.KeyRotateSubmission key_rotate_submission = 2005;
     commands.v1.StateVariableProposal state_variable_proposal = 2006;
     commands.v1.ValidatorHeartbeat validator_heartbeat = 2007;
+    commands.v1.EthereumKeyRotateSubmission ethereum_key_rotate_submission = 2008;
 
     // Oracle commands
     commands.v1.OracleDataSubmission oracle_data_submission = 3001;

@@ -560,6 +560,10 @@
                     "$ref": "#/definitions/vega.OracleSpecToFutureBinding",
                     "additionalProperties": true,
                     "description": "The binding between the oracle spec and the oracle data"
+                },
+                "settlement_price_decimals": {
+                    "type": "integer",
+                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
@@ -2037,7 +2041,11 @@
                         "PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE",
                         37,
                         "PROPOSAL_ERROR_INVALID_MARKET",
-                        38
+                        38,
+                        "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES",
+                        39,
+                        "PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS",
+                        40
                     ],
                     "oneOf": [
                         {
@@ -2645,6 +2653,64 @@
             "title": "Withdrawal",
             "description": "A withdrawal from the Vega network"
         },
+        "vega.commands.v1.AnnounceNode": {
+            "properties": {
+                "vega_pub_key": {
+                    "type": "string",
+                    "description": "Vega public key, required field"
+                },
+                "ethereum_address": {
+                    "type": "string",
+                    "description": "Ethereum public key, required field"
+                },
+                "chain_pub_key": {
+                    "type": "string",
+                    "description": "Public key for the blockchain, required field"
+                },
+                "info_url": {
+                    "type": "string",
+                    "description": "URL with more info on the node"
+                },
+                "country": {
+                    "type": "string",
+                    "description": "Country code (ISO 3166-1 alpha-2) for the location of the node"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "ID of the validator, (public master key)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the validator"
+                },
+                "avatar_url": {
+                    "type": "string",
+                    "description": "AvatarURL of the validator"
+                },
+                "vega_pub_key_index": {
+                    "type": "integer",
+                    "description": "Vega public key derivation index"
+                },
+                "from_epoch": {
+                    "type": "string",
+                    "description": "The epoch from which the validator is expected to be ready to validate blocks"
+                },
+                "ethereum_signature": {
+                    "$ref": "#/definitions/vega.commands.v1.Signature",
+                    "additionalProperties": true,
+                    "description": "Signature from the validator made using the ethereum wallet"
+                },
+                "vega_signature": {
+                    "$ref": "#/definitions/vega.commands.v1.Signature",
+                    "additionalProperties": true,
+                    "description": "Signature from the validator made using the vega wallet"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Announce Node",
+            "description": "Used announce a node as a new potential validator"
+        },
         "vega.commands.v1.CancelTransfer": {
             "properties": {
                 "transfer_id": {
@@ -2677,7 +2743,7 @@
             "properties": {
                 "market_id": {
                     "type": "string",
-                    "description": "this can be remove if we get a nice way to get provisions IDs to market"
+                    "description": "Unique ID for the market with the liquidity provision to be amended"
                 },
                 "commitment_amount": {
                     "type": "string",
@@ -2715,7 +2781,7 @@
             "properties": {
                 "market_id": {
                     "type": "string",
-                    "description": "this can be remove if we get a nice way to get provisions IDs to market"
+                    "description": "Unique ID for the market with the liquidity provision to be cancelled"
                 }
             },
             "additionalProperties": true,
@@ -2735,7 +2801,7 @@
                 },
                 "fee": {
                     "type": "string",
-                    "description": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per seeting fees and rewarding liquidity providers"
+                    "description": "Nominated liquidity fee factor, which is an input to the calculation of taker fees on the market, as per setting fees and rewarding liquidity providers"
                 },
                 "sells": {
                     "items": {
@@ -2814,6 +2880,40 @@
             "type": "object",
             "title": "One Off Transfer",
             "description": "Specific details for a one off transfer"
+        },
+        "vega.commands.v1.OracleDataSubmission": {
+            "properties": {
+                "source": {
+                    "enum": [
+                        "ORACLE_SOURCE_UNSPECIFIED",
+                        0,
+                        "ORACLE_SOURCE_OPEN_ORACLE",
+                        1,
+                        "ORACLE_SOURCE_JSON",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Oracle Source",
+                    "description": "The supported Oracle sources"
+                },
+                "payload": {
+                    "type": "string",
+                    "description": "The data provided by the third party provider",
+                    "format": "binary",
+                    "binaryEncoding": "base64"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Data Submission",
+            "description": "Command to submit new Oracle data from third party providers"
         },
         "vega.commands.v1.OrderAmendment": {
             "properties": {
@@ -2898,7 +2998,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Order Amendment",
-            "description": "An order amendment is a request to amend or update an existing order on Vega  The `orderID`, `partyID` and `marketID` fields are used for lookup of the order only and cannot be amended by this command"
+            "description": "An order amendment is a request to amend or update an existing order on Vega  The `orderID`, `partyID` and `marketID` fields are used for looking up the order only and cannot be amended by this command"
         },
         "vega.commands.v1.OrderCancellation": {
             "properties": {
@@ -2980,7 +3080,7 @@
                 },
                 "expires_at": {
                     "type": "string",
-                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch, required field only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT` - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch, required field only for `Order.TimeInForce`.TIME_IN_FORCE_GTT` - See `VegaTimeResponse`.`timestamp`"
                 },
                 "type": {
                     "enum": [
@@ -3011,7 +3111,7 @@
                 "pegged_order": {
                     "$ref": "#/definitions/vega.PeggedOrder",
                     "additionalProperties": true,
-                    "description": "Used to specify the details for a pegged order - See [`PeggedOrder`](#vega.PeggedOrder)"
+                    "description": "Used to specify the details for a pegged order - See `PeggedOrder`"
                 }
             },
             "additionalProperties": true,
@@ -3034,7 +3134,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Proposal Submission",
-            "description": "A command to submit a new proposal for the vega network governance"
+            "description": "A command to submit a new proposal for the Vega network governance"
         },
         "vega.commands.v1.RecurringTransfer": {
             "properties": {
@@ -3069,6 +3169,26 @@
             "type": "object",
             "title": "Restore Snapshot",
             "description": "A command that loads the state from a given checkpoint"
+        },
+        "vega.commands.v1.Signature": {
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "description": "The bytes of the signature (hex-encoded)."
+                },
+                "algo": {
+                    "type": "string",
+                    "description": "The algorithm used to create the signature."
+                },
+                "version": {
+                    "type": "integer",
+                    "description": "The version of the signature used to create the signature."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Signature",
+            "description": "A signature to authenticate a transaction and to be verified by the Vega network."
         },
         "vega.commands.v1.Transfer": {
             "properties": {
@@ -3277,7 +3397,7 @@
                 },
                 "asset": {
                     "type": "string",
-                    "description": "The asset we want to withdraw"
+                    "description": "The asset to be withdrawn"
                 },
                 "ext": {
                     "$ref": "#/definitions/vega.WithdrawExt",
@@ -3472,6 +3592,8 @@
                         45,
                         "BUS_EVENT_TYPE_POSITION_STATE",
                         46,
+                        "BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION",
+                        47,
                         "BUS_EVENT_TYPE_MARKET",
                         101,
                         "BUS_EVENT_TYPE_TX_ERROR",
@@ -3707,6 +3829,11 @@
                     "$ref": "#/definitions/vega.events.v1.PositionStateEvent",
                     "additionalProperties": true,
                     "description": "Position status for a party in a market"
+                },
+                "ethereum_key_rotation": {
+                    "$ref": "#/definitions/vega.events.v1.EthereumKeyRotation",
+                    "additionalProperties": true,
+                    "description": "Ethereum key rotation took place"
                 },
                 "market": {
                     "$ref": "#/definitions/vega.events.v1.MarketEvent",
@@ -3964,6 +4091,30 @@
             "type": "object",
             "title": "Epoch Event",
             "description": "Epoch details"
+        },
+        "vega.events.v1.EthereumKeyRotation": {
+            "properties": {
+                "node_id": {
+                    "type": "string",
+                    "description": "Node id of the node"
+                },
+                "old_address": {
+                    "type": "string",
+                    "description": "Old Ethereum address of validator node"
+                },
+                "new_address": {
+                    "type": "string",
+                    "description": "New Ethereum address of validator node"
+                },
+                "block_height": {
+                    "type": "string",
+                    "description": "Height of the block where key rotation took effect"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ethereum Key Rotation",
+            "description": "An Ethereum key rotation events contains information about Ethereum key rotation"
         },
         "vega.events.v1.KeyRotation": {
             "properties": {
@@ -4321,7 +4472,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Time Update",
-            "description": "A time update event contains the latest time update from Vega blockchain"
+            "description": "A time update event contains the latest time update from Vega blockchain and indicates the start of a new block"
         },
         "vega.events.v1.TradeSettlement": {
             "properties": {
@@ -4579,6 +4730,14 @@
                 },
                 "cancel_transfer": {
                     "$ref": "#/definitions/vega.commands.v1.CancelTransfer",
+                    "additionalProperties": true
+                },
+                "announce_node": {
+                    "$ref": "#/definitions/vega.commands.v1.AnnounceNode",
+                    "additionalProperties": true
+                },
+                "oracle_data_submission": {
+                    "$ref": "#/definitions/vega.commands.v1.OracleDataSubmission",
                     "additionalProperties": true
                 }
             },

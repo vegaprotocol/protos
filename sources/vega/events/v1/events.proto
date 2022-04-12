@@ -10,6 +10,7 @@ import "vega/vega.proto";
 import "vega/oracles/v1/spec.proto";
 import "vega/oracles/v1/data.proto";
 import "vega/commands/v1/commands.proto";
+import "vega/commands/v1/oracles.proto";
 import "vega/commands/v1/validator_commands.proto";
 
 message ERC20MultiSigSignerAdded {
@@ -238,14 +239,17 @@ message TxErrorEvent {
     commands.v1.LiquidityProvisionAmendment liquidity_provision_amendment = 112;
     commands.v1.Transfer transfer = 113;
     commands.v1.CancelTransfer cancel_transfer = 114;
+    commands.v1.AnnounceNode announce_node = 115;
+    commands.v1.OracleDataSubmission oracle_data_submission = 116;
   }
 }
 
-// A time update event contains the latest time update from Vega blockchain
+// A time update event contains the latest time update from Vega blockchain and indicates the start of a new block
 message TimeUpdate {
   // Timestamp containing latest update from Vega blockchain aka Vega-time
   int64 timestamp = 1;
 }
+
 
 // Epoch details
 message EpochEvent {
@@ -428,6 +432,18 @@ message KeyRotation {
   uint64 block_height = 4;
 }
 
+// An Ethereum key rotation events contains information about Ethereum key rotation
+message EthereumKeyRotation {
+  // Node id of the node
+  string node_id = 1;
+  // Old Ethereum address of validator node
+  string old_address= 2;
+  // New Ethereum address of validator node
+  string new_address = 3;
+  // Height of the block where key rotation took effect
+  uint64 block_height = 4;
+}
+
 //StateVarEvent - updates on state changes in state variable consensus
 message StateVar {
   string id = 1;
@@ -534,6 +550,9 @@ enum BusEventType {
   BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED = 45;
   // Event indicting that a party's position has changed
   BUS_EVENT_TYPE_POSITION_STATE = 46;
+  // Event indicating Ethereum key rotation took place
+  BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION = 47;
+
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -638,6 +657,8 @@ message BusEvent {
     ERC20MultiSigSignerRemoved erc20_multisig_signer_removed = 144;
     // Position status for a party in a market
     PositionStateEvent position_state_event = 145;
+    // Ethereum key rotation took place
+    EthereumKeyRotation ethereum_key_rotation = 146;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;

@@ -13,10 +13,6 @@ func checkNodeVote(cmd *commandspb.NodeVote) Errors {
 		return errs.FinalAddForProperty("node_vote", ErrIsRequired)
 	}
 
-	if len(cmd.PubKey) == 0 {
-		errs.AddForProperty("node_vote.pub_key", ErrIsRequired)
-	}
-
 	if len(cmd.Reference) == 0 {
 		errs.AddForProperty("node_vote.reference", ErrIsRequired)
 	}
