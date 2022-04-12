@@ -5243,16 +5243,16 @@
         },
         "oracleSpecForTradingTermination": {
           "$ref": "#/definitions/v1OracleSpec",
-          "title": "the oracle spec describing the trading termination oracle filter"
+          "title": "The oracle spec describing the trading termination oracle filter"
         },
         "oracleSpecBinding": {
           "$ref": "#/definitions/vegaOracleSpecToFutureBinding",
           "title": "The binding between the oracle spec and the oracle data"
         },
-        "settlementPriceDecimals": {
+        "settlementPriceDecimalScalingExponent": {
           "type": "integer",
-          "format": "int64",
-          "title": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+          "format": "int32",
+          "description": "The settlement price is divided by 10 ^ of this exponent, e.g. if the price is 123.456 and the factor is exponent is 2 then the price is scaled down to 1.23456\nif it is -2 then the price is scaled up by 10 ^ 2, e.g. 123.456 with exponent -2 becomes 12345.6."
         }
       },
       "title": "Future product definition"
