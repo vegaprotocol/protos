@@ -12,6 +12,10 @@
                     "type": "string",
                     "description": "The ethereum address of the validator which will submit the bundle"
                 },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "The epoch which generated the bundle i.e the epoch in which the node was demoted from a tendermint validator"
+                },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true,

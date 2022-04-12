@@ -56,8 +56,11 @@ message GetERC20MultiSigSignerAddedBundlesRequest {
     // The node id of the validator of which a signature bundle is required
     string node_id = 1;
 
+    // The epoch which generated the bundle i.e the epoch in which the node became a tendermint validator
+    string epoch_seq = 2;
+
     // Pagination controls
-    Pagination pagination = 2;
+    Pagination pagination = 3;
 }
 
 message GetERC20MultiSigSignerAddedBundlesResponse {
@@ -92,8 +95,11 @@ message GetERC20MultiSigSignerRemovedBundlesRequest {
     // The ethereum address of the validator which will submit the bundle
     string submitter = 2;
 
+    // The epoch which generated the bundle i.e the epoch in which the node was demoted from a tendermint validator
+    string epoch_seq = 3;
+
     // Pagination controls
-    Pagination pagination = 3;
+    Pagination pagination = 4;
 }
 
 message GetERC20MultiSigSignerRemovedBundlesResponse {
