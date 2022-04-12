@@ -2700,7 +2700,7 @@
             },
             {
               "name": "oracle_spec_for_trading_termination",
-              "description": "The oracle spec describing the trading termination oracle filter",
+              "description": "the oracle spec describing the trading termination oracle filter",
               "label": "",
               "type": "OracleSpec",
               "longType": "oracles.v1.OracleSpec",
@@ -2723,12 +2723,12 @@
               "defaultValue": ""
             },
             {
-              "name": "settlement_price_decimal_scaling_exponent",
-              "description": "The settlement price is divided by 10 ^ of this exponent, e.g. if the price is 123.456 and the factor is exponent is 2 then the price is scaled down to 1.23456\nif it is -2 then the price is scaled up by 10 ^ 2, e.g. 123.456 with exponent -2 becomes 12345.6.",
+              "name": "settlement_price_decimals",
+              "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle",
               "label": "",
-              "type": "int32",
-              "longType": "int32",
-              "fullType": "int32",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
