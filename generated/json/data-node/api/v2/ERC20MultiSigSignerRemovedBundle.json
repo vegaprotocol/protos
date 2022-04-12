@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20MultiSigSignerRemovedBundle",
+    "definitions": {
+        "ERC20MultiSigSignerRemovedBundle": {
+            "properties": {
+                "old_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the signer to be removed"
+                },
+                "submitter": {
+                    "type": "string",
+                    "description": "The ethereum address of the submitter"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce used in the signing operation"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "unixnano timestamp for when the validator was added"
+                },
+                "signatures": {
+                    "type": "string",
+                    "description": "The bundle of signatures from current validators to sign in the new signer"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Multi Sig Signer Removed Bundle"
+        }
+    }
+}
