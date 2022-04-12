@@ -5279,6 +5279,11 @@
         "oracleSpecBinding": {
           "$ref": "#/definitions/vegaOracleSpecToFutureBinding",
           "title": "The binding between the oracle spec and the settlement price"
+        },
+        "settlementPriceDecimals": {
+          "type": "integer",
+          "format": "int64",
+          "title": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
         }
       },
       "title": "Future product configuration"
@@ -7128,6 +7133,11 @@
         "oracleSpecBinding": {
           "$ref": "#/definitions/vegaOracleSpecToFutureBinding",
           "title": "The binding between the oracle spec and the settlement price"
+        },
+        "settlementPriceDecimals": {
+          "type": "integer",
+          "format": "int64",
+          "title": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
         }
       },
       "title": "Future product configuration"
