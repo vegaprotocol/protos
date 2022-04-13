@@ -26,6 +26,8 @@ message ERC20MultiSigSignerAdded {
   string submitter = 5;
   // The nonce used.
   string nonce = 6;
+  // The epoch that the node was added for
+  string epoch_seq = 7;
 }
 
 message ERC20MulistSigSignerRemovedSubmitter {
@@ -48,6 +50,8 @@ message ERC20MultiSigSignerRemoved {
   string old_signer = 4;
   // The nonce used.
   string nonce = 5;
+  // The epoch that the node was removed for
+  string epoch_seq = 6;
 }
 
 message Transfer {

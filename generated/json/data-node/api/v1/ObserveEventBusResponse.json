@@ -3945,6 +3945,10 @@
                 "nonce": {
                     "type": "string",
                     "description": "The nonce used."
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "The epoch that the node was added for"
                 }
             },
             "additionalProperties": true,
@@ -4022,6 +4026,10 @@
                 "nonce": {
                     "type": "string",
                     "description": "The nonce used."
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "The epoch that the node was removed for"
                 }
             },
             "additionalProperties": true,

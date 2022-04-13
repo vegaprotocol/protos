@@ -27,6 +27,7 @@
 ### 🛠 Improvements
 - [366](https://github.com/vegaprotocol/protos/issue/366) - Improved comments
 - [373](https://github.com/vegaprotocol/protos/issue/373) - Add Ethereum key rotation support
+- [390](https://github.com/vegaprotocol/protos/issue/390) - Add end points that allow querying `multisig` bundles when validators are added or removed
 - [391](https://github.com/vegaprotocol/protos/issue/391) - Add decimal place definition for settlement price in market oracle
 
 ### 🐛 Fixes

@@ -42,6 +42,94 @@ service TradingDataService {
     // Gets all available intervals for a given market along with the corresponding candle id
     rpc GetCandlesForMarket(GetCandlesForMarketRequest) returns (GetCandlesForMarketResponse);
 
+    // Gets the signature bundles that add a particular validator to the multisig contract
+    rpc GetERC20MultiSigSignerAddedBundles(GetERC20MultiSigSignerAddedBundlesRequest) returns (GetERC20MultiSigSignerAddedBundlesResponse);
+
+    // Gets the signature bundles that remove a particular validator to the multisig contract
+    rpc GetERC20MultiSigSignerRemovedBundles(GetERC20MultiSigSignerRemovedBundlesRequest) returns (GetERC20MultiSigSignerRemovedBundlesResponse);
+
+}
+
+
+message GetERC20MultiSigSignerAddedBundlesRequest {
+
+    // The node id of the validator of which a signature bundle is required
+    string node_id = 1;
+
+    // The epoch which generated the bundle i.e the epoch in which the node became a tendermint validator
+    string epoch_seq = 2;
+
+    // Pagination controls
+    Pagination pagination = 3;
+}
+
+message GetERC20MultiSigSignerAddedBundlesResponse {
+
+    // list of bundles for that validator, it may have been added multiple times if removed in between
+    repeated ERC20MultiSigSignerAddedBundle bundles = 1;
+}
+
+message ERC20MultiSigSignerAddedBundle {
+
+    // The ethereum address of the signer to be removed
+    string new_signer = 1;
+
+    // The ethereum address of the submitter
+    string submitter = 2;
+
+    // The nonce used in the signing operation
+    string nonce = 4;
+
+    // unixnano timestamp for when the validator was added
+    int64 timestamp = 5;
+
+    // The bundle of signatures from current validators to sign in the new signer
+    string signatures = 6;
+
+    // The epoch in which the validator was added
+    string epoch_seq = 3;
+
+}
+
+message GetERC20MultiSigSignerRemovedBundlesRequest {
+    // The node id of the validator of which a signature bundle is required
+    string node_id = 1;
+
+    // The ethereum address of the validator which will submit the bundle
+    string submitter = 2;
+
+    // The epoch which generated the bundle i.e the epoch in which the node was demoted from a tendermint validator
+    string epoch_seq = 3;
+
+    // Pagination controls
+    Pagination pagination = 4;
+}
+
+message GetERC20MultiSigSignerRemovedBundlesResponse {
+    // list of signer bundles for that validator
+    repeated ERC20MultiSigSignerRemovedBundle bundles = 1;
+}
+
+message ERC20MultiSigSignerRemovedBundle {
+
+    // The ethereum address of the signer to be removed
+    string old_signer = 1;
+
+    // The ethereum address of the submitter
+    string submitter = 2;
+
+    // The nonce used in the signing operation
+    string nonce = 4;
+
+    // unixnano timestamp for when the validator was added
+    int64 timestamp = 5;
+
+    // The bundle of signatures from current validators to sign in the new signer
+    string signatures = 6;
+
+    // The epoch in which the validator was removed
+    string epoch_seq = 7;
+
 }
 
 // Request to get a list of supported intervals for the given market along with the corresponding candle id

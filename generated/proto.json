@@ -12659,6 +12659,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "epoch_seq",
+              "description": "The epoch that the node was added for",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -12831,6 +12843,18 @@
             {
               "name": "nonce",
               "description": "The nonce used.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "epoch_seq",
+              "description": "The epoch that the node was removed for",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -25318,6 +25342,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "epoch_seq",
+              "description": "The epoch that the node was added for",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -25490,6 +25526,18 @@
             {
               "name": "nonce",
               "description": "The nonce used.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "epoch_seq",
+              "description": "The epoch that the node was removed for",
               "label": "",
               "type": "string",
               "longType": "string",

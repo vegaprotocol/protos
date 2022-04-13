@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetERC20MultiSigSignerRemovedBundlesResponse",
+    "definitions": {
+        "GetERC20MultiSigSignerRemovedBundlesResponse": {
+            "properties": {
+                "bundles": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.ERC20MultiSigSignerRemovedBundle"
+                    },
+                    "type": "array",
+                    "description": "list of signer bundles for that validator"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get ERC 20 Multi Sig Signer Removed Bundles Response"
+        },
+        "datanode.api.v2.ERC20MultiSigSignerRemovedBundle": {
+            "properties": {
+                "old_signer": {
+                    "type": "string",
+                    "description": "The ethereum address of the signer to be removed"
+                },
+                "submitter": {
+                    "type": "string",
+                    "description": "The ethereum address of the submitter"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce used in the signing operation"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "unixnano timestamp for when the validator was added"
+                },
+                "signatures": {
+                    "type": "string",
+                    "description": "The bundle of signatures from current validators to sign in the new signer"
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "The epoch in which the validator was removed"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Multi Sig Signer Removed Bundle"
+        }
+    }
+}
