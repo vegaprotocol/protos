@@ -2988,6 +2988,7 @@
         },
         "version": {
           "type": "string",
+          "format": "uint64",
           "title": "Version of this liquidity provision order"
         },
         "status": {

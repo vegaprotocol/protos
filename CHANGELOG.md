@@ -4,6 +4,7 @@
 ## Unreleased (0.51.0)
 
 ### 🚨 Breaking changes
+- [5001](https://github.com/vegaprotocol/vega/issue/5001) - Change `LiquidityProvision` version field to `uint64` instead of string.
 - [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
