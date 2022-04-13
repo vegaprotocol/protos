@@ -16,6 +16,12 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 
+## 0.50.1
+
+### 🐛 Fixes
+- [397](https://github.com/vegaprotocol/protos/pull/397) - Add settlement decimal place to governance
+
+
 ## 0.50.0
 
 ### 🛠 Improvements
