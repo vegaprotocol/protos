@@ -37,6 +37,10 @@
                 "signatures": {
                     "type": "string",
                     "description": "The bundle of signatures from current validators to sign in the new signer"
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "The epoch in which the validator was removed"
                 }
             },
             "additionalProperties": true,

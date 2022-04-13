@@ -86,6 +86,9 @@ message ERC20MultiSigSignerAddedBundle {
     // The bundle of signatures from current validators to sign in the new signer
     string signatures = 6;
 
+    // The epoch in which the validator was added
+    string epoch_seq = 3;
+
 }
 
 message GetERC20MultiSigSignerRemovedBundlesRequest {
@@ -123,6 +126,9 @@ message ERC20MultiSigSignerRemovedBundle {
 
     // The bundle of signatures from current validators to sign in the new signer
     string signatures = 6;
+
+    // The epoch in which the validator was removed
+    string epoch_seq = 7;
 
 }
 
