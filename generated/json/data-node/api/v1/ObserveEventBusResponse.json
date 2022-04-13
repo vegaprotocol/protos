@@ -2778,6 +2778,10 @@
                 "reference": {
                     "type": "string",
                     "description": "empty string means no change"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "incremental value that clarifies the ordering of amendments"
                 }
             },
             "additionalProperties": true,

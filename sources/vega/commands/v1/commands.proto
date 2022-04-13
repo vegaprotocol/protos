@@ -112,6 +112,7 @@ message LiquidityProvisionAmendment {
   repeated vega.LiquidityOrder sells = 4; // empty slice means no change
   repeated vega.LiquidityOrder buys = 5; // empty slice means no change
   string reference = 6; // empty string means no change
+  string version = 7; // incremental value that clarifies the ordering of amendments
 }
 
 // Represents the submission request to withdraw funds for a party on Vega

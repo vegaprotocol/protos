@@ -3351,6 +3351,9 @@
         },
         "reference": {
           "type": "string"
+        },
+        "version": {
+          "type": "string"
         }
       },
       "title": "Amend a liquidity provision request"
