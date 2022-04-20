@@ -2003,6 +2003,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "rationale",
+              "description": "Proposal rationale that summarises the change and links to the complete proposed changes.",
+              "label": "",
+              "type": "ProposalRationale",
+              "longType": "ProposalRationale",
+              "fullType": "vega.ProposalRationale",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -2018,7 +2030,7 @@
           "fields": [
             {
               "name": "description",
-              "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 255 unicode characters.\nThis is mandatory for all proposal.",
+              "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 1024 unicode characters.\nThis is mandatory for all proposals.",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -9907,7 +9919,7 @@
             },
             {
               "name": "rationale",
-              "description": "Proposal rational that summarises the change and link to the complete proposed changed.",
+              "description": "Proposal rationale that summarises the change and links to the complete proposed changes.",
               "label": "",
               "type": "ProposalRationale",
               "longType": "vega.ProposalRationale",

@@ -131,7 +131,7 @@ message ProposalSubmission {
   string reference = 1;
   // Proposal configuration and the actual change that is meant to be executed when proposal is enacted
   vega.ProposalTerms terms = 2;
-  // Proposal rational that summarises the change and link to the complete proposed changed.
+  // Proposal rationale that summarises the change and links to the complete proposed changes.
   vega.ProposalRationale rationale = 3;
 }
 
