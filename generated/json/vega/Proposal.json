@@ -529,13 +529,13 @@
                 "changes": {
                     "$ref": "#/definitions/vega.NewFreeformDetails",
                     "additionalProperties": true,
-                    "description": "The configuration of the new freeform"
+                    "description": "DEPRECATED The configuration of the new freeform"
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "New Freeform",
-            "description": "Freeform proposal"
+            "description": "Freeform proposal This message is just used as a placeholder to sort out the nature of the proposal once parsed."
         },
         "vega.NewFreeformDetails": {
             "properties": {

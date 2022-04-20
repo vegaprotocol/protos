@@ -160,8 +160,10 @@ message NewFreeformDetails {
 }
 
 // Freeform proposal
+// This message is just used as a placeholder to sort out the nature of the
+// proposal once parsed.
 message NewFreeform {
-  // The configuration of the new freeform
+  // DEPRECATED The configuration of the new freeform
   NewFreeformDetails changes = 1;
 }
 
@@ -188,6 +190,22 @@ message ProposalTerms {
     // Proposal change for a freeform voting thing
     NewFreeform new_freeform = 105;
   };
+}
+
+message ProposalRationale {
+  // Description to show a short title / something in case the link goes offline.
+  // This is to be between 0 and 255 unicode characters.
+  // This is mandatory for all proposal.
+  string description = 1;
+  // Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property
+  // so that viewers can check that the text hasn't been changed over time.
+  // Optional except for FreeFrom proposal where it's mandatory.
+  // If set, the `url` property must be set.
+  string hash = 2;
+  // Link to a text file describing the proposal in depth.
+  // Optional except for FreeFrom proposal where it's mandatory.
+  // If set, the `url` property must be set.
+  string url = 3;
 }
 
 // Governance data

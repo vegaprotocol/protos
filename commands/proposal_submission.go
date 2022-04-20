@@ -13,10 +13,7 @@ import (
 	oraclespb "code.vegaprotocol.io/protos/vega/oracles/v1"
 )
 
-const (
-	MaxDuration30DaysNs int64 = 2592000000000000
-	ReferenceMaxLen     int   = 100
-)
+const ReferenceMaxLen int = 100
 
 func CheckProposalSubmission(cmd *commandspb.ProposalSubmission) error {
 	return checkProposalSubmission(cmd).ErrorOrNil()
@@ -31,6 +28,35 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) Errors {
 
 	if len(cmd.Reference) > ReferenceMaxLen {
 		errs.AddForProperty("proposal_submission.reference", ErrReferenceTooLong)
+	}
+
+	if cmd.Rationale == nil {
+		errs.AddForProperty("proposal_submission.rationale", ErrIsRequired)
+	} else {
+		if len(strings.Trim(cmd.Rationale.Description, " \n\r\t")) == 0 {
+			errs.AddForProperty("proposal_submission.rationale.description", ErrIsRequired)
+		} else if len(cmd.Rationale.Description) > 1024 {
+			errs.AddForProperty("proposal_submission.rationale.description", ErrMustNotExceed1024Chars)
+		}
+
+		if cmd.Terms != nil && cmd.Terms.Change != nil {
+			switch cmd.Terms.Change.(type) {
+			case *types.ProposalTerms_NewFreeform:
+				if len(cmd.Rationale.Url) == 0 {
+					errs.AddForProperty("proposal_submission.rationale.url", ErrIsRequired)
+				}
+				if len(cmd.Rationale.Hash) == 0 {
+					errs.AddForProperty("proposal_submission.rationale.hash", ErrIsRequired)
+				}
+			default:
+				if len(cmd.Rationale.Url) != 0 && len(cmd.Rationale.Hash) == 0 {
+					errs.AddForProperty("proposal_submission.rationale.hash", ErrIsRequired)
+				}
+				if len(cmd.Rationale.Url) == 0 && len(cmd.Rationale.Hash) != 0 {
+					errs.AddForProperty("proposal_submission.rationale.url", ErrIsRequired)
+				}
+			}
+		}
 	}
 
 	if cmd.Terms == nil {
@@ -171,22 +197,9 @@ func checkNewAssetChanges(change *types.ProposalTerms_NewAsset) Errors {
 func CheckNewFreeformChanges(change *types.ProposalTerms_NewFreeform) Errors {
 	errs := NewErrors()
 
-	if change.NewFreeform.Changes == nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.changes", ErrIsRequired)
+	if change.NewFreeform == nil {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform", ErrIsRequired)
 	}
-
-	if len(change.NewFreeform.Changes.Url) == 0 {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.url", ErrIsRequired)
-	}
-
-	if len(change.NewFreeform.Changes.Description) > 255 {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.description", ErrIsRequired)
-	}
-
-	if len(change.NewFreeform.Changes.Hash) == 0 {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_freeform.hash", ErrIsRequired)
-	}
-
 	return errs
 }
 

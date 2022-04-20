@@ -5,13 +5,14 @@
 
 ### 🚨 Breaking changes
 - [5001](https://github.com/vegaprotocol/vega/issue/5001) - Change `LiquidityProvision` version field to `uint64` instead of string.
+- [401](https://github.com/vegaprotocol/protos/pull/401) - `description` property is required in rationale on ProposalSubmission.
 - [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [401](https://github.com/vegaprotocol/protos/pull/401) - `changes` property on NewFreeform proposal is deprecated
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
