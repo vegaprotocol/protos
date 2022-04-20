@@ -131,6 +131,8 @@ message ProposalSubmission {
   string reference = 1;
   // Proposal configuration and the actual change that is meant to be executed when proposal is enacted
   vega.ProposalTerms terms = 2;
+  // Proposal rational that summarises the change and link to the complete proposed changed.
+  vega.ProposalRationale rationale = 3;
 }
 
 // A command to submit a new vote for a governance

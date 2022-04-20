@@ -1614,7 +1614,7 @@
           "name": "NewFreeform",
           "longName": "NewFreeform",
           "fullName": "vega.NewFreeform",
-          "description": "Freeform proposal",
+          "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal once parsed.",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -1622,7 +1622,7 @@
           "fields": [
             {
               "name": "changes",
-              "description": "The configuration of the new freeform",
+              "description": "DEPRECATED The configuration of the new freeform",
               "label": "",
               "type": "NewFreeformDetails",
               "longType": "NewFreeformDetails",
@@ -1995,6 +1995,54 @@
             {
               "name": "error_details",
               "description": "The detailed error associated to the reason.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ProposalRationale",
+          "longName": "ProposalRationale",
+          "fullName": "vega.ProposalRationale",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "description",
+              "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 255 unicode characters.\nThis is mandatory for all proposal.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash",
+              "description": "Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property\nso that viewers can check that the text hasn't been changed over time.\nOptional except for FreeFrom proposal where it's mandatory.\nIf set, the `url` property must be set.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "url",
+              "description": "Link to a text file describing the proposal in depth.\nOptional except for FreeFrom proposal where it's mandatory.\nIf set, the `url` property must be set.",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -9852,6 +9900,18 @@
               "type": "ProposalTerms",
               "longType": "vega.ProposalTerms",
               "fullType": "vega.ProposalTerms",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "rationale",
+              "description": "Proposal rational that summarises the change and link to the complete proposed changed.",
+              "label": "",
+              "type": "ProposalRationale",
+              "longType": "vega.ProposalRationale",
+              "fullType": "vega.ProposalRationale",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",

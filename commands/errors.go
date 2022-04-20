@@ -30,6 +30,7 @@ var (
 	ErrNotAValidInteger       = errors.New("not a valid integer")
 	ErrNotAValidFloat         = errors.New("not a valid float")
 	ErrMustBeLessThan100Chars = errors.New("must be less than 100 characters")
+	ErrMustNotExceed1024Chars = errors.New("must not exceed 1024 characters")
 )
 
 type Errors map[string][]error
