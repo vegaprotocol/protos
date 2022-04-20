@@ -188,6 +188,30 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "lifetime_limit",
+              "description": "The lifetime limits deposit per address\nnote: this is a temporary measure for restricted mainnet",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "withdraw_threshold",
+              "description": "The maximum allowed per withdraw\nnote: this is a temporary measure for restricted mainnet",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         }
