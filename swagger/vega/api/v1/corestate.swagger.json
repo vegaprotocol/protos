@@ -1540,7 +1540,30 @@
     },
     "vegaNewFreeform": {
       "type": "object",
-      "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal during parsing."
+      "properties": {
+        "changes": {
+          "$ref": "#/definitions/vegaNewFreeformDetails",
+          "title": "DEPRECATED The configuration of the new freeform"
+        }
+      },
+      "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal once parsed."
+    },
+    "vegaNewFreeformDetails": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "The URL containing content that describes the proposal"
+        },
+        "description": {
+          "type": "string",
+          "title": "A short description of what is being proposed"
+        },
+        "hash": {
+          "type": "string",
+          "title": "The hash on the content of the URL"
+        }
+      }
     },
     "vegaNewMarket": {
       "type": "object",
