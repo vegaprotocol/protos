@@ -1614,12 +1614,73 @@
           "name": "NewFreeform",
           "longName": "NewFreeform",
           "fullName": "vega.NewFreeform",
-          "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal during parsing.",
+          "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal once parsed.",
           "hasExtensions": false,
-          "hasFields": false,
+          "hasFields": true,
           "hasOneofs": false,
           "extensions": [],
-          "fields": []
+          "fields": [
+            {
+              "name": "changes",
+              "description": "DEPRECATED The configuration of the new freeform",
+              "label": "",
+              "type": "NewFreeformDetails",
+              "longType": "NewFreeformDetails",
+              "fullType": "vega.NewFreeformDetails",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NewFreeformDetails",
+          "longName": "NewFreeformDetails",
+          "fullName": "vega.NewFreeformDetails",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "url",
+              "description": "The URL containing content that describes the proposal",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "description": "A short description of what is being proposed",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash",
+              "description": "The hash on the content of the URL",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
         },
         {
           "name": "NewMarket",
