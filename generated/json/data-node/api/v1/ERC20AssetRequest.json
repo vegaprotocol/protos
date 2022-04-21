@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20AssetRequest",
+    "definitions": {
+        "ERC20AssetRequest": {
+            "properties": {
+                "asset_id": {
+                    "type": "string",
+                    "description": "The ID of the asset requested"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Asset Request",
+            "description": "A request to get an asset details"
+        }
+    }
+}
