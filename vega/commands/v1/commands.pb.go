@@ -736,7 +736,7 @@ type ProposalSubmission struct {
 	Reference string `protobuf:"bytes,1,opt,name=reference,proto3" json:"reference,omitempty"`
 	// Proposal configuration and the actual change that is meant to be executed when proposal is enacted
 	Terms *vega.ProposalTerms `protobuf:"bytes,2,opt,name=terms,proto3" json:"terms,omitempty"`
-	// Proposal rational that summarises the change and link to the complete proposed changed.
+	// Proposal rationale that summarises the change and links to the complete proposed changes.
 	Rationale *vega.ProposalRationale `protobuf:"bytes,3,opt,name=rationale,proto3" json:"rationale,omitempty"`
 }
 

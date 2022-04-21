@@ -194,8 +194,8 @@ message ProposalTerms {
 
 message ProposalRationale {
   // Description to show a short title / something in case the link goes offline.
-  // This is to be between 0 and 255 unicode characters.
-  // This is mandatory for all proposal.
+  // This is to be between 0 and 1024 unicode characters.
+  // This is mandatory for all proposals.
   string description = 1;
   // Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property
   // so that viewers can check that the text hasn't been changed over time.
@@ -275,6 +275,8 @@ message Proposal {
   ProposalError reason = 7;
   // The detailed error associated to the reason.
   string error_details = 8;
+  // Proposal rationale that summarises the change and links to the complete proposed changes.
+  ProposalRationale rationale = 9;
 }
 
 // A list of possible errors that can cause a proposal to be in state rejected or failed
