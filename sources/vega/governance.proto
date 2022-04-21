@@ -150,21 +150,12 @@ message NewAsset {
   AssetDetails changes = 1;
 }
 
-message NewFreeformDetails {
-  // The URL containing content that describes the proposal
-  string url = 1;
-  // A short description of what is being proposed
-  string description = 2;
-  // The hash on the content of the URL
-  string hash = 3;
-}
-
 // Freeform proposal
 // This message is just used as a placeholder to sort out the nature of the
-// proposal once parsed.
+// proposal during parsing.
 message NewFreeform {
-  // DEPRECATED The configuration of the new freeform
-  NewFreeformDetails changes = 1;
+  // Old public key field.
+  reserved 1;
 }
 
 // Terms for a governance proposal on Vega
