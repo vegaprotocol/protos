@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/ERC20AssetResponse",
+    "$ref": "#/definitions/GetERC20AssetBundleResponse",
     "definitions": {
-        "ERC20AssetResponse": {
+        "GetERC20AssetBundleResponse": {
             "properties": {
                 "asset_source": {
                     "type": "string",
@@ -23,7 +23,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "ERC 20 Asset Response",
+            "title": "Get ERC 20 Asset Bundle Response",
             "description": "The response with all information required to bundle the call to propose an erc20 asset"
         }
     }

@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/ERC20AssetRequest",
+    "$ref": "#/definitions/GetERC20AssetBundleRequest",
     "definitions": {
-        "ERC20AssetRequest": {
+        "GetERC20AssetBundleRequest": {
             "properties": {
                 "asset_id": {
                     "type": "string",
@@ -11,7 +11,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "ERC 20 Asset Request",
+            "title": "Get ERC 20 Asset Bundle Request",
             "description": "A request to get an asset details"
         }
     }
