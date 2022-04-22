@@ -4247,7 +4247,7 @@
         },
         "rationale": {
           "$ref": "#/definitions/vegaProposalRationale",
-          "description": "Proposal rationale that summarises the change and links to the complete proposed changes."
+          "description": "Proposal rational that summarises the change and link to the complete proposed changed."
         }
       },
       "title": "A command to submit a new proposal for the\nVega network governance"
@@ -6654,10 +6654,6 @@
         "errorDetails": {
           "type": "string",
           "description": "The detailed error associated to the reason."
-        },
-        "rationale": {
-          "$ref": "#/definitions/vegaProposalRationale",
-          "description": "Proposal rationale that summarises the change and links to the complete proposed changes."
         }
       },
       "title": "Governance proposal"
@@ -6714,7 +6710,7 @@
       "properties": {
         "description": {
           "type": "string",
-          "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 1024 unicode characters.\nThis is mandatory for all proposals."
+          "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 255 unicode characters.\nThis is mandatory for all proposal."
         },
         "hash": {
           "type": "string",

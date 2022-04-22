@@ -755,36 +755,12 @@
                 "error_details": {
                     "type": "string",
                     "description": "The detailed error associated to the reason."
-                },
-                "rationale": {
-                    "$ref": "#/definitions/vega.ProposalRationale",
-                    "additionalProperties": true,
-                    "description": "Proposal rationale that summarises the change and links to the complete proposed changes."
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "Proposal",
             "description": "Governance proposal"
-        },
-        "vega.ProposalRationale": {
-            "properties": {
-                "description": {
-                    "type": "string",
-                    "description": "Description to show a short title / something in case the link goes offline. This is to be between 0 and 1024 unicode characters. This is mandatory for all proposals."
-                },
-                "hash": {
-                    "type": "string",
-                    "description": "Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property so that viewers can check that the text hasn't been changed over time. Optional except for FreeFrom proposal where it's mandatory. If set, the `url` property must be set."
-                },
-                "url": {
-                    "type": "string",
-                    "description": "Link to a text file describing the proposal in depth. Optional except for FreeFrom proposal where it's mandatory. If set, the `url` property must be set."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Proposal Rationale"
         },
         "vega.ProposalTerms": {
             "properties": {
