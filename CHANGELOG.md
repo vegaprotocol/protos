@@ -16,6 +16,19 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 
+## 0.50.2
+
+### 🚨 Breaking changes
+- [5001](https://github.com/vegaprotocol/vega/issue/5001) - Change `LiquidityProvision` version field to `uint64` instead of string.
+- [401](https://github.com/vegaprotocol/protos/pull/401) - `description` property is required in rationale on ProposalSubmission.
+
+### 🗑️ Deprecation
+- [401](https://github.com/vegaprotocol/protos/pull/401) - `changes` property on NewFreeform proposal is deprecated
+
+### 🛠 Improvements
+- [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
+
+
 ## 0.50.1
 
 ### 🐛 Fixes
@@ -27,6 +40,7 @@
 ### 🛠 Improvements
 - [366](https://github.com/vegaprotocol/protos/issue/366) - Improved comments
 - [373](https://github.com/vegaprotocol/protos/issue/373) - Add Ethereum key rotation support
+- [390](https://github.com/vegaprotocol/protos/issue/390) - Add end points that allow querying `multisig` bundles when validators are added or removed
 - [391](https://github.com/vegaprotocol/protos/issue/391) - Add decimal place definition for settlement price in market oracle
 
 ### 🐛 Fixes

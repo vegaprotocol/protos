@@ -11,13 +11,13 @@ func (OracleSpec) IsEvent() {}
 
 func NewOracleSpec(pubKeys []string, filters []*Filter) *OracleSpec {
 	return &OracleSpec{
-		Id:      newID(pubKeys, filters),
+		Id:      NewID(pubKeys, filters),
 		PubKeys: pubKeys,
 		Filters: filters,
 	}
 }
 
-func newID(pubKeys []string, filters []*Filter) string {
+func NewID(pubKeys []string, filters []*Filter) string {
 	buf := []byte{}
 	for _, filter := range filters {
 		s := filter.Key.Name + filter.Key.Type.String()
