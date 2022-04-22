@@ -16,6 +16,11 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 
+## 0.50.3
+
+### 🐛 Fixes
+- Revert rationale on proposals
+
 ## 0.50.2
 
 ### 🚨 Breaking changes
