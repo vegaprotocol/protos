@@ -12,6 +12,7 @@
 - [401](https://github.com/vegaprotocol/protos/pull/401) - `changes` property on NewFreeform proposal is deprecated
 
 ### 🛠 Improvements
+- [406](https://github.com/vegaprotocol/protos/issues/406) - Add content for asset bundle end points
 - [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
 
 ### 🐛 Fixes
