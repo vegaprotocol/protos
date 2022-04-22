@@ -503,7 +503,7 @@ func (x *ERC20MultiSigSignerRemovedBundle) GetEpochSeq() string {
 	return ""
 }
 
-// A request to get an asset details
+// A request to get an asset bundle details
 type GetERC20AssetBundleRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -558,7 +558,7 @@ type GetERC20AssetBundleResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// The address of asset on ethereum
+	// The address of the asset on ethereum
 	AssetSource string `protobuf:"bytes,1,opt,name=asset_source,json=assetSource,proto3" json:"asset_source,omitempty"`
 	// The ID of the vega asset
 	VegaAssetId string `protobuf:"bytes,2,opt,name=vega_asset_id,json=vegaAssetId,proto3" json:"vega_asset_id,omitempty"`

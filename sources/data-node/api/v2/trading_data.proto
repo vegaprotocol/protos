@@ -132,7 +132,7 @@ message ERC20MultiSigSignerRemovedBundle {
 
 }
 
-// A request to get an asset details
+// A request to get an asset bundle details
 message GetERC20AssetBundleRequest {
   // The ID of the asset requested
   string asset_id = 1;
@@ -140,7 +140,7 @@ message GetERC20AssetBundleRequest {
 
 // The response with all information required to bundle the call to propose an erc20 asset
 message GetERC20AssetBundleResponse {
-  // The address of asset on ethereum
+  // The address of the asset on ethereum
   string asset_source = 1;
   // The ID of the vega asset
   string vega_asset_id = 2;
