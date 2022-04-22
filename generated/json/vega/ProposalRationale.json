@@ -19,7 +19,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Proposal Rationale"
+            "title": "Proposal Rationale",
+            "description": "The rationale behind a proposal."
         }
     }
 }

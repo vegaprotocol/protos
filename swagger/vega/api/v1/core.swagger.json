@@ -1640,7 +1640,7 @@
         },
         "rationale": {
           "$ref": "#/definitions/vegaProposalRationale",
-          "description": "Proposal rationale that summarises the change and links to the complete proposed changes."
+          "description": "The rationale behind a proposal."
         }
       },
       "title": "A command to submit a new proposal for the\nVega network governance"
@@ -3409,30 +3409,7 @@
     },
     "vegaNewFreeform": {
       "type": "object",
-      "properties": {
-        "changes": {
-          "$ref": "#/definitions/vegaNewFreeformDetails",
-          "title": "DEPRECATED The configuration of the new freeform"
-        }
-      },
       "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal once parsed."
-    },
-    "vegaNewFreeformDetails": {
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string",
-          "title": "The URL containing content that describes the proposal"
-        },
-        "description": {
-          "type": "string",
-          "title": "A short description of what is being proposed"
-        },
-        "hash": {
-          "type": "string",
-          "title": "The hash on the content of the URL"
-        }
-      }
     },
     "vegaNewMarket": {
       "type": "object",
@@ -3857,6 +3834,10 @@
         "errorDetails": {
           "type": "string",
           "description": "The detailed error associated to the reason."
+        },
+        "rationale": {
+          "$ref": "#/definitions/vegaProposalRationale",
+          "description": "The rationale behind a proposal."
         }
       },
       "title": "Governance proposal"
@@ -3923,7 +3904,8 @@
           "type": "string",
           "description": "Link to a text file describing the proposal in depth.\nOptional except for FreeFrom proposal where it's mandatory.\nIf set, the `url` property must be set."
         }
-      }
+      },
+      "description": "The rationale behind a proposal."
     },
     "vegaProposalState": {
       "type": "string",

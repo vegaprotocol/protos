@@ -11,6 +11,7 @@
 
 ### 🛠 Improvements
 - [413](https://github.com/vegaprotocol/protos/issues/413) - Add support for sending transfers to asset/market
+- [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
