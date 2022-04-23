@@ -81,6 +81,7 @@ message Transfer {
   string reference = 8;
   Status status = 9;
   int64 timestamp = 10;
+  string market = 11;
 
   oneof kind {
     OneOffTransfer one_off = 101;
@@ -191,6 +192,8 @@ message RewardPayoutEvent {
   string amount = 4;
   string percent_of_total_reward = 5;
   int64  timestamp = 6;
+  string reward_type = 7;
+  string market = 8;
 }
 
 //ValidatorScoreEvent is the score a validator gets for a given epoch

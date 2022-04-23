@@ -685,11 +685,11 @@ message NextTimeTrigger {
 }
 
 message FeesTracker {
-  repeated AssetFees asset_fees = 1;
+  repeated MarketFees market_fees = 1;
 }
 
-message AssetFees {
-  string asset = 1;
+message MarketFees {
+  string market = 1;
   repeated PartyFees maker_fees = 2;
   repeated PartyFees taker_fees = 3;
   repeated PartyFees lp_fees = 4;

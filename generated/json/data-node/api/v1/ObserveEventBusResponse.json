@@ -3160,7 +3160,7 @@
                 "rationale": {
                     "$ref": "#/definitions/vega.ProposalRationale",
                     "additionalProperties": true,
-                    "description": "Proposal rational that summarises the change and link to the complete proposed changed."
+                    "description": "Proposal rationale that summarises the change and links to the complete proposed changes."
                 }
             },
             "additionalProperties": true,
@@ -3339,6 +3339,10 @@
                 "reference": {
                     "type": "string",
                     "description": "The reference to be attached to the transfer"
+                },
+                "market": {
+                    "type": "string",
+                    "description": "Optional market identifier"
                 },
                 "one_off": {
                     "$ref": "#/definitions/vega.commands.v1.OneOffTransfer",
@@ -4336,6 +4340,12 @@
                 },
                 "timestamp": {
                     "type": "string"
+                },
+                "reward_type": {
+                    "type": "string"
+                },
+                "market": {
+                    "type": "string"
                 }
             },
             "additionalProperties": true,
@@ -4676,6 +4686,9 @@
                     "title": "Status"
                 },
                 "timestamp": {
+                    "type": "string"
+                },
+                "market": {
                     "type": "string"
                 },
                 "one_off": {

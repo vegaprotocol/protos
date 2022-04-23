@@ -10,7 +10,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [413](https://github.com/vegaprotocol/protos/issues/413) - Add support for sending transfers to asset/market
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
