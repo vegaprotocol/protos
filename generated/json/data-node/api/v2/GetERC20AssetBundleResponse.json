@@ -6,7 +6,7 @@
             "properties": {
                 "asset_source": {
                     "type": "string",
-                    "description": "The address of asset on ethereum"
+                    "description": "The address of the asset on ethereum"
                 },
                 "vega_asset_id": {
                     "type": "string",

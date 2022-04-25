@@ -12,7 +12,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Get ERC 20 Asset Bundle Request",
-            "description": "A request to get an asset details"
+            "description": "A request to get an asset bundle details"
         }
     }
 }
