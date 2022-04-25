@@ -1235,6 +1235,8 @@ message Reward {
   string amount = 4;
   string percentage_of_total = 5;
   int64 received_at = 6;
+  string market_id = 7;
+  string reward_type = 8;
 }
 
 // Details for rewards for a single asset

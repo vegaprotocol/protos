@@ -6819,6 +6819,12 @@
         "receivedAt": {
           "type": "string",
           "format": "int64"
+        },
+        "marketId": {
+          "type": "string"
+        },
+        "rewardType": {
+          "type": "string"
         }
       },
       "title": "Details for a single reward payment"
