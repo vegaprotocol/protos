@@ -4,19 +4,36 @@
 ## Unreleased (0.51.0)
 
 ### 🚨 Breaking changes
+- [](https://github.com/vegaprotocol/protos/issues/) -
+
+### 🗑️ Deprecation
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🛠 Improvements
+- [406](https://github.com/vegaprotocol/protos/issues/406) - Add content for asset bundle query end point
+- [413](https://github.com/vegaprotocol/protos/issues/413) - Add support for sending transfers to asset/market
+- [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
+
+### 🐛 Fixes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.50.3
+
+### 🐛 Fixes
+- Revert rationale on proposals
+
+## 0.50.2
+
+### 🚨 Breaking changes
 - [5001](https://github.com/vegaprotocol/vega/issue/5001) - Change `LiquidityProvision` version field to `uint64` instead of string.
 - [401](https://github.com/vegaprotocol/protos/pull/401) - `description` property is required in rationale on ProposalSubmission.
-- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
 - [401](https://github.com/vegaprotocol/protos/pull/401) - `changes` property on NewFreeform proposal is deprecated
 
 ### 🛠 Improvements
-- [406](https://github.com/vegaprotocol/protos/issues/406) - Add content for asset bundle query end point
 - [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
-
-### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
 
 
 ## 0.50.1

@@ -766,6 +766,8 @@ message Transfer {
   TransferType type = 3;
   // A minimum amount
   string min_amount = 4;
+  // Optional market ID
+  string market_id = 5;
 }
 
 // Represents a request to transfer from one set of accounts to another

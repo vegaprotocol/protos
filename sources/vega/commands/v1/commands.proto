@@ -185,7 +185,8 @@ message Transfer {
   string amount = 5;
   // The reference to be attached to the transfer
   string reference = 6;
-
+  // Optional market identifier
+  string market = 7;
   // Specific details of the transfer
   oneof kind {
     OneOffTransfer one_off = 101;

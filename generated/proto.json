@@ -2003,18 +2003,6 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
-            },
-            {
-              "name": "rationale",
-              "description": "Proposal rationale that summarises the change and links to the complete proposed changes.",
-              "label": "",
-              "type": "ProposalRationale",
-              "longType": "ProposalRationale",
-              "fullType": "vega.ProposalRationale",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
             }
           ]
         },
@@ -2030,7 +2018,7 @@
           "fields": [
             {
               "name": "description",
-              "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 1024 unicode characters.\nThis is mandatory for all proposals.",
+              "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 255 unicode characters.\nThis is mandatory for all proposal.",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -8444,6 +8432,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "market_id",
+              "description": "Optional market ID",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -10076,6 +10076,18 @@
             {
               "name": "reference",
               "description": "The reference to be attached to the transfer",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market",
+              "description": "Optional market identifier",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -13655,6 +13667,30 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "reward_type",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -14203,6 +14239,18 @@
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -18493,66 +18541,6 @@
           ]
         },
         {
-          "name": "AssetFees",
-          "longName": "AssetFees",
-          "fullName": "vega.snapshot.v1.AssetFees",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "asset",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "maker_fees",
-              "description": "",
-              "label": "repeated",
-              "type": "PartyFees",
-              "longType": "PartyFees",
-              "fullType": "vega.snapshot.v1.PartyFees",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "taker_fees",
-              "description": "",
-              "label": "repeated",
-              "type": "PartyFees",
-              "longType": "PartyFees",
-              "fullType": "vega.snapshot.v1.PartyFees",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "lp_fees",
-              "description": "",
-              "label": "repeated",
-              "type": "PartyFees",
-              "longType": "PartyFees",
-              "fullType": "vega.snapshot.v1.PartyFees",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "AuctionState",
           "longName": "AuctionState",
           "fullName": "vega.snapshot.v1.AuctionState",
@@ -19607,12 +19595,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "asset_fees",
+              "name": "market_fees",
               "description": "",
               "label": "repeated",
-              "type": "AssetFees",
-              "longType": "AssetFees",
-              "fullType": "vega.snapshot.v1.AssetFees",
+              "type": "MarketFees",
+              "longType": "MarketFees",
+              "fullType": "vega.snapshot.v1.MarketFees",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -20525,6 +20513,66 @@
               "type": "FeeSplitter",
               "longType": "FeeSplitter",
               "fullType": "vega.snapshot.v1.FeeSplitter",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MarketFees",
+          "longName": "MarketFees",
+          "fullName": "vega.snapshot.v1.MarketFees",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "maker_fees",
+              "description": "",
+              "label": "repeated",
+              "type": "PartyFees",
+              "longType": "PartyFees",
+              "fullType": "vega.snapshot.v1.PartyFees",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "taker_fees",
+              "description": "",
+              "label": "repeated",
+              "type": "PartyFees",
+              "longType": "PartyFees",
+              "fullType": "vega.snapshot.v1.PartyFees",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lp_fees",
+              "description": "",
+              "label": "repeated",
+              "type": "PartyFees",
+              "longType": "PartyFees",
+              "fullType": "vega.snapshot.v1.PartyFees",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -26338,6 +26386,30 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "reward_type",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -26886,6 +26958,18 @@
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
