@@ -132,6 +132,25 @@ message ERC20MultiSigSignerRemovedBundle {
 
 }
 
+// A request to get an asset bundle details
+message GetERC20AssetBundleRequest {
+  // The ID of the asset requested
+  string asset_id = 1;
+}
+
+// The response with all information required to bundle the call to propose an erc20 asset
+message GetERC20AssetBundleResponse {
+  // The address of the asset on ethereum
+  string asset_source = 1;
+  // The ID of the vega asset
+  string vega_asset_id = 2;
+  // The nonce, which is actually the internal reference for the proposal
+  string nonce = 3;
+   // The signatures bundle as hex encoded data, forward by 0x
+  // e.g: 0x + sig1 + sig2 + ... + sixN
+  string signatures = 4;
+}
+
 // Request to get a list of supported intervals for the given market along with the corresponding candle id
 message GetCandlesForMarketRequest {
     // The unique identifier for the market
