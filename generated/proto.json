@@ -1616,71 +1616,10 @@
           "fullName": "vega.NewFreeform",
           "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal once parsed.",
           "hasExtensions": false,
-          "hasFields": true,
+          "hasFields": false,
           "hasOneofs": false,
           "extensions": [],
-          "fields": [
-            {
-              "name": "changes",
-              "description": "DEPRECATED The configuration of the new freeform",
-              "label": "",
-              "type": "NewFreeformDetails",
-              "longType": "NewFreeformDetails",
-              "fullType": "vega.NewFreeformDetails",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "NewFreeformDetails",
-          "longName": "NewFreeformDetails",
-          "fullName": "vega.NewFreeformDetails",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "url",
-              "description": "The URL containing content that describes the proposal",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "description",
-              "description": "A short description of what is being proposed",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "hash",
-              "description": "The hash on the content of the URL",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
+          "fields": []
         },
         {
           "name": "NewMarket",
@@ -2003,6 +1942,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "rationale",
+              "description": "The rationale behind a proposal.",
+              "label": "",
+              "type": "ProposalRationale",
+              "longType": "ProposalRationale",
+              "fullType": "vega.ProposalRationale",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -2010,7 +1961,7 @@
           "name": "ProposalRationale",
           "longName": "ProposalRationale",
           "fullName": "vega.ProposalRationale",
-          "description": "",
+          "description": "The rationale behind a proposal.",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -9919,7 +9870,7 @@
             },
             {
               "name": "rationale",
-              "description": "Proposal rationale that summarises the change and links to the complete proposed changes.",
+              "description": "The rationale behind a proposal.",
               "label": "",
               "type": "ProposalRationale",
               "longType": "vega.ProposalRationale",

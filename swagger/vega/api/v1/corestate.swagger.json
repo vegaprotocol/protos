@@ -1540,30 +1540,7 @@
     },
     "vegaNewFreeform": {
       "type": "object",
-      "properties": {
-        "changes": {
-          "$ref": "#/definitions/vegaNewFreeformDetails",
-          "title": "DEPRECATED The configuration of the new freeform"
-        }
-      },
       "description": "Freeform proposal\nThis message is just used as a placeholder to sort out the nature of the\nproposal once parsed."
-    },
-    "vegaNewFreeformDetails": {
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string",
-          "title": "The URL containing content that describes the proposal"
-        },
-        "description": {
-          "type": "string",
-          "title": "A short description of what is being proposed"
-        },
-        "hash": {
-          "type": "string",
-          "title": "The hash on the content of the URL"
-        }
-      }
     },
     "vegaNewMarket": {
       "type": "object",
@@ -1794,6 +1771,10 @@
         "errorDetails": {
           "type": "string",
           "description": "The detailed error associated to the reason."
+        },
+        "rationale": {
+          "$ref": "#/definitions/vegaProposalRationale",
+          "description": "The rationale behind a proposal."
         }
       },
       "title": "Governance proposal"
@@ -1844,6 +1825,24 @@
       "default": "PROPOSAL_ERROR_UNSPECIFIED",
       "description": "- PROPOSAL_ERROR_UNSPECIFIED: Default value\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON: The specified close time is too early base on network parameters\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE: The specified close time is too late based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_SOON: The specified enact time is too early based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_LATE: The specified enact time is too late based on network parameters\n - PROPOSAL_ERROR_INSUFFICIENT_TOKENS: The proposer for this proposal as insufficient tokens\n - PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY: The instrument quote name and base name were the same\n - PROPOSAL_ERROR_NO_PRODUCT: The proposal has no product\n - PROPOSAL_ERROR_UNSUPPORTED_PRODUCT: The specified product is not supported\n - PROPOSAL_ERROR_NO_TRADING_MODE: The proposal has no trading mode\n - PROPOSAL_ERROR_UNSUPPORTED_TRADING_MODE: The proposal has an unsupported trading mode\n - PROPOSAL_ERROR_NODE_VALIDATION_FAILED: The proposal failed node validation\n - PROPOSAL_ERROR_MISSING_BUILTIN_ASSET_FIELD: A field is missing in a builtin asset source\n - PROPOSAL_ERROR_MISSING_ERC20_CONTRACT_ADDRESS: The contract address is missing in the ERC20 asset source\n - PROPOSAL_ERROR_INVALID_ASSET: The asset identifier is invalid or does not exist on the Vega network\n - PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS: Proposal terms timestamps are not compatible (Validation \u003c Closing \u003c Enactment)\n - PROPOSAL_ERROR_NO_RISK_PARAMETERS: No risk parameters were specified\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_KEY: Invalid key in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE: Invalid valid in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED: Validation failed for network parameter proposal\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_SMALL: Opening auction duration is less than the network minimum opening auction time\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_LARGE: Opening auction duration is more than the network minimum opening auction time\n - PROPOSAL_ERROR_MARKET_MISSING_LIQUIDITY_COMMITMENT: Market proposal is missing a liquidity commitment\n - PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET: Market proposal market could not be instantiate in execution\n - PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT: Market proposal market contained invalid product definition\n - PROPOSAL_ERROR_MISSING_COMMITMENT_AMOUNT: Market proposal is missing commitment amount\n - PROPOSAL_ERROR_INVALID_FEE_AMOUNT: Market proposal have invalid fee\n - PROPOSAL_ERROR_INVALID_SHAPE: Market proposal have invalid shape\n - PROPOSAL_ERROR_INVALID_RISK_PARAMETER: Market proposal invalid risk parameter\n - PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED: Proposal was declined because vote didn't reach the majority threshold required\n - PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED: Proposal declined because the participation threshold was not reached\n - PROPOSAL_ERROR_INVALID_ASSET_DETAILS: Asset proposal invalid asset details\n - PROPOSAL_ERROR_UNKNOWN_TYPE: Proposal is an unknown type.\n - PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE: Proposal has an unknown risk parameter type.\n - PROPOSAL_ERROR_INVALID_FREEFORM: Validation failed for freeform proposal.\n - PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE: The party doesn't have enough equity-like share to propose an update on the market\ntargeted by the proposal.\n - PROPOSAL_ERROR_INVALID_MARKET: The market targeted by the proposal does not exist or is not eligible to modification.\n - PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES: The market proposal decimal place is higher to the market settlement asset decimal places\n - PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS: The market proposal contains too many price monitoring triggers",
       "title": "A list of possible errors that can cause a proposal to be in state rejected or failed"
+    },
+    "vegaProposalRationale": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 255 unicode characters.\nThis is mandatory for all proposal."
+        },
+        "hash": {
+          "type": "string",
+          "description": "Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property\nso that viewers can check that the text hasn't been changed over time.\nOptional except for FreeFrom proposal where it's mandatory.\nIf set, the `url` property must be set."
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to a text file describing the proposal in depth.\nOptional except for FreeFrom proposal where it's mandatory.\nIf set, the `url` property must be set."
+        }
+      },
+      "description": "The rationale behind a proposal."
     },
     "vegaProposalState": {
       "type": "string",

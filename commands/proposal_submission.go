@@ -30,31 +30,32 @@ func checkProposalSubmission(cmd *commandspb.ProposalSubmission) Errors {
 		errs.AddForProperty("proposal_submission.reference", ErrReferenceTooLong)
 	}
 
-	// if cmd.Rationale == nil {
-	// 	errs.AddForProperty("proposal_submission.rationale", ErrIsRequired)
-	// } else {
-	if cmd.Rationale != nil {
-		if len(strings.Trim(cmd.Rationale.Description, " \n\r\t")) == 0 {
-			errs.AddForProperty("proposal_submission.rationale.description", ErrIsRequired)
-		} else if len(cmd.Rationale.Description) > 1024 {
-			errs.AddForProperty("proposal_submission.rationale.description", ErrMustNotExceed1024Chars)
-		}
+	if cmd.Rationale == nil {
+		errs.AddForProperty("proposal_submission.rationale", ErrIsRequired)
+	} else {
+		if cmd.Rationale != nil {
+			if len(strings.Trim(cmd.Rationale.Description, " \n\r\t")) == 0 {
+				errs.AddForProperty("proposal_submission.rationale.description", ErrIsRequired)
+			} else if len(cmd.Rationale.Description) > 1024 {
+				errs.AddForProperty("proposal_submission.rationale.description", ErrMustNotExceed1024Chars)
+			}
 
-		if cmd.Terms != nil && cmd.Terms.Change != nil {
-			switch cmd.Terms.Change.(type) {
-			case *types.ProposalTerms_NewFreeform:
-				if len(cmd.Rationale.Url) == 0 {
-					errs.AddForProperty("proposal_submission.rationale.url", ErrIsRequired)
-				}
-				if len(cmd.Rationale.Hash) == 0 {
-					errs.AddForProperty("proposal_submission.rationale.hash", ErrIsRequired)
-				}
-			default:
-				if len(cmd.Rationale.Url) != 0 && len(cmd.Rationale.Hash) == 0 {
-					errs.AddForProperty("proposal_submission.rationale.hash", ErrIsRequired)
-				}
-				if len(cmd.Rationale.Url) == 0 && len(cmd.Rationale.Hash) != 0 {
-					errs.AddForProperty("proposal_submission.rationale.url", ErrIsRequired)
+			if cmd.Terms != nil && cmd.Terms.Change != nil {
+				switch cmd.Terms.Change.(type) {
+				case *types.ProposalTerms_NewFreeform:
+					if len(cmd.Rationale.Url) == 0 {
+						errs.AddForProperty("proposal_submission.rationale.url", ErrIsRequired)
+					}
+					if len(cmd.Rationale.Hash) == 0 {
+						errs.AddForProperty("proposal_submission.rationale.hash", ErrIsRequired)
+					}
+				default:
+					if len(cmd.Rationale.Url) != 0 && len(cmd.Rationale.Hash) == 0 {
+						errs.AddForProperty("proposal_submission.rationale.hash", ErrIsRequired)
+					}
+					if len(cmd.Rationale.Url) == 0 && len(cmd.Rationale.Hash) != 0 {
+						errs.AddForProperty("proposal_submission.rationale.url", ErrIsRequired)
+					}
 				}
 			}
 		}
