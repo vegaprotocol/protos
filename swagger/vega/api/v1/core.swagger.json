@@ -1640,7 +1640,7 @@
         },
         "rationale": {
           "$ref": "#/definitions/vegaProposalRationale",
-          "description": "Proposal rational that summarises the change and link to the complete proposed changed."
+          "description": "Proposal rationale that summarises the change and links to the complete proposed changes."
         }
       },
       "title": "A command to submit a new proposal for the\nVega network governance"
@@ -1676,6 +1676,12 @@
         "timestamp": {
           "type": "string",
           "format": "int64"
+        },
+        "rewardType": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
         }
       }
     },
@@ -4506,6 +4512,10 @@
           "type": "string",
           "title": "The reference to be attached to the transfer"
         },
+        "market": {
+          "type": "string",
+          "title": "Optional market identifier"
+        },
         "oneOff": {
           "$ref": "#/definitions/vegacommandsv1OneOffTransfer"
         },
@@ -4572,6 +4582,9 @@
         "timestamp": {
           "type": "string",
           "format": "int64"
+        },
+        "market": {
+          "type": "string"
         },
         "oneOff": {
           "$ref": "#/definitions/vegaeventsv1OneOffTransfer"

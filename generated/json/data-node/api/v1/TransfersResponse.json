@@ -200,6 +200,9 @@
                 "timestamp": {
                     "type": "string"
                 },
+                "market": {
+                    "type": "string"
+                },
                 "one_off": {
                     "$ref": "#/definitions/vega.events.v1.OneOffTransfer",
                     "additionalProperties": true
