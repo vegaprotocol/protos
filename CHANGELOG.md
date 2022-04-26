@@ -13,6 +13,7 @@
 - [406](https://github.com/vegaprotocol/protos/issues/406) - Add content for asset bundle query end point
 - [413](https://github.com/vegaprotocol/protos/issues/413) - Add support for sending transfers to asset/market
 - [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
+- [5423](https://github.com/vegaprotocol/vega/issue/5423) - Add new fields for equity shares to `Snapshot` types.
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
