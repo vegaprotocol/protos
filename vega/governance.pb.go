@@ -1463,7 +1463,7 @@ type ProposalRationale struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Description to show a short title / something in case the link goes offline.
-	// This is to be between 0 and 255 unicode characters.
+	// This is to be between 0 and 1024 unicode characters.
 	// This is mandatory for all proposal.
 	Description string `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
 	// Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property
