@@ -380,12 +380,14 @@ message EquityShareLP {
   string stake = 2;
   string share = 3;
   string avg = 4;
+  string vshare = 5;
 }
 
 message EquityShare {
   string mvp = 1;
   bool opening_auction_ended = 2;
   repeated EquityShareLP lps = 3;
+  string r = 4;
 }
 
 message FeeSplitter {
