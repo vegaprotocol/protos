@@ -2932,6 +2932,11 @@
         "targetAddress": {
           "type": "string",
           "title": "The ethereum address to withdraw the funds to, 0x prefixed"
+        },
+        "creation": {
+          "type": "string",
+          "format": "int64",
+          "title": "The creation timestamps"
         }
       },
       "title": "The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge\nfunction withdraw_asset(address asset_source, uint256 asset_id, uint256 amount, uint256 expiry, uint256 nonce, bytes memory signatures)"
@@ -5094,6 +5099,14 @@
         "contractAddress": {
           "type": "string",
           "title": "The address of the contract for the token, on the ethereum network"
+        },
+        "lifetimeLimit": {
+          "type": "string",
+          "title": "The lifetime limits deposit per address\nnote: this is a temporary measure for restricted mainnet"
+        },
+        "withdrawThreshold": {
+          "type": "string",
+          "title": "The maximum allowed per withdraw\nnote: this is a temporary measure for restricted mainnet"
         }
       },
       "title": "An ERC20 token based asset, living on the ethereum network"

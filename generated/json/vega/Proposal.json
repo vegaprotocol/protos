@@ -337,6 +337,14 @@
                 "contract_address": {
                     "type": "string",
                     "description": "The address of the contract for the token, on the ethereum network"
+                },
+                "lifetime_limit": {
+                    "type": "string",
+                    "description": "The lifetime limits deposit per address note: this is a temporary measure for restricted mainnet"
+                },
+                "withdraw_threshold": {
+                    "type": "string",
+                    "description": "The maximum allowed per withdraw note: this is a temporary measure for restricted mainnet"
                 }
             },
             "additionalProperties": true,

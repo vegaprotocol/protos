@@ -1170,6 +1170,8 @@ message ERC20WithdrawalApprovalResponse {
   string signatures = 5;
   // The ethereum address to withdraw the funds to, 0x prefixed
   string target_address = 6;
+  // The creation timestamps
+  int64 creation = 7;
 }
 
 // A request to get a list of deposit from a given party

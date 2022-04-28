@@ -27,6 +27,10 @@
                 "target_address": {
                     "type": "string",
                     "description": "The ethereum address to withdraw the funds to, 0x prefixed"
+                },
+                "creation": {
+                    "type": "string",
+                    "description": "The creation timestamps"
                 }
             },
             "additionalProperties": true,
