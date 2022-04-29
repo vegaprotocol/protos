@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TradesByPartyRequest",
+    "definitions": {
+        "TradesByPartyRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string"
+                },
+                "market_id": {
+                    "type": "string"
+                },
+                "cursor": {
+                    "$ref": "#/definitions/datanode.api.v2.Cursor",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Trades By Party Request"
+        },
+        "datanode.api.v2.Cursor": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Cursor",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TradesByMarketRequest",
+    "definitions": {
+        "TradesByMarketRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string"
+                },
+                "cursor": {
+                    "$ref": "#/definitions/datanode.api.v2.Cursor",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Trades By Market Request"
+        },
+        "datanode.api.v2.Cursor": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Cursor",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}

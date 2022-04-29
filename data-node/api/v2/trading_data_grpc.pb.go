@@ -32,6 +32,7 @@ type TradingDataServiceClient interface {
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
+	// -- Candles --
 	// Get candle data for a given candle id
 	GetCandleData(ctx context.Context, in *GetCandleDataRequest, opts ...grpc.CallOption) (*GetCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
@@ -42,6 +43,14 @@ type TradingDataServiceClient interface {
 	GetERC20MultiSigSignerAddedBundles(ctx context.Context, in *GetERC20MultiSigSignerAddedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20MultiSigSignerRemovedBundles(ctx context.Context, in *GetERC20MultiSigSignerRemovedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
+	// Get trades by market using a cursor based pagination model
+	TradesByMarket(ctx context.Context, in *TradesByMarketRequest, opts ...grpc.CallOption) (*TradesByMarketResponse, error)
+	// Get trades by party using a cursor based pagination model
+	TradesByParty(ctx context.Context, in *TradesByPartyRequest, opts ...grpc.CallOption) (*TradesByPartyResponse, error)
+	// Get all markets using a cursor based pagination model
+	Markets(ctx context.Context, in *MarketsRequest, opts ...grpc.CallOption) (*MarketsResponse, error)
+	// Get Parties using a cursor based pagination model
+	Parties(ctx context.Context, in *PartiesRequest, opts ...grpc.CallOption) (*PartiesResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -165,6 +174,42 @@ func (c *tradingDataServiceClient) GetERC20MultiSigSignerRemovedBundles(ctx cont
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) TradesByMarket(ctx context.Context, in *TradesByMarketRequest, opts ...grpc.CallOption) (*TradesByMarketResponse, error) {
+	out := new(TradesByMarketResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/TradesByMarket", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) TradesByParty(ctx context.Context, in *TradesByPartyRequest, opts ...grpc.CallOption) (*TradesByPartyResponse, error) {
+	out := new(TradesByPartyResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/TradesByParty", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) Markets(ctx context.Context, in *MarketsRequest, opts ...grpc.CallOption) (*MarketsResponse, error) {
+	out := new(MarketsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/Markets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) Parties(ctx context.Context, in *PartiesRequest, opts ...grpc.CallOption) (*PartiesResponse, error) {
+	out := new(PartiesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/Parties", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -179,6 +224,7 @@ type TradingDataServiceServer interface {
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
+	// -- Candles --
 	// Get candle data for a given candle id
 	GetCandleData(context.Context, *GetCandleDataRequest) (*GetCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
@@ -189,6 +235,14 @@ type TradingDataServiceServer interface {
 	GetERC20MultiSigSignerAddedBundles(context.Context, *GetERC20MultiSigSignerAddedBundlesRequest) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20MultiSigSignerRemovedBundles(context.Context, *GetERC20MultiSigSignerRemovedBundlesRequest) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
+	// Get trades by market using a cursor based pagination model
+	TradesByMarket(context.Context, *TradesByMarketRequest) (*TradesByMarketResponse, error)
+	// Get trades by party using a cursor based pagination model
+	TradesByParty(context.Context, *TradesByPartyRequest) (*TradesByPartyResponse, error)
+	// Get all markets using a cursor based pagination model
+	Markets(context.Context, *MarketsRequest) (*MarketsResponse, error)
+	// Get Parties using a cursor based pagination model
+	Parties(context.Context, *PartiesRequest) (*PartiesResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -225,6 +279,18 @@ func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerAddedBundles(
 }
 func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerRemovedBundles(context.Context, *GetERC20MultiSigSignerRemovedBundlesRequest) (*GetERC20MultiSigSignerRemovedBundlesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetERC20MultiSigSignerRemovedBundles not implemented")
+}
+func (UnimplementedTradingDataServiceServer) TradesByMarket(context.Context, *TradesByMarketRequest) (*TradesByMarketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TradesByMarket not implemented")
+}
+func (UnimplementedTradingDataServiceServer) TradesByParty(context.Context, *TradesByPartyRequest) (*TradesByPartyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TradesByParty not implemented")
+}
+func (UnimplementedTradingDataServiceServer) Markets(context.Context, *MarketsRequest) (*MarketsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Markets not implemented")
+}
+func (UnimplementedTradingDataServiceServer) Parties(context.Context, *PartiesRequest) (*PartiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Parties not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -422,6 +488,78 @@ func _TradingDataService_GetERC20MultiSigSignerRemovedBundles_Handler(srv interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_TradesByMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TradesByMarketRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).TradesByMarket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/TradesByMarket",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).TradesByMarket(ctx, req.(*TradesByMarketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_TradesByParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TradesByPartyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).TradesByParty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/TradesByParty",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).TradesByParty(ctx, req.(*TradesByPartyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_Markets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MarketsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).Markets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/Markets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).Markets(ctx, req.(*MarketsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_Parties_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PartiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).Parties(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/Parties",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).Parties(ctx, req.(*PartiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -464,6 +602,22 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetERC20MultiSigSignerRemovedBundles",
 			Handler:    _TradingDataService_GetERC20MultiSigSignerRemovedBundles_Handler,
+		},
+		{
+			MethodName: "TradesByMarket",
+			Handler:    _TradingDataService_TradesByMarket_Handler,
+		},
+		{
+			MethodName: "TradesByParty",
+			Handler:    _TradingDataService_TradesByParty_Handler,
+		},
+		{
+			MethodName: "Markets",
+			Handler:    _TradingDataService_Markets_Handler,
+		},
+		{
+			MethodName: "Parties",
+			Handler:    _TradingDataService_Parties_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PartyConnection",
+    "definitions": {
+        "PartyConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.PartyEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party Connection"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        },
+        "datanode.api.v2.PartyEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Party",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party Edge"
+        },
+        "vega.Party": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "A unique identifier for the party, typically represented by a public key"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party",
+            "description": "A party represents an entity who wishes to trade on or query a Vega network"
+        }
+    }
+}
