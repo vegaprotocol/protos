@@ -2651,6 +2651,38 @@
       "description": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_OPEN: The deposit is being processed by the network\n - STATUS_CANCELLED: The deposit has been cancelled by the network\n - STATUS_FINALIZED: The deposit has been finalised and accounts have been updated",
       "title": "The status of the deposit"
     },
+    "vegaDispatchMetric": {
+      "type": "string",
+      "enum": [
+        "DISPATCH_METRIC_UNSPECIFIED",
+        "DISPATCH_METRIC_TAKER_FEES_PAID",
+        "DISPATCH_METRIC_MAKER_FEES_RECEIVED",
+        "DISPATCH_METRIC_LP_FEES_RECEIVED",
+        "DISPATCH_METRIC_MARKET_VALUE"
+      ],
+      "default": "DISPATCH_METRIC_UNSPECIFIED",
+      "title": "- DISPATCH_METRIC_TAKER_FEES_PAID: Dispatch metric that is using the total taker fees paid in the market\n - DISPATCH_METRIC_MAKER_FEES_RECEIVED: Dispatch metric that is using the total maker fees received in the market\n - DISPATCH_METRIC_LP_FEES_RECEIVED: Dispatch metric that is using the total LP fees received in the market\n - DISPATCH_METRIC_MARKET_VALUE: Dispatch metric that is using total value of the market if above the required threshold and not paid given proposer bonus yet"
+    },
+    "vegaDispatchStrategy": {
+      "type": "object",
+      "properties": {
+        "assetForMetric": {
+          "type": "string",
+          "title": "The asset to use for metric"
+        },
+        "metric": {
+          "$ref": "#/definitions/vegaDispatchMetric",
+          "title": "The metric to apply"
+        },
+        "markets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Optional markets in scope"
+        }
+      }
+    },
     "vegaERC20": {
       "type": "object",
       "properties": {
@@ -4471,6 +4503,10 @@
         "factor": {
           "type": "string",
           "title": "factor needs to be \u003e 0"
+        },
+        "dispatchStrategy": {
+          "$ref": "#/definitions/vegaDispatchStrategy",
+          "title": "optional parameter defining how a transfer is dispatched"
         }
       },
       "title": "Specific details for a recurring transfer"
@@ -4502,10 +4538,6 @@
           "type": "string",
           "title": "The reference to be attached to the transfer"
         },
-        "market": {
-          "type": "string",
-          "title": "Optional market identifier"
-        },
         "oneOff": {
           "$ref": "#/definitions/vegacommandsv1OneOffTransfer"
         },
@@ -4536,6 +4568,9 @@
         },
         "factor": {
           "type": "string"
+        },
+        "dispatchStrategy": {
+          "$ref": "#/definitions/vegaDispatchStrategy"
         }
       }
     },
@@ -4572,9 +4607,6 @@
         "timestamp": {
           "type": "string",
           "format": "int64"
-        },
-        "market": {
-          "type": "string"
         },
         "oneOff": {
           "$ref": "#/definitions/vegaeventsv1OneOffTransfer"
