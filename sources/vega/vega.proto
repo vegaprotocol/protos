@@ -766,8 +766,29 @@ message Transfer {
   TransferType type = 3;
   // A minimum amount
   string min_amount = 4;
-  // Optional market ID
+  // optional dispatch strategy
   string market_id = 5;
+}
+
+enum DispatchMetric {
+  DISPATCH_METRIC_UNSPECIFIED = 0;
+  // Dispatch metric that is using the total taker fees paid in the market
+  DISPATCH_METRIC_TAKER_FEES_PAID = 1;
+  // Dispatch metric that is using the total maker fees received in the market
+  DISPATCH_METRIC_MAKER_FEES_RECEIVED = 2;
+  // Dispatch metric that is using the total LP fees received in the market
+  DISPATCH_METRIC_LP_FEES_RECEIVED = 3;
+  // Dispatch metric that is using total value of the market if above the required threshold and not paid given proposer bonus yet 
+  DISPATCH_METRIC_MARKET_VALUE = 4;
+}
+
+message DispatchStrategy {
+  // The asset to use for metric
+  string asset_for_metric = 1;
+  // The metric to apply
+  DispatchMetric metric = 2;
+  // Optional markets in scope 
+  repeated string markets = 3;
 }
 
 // Represents a request to transfer from one set of accounts to another

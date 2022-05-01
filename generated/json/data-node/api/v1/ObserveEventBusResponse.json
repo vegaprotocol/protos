@@ -459,6 +459,47 @@
             "title": "Deposit",
             "description": "A deposit on to the Vega network"
         },
+        "vega.DispatchStrategy": {
+            "properties": {
+                "asset_for_metric": {
+                    "type": "string",
+                    "description": "The asset to use for metric"
+                },
+                "metric": {
+                    "enum": [
+                        "DISPATCH_METRIC_UNSPECIFIED",
+                        0,
+                        "DISPATCH_METRIC_TAKER_FEES_PAID",
+                        1,
+                        "DISPATCH_METRIC_MAKER_FEES_RECEIVED",
+                        2,
+                        "DISPATCH_METRIC_LP_FEES_RECEIVED",
+                        3,
+                        "DISPATCH_METRIC_MARKET_VALUE",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Dispatch Metric"
+                },
+                "markets": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Optional markets in scope"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Dispatch Strategy"
+        },
         "vega.ERC20": {
             "properties": {
                 "contract_address": {
@@ -3170,6 +3211,11 @@
                 "factor": {
                     "type": "string",
                     "description": "factor needs to be \u003e 0"
+                },
+                "dispatch_strategy": {
+                    "$ref": "#/definitions/vega.DispatchStrategy",
+                    "additionalProperties": true,
+                    "description": "optional parameter defining how a transfer is dispatched"
                 }
             },
             "additionalProperties": true,
@@ -3327,10 +3373,6 @@
                 "reference": {
                     "type": "string",
                     "description": "The reference to be attached to the transfer"
-                },
-                "market": {
-                    "type": "string",
-                    "description": "Optional market identifier"
                 },
                 "one_off": {
                     "$ref": "#/definitions/vega.commands.v1.OneOffTransfer",
@@ -4303,6 +4345,10 @@
                 },
                 "factor": {
                     "type": "string"
+                },
+                "dispatch_strategy": {
+                    "$ref": "#/definitions/vega.DispatchStrategy",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
@@ -4674,9 +4720,6 @@
                     "title": "Status"
                 },
                 "timestamp": {
-                    "type": "string"
-                },
-                "market": {
                     "type": "string"
                 },
                 "one_off": {

@@ -106,8 +106,7 @@ message Payload {
     LiquiditySupplied liquidity_supplied= 43;
     LiquidityTarget liquidity_target= 44;
     FloatingPointConsensus floating_point_consensus = 46;
-    FeesTracker fees_tracker = 47;
-    MarketTracker market_tracker = 48;
+    MarketTracker market_tracker = 47;
     BankingRecurringTransfers banking_recurring_transfers = 49;
     BankingScheduledTransfers banking_scheduled_transfers = 50;
     ERC20MultiSigTopologyVerified erc20_multisig_topology_verified = 51;
@@ -686,31 +685,8 @@ message NextTimeTrigger {
   int64  next_trigger = 4;
 }
 
-message FeesTracker {
-  repeated MarketFees market_fees = 1;
-}
-
-message MarketFees {
-  string market = 1;
-  repeated PartyFees maker_fees = 2;
-  repeated PartyFees taker_fees = 3;
-  repeated PartyFees lp_fees = 4;
-}
-
-message PartyFees {
-  string party = 1;
-  string fee = 2;
-}
-
 message MarketTracker {
-  repeated MarketVolumeTracker market_tracker = 1;
-}
-
-message MarketVolumeTracker {
-  string market_id = 1;
-  string proposer = 2;
-  bool bonus_paid = 3;
-  string volume_traded = 4;
+  repeated checkpoint.v1.MarketActivityTracker market_activity = 1; 
 }
 
 message SignerEventsPerAddress {

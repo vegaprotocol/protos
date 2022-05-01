@@ -15,6 +15,7 @@
 - [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
 - [5423](https://github.com/vegaprotocol/vega/issue/5423) - Add new fields for equity shares to `Snapshot` types.
 - [550](https://github.com/vegaprotocol/protos/pull/550) - Add support for cursor based pagination in `Data Node API V2`
+- [420](https://github.com/vegaprotocol/protos/issues/420) - Enable recurring transfer to automatically dispatch reward pro-rata based on market metric
 - 
 
 ### 🐛 Fixes
