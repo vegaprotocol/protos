@@ -96,17 +96,17 @@
                         "type": "string"
                     },
                     "type": "array",
-                    "description": "matched_specs_ids lists all the oracle specs that matched this oracle data."
+                    "description": "matched_specs_ids lists all the oracle specs that matched this oracle data. When the array is empty, it means no oracle spec matched this oracle data."
                 },
                 "broadcast_at": {
                     "type": "string",
-                    "description": "broadcast_at is the time at which the data was broadcast for the first time."
+                    "description": "broadcast_at is the time at which the data was broadcast to the markets with a matching oracle spec. It has no value when the oracle date did not match any oracle spec. The value is a Unix timestamp in nanoseconds."
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "Oracle Data",
-            "description": "OracleData describes an oracle data that has been broadcast."
+            "description": "OracleData describes valid oracle data that has been received by the node. It represents both matched and unmatched oracle data."
         },
         "oracles.v1.OracleSpec": {
             "properties": {

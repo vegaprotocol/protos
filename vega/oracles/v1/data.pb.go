@@ -20,7 +20,8 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// OracleData describes an oracle data that has been broadcast.
+// OracleData describes valid oracle data that has been received by the node.
+// It represents both matched and unmatched oracle data.
 type OracleData struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -33,9 +34,12 @@ type OracleData struct {
 	// data holds all the properties of the oracle data
 	Data []*Property `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
 	// matched_specs_ids lists all the oracle specs that matched this oracle data.
+	// When the array is empty, it means no oracle spec matched this oracle data.
 	MatchedSpecIds []string `protobuf:"bytes,3,rep,name=matched_spec_ids,json=matchedSpecIds,proto3" json:"matched_spec_ids,omitempty"`
-	// broadcast_at is the time at which the data was broadcast for the first
-	// time.
+	// broadcast_at is the time at which the data was broadcast to the markets
+	// with a matching oracle spec.
+	// It has no value when the oracle date did not match any oracle spec.
+	// The value is a Unix timestamp in nanoseconds.
 	BroadcastAt int64 `protobuf:"varint,4,opt,name=broadcast_at,json=broadcastAt,proto3" json:"broadcast_at,omitempty"`
 }
 
