@@ -8917,7 +8917,7 @@
           "name": "OracleData",
           "longName": "OracleData",
           "fullName": "oracles.v1.OracleData",
-          "description": "OracleData describes an oracle data that has been broadcast.",
+          "description": "OracleData describes valid oracle data that has been received by the node.\nIt represents both matched and unmatched oracle data.",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -8949,7 +8949,7 @@
             },
             {
               "name": "matched_spec_ids",
-              "description": "matched_specs_ids lists all the oracle specs that matched this oracle data.",
+              "description": "matched_specs_ids lists all the oracle specs that matched this oracle data.\nWhen the array is empty, it means no oracle spec matched this oracle data.",
               "label": "repeated",
               "type": "string",
               "longType": "string",
@@ -8961,7 +8961,7 @@
             },
             {
               "name": "broadcast_at",
-              "description": "broadcast_at is the time at which the data was broadcast for the first\ntime.",
+              "description": "broadcast_at is the time at which the data was broadcast to the markets\nwith a matching oracle spec.\nIt has no value when the oracle date did not match any oracle spec.\nThe value is a Unix timestamp in nanoseconds.",
               "label": "",
               "type": "int64",
               "longType": "int64",
