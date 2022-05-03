@@ -14,6 +14,7 @@
 - [413](https://github.com/vegaprotocol/protos/issues/413) - Add support for sending transfers to asset/market
 - [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
 - [5423](https://github.com/vegaprotocol/vega/issue/5423) - Add new fields for equity shares to `Snapshot` types.
+- [420](https://github.com/vegaprotocol/protos/issues/420) - Enable recurring transfer to automatically dispatch reward pro-rata based on market metric
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -

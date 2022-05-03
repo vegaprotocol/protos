@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DispatchByMetricProRata",
+    "definitions": {
+        "DispatchByMetricProRata": {
+            "properties": {
+                "asset_for_metric": {
+                    "type": "string"
+                },
+                "reward_metric": {
+                    "enum": [
+                        "REWARD_METRIC_UNSPECIFIED",
+                        0,
+                        "REWARD_METRIC_TAKER_FEES_PAID",
+                        1,
+                        "REWARD_METRIC_MAKER_FEES_RECEIVED",
+                        2,
+                        "REWARD_METRIC_LP_FEES_RECEIVED",
+                        3,
+                        "REWARD_METRIC_MARKET_PROPOSER",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Reward Metric"
+                },
+                "markets": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Dispatch By Metric Pro Rata"
+        }
+    }
+}

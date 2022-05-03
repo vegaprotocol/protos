@@ -3835,6 +3835,39 @@
           ]
         },
         {
+          "name": "DispatchMetric",
+          "longName": "DispatchMetric",
+          "fullName": "vega.DispatchMetric",
+          "description": "",
+          "values": [
+            {
+              "name": "DISPATCH_METRIC_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "DISPATCH_METRIC_TAKER_FEES_PAID",
+              "number": "1",
+              "description": "Dispatch metric that is using the total taker fees paid in the market"
+            },
+            {
+              "name": "DISPATCH_METRIC_MAKER_FEES_RECEIVED",
+              "number": "2",
+              "description": "Dispatch metric that is using the total maker fees received in the market"
+            },
+            {
+              "name": "DISPATCH_METRIC_LP_FEES_RECEIVED",
+              "number": "3",
+              "description": "Dispatch metric that is using the total LP fees received in the market"
+            },
+            {
+              "name": "DISPATCH_METRIC_MARKET_VALUE",
+              "number": "4",
+              "description": "Dispatch metric that is using total value of the market if above the required threshold and not paid given proposer bonus yet"
+            }
+          ]
+        },
+        {
           "name": "EpochAction",
           "longName": "EpochAction",
           "fullName": "vega.EpochAction",
@@ -5019,6 +5052,54 @@
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DispatchStrategy",
+          "longName": "DispatchStrategy",
+          "fullName": "vega.DispatchStrategy",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset_for_metric",
+              "description": "The asset to use for metric",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "metric",
+              "description": "The metric to apply",
+              "label": "",
+              "type": "DispatchMetric",
+              "longType": "DispatchMetric",
+              "fullType": "vega.DispatchMetric",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "markets",
+              "description": "Optional markets in scope",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -8434,7 +8515,7 @@
             },
             {
               "name": "market_id",
-              "description": "Optional market ID",
+              "description": "optional dispatch strategy",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -9975,6 +10056,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "dispatch_strategy",
+              "description": "optional parameter defining how a transfer is dispatched",
+              "label": "",
+              "type": "DispatchStrategy",
+              "longType": "vega.DispatchStrategy",
+              "fullType": "vega.DispatchStrategy",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -10075,18 +10168,6 @@
             {
               "name": "reference",
               "description": "The reference to be attached to the transfer",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "market",
-              "description": "Optional market identifier",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -13582,6 +13663,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "dispatch_strategy",
+              "description": "",
+              "label": "",
+              "type": "DispatchStrategy",
+              "longType": "vega.DispatchStrategy",
+              "fullType": "vega.DispatchStrategy",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -14238,18 +14331,6 @@
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "market",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -17449,6 +17530,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "market_tracker",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -17633,6 +17726,150 @@
           ]
         },
         {
+          "name": "MarketActivityTracker",
+          "longName": "MarketActivityTracker",
+          "fullName": "vega.checkpoint.v1.MarketActivityTracker",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "asset",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "maker_fees",
+              "description": "",
+              "label": "repeated",
+              "type": "PartyFees",
+              "longType": "PartyFees",
+              "fullType": "vega.checkpoint.v1.PartyFees",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "taker_fees",
+              "description": "",
+              "label": "repeated",
+              "type": "PartyFees",
+              "longType": "PartyFees",
+              "fullType": "vega.checkpoint.v1.PartyFees",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lp_fees",
+              "description": "",
+              "label": "repeated",
+              "type": "PartyFees",
+              "longType": "PartyFees",
+              "fullType": "vega.checkpoint.v1.PartyFees",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "proposer",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "bonus_paid",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value_traded",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ready_to_delete",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MarketTracker",
+          "longName": "MarketTracker",
+          "fullName": "vega.checkpoint.v1.MarketTracker",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_activity",
+              "description": "",
+              "label": "repeated",
+              "type": "MarketActivityTracker",
+              "longType": "MarketActivityTracker",
+              "fullType": "vega.checkpoint.v1.MarketActivityTracker",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "MultisigControl",
           "longName": "MultisigControl",
           "fullName": "vega.checkpoint.v1.MultisigControl",
@@ -17728,6 +17965,42 @@
             },
             {
               "name": "amount",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PartyFees",
+          "longName": "PartyFees",
+          "fullName": "vega.checkpoint.v1.PartyFees",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fee",
               "description": "",
               "label": "",
               "type": "string",
@@ -19608,30 +19881,6 @@
           ]
         },
         {
-          "name": "FeesTracker",
-          "longName": "FeesTracker",
-          "fullName": "vega.snapshot.v1.FeesTracker",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "market_fees",
-              "description": "",
-              "label": "repeated",
-              "type": "MarketFees",
-              "longType": "MarketFees",
-              "fullType": "vega.snapshot.v1.MarketFees",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "FloatingPointConsensus",
           "longName": "FloatingPointConsensus",
           "fullName": "vega.snapshot.v1.FloatingPointConsensus",
@@ -20544,66 +20793,6 @@
           ]
         },
         {
-          "name": "MarketFees",
-          "longName": "MarketFees",
-          "fullName": "vega.snapshot.v1.MarketFees",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "market",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "maker_fees",
-              "description": "",
-              "label": "repeated",
-              "type": "PartyFees",
-              "longType": "PartyFees",
-              "fullType": "vega.snapshot.v1.PartyFees",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "taker_fees",
-              "description": "",
-              "label": "repeated",
-              "type": "PartyFees",
-              "longType": "PartyFees",
-              "fullType": "vega.snapshot.v1.PartyFees",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "lp_fees",
-              "description": "",
-              "label": "repeated",
-              "type": "PartyFees",
-              "longType": "PartyFees",
-              "fullType": "vega.snapshot.v1.PartyFees",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "MarketPositions",
           "longName": "MarketPositions",
           "fullName": "vega.snapshot.v1.MarketPositions",
@@ -20650,72 +20839,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "market_tracker",
+              "name": "market_activity",
               "description": "",
               "label": "repeated",
-              "type": "MarketVolumeTracker",
-              "longType": "MarketVolumeTracker",
-              "fullType": "vega.snapshot.v1.MarketVolumeTracker",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "MarketVolumeTracker",
-          "longName": "MarketVolumeTracker",
-          "fullName": "vega.snapshot.v1.MarketVolumeTracker",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "market_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "proposer",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "bonus_paid",
-              "description": "",
-              "label": "",
-              "type": "bool",
-              "longType": "bool",
-              "fullType": "bool",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "volume_traded",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
+              "type": "MarketActivityTracker",
+              "longType": "vega.checkpoint.v1.MarketActivityTracker",
+              "fullType": "vega.checkpoint.v1.MarketActivityTracker",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -21179,42 +21308,6 @@
             },
             {
               "name": "value",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "PartyFees",
-          "longName": "PartyFees",
-          "fullName": "vega.snapshot.v1.PartyFees",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "fee",
               "description": "",
               "label": "",
               "type": "string",
@@ -21880,18 +21973,6 @@
               "type": "FloatingPointConsensus",
               "longType": "FloatingPointConsensus",
               "fullType": "vega.snapshot.v1.FloatingPointConsensus",
-              "ismap": false,
-              "isoneof": true,
-              "oneofdecl": "data",
-              "defaultValue": ""
-            },
-            {
-              "name": "fees_tracker",
-              "description": "",
-              "label": "",
-              "type": "FeesTracker",
-              "longType": "FeesTracker",
-              "fullType": "vega.snapshot.v1.FeesTracker",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "data",
@@ -26325,6 +26406,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "dispatch_strategy",
+              "description": "",
+              "label": "",
+              "type": "DispatchStrategy",
+              "longType": "vega.DispatchStrategy",
+              "fullType": "vega.DispatchStrategy",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -26981,18 +27074,6 @@
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "market",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
