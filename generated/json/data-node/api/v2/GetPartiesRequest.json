@@ -1,13 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/TradesByPartyRequest",
+    "$ref": "#/definitions/GetPartiesRequest",
     "definitions": {
-        "TradesByPartyRequest": {
+        "GetPartiesRequest": {
             "properties": {
                 "party_id": {
-                    "type": "string"
-                },
-                "market_id": {
                     "type": "string"
                 },
                 "cursor": {
@@ -17,7 +14,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Trades By Party Request"
+            "title": "Get Parties Request",
+            "description": "-- Parties --"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

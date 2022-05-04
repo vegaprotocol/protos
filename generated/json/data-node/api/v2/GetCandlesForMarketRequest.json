@@ -12,7 +12,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Get Candles For Market Request",
-            "description": "Request to get a list of supported intervals for the given market along with the corresponding candle id"
+            "description": "-- Candles -- Request to get a list of supported intervals for the given market along with the corresponding candle id"
         }
     }
 }

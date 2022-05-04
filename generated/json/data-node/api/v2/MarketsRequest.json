@@ -8,7 +8,7 @@
                     "type": "string"
                 },
                 "cursor": {
-                    "$ref": "#/definitions/datanode.api.v2.Cursor",
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true
                 }
             },
@@ -16,7 +16,7 @@
             "type": "object",
             "title": "Markets Request"
         },
-        "datanode.api.v2.Cursor": {
+        "datanode.api.v2.Pagination": {
             "properties": {
                 "first": {
                     "type": "integer"
@@ -33,7 +33,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Cursor",
+            "title": "Pagination",
             "description": "Cursor information for cursor based pagination requests"
         }
     }

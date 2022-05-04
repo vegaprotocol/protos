@@ -14,7 +14,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Trade Edge"
+            "title": "Trade Edge",
+            "description": "-- Trades --"
         },
         "vega.Fee": {
             "properties": {
