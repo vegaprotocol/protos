@@ -7,7 +7,7 @@
                 "party_id": {
                     "type": "string"
                 },
-                "cursor": {
+                "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true
                 }

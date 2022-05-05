@@ -383,7 +383,7 @@ message TradeConnection {
 
 message GetTradesByMarketRequest {
     string market_id = 1;
-    Pagination cursor = 2;
+    Pagination pagination = 2;
 }
 
 message GetTradesByMarketResponse {
@@ -393,7 +393,7 @@ message GetTradesByMarketResponse {
 message GetTradesByPartyRequest {
     string party_id = 1;
     string market_id = 2;
-    Pagination cursor = 3;
+    Pagination pagination = 3;
 }
 
 message GetTradesByPartyResponse {
@@ -403,7 +403,7 @@ message GetTradesByPartyResponse {
 // -- Markets --
 message GetMarketsRequest {
     string market_id = 1;
-    Pagination cursor = 2;
+    Pagination pagination = 2;
 }
 
 message GetMarketsResponse {
@@ -424,7 +424,7 @@ message MarketConnection {
 // -- Parties --
 message GetPartiesRequest {
     string party_id = 1;
-    Pagination cursor = 2;
+    Pagination pagination = 2;
 }
 
 message GetPartiesResponse {
