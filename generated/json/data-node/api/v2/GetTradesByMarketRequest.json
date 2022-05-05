@@ -1,8 +1,22 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/Pagination",
+    "$ref": "#/definitions/GetTradesByMarketRequest",
     "definitions": {
-        "Pagination": {
+        "GetTradesByMarketRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Trades By Market Request"
+        },
+        "datanode.api.v2.Pagination": {
             "properties": {
                 "first": {
                     "type": "integer"

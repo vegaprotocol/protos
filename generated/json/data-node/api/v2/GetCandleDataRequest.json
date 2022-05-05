@@ -21,7 +21,7 @@
                     "description": "Time interval for the candles, required field specified as a valid postgres interval"
                 },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "$ref": "#/definitions/datanode.api.v2.OffsetPagination",
                     "additionalProperties": true,
                     "description": "pagination controls"
                 }
@@ -31,7 +31,7 @@
             "title": "Get Candle Data Request",
             "description": "Request for a list of candles for a market at an interval"
         },
-        "datanode.api.v2.Pagination": {
+        "datanode.api.v2.OffsetPagination": {
             "properties": {
                 "skip": {
                     "type": "string",
@@ -48,8 +48,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Pagination",
-            "description": "Pagination controls"
+            "title": "Offset Pagination",
+            "description": "-- Pagination -- Pagination controls"
         }
     }
 }

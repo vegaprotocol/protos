@@ -3,154 +3,194 @@ syntax = "proto3";
 option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 
 import "vega/vega.proto";
+import "vega/markets.proto";
 
 package datanode.api.v2;
 
 service TradingDataService {
     // -- Orders --
-
     // Get a list of Orders by Market
-    rpc OrdersByMarket(OrdersByMarketRequest) returns (OrdersByMarketResponse);
-
-
+    rpc GetOrdersByMarket(GetOrdersByMarketRequest) returns (GetOrdersByMarketResponse);
     // Get all versions of the order by its orderID
-    rpc OrderVersionsByID(OrderVersionsByIDRequest) returns (OrderVersionsByIDResponse);
+    rpc GetOrderVersionsByID(GetOrderVersionsByIDRequest) returns (GetOrderVersionsByIDResponse);
 
     // -- Balances --
-
     // Get an aggregated list of the changes in balances in a set of accounts over time
-    rpc QueryBalanceHistory(QueryBalanceHistoryRequest) returns (QueryBalanceHistoryResponse) {}
+    rpc GetBalanceHistory(GetBalanceHistoryRequest) returns (GetBalanceHistoryResponse) {}
 
     // -- Market Data --
-
     // Get Market Data History for a Market ID between given dates
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
 
     // -- Network Limits --
-
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
     rpc GetNetworkLimits(GetNetworkLimitsRequest) returns (GetNetworkLimitsResponse);
 
     // -- Candles --
-
     // Get candle data for a given candle id
     rpc GetCandleData(GetCandleDataRequest) returns (GetCandleDataResponse);
-
     // Subscribe to a stream of Candle updates
     rpc SubscribeToCandleData(SubscribeToCandleDataRequest) returns (stream SubscribeToCandleDataResponse);
-
     // Gets all available intervals for a given market along with the corresponding candle id
     rpc GetCandlesForMarket(GetCandlesForMarketRequest) returns (GetCandlesForMarketResponse);
 
+    // -- ERC20 Multi Sig --
     // Gets the signature bundles that add a particular validator to the multisig contract
     rpc GetERC20MultiSigSignerAddedBundles(GetERC20MultiSigSignerAddedBundlesRequest) returns (GetERC20MultiSigSignerAddedBundlesResponse);
-
     // Gets the signature bundles that remove a particular validator to the multisig contract
     rpc GetERC20MultiSigSignerRemovedBundles(GetERC20MultiSigSignerRemovedBundlesRequest) returns (GetERC20MultiSigSignerRemovedBundlesResponse);
 
+    // -- Trades --
+    // Get trades by market using a cursor based pagination model
+    rpc GetTradesByMarket(GetTradesByMarketRequest) returns (GetTradesByMarketResponse);
+    // Get trades by party using a cursor based pagination model
+    rpc GetTradesByParty(GetTradesByPartyRequest) returns (GetTradesByPartyResponse);
+
+    // -- Markets --
+    // Get all markets using a cursor based pagination model
+    rpc GetMarkets(GetMarketsRequest) returns (GetMarketsResponse);
+
+    // -- Parties --
+    // Get Parties using a cursor based pagination model
+    rpc GetParties(GetPartiesRequest) returns (GetPartiesResponse);
 }
 
+// -- Pagination --
+// Pagination controls
+message OffsetPagination {
+    // Skip the number of records specified, default is 0
+    uint64 skip = 1;
+    // Limit the number of returned records to the value specified, default is 50
+    uint64 limit = 2;
+    // Descending reverses the order of the records returned,
+    // default is true, if false the results will be returned in ascending order
+    bool descending = 3;
+}
 
-message GetERC20MultiSigSignerAddedBundlesRequest {
+// Cursor information for cursor based pagination requests
+message Pagination {
+    optional int32 first = 1;
+    optional string after = 2;
+    optional int32 last = 3;
+    optional string before = 4;
+}
 
-    // The node id of the validator of which a signature bundle is required
-    string node_id = 1;
+// Page information for cursor based pagination
+message PageInfo {
+    bool has_next_page = 1;
+    bool has_previous_page = 2;
+    string start_cursor = 3;
+    string end_cursor = 4;
+}
 
-    // The epoch which generated the bundle i.e the epoch in which the node became a tendermint validator
-    string epoch_seq = 2;
+// -- Orders --
+// Request for a list of orders for a market
+message GetOrdersByMarketRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional pagination controls
+    OffsetPagination pagination = 2;
+}
 
+// Response for a list of orders for a market
+message GetOrdersByMarketResponse {
+    // A list of 0 or more orders
+    repeated vega.Order orders = 1;
+}
+
+// Request for a list of all versions of an order given the specified order identifier
+message GetOrderVersionsByIDRequest {
+    // Order identifier, required field
+    string order_id = 1;
     // Pagination controls
-    Pagination pagination = 3;
+    OffsetPagination pagination = 2;
 }
 
-message GetERC20MultiSigSignerAddedBundlesResponse {
-
-    // list of bundles for that validator, it may have been added multiple times if removed in between
-    repeated ERC20MultiSigSignerAddedBundle bundles = 1;
+// Response to a request for a list of all versions of an order
+message GetOrderVersionsByIDResponse {
+    // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
+    repeated vega.Order orders = 1;
 }
 
-message ERC20MultiSigSignerAddedBundle {
-
-    // The ethereum address of the signer to be removed
-    string new_signer = 1;
-
-    // The ethereum address of the submitter
-    string submitter = 2;
-
-    // The nonce used in the signing operation
-    string nonce = 4;
-
-    // unixnano timestamp for when the validator was added
-    int64 timestamp = 5;
-
-    // The bundle of signatures from current validators to sign in the new signer
-    string signatures = 6;
-
-    // The epoch in which the validator was added
-    string epoch_seq = 3;
-
+// -- Balances --
+message GetBalanceHistoryRequest {
+    // Limit the accounts considered according to the filter supplied
+    AccountFilter filter = 1;
+    // By default the net balances of all the accounts specified by the filter are returned.
+    // If a list if fields is given in group_by, split out those balances by the supplied crietera.
+    repeated AccountField group_by = 2;
 }
 
-message GetERC20MultiSigSignerRemovedBundlesRequest {
-    // The node id of the validator of which a signature bundle is required
-    string node_id = 1;
-
-    // The ethereum address of the validator which will submit the bundle
-    string submitter = 2;
-
-    // The epoch which generated the bundle i.e the epoch in which the node was demoted from a tendermint validator
-    string epoch_seq = 3;
-
-    // Pagination controls
-    Pagination pagination = 4;
+message GetBalanceHistoryResponse {
+    repeated AggregatedBalance balances = 1;
 }
 
-message GetERC20MultiSigSignerRemovedBundlesResponse {
-    // list of signer bundles for that validator
-    repeated ERC20MultiSigSignerRemovedBundle bundles = 1;
+message AccountFilter{
+    // Restrict accounts to those holding balances in this asset ID
+    string asset_id = 1;
+    // Restrict accounts to those owned by the parties in this list (pass an empty list for no filter)
+    repeated string party_ids = 2;
+    // Restrict accounts to those connected to the marketsin this list (pass an empty list for no filter)
+    repeated string market_ids = 3;
+    // Restrict accounts to those connected to any of the types in this list (pass an empty list for no filter)
+    repeated vega.AccountType account_types = 4;
 }
 
-message ERC20MultiSigSignerRemovedBundle {
-
-    // The ethereum address of the signer to be removed
-    string old_signer = 1;
-
-    // The ethereum address of the submitter
-    string submitter = 2;
-
-    // The nonce used in the signing operation
-    string nonce = 4;
-
-    // unixnano timestamp for when the validator was added
-    int64 timestamp = 5;
-
-    // The bundle of signatures from current validators to sign in the new signer
-    string signatures = 6;
-
-    // The epoch in which the validator was removed
-    string epoch_seq = 7;
-
+// A list of the properties of an account, used for grouping
+enum AccountField {
+    ACCOUNT_FIELD_UNSPECIFIED = 0;
+    ACCOUNT_FIELD_ID = 1;
+    ACCOUNT_FIELD_PARTY_ID = 2;
+    ACCOUNT_FIELD_ASSET_ID = 3;
+    ACCOUNT_FIELD_MARKET_ID = 4;
+    ACCOUNT_FIELD_TYPE = 5;
 }
 
-// A request to get an asset bundle details
-message GetERC20AssetBundleRequest {
-  // The ID of the asset requested
-  string asset_id = 1;
+message AggregatedBalance {
+    // Timestamp to of block the balance is referring to, in nanoseconds since the epoch
+    int64 timestamp = 1;
+    // The balance of the set of requested accounts at the time above
+    string balance = 2;
+    // If grouping by account ID, the account ID
+    optional string account_id = 3;
+    // If grouping by party, the party ID
+    optional string party_id = 4;
+    // If grouping by asset, the asset ID
+    optional string asset_id = 5;
+    // If grouping by market, the market ID
+    optional string market_id = 6;
+    // If grouping by account type, the account type
+    vega.AccountType account_type = 7;
 }
 
-// The response with all information required to bundle the call to propose an erc20 asset
-message GetERC20AssetBundleResponse {
-  // The address of the asset on ethereum
-  string asset_source = 1;
-  // The ID of the vega asset
-  string vega_asset_id = 2;
-  // The nonce, which is actually the internal reference for the proposal
-  string nonce = 3;
-   // The signatures bundle as hex encoded data, forward by 0x
-  // e.g: 0x + sig1 + sig2 + ... + sixN
-  string signatures = 4;
+// -- Market Data --
+// Request for Market Data History
+message GetMarketDataHistoryByIDRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional Unix time in nanoseconds
+    optional int64 start_timestamp = 2;
+    // Optional Unix time in nanoseconds
+    optional int64 end_timestamp = 3;
+    // Optional pagination control
+    optional OffsetPagination pagination = 4;
 }
 
+// Response for Market Data History
+message GetMarketDataHistoryByIDResponse {
+    repeated vega.MarketData market_data = 1;
+}
+
+// -- Network Limits --
+// Request for the current network limits
+message GetNetworkLimitsRequest {}
+
+// Response for the current network limits
+message GetNetworkLimitsResponse {
+    vega.NetworkLimits limits = 1;
+}
+
+// -- Candles --
 // Request to get a list of supported intervals for the given market along with the corresponding candle id
 message GetCandlesForMarketRequest {
     // The unique identifier for the market
@@ -170,7 +210,6 @@ message IntervalToCandleId {
 message GetCandlesForMarketResponse {
     repeated IntervalToCandleId interval_to_candle_id = 1;
 }
-
 
 // Represents the high, low, open, and closing prices for an interval of trading,
 // referred to commonly as a candlestick or candle
@@ -220,7 +259,7 @@ message GetCandleDataRequest {
     string interval = 4;
 
     // pagination controls
-    Pagination pagination = 5;
+    OffsetPagination pagination = 5;
 }
 
 // Response for list of candles for a market at an interval
@@ -229,118 +268,176 @@ message GetCandleDataResponse {
     repeated Candle candles = 1;
 }
 
-// Request for the current network limits
-message GetNetworkLimitsRequest {}
+// -- ERC20 Multi Sig --
+message GetERC20MultiSigSignerAddedBundlesRequest {
 
-// Response for the current network limits
-message GetNetworkLimitsResponse {
-    vega.NetworkLimits limits = 1;
-}
+    // The node id of the validator of which a signature bundle is required
+    string node_id = 1;
 
+    // The epoch which generated the bundle i.e the epoch in which the node became a tendermint validator
+    string epoch_seq = 2;
 
-// Request for a list of orders for a market
-message OrdersByMarketRequest {
-    // Market identifier, required field
-    string market_id = 1;
-    // Optional pagination controls
-    Pagination pagination = 2;
-}
-
-// Response for a list of orders for a market
-message OrdersByMarketResponse {
-    // A list of 0 or more orders
-    repeated vega.Order orders = 1;
-}
-
-
-// Request for a list of all versions of an order given the specified order identifier
-message OrderVersionsByIDRequest {
-    // Order identifier, required field
-    string order_id = 1;
     // Pagination controls
+    OffsetPagination pagination = 3;
+}
+
+message GetERC20MultiSigSignerAddedBundlesResponse {
+
+    // list of bundles for that validator, it may have been added multiple times if removed in between
+    repeated ERC20MultiSigSignerAddedBundle bundles = 1;
+}
+
+message ERC20MultiSigSignerAddedBundle {
+
+    // The ethereum address of the signer to be removed
+    string new_signer = 1;
+
+    // The ethereum address of the submitter
+    string submitter = 2;
+
+    // The nonce used in the signing operation
+    string nonce = 4;
+
+    // unixnano timestamp for when the validator was added
+    int64 timestamp = 5;
+
+    // The bundle of signatures from current validators to sign in the new signer
+    string signatures = 6;
+
+    // The epoch in which the validator was added
+    string epoch_seq = 3;
+
+}
+
+message GetERC20MultiSigSignerRemovedBundlesRequest {
+    // The node id of the validator of which a signature bundle is required
+    string node_id = 1;
+
+    // The ethereum address of the validator which will submit the bundle
+    string submitter = 2;
+
+    // The epoch which generated the bundle i.e the epoch in which the node was demoted from a tendermint validator
+    string epoch_seq = 3;
+
+    // Pagination controls
+    OffsetPagination pagination = 4;
+}
+
+message GetERC20MultiSigSignerRemovedBundlesResponse {
+    // list of signer bundles for that validator
+    repeated ERC20MultiSigSignerRemovedBundle bundles = 1;
+}
+
+message ERC20MultiSigSignerRemovedBundle {
+
+    // The ethereum address of the signer to be removed
+    string old_signer = 1;
+
+    // The ethereum address of the submitter
+    string submitter = 2;
+
+    // The nonce used in the signing operation
+    string nonce = 4;
+
+    // unixnano timestamp for when the validator was added
+    int64 timestamp = 5;
+
+    // The bundle of signatures from current validators to sign in the new signer
+    string signatures = 6;
+
+    // The epoch in which the validator was removed
+    string epoch_seq = 7;
+
+}
+
+// A request to get an asset bundle details
+message GetERC20AssetBundleRequest {
+  // The ID of the asset requested
+  string asset_id = 1;
+}
+
+// The response with all information required to bundle the call to propose an erc20 asset
+message GetERC20AssetBundleResponse {
+  // The address of the asset on ethereum
+  string asset_source = 1;
+  // The ID of the vega asset
+  string vega_asset_id = 2;
+  // The nonce, which is actually the internal reference for the proposal
+  string nonce = 3;
+   // The signatures bundle as hex encoded data, forward by 0x
+  // e.g: 0x + sig1 + sig2 + ... + sixN
+  string signatures = 4;
+}
+
+// -- Trades --
+message TradeEdge {
+    vega.Trade node = 1;
+    string cursor = 2;
+}
+
+message TradeConnection {
+    int64 total_count = 1;
+    repeated TradeEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+message GetTradesByMarketRequest {
+    string market_id = 1;
     Pagination pagination = 2;
 }
 
-  // Response to a request for a list of all versions of an order
-message OrderVersionsByIDResponse {
-    // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
-    repeated vega.Order orders = 1;
+message GetTradesByMarketResponse {
+    TradeConnection trades = 1;
 }
 
-message QueryBalanceHistoryRequest {
-    // Limit the accounts considered according to the filter supplied
-    AccountFilter filter = 1;
-    // By default the net balances of all the accounts specified by the filter are returned.
-    // If a list if fields is given in group_by, split out those balances by the supplied crietera.
-    repeated AccountField group_by = 2;
+message GetTradesByPartyRequest {
+    string party_id = 1;
+    string market_id = 2;
+    Pagination pagination = 3;
 }
 
-message QueryBalanceHistoryResponse {
-    repeated AggregatedBalance balances = 1;
+message GetTradesByPartyResponse {
+    TradeConnection trades = 1;
 }
 
-message AccountFilter{
-    // Restrict accounts to those holding balances in this asset ID
-    string asset_id = 1;
-    // Restrict accounts to those owned by the parties in this list (pass an empty list for no filter)
-    repeated string party_ids = 2;
-    // Restrict accounts to those connected to the marketsin this list (pass an empty list for no filter)
-    repeated string market_ids = 3;
-    // Restrict accounts to those connected to any of the types in this list (pass an empty list for no filter)
-    repeated vega.AccountType account_types = 4;
-}
-
-// A list of the properties of an account, used for grouping
-enum AccountField {
-    ACCOUNT_FIELD_UNSPECIFIED = 0;
-    ACCOUNT_FIELD_ID = 1;
-    ACCOUNT_FIELD_PARTY_ID = 2;
-    ACCOUNT_FIELD_ASSET_ID = 3;
-    ACCOUNT_FIELD_MARKET_ID = 4;
-    ACCOUNT_FIELD_TYPE = 5;
-}
-
-message AggregatedBalance {
-    // Timestamp to of block the balance is referring to, in nanoseconds since the epoch
-    int64 timestamp = 1;
-    // The balance of the set of requested accounts at the time above
-    string balance = 2;
-    // If grouping by account ID, the account ID
-    optional string account_id = 3;
-    // If grouping by party, the party ID
-    optional string party_id = 4;
-    // If grouping by asset, the asset ID
-    optional string asset_id = 5;
-    // If grouping by market, the market ID
-    optional string market_id = 6;
-    // If grouping by account type, the account type
-    vega.AccountType account_type = 7;
-}
-
-// Pagination controls
-message Pagination {
-    // Skip the number of records specified, default is 0
-    uint64 skip = 1;
-    // Limit the number of returned records to the value specified, default is 50
-    uint64 limit = 2;
-    // Descending reverses the order of the records returned,
-    // default is true, if false the results will be returned in ascending order
-    bool descending = 3;
-}
-
-// Request for Market Data History
-message GetMarketDataHistoryByIDRequest {
-    // Market identifier, required field
+// -- Markets --
+message GetMarketsRequest {
     string market_id = 1;
-    // Optional Unix time in nanoseconds
-    optional int64 start_timestamp = 2;
-    // Optional Unix time in nanoseconds
-    optional int64 end_timestamp = 3;
-    // Optional pagination control
-    optional Pagination pagination = 4;
+    Pagination pagination = 2;
 }
 
-// Response for Market Data History
-message GetMarketDataHistoryByIDResponse {
-    repeated vega.MarketData market_data = 1;
+message GetMarketsResponse {
+    MarketConnection markets = 1;
+}
+
+message MarketEdge {
+    vega.Market node = 1;
+    string cursor = 2;
+}
+
+message MarketConnection {
+    int64 total_count = 1;
+    repeated MarketEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Parties --
+message GetPartiesRequest {
+    string party_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetPartiesResponse {
+    PartyConnection party = 1;
+}
+
+message PartyEdge {
+    vega.Party node = 1;
+    string cursor = 2;
+}
+
+message PartyConnection {
+    int64 total_count = 1;
+    repeated PartyEdge edges = 2;
+    PageInfo page_info = 3;
 }

@@ -9,7 +9,7 @@
                     "description": "Market identifier, required field"
                 },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "$ref": "#/definitions/datanode.api.v2.OffsetPagination",
                     "additionalProperties": true,
                     "description": "Optional pagination controls"
                 }
@@ -19,7 +19,7 @@
             "title": "Orders By Market Request",
             "description": "Request for a list of orders for a market"
         },
-        "datanode.api.v2.Pagination": {
+        "datanode.api.v2.OffsetPagination": {
             "properties": {
                 "skip": {
                     "type": "string",
@@ -36,7 +36,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Pagination",
+            "title": "Offset Pagination",
             "description": "Pagination controls"
         }
     }
