@@ -163,12 +163,14 @@ type TradingDataServiceClient interface {
 	NetworkParameters(ctx context.Context, in *NetworkParametersRequest, opts ...grpc.CallOption) (*NetworkParametersResponse, error)
 	// Get the liquidity provision orders
 	LiquidityProvisions(ctx context.Context, in *LiquidityProvisionsRequest, opts ...grpc.CallOption) (*LiquidityProvisionsResponse, error)
-	// Get an oracle spec by ID
+	// Get an oracle spec by ID.
 	OracleSpec(ctx context.Context, in *OracleSpecRequest, opts ...grpc.CallOption) (*OracleSpecResponse, error)
 	// Get the oracle specs
 	OracleSpecs(ctx context.Context, in *OracleSpecsRequest, opts ...grpc.CallOption) (*OracleSpecsResponse, error)
-	// Get all oracle data
+	// Get oracle data that matched the given spec
 	OracleDataBySpec(ctx context.Context, in *OracleDataBySpecRequest, opts ...grpc.CallOption) (*OracleDataBySpecResponse, error)
+	// Get all oracle data
+	ListOracleData(ctx context.Context, in *ListOracleDataRequest, opts ...grpc.CallOption) (*ListOracleDataResponse, error)
 	// subscribe to rewards
 	ObserveRewards(ctx context.Context, in *ObserveRewardsRequest, opts ...grpc.CallOption) (TradingDataService_ObserveRewardsClient, error)
 	// Get rewards
@@ -1177,6 +1179,15 @@ func (c *tradingDataServiceClient) OracleDataBySpec(ctx context.Context, in *Ora
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) ListOracleData(ctx context.Context, in *ListOracleDataRequest, opts ...grpc.CallOption) (*ListOracleDataResponse, error) {
+	out := new(ListOracleDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v1.TradingDataService/ListOracleData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tradingDataServiceClient) ObserveRewards(ctx context.Context, in *ObserveRewardsRequest, opts ...grpc.CallOption) (TradingDataService_ObserveRewardsClient, error) {
 	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[15], "/datanode.api.v1.TradingDataService/ObserveRewards", opts...)
 	if err != nil {
@@ -1449,12 +1460,14 @@ type TradingDataServiceServer interface {
 	NetworkParameters(context.Context, *NetworkParametersRequest) (*NetworkParametersResponse, error)
 	// Get the liquidity provision orders
 	LiquidityProvisions(context.Context, *LiquidityProvisionsRequest) (*LiquidityProvisionsResponse, error)
-	// Get an oracle spec by ID
+	// Get an oracle spec by ID.
 	OracleSpec(context.Context, *OracleSpecRequest) (*OracleSpecResponse, error)
 	// Get the oracle specs
 	OracleSpecs(context.Context, *OracleSpecsRequest) (*OracleSpecsResponse, error)
-	// Get all oracle data
+	// Get oracle data that matched the given spec
 	OracleDataBySpec(context.Context, *OracleDataBySpecRequest) (*OracleDataBySpecResponse, error)
+	// Get all oracle data
+	ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error)
 	// subscribe to rewards
 	ObserveRewards(*ObserveRewardsRequest, TradingDataService_ObserveRewardsServer) error
 	// Get rewards
@@ -1689,6 +1702,9 @@ func (UnimplementedTradingDataServiceServer) OracleSpecs(context.Context, *Oracl
 }
 func (UnimplementedTradingDataServiceServer) OracleDataBySpec(context.Context, *OracleDataBySpecRequest) (*OracleDataBySpecResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OracleDataBySpec not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOracleData not implemented")
 }
 func (UnimplementedTradingDataServiceServer) ObserveRewards(*ObserveRewardsRequest, TradingDataService_ObserveRewardsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ObserveRewards not implemented")
@@ -3058,6 +3074,24 @@ func _TradingDataService_OracleDataBySpec_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_ListOracleData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOracleDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListOracleData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v1.TradingDataService/ListOracleData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListOracleData(ctx, req.(*ListOracleDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TradingDataService_ObserveRewards_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(ObserveRewardsRequest)
 	if err := stream.RecvMsg(m); err != nil {
@@ -3456,6 +3490,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OracleDataBySpec",
 			Handler:    _TradingDataService_OracleDataBySpec_Handler,
+		},
+		{
+			MethodName: "ListOracleData",
+			Handler:    _TradingDataService_ListOracleData_Handler,
 		},
 		{
 			MethodName: "GetRewards",

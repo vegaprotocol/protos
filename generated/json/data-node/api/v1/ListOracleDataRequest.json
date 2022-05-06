@@ -1,24 +1,20 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetERC20MutlsigSignerAddedBundlesRequest",
+    "$ref": "#/definitions/ListOracleDataRequest",
     "definitions": {
-        "GetERC20MutlsigSignerAddedBundlesRequest": {
+        "ListOracleDataRequest": {
             "properties": {
-                "node_id": {
-                    "type": "string",
-                    "description": "The node id of the validator of which a signature bundle is required"
-                },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true,
-                    "description": "Pagination controls"
+                    "$ref": "#/definitions/datanode.api.v1.Pagination",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get ERC 20 Mutlsig Signer Added Bundles Request"
+            "title": "List Oracle Data Request",
+            "description": "The request to get all seen oracle data"
         },
-        "datanode.api.v2.Pagination": {
+        "datanode.api.v1.Pagination": {
             "properties": {
                 "skip": {
                     "type": "string",
