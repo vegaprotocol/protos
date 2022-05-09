@@ -7573,7 +7573,8 @@ type OracleSpecRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// The id to get the oracle spec for
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id         string      `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Pagination *Pagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
 func (x *OracleSpecRequest) Reset() {
@@ -7613,6 +7614,13 @@ func (x *OracleSpecRequest) GetId() string {
 		return x.Id
 	}
 	return ""
+}
+
+func (x *OracleSpecRequest) GetPagination() *Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
 }
 
 // A response for a oracle spec
@@ -7669,6 +7677,8 @@ type OracleSpecsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Pagination *Pagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
 func (x *OracleSpecsRequest) Reset() {
@@ -7701,6 +7711,13 @@ func (x *OracleSpecsRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use OracleSpecsRequest.ProtoReflect.Descriptor instead.
 func (*OracleSpecsRequest) Descriptor() ([]byte, []int) {
 	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{149}
+}
+
+func (x *OracleSpecsRequest) GetPagination() *Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
 }
 
 // The response for a list of withdrawals
@@ -7759,7 +7776,8 @@ type OracleDataBySpecRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// The id to get the oracle spec for
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id         string      `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Pagination *Pagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
 func (x *OracleDataBySpecRequest) Reset() {
@@ -7799,6 +7817,13 @@ func (x *OracleDataBySpecRequest) GetId() string {
 		return x.Id
 	}
 	return ""
+}
+
+func (x *OracleDataBySpecRequest) GetPagination() *Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
 }
 
 // The response for a list of all oracle data broadcast to a given spec
@@ -7850,6 +7875,103 @@ func (x *OracleDataBySpecResponse) GetOracleData() []*v12.OracleData {
 	return nil
 }
 
+// The request to get all seen oracle data
+type ListOracleDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Pagination *Pagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (x *ListOracleDataRequest) Reset() {
+	*x = ListOracleDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[153]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListOracleDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOracleDataRequest) ProtoMessage() {}
+
+func (x *ListOracleDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[153]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOracleDataRequest.ProtoReflect.Descriptor instead.
+func (*ListOracleDataRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{153}
+}
+
+func (x *ListOracleDataRequest) GetPagination() *Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+// The response to get all seen oracle data
+type ListOracleDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The list of seen oracle data
+	OracleData []*v12.OracleData `protobuf:"bytes,1,rep,name=oracle_data,json=oracleData,proto3" json:"oracle_data,omitempty"`
+}
+
+func (x *ListOracleDataResponse) Reset() {
+	*x = ListOracleDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[154]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListOracleDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOracleDataResponse) ProtoMessage() {}
+
+func (x *ListOracleDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[154]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOracleDataResponse.ProtoReflect.Descriptor instead.
+func (*ListOracleDataResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{154}
+}
+
+func (x *ListOracleDataResponse) GetOracleData() []*v12.OracleData {
+	if x != nil {
+		return x.OracleData
+	}
+	return nil
+}
+
 type ObserveRewardsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7862,7 +7984,7 @@ type ObserveRewardsRequest struct {
 func (x *ObserveRewardsRequest) Reset() {
 	*x = ObserveRewardsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[153]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[155]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7875,7 +7997,7 @@ func (x *ObserveRewardsRequest) String() string {
 func (*ObserveRewardsRequest) ProtoMessage() {}
 
 func (x *ObserveRewardsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[153]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[155]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7888,7 +8010,7 @@ func (x *ObserveRewardsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObserveRewardsRequest.ProtoReflect.Descriptor instead.
 func (*ObserveRewardsRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{153}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{155}
 }
 
 func (x *ObserveRewardsRequest) GetAssetId() string {
@@ -7916,7 +8038,7 @@ type ObserveRewardsResponse struct {
 func (x *ObserveRewardsResponse) Reset() {
 	*x = ObserveRewardsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[154]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[156]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7929,7 +8051,7 @@ func (x *ObserveRewardsResponse) String() string {
 func (*ObserveRewardsResponse) ProtoMessage() {}
 
 func (x *ObserveRewardsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[154]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[156]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7942,7 +8064,7 @@ func (x *ObserveRewardsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObserveRewardsResponse.ProtoReflect.Descriptor instead.
 func (*ObserveRewardsResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{154}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{156}
 }
 
 func (x *ObserveRewardsResponse) GetReward() *vega.Reward {
@@ -7965,7 +8087,7 @@ type GetRewardSummariesRequest struct {
 func (x *GetRewardSummariesRequest) Reset() {
 	*x = GetRewardSummariesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[155]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[157]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7978,7 +8100,7 @@ func (x *GetRewardSummariesRequest) String() string {
 func (*GetRewardSummariesRequest) ProtoMessage() {}
 
 func (x *GetRewardSummariesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[155]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[157]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7991,7 +8113,7 @@ func (x *GetRewardSummariesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRewardSummariesRequest.ProtoReflect.Descriptor instead.
 func (*GetRewardSummariesRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{155}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{157}
 }
 
 func (x *GetRewardSummariesRequest) GetPartyId() string {
@@ -8020,7 +8142,7 @@ type GetRewardSummariesResponse struct {
 func (x *GetRewardSummariesResponse) Reset() {
 	*x = GetRewardSummariesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[156]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[158]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8033,7 +8155,7 @@ func (x *GetRewardSummariesResponse) String() string {
 func (*GetRewardSummariesResponse) ProtoMessage() {}
 
 func (x *GetRewardSummariesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[156]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[158]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8046,7 +8168,7 @@ func (x *GetRewardSummariesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRewardSummariesResponse.ProtoReflect.Descriptor instead.
 func (*GetRewardSummariesResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{156}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{158}
 }
 
 func (x *GetRewardSummariesResponse) GetSummaries() []*vega.RewardSummary {
@@ -8070,7 +8192,7 @@ type GetRewardsRequest struct {
 func (x *GetRewardsRequest) Reset() {
 	*x = GetRewardsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[157]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[159]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8083,7 +8205,7 @@ func (x *GetRewardsRequest) String() string {
 func (*GetRewardsRequest) ProtoMessage() {}
 
 func (x *GetRewardsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[157]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[159]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8096,7 +8218,7 @@ func (x *GetRewardsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRewardsRequest.ProtoReflect.Descriptor instead.
 func (*GetRewardsRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{157}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{159}
 }
 
 func (x *GetRewardsRequest) GetPartyId() string {
@@ -8132,7 +8254,7 @@ type GetRewardsResponse struct {
 func (x *GetRewardsResponse) Reset() {
 	*x = GetRewardsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[158]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[160]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8145,7 +8267,7 @@ func (x *GetRewardsResponse) String() string {
 func (*GetRewardsResponse) ProtoMessage() {}
 
 func (x *GetRewardsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[158]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[160]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8158,7 +8280,7 @@ func (x *GetRewardsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRewardsResponse.ProtoReflect.Descriptor instead.
 func (*GetRewardsResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{158}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{160}
 }
 
 func (x *GetRewardsResponse) GetRewards() []*vega.Reward {
@@ -8182,7 +8304,7 @@ type Checkpoint struct {
 func (x *Checkpoint) Reset() {
 	*x = Checkpoint{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[159]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[161]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8195,7 +8317,7 @@ func (x *Checkpoint) String() string {
 func (*Checkpoint) ProtoMessage() {}
 
 func (x *Checkpoint) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[159]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[161]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8208,7 +8330,7 @@ func (x *Checkpoint) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Checkpoint.ProtoReflect.Descriptor instead.
 func (*Checkpoint) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{159}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{161}
 }
 
 func (x *Checkpoint) GetHash() string {
@@ -8242,7 +8364,7 @@ type CheckpointsRequest struct {
 func (x *CheckpointsRequest) Reset() {
 	*x = CheckpointsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[160]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[162]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8255,7 +8377,7 @@ func (x *CheckpointsRequest) String() string {
 func (*CheckpointsRequest) ProtoMessage() {}
 
 func (x *CheckpointsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[160]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[162]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8268,7 +8390,7 @@ func (x *CheckpointsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckpointsRequest.ProtoReflect.Descriptor instead.
 func (*CheckpointsRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{160}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{162}
 }
 
 // Response message containing all checkpoints requested
@@ -8283,7 +8405,7 @@ type CheckpointsResponse struct {
 func (x *CheckpointsResponse) Reset() {
 	*x = CheckpointsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[161]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[163]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8296,7 +8418,7 @@ func (x *CheckpointsResponse) String() string {
 func (*CheckpointsResponse) ProtoMessage() {}
 
 func (x *CheckpointsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[161]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[163]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8309,7 +8431,7 @@ func (x *CheckpointsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckpointsResponse.ProtoReflect.Descriptor instead.
 func (*CheckpointsResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{161}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{163}
 }
 
 func (x *CheckpointsResponse) GetCheckpoints() []*Checkpoint {
@@ -8330,7 +8452,7 @@ type GetRiskFactorsRequest struct {
 func (x *GetRiskFactorsRequest) Reset() {
 	*x = GetRiskFactorsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[162]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[164]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8343,7 +8465,7 @@ func (x *GetRiskFactorsRequest) String() string {
 func (*GetRiskFactorsRequest) ProtoMessage() {}
 
 func (x *GetRiskFactorsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[162]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[164]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8356,7 +8478,7 @@ func (x *GetRiskFactorsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRiskFactorsRequest.ProtoReflect.Descriptor instead.
 func (*GetRiskFactorsRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{162}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{164}
 }
 
 func (x *GetRiskFactorsRequest) GetMarketId() string {
@@ -8377,7 +8499,7 @@ type GetRiskFactorsResponse struct {
 func (x *GetRiskFactorsResponse) Reset() {
 	*x = GetRiskFactorsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[163]
+		mi := &file_data_node_api_v1_trading_data_proto_msgTypes[165]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8390,7 +8512,7 @@ func (x *GetRiskFactorsResponse) String() string {
 func (*GetRiskFactorsResponse) ProtoMessage() {}
 
 func (x *GetRiskFactorsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[163]
+	mi := &file_data_node_api_v1_trading_data_proto_msgTypes[165]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8403,7 +8525,7 @@ func (x *GetRiskFactorsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRiskFactorsResponse.ProtoReflect.Descriptor instead.
 func (*GetRiskFactorsResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{163}
+	return file_data_node_api_v1_trading_data_proto_rawDescGZIP(), []int{165}
 }
 
 func (x *GetRiskFactorsResponse) GetRiskFactor() *vega.RiskFactor {
@@ -9117,25 +9239,47 @@ var file_data_node_api_v1_trading_data_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x18, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x2e, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64, 0x69, 0x74, 0x79,
 	0x50, 0x72, 0x6f, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x13, 0x6c, 0x69, 0x71, 0x75, 0x69,
-	0x64, 0x69, 0x74, 0x79, 0x50, 0x72, 0x6f, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x23,
+	0x64, 0x69, 0x74, 0x79, 0x50, 0x72, 0x6f, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x60,
 	0x0a, 0x11, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x02, 0x69, 0x64, 0x22, 0x4d, 0x0a, 0x12, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65,
-	0x63, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0b, 0x6f, 0x72, 0x61,
-	0x63, 0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16,
-	0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63,
-	0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70,
-	0x65, 0x63, 0x22, 0x14, 0x0a, 0x12, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63,
-	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x50, 0x0a, 0x13, 0x4f, 0x72, 0x61, 0x63,
-	0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x39, 0x0a, 0x0c, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x73, 0x18,
-	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e,
-	0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x0b, 0x6f,
-	0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x73, 0x22, 0x29, 0x0a, 0x17, 0x4f, 0x72,
-	0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x53, 0x0a, 0x18, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44,
-	0x61, 0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x02, 0x69, 0x64, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f,
+	0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x22, 0x4d, 0x0a, 0x12, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65,
+	0x5f, 0x73, 0x70, 0x65, 0x63, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53,
+	0x70, 0x65, 0x63, 0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x22,
+	0x51, 0x0a, 0x12, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61,
+	0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x69,
+	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x22, 0x50, 0x0a, 0x13, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x39, 0x0a, 0x0c, 0x6f, 0x72, 0x61,
+	0x63, 0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61,
+	0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53,
+	0x70, 0x65, 0x63, 0x73, 0x22, 0x66, 0x0a, 0x17, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61,
+	0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x53, 0x0a, 0x18,
+	0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0b, 0x6f, 0x72, 0x61, 0x63,
+	0x6c, 0x65, 0x5f, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e,
+	0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74,
+	0x61, 0x22, 0x54, 0x0a, 0x15, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44,
+	0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31,
+	0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67,
+	0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x51, 0x0a, 0x16, 0x4c, 0x69, 0x73, 0x74, 0x4f,
+	0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x12, 0x37, 0x0a, 0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x64, 0x61, 0x74, 0x61,
 	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73,
 	0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0a,
@@ -9191,7 +9335,7 @@ var file_data_node_api_v1_trading_data_proto_rawDesc = []byte{
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x31, 0x0a, 0x0b, 0x72, 0x69, 0x73, 0x6b, 0x5f,
 	0x66, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x76,
 	0x65, 0x67, 0x61, 0x2e, 0x52, 0x69, 0x73, 0x6b, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x52, 0x0a,
-	0x72, 0x69, 0x73, 0x6b, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x32, 0x9a, 0x40, 0x0a, 0x12, 0x54,
+	0x72, 0x69, 0x73, 0x6b, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x32, 0xfd, 0x40, 0x0a, 0x12, 0x54,
 	0x72, 0x61, 0x64, 0x69, 0x6e, 0x67, 0x44, 0x61, 0x74, 0x61, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
 	0x65, 0x12, 0x61, 0x0a, 0x0e, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x41, 0x63, 0x63, 0x6f, 0x75,
 	0x6e, 0x74, 0x73, 0x12, 0x26, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61,
@@ -9651,64 +9795,71 @@ var file_data_node_api_v1_trading_data_proto_rawDesc = []byte{
 	0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29,
 	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31,
 	0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65,
-	0x63, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a, 0x0e, 0x4f, 0x62, 0x73,
-	0x65, 0x72, 0x76, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x26, 0x2e, 0x64, 0x61,
-	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62,
-	0x73, 0x65, 0x72, 0x76, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x63, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x61, 0x0a, 0x0e, 0x4c, 0x69, 0x73,
+	0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x26, 0x2e, 0x64, 0x61,
+	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x69,
+	0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61,
-	0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x52, 0x65, 0x77,
-	0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x12, 0x55,
-	0x0a, 0x0a, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x22, 0x2e, 0x64,
-	0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x47,
-	0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6d, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61,
-	0x72, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x69, 0x65, 0x73, 0x12, 0x2a, 0x2e, 0x64, 0x61,
-	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65,
-	0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x69, 0x65, 0x73,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f,
-	0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77,
-	0x61, 0x72, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x69, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x58, 0x0a, 0x0b, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x70, 0x6f, 0x69,
-	0x6e, 0x74, 0x73, 0x12, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61,
-	0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x70, 0x6f, 0x69, 0x6e, 0x74,
-	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e,
-	0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b,
-	0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x58,
-	0x0a, 0x0b, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x23, 0x2e,
-	0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e,
-	0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x24, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6f, 0x0a, 0x12, 0x4f, 0x62, 0x73, 0x65,
-	0x72, 0x76, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x2a,
+	0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65,
+	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a, 0x0e,
+	0x4f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x26,
 	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31,
-	0x2e, 0x4f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x64, 0x61, 0x74,
-	0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x73,
-	0x65, 0x72, 0x76, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x12, 0x55, 0x0a, 0x0a, 0x50, 0x61, 0x72,
-	0x74, 0x79, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x12, 0x22, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f,
-	0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53,
-	0x74, 0x61, 0x6b, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x64, 0x61,
-	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61,
-	0x72, 0x74, 0x79, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x52, 0x0a, 0x09, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x12, 0x21, 0x2e,
-	0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e,
-	0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x22, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x76, 0x31, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x61, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x52, 0x69, 0x73, 0x6b, 0x46,
-	0x61, 0x63, 0x74, 0x6f, 0x72, 0x73, 0x12, 0x26, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64,
-	0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x69, 0x73, 0x6b,
-	0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27,
+	0x2e, 0x4f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64,
+	0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65,
+	0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30,
+	0x01, 0x12, 0x55, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12,
+	0x22, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76,
+	0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6d, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x52,
+	0x65, 0x77, 0x61, 0x72, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x69, 0x65, 0x73, 0x12, 0x2a,
 	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31,
-	0x2e, 0x47, 0x65, 0x74, 0x52, 0x69, 0x73, 0x6b, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x2e, 0x5a, 0x2c, 0x63, 0x6f, 0x64, 0x65, 0x2e,
-	0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x69, 0x6f, 0x2f,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2d, 0x6e, 0x6f, 0x64, 0x65,
-	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72,
+	0x69, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x64, 0x61, 0x74,
+	0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74,
+	0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x69, 0x65, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x58, 0x0a, 0x0b, 0x43, 0x68, 0x65, 0x63, 0x6b,
+	0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x12, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64,
+	0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x70, 0x6f,
+	0x69, 0x6e, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x64, 0x61,
+	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68,
+	0x65, 0x63, 0x6b, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x58, 0x0a, 0x0b, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
+	0x12, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6f, 0x0a, 0x12, 0x4f,
+	0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x73, 0x12, 0x2a, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x67,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e,
+	0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e,
+	0x4f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x44, 0x65, 0x6c, 0x65, 0x67, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x12, 0x55, 0x0a, 0x0a,
+	0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x12, 0x22, 0x2e, 0x64, 0x61, 0x74,
+	0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61, 0x72,
+	0x74, 0x79, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31,
+	0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x52, 0x0a, 0x09, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73,
+	0x12, 0x21, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x31, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x61, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x52, 0x69,
+	0x73, 0x6b, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x73, 0x12, 0x26, 0x2e, 0x64, 0x61, 0x74, 0x61,
+	0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52,
+	0x69, 0x73, 0x6b, 0x46, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x27, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x69, 0x73, 0x6b, 0x46, 0x61, 0x63, 0x74, 0x6f,
+	0x72, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x2e, 0x5a, 0x2c, 0x63, 0x6f,
+	0x64, 0x65, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e,
+	0x69, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2d, 0x6e,
+	0x6f, 0x64, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -9723,7 +9874,7 @@ func file_data_node_api_v1_trading_data_proto_rawDescGZIP() []byte {
 	return file_data_node_api_v1_trading_data_proto_rawDescData
 }
 
-var file_data_node_api_v1_trading_data_proto_msgTypes = make([]protoimpl.MessageInfo, 164)
+var file_data_node_api_v1_trading_data_proto_msgTypes = make([]protoimpl.MessageInfo, 166)
 var file_data_node_api_v1_trading_data_proto_goTypes = []interface{}{
 	(*TransfersRequest)(nil),                      // 0: datanode.api.v1.TransfersRequest
 	(*TransfersResponse)(nil),                     // 1: datanode.api.v1.TransfersResponse
@@ -9878,324 +10029,333 @@ var file_data_node_api_v1_trading_data_proto_goTypes = []interface{}{
 	(*OracleSpecsResponse)(nil),                   // 150: datanode.api.v1.OracleSpecsResponse
 	(*OracleDataBySpecRequest)(nil),               // 151: datanode.api.v1.OracleDataBySpecRequest
 	(*OracleDataBySpecResponse)(nil),              // 152: datanode.api.v1.OracleDataBySpecResponse
-	(*ObserveRewardsRequest)(nil),                 // 153: datanode.api.v1.ObserveRewardsRequest
-	(*ObserveRewardsResponse)(nil),                // 154: datanode.api.v1.ObserveRewardsResponse
-	(*GetRewardSummariesRequest)(nil),             // 155: datanode.api.v1.GetRewardSummariesRequest
-	(*GetRewardSummariesResponse)(nil),            // 156: datanode.api.v1.GetRewardSummariesResponse
-	(*GetRewardsRequest)(nil),                     // 157: datanode.api.v1.GetRewardsRequest
-	(*GetRewardsResponse)(nil),                    // 158: datanode.api.v1.GetRewardsResponse
-	(*Checkpoint)(nil),                            // 159: datanode.api.v1.Checkpoint
-	(*CheckpointsRequest)(nil),                    // 160: datanode.api.v1.CheckpointsRequest
-	(*CheckpointsResponse)(nil),                   // 161: datanode.api.v1.CheckpointsResponse
-	(*GetRiskFactorsRequest)(nil),                 // 162: datanode.api.v1.GetRiskFactorsRequest
-	(*GetRiskFactorsResponse)(nil),                // 163: datanode.api.v1.GetRiskFactorsResponse
-	(*v1.Transfer)(nil),                           // 164: vega.events.v1.Transfer
-	(*vega.Delegation)(nil),                       // 165: vega.Delegation
-	(*v1.StakeLinking)(nil),                       // 166: vega.events.v1.StakeLinking
-	(*vega.NodeData)(nil),                         // 167: vega.NodeData
-	(*vega.Node)(nil),                             // 168: vega.Node
-	(*vega.Epoch)(nil),                            // 169: vega.Epoch
-	(*vega.Asset)(nil),                            // 170: vega.Asset
-	(*v11.NodeSignature)(nil),                     // 171: vega.commands.v1.NodeSignature
-	(vega.Proposal_State)(0),                      // 172: vega.Proposal.State
-	(*vega.GovernanceData)(nil),                   // 173: vega.GovernanceData
-	(*vega.Vote)(nil),                             // 174: vega.Vote
-	(*vega.MarginLevels)(nil),                     // 175: vega.MarginLevels
-	(*vega.MarketData)(nil),                       // 176: vega.MarketData
-	(*vega.Trade)(nil),                            // 177: vega.Trade
-	(*vega.Market)(nil),                           // 178: vega.Market
-	(*vega.Party)(nil),                            // 179: vega.Party
-	(vega.AccountType)(0),                         // 180: vega.AccountType
-	(*vega.Account)(nil),                          // 181: vega.Account
-	(vega.Interval)(0),                            // 182: vega.Interval
-	(*vega.Candle)(nil),                           // 183: vega.Candle
-	(*vega.MarketDepth)(nil),                      // 184: vega.MarketDepth
-	(*vega.MarketDepthUpdate)(nil),                // 185: vega.MarketDepthUpdate
-	(*vega.Position)(nil),                         // 186: vega.Position
-	(*vega.Order)(nil),                            // 187: vega.Order
-	(*vega.PriceLevel)(nil),                       // 188: vega.PriceLevel
-	(*vega.TransferResponse)(nil),                 // 189: vega.TransferResponse
-	(*vega.Fee)(nil),                              // 190: vega.Fee
-	(v1.BusEventType)(0),                          // 191: vega.events.v1.BusEventType
-	(*v1.BusEvent)(nil),                           // 192: vega.events.v1.BusEvent
-	(*vega.Withdrawal)(nil),                       // 193: vega.Withdrawal
-	(*vega.Deposit)(nil),                          // 194: vega.Deposit
-	(*vega.NetworkParameter)(nil),                 // 195: vega.NetworkParameter
-	(*vega.LiquidityProvision)(nil),               // 196: vega.LiquidityProvision
-	(*v12.OracleSpec)(nil),                        // 197: oracles.v1.OracleSpec
-	(*v12.OracleData)(nil),                        // 198: oracles.v1.OracleData
-	(*vega.Reward)(nil),                           // 199: vega.Reward
-	(*vega.RewardSummary)(nil),                    // 200: vega.RewardSummary
-	(*vega.RiskFactor)(nil),                       // 201: vega.RiskFactor
+	(*ListOracleDataRequest)(nil),                 // 153: datanode.api.v1.ListOracleDataRequest
+	(*ListOracleDataResponse)(nil),                // 154: datanode.api.v1.ListOracleDataResponse
+	(*ObserveRewardsRequest)(nil),                 // 155: datanode.api.v1.ObserveRewardsRequest
+	(*ObserveRewardsResponse)(nil),                // 156: datanode.api.v1.ObserveRewardsResponse
+	(*GetRewardSummariesRequest)(nil),             // 157: datanode.api.v1.GetRewardSummariesRequest
+	(*GetRewardSummariesResponse)(nil),            // 158: datanode.api.v1.GetRewardSummariesResponse
+	(*GetRewardsRequest)(nil),                     // 159: datanode.api.v1.GetRewardsRequest
+	(*GetRewardsResponse)(nil),                    // 160: datanode.api.v1.GetRewardsResponse
+	(*Checkpoint)(nil),                            // 161: datanode.api.v1.Checkpoint
+	(*CheckpointsRequest)(nil),                    // 162: datanode.api.v1.CheckpointsRequest
+	(*CheckpointsResponse)(nil),                   // 163: datanode.api.v1.CheckpointsResponse
+	(*GetRiskFactorsRequest)(nil),                 // 164: datanode.api.v1.GetRiskFactorsRequest
+	(*GetRiskFactorsResponse)(nil),                // 165: datanode.api.v1.GetRiskFactorsResponse
+	(*v1.Transfer)(nil),                           // 166: vega.events.v1.Transfer
+	(*vega.Delegation)(nil),                       // 167: vega.Delegation
+	(*v1.StakeLinking)(nil),                       // 168: vega.events.v1.StakeLinking
+	(*vega.NodeData)(nil),                         // 169: vega.NodeData
+	(*vega.Node)(nil),                             // 170: vega.Node
+	(*vega.Epoch)(nil),                            // 171: vega.Epoch
+	(*vega.Asset)(nil),                            // 172: vega.Asset
+	(*v11.NodeSignature)(nil),                     // 173: vega.commands.v1.NodeSignature
+	(vega.Proposal_State)(0),                      // 174: vega.Proposal.State
+	(*vega.GovernanceData)(nil),                   // 175: vega.GovernanceData
+	(*vega.Vote)(nil),                             // 176: vega.Vote
+	(*vega.MarginLevels)(nil),                     // 177: vega.MarginLevels
+	(*vega.MarketData)(nil),                       // 178: vega.MarketData
+	(*vega.Trade)(nil),                            // 179: vega.Trade
+	(*vega.Market)(nil),                           // 180: vega.Market
+	(*vega.Party)(nil),                            // 181: vega.Party
+	(vega.AccountType)(0),                         // 182: vega.AccountType
+	(*vega.Account)(nil),                          // 183: vega.Account
+	(vega.Interval)(0),                            // 184: vega.Interval
+	(*vega.Candle)(nil),                           // 185: vega.Candle
+	(*vega.MarketDepth)(nil),                      // 186: vega.MarketDepth
+	(*vega.MarketDepthUpdate)(nil),                // 187: vega.MarketDepthUpdate
+	(*vega.Position)(nil),                         // 188: vega.Position
+	(*vega.Order)(nil),                            // 189: vega.Order
+	(*vega.PriceLevel)(nil),                       // 190: vega.PriceLevel
+	(*vega.TransferResponse)(nil),                 // 191: vega.TransferResponse
+	(*vega.Fee)(nil),                              // 192: vega.Fee
+	(v1.BusEventType)(0),                          // 193: vega.events.v1.BusEventType
+	(*v1.BusEvent)(nil),                           // 194: vega.events.v1.BusEvent
+	(*vega.Withdrawal)(nil),                       // 195: vega.Withdrawal
+	(*vega.Deposit)(nil),                          // 196: vega.Deposit
+	(*vega.NetworkParameter)(nil),                 // 197: vega.NetworkParameter
+	(*vega.LiquidityProvision)(nil),               // 198: vega.LiquidityProvision
+	(*v12.OracleSpec)(nil),                        // 199: oracles.v1.OracleSpec
+	(*v12.OracleData)(nil),                        // 200: oracles.v1.OracleData
+	(*vega.Reward)(nil),                           // 201: vega.Reward
+	(*vega.RewardSummary)(nil),                    // 202: vega.RewardSummary
+	(*vega.RiskFactor)(nil),                       // 203: vega.RiskFactor
 }
 var file_data_node_api_v1_trading_data_proto_depIdxs = []int32{
-	164, // 0: datanode.api.v1.TransfersResponse.transfers:type_name -> vega.events.v1.Transfer
+	166, // 0: datanode.api.v1.TransfersResponse.transfers:type_name -> vega.events.v1.Transfer
 	110, // 1: datanode.api.v1.DelegationsRequest.pagination:type_name -> datanode.api.v1.Pagination
-	165, // 2: datanode.api.v1.DelegationsResponse.delegations:type_name -> vega.Delegation
-	165, // 3: datanode.api.v1.ObserveDelegationsResponse.delegation:type_name -> vega.Delegation
-	166, // 4: datanode.api.v1.PartyStakeResponse.stake_linkings:type_name -> vega.events.v1.StakeLinking
-	167, // 5: datanode.api.v1.GetNodeDataResponse.node_data:type_name -> vega.NodeData
-	168, // 6: datanode.api.v1.GetNodesResponse.nodes:type_name -> vega.Node
-	168, // 7: datanode.api.v1.GetNodeByIDResponse.node:type_name -> vega.Node
-	169, // 8: datanode.api.v1.GetEpochResponse.epoch:type_name -> vega.Epoch
+	167, // 2: datanode.api.v1.DelegationsResponse.delegations:type_name -> vega.Delegation
+	167, // 3: datanode.api.v1.ObserveDelegationsResponse.delegation:type_name -> vega.Delegation
+	168, // 4: datanode.api.v1.PartyStakeResponse.stake_linkings:type_name -> vega.events.v1.StakeLinking
+	169, // 5: datanode.api.v1.GetNodeDataResponse.node_data:type_name -> vega.NodeData
+	170, // 6: datanode.api.v1.GetNodesResponse.nodes:type_name -> vega.Node
+	170, // 7: datanode.api.v1.GetNodeByIDResponse.node:type_name -> vega.Node
+	171, // 8: datanode.api.v1.GetEpochResponse.epoch:type_name -> vega.Epoch
 	16,  // 9: datanode.api.v1.GetKeyRotationsResponse.rotations:type_name -> datanode.api.v1.KeyRotation
 	16,  // 10: datanode.api.v1.GetKeyRotationsByNodeResponse.rotations:type_name -> datanode.api.v1.KeyRotation
-	170, // 11: datanode.api.v1.AssetsResponse.assets:type_name -> vega.Asset
-	170, // 12: datanode.api.v1.AssetByIDResponse.asset:type_name -> vega.Asset
-	171, // 13: datanode.api.v1.GetNodeSignaturesAggregateResponse.signatures:type_name -> vega.commands.v1.NodeSignature
-	172, // 14: datanode.api.v1.OptionalProposalState.value:type_name -> vega.Proposal.State
+	172, // 11: datanode.api.v1.AssetsResponse.assets:type_name -> vega.Asset
+	172, // 12: datanode.api.v1.AssetByIDResponse.asset:type_name -> vega.Asset
+	173, // 13: datanode.api.v1.GetNodeSignaturesAggregateResponse.signatures:type_name -> vega.commands.v1.NodeSignature
+	174, // 14: datanode.api.v1.OptionalProposalState.value:type_name -> vega.Proposal.State
 	27,  // 15: datanode.api.v1.GetProposalsRequest.select_in_state:type_name -> datanode.api.v1.OptionalProposalState
-	173, // 16: datanode.api.v1.GetProposalsResponse.data:type_name -> vega.GovernanceData
+	175, // 16: datanode.api.v1.GetProposalsResponse.data:type_name -> vega.GovernanceData
 	27,  // 17: datanode.api.v1.GetProposalsByPartyRequest.select_in_state:type_name -> datanode.api.v1.OptionalProposalState
-	173, // 18: datanode.api.v1.GetProposalsByPartyResponse.data:type_name -> vega.GovernanceData
-	174, // 19: datanode.api.v1.GetVotesByPartyResponse.votes:type_name -> vega.Vote
+	175, // 18: datanode.api.v1.GetProposalsByPartyResponse.data:type_name -> vega.GovernanceData
+	176, // 19: datanode.api.v1.GetVotesByPartyResponse.votes:type_name -> vega.Vote
 	27,  // 20: datanode.api.v1.GetNewMarketProposalsRequest.select_in_state:type_name -> datanode.api.v1.OptionalProposalState
-	173, // 21: datanode.api.v1.GetNewMarketProposalsResponse.data:type_name -> vega.GovernanceData
+	175, // 21: datanode.api.v1.GetNewMarketProposalsResponse.data:type_name -> vega.GovernanceData
 	27,  // 22: datanode.api.v1.GetUpdateMarketProposalsRequest.select_in_state:type_name -> datanode.api.v1.OptionalProposalState
-	173, // 23: datanode.api.v1.GetUpdateMarketProposalsResponse.data:type_name -> vega.GovernanceData
+	175, // 23: datanode.api.v1.GetUpdateMarketProposalsResponse.data:type_name -> vega.GovernanceData
 	27,  // 24: datanode.api.v1.GetNetworkParametersProposalsRequest.select_in_state:type_name -> datanode.api.v1.OptionalProposalState
-	173, // 25: datanode.api.v1.GetNetworkParametersProposalsResponse.data:type_name -> vega.GovernanceData
+	175, // 25: datanode.api.v1.GetNetworkParametersProposalsResponse.data:type_name -> vega.GovernanceData
 	27,  // 26: datanode.api.v1.GetNewFreeformProposalsRequest.select_in_state:type_name -> datanode.api.v1.OptionalProposalState
-	173, // 27: datanode.api.v1.GetNewFreeformProposalsResponse.data:type_name -> vega.GovernanceData
+	175, // 27: datanode.api.v1.GetNewFreeformProposalsResponse.data:type_name -> vega.GovernanceData
 	27,  // 28: datanode.api.v1.GetNewAssetProposalsRequest.select_in_state:type_name -> datanode.api.v1.OptionalProposalState
-	173, // 29: datanode.api.v1.GetNewAssetProposalsResponse.data:type_name -> vega.GovernanceData
-	173, // 30: datanode.api.v1.GetProposalByIDResponse.data:type_name -> vega.GovernanceData
-	173, // 31: datanode.api.v1.GetProposalByReferenceResponse.data:type_name -> vega.GovernanceData
-	173, // 32: datanode.api.v1.ObserveGovernanceResponse.data:type_name -> vega.GovernanceData
-	173, // 33: datanode.api.v1.ObservePartyProposalsResponse.data:type_name -> vega.GovernanceData
-	174, // 34: datanode.api.v1.ObserveProposalVotesResponse.vote:type_name -> vega.Vote
-	174, // 35: datanode.api.v1.ObservePartyVotesResponse.vote:type_name -> vega.Vote
-	175, // 36: datanode.api.v1.MarginLevelsSubscribeResponse.margin_levels:type_name -> vega.MarginLevels
-	175, // 37: datanode.api.v1.MarginLevelsResponse.margin_levels:type_name -> vega.MarginLevels
-	176, // 38: datanode.api.v1.MarketsDataSubscribeResponse.market_data:type_name -> vega.MarketData
-	176, // 39: datanode.api.v1.MarketDataByIDResponse.market_data:type_name -> vega.MarketData
-	176, // 40: datanode.api.v1.MarketsDataResponse.markets_data:type_name -> vega.MarketData
-	177, // 41: datanode.api.v1.LastTradeResponse.trade:type_name -> vega.Trade
-	178, // 42: datanode.api.v1.MarketByIDResponse.market:type_name -> vega.Market
-	179, // 43: datanode.api.v1.PartyByIDResponse.party:type_name -> vega.Party
-	179, // 44: datanode.api.v1.PartiesResponse.parties:type_name -> vega.Party
+	175, // 29: datanode.api.v1.GetNewAssetProposalsResponse.data:type_name -> vega.GovernanceData
+	175, // 30: datanode.api.v1.GetProposalByIDResponse.data:type_name -> vega.GovernanceData
+	175, // 31: datanode.api.v1.GetProposalByReferenceResponse.data:type_name -> vega.GovernanceData
+	175, // 32: datanode.api.v1.ObserveGovernanceResponse.data:type_name -> vega.GovernanceData
+	175, // 33: datanode.api.v1.ObservePartyProposalsResponse.data:type_name -> vega.GovernanceData
+	176, // 34: datanode.api.v1.ObserveProposalVotesResponse.vote:type_name -> vega.Vote
+	176, // 35: datanode.api.v1.ObservePartyVotesResponse.vote:type_name -> vega.Vote
+	177, // 36: datanode.api.v1.MarginLevelsSubscribeResponse.margin_levels:type_name -> vega.MarginLevels
+	177, // 37: datanode.api.v1.MarginLevelsResponse.margin_levels:type_name -> vega.MarginLevels
+	178, // 38: datanode.api.v1.MarketsDataSubscribeResponse.market_data:type_name -> vega.MarketData
+	178, // 39: datanode.api.v1.MarketDataByIDResponse.market_data:type_name -> vega.MarketData
+	178, // 40: datanode.api.v1.MarketsDataResponse.markets_data:type_name -> vega.MarketData
+	179, // 41: datanode.api.v1.LastTradeResponse.trade:type_name -> vega.Trade
+	180, // 42: datanode.api.v1.MarketByIDResponse.market:type_name -> vega.Market
+	181, // 43: datanode.api.v1.PartyByIDResponse.party:type_name -> vega.Party
+	181, // 44: datanode.api.v1.PartiesResponse.parties:type_name -> vega.Party
 	110, // 45: datanode.api.v1.TradesByPartyRequest.pagination:type_name -> datanode.api.v1.Pagination
-	177, // 46: datanode.api.v1.TradesByPartyResponse.trades:type_name -> vega.Trade
-	177, // 47: datanode.api.v1.TradesByOrderResponse.trades:type_name -> vega.Trade
-	180, // 48: datanode.api.v1.AccountsSubscribeRequest.type:type_name -> vega.AccountType
-	181, // 49: datanode.api.v1.AccountsSubscribeResponse.account:type_name -> vega.Account
-	182, // 50: datanode.api.v1.CandlesSubscribeRequest.interval:type_name -> vega.Interval
-	183, // 51: datanode.api.v1.CandlesSubscribeResponse.candle:type_name -> vega.Candle
-	184, // 52: datanode.api.v1.MarketDepthSubscribeResponse.market_depth:type_name -> vega.MarketDepth
-	185, // 53: datanode.api.v1.MarketDepthUpdatesSubscribeResponse.update:type_name -> vega.MarketDepthUpdate
-	186, // 54: datanode.api.v1.PositionsSubscribeResponse.position:type_name -> vega.Position
+	179, // 46: datanode.api.v1.TradesByPartyResponse.trades:type_name -> vega.Trade
+	179, // 47: datanode.api.v1.TradesByOrderResponse.trades:type_name -> vega.Trade
+	182, // 48: datanode.api.v1.AccountsSubscribeRequest.type:type_name -> vega.AccountType
+	183, // 49: datanode.api.v1.AccountsSubscribeResponse.account:type_name -> vega.Account
+	184, // 50: datanode.api.v1.CandlesSubscribeRequest.interval:type_name -> vega.Interval
+	185, // 51: datanode.api.v1.CandlesSubscribeResponse.candle:type_name -> vega.Candle
+	186, // 52: datanode.api.v1.MarketDepthSubscribeResponse.market_depth:type_name -> vega.MarketDepth
+	187, // 53: datanode.api.v1.MarketDepthUpdatesSubscribeResponse.update:type_name -> vega.MarketDepthUpdate
+	188, // 54: datanode.api.v1.PositionsSubscribeResponse.position:type_name -> vega.Position
 	110, // 55: datanode.api.v1.OrdersByMarketRequest.pagination:type_name -> datanode.api.v1.Pagination
-	187, // 56: datanode.api.v1.OrdersByMarketResponse.orders:type_name -> vega.Order
+	189, // 56: datanode.api.v1.OrdersByMarketResponse.orders:type_name -> vega.Order
 	110, // 57: datanode.api.v1.OrdersByPartyRequest.pagination:type_name -> datanode.api.v1.Pagination
-	187, // 58: datanode.api.v1.OrdersByPartyResponse.orders:type_name -> vega.Order
-	187, // 59: datanode.api.v1.OrderByMarketAndIDResponse.order:type_name -> vega.Order
-	187, // 60: datanode.api.v1.OrderByReferenceResponse.order:type_name -> vega.Order
-	178, // 61: datanode.api.v1.MarketsResponse.markets:type_name -> vega.Market
-	182, // 62: datanode.api.v1.CandlesRequest.interval:type_name -> vega.Interval
-	183, // 63: datanode.api.v1.CandlesResponse.candles:type_name -> vega.Candle
-	188, // 64: datanode.api.v1.MarketDepthResponse.buy:type_name -> vega.PriceLevel
-	188, // 65: datanode.api.v1.MarketDepthResponse.sell:type_name -> vega.PriceLevel
-	177, // 66: datanode.api.v1.MarketDepthResponse.last_trade:type_name -> vega.Trade
+	189, // 58: datanode.api.v1.OrdersByPartyResponse.orders:type_name -> vega.Order
+	189, // 59: datanode.api.v1.OrderByMarketAndIDResponse.order:type_name -> vega.Order
+	189, // 60: datanode.api.v1.OrderByReferenceResponse.order:type_name -> vega.Order
+	180, // 61: datanode.api.v1.MarketsResponse.markets:type_name -> vega.Market
+	184, // 62: datanode.api.v1.CandlesRequest.interval:type_name -> vega.Interval
+	185, // 63: datanode.api.v1.CandlesResponse.candles:type_name -> vega.Candle
+	190, // 64: datanode.api.v1.MarketDepthResponse.buy:type_name -> vega.PriceLevel
+	190, // 65: datanode.api.v1.MarketDepthResponse.sell:type_name -> vega.PriceLevel
+	179, // 66: datanode.api.v1.MarketDepthResponse.last_trade:type_name -> vega.Trade
 	110, // 67: datanode.api.v1.TradesByMarketRequest.pagination:type_name -> datanode.api.v1.Pagination
-	177, // 68: datanode.api.v1.TradesByMarketResponse.trades:type_name -> vega.Trade
-	186, // 69: datanode.api.v1.PositionsByPartyResponse.positions:type_name -> vega.Position
-	187, // 70: datanode.api.v1.OrdersSubscribeResponse.orders:type_name -> vega.Order
-	177, // 71: datanode.api.v1.TradesSubscribeResponse.trades:type_name -> vega.Trade
-	189, // 72: datanode.api.v1.TransferResponsesSubscribeResponse.response:type_name -> vega.TransferResponse
-	180, // 73: datanode.api.v1.PartyAccountsRequest.type:type_name -> vega.AccountType
-	181, // 74: datanode.api.v1.PartyAccountsResponse.accounts:type_name -> vega.Account
-	181, // 75: datanode.api.v1.MarketAccountsResponse.accounts:type_name -> vega.Account
-	181, // 76: datanode.api.v1.FeeInfrastructureAccountsResponse.accounts:type_name -> vega.Account
-	181, // 77: datanode.api.v1.GlobalRewardPoolAccountsResponse.accounts:type_name -> vega.Account
-	187, // 78: datanode.api.v1.OrderByIDResponse.order:type_name -> vega.Order
+	179, // 68: datanode.api.v1.TradesByMarketResponse.trades:type_name -> vega.Trade
+	188, // 69: datanode.api.v1.PositionsByPartyResponse.positions:type_name -> vega.Position
+	189, // 70: datanode.api.v1.OrdersSubscribeResponse.orders:type_name -> vega.Order
+	179, // 71: datanode.api.v1.TradesSubscribeResponse.trades:type_name -> vega.Trade
+	191, // 72: datanode.api.v1.TransferResponsesSubscribeResponse.response:type_name -> vega.TransferResponse
+	182, // 73: datanode.api.v1.PartyAccountsRequest.type:type_name -> vega.AccountType
+	183, // 74: datanode.api.v1.PartyAccountsResponse.accounts:type_name -> vega.Account
+	183, // 75: datanode.api.v1.MarketAccountsResponse.accounts:type_name -> vega.Account
+	183, // 76: datanode.api.v1.FeeInfrastructureAccountsResponse.accounts:type_name -> vega.Account
+	183, // 77: datanode.api.v1.GlobalRewardPoolAccountsResponse.accounts:type_name -> vega.Account
+	189, // 78: datanode.api.v1.OrderByIDResponse.order:type_name -> vega.Order
 	110, // 79: datanode.api.v1.OrderVersionsByIDRequest.pagination:type_name -> datanode.api.v1.Pagination
-	187, // 80: datanode.api.v1.OrderVersionsByIDResponse.orders:type_name -> vega.Order
-	187, // 81: datanode.api.v1.EstimateFeeRequest.order:type_name -> vega.Order
-	190, // 82: datanode.api.v1.EstimateFeeResponse.fee:type_name -> vega.Fee
-	187, // 83: datanode.api.v1.EstimateMarginRequest.order:type_name -> vega.Order
-	175, // 84: datanode.api.v1.EstimateMarginResponse.margin_levels:type_name -> vega.MarginLevels
-	191, // 85: datanode.api.v1.ObserveEventBusRequest.type:type_name -> vega.events.v1.BusEventType
-	192, // 86: datanode.api.v1.ObserveEventBusResponse.events:type_name -> vega.events.v1.BusEvent
-	193, // 87: datanode.api.v1.WithdrawalsResponse.withdrawals:type_name -> vega.Withdrawal
-	193, // 88: datanode.api.v1.WithdrawalResponse.withdrawal:type_name -> vega.Withdrawal
-	194, // 89: datanode.api.v1.DepositsResponse.deposits:type_name -> vega.Deposit
-	194, // 90: datanode.api.v1.DepositResponse.deposit:type_name -> vega.Deposit
-	195, // 91: datanode.api.v1.NetworkParametersResponse.network_parameters:type_name -> vega.NetworkParameter
-	196, // 92: datanode.api.v1.LiquidityProvisionsResponse.liquidity_provisions:type_name -> vega.LiquidityProvision
-	197, // 93: datanode.api.v1.OracleSpecResponse.oracle_spec:type_name -> oracles.v1.OracleSpec
-	197, // 94: datanode.api.v1.OracleSpecsResponse.oracle_specs:type_name -> oracles.v1.OracleSpec
-	198, // 95: datanode.api.v1.OracleDataBySpecResponse.oracle_data:type_name -> oracles.v1.OracleData
-	199, // 96: datanode.api.v1.ObserveRewardsResponse.reward:type_name -> vega.Reward
-	200, // 97: datanode.api.v1.GetRewardSummariesResponse.summaries:type_name -> vega.RewardSummary
-	110, // 98: datanode.api.v1.GetRewardsRequest.pagination:type_name -> datanode.api.v1.Pagination
-	199, // 99: datanode.api.v1.GetRewardsResponse.rewards:type_name -> vega.Reward
-	159, // 100: datanode.api.v1.CheckpointsResponse.checkpoints:type_name -> datanode.api.v1.Checkpoint
-	201, // 101: datanode.api.v1.GetRiskFactorsResponse.risk_factor:type_name -> vega.RiskFactor
-	117, // 102: datanode.api.v1.TradingDataService.MarketAccounts:input_type -> datanode.api.v1.MarketAccountsRequest
-	115, // 103: datanode.api.v1.TradingDataService.PartyAccounts:input_type -> datanode.api.v1.PartyAccountsRequest
-	119, // 104: datanode.api.v1.TradingDataService.FeeInfrastructureAccounts:input_type -> datanode.api.v1.FeeInfrastructureAccountsRequest
-	121, // 105: datanode.api.v1.TradingDataService.GlobalRewardPoolAccounts:input_type -> datanode.api.v1.GlobalRewardPoolAccountsRequest
-	100, // 106: datanode.api.v1.TradingDataService.Candles:input_type -> datanode.api.v1.CandlesRequest
-	62,  // 107: datanode.api.v1.TradingDataService.MarketDataByID:input_type -> datanode.api.v1.MarketDataByIDRequest
-	64,  // 108: datanode.api.v1.TradingDataService.MarketsData:input_type -> datanode.api.v1.MarketsDataRequest
-	68,  // 109: datanode.api.v1.TradingDataService.MarketByID:input_type -> datanode.api.v1.MarketByIDRequest
-	102, // 110: datanode.api.v1.TradingDataService.MarketDepth:input_type -> datanode.api.v1.MarketDepthRequest
-	98,  // 111: datanode.api.v1.TradingDataService.Markets:input_type -> datanode.api.v1.MarketsRequest
-	94,  // 112: datanode.api.v1.TradingDataService.OrderByMarketAndID:input_type -> datanode.api.v1.OrderByMarketAndIDRequest
-	96,  // 113: datanode.api.v1.TradingDataService.OrderByReference:input_type -> datanode.api.v1.OrderByReferenceRequest
-	90,  // 114: datanode.api.v1.TradingDataService.OrdersByMarket:input_type -> datanode.api.v1.OrdersByMarketRequest
-	92,  // 115: datanode.api.v1.TradingDataService.OrdersByParty:input_type -> datanode.api.v1.OrdersByPartyRequest
-	123, // 116: datanode.api.v1.TradingDataService.OrderByID:input_type -> datanode.api.v1.OrderByIDRequest
-	125, // 117: datanode.api.v1.TradingDataService.OrderVersionsByID:input_type -> datanode.api.v1.OrderVersionsByIDRequest
-	58,  // 118: datanode.api.v1.TradingDataService.MarginLevels:input_type -> datanode.api.v1.MarginLevelsRequest
-	72,  // 119: datanode.api.v1.TradingDataService.Parties:input_type -> datanode.api.v1.PartiesRequest
-	70,  // 120: datanode.api.v1.TradingDataService.PartyByID:input_type -> datanode.api.v1.PartyByIDRequest
-	106, // 121: datanode.api.v1.TradingDataService.PositionsByParty:input_type -> datanode.api.v1.PositionsByPartyRequest
-	66,  // 122: datanode.api.v1.TradingDataService.LastTrade:input_type -> datanode.api.v1.LastTradeRequest
-	104, // 123: datanode.api.v1.TradingDataService.TradesByMarket:input_type -> datanode.api.v1.TradesByMarketRequest
-	76,  // 124: datanode.api.v1.TradingDataService.TradesByOrder:input_type -> datanode.api.v1.TradesByOrderRequest
-	74,  // 125: datanode.api.v1.TradingDataService.TradesByParty:input_type -> datanode.api.v1.TradesByPartyRequest
-	28,  // 126: datanode.api.v1.TradingDataService.GetProposals:input_type -> datanode.api.v1.GetProposalsRequest
-	30,  // 127: datanode.api.v1.TradingDataService.GetProposalsByParty:input_type -> datanode.api.v1.GetProposalsByPartyRequest
-	32,  // 128: datanode.api.v1.TradingDataService.GetVotesByParty:input_type -> datanode.api.v1.GetVotesByPartyRequest
-	34,  // 129: datanode.api.v1.TradingDataService.GetNewMarketProposals:input_type -> datanode.api.v1.GetNewMarketProposalsRequest
-	36,  // 130: datanode.api.v1.TradingDataService.GetUpdateMarketProposals:input_type -> datanode.api.v1.GetUpdateMarketProposalsRequest
-	38,  // 131: datanode.api.v1.TradingDataService.GetNetworkParametersProposals:input_type -> datanode.api.v1.GetNetworkParametersProposalsRequest
-	42,  // 132: datanode.api.v1.TradingDataService.GetNewAssetProposals:input_type -> datanode.api.v1.GetNewAssetProposalsRequest
-	40,  // 133: datanode.api.v1.TradingDataService.GetNewFreeformProposals:input_type -> datanode.api.v1.GetNewFreeformProposalsRequest
-	44,  // 134: datanode.api.v1.TradingDataService.GetProposalByID:input_type -> datanode.api.v1.GetProposalByIDRequest
-	46,  // 135: datanode.api.v1.TradingDataService.GetProposalByReference:input_type -> datanode.api.v1.GetProposalByReferenceRequest
-	48,  // 136: datanode.api.v1.TradingDataService.ObserveGovernance:input_type -> datanode.api.v1.ObserveGovernanceRequest
-	50,  // 137: datanode.api.v1.TradingDataService.ObservePartyProposals:input_type -> datanode.api.v1.ObservePartyProposalsRequest
-	54,  // 138: datanode.api.v1.TradingDataService.ObservePartyVotes:input_type -> datanode.api.v1.ObservePartyVotesRequest
-	52,  // 139: datanode.api.v1.TradingDataService.ObserveProposalVotes:input_type -> datanode.api.v1.ObserveProposalVotesRequest
-	131, // 140: datanode.api.v1.TradingDataService.ObserveEventBus:input_type -> datanode.api.v1.ObserveEventBusRequest
-	8,   // 141: datanode.api.v1.TradingDataService.GetNodeData:input_type -> datanode.api.v1.GetNodeDataRequest
-	10,  // 142: datanode.api.v1.TradingDataService.GetNodes:input_type -> datanode.api.v1.GetNodesRequest
-	12,  // 143: datanode.api.v1.TradingDataService.GetNodeByID:input_type -> datanode.api.v1.GetNodeByIDRequest
-	17,  // 144: datanode.api.v1.TradingDataService.GetKeyRotations:input_type -> datanode.api.v1.GetKeyRotationsRequest
-	19,  // 145: datanode.api.v1.TradingDataService.GetKeyRotationsByNode:input_type -> datanode.api.v1.GetKeyRotationsByNodeRequest
-	14,  // 146: datanode.api.v1.TradingDataService.GetEpoch:input_type -> datanode.api.v1.GetEpochRequest
-	108, // 147: datanode.api.v1.TradingDataService.GetVegaTime:input_type -> datanode.api.v1.GetVegaTimeRequest
-	78,  // 148: datanode.api.v1.TradingDataService.AccountsSubscribe:input_type -> datanode.api.v1.AccountsSubscribeRequest
-	82,  // 149: datanode.api.v1.TradingDataService.CandlesSubscribe:input_type -> datanode.api.v1.CandlesSubscribeRequest
-	56,  // 150: datanode.api.v1.TradingDataService.MarginLevelsSubscribe:input_type -> datanode.api.v1.MarginLevelsSubscribeRequest
-	84,  // 151: datanode.api.v1.TradingDataService.MarketDepthSubscribe:input_type -> datanode.api.v1.MarketDepthSubscribeRequest
-	86,  // 152: datanode.api.v1.TradingDataService.MarketDepthUpdatesSubscribe:input_type -> datanode.api.v1.MarketDepthUpdatesSubscribeRequest
-	60,  // 153: datanode.api.v1.TradingDataService.MarketsDataSubscribe:input_type -> datanode.api.v1.MarketsDataSubscribeRequest
-	80,  // 154: datanode.api.v1.TradingDataService.OrdersSubscribe:input_type -> datanode.api.v1.OrdersSubscribeRequest
-	88,  // 155: datanode.api.v1.TradingDataService.PositionsSubscribe:input_type -> datanode.api.v1.PositionsSubscribeRequest
-	81,  // 156: datanode.api.v1.TradingDataService.TradesSubscribe:input_type -> datanode.api.v1.TradesSubscribeRequest
-	113, // 157: datanode.api.v1.TradingDataService.TransferResponsesSubscribe:input_type -> datanode.api.v1.TransferResponsesSubscribeRequest
-	25,  // 158: datanode.api.v1.TradingDataService.GetNodeSignaturesAggregate:input_type -> datanode.api.v1.GetNodeSignaturesAggregateRequest
-	23,  // 159: datanode.api.v1.TradingDataService.AssetByID:input_type -> datanode.api.v1.AssetByIDRequest
-	21,  // 160: datanode.api.v1.TradingDataService.Assets:input_type -> datanode.api.v1.AssetsRequest
-	127, // 161: datanode.api.v1.TradingDataService.EstimateFee:input_type -> datanode.api.v1.EstimateFeeRequest
-	129, // 162: datanode.api.v1.TradingDataService.EstimateMargin:input_type -> datanode.api.v1.EstimateMarginRequest
-	137, // 163: datanode.api.v1.TradingDataService.ERC20WithdrawalApproval:input_type -> datanode.api.v1.ERC20WithdrawalApprovalRequest
-	135, // 164: datanode.api.v1.TradingDataService.Withdrawal:input_type -> datanode.api.v1.WithdrawalRequest
-	133, // 165: datanode.api.v1.TradingDataService.Withdrawals:input_type -> datanode.api.v1.WithdrawalsRequest
-	141, // 166: datanode.api.v1.TradingDataService.Deposit:input_type -> datanode.api.v1.DepositRequest
-	139, // 167: datanode.api.v1.TradingDataService.Deposits:input_type -> datanode.api.v1.DepositsRequest
-	143, // 168: datanode.api.v1.TradingDataService.NetworkParameters:input_type -> datanode.api.v1.NetworkParametersRequest
-	145, // 169: datanode.api.v1.TradingDataService.LiquidityProvisions:input_type -> datanode.api.v1.LiquidityProvisionsRequest
-	147, // 170: datanode.api.v1.TradingDataService.OracleSpec:input_type -> datanode.api.v1.OracleSpecRequest
-	149, // 171: datanode.api.v1.TradingDataService.OracleSpecs:input_type -> datanode.api.v1.OracleSpecsRequest
-	151, // 172: datanode.api.v1.TradingDataService.OracleDataBySpec:input_type -> datanode.api.v1.OracleDataBySpecRequest
-	153, // 173: datanode.api.v1.TradingDataService.ObserveRewards:input_type -> datanode.api.v1.ObserveRewardsRequest
-	157, // 174: datanode.api.v1.TradingDataService.GetRewards:input_type -> datanode.api.v1.GetRewardsRequest
-	155, // 175: datanode.api.v1.TradingDataService.GetRewardSummaries:input_type -> datanode.api.v1.GetRewardSummariesRequest
-	160, // 176: datanode.api.v1.TradingDataService.Checkpoints:input_type -> datanode.api.v1.CheckpointsRequest
-	2,   // 177: datanode.api.v1.TradingDataService.Delegations:input_type -> datanode.api.v1.DelegationsRequest
-	4,   // 178: datanode.api.v1.TradingDataService.ObserveDelegations:input_type -> datanode.api.v1.ObserveDelegationsRequest
-	6,   // 179: datanode.api.v1.TradingDataService.PartyStake:input_type -> datanode.api.v1.PartyStakeRequest
-	0,   // 180: datanode.api.v1.TradingDataService.Transfers:input_type -> datanode.api.v1.TransfersRequest
-	162, // 181: datanode.api.v1.TradingDataService.GetRiskFactors:input_type -> datanode.api.v1.GetRiskFactorsRequest
-	118, // 182: datanode.api.v1.TradingDataService.MarketAccounts:output_type -> datanode.api.v1.MarketAccountsResponse
-	116, // 183: datanode.api.v1.TradingDataService.PartyAccounts:output_type -> datanode.api.v1.PartyAccountsResponse
-	120, // 184: datanode.api.v1.TradingDataService.FeeInfrastructureAccounts:output_type -> datanode.api.v1.FeeInfrastructureAccountsResponse
-	122, // 185: datanode.api.v1.TradingDataService.GlobalRewardPoolAccounts:output_type -> datanode.api.v1.GlobalRewardPoolAccountsResponse
-	101, // 186: datanode.api.v1.TradingDataService.Candles:output_type -> datanode.api.v1.CandlesResponse
-	63,  // 187: datanode.api.v1.TradingDataService.MarketDataByID:output_type -> datanode.api.v1.MarketDataByIDResponse
-	65,  // 188: datanode.api.v1.TradingDataService.MarketsData:output_type -> datanode.api.v1.MarketsDataResponse
-	69,  // 189: datanode.api.v1.TradingDataService.MarketByID:output_type -> datanode.api.v1.MarketByIDResponse
-	103, // 190: datanode.api.v1.TradingDataService.MarketDepth:output_type -> datanode.api.v1.MarketDepthResponse
-	99,  // 191: datanode.api.v1.TradingDataService.Markets:output_type -> datanode.api.v1.MarketsResponse
-	95,  // 192: datanode.api.v1.TradingDataService.OrderByMarketAndID:output_type -> datanode.api.v1.OrderByMarketAndIDResponse
-	97,  // 193: datanode.api.v1.TradingDataService.OrderByReference:output_type -> datanode.api.v1.OrderByReferenceResponse
-	91,  // 194: datanode.api.v1.TradingDataService.OrdersByMarket:output_type -> datanode.api.v1.OrdersByMarketResponse
-	93,  // 195: datanode.api.v1.TradingDataService.OrdersByParty:output_type -> datanode.api.v1.OrdersByPartyResponse
-	124, // 196: datanode.api.v1.TradingDataService.OrderByID:output_type -> datanode.api.v1.OrderByIDResponse
-	126, // 197: datanode.api.v1.TradingDataService.OrderVersionsByID:output_type -> datanode.api.v1.OrderVersionsByIDResponse
-	59,  // 198: datanode.api.v1.TradingDataService.MarginLevels:output_type -> datanode.api.v1.MarginLevelsResponse
-	73,  // 199: datanode.api.v1.TradingDataService.Parties:output_type -> datanode.api.v1.PartiesResponse
-	71,  // 200: datanode.api.v1.TradingDataService.PartyByID:output_type -> datanode.api.v1.PartyByIDResponse
-	107, // 201: datanode.api.v1.TradingDataService.PositionsByParty:output_type -> datanode.api.v1.PositionsByPartyResponse
-	67,  // 202: datanode.api.v1.TradingDataService.LastTrade:output_type -> datanode.api.v1.LastTradeResponse
-	105, // 203: datanode.api.v1.TradingDataService.TradesByMarket:output_type -> datanode.api.v1.TradesByMarketResponse
-	77,  // 204: datanode.api.v1.TradingDataService.TradesByOrder:output_type -> datanode.api.v1.TradesByOrderResponse
-	75,  // 205: datanode.api.v1.TradingDataService.TradesByParty:output_type -> datanode.api.v1.TradesByPartyResponse
-	29,  // 206: datanode.api.v1.TradingDataService.GetProposals:output_type -> datanode.api.v1.GetProposalsResponse
-	31,  // 207: datanode.api.v1.TradingDataService.GetProposalsByParty:output_type -> datanode.api.v1.GetProposalsByPartyResponse
-	33,  // 208: datanode.api.v1.TradingDataService.GetVotesByParty:output_type -> datanode.api.v1.GetVotesByPartyResponse
-	35,  // 209: datanode.api.v1.TradingDataService.GetNewMarketProposals:output_type -> datanode.api.v1.GetNewMarketProposalsResponse
-	37,  // 210: datanode.api.v1.TradingDataService.GetUpdateMarketProposals:output_type -> datanode.api.v1.GetUpdateMarketProposalsResponse
-	39,  // 211: datanode.api.v1.TradingDataService.GetNetworkParametersProposals:output_type -> datanode.api.v1.GetNetworkParametersProposalsResponse
-	43,  // 212: datanode.api.v1.TradingDataService.GetNewAssetProposals:output_type -> datanode.api.v1.GetNewAssetProposalsResponse
-	41,  // 213: datanode.api.v1.TradingDataService.GetNewFreeformProposals:output_type -> datanode.api.v1.GetNewFreeformProposalsResponse
-	45,  // 214: datanode.api.v1.TradingDataService.GetProposalByID:output_type -> datanode.api.v1.GetProposalByIDResponse
-	47,  // 215: datanode.api.v1.TradingDataService.GetProposalByReference:output_type -> datanode.api.v1.GetProposalByReferenceResponse
-	49,  // 216: datanode.api.v1.TradingDataService.ObserveGovernance:output_type -> datanode.api.v1.ObserveGovernanceResponse
-	51,  // 217: datanode.api.v1.TradingDataService.ObservePartyProposals:output_type -> datanode.api.v1.ObservePartyProposalsResponse
-	55,  // 218: datanode.api.v1.TradingDataService.ObservePartyVotes:output_type -> datanode.api.v1.ObservePartyVotesResponse
-	53,  // 219: datanode.api.v1.TradingDataService.ObserveProposalVotes:output_type -> datanode.api.v1.ObserveProposalVotesResponse
-	132, // 220: datanode.api.v1.TradingDataService.ObserveEventBus:output_type -> datanode.api.v1.ObserveEventBusResponse
-	9,   // 221: datanode.api.v1.TradingDataService.GetNodeData:output_type -> datanode.api.v1.GetNodeDataResponse
-	11,  // 222: datanode.api.v1.TradingDataService.GetNodes:output_type -> datanode.api.v1.GetNodesResponse
-	13,  // 223: datanode.api.v1.TradingDataService.GetNodeByID:output_type -> datanode.api.v1.GetNodeByIDResponse
-	18,  // 224: datanode.api.v1.TradingDataService.GetKeyRotations:output_type -> datanode.api.v1.GetKeyRotationsResponse
-	20,  // 225: datanode.api.v1.TradingDataService.GetKeyRotationsByNode:output_type -> datanode.api.v1.GetKeyRotationsByNodeResponse
-	15,  // 226: datanode.api.v1.TradingDataService.GetEpoch:output_type -> datanode.api.v1.GetEpochResponse
-	109, // 227: datanode.api.v1.TradingDataService.GetVegaTime:output_type -> datanode.api.v1.GetVegaTimeResponse
-	79,  // 228: datanode.api.v1.TradingDataService.AccountsSubscribe:output_type -> datanode.api.v1.AccountsSubscribeResponse
-	83,  // 229: datanode.api.v1.TradingDataService.CandlesSubscribe:output_type -> datanode.api.v1.CandlesSubscribeResponse
-	57,  // 230: datanode.api.v1.TradingDataService.MarginLevelsSubscribe:output_type -> datanode.api.v1.MarginLevelsSubscribeResponse
-	85,  // 231: datanode.api.v1.TradingDataService.MarketDepthSubscribe:output_type -> datanode.api.v1.MarketDepthSubscribeResponse
-	87,  // 232: datanode.api.v1.TradingDataService.MarketDepthUpdatesSubscribe:output_type -> datanode.api.v1.MarketDepthUpdatesSubscribeResponse
-	61,  // 233: datanode.api.v1.TradingDataService.MarketsDataSubscribe:output_type -> datanode.api.v1.MarketsDataSubscribeResponse
-	111, // 234: datanode.api.v1.TradingDataService.OrdersSubscribe:output_type -> datanode.api.v1.OrdersSubscribeResponse
-	89,  // 235: datanode.api.v1.TradingDataService.PositionsSubscribe:output_type -> datanode.api.v1.PositionsSubscribeResponse
-	112, // 236: datanode.api.v1.TradingDataService.TradesSubscribe:output_type -> datanode.api.v1.TradesSubscribeResponse
-	114, // 237: datanode.api.v1.TradingDataService.TransferResponsesSubscribe:output_type -> datanode.api.v1.TransferResponsesSubscribeResponse
-	26,  // 238: datanode.api.v1.TradingDataService.GetNodeSignaturesAggregate:output_type -> datanode.api.v1.GetNodeSignaturesAggregateResponse
-	24,  // 239: datanode.api.v1.TradingDataService.AssetByID:output_type -> datanode.api.v1.AssetByIDResponse
-	22,  // 240: datanode.api.v1.TradingDataService.Assets:output_type -> datanode.api.v1.AssetsResponse
-	128, // 241: datanode.api.v1.TradingDataService.EstimateFee:output_type -> datanode.api.v1.EstimateFeeResponse
-	130, // 242: datanode.api.v1.TradingDataService.EstimateMargin:output_type -> datanode.api.v1.EstimateMarginResponse
-	138, // 243: datanode.api.v1.TradingDataService.ERC20WithdrawalApproval:output_type -> datanode.api.v1.ERC20WithdrawalApprovalResponse
-	136, // 244: datanode.api.v1.TradingDataService.Withdrawal:output_type -> datanode.api.v1.WithdrawalResponse
-	134, // 245: datanode.api.v1.TradingDataService.Withdrawals:output_type -> datanode.api.v1.WithdrawalsResponse
-	142, // 246: datanode.api.v1.TradingDataService.Deposit:output_type -> datanode.api.v1.DepositResponse
-	140, // 247: datanode.api.v1.TradingDataService.Deposits:output_type -> datanode.api.v1.DepositsResponse
-	144, // 248: datanode.api.v1.TradingDataService.NetworkParameters:output_type -> datanode.api.v1.NetworkParametersResponse
-	146, // 249: datanode.api.v1.TradingDataService.LiquidityProvisions:output_type -> datanode.api.v1.LiquidityProvisionsResponse
-	148, // 250: datanode.api.v1.TradingDataService.OracleSpec:output_type -> datanode.api.v1.OracleSpecResponse
-	150, // 251: datanode.api.v1.TradingDataService.OracleSpecs:output_type -> datanode.api.v1.OracleSpecsResponse
-	152, // 252: datanode.api.v1.TradingDataService.OracleDataBySpec:output_type -> datanode.api.v1.OracleDataBySpecResponse
-	154, // 253: datanode.api.v1.TradingDataService.ObserveRewards:output_type -> datanode.api.v1.ObserveRewardsResponse
-	158, // 254: datanode.api.v1.TradingDataService.GetRewards:output_type -> datanode.api.v1.GetRewardsResponse
-	156, // 255: datanode.api.v1.TradingDataService.GetRewardSummaries:output_type -> datanode.api.v1.GetRewardSummariesResponse
-	161, // 256: datanode.api.v1.TradingDataService.Checkpoints:output_type -> datanode.api.v1.CheckpointsResponse
-	3,   // 257: datanode.api.v1.TradingDataService.Delegations:output_type -> datanode.api.v1.DelegationsResponse
-	5,   // 258: datanode.api.v1.TradingDataService.ObserveDelegations:output_type -> datanode.api.v1.ObserveDelegationsResponse
-	7,   // 259: datanode.api.v1.TradingDataService.PartyStake:output_type -> datanode.api.v1.PartyStakeResponse
-	1,   // 260: datanode.api.v1.TradingDataService.Transfers:output_type -> datanode.api.v1.TransfersResponse
-	163, // 261: datanode.api.v1.TradingDataService.GetRiskFactors:output_type -> datanode.api.v1.GetRiskFactorsResponse
-	182, // [182:262] is the sub-list for method output_type
-	102, // [102:182] is the sub-list for method input_type
-	102, // [102:102] is the sub-list for extension type_name
-	102, // [102:102] is the sub-list for extension extendee
-	0,   // [0:102] is the sub-list for field type_name
+	189, // 80: datanode.api.v1.OrderVersionsByIDResponse.orders:type_name -> vega.Order
+	189, // 81: datanode.api.v1.EstimateFeeRequest.order:type_name -> vega.Order
+	192, // 82: datanode.api.v1.EstimateFeeResponse.fee:type_name -> vega.Fee
+	189, // 83: datanode.api.v1.EstimateMarginRequest.order:type_name -> vega.Order
+	177, // 84: datanode.api.v1.EstimateMarginResponse.margin_levels:type_name -> vega.MarginLevels
+	193, // 85: datanode.api.v1.ObserveEventBusRequest.type:type_name -> vega.events.v1.BusEventType
+	194, // 86: datanode.api.v1.ObserveEventBusResponse.events:type_name -> vega.events.v1.BusEvent
+	195, // 87: datanode.api.v1.WithdrawalsResponse.withdrawals:type_name -> vega.Withdrawal
+	195, // 88: datanode.api.v1.WithdrawalResponse.withdrawal:type_name -> vega.Withdrawal
+	196, // 89: datanode.api.v1.DepositsResponse.deposits:type_name -> vega.Deposit
+	196, // 90: datanode.api.v1.DepositResponse.deposit:type_name -> vega.Deposit
+	197, // 91: datanode.api.v1.NetworkParametersResponse.network_parameters:type_name -> vega.NetworkParameter
+	198, // 92: datanode.api.v1.LiquidityProvisionsResponse.liquidity_provisions:type_name -> vega.LiquidityProvision
+	110, // 93: datanode.api.v1.OracleSpecRequest.pagination:type_name -> datanode.api.v1.Pagination
+	199, // 94: datanode.api.v1.OracleSpecResponse.oracle_spec:type_name -> oracles.v1.OracleSpec
+	110, // 95: datanode.api.v1.OracleSpecsRequest.pagination:type_name -> datanode.api.v1.Pagination
+	199, // 96: datanode.api.v1.OracleSpecsResponse.oracle_specs:type_name -> oracles.v1.OracleSpec
+	110, // 97: datanode.api.v1.OracleDataBySpecRequest.pagination:type_name -> datanode.api.v1.Pagination
+	200, // 98: datanode.api.v1.OracleDataBySpecResponse.oracle_data:type_name -> oracles.v1.OracleData
+	110, // 99: datanode.api.v1.ListOracleDataRequest.pagination:type_name -> datanode.api.v1.Pagination
+	200, // 100: datanode.api.v1.ListOracleDataResponse.oracle_data:type_name -> oracles.v1.OracleData
+	201, // 101: datanode.api.v1.ObserveRewardsResponse.reward:type_name -> vega.Reward
+	202, // 102: datanode.api.v1.GetRewardSummariesResponse.summaries:type_name -> vega.RewardSummary
+	110, // 103: datanode.api.v1.GetRewardsRequest.pagination:type_name -> datanode.api.v1.Pagination
+	201, // 104: datanode.api.v1.GetRewardsResponse.rewards:type_name -> vega.Reward
+	161, // 105: datanode.api.v1.CheckpointsResponse.checkpoints:type_name -> datanode.api.v1.Checkpoint
+	203, // 106: datanode.api.v1.GetRiskFactorsResponse.risk_factor:type_name -> vega.RiskFactor
+	117, // 107: datanode.api.v1.TradingDataService.MarketAccounts:input_type -> datanode.api.v1.MarketAccountsRequest
+	115, // 108: datanode.api.v1.TradingDataService.PartyAccounts:input_type -> datanode.api.v1.PartyAccountsRequest
+	119, // 109: datanode.api.v1.TradingDataService.FeeInfrastructureAccounts:input_type -> datanode.api.v1.FeeInfrastructureAccountsRequest
+	121, // 110: datanode.api.v1.TradingDataService.GlobalRewardPoolAccounts:input_type -> datanode.api.v1.GlobalRewardPoolAccountsRequest
+	100, // 111: datanode.api.v1.TradingDataService.Candles:input_type -> datanode.api.v1.CandlesRequest
+	62,  // 112: datanode.api.v1.TradingDataService.MarketDataByID:input_type -> datanode.api.v1.MarketDataByIDRequest
+	64,  // 113: datanode.api.v1.TradingDataService.MarketsData:input_type -> datanode.api.v1.MarketsDataRequest
+	68,  // 114: datanode.api.v1.TradingDataService.MarketByID:input_type -> datanode.api.v1.MarketByIDRequest
+	102, // 115: datanode.api.v1.TradingDataService.MarketDepth:input_type -> datanode.api.v1.MarketDepthRequest
+	98,  // 116: datanode.api.v1.TradingDataService.Markets:input_type -> datanode.api.v1.MarketsRequest
+	94,  // 117: datanode.api.v1.TradingDataService.OrderByMarketAndID:input_type -> datanode.api.v1.OrderByMarketAndIDRequest
+	96,  // 118: datanode.api.v1.TradingDataService.OrderByReference:input_type -> datanode.api.v1.OrderByReferenceRequest
+	90,  // 119: datanode.api.v1.TradingDataService.OrdersByMarket:input_type -> datanode.api.v1.OrdersByMarketRequest
+	92,  // 120: datanode.api.v1.TradingDataService.OrdersByParty:input_type -> datanode.api.v1.OrdersByPartyRequest
+	123, // 121: datanode.api.v1.TradingDataService.OrderByID:input_type -> datanode.api.v1.OrderByIDRequest
+	125, // 122: datanode.api.v1.TradingDataService.OrderVersionsByID:input_type -> datanode.api.v1.OrderVersionsByIDRequest
+	58,  // 123: datanode.api.v1.TradingDataService.MarginLevels:input_type -> datanode.api.v1.MarginLevelsRequest
+	72,  // 124: datanode.api.v1.TradingDataService.Parties:input_type -> datanode.api.v1.PartiesRequest
+	70,  // 125: datanode.api.v1.TradingDataService.PartyByID:input_type -> datanode.api.v1.PartyByIDRequest
+	106, // 126: datanode.api.v1.TradingDataService.PositionsByParty:input_type -> datanode.api.v1.PositionsByPartyRequest
+	66,  // 127: datanode.api.v1.TradingDataService.LastTrade:input_type -> datanode.api.v1.LastTradeRequest
+	104, // 128: datanode.api.v1.TradingDataService.TradesByMarket:input_type -> datanode.api.v1.TradesByMarketRequest
+	76,  // 129: datanode.api.v1.TradingDataService.TradesByOrder:input_type -> datanode.api.v1.TradesByOrderRequest
+	74,  // 130: datanode.api.v1.TradingDataService.TradesByParty:input_type -> datanode.api.v1.TradesByPartyRequest
+	28,  // 131: datanode.api.v1.TradingDataService.GetProposals:input_type -> datanode.api.v1.GetProposalsRequest
+	30,  // 132: datanode.api.v1.TradingDataService.GetProposalsByParty:input_type -> datanode.api.v1.GetProposalsByPartyRequest
+	32,  // 133: datanode.api.v1.TradingDataService.GetVotesByParty:input_type -> datanode.api.v1.GetVotesByPartyRequest
+	34,  // 134: datanode.api.v1.TradingDataService.GetNewMarketProposals:input_type -> datanode.api.v1.GetNewMarketProposalsRequest
+	36,  // 135: datanode.api.v1.TradingDataService.GetUpdateMarketProposals:input_type -> datanode.api.v1.GetUpdateMarketProposalsRequest
+	38,  // 136: datanode.api.v1.TradingDataService.GetNetworkParametersProposals:input_type -> datanode.api.v1.GetNetworkParametersProposalsRequest
+	42,  // 137: datanode.api.v1.TradingDataService.GetNewAssetProposals:input_type -> datanode.api.v1.GetNewAssetProposalsRequest
+	40,  // 138: datanode.api.v1.TradingDataService.GetNewFreeformProposals:input_type -> datanode.api.v1.GetNewFreeformProposalsRequest
+	44,  // 139: datanode.api.v1.TradingDataService.GetProposalByID:input_type -> datanode.api.v1.GetProposalByIDRequest
+	46,  // 140: datanode.api.v1.TradingDataService.GetProposalByReference:input_type -> datanode.api.v1.GetProposalByReferenceRequest
+	48,  // 141: datanode.api.v1.TradingDataService.ObserveGovernance:input_type -> datanode.api.v1.ObserveGovernanceRequest
+	50,  // 142: datanode.api.v1.TradingDataService.ObservePartyProposals:input_type -> datanode.api.v1.ObservePartyProposalsRequest
+	54,  // 143: datanode.api.v1.TradingDataService.ObservePartyVotes:input_type -> datanode.api.v1.ObservePartyVotesRequest
+	52,  // 144: datanode.api.v1.TradingDataService.ObserveProposalVotes:input_type -> datanode.api.v1.ObserveProposalVotesRequest
+	131, // 145: datanode.api.v1.TradingDataService.ObserveEventBus:input_type -> datanode.api.v1.ObserveEventBusRequest
+	8,   // 146: datanode.api.v1.TradingDataService.GetNodeData:input_type -> datanode.api.v1.GetNodeDataRequest
+	10,  // 147: datanode.api.v1.TradingDataService.GetNodes:input_type -> datanode.api.v1.GetNodesRequest
+	12,  // 148: datanode.api.v1.TradingDataService.GetNodeByID:input_type -> datanode.api.v1.GetNodeByIDRequest
+	17,  // 149: datanode.api.v1.TradingDataService.GetKeyRotations:input_type -> datanode.api.v1.GetKeyRotationsRequest
+	19,  // 150: datanode.api.v1.TradingDataService.GetKeyRotationsByNode:input_type -> datanode.api.v1.GetKeyRotationsByNodeRequest
+	14,  // 151: datanode.api.v1.TradingDataService.GetEpoch:input_type -> datanode.api.v1.GetEpochRequest
+	108, // 152: datanode.api.v1.TradingDataService.GetVegaTime:input_type -> datanode.api.v1.GetVegaTimeRequest
+	78,  // 153: datanode.api.v1.TradingDataService.AccountsSubscribe:input_type -> datanode.api.v1.AccountsSubscribeRequest
+	82,  // 154: datanode.api.v1.TradingDataService.CandlesSubscribe:input_type -> datanode.api.v1.CandlesSubscribeRequest
+	56,  // 155: datanode.api.v1.TradingDataService.MarginLevelsSubscribe:input_type -> datanode.api.v1.MarginLevelsSubscribeRequest
+	84,  // 156: datanode.api.v1.TradingDataService.MarketDepthSubscribe:input_type -> datanode.api.v1.MarketDepthSubscribeRequest
+	86,  // 157: datanode.api.v1.TradingDataService.MarketDepthUpdatesSubscribe:input_type -> datanode.api.v1.MarketDepthUpdatesSubscribeRequest
+	60,  // 158: datanode.api.v1.TradingDataService.MarketsDataSubscribe:input_type -> datanode.api.v1.MarketsDataSubscribeRequest
+	80,  // 159: datanode.api.v1.TradingDataService.OrdersSubscribe:input_type -> datanode.api.v1.OrdersSubscribeRequest
+	88,  // 160: datanode.api.v1.TradingDataService.PositionsSubscribe:input_type -> datanode.api.v1.PositionsSubscribeRequest
+	81,  // 161: datanode.api.v1.TradingDataService.TradesSubscribe:input_type -> datanode.api.v1.TradesSubscribeRequest
+	113, // 162: datanode.api.v1.TradingDataService.TransferResponsesSubscribe:input_type -> datanode.api.v1.TransferResponsesSubscribeRequest
+	25,  // 163: datanode.api.v1.TradingDataService.GetNodeSignaturesAggregate:input_type -> datanode.api.v1.GetNodeSignaturesAggregateRequest
+	23,  // 164: datanode.api.v1.TradingDataService.AssetByID:input_type -> datanode.api.v1.AssetByIDRequest
+	21,  // 165: datanode.api.v1.TradingDataService.Assets:input_type -> datanode.api.v1.AssetsRequest
+	127, // 166: datanode.api.v1.TradingDataService.EstimateFee:input_type -> datanode.api.v1.EstimateFeeRequest
+	129, // 167: datanode.api.v1.TradingDataService.EstimateMargin:input_type -> datanode.api.v1.EstimateMarginRequest
+	137, // 168: datanode.api.v1.TradingDataService.ERC20WithdrawalApproval:input_type -> datanode.api.v1.ERC20WithdrawalApprovalRequest
+	135, // 169: datanode.api.v1.TradingDataService.Withdrawal:input_type -> datanode.api.v1.WithdrawalRequest
+	133, // 170: datanode.api.v1.TradingDataService.Withdrawals:input_type -> datanode.api.v1.WithdrawalsRequest
+	141, // 171: datanode.api.v1.TradingDataService.Deposit:input_type -> datanode.api.v1.DepositRequest
+	139, // 172: datanode.api.v1.TradingDataService.Deposits:input_type -> datanode.api.v1.DepositsRequest
+	143, // 173: datanode.api.v1.TradingDataService.NetworkParameters:input_type -> datanode.api.v1.NetworkParametersRequest
+	145, // 174: datanode.api.v1.TradingDataService.LiquidityProvisions:input_type -> datanode.api.v1.LiquidityProvisionsRequest
+	147, // 175: datanode.api.v1.TradingDataService.OracleSpec:input_type -> datanode.api.v1.OracleSpecRequest
+	149, // 176: datanode.api.v1.TradingDataService.OracleSpecs:input_type -> datanode.api.v1.OracleSpecsRequest
+	151, // 177: datanode.api.v1.TradingDataService.OracleDataBySpec:input_type -> datanode.api.v1.OracleDataBySpecRequest
+	153, // 178: datanode.api.v1.TradingDataService.ListOracleData:input_type -> datanode.api.v1.ListOracleDataRequest
+	155, // 179: datanode.api.v1.TradingDataService.ObserveRewards:input_type -> datanode.api.v1.ObserveRewardsRequest
+	159, // 180: datanode.api.v1.TradingDataService.GetRewards:input_type -> datanode.api.v1.GetRewardsRequest
+	157, // 181: datanode.api.v1.TradingDataService.GetRewardSummaries:input_type -> datanode.api.v1.GetRewardSummariesRequest
+	162, // 182: datanode.api.v1.TradingDataService.Checkpoints:input_type -> datanode.api.v1.CheckpointsRequest
+	2,   // 183: datanode.api.v1.TradingDataService.Delegations:input_type -> datanode.api.v1.DelegationsRequest
+	4,   // 184: datanode.api.v1.TradingDataService.ObserveDelegations:input_type -> datanode.api.v1.ObserveDelegationsRequest
+	6,   // 185: datanode.api.v1.TradingDataService.PartyStake:input_type -> datanode.api.v1.PartyStakeRequest
+	0,   // 186: datanode.api.v1.TradingDataService.Transfers:input_type -> datanode.api.v1.TransfersRequest
+	164, // 187: datanode.api.v1.TradingDataService.GetRiskFactors:input_type -> datanode.api.v1.GetRiskFactorsRequest
+	118, // 188: datanode.api.v1.TradingDataService.MarketAccounts:output_type -> datanode.api.v1.MarketAccountsResponse
+	116, // 189: datanode.api.v1.TradingDataService.PartyAccounts:output_type -> datanode.api.v1.PartyAccountsResponse
+	120, // 190: datanode.api.v1.TradingDataService.FeeInfrastructureAccounts:output_type -> datanode.api.v1.FeeInfrastructureAccountsResponse
+	122, // 191: datanode.api.v1.TradingDataService.GlobalRewardPoolAccounts:output_type -> datanode.api.v1.GlobalRewardPoolAccountsResponse
+	101, // 192: datanode.api.v1.TradingDataService.Candles:output_type -> datanode.api.v1.CandlesResponse
+	63,  // 193: datanode.api.v1.TradingDataService.MarketDataByID:output_type -> datanode.api.v1.MarketDataByIDResponse
+	65,  // 194: datanode.api.v1.TradingDataService.MarketsData:output_type -> datanode.api.v1.MarketsDataResponse
+	69,  // 195: datanode.api.v1.TradingDataService.MarketByID:output_type -> datanode.api.v1.MarketByIDResponse
+	103, // 196: datanode.api.v1.TradingDataService.MarketDepth:output_type -> datanode.api.v1.MarketDepthResponse
+	99,  // 197: datanode.api.v1.TradingDataService.Markets:output_type -> datanode.api.v1.MarketsResponse
+	95,  // 198: datanode.api.v1.TradingDataService.OrderByMarketAndID:output_type -> datanode.api.v1.OrderByMarketAndIDResponse
+	97,  // 199: datanode.api.v1.TradingDataService.OrderByReference:output_type -> datanode.api.v1.OrderByReferenceResponse
+	91,  // 200: datanode.api.v1.TradingDataService.OrdersByMarket:output_type -> datanode.api.v1.OrdersByMarketResponse
+	93,  // 201: datanode.api.v1.TradingDataService.OrdersByParty:output_type -> datanode.api.v1.OrdersByPartyResponse
+	124, // 202: datanode.api.v1.TradingDataService.OrderByID:output_type -> datanode.api.v1.OrderByIDResponse
+	126, // 203: datanode.api.v1.TradingDataService.OrderVersionsByID:output_type -> datanode.api.v1.OrderVersionsByIDResponse
+	59,  // 204: datanode.api.v1.TradingDataService.MarginLevels:output_type -> datanode.api.v1.MarginLevelsResponse
+	73,  // 205: datanode.api.v1.TradingDataService.Parties:output_type -> datanode.api.v1.PartiesResponse
+	71,  // 206: datanode.api.v1.TradingDataService.PartyByID:output_type -> datanode.api.v1.PartyByIDResponse
+	107, // 207: datanode.api.v1.TradingDataService.PositionsByParty:output_type -> datanode.api.v1.PositionsByPartyResponse
+	67,  // 208: datanode.api.v1.TradingDataService.LastTrade:output_type -> datanode.api.v1.LastTradeResponse
+	105, // 209: datanode.api.v1.TradingDataService.TradesByMarket:output_type -> datanode.api.v1.TradesByMarketResponse
+	77,  // 210: datanode.api.v1.TradingDataService.TradesByOrder:output_type -> datanode.api.v1.TradesByOrderResponse
+	75,  // 211: datanode.api.v1.TradingDataService.TradesByParty:output_type -> datanode.api.v1.TradesByPartyResponse
+	29,  // 212: datanode.api.v1.TradingDataService.GetProposals:output_type -> datanode.api.v1.GetProposalsResponse
+	31,  // 213: datanode.api.v1.TradingDataService.GetProposalsByParty:output_type -> datanode.api.v1.GetProposalsByPartyResponse
+	33,  // 214: datanode.api.v1.TradingDataService.GetVotesByParty:output_type -> datanode.api.v1.GetVotesByPartyResponse
+	35,  // 215: datanode.api.v1.TradingDataService.GetNewMarketProposals:output_type -> datanode.api.v1.GetNewMarketProposalsResponse
+	37,  // 216: datanode.api.v1.TradingDataService.GetUpdateMarketProposals:output_type -> datanode.api.v1.GetUpdateMarketProposalsResponse
+	39,  // 217: datanode.api.v1.TradingDataService.GetNetworkParametersProposals:output_type -> datanode.api.v1.GetNetworkParametersProposalsResponse
+	43,  // 218: datanode.api.v1.TradingDataService.GetNewAssetProposals:output_type -> datanode.api.v1.GetNewAssetProposalsResponse
+	41,  // 219: datanode.api.v1.TradingDataService.GetNewFreeformProposals:output_type -> datanode.api.v1.GetNewFreeformProposalsResponse
+	45,  // 220: datanode.api.v1.TradingDataService.GetProposalByID:output_type -> datanode.api.v1.GetProposalByIDResponse
+	47,  // 221: datanode.api.v1.TradingDataService.GetProposalByReference:output_type -> datanode.api.v1.GetProposalByReferenceResponse
+	49,  // 222: datanode.api.v1.TradingDataService.ObserveGovernance:output_type -> datanode.api.v1.ObserveGovernanceResponse
+	51,  // 223: datanode.api.v1.TradingDataService.ObservePartyProposals:output_type -> datanode.api.v1.ObservePartyProposalsResponse
+	55,  // 224: datanode.api.v1.TradingDataService.ObservePartyVotes:output_type -> datanode.api.v1.ObservePartyVotesResponse
+	53,  // 225: datanode.api.v1.TradingDataService.ObserveProposalVotes:output_type -> datanode.api.v1.ObserveProposalVotesResponse
+	132, // 226: datanode.api.v1.TradingDataService.ObserveEventBus:output_type -> datanode.api.v1.ObserveEventBusResponse
+	9,   // 227: datanode.api.v1.TradingDataService.GetNodeData:output_type -> datanode.api.v1.GetNodeDataResponse
+	11,  // 228: datanode.api.v1.TradingDataService.GetNodes:output_type -> datanode.api.v1.GetNodesResponse
+	13,  // 229: datanode.api.v1.TradingDataService.GetNodeByID:output_type -> datanode.api.v1.GetNodeByIDResponse
+	18,  // 230: datanode.api.v1.TradingDataService.GetKeyRotations:output_type -> datanode.api.v1.GetKeyRotationsResponse
+	20,  // 231: datanode.api.v1.TradingDataService.GetKeyRotationsByNode:output_type -> datanode.api.v1.GetKeyRotationsByNodeResponse
+	15,  // 232: datanode.api.v1.TradingDataService.GetEpoch:output_type -> datanode.api.v1.GetEpochResponse
+	109, // 233: datanode.api.v1.TradingDataService.GetVegaTime:output_type -> datanode.api.v1.GetVegaTimeResponse
+	79,  // 234: datanode.api.v1.TradingDataService.AccountsSubscribe:output_type -> datanode.api.v1.AccountsSubscribeResponse
+	83,  // 235: datanode.api.v1.TradingDataService.CandlesSubscribe:output_type -> datanode.api.v1.CandlesSubscribeResponse
+	57,  // 236: datanode.api.v1.TradingDataService.MarginLevelsSubscribe:output_type -> datanode.api.v1.MarginLevelsSubscribeResponse
+	85,  // 237: datanode.api.v1.TradingDataService.MarketDepthSubscribe:output_type -> datanode.api.v1.MarketDepthSubscribeResponse
+	87,  // 238: datanode.api.v1.TradingDataService.MarketDepthUpdatesSubscribe:output_type -> datanode.api.v1.MarketDepthUpdatesSubscribeResponse
+	61,  // 239: datanode.api.v1.TradingDataService.MarketsDataSubscribe:output_type -> datanode.api.v1.MarketsDataSubscribeResponse
+	111, // 240: datanode.api.v1.TradingDataService.OrdersSubscribe:output_type -> datanode.api.v1.OrdersSubscribeResponse
+	89,  // 241: datanode.api.v1.TradingDataService.PositionsSubscribe:output_type -> datanode.api.v1.PositionsSubscribeResponse
+	112, // 242: datanode.api.v1.TradingDataService.TradesSubscribe:output_type -> datanode.api.v1.TradesSubscribeResponse
+	114, // 243: datanode.api.v1.TradingDataService.TransferResponsesSubscribe:output_type -> datanode.api.v1.TransferResponsesSubscribeResponse
+	26,  // 244: datanode.api.v1.TradingDataService.GetNodeSignaturesAggregate:output_type -> datanode.api.v1.GetNodeSignaturesAggregateResponse
+	24,  // 245: datanode.api.v1.TradingDataService.AssetByID:output_type -> datanode.api.v1.AssetByIDResponse
+	22,  // 246: datanode.api.v1.TradingDataService.Assets:output_type -> datanode.api.v1.AssetsResponse
+	128, // 247: datanode.api.v1.TradingDataService.EstimateFee:output_type -> datanode.api.v1.EstimateFeeResponse
+	130, // 248: datanode.api.v1.TradingDataService.EstimateMargin:output_type -> datanode.api.v1.EstimateMarginResponse
+	138, // 249: datanode.api.v1.TradingDataService.ERC20WithdrawalApproval:output_type -> datanode.api.v1.ERC20WithdrawalApprovalResponse
+	136, // 250: datanode.api.v1.TradingDataService.Withdrawal:output_type -> datanode.api.v1.WithdrawalResponse
+	134, // 251: datanode.api.v1.TradingDataService.Withdrawals:output_type -> datanode.api.v1.WithdrawalsResponse
+	142, // 252: datanode.api.v1.TradingDataService.Deposit:output_type -> datanode.api.v1.DepositResponse
+	140, // 253: datanode.api.v1.TradingDataService.Deposits:output_type -> datanode.api.v1.DepositsResponse
+	144, // 254: datanode.api.v1.TradingDataService.NetworkParameters:output_type -> datanode.api.v1.NetworkParametersResponse
+	146, // 255: datanode.api.v1.TradingDataService.LiquidityProvisions:output_type -> datanode.api.v1.LiquidityProvisionsResponse
+	148, // 256: datanode.api.v1.TradingDataService.OracleSpec:output_type -> datanode.api.v1.OracleSpecResponse
+	150, // 257: datanode.api.v1.TradingDataService.OracleSpecs:output_type -> datanode.api.v1.OracleSpecsResponse
+	152, // 258: datanode.api.v1.TradingDataService.OracleDataBySpec:output_type -> datanode.api.v1.OracleDataBySpecResponse
+	154, // 259: datanode.api.v1.TradingDataService.ListOracleData:output_type -> datanode.api.v1.ListOracleDataResponse
+	156, // 260: datanode.api.v1.TradingDataService.ObserveRewards:output_type -> datanode.api.v1.ObserveRewardsResponse
+	160, // 261: datanode.api.v1.TradingDataService.GetRewards:output_type -> datanode.api.v1.GetRewardsResponse
+	158, // 262: datanode.api.v1.TradingDataService.GetRewardSummaries:output_type -> datanode.api.v1.GetRewardSummariesResponse
+	163, // 263: datanode.api.v1.TradingDataService.Checkpoints:output_type -> datanode.api.v1.CheckpointsResponse
+	3,   // 264: datanode.api.v1.TradingDataService.Delegations:output_type -> datanode.api.v1.DelegationsResponse
+	5,   // 265: datanode.api.v1.TradingDataService.ObserveDelegations:output_type -> datanode.api.v1.ObserveDelegationsResponse
+	7,   // 266: datanode.api.v1.TradingDataService.PartyStake:output_type -> datanode.api.v1.PartyStakeResponse
+	1,   // 267: datanode.api.v1.TradingDataService.Transfers:output_type -> datanode.api.v1.TransfersResponse
+	165, // 268: datanode.api.v1.TradingDataService.GetRiskFactors:output_type -> datanode.api.v1.GetRiskFactorsResponse
+	188, // [188:269] is the sub-list for method output_type
+	107, // [107:188] is the sub-list for method input_type
+	107, // [107:107] is the sub-list for extension type_name
+	107, // [107:107] is the sub-list for extension extendee
+	0,   // [0:107] is the sub-list for field type_name
 }
 
 func init() { file_data_node_api_v1_trading_data_proto_init() }
@@ -12041,7 +12201,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[153].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ObserveRewardsRequest); i {
+			switch v := v.(*ListOracleDataRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12053,7 +12213,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[154].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ObserveRewardsResponse); i {
+			switch v := v.(*ListOracleDataResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12065,7 +12225,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[155].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRewardSummariesRequest); i {
+			switch v := v.(*ObserveRewardsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12077,7 +12237,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[156].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRewardSummariesResponse); i {
+			switch v := v.(*ObserveRewardsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12089,7 +12249,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[157].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRewardsRequest); i {
+			switch v := v.(*GetRewardSummariesRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12101,7 +12261,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[158].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRewardsResponse); i {
+			switch v := v.(*GetRewardSummariesResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12113,7 +12273,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[159].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Checkpoint); i {
+			switch v := v.(*GetRewardsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12125,7 +12285,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[160].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CheckpointsRequest); i {
+			switch v := v.(*GetRewardsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12137,7 +12297,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[161].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CheckpointsResponse); i {
+			switch v := v.(*Checkpoint); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12149,7 +12309,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[162].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRiskFactorsRequest); i {
+			switch v := v.(*CheckpointsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -12161,6 +12321,30 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v1_trading_data_proto_msgTypes[163].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckpointsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v1_trading_data_proto_msgTypes[164].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRiskFactorsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v1_trading_data_proto_msgTypes[165].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetRiskFactorsResponse); i {
 			case 0:
 				return &v.state
@@ -12179,7 +12363,7 @@ func file_data_node_api_v1_trading_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_data_node_api_v1_trading_data_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   164,
+			NumMessages:   166,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

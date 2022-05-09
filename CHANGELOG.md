@@ -15,6 +15,9 @@
 - [401](https://github.com/vegaprotocol/protos/pull/401) - Add rationale on ProposalSubmission
 - [5423](https://github.com/vegaprotocol/vega/issue/5423) - Add new fields for equity shares to `Snapshot` types.
 - [420](https://github.com/vegaprotocol/protos/issues/420) - Enable recurring transfer to automatically dispatch reward pro-rata based on market metric
+- [424](https://github.com/vegaprotocol/protos/issues/424) - Add v1 and v2 endpoints to list all oracle data
+- [424](https://github.com/vegaprotocol/protos/issues/424) - Add missing v2 endpoints for oracle specs and data
+- [424](https://github.com/vegaprotocol/protos/issues/424) - Add support for pagination on v1 endpoints for oracle specs and data
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -

@@ -42,6 +42,14 @@ type TradingDataServiceClient interface {
 	GetERC20MultiSigSignerAddedBundles(ctx context.Context, in *GetERC20MultiSigSignerAddedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20MultiSigSignerRemovedBundles(ctx context.Context, in *GetERC20MultiSigSignerRemovedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
+	// Get an oracle spec by ID.
+	GetOracleSpecByID(ctx context.Context, in *GetOracleSpecByIDRequest, opts ...grpc.CallOption) (*GetOracleSpecByIDResponse, error)
+	// Get the oracle specs
+	ListOracleSpecs(ctx context.Context, in *ListOracleSpecsRequest, opts ...grpc.CallOption) (*ListOracleSpecsResponse, error)
+	// Get oracle data that matched the given spec
+	GetOracleDataBySpecID(ctx context.Context, in *GetOracleDataBySpecIDRequest, opts ...grpc.CallOption) (*GetOracleDataBySpecIDResponse, error)
+	// Get all oracle data
+	ListOracleData(ctx context.Context, in *ListOracleDataRequest, opts ...grpc.CallOption) (*ListOracleDataResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -165,6 +173,42 @@ func (c *tradingDataServiceClient) GetERC20MultiSigSignerRemovedBundles(ctx cont
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetOracleSpecByID(ctx context.Context, in *GetOracleSpecByIDRequest, opts ...grpc.CallOption) (*GetOracleSpecByIDResponse, error) {
+	out := new(GetOracleSpecByIDResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOracleSpecByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ListOracleSpecs(ctx context.Context, in *ListOracleSpecsRequest, opts ...grpc.CallOption) (*ListOracleSpecsResponse, error) {
+	out := new(ListOracleSpecsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListOracleSpecs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetOracleDataBySpecID(ctx context.Context, in *GetOracleDataBySpecIDRequest, opts ...grpc.CallOption) (*GetOracleDataBySpecIDResponse, error) {
+	out := new(GetOracleDataBySpecIDResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOracleDataBySpecID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ListOracleData(ctx context.Context, in *ListOracleDataRequest, opts ...grpc.CallOption) (*ListOracleDataResponse, error) {
+	out := new(ListOracleDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListOracleData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -189,6 +233,14 @@ type TradingDataServiceServer interface {
 	GetERC20MultiSigSignerAddedBundles(context.Context, *GetERC20MultiSigSignerAddedBundlesRequest) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20MultiSigSignerRemovedBundles(context.Context, *GetERC20MultiSigSignerRemovedBundlesRequest) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
+	// Get an oracle spec by ID.
+	GetOracleSpecByID(context.Context, *GetOracleSpecByIDRequest) (*GetOracleSpecByIDResponse, error)
+	// Get the oracle specs
+	ListOracleSpecs(context.Context, *ListOracleSpecsRequest) (*ListOracleSpecsResponse, error)
+	// Get oracle data that matched the given spec
+	GetOracleDataBySpecID(context.Context, *GetOracleDataBySpecIDRequest) (*GetOracleDataBySpecIDResponse, error)
+	// Get all oracle data
+	ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -225,6 +277,18 @@ func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerAddedBundles(
 }
 func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerRemovedBundles(context.Context, *GetERC20MultiSigSignerRemovedBundlesRequest) (*GetERC20MultiSigSignerRemovedBundlesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetERC20MultiSigSignerRemovedBundles not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetOracleSpecByID(context.Context, *GetOracleSpecByIDRequest) (*GetOracleSpecByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOracleSpecByID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ListOracleSpecs(context.Context, *ListOracleSpecsRequest) (*ListOracleSpecsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOracleSpecs not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetOracleDataBySpecID(context.Context, *GetOracleDataBySpecIDRequest) (*GetOracleDataBySpecIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOracleDataBySpecID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOracleData not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -422,6 +486,78 @@ func _TradingDataService_GetERC20MultiSigSignerRemovedBundles_Handler(srv interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetOracleSpecByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOracleSpecByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetOracleSpecByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetOracleSpecByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetOracleSpecByID(ctx, req.(*GetOracleSpecByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ListOracleSpecs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOracleSpecsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListOracleSpecs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/ListOracleSpecs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListOracleSpecs(ctx, req.(*ListOracleSpecsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetOracleDataBySpecID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOracleDataBySpecIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetOracleDataBySpecID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetOracleDataBySpecID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetOracleDataBySpecID(ctx, req.(*GetOracleDataBySpecIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ListOracleData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOracleDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListOracleData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/ListOracleData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListOracleData(ctx, req.(*ListOracleDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -464,6 +600,22 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetERC20MultiSigSignerRemovedBundles",
 			Handler:    _TradingDataService_GetERC20MultiSigSignerRemovedBundles_Handler,
+		},
+		{
+			MethodName: "GetOracleSpecByID",
+			Handler:    _TradingDataService_GetOracleSpecByID_Handler,
+		},
+		{
+			MethodName: "ListOracleSpecs",
+			Handler:    _TradingDataService_ListOracleSpecs_Handler,
+		},
+		{
+			MethodName: "GetOracleDataBySpecID",
+			Handler:    _TradingDataService_GetOracleDataBySpecID_Handler,
+		},
+		{
+			MethodName: "ListOracleData",
+			Handler:    _TradingDataService_ListOracleData_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
