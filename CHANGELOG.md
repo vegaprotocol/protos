@@ -1,13 +1,21 @@
 # Changelog
 
-
-## Unreleased (0.51.0)
+## Unreleased (0.52.0)
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🛠 Improvements
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🐛 Fixes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+
+## 0.51.0
 
 ### 🛠 Improvements
 - [406](https://github.com/vegaprotocol/protos/issues/406) - Add content for asset bundle query end point
