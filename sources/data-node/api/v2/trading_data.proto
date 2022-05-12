@@ -15,6 +15,12 @@ service TradingDataService {
     rpc GetOrdersByMarket(GetOrdersByMarketRequest) returns (GetOrdersByMarketResponse);
     // Get all versions of the order by its orderID
     rpc GetOrderVersionsByID(GetOrderVersionsByIDRequest) returns (GetOrderVersionsByIDResponse);
+    // Get a list of Orders by Market using cursor based pagination
+    rpc GetOrdersByMarketPaged(GetOrdersByMarketPagedRequest) returns (GetOrdersByMarketPagedResponse);
+    // Get a list of Orders by Party using cursor based pagination
+    rpc GetOrdersByPartyPaged(GetOrdersByPartyPagedRequest) returns (GetOrdersByPartyPagedResponse);
+    // Get all versions of the order by its orderID using cursor based pagination
+    rpc GetOrderVersionsByIDPaged(GetOrderVersionsByIDPagedRequest) returns (GetOrderVersionsByIDPagedResponse);
 
     // -- Balances --
     // Get an aggregated list of the changes in balances in a set of accounts over time
@@ -47,6 +53,8 @@ service TradingDataService {
     rpc GetTradesByMarket(GetTradesByMarketRequest) returns (GetTradesByMarketResponse);
     // Get trades by party using a cursor based pagination model
     rpc GetTradesByParty(GetTradesByPartyRequest) returns (GetTradesByPartyResponse);
+    // Get trades by market with the corresponding orderID using a cursor based pagination model
+    rpc GetTradesByOrderID(GetTradesByOrderIDRequest) returns (GetTradesByOrderIDResponse);
 
     // -- Oracles --
     // Get an oracle spec by ID.
@@ -120,8 +128,51 @@ message GetOrderVersionsByIDRequest {
 
 // Response to a request for a list of all versions of an order
 message GetOrderVersionsByIDResponse {
+    // Paged connection with 0 or more orders (list will contain the same order but with different versions, if it has been amended)
+    OrderConnection orders = 1;
+}
+
+// Request for a list of orders for a market
+message GetOrdersByMarketPagedRequest {
+    // Market identifier, required field
+    string market_id = 1;
+    // Optional pagination controls
+    Pagination pagination = 2;
+}
+
+// Response for a list of orders for a market
+message GetOrdersByMarketPagedResponse {
+    // Paged order connection
+    OrderConnection orders = 1;
+}
+
+// Request for a list of orders for a market
+message GetOrdersByPartyPagedRequest {
+    // Market identifier, required field
+    string party_id = 1;
+    string market_id = 2;
+    // Optional pagination controls
+    Pagination pagination = 3;
+}
+
+// Response for a list of orders for a market
+message GetOrdersByPartyPagedResponse {
+    // Paged order connection
+    OrderConnection orders = 1;
+}
+
+// Request for a list of all versions of an order given the specified order identifier
+message GetOrderVersionsByIDPagedRequest {
+    // Order identifier, required field
+    string order_id = 1;
+    // Pagination controls
+    Pagination pagination = 2;
+}
+
+// Response to a request for a list of all versions of an order
+message GetOrderVersionsByIDPagedResponse {
     // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
-    repeated vega.Order orders = 1;
+    OrderConnection orders = 1;
 }
 
 // -- Balances --
@@ -402,6 +453,16 @@ message GetTradesByMarketResponse {
     TradeConnection trades = 1;
 }
 
+message GetTradesByOrderIDRequest {
+    string market_id = 1;
+    string order_id = 2;
+    Pagination pagination = 3;
+}
+
+message GetTradesByOrderIDResponse {
+    TradeConnection trades = 1;
+}
+
 message GetTradesByPartyRequest {
     string party_id = 1;
     string market_id = 2;
@@ -502,5 +563,16 @@ message PartyEdge {
 message PartyConnection {
     int64 total_count = 1;
     repeated PartyEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+message OrderEdge {
+    vega.Order node = 1;
+    string cursor = 2;
+}
+
+message OrderConnection {
+    int64 total_count = 1;
+    repeated OrderEdge edges = 2;
     PageInfo page_info = 3;
 }
