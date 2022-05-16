@@ -2380,6 +2380,407 @@ func (x *GetTradesByPartyResponse) GetTrades() *TradeConnection {
 	return nil
 }
 
+// The request to get a specific oracle spec by identifier
+type GetOracleSpecByIDRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The ID to get the oracle spec for
+	OracleSpecId string `protobuf:"bytes,1,opt,name=oracle_spec_id,json=oracleSpecId,proto3" json:"oracle_spec_id,omitempty"`
+}
+
+func (x *GetOracleSpecByIDRequest) Reset() {
+	*x = GetOracleSpecByIDRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[37]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetOracleSpecByIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOracleSpecByIDRequest) ProtoMessage() {}
+
+func (x *GetOracleSpecByIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[37]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOracleSpecByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetOracleSpecByIDRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *GetOracleSpecByIDRequest) GetOracleSpecId() string {
+	if x != nil {
+		return x.OracleSpecId
+	}
+	return ""
+}
+
+// The response for a oracle spec
+type GetOracleSpecByIDResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The oracle spec matching the ID.
+	OracleSpec *v1.OracleSpec `protobuf:"bytes,1,opt,name=oracle_spec,json=oracleSpec,proto3" json:"oracle_spec,omitempty"`
+}
+
+func (x *GetOracleSpecByIDResponse) Reset() {
+	*x = GetOracleSpecByIDResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[38]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetOracleSpecByIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOracleSpecByIDResponse) ProtoMessage() {}
+
+func (x *GetOracleSpecByIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[38]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOracleSpecByIDResponse.ProtoReflect.Descriptor instead.
+func (*GetOracleSpecByIDResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *GetOracleSpecByIDResponse) GetOracleSpec() *v1.OracleSpec {
+	if x != nil {
+		return x.OracleSpec
+	}
+	return nil
+}
+
+// The request to get all active oracle specs
+type ListOracleSpecsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Pagination controls
+	Pagination *Pagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (x *ListOracleSpecsRequest) Reset() {
+	*x = ListOracleSpecsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[39]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListOracleSpecsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOracleSpecsRequest) ProtoMessage() {}
+
+func (x *ListOracleSpecsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[39]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOracleSpecsRequest.ProtoReflect.Descriptor instead.
+func (*ListOracleSpecsRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *ListOracleSpecsRequest) GetPagination() *Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+// The response to get all active oracle specs
+type ListOracleSpecsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The list of active oracle specs
+	OracleSpecs []*v1.OracleSpec `protobuf:"bytes,1,rep,name=oracle_specs,json=oracleSpecs,proto3" json:"oracle_specs,omitempty"`
+}
+
+func (x *ListOracleSpecsResponse) Reset() {
+	*x = ListOracleSpecsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[40]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListOracleSpecsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOracleSpecsResponse) ProtoMessage() {}
+
+func (x *ListOracleSpecsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[40]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOracleSpecsResponse.ProtoReflect.Descriptor instead.
+func (*ListOracleSpecsResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *ListOracleSpecsResponse) GetOracleSpecs() []*v1.OracleSpec {
+	if x != nil {
+		return x.OracleSpecs
+	}
+	return nil
+}
+
+// The request to get all oracle data broadcast to a given oracle spec
+type GetOracleDataBySpecIDRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The oracle spec ID the oracle data are broadcast to
+	OracleSpecId string `protobuf:"bytes,1,opt,name=oracle_spec_id,json=oracleSpecId,proto3" json:"oracle_spec_id,omitempty"`
+	// Pagination controls
+	Pagination *Pagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (x *GetOracleDataBySpecIDRequest) Reset() {
+	*x = GetOracleDataBySpecIDRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[41]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetOracleDataBySpecIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOracleDataBySpecIDRequest) ProtoMessage() {}
+
+func (x *GetOracleDataBySpecIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[41]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOracleDataBySpecIDRequest.ProtoReflect.Descriptor instead.
+func (*GetOracleDataBySpecIDRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *GetOracleDataBySpecIDRequest) GetOracleSpecId() string {
+	if x != nil {
+		return x.OracleSpecId
+	}
+	return ""
+}
+
+func (x *GetOracleDataBySpecIDRequest) GetPagination() *Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+// The response for a list of all oracle data broadcast to a given spec
+type GetOracleDataBySpecIDResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The list of oracle data broadcast to a given spec
+	OracleData []*v1.OracleData `protobuf:"bytes,1,rep,name=oracle_data,json=oracleData,proto3" json:"oracle_data,omitempty"`
+}
+
+func (x *GetOracleDataBySpecIDResponse) Reset() {
+	*x = GetOracleDataBySpecIDResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[42]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetOracleDataBySpecIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOracleDataBySpecIDResponse) ProtoMessage() {}
+
+func (x *GetOracleDataBySpecIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[42]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOracleDataBySpecIDResponse.ProtoReflect.Descriptor instead.
+func (*GetOracleDataBySpecIDResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *GetOracleDataBySpecIDResponse) GetOracleData() []*v1.OracleData {
+	if x != nil {
+		return x.OracleData
+	}
+	return nil
+}
+
+// The request to get all seen oracle data
+type ListOracleDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Pagination controls
+	Pagination *Pagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (x *ListOracleDataRequest) Reset() {
+	*x = ListOracleDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[43]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListOracleDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOracleDataRequest) ProtoMessage() {}
+
+func (x *ListOracleDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[43]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOracleDataRequest.ProtoReflect.Descriptor instead.
+func (*ListOracleDataRequest) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *ListOracleDataRequest) GetPagination() *Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+// The response to get all seen oracle data
+type ListOracleDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The list of seen oracle data
+	OracleData []*v1.OracleData `protobuf:"bytes,1,rep,name=oracle_data,json=oracleData,proto3" json:"oracle_data,omitempty"`
+}
+
+func (x *ListOracleDataResponse) Reset() {
+	*x = ListOracleDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[44]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListOracleDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOracleDataResponse) ProtoMessage() {}
+
+func (x *ListOracleDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[44]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOracleDataResponse.ProtoReflect.Descriptor instead.
+func (*ListOracleDataResponse) Descriptor() ([]byte, []int) {
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *ListOracleDataResponse) GetOracleData() []*v1.OracleData {
+	if x != nil {
+		return x.OracleData
+	}
+	return nil
+}
+
 // -- Markets --
 type GetMarketsRequest struct {
 	state         protoimpl.MessageState
@@ -2393,7 +2794,7 @@ type GetMarketsRequest struct {
 func (x *GetMarketsRequest) Reset() {
 	*x = GetMarketsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[37]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[45]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2406,7 +2807,7 @@ func (x *GetMarketsRequest) String() string {
 func (*GetMarketsRequest) ProtoMessage() {}
 
 func (x *GetMarketsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[37]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[45]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2419,7 +2820,7 @@ func (x *GetMarketsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMarketsRequest.ProtoReflect.Descriptor instead.
 func (*GetMarketsRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{37}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *GetMarketsRequest) GetMarketId() string {
@@ -2447,7 +2848,7 @@ type GetMarketsResponse struct {
 func (x *GetMarketsResponse) Reset() {
 	*x = GetMarketsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[38]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[46]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2460,7 +2861,7 @@ func (x *GetMarketsResponse) String() string {
 func (*GetMarketsResponse) ProtoMessage() {}
 
 func (x *GetMarketsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[38]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[46]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2473,7 +2874,7 @@ func (x *GetMarketsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMarketsResponse.ProtoReflect.Descriptor instead.
 func (*GetMarketsResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{38}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *GetMarketsResponse) GetMarkets() *MarketConnection {
@@ -2495,7 +2896,7 @@ type MarketEdge struct {
 func (x *MarketEdge) Reset() {
 	*x = MarketEdge{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[39]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[47]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2508,7 +2909,7 @@ func (x *MarketEdge) String() string {
 func (*MarketEdge) ProtoMessage() {}
 
 func (x *MarketEdge) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[39]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[47]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2521,7 +2922,7 @@ func (x *MarketEdge) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MarketEdge.ProtoReflect.Descriptor instead.
 func (*MarketEdge) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{39}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *MarketEdge) GetNode() *vega.Market {
@@ -2551,7 +2952,7 @@ type MarketConnection struct {
 func (x *MarketConnection) Reset() {
 	*x = MarketConnection{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[40]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[48]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2564,7 +2965,7 @@ func (x *MarketConnection) String() string {
 func (*MarketConnection) ProtoMessage() {}
 
 func (x *MarketConnection) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[40]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[48]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2577,7 +2978,7 @@ func (x *MarketConnection) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MarketConnection.ProtoReflect.Descriptor instead.
 func (*MarketConnection) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{40}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *MarketConnection) GetTotalCount() int64 {
@@ -2614,7 +3015,7 @@ type GetPartiesRequest struct {
 func (x *GetPartiesRequest) Reset() {
 	*x = GetPartiesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[41]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[49]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2627,7 +3028,7 @@ func (x *GetPartiesRequest) String() string {
 func (*GetPartiesRequest) ProtoMessage() {}
 
 func (x *GetPartiesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[41]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[49]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2640,7 +3041,7 @@ func (x *GetPartiesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartiesRequest.ProtoReflect.Descriptor instead.
 func (*GetPartiesRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{41}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *GetPartiesRequest) GetPartyId() string {
@@ -2668,7 +3069,7 @@ type GetPartiesResponse struct {
 func (x *GetPartiesResponse) Reset() {
 	*x = GetPartiesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[42]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[50]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2681,7 +3082,7 @@ func (x *GetPartiesResponse) String() string {
 func (*GetPartiesResponse) ProtoMessage() {}
 
 func (x *GetPartiesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[42]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[50]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2694,7 +3095,7 @@ func (x *GetPartiesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartiesResponse.ProtoReflect.Descriptor instead.
 func (*GetPartiesResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{42}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *GetPartiesResponse) GetParty() *PartyConnection {
@@ -2716,7 +3117,7 @@ type PartyEdge struct {
 func (x *PartyEdge) Reset() {
 	*x = PartyEdge{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[43]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[51]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2729,7 +3130,7 @@ func (x *PartyEdge) String() string {
 func (*PartyEdge) ProtoMessage() {}
 
 func (x *PartyEdge) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[43]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[51]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2742,7 +3143,7 @@ func (x *PartyEdge) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartyEdge.ProtoReflect.Descriptor instead.
 func (*PartyEdge) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{43}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *PartyEdge) GetNode() *vega.Party {
@@ -2772,7 +3173,7 @@ type PartyConnection struct {
 func (x *PartyConnection) Reset() {
 	*x = PartyConnection{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[44]
+		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[52]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2785,7 +3186,7 @@ func (x *PartyConnection) String() string {
 func (*PartyConnection) ProtoMessage() {}
 
 func (x *PartyConnection) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[44]
+	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[52]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2798,7 +3199,7 @@ func (x *PartyConnection) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartyConnection.ProtoReflect.Descriptor instead.
 func (*PartyConnection) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{44}
+	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *PartyConnection) GetTotalCount() int64 {
@@ -2818,407 +3219,6 @@ func (x *PartyConnection) GetEdges() []*PartyEdge {
 func (x *PartyConnection) GetPageInfo() *PageInfo {
 	if x != nil {
 		return x.PageInfo
-	}
-	return nil
-}
-
-// The request to get a specific oracle spec by identifier
-type GetOracleSpecByIDRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// The ID to get the oracle spec for
-	OracleSpecId string `protobuf:"bytes,1,opt,name=oracle_spec_id,json=oracleSpecId,proto3" json:"oracle_spec_id,omitempty"`
-}
-
-func (x *GetOracleSpecByIDRequest) Reset() {
-	*x = GetOracleSpecByIDRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[45]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetOracleSpecByIDRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOracleSpecByIDRequest) ProtoMessage() {}
-
-func (x *GetOracleSpecByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[45]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOracleSpecByIDRequest.ProtoReflect.Descriptor instead.
-func (*GetOracleSpecByIDRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{45}
-}
-
-func (x *GetOracleSpecByIDRequest) GetOracleSpecId() string {
-	if x != nil {
-		return x.OracleSpecId
-	}
-	return ""
-}
-
-// The response for a oracle spec
-type GetOracleSpecByIDResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// The oracle spec matching the ID.
-	OracleSpec *v1.OracleSpec `protobuf:"bytes,1,opt,name=oracle_spec,json=oracleSpec,proto3" json:"oracle_spec,omitempty"`
-}
-
-func (x *GetOracleSpecByIDResponse) Reset() {
-	*x = GetOracleSpecByIDResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[46]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetOracleSpecByIDResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOracleSpecByIDResponse) ProtoMessage() {}
-
-func (x *GetOracleSpecByIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[46]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOracleSpecByIDResponse.ProtoReflect.Descriptor instead.
-func (*GetOracleSpecByIDResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{46}
-}
-
-func (x *GetOracleSpecByIDResponse) GetOracleSpec() *v1.OracleSpec {
-	if x != nil {
-		return x.OracleSpec
-	}
-	return nil
-}
-
-// The request to get all active oracle specs
-type ListOracleSpecsRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Pagination controls
-	Pagination *Pagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
-}
-
-func (x *ListOracleSpecsRequest) Reset() {
-	*x = ListOracleSpecsRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[47]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ListOracleSpecsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListOracleSpecsRequest) ProtoMessage() {}
-
-func (x *ListOracleSpecsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[47]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListOracleSpecsRequest.ProtoReflect.Descriptor instead.
-func (*ListOracleSpecsRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{47}
-}
-
-func (x *ListOracleSpecsRequest) GetPagination() *Pagination {
-	if x != nil {
-		return x.Pagination
-	}
-	return nil
-}
-
-// The response to get all active oracle specs
-type ListOracleSpecsResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// The list of active oracle specs
-	OracleSpecs []*v1.OracleSpec `protobuf:"bytes,1,rep,name=oracle_specs,json=oracleSpecs,proto3" json:"oracle_specs,omitempty"`
-}
-
-func (x *ListOracleSpecsResponse) Reset() {
-	*x = ListOracleSpecsResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[48]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ListOracleSpecsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListOracleSpecsResponse) ProtoMessage() {}
-
-func (x *ListOracleSpecsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[48]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListOracleSpecsResponse.ProtoReflect.Descriptor instead.
-func (*ListOracleSpecsResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{48}
-}
-
-func (x *ListOracleSpecsResponse) GetOracleSpecs() []*v1.OracleSpec {
-	if x != nil {
-		return x.OracleSpecs
-	}
-	return nil
-}
-
-// The request to get all oracle data broadcast to a given oracle spec
-type GetOracleDataBySpecIDRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// The oracle spec ID the oracle data are broadcast to
-	OracleSpecId string `protobuf:"bytes,1,opt,name=oracle_spec_id,json=oracleSpecId,proto3" json:"oracle_spec_id,omitempty"`
-	// Pagination controls
-	Pagination *Pagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
-}
-
-func (x *GetOracleDataBySpecIDRequest) Reset() {
-	*x = GetOracleDataBySpecIDRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[49]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetOracleDataBySpecIDRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOracleDataBySpecIDRequest) ProtoMessage() {}
-
-func (x *GetOracleDataBySpecIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[49]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOracleDataBySpecIDRequest.ProtoReflect.Descriptor instead.
-func (*GetOracleDataBySpecIDRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{49}
-}
-
-func (x *GetOracleDataBySpecIDRequest) GetOracleSpecId() string {
-	if x != nil {
-		return x.OracleSpecId
-	}
-	return ""
-}
-
-func (x *GetOracleDataBySpecIDRequest) GetPagination() *Pagination {
-	if x != nil {
-		return x.Pagination
-	}
-	return nil
-}
-
-// The response for a list of all oracle data broadcast to a given spec
-type GetOracleDataBySpecIDResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// The list of oracle data broadcast to a given spec
-	OracleData []*v1.OracleData `protobuf:"bytes,1,rep,name=oracle_data,json=oracleData,proto3" json:"oracle_data,omitempty"`
-}
-
-func (x *GetOracleDataBySpecIDResponse) Reset() {
-	*x = GetOracleDataBySpecIDResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[50]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetOracleDataBySpecIDResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOracleDataBySpecIDResponse) ProtoMessage() {}
-
-func (x *GetOracleDataBySpecIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[50]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOracleDataBySpecIDResponse.ProtoReflect.Descriptor instead.
-func (*GetOracleDataBySpecIDResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{50}
-}
-
-func (x *GetOracleDataBySpecIDResponse) GetOracleData() []*v1.OracleData {
-	if x != nil {
-		return x.OracleData
-	}
-	return nil
-}
-
-// The request to get all seen oracle data
-type ListOracleDataRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Pagination controls
-	Pagination *Pagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
-}
-
-func (x *ListOracleDataRequest) Reset() {
-	*x = ListOracleDataRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[51]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ListOracleDataRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListOracleDataRequest) ProtoMessage() {}
-
-func (x *ListOracleDataRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[51]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListOracleDataRequest.ProtoReflect.Descriptor instead.
-func (*ListOracleDataRequest) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{51}
-}
-
-func (x *ListOracleDataRequest) GetPagination() *Pagination {
-	if x != nil {
-		return x.Pagination
-	}
-	return nil
-}
-
-// The response to get all seen oracle data
-type ListOracleDataResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// The list of seen oracle data
-	OracleData []*v1.OracleData `protobuf:"bytes,1,rep,name=oracle_data,json=oracleData,proto3" json:"oracle_data,omitempty"`
-}
-
-func (x *ListOracleDataResponse) Reset() {
-	*x = ListOracleDataResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_data_node_api_v2_trading_data_proto_msgTypes[52]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ListOracleDataResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListOracleDataResponse) ProtoMessage() {}
-
-func (x *ListOracleDataResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_data_node_api_v2_trading_data_proto_msgTypes[52]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListOracleDataResponse.ProtoReflect.Descriptor instead.
-func (*ListOracleDataResponse) Descriptor() ([]byte, []int) {
-	return file_data_node_api_v2_trading_data_proto_rawDescGZIP(), []int{52}
-}
-
-func (x *ListOracleDataResponse) GetOracleData() []*v1.OracleData {
-	if x != nil {
-		return x.OracleData
 	}
 	return nil
 }
@@ -3532,105 +3532,105 @@ var file_data_node_api_v2_trading_data_proto_rawDesc = []byte{
 	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x38, 0x0a, 0x06, 0x74, 0x72, 0x61, 0x64, 0x65, 0x73, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
 	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x54, 0x72, 0x61, 0x64, 0x65, 0x43, 0x6f, 0x6e, 0x6e,
-	0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x06, 0x74, 0x72, 0x61, 0x64, 0x65, 0x73, 0x22, 0x6d,
-	0x0a, 0x11, 0x47, 0x65, 0x74, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x49, 0x64,
-	0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02,
+	0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x06, 0x74, 0x72, 0x61, 0x64, 0x65, 0x73, 0x22, 0x40,
+	0x0a, 0x18, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x42,
+	0x79, 0x49, 0x44, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x24, 0x0a, 0x0e, 0x6f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0c, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x49, 0x64,
+	0x22, 0x54, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65,
+	0x63, 0x42, 0x79, 0x49, 0x44, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a,
+	0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e,
+	0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63,
+	0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x22, 0x55, 0x0a, 0x16, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
 	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x51, 0x0a,
-	0x12, 0x47, 0x65, 0x74, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x07, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x43, 0x6f, 0x6e,
-	0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x07, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73,
-	0x22, 0x46, 0x0a, 0x0a, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x45, 0x64, 0x67, 0x65, 0x12, 0x20,
-	0x0a, 0x04, 0x6e, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x76,
-	0x65, 0x67, 0x61, 0x2e, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x52, 0x04, 0x6e, 0x6f, 0x64, 0x65,
-	0x12, 0x16, 0x0a, 0x06, 0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x06, 0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x22, 0x9e, 0x01, 0x0a, 0x10, 0x4d, 0x61, 0x72,
-	0x6b, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x0a,
-	0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x31,
-	0x0a, 0x05, 0x65, 0x64, 0x67, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1b, 0x2e,
-	0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
-	0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x45, 0x64, 0x67, 0x65, 0x52, 0x05, 0x65, 0x64, 0x67, 0x65,
-	0x73, 0x12, 0x36, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52,
-	0x08, 0x70, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x6b, 0x0a, 0x11, 0x47, 0x65, 0x74,
-	0x50, 0x61, 0x72, 0x74, 0x69, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19,
-	0x0a, 0x08, 0x70, 0x61, 0x72, 0x74, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x07, 0x70, 0x61, 0x72, 0x74, 0x79, 0x49, 0x64, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67,
-	0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e,
-	0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
-	0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69,
-	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x4c, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72,
-	0x74, 0x69, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x36, 0x0a, 0x05,
-	0x70, 0x61, 0x72, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x64, 0x61,
-	0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61,
-	0x72, 0x74, 0x79, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x05, 0x70,
-	0x61, 0x72, 0x74, 0x79, 0x22, 0x44, 0x0a, 0x09, 0x50, 0x61, 0x72, 0x74, 0x79, 0x45, 0x64, 0x67,
-	0x65, 0x12, 0x1f, 0x0a, 0x04, 0x6e, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x0b, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x04, 0x6e, 0x6f,
-	0x64, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x06, 0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x22, 0x9c, 0x01, 0x0a, 0x0f, 0x50,
-	0x61, 0x72, 0x74, 0x79, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f,
-	0x0a, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x03, 0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12,
-	0x30, 0x0a, 0x05, 0x65, 0x64, 0x67, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a,
+	0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x54, 0x0a,
+	0x17, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x73,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x39, 0x0a, 0x0c, 0x6f, 0x72, 0x61, 0x63,
+	0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16,
+	0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63,
+	0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70,
+	0x65, 0x63, 0x73, 0x22, 0x81, 0x01, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x49, 0x44, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x24, 0x0a, 0x0e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x73,
+	0x70, 0x65, 0x63, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x6f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x49, 0x64, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b,
 	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32,
-	0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x45, 0x64, 0x67, 0x65, 0x52, 0x05, 0x65, 0x64, 0x67, 0x65,
-	0x73, 0x12, 0x36, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52,
-	0x08, 0x70, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x40, 0x0a, 0x18, 0x47, 0x65, 0x74,
-	0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x42, 0x79, 0x49, 0x44, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x24, 0x0a, 0x0e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f,
-	0x73, 0x70, 0x65, 0x63, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x6f,
-	0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x49, 0x64, 0x22, 0x54, 0x0a, 0x19, 0x47,
-	0x65, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x42, 0x79, 0x49, 0x44,
+	0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67,
+	0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x58, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x4f, 0x72,
+	0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x49, 0x44,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0b, 0x6f, 0x72, 0x61, 0x63,
-	0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e,
+	0x6c, 0x65, 0x5f, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e,
 	0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c,
-	0x65, 0x53, 0x70, 0x65, 0x63, 0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65,
-	0x63, 0x22, 0x55, 0x0a, 0x16, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53,
-	0x70, 0x65, 0x63, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3b, 0x0a, 0x0a, 0x70,
-	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76,
-	0x32, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61,
-	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x54, 0x0a, 0x17, 0x4c, 0x69, 0x73, 0x74,
-	0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x39, 0x0a, 0x0c, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x73, 0x70,
-	0x65, 0x63, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63,
-	0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65,
-	0x63, 0x52, 0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53, 0x70, 0x65, 0x63, 0x73, 0x22, 0x81,
-	0x01, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61,
-	0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x49, 0x44, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
-	0x24, 0x0a, 0x0e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x73, 0x70, 0x65, 0x63, 0x5f, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x53,
-	0x70, 0x65, 0x63, 0x49, 0x64, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74,
+	0x61, 0x22, 0x54, 0x0a, 0x15, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44,
+	0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32,
+	0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67,
+	0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x51, 0x0a, 0x16, 0x4c, 0x69, 0x73, 0x74, 0x4f,
+	0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x37, 0x0a, 0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x64, 0x61, 0x74, 0x61,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73,
+	0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0a,
+	0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x22, 0x6d, 0x0a, 0x11, 0x47, 0x65,
+	0x74, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x1b, 0x0a, 0x09, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x49, 0x64, 0x12, 0x3b, 0x0a, 0x0a,
+	0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70,
+	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x51, 0x0a, 0x12, 0x47, 0x65, 0x74,
+	0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x3b, 0x0a, 0x07, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x21, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x32, 0x2e, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x07, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x22, 0x46, 0x0a, 0x0a,
+	0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x45, 0x64, 0x67, 0x65, 0x12, 0x20, 0x0a, 0x04, 0x6e, 0x6f,
+	0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x2e,
+	0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x52, 0x04, 0x6e, 0x6f, 0x64, 0x65, 0x12, 0x16, 0x0a, 0x06,
+	0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x63, 0x75,
+	0x72, 0x73, 0x6f, 0x72, 0x22, 0x9e, 0x01, 0x0a, 0x10, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x43,
+	0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x0a, 0x0b, 0x74, 0x6f, 0x74,
+	0x61, 0x6c, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x31, 0x0a, 0x05, 0x65, 0x64,
+	0x67, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61,
+	0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x61, 0x72, 0x6b,
+	0x65, 0x74, 0x45, 0x64, 0x67, 0x65, 0x52, 0x05, 0x65, 0x64, 0x67, 0x65, 0x73, 0x12, 0x36, 0x0a,
+	0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x19, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x08, 0x70, 0x61, 0x67,
+	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x6b, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74,
+	0x69, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x70, 0x61,
+	0x72, 0x74, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x70, 0x61,
+	0x72, 0x74, 0x79, 0x49, 0x64, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61,
 	0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x69,
 	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x22, 0x58, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44,
-	0x61, 0x74, 0x61, 0x42, 0x79, 0x53, 0x70, 0x65, 0x63, 0x49, 0x44, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0b, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x64, 0x61,
-	0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c,
-	0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61,
-	0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x22, 0x54, 0x0a, 0x15,
-	0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3b, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x64, 0x61, 0x74, 0x61,
-	0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x69,
-	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x22, 0x51, 0x0a, 0x16, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65,
-	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0b,
-	0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x5f, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28,
-	0x0b, 0x32, 0x16, 0x2e, 0x6f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f,
-	0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0a, 0x6f, 0x72, 0x61, 0x63, 0x6c,
-	0x65, 0x44, 0x61, 0x74, 0x61, 0x2a, 0xb0, 0x01, 0x0a, 0x0c, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e,
+	0x6f, 0x6e, 0x22, 0x4c, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x65, 0x73,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x36, 0x0a, 0x05, 0x70, 0x61, 0x72, 0x74,
+	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f,
+	0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x43,
+	0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x05, 0x70, 0x61, 0x72, 0x74, 0x79,
+	0x22, 0x44, 0x0a, 0x09, 0x50, 0x61, 0x72, 0x74, 0x79, 0x45, 0x64, 0x67, 0x65, 0x12, 0x1f, 0x0a,
+	0x04, 0x6e, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x76, 0x65,
+	0x67, 0x61, 0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x04, 0x6e, 0x6f, 0x64, 0x65, 0x12, 0x16,
+	0x0a, 0x06, 0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x63, 0x75, 0x72, 0x73, 0x6f, 0x72, 0x22, 0x9c, 0x01, 0x0a, 0x0f, 0x50, 0x61, 0x72, 0x74, 0x79,
+	0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x0a, 0x0b, 0x74, 0x6f,
+	0x74, 0x61, 0x6c, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x30, 0x0a, 0x05, 0x65,
+	0x64, 0x67, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x64, 0x61, 0x74,
+	0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x61, 0x72,
+	0x74, 0x79, 0x45, 0x64, 0x67, 0x65, 0x52, 0x05, 0x65, 0x64, 0x67, 0x65, 0x73, 0x12, 0x36, 0x0a,
+	0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x19, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x32, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x08, 0x70, 0x61, 0x67,
+	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x2a, 0xb0, 0x01, 0x0a, 0x0c, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e,
 	0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x12, 0x1d, 0x0a, 0x19, 0x41, 0x43, 0x43, 0x4f, 0x55, 0x4e,
 	0x54, 0x5f, 0x46, 0x49, 0x45, 0x4c, 0x44, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46,
 	0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x14, 0x0a, 0x10, 0x41, 0x43, 0x43, 0x4f, 0x55, 0x4e, 0x54,
@@ -3641,7 +3641,7 @@ var file_data_node_api_v2_trading_data_proto_rawDesc = []byte{
 	0x44, 0x10, 0x03, 0x12, 0x1b, 0x0a, 0x17, 0x41, 0x43, 0x43, 0x4f, 0x55, 0x4e, 0x54, 0x5f, 0x46,
 	0x49, 0x45, 0x4c, 0x44, 0x5f, 0x4d, 0x41, 0x52, 0x4b, 0x45, 0x54, 0x5f, 0x49, 0x44, 0x10, 0x04,
 	0x12, 0x16, 0x0a, 0x12, 0x41, 0x43, 0x43, 0x4f, 0x55, 0x4e, 0x54, 0x5f, 0x46, 0x49, 0x45, 0x4c,
-	0x44, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10, 0x05, 0x32, 0xe1, 0x0e, 0x0a, 0x12, 0x54, 0x72, 0x61,
+	0x44, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10, 0x05, 0x32, 0x8f, 0x10, 0x0a, 0x12, 0x54, 0x72, 0x61,
 	0x64, 0x69, 0x6e, 0x67, 0x44, 0x61, 0x74, 0x61, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
 	0x6a, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x42, 0x79, 0x4d, 0x61,
 	0x72, 0x6b, 0x65, 0x74, 0x12, 0x29, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e,
@@ -3759,11 +3759,22 @@ var file_data_node_api_v2_trading_data_proto_rawDesc = []byte{
 	0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61,
 	0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x61, 0x63, 0x6c, 0x65,
-	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x2e, 0x5a, 0x2c,
-	0x63, 0x6f, 0x64, 0x65, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f,
-	0x6c, 0x2e, 0x69, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x64, 0x61, 0x74, 0x61,
-	0x2d, 0x6e, 0x6f, 0x64, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x32, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x0a,
+	0x47, 0x65, 0x74, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x12, 0x22, 0x2e, 0x64, 0x61, 0x74,
+	0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x47, 0x65, 0x74,
+	0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32,
+	0x2e, 0x47, 0x65, 0x74, 0x4d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x65,
+	0x73, 0x12, 0x22, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x76, 0x32, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x65, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x6e, 0x6f, 0x64, 0x65,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69,
+	0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x2e, 0x5a, 0x2c, 0x63, 0x6f,
+	0x64, 0x65, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e,
+	0x69, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2d, 0x6e,
+	0x6f, 0x64, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x32, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -3819,31 +3830,31 @@ var file_data_node_api_v2_trading_data_proto_goTypes = []interface{}{
 	(*GetTradesByMarketResponse)(nil),                    // 35: datanode.api.v2.GetTradesByMarketResponse
 	(*GetTradesByPartyRequest)(nil),                      // 36: datanode.api.v2.GetTradesByPartyRequest
 	(*GetTradesByPartyResponse)(nil),                     // 37: datanode.api.v2.GetTradesByPartyResponse
-	(*GetMarketsRequest)(nil),                            // 38: datanode.api.v2.GetMarketsRequest
-	(*GetMarketsResponse)(nil),                           // 39: datanode.api.v2.GetMarketsResponse
-	(*MarketEdge)(nil),                                   // 40: datanode.api.v2.MarketEdge
-	(*MarketConnection)(nil),                             // 41: datanode.api.v2.MarketConnection
-	(*GetPartiesRequest)(nil),                            // 42: datanode.api.v2.GetPartiesRequest
-	(*GetPartiesResponse)(nil),                           // 43: datanode.api.v2.GetPartiesResponse
-	(*PartyEdge)(nil),                                    // 44: datanode.api.v2.PartyEdge
-	(*PartyConnection)(nil),                              // 45: datanode.api.v2.PartyConnection
-	(*GetOracleSpecByIDRequest)(nil),                     // 46: datanode.api.v2.GetOracleSpecByIDRequest
-	(*GetOracleSpecByIDResponse)(nil),                    // 47: datanode.api.v2.GetOracleSpecByIDResponse
-	(*ListOracleSpecsRequest)(nil),                       // 48: datanode.api.v2.ListOracleSpecsRequest
-	(*ListOracleSpecsResponse)(nil),                      // 49: datanode.api.v2.ListOracleSpecsResponse
-	(*GetOracleDataBySpecIDRequest)(nil),                 // 50: datanode.api.v2.GetOracleDataBySpecIDRequest
-	(*GetOracleDataBySpecIDResponse)(nil),                // 51: datanode.api.v2.GetOracleDataBySpecIDResponse
-	(*ListOracleDataRequest)(nil),                        // 52: datanode.api.v2.ListOracleDataRequest
-	(*ListOracleDataResponse)(nil),                       // 53: datanode.api.v2.ListOracleDataResponse
+	(*GetOracleSpecByIDRequest)(nil),                     // 38: datanode.api.v2.GetOracleSpecByIDRequest
+	(*GetOracleSpecByIDResponse)(nil),                    // 39: datanode.api.v2.GetOracleSpecByIDResponse
+	(*ListOracleSpecsRequest)(nil),                       // 40: datanode.api.v2.ListOracleSpecsRequest
+	(*ListOracleSpecsResponse)(nil),                      // 41: datanode.api.v2.ListOracleSpecsResponse
+	(*GetOracleDataBySpecIDRequest)(nil),                 // 42: datanode.api.v2.GetOracleDataBySpecIDRequest
+	(*GetOracleDataBySpecIDResponse)(nil),                // 43: datanode.api.v2.GetOracleDataBySpecIDResponse
+	(*ListOracleDataRequest)(nil),                        // 44: datanode.api.v2.ListOracleDataRequest
+	(*ListOracleDataResponse)(nil),                       // 45: datanode.api.v2.ListOracleDataResponse
+	(*GetMarketsRequest)(nil),                            // 46: datanode.api.v2.GetMarketsRequest
+	(*GetMarketsResponse)(nil),                           // 47: datanode.api.v2.GetMarketsResponse
+	(*MarketEdge)(nil),                                   // 48: datanode.api.v2.MarketEdge
+	(*MarketConnection)(nil),                             // 49: datanode.api.v2.MarketConnection
+	(*GetPartiesRequest)(nil),                            // 50: datanode.api.v2.GetPartiesRequest
+	(*GetPartiesResponse)(nil),                           // 51: datanode.api.v2.GetPartiesResponse
+	(*PartyEdge)(nil),                                    // 52: datanode.api.v2.PartyEdge
+	(*PartyConnection)(nil),                              // 53: datanode.api.v2.PartyConnection
 	(*vega.Order)(nil),                                   // 54: vega.Order
 	(vega.AccountType)(0),                                // 55: vega.AccountType
 	(*vega.MarketData)(nil),                              // 56: vega.MarketData
 	(*vega.NetworkLimits)(nil),                           // 57: vega.NetworkLimits
 	(*vega.Trade)(nil),                                   // 58: vega.Trade
-	(*vega.Market)(nil),                                  // 59: vega.Market
-	(*vega.Party)(nil),                                   // 60: vega.Party
-	(*v1.OracleSpec)(nil),                                // 61: oracles.v1.OracleSpec
-	(*v1.OracleData)(nil),                                // 62: oracles.v1.OracleData
+	(*v1.OracleSpec)(nil),                                // 59: oracles.v1.OracleSpec
+	(*v1.OracleData)(nil),                                // 60: oracles.v1.OracleData
+	(*vega.Market)(nil),                                  // 61: vega.Market
+	(*vega.Party)(nil),                                   // 62: vega.Party
 }
 var file_data_node_api_v2_trading_data_proto_depIdxs = []int32{
 	1,  // 0: datanode.api.v2.GetOrdersByMarketRequest.pagination:type_name -> datanode.api.v2.OffsetPagination
@@ -3873,23 +3884,23 @@ var file_data_node_api_v2_trading_data_proto_depIdxs = []int32{
 	33, // 24: datanode.api.v2.GetTradesByMarketResponse.trades:type_name -> datanode.api.v2.TradeConnection
 	2,  // 25: datanode.api.v2.GetTradesByPartyRequest.pagination:type_name -> datanode.api.v2.Pagination
 	33, // 26: datanode.api.v2.GetTradesByPartyResponse.trades:type_name -> datanode.api.v2.TradeConnection
-	2,  // 27: datanode.api.v2.GetMarketsRequest.pagination:type_name -> datanode.api.v2.Pagination
-	41, // 28: datanode.api.v2.GetMarketsResponse.markets:type_name -> datanode.api.v2.MarketConnection
-	59, // 29: datanode.api.v2.MarketEdge.node:type_name -> vega.Market
-	40, // 30: datanode.api.v2.MarketConnection.edges:type_name -> datanode.api.v2.MarketEdge
-	3,  // 31: datanode.api.v2.MarketConnection.page_info:type_name -> datanode.api.v2.PageInfo
-	2,  // 32: datanode.api.v2.GetPartiesRequest.pagination:type_name -> datanode.api.v2.Pagination
-	45, // 33: datanode.api.v2.GetPartiesResponse.party:type_name -> datanode.api.v2.PartyConnection
-	60, // 34: datanode.api.v2.PartyEdge.node:type_name -> vega.Party
-	44, // 35: datanode.api.v2.PartyConnection.edges:type_name -> datanode.api.v2.PartyEdge
-	3,  // 36: datanode.api.v2.PartyConnection.page_info:type_name -> datanode.api.v2.PageInfo
-	61, // 37: datanode.api.v2.GetOracleSpecByIDResponse.oracle_spec:type_name -> oracles.v1.OracleSpec
-	2,  // 38: datanode.api.v2.ListOracleSpecsRequest.pagination:type_name -> datanode.api.v2.Pagination
-	61, // 39: datanode.api.v2.ListOracleSpecsResponse.oracle_specs:type_name -> oracles.v1.OracleSpec
-	2,  // 40: datanode.api.v2.GetOracleDataBySpecIDRequest.pagination:type_name -> datanode.api.v2.Pagination
-	62, // 41: datanode.api.v2.GetOracleDataBySpecIDResponse.oracle_data:type_name -> oracles.v1.OracleData
-	2,  // 42: datanode.api.v2.ListOracleDataRequest.pagination:type_name -> datanode.api.v2.Pagination
-	62, // 43: datanode.api.v2.ListOracleDataResponse.oracle_data:type_name -> oracles.v1.OracleData
+	59, // 27: datanode.api.v2.GetOracleSpecByIDResponse.oracle_spec:type_name -> oracles.v1.OracleSpec
+	2,  // 28: datanode.api.v2.ListOracleSpecsRequest.pagination:type_name -> datanode.api.v2.Pagination
+	59, // 29: datanode.api.v2.ListOracleSpecsResponse.oracle_specs:type_name -> oracles.v1.OracleSpec
+	2,  // 30: datanode.api.v2.GetOracleDataBySpecIDRequest.pagination:type_name -> datanode.api.v2.Pagination
+	60, // 31: datanode.api.v2.GetOracleDataBySpecIDResponse.oracle_data:type_name -> oracles.v1.OracleData
+	2,  // 32: datanode.api.v2.ListOracleDataRequest.pagination:type_name -> datanode.api.v2.Pagination
+	60, // 33: datanode.api.v2.ListOracleDataResponse.oracle_data:type_name -> oracles.v1.OracleData
+	2,  // 34: datanode.api.v2.GetMarketsRequest.pagination:type_name -> datanode.api.v2.Pagination
+	49, // 35: datanode.api.v2.GetMarketsResponse.markets:type_name -> datanode.api.v2.MarketConnection
+	61, // 36: datanode.api.v2.MarketEdge.node:type_name -> vega.Market
+	48, // 37: datanode.api.v2.MarketConnection.edges:type_name -> datanode.api.v2.MarketEdge
+	3,  // 38: datanode.api.v2.MarketConnection.page_info:type_name -> datanode.api.v2.PageInfo
+	2,  // 39: datanode.api.v2.GetPartiesRequest.pagination:type_name -> datanode.api.v2.Pagination
+	53, // 40: datanode.api.v2.GetPartiesResponse.party:type_name -> datanode.api.v2.PartyConnection
+	62, // 41: datanode.api.v2.PartyEdge.node:type_name -> vega.Party
+	52, // 42: datanode.api.v2.PartyConnection.edges:type_name -> datanode.api.v2.PartyEdge
+	3,  // 43: datanode.api.v2.PartyConnection.page_info:type_name -> datanode.api.v2.PageInfo
 	4,  // 44: datanode.api.v2.TradingDataService.GetOrdersByMarket:input_type -> datanode.api.v2.GetOrdersByMarketRequest
 	6,  // 45: datanode.api.v2.TradingDataService.GetOrderVersionsByID:input_type -> datanode.api.v2.GetOrderVersionsByIDRequest
 	8,  // 46: datanode.api.v2.TradingDataService.GetBalanceHistory:input_type -> datanode.api.v2.GetBalanceHistoryRequest
@@ -3902,28 +3913,32 @@ var file_data_node_api_v2_trading_data_proto_depIdxs = []int32{
 	27, // 53: datanode.api.v2.TradingDataService.GetERC20MultiSigSignerRemovedBundles:input_type -> datanode.api.v2.GetERC20MultiSigSignerRemovedBundlesRequest
 	34, // 54: datanode.api.v2.TradingDataService.GetTradesByMarket:input_type -> datanode.api.v2.GetTradesByMarketRequest
 	36, // 55: datanode.api.v2.TradingDataService.GetTradesByParty:input_type -> datanode.api.v2.GetTradesByPartyRequest
-	46, // 56: datanode.api.v2.TradingDataService.GetOracleSpecByID:input_type -> datanode.api.v2.GetOracleSpecByIDRequest
-	48, // 57: datanode.api.v2.TradingDataService.ListOracleSpecs:input_type -> datanode.api.v2.ListOracleSpecsRequest
-	50, // 58: datanode.api.v2.TradingDataService.GetOracleDataBySpecID:input_type -> datanode.api.v2.GetOracleDataBySpecIDRequest
-	52, // 59: datanode.api.v2.TradingDataService.ListOracleData:input_type -> datanode.api.v2.ListOracleDataRequest
-	5,  // 60: datanode.api.v2.TradingDataService.GetOrdersByMarket:output_type -> datanode.api.v2.GetOrdersByMarketResponse
-	7,  // 61: datanode.api.v2.TradingDataService.GetOrderVersionsByID:output_type -> datanode.api.v2.GetOrderVersionsByIDResponse
-	9,  // 62: datanode.api.v2.TradingDataService.GetBalanceHistory:output_type -> datanode.api.v2.GetBalanceHistoryResponse
-	13, // 63: datanode.api.v2.TradingDataService.GetMarketDataHistoryByID:output_type -> datanode.api.v2.GetMarketDataHistoryByIDResponse
-	15, // 64: datanode.api.v2.TradingDataService.GetNetworkLimits:output_type -> datanode.api.v2.GetNetworkLimitsResponse
-	23, // 65: datanode.api.v2.TradingDataService.GetCandleData:output_type -> datanode.api.v2.GetCandleDataResponse
-	21, // 66: datanode.api.v2.TradingDataService.SubscribeToCandleData:output_type -> datanode.api.v2.SubscribeToCandleDataResponse
-	18, // 67: datanode.api.v2.TradingDataService.GetCandlesForMarket:output_type -> datanode.api.v2.GetCandlesForMarketResponse
-	25, // 68: datanode.api.v2.TradingDataService.GetERC20MultiSigSignerAddedBundles:output_type -> datanode.api.v2.GetERC20MultiSigSignerAddedBundlesResponse
-	28, // 69: datanode.api.v2.TradingDataService.GetERC20MultiSigSignerRemovedBundles:output_type -> datanode.api.v2.GetERC20MultiSigSignerRemovedBundlesResponse
-	35, // 70: datanode.api.v2.TradingDataService.GetTradesByMarket:output_type -> datanode.api.v2.GetTradesByMarketResponse
-	37, // 71: datanode.api.v2.TradingDataService.GetTradesByParty:output_type -> datanode.api.v2.GetTradesByPartyResponse
-	47, // 72: datanode.api.v2.TradingDataService.GetOracleSpecByID:output_type -> datanode.api.v2.GetOracleSpecByIDResponse
-	49, // 73: datanode.api.v2.TradingDataService.ListOracleSpecs:output_type -> datanode.api.v2.ListOracleSpecsResponse
-	51, // 74: datanode.api.v2.TradingDataService.GetOracleDataBySpecID:output_type -> datanode.api.v2.GetOracleDataBySpecIDResponse
-	53, // 75: datanode.api.v2.TradingDataService.ListOracleData:output_type -> datanode.api.v2.ListOracleDataResponse
-	60, // [60:76] is the sub-list for method output_type
-	44, // [44:60] is the sub-list for method input_type
+	38, // 56: datanode.api.v2.TradingDataService.GetOracleSpecByID:input_type -> datanode.api.v2.GetOracleSpecByIDRequest
+	40, // 57: datanode.api.v2.TradingDataService.ListOracleSpecs:input_type -> datanode.api.v2.ListOracleSpecsRequest
+	42, // 58: datanode.api.v2.TradingDataService.GetOracleDataBySpecID:input_type -> datanode.api.v2.GetOracleDataBySpecIDRequest
+	44, // 59: datanode.api.v2.TradingDataService.ListOracleData:input_type -> datanode.api.v2.ListOracleDataRequest
+	46, // 60: datanode.api.v2.TradingDataService.GetMarkets:input_type -> datanode.api.v2.GetMarketsRequest
+	50, // 61: datanode.api.v2.TradingDataService.GetParties:input_type -> datanode.api.v2.GetPartiesRequest
+	5,  // 62: datanode.api.v2.TradingDataService.GetOrdersByMarket:output_type -> datanode.api.v2.GetOrdersByMarketResponse
+	7,  // 63: datanode.api.v2.TradingDataService.GetOrderVersionsByID:output_type -> datanode.api.v2.GetOrderVersionsByIDResponse
+	9,  // 64: datanode.api.v2.TradingDataService.GetBalanceHistory:output_type -> datanode.api.v2.GetBalanceHistoryResponse
+	13, // 65: datanode.api.v2.TradingDataService.GetMarketDataHistoryByID:output_type -> datanode.api.v2.GetMarketDataHistoryByIDResponse
+	15, // 66: datanode.api.v2.TradingDataService.GetNetworkLimits:output_type -> datanode.api.v2.GetNetworkLimitsResponse
+	23, // 67: datanode.api.v2.TradingDataService.GetCandleData:output_type -> datanode.api.v2.GetCandleDataResponse
+	21, // 68: datanode.api.v2.TradingDataService.SubscribeToCandleData:output_type -> datanode.api.v2.SubscribeToCandleDataResponse
+	18, // 69: datanode.api.v2.TradingDataService.GetCandlesForMarket:output_type -> datanode.api.v2.GetCandlesForMarketResponse
+	25, // 70: datanode.api.v2.TradingDataService.GetERC20MultiSigSignerAddedBundles:output_type -> datanode.api.v2.GetERC20MultiSigSignerAddedBundlesResponse
+	28, // 71: datanode.api.v2.TradingDataService.GetERC20MultiSigSignerRemovedBundles:output_type -> datanode.api.v2.GetERC20MultiSigSignerRemovedBundlesResponse
+	35, // 72: datanode.api.v2.TradingDataService.GetTradesByMarket:output_type -> datanode.api.v2.GetTradesByMarketResponse
+	37, // 73: datanode.api.v2.TradingDataService.GetTradesByParty:output_type -> datanode.api.v2.GetTradesByPartyResponse
+	39, // 74: datanode.api.v2.TradingDataService.GetOracleSpecByID:output_type -> datanode.api.v2.GetOracleSpecByIDResponse
+	41, // 75: datanode.api.v2.TradingDataService.ListOracleSpecs:output_type -> datanode.api.v2.ListOracleSpecsResponse
+	43, // 76: datanode.api.v2.TradingDataService.GetOracleDataBySpecID:output_type -> datanode.api.v2.GetOracleDataBySpecIDResponse
+	45, // 77: datanode.api.v2.TradingDataService.ListOracleData:output_type -> datanode.api.v2.ListOracleDataResponse
+	47, // 78: datanode.api.v2.TradingDataService.GetMarkets:output_type -> datanode.api.v2.GetMarketsResponse
+	51, // 79: datanode.api.v2.TradingDataService.GetParties:output_type -> datanode.api.v2.GetPartiesResponse
+	62, // [62:80] is the sub-list for method output_type
+	44, // [44:62] is the sub-list for method input_type
 	44, // [44:44] is the sub-list for extension type_name
 	44, // [44:44] is the sub-list for extension extendee
 	0,  // [0:44] is the sub-list for field type_name
@@ -4380,102 +4395,6 @@ func file_data_node_api_v2_trading_data_proto_init() {
 			}
 		}
 		file_data_node_api_v2_trading_data_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetMarketsRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetMarketsResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MarketEdge); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MarketConnection); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetPartiesRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetPartiesResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PartyEdge); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PartyConnection); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetOracleSpecByIDRequest); i {
 			case 0:
 				return &v.state
@@ -4487,7 +4406,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 				return nil
 			}
 		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
+		file_data_node_api_v2_trading_data_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetOracleSpecByIDResponse); i {
 			case 0:
 				return &v.state
@@ -4499,7 +4418,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 				return nil
 			}
 		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
+		file_data_node_api_v2_trading_data_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListOracleSpecsRequest); i {
 			case 0:
 				return &v.state
@@ -4511,7 +4430,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 				return nil
 			}
 		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
+		file_data_node_api_v2_trading_data_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListOracleSpecsResponse); i {
 			case 0:
 				return &v.state
@@ -4523,7 +4442,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 				return nil
 			}
 		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+		file_data_node_api_v2_trading_data_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetOracleDataBySpecIDRequest); i {
 			case 0:
 				return &v.state
@@ -4535,7 +4454,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 				return nil
 			}
 		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+		file_data_node_api_v2_trading_data_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetOracleDataBySpecIDResponse); i {
 			case 0:
 				return &v.state
@@ -4547,7 +4466,7 @@ func file_data_node_api_v2_trading_data_proto_init() {
 				return nil
 			}
 		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
+		file_data_node_api_v2_trading_data_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListOracleDataRequest); i {
 			case 0:
 				return &v.state
@@ -4559,8 +4478,104 @@ func file_data_node_api_v2_trading_data_proto_init() {
 				return nil
 			}
 		}
-		file_data_node_api_v2_trading_data_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
+		file_data_node_api_v2_trading_data_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListOracleDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetMarketsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetMarketsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MarketEdge); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MarketConnection); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetPartiesRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetPartiesResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PartyEdge); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_data_node_api_v2_trading_data_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PartyConnection); i {
 			case 0:
 				return &v.state
 			case 1:

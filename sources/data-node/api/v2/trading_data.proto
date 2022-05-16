@@ -47,6 +47,7 @@ service TradingDataService {
     rpc GetTradesByMarket(GetTradesByMarketRequest) returns (GetTradesByMarketResponse);
     // Get trades by party using a cursor based pagination model
     rpc GetTradesByParty(GetTradesByPartyRequest) returns (GetTradesByPartyResponse);
+
     // -- Oracles --
     // Get an oracle spec by ID.
     rpc GetOracleSpecByID(GetOracleSpecByIDRequest) returns (GetOracleSpecByIDResponse);
@@ -56,6 +57,14 @@ service TradingDataService {
     rpc GetOracleDataBySpecID(GetOracleDataBySpecIDRequest) returns (GetOracleDataBySpecIDResponse);
     // Get all oracle data
     rpc ListOracleData(ListOracleDataRequest) returns (ListOracleDataResponse);
+
+    // -- Markets --
+    // Get all markets using a cursor based pagination model
+    rpc GetMarkets(GetMarketsRequest) returns (GetMarketsResponse);
+
+    // -- Parties --
+    // Get Parties using a cursor based pagination model
+    rpc GetParties(GetPartiesRequest) returns (GetPartiesResponse);
 }
 
 // -- Pagination --
@@ -403,49 +412,6 @@ message GetTradesByPartyResponse {
     TradeConnection trades = 1;
 }
 
-// -- Markets --
-message GetMarketsRequest {
-    string market_id = 1;
-    Pagination pagination = 2;
-}
-
-message GetMarketsResponse {
-    MarketConnection markets = 1;
-}
-
-message MarketEdge {
-    vega.Market node = 1;
-    string cursor = 2;
-}
-
-message MarketConnection {
-    int64 total_count = 1;
-    repeated MarketEdge edges = 2;
-    PageInfo page_info = 3;
-}
-
-// -- Parties --
-message GetPartiesRequest {
-    string party_id = 1;
-    Pagination pagination = 2;
-}
-
-message GetPartiesResponse {
-    PartyConnection party = 1;
-}
-
-message PartyEdge {
-    vega.Party node = 1;
-    string cursor = 2;
-}
-
-message PartyConnection {
-    int64 total_count = 1;
-    repeated PartyEdge edges = 2;
-    PageInfo page_info = 3;
-}
-
-
 // The request to get a specific oracle spec by identifier
 message GetOracleSpecByIDRequest {
     // The ID to get the oracle spec for
@@ -495,4 +461,46 @@ message ListOracleDataRequest {
 message ListOracleDataResponse {
     // The list of seen oracle data
     repeated oracles.v1.OracleData oracle_data = 1;
+}
+
+// -- Markets --
+message GetMarketsRequest {
+    string market_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetMarketsResponse {
+    MarketConnection markets = 1;
+}
+
+message MarketEdge {
+    vega.Market node = 1;
+    string cursor = 2;
+}
+
+message MarketConnection {
+    int64 total_count = 1;
+    repeated MarketEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Parties --
+message GetPartiesRequest {
+    string party_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetPartiesResponse {
+    PartyConnection party = 1;
+}
+
+message PartyEdge {
+    vega.Party node = 1;
+    string cursor = 2;
+}
+
+message PartyConnection {
+    int64 total_count = 1;
+    repeated PartyEdge edges = 2;
+    PageInfo page_info = 3;
 }

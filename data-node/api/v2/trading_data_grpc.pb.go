@@ -62,6 +62,12 @@ type TradingDataServiceClient interface {
 	GetOracleDataBySpecID(ctx context.Context, in *GetOracleDataBySpecIDRequest, opts ...grpc.CallOption) (*GetOracleDataBySpecIDResponse, error)
 	// Get all oracle data
 	ListOracleData(ctx context.Context, in *ListOracleDataRequest, opts ...grpc.CallOption) (*ListOracleDataResponse, error)
+	// -- Markets --
+	// Get all markets using a cursor based pagination model
+	GetMarkets(ctx context.Context, in *GetMarketsRequest, opts ...grpc.CallOption) (*GetMarketsResponse, error)
+	// -- Parties --
+	// Get Parties using a cursor based pagination model
+	GetParties(ctx context.Context, in *GetPartiesRequest, opts ...grpc.CallOption) (*GetPartiesResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -239,6 +245,24 @@ func (c *tradingDataServiceClient) ListOracleData(ctx context.Context, in *ListO
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetMarkets(ctx context.Context, in *GetMarketsRequest, opts ...grpc.CallOption) (*GetMarketsResponse, error) {
+	out := new(GetMarketsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarkets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetParties(ctx context.Context, in *GetPartiesRequest, opts ...grpc.CallOption) (*GetPartiesResponse, error) {
+	out := new(GetPartiesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetParties", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -283,6 +307,12 @@ type TradingDataServiceServer interface {
 	GetOracleDataBySpecID(context.Context, *GetOracleDataBySpecIDRequest) (*GetOracleDataBySpecIDResponse, error)
 	// Get all oracle data
 	ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error)
+	// -- Markets --
+	// Get all markets using a cursor based pagination model
+	GetMarkets(context.Context, *GetMarketsRequest) (*GetMarketsResponse, error)
+	// -- Parties --
+	// Get Parties using a cursor based pagination model
+	GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -337,6 +367,12 @@ func (UnimplementedTradingDataServiceServer) GetOracleDataBySpecID(context.Conte
 }
 func (UnimplementedTradingDataServiceServer) ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOracleData not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetMarkets(context.Context, *GetMarketsRequest) (*GetMarketsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMarkets not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetParties not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -642,6 +678,42 @@ func _TradingDataService_ListOracleData_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetMarkets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMarketsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetMarkets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetMarkets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetMarkets(ctx, req.(*GetMarketsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetParties_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPartiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetParties(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetParties",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetParties(ctx, req.(*GetPartiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -708,6 +780,14 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListOracleData",
 			Handler:    _TradingDataService_ListOracleData_Handler,
+		},
+		{
+			MethodName: "GetMarkets",
+			Handler:    _TradingDataService_GetMarkets_Handler,
+		},
+		{
+			MethodName: "GetParties",
+			Handler:    _TradingDataService_GetParties_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
