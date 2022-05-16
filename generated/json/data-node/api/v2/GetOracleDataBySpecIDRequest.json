@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetOracleDataBySpecIDRequest",
+    "definitions": {
+        "GetOracleDataBySpecIDRequest": {
+            "properties": {
+                "oracle_spec_id": {
+                    "type": "string",
+                    "description": "The oracle spec ID the oracle data are broadcast to"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true,
+                    "description": "Pagination controls"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Oracle Data By Spec ID Request",
+            "description": "The request to get all oracle data broadcast to a given oracle spec"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}

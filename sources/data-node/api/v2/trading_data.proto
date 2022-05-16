@@ -4,6 +4,8 @@ option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 
 import "vega/vega.proto";
 import "vega/markets.proto";
+import "vega/oracles/v1/data.proto";
+import "vega/oracles/v1/spec.proto";
 
 package datanode.api.v2;
 
@@ -45,14 +47,15 @@ service TradingDataService {
     rpc GetTradesByMarket(GetTradesByMarketRequest) returns (GetTradesByMarketResponse);
     // Get trades by party using a cursor based pagination model
     rpc GetTradesByParty(GetTradesByPartyRequest) returns (GetTradesByPartyResponse);
-
-    // -- Markets --
-    // Get all markets using a cursor based pagination model
-    rpc GetMarkets(GetMarketsRequest) returns (GetMarketsResponse);
-
-    // -- Parties --
-    // Get Parties using a cursor based pagination model
-    rpc GetParties(GetPartiesRequest) returns (GetPartiesResponse);
+    // -- Oracles --
+    // Get an oracle spec by ID.
+    rpc GetOracleSpecByID(GetOracleSpecByIDRequest) returns (GetOracleSpecByIDResponse);
+    // Get the oracle specs
+    rpc ListOracleSpecs(ListOracleSpecsRequest) returns (ListOracleSpecsResponse);
+    // Get oracle data that matched the given spec
+    rpc GetOracleDataBySpecID(GetOracleDataBySpecIDRequest) returns (GetOracleDataBySpecIDResponse);
+    // Get all oracle data
+    rpc ListOracleData(ListOracleDataRequest) returns (ListOracleDataResponse);
 }
 
 // -- Pagination --
@@ -440,4 +443,56 @@ message PartyConnection {
     int64 total_count = 1;
     repeated PartyEdge edges = 2;
     PageInfo page_info = 3;
+}
+
+
+// The request to get a specific oracle spec by identifier
+message GetOracleSpecByIDRequest {
+    // The ID to get the oracle spec for
+    string oracle_spec_id = 1;
+}
+
+// The response for a oracle spec
+message GetOracleSpecByIDResponse {
+    // The oracle spec matching the ID.
+    oracles.v1.OracleSpec oracle_spec = 1 ;
+}
+
+// The request to get all active oracle specs
+message ListOracleSpecsRequest {
+    // Pagination controls
+    Pagination pagination = 1;
+}
+
+// The response to get all active oracle specs
+message ListOracleSpecsResponse {
+    // The list of active oracle specs
+    repeated oracles.v1.OracleSpec oracle_specs = 1;
+}
+
+// The request to get all oracle data broadcast to a given oracle spec
+message GetOracleDataBySpecIDRequest {
+    // The oracle spec ID the oracle data are broadcast to
+    string oracle_spec_id = 1;
+
+    // Pagination controls
+    Pagination pagination = 2;
+}
+
+// The response for a list of all oracle data broadcast to a given spec
+message  GetOracleDataBySpecIDResponse {
+    // The list of oracle data broadcast to a given spec
+    repeated oracles.v1.OracleData oracle_data = 1;
+}
+
+// The request to get all seen oracle data
+message ListOracleDataRequest {
+    // Pagination controls
+    Pagination pagination = 1;
+}
+
+// The response to get all seen oracle data
+message ListOracleDataResponse {
+    // The list of seen oracle data
+    repeated oracles.v1.OracleData oracle_data = 1;
 }

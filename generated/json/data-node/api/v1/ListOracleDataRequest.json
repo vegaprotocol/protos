@@ -1,28 +1,20 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetValidatorRemoveSignerBundleRequest",
+    "$ref": "#/definitions/ListOracleDataRequest",
     "definitions": {
-        "GetValidatorRemoveSignerBundleRequest": {
+        "ListOracleDataRequest": {
             "properties": {
-                "node_id": {
-                    "type": "string",
-                    "description": "The node id of the validator of which a signature bundle is required"
-                },
-                "submitter": {
-                    "type": "string",
-                    "description": "The node id of the validator which will submit the bundle"
-                },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true,
-                    "description": "Pagination controls"
+                    "$ref": "#/definitions/datanode.api.v1.Pagination",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Validator Remove Signer Bundle Request"
+            "title": "List Oracle Data Request",
+            "description": "The request to get all seen oracle data"
         },
-        "datanode.api.v2.Pagination": {
+        "datanode.api.v1.Pagination": {
             "properties": {
                 "skip": {
                     "type": "string",

@@ -1139,6 +1139,31 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pagination.skip",
+            "description": "Skip the number of records specified, default is 0.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.limit",
+            "description": "Limit the number of returned records to the value specified, default is 50.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.descending",
+            "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
         "tags": [
           "TradingDataService"
         ]
@@ -1146,7 +1171,7 @@
     },
     "/oracle-specs/{id}": {
       "get": {
-        "summary": "Get an oracle spec by ID",
+        "summary": "Get an oracle spec by ID.",
         "operationId": "TradingDataService_OracleSpec",
         "responses": {
           "200": {
@@ -1169,6 +1194,29 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "pagination.skip",
+            "description": "Skip the number of records specified, default is 0.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.limit",
+            "description": "Limit the number of returned records to the value specified, default is 50.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.descending",
+            "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -1178,7 +1226,7 @@
     },
     "/oracle-specs/{id}/oracle-data": {
       "get": {
-        "summary": "Get all oracle data",
+        "summary": "Get oracle data that matched the given spec",
         "operationId": "TradingDataService_OracleDataBySpec",
         "responses": {
           "200": {
@@ -1201,6 +1249,29 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "pagination.skip",
+            "description": "Skip the number of records specified, default is 0.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.limit",
+            "description": "Limit the number of returned records to the value specified, default is 50.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.descending",
+            "description": "Descending reverses the order of the records returned,\ndefault is true, if false the results will be returned in ascending order.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -3416,6 +3487,19 @@
         }
       },
       "title": "A response containing all of the Vega liquidity provision orders"
+    },
+    "v1ListOracleDataResponse": {
+      "type": "object",
+      "properties": {
+        "oracleData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OracleData"
+          },
+          "title": "The list of seen oracle data"
+        }
+      },
+      "title": "The response to get all seen oracle data"
     },
     "v1LossSocialization": {
       "type": "object",

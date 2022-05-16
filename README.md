@@ -10,5 +10,9 @@ It also offers a couple of methods implementation and validation used overall th
 ./script/gettools.sh
 ```
 
+## Conventions
+
+**Be sure to check out the [API convention](./CONVENTION.md), before adding an endpoint.**
+
 ## License
 [MIT](https://github.com/vegaprotocol/protos/blob/develop/LICENSE)

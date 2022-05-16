@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ListOracleDataRequest",
+    "definitions": {
+        "ListOracleDataRequest": {
+            "properties": {
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true,
+                    "description": "Pagination controls"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "List Oracle Data Request",
+            "description": "The request to get all seen oracle data"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}
