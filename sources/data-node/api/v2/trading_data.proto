@@ -3,6 +3,8 @@ syntax = "proto3";
 option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 
 import "vega/vega.proto";
+import "vega/oracles/v1/data.proto";
+import "vega/oracles/v1/spec.proto";
 
 package datanode.api.v2;
 
@@ -48,6 +50,19 @@ service TradingDataService {
     // Gets the signature bundles that remove a particular validator to the multisig contract
     rpc GetERC20MultiSigSignerRemovedBundles(GetERC20MultiSigSignerRemovedBundlesRequest) returns (GetERC20MultiSigSignerRemovedBundlesResponse);
 
+    // -- Oracles --
+
+    // Get an oracle spec by ID.
+    rpc GetOracleSpecByID(GetOracleSpecByIDRequest) returns (GetOracleSpecByIDResponse);
+
+    // Get the oracle specs
+    rpc ListOracleSpecs(ListOracleSpecsRequest) returns (ListOracleSpecsResponse);
+
+    // Get oracle data that matched the given spec
+    rpc GetOracleDataBySpecID(GetOracleDataBySpecIDRequest) returns (GetOracleDataBySpecIDResponse);
+
+    // Get all oracle data
+    rpc ListOracleData(ListOracleDataRequest) returns (ListOracleDataResponse);
 }
 
 
@@ -130,6 +145,25 @@ message ERC20MultiSigSignerRemovedBundle {
     // The epoch in which the validator was removed
     string epoch_seq = 7;
 
+}
+
+// A request to get an asset bundle details
+message GetERC20AssetBundleRequest {
+  // The ID of the asset requested
+  string asset_id = 1;
+}
+
+// The response with all information required to bundle the call to propose an erc20 asset
+message GetERC20AssetBundleResponse {
+  // The address of the asset on ethereum
+  string asset_source = 1;
+  // The ID of the vega asset
+  string vega_asset_id = 2;
+  // The nonce, which is actually the internal reference for the proposal
+  string nonce = 3;
+   // The signatures bundle as hex encoded data, forward by 0x
+  // e.g: 0x + sig1 + sig2 + ... + sixN
+  string signatures = 4;
 }
 
 // Request to get a list of supported intervals for the given market along with the corresponding candle id
@@ -324,4 +358,56 @@ message GetMarketDataHistoryByIDRequest {
 // Response for Market Data History
 message GetMarketDataHistoryByIDResponse {
     repeated vega.MarketData market_data = 1;
+}
+
+
+// The request to get a specific oracle spec by identifier
+message GetOracleSpecByIDRequest {
+    // The ID to get the oracle spec for
+    string oracle_spec_id = 1;
+}
+
+// The response for a oracle spec
+message GetOracleSpecByIDResponse {
+    // The oracle spec matching the ID.
+    oracles.v1.OracleSpec oracle_spec = 1 ;
+}
+
+// The request to get all active oracle specs
+message ListOracleSpecsRequest {
+    // Pagination controls
+    Pagination pagination = 1;
+}
+
+// The response to get all active oracle specs
+message ListOracleSpecsResponse {
+    // The list of active oracle specs
+    repeated oracles.v1.OracleSpec oracle_specs = 1;
+}
+
+// The request to get all oracle data broadcast to a given oracle spec
+message GetOracleDataBySpecIDRequest {
+    // The oracle spec ID the oracle data are broadcast to
+    string oracle_spec_id = 1;
+
+    // Pagination controls
+    Pagination pagination = 2;
+}
+
+// The response for a list of all oracle data broadcast to a given spec
+message  GetOracleDataBySpecIDResponse {
+    // The list of oracle data broadcast to a given spec
+    repeated oracles.v1.OracleData oracle_data = 1;
+}
+
+// The request to get all seen oracle data
+message ListOracleDataRequest {
+    // Pagination controls
+    Pagination pagination = 1;
+}
+
+// The response to get all seen oracle data
+message ListOracleDataResponse {
+    // The list of seen oracle data
+    repeated oracles.v1.OracleData oracle_data = 1;
 }

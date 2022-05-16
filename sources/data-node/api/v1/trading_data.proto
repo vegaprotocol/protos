@@ -130,8 +130,8 @@ service TradingDataService {
   // Get governance data (proposals and votes) for proposals aiming to create new assets
   rpc GetNewAssetProposals(GetNewAssetProposalsRequest) returns (GetNewAssetProposalsResponse);
 
-   // Get governance data (proposals and votes) for proposals aiming to create freeform proposals
-   rpc GetNewFreeformProposals(GetNewFreeformProposalsRequest) returns (GetNewFreeformProposalsResponse);
+  // Get governance data (proposals and votes) for proposals aiming to create freeform proposals
+  rpc GetNewFreeformProposals(GetNewFreeformProposalsRequest) returns (GetNewFreeformProposalsResponse);
 
   // Get governance data (proposals and votes) for a proposal located by ID
   rpc GetProposalByID(GetProposalByIDRequest) returns (GetProposalByIDResponse);
@@ -246,14 +246,21 @@ service TradingDataService {
   // Get the liquidity provision orders
   rpc LiquidityProvisions(LiquidityProvisionsRequest) returns (LiquidityProvisionsResponse);
 
-  // Get an oracle spec by ID
+  // -- Oracles --
+
+  // Get an oracle spec by ID.
   rpc OracleSpec(OracleSpecRequest) returns (OracleSpecResponse);
 
   // Get the oracle specs
   rpc OracleSpecs(OracleSpecsRequest) returns (OracleSpecsResponse);
 
-  // Get all oracle data
+  // Get oracle data that matched the given spec
   rpc OracleDataBySpec(OracleDataBySpecRequest) returns (OracleDataBySpecResponse);
+
+  // Get all oracle data
+  rpc ListOracleData(ListOracleDataRequest) returns (ListOracleDataResponse);
+
+  // -- Rewards --
 
   // subscribe to rewards
   rpc ObserveRewards(ObserveRewardsRequest) returns (stream ObserveRewardsResponse);
@@ -281,7 +288,7 @@ service TradingDataService {
 }
 
 message TransfersRequest {
-  string pubkey =  1;
+  string pubkey = 1;
   bool is_from = 2;
   bool is_to = 3;
 }
@@ -390,7 +397,7 @@ message GetKeyRotationsByNodeResponse {
 }
 
 // Request for a list of all assets enabled on Vega
-message AssetsRequest { }
+message AssetsRequest {}
 
 // Response for a list of all assets enabled on Vega
 message AssetsResponse {
@@ -1170,6 +1177,8 @@ message ERC20WithdrawalApprovalResponse {
   string signatures = 5;
   // The ethereum address to withdraw the funds to, 0x prefixed
   string target_address = 6;
+  // The creation timestamps
+  int64 creation = 7;
 }
 
 // A request to get a list of deposit from a given party
@@ -1197,7 +1206,7 @@ message DepositResponse {
 }
 
 // A message requesting for the list of all network parameters
-message NetworkParametersRequest { }
+message NetworkParametersRequest {}
 
 // A response containing all of the vega network parameters
 message NetworkParametersResponse {
@@ -1222,6 +1231,8 @@ message LiquidityProvisionsResponse {
 message OracleSpecRequest {
   // The id to get the oracle spec for
   string id = 1;
+
+  Pagination pagination = 2;
 }
 
 // A response for a oracle spec
@@ -1232,6 +1243,7 @@ message OracleSpecResponse {
 
 // A request to get a specific oracle spec by identifier
 message OracleSpecsRequest {
+  Pagination pagination = 1;
 }
 
 // The response for a list of withdrawals
@@ -1244,11 +1256,24 @@ message OracleSpecsResponse {
 message OracleDataBySpecRequest {
   // The id to get the oracle spec for
   string id = 1;
+
+  Pagination pagination = 2;
 }
 
 // The response for a list of all oracle data broadcast to a given spec
 message OracleDataBySpecResponse {
   // The list of oracle data broadcast to a given spec
+  repeated oracles.v1.OracleData oracle_data = 1;
+}
+
+// The request to get all seen oracle data
+message ListOracleDataRequest {
+  Pagination pagination = 1;
+}
+
+// The response to get all seen oracle data
+message ListOracleDataResponse {
+  // The list of seen oracle data
   repeated oracles.v1.OracleData oracle_data = 1;
 }
 

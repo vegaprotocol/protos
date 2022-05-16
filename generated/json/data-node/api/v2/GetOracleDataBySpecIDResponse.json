@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/OracleDataBySpecResponse",
+    "$ref": "#/definitions/GetOracleDataBySpecIDResponse",
     "definitions": {
-        "OracleDataBySpecResponse": {
+        "GetOracleDataBySpecIDResponse": {
             "properties": {
                 "oracle_data": {
                     "items": {
@@ -14,7 +14,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Oracle Data By Spec Response",
+            "title": "Get Oracle Data By Spec ID Response",
             "description": "The response for a list of all oracle data broadcast to a given spec"
         },
         "oracles.v1.OracleData": {

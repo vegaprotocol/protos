@@ -1,35 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/CandleDataRequest",
+    "$ref": "#/definitions/ListOracleSpecsRequest",
     "definitions": {
-        "CandleDataRequest": {
+        "ListOracleSpecsRequest": {
             "properties": {
-                "candle_id": {
-                    "type": "string",
-                    "description": "Candle identifier, required field."
-                },
-                "from_timestamp": {
-                    "type": "string",
-                    "description": "Timestamp to retrieve candles since, in nanoseconds since the epoch, required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
-                },
-                "to_timestamp": {
-                    "type": "string",
-                    "description": "Timestamp to retrieve candles since, in nanoseconds since the epoch, required field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
-                },
-                "interval": {
-                    "type": "string",
-                    "description": "Time interval for the candles, required field specified as a valid postgres interval"
-                },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true,
-                    "description": "Optional pagination controls"
+                    "description": "Pagination controls"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Candle Data Request",
-            "description": "Request for a list of candles for a market at an interval"
+            "title": "List Oracle Specs Request",
+            "description": "The request to get all active oracle specs"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

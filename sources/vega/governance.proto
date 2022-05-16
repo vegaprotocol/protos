@@ -150,22 +150,10 @@ message NewAsset {
   AssetDetails changes = 1;
 }
 
-message NewFreeformDetails {
-  // The URL containing content that describes the proposal
-  string url = 1;
-  // A short description of what is being proposed
-  string description = 2;
-  // The hash on the content of the URL
-  string hash = 3;
-}
-
 // Freeform proposal
 // This message is just used as a placeholder to sort out the nature of the
 // proposal once parsed.
-message NewFreeform {
-  // DEPRECATED The configuration of the new freeform
-  NewFreeformDetails changes = 1;
-}
+message NewFreeform {}
 
 // Terms for a governance proposal on Vega
 message ProposalTerms {
@@ -192,9 +180,10 @@ message ProposalTerms {
   };
 }
 
+// The rationale behind a proposal.
 message ProposalRationale {
   // Description to show a short title / something in case the link goes offline.
-  // This is to be between 0 and 255 unicode characters.
+  // This is to be between 0 and 1024 unicode characters.
   // This is mandatory for all proposal.
   string description = 1;
   // Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property
@@ -275,6 +264,8 @@ message Proposal {
   ProposalError reason = 7;
   // The detailed error associated to the reason.
   string error_details = 8;
+  // The rationale behind a proposal.
+  ProposalRationale rationale = 9;
 }
 
 // A list of possible errors that can cause a proposal to be in state rejected or failed

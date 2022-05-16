@@ -7,12 +7,36 @@
                 "id": {
                     "type": "string",
                     "description": "The id to get the oracle spec for"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v1.Pagination",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "Oracle Spec Request",
             "description": "A request to get a specific oracle spec by identifier"
+        },
+        "datanode.api.v1.Pagination": {
+            "properties": {
+                "skip": {
+                    "type": "string",
+                    "description": "Skip the number of records specified, default is 0"
+                },
+                "limit": {
+                    "type": "string",
+                    "description": "Limit the number of returned records to the value specified, default is 50"
+                },
+                "descending": {
+                    "type": "boolean",
+                    "description": "Descending reverses the order of the records returned, default is true, if false the results will be returned in ascending order"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Pagination controls"
         }
     }
 }

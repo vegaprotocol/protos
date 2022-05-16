@@ -96,6 +96,7 @@ message RecurringTransfer {
   uint64 start_epoch = 1;
   vega.Uint64Value end_epoch = 2;
   string factor = 3;
+  DispatchStrategy dispatch_strategy = 4;
 }
 
 // StakeLinking - an event notifying of stake being deposited or removed for a given party
@@ -191,6 +192,8 @@ message RewardPayoutEvent {
   string amount = 4;
   string percent_of_total_reward = 5;
   int64  timestamp = 6;
+  string reward_type = 7;
+  string market = 8;
 }
 
 //ValidatorScoreEvent is the score a validator gets for a given epoch

@@ -15,6 +15,47 @@
             "type": "object",
             "title": "Transfers Response"
         },
+        "vega.DispatchStrategy": {
+            "properties": {
+                "asset_for_metric": {
+                    "type": "string",
+                    "description": "The asset to use for metric"
+                },
+                "metric": {
+                    "enum": [
+                        "DISPATCH_METRIC_UNSPECIFIED",
+                        0,
+                        "DISPATCH_METRIC_TAKER_FEES_PAID",
+                        1,
+                        "DISPATCH_METRIC_MAKER_FEES_RECEIVED",
+                        2,
+                        "DISPATCH_METRIC_LP_FEES_RECEIVED",
+                        3,
+                        "DISPATCH_METRIC_MARKET_VALUE",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Dispatch Metric"
+                },
+                "markets": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Optional markets in scope"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Dispatch Strategy"
+        },
         "vega.Uint64Value": {
             "properties": {
                 "value": {
@@ -46,6 +87,10 @@
                 },
                 "factor": {
                     "type": "string"
+                },
+                "dispatch_strategy": {
+                    "$ref": "#/definitions/vega.DispatchStrategy",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,

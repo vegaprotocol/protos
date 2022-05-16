@@ -131,7 +131,7 @@ message ProposalSubmission {
   string reference = 1;
   // Proposal configuration and the actual change that is meant to be executed when proposal is enacted
   vega.ProposalTerms terms = 2;
-  // Proposal rational that summarises the change and link to the complete proposed changed.
+  // The rationale behind a proposal.
   vega.ProposalRationale rationale = 3;
 }
 
@@ -185,7 +185,6 @@ message Transfer {
   string amount = 5;
   // The reference to be attached to the transfer
   string reference = 6;
-
   // Specific details of the transfer
   oneof kind {
     OneOffTransfer one_off = 101;
@@ -208,6 +207,8 @@ message RecurringTransfer {
   vega.Uint64Value end_epoch = 2;
   // factor needs to be > 0
   string factor = 3;
+  // optional parameter defining how a transfer is dispatched
+  vega.DispatchStrategy dispatch_strategy = 4;
 }
 
 // A request for cancelling a recurring transfer

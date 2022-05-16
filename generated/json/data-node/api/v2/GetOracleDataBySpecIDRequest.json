@@ -1,12 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetValidatorAddSignerBundleRequest",
+    "$ref": "#/definitions/GetOracleDataBySpecIDRequest",
     "definitions": {
-        "GetValidatorAddSignerBundleRequest": {
+        "GetOracleDataBySpecIDRequest": {
             "properties": {
-                "node_id": {
+                "oracle_spec_id": {
                     "type": "string",
-                    "description": "The node id of the validator of which a signature bundle is required"
+                    "description": "The oracle spec ID the oracle data are broadcast to"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
@@ -16,7 +16,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Validator Add Signer Bundle Request"
+            "title": "Get Oracle Data By Spec ID Request",
+            "description": "The request to get all oracle data broadcast to a given oracle spec"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

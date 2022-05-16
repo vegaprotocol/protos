@@ -78,6 +78,10 @@
                 "min_amount": {
                     "type": "string",
                     "description": "A minimum amount"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "optional dispatch strategy"
                 }
             },
             "additionalProperties": true,

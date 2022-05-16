@@ -1,21 +1,21 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/OracleDataBySpecResponse",
+    "$ref": "#/definitions/ListOracleDataResponse",
     "definitions": {
-        "OracleDataBySpecResponse": {
+        "ListOracleDataResponse": {
             "properties": {
                 "oracle_data": {
                     "items": {
                         "$ref": "#/definitions/oracles.v1.OracleData"
                     },
                     "type": "array",
-                    "description": "The list of oracle data broadcast to a given spec"
+                    "description": "The list of seen oracle data"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Oracle Data By Spec Response",
-            "description": "The response for a list of all oracle data broadcast to a given spec"
+            "title": "List Oracle Data Response",
+            "description": "The response to get all seen oracle data"
         },
         "oracles.v1.OracleData": {
             "properties": {

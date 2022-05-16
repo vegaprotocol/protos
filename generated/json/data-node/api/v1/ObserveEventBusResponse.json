@@ -96,17 +96,17 @@
                         "type": "string"
                     },
                     "type": "array",
-                    "description": "matched_specs_ids lists all the oracle specs that matched this oracle data."
+                    "description": "matched_specs_ids lists all the oracle specs that matched this oracle data. When the array is empty, it means no oracle spec matched this oracle data."
                 },
                 "broadcast_at": {
                     "type": "string",
-                    "description": "broadcast_at is the time at which the data was broadcast for the first time."
+                    "description": "broadcast_at is the time at which the data was broadcast to the markets with a matching oracle spec. It has no value when the oracle date did not match any oracle spec. The value is a Unix timestamp in nanoseconds."
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "Oracle Data",
-            "description": "OracleData describes an oracle data that has been broadcast."
+            "description": "OracleData describes valid oracle data that has been received by the node. It represents both matched and unmatched oracle data."
         },
         "oracles.v1.OracleSpec": {
             "properties": {
@@ -459,11 +459,60 @@
             "title": "Deposit",
             "description": "A deposit on to the Vega network"
         },
+        "vega.DispatchStrategy": {
+            "properties": {
+                "asset_for_metric": {
+                    "type": "string",
+                    "description": "The asset to use for metric"
+                },
+                "metric": {
+                    "enum": [
+                        "DISPATCH_METRIC_UNSPECIFIED",
+                        0,
+                        "DISPATCH_METRIC_TAKER_FEES_PAID",
+                        1,
+                        "DISPATCH_METRIC_MAKER_FEES_RECEIVED",
+                        2,
+                        "DISPATCH_METRIC_LP_FEES_RECEIVED",
+                        3,
+                        "DISPATCH_METRIC_MARKET_VALUE",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Dispatch Metric"
+                },
+                "markets": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Optional markets in scope"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Dispatch Strategy"
+        },
         "vega.ERC20": {
             "properties": {
                 "contract_address": {
                     "type": "string",
                     "description": "The address of the contract for the token, on the ethereum network"
+                },
+                "lifetime_limit": {
+                    "type": "string",
+                    "description": "The lifetime limits deposit per address note: this is a temporary measure for restricted mainnet"
+                },
+                "withdraw_threshold": {
+                    "type": "string",
+                    "description": "The maximum allowed per withdraw note: this is a temporary measure for restricted mainnet"
                 }
             },
             "additionalProperties": true,
@@ -1364,36 +1413,10 @@
             "description": "New asset on Vega"
         },
         "vega.NewFreeform": {
-            "properties": {
-                "changes": {
-                    "$ref": "#/definitions/vega.NewFreeformDetails",
-                    "additionalProperties": true,
-                    "description": "DEPRECATED The configuration of the new freeform"
-                }
-            },
             "additionalProperties": true,
             "type": "object",
             "title": "New Freeform",
             "description": "Freeform proposal This message is just used as a placeholder to sort out the nature of the proposal once parsed."
-        },
-        "vega.NewFreeformDetails": {
-            "properties": {
-                "url": {
-                    "type": "string",
-                    "description": "The URL containing content that describes the proposal"
-                },
-                "description": {
-                    "type": "string",
-                    "description": "A short description of what is being proposed"
-                },
-                "hash": {
-                    "type": "string",
-                    "description": "The hash on the content of the URL"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "New Freeform Details"
         },
         "vega.NewMarket": {
             "properties": {
@@ -2065,6 +2088,11 @@
                 "error_details": {
                     "type": "string",
                     "description": "The detailed error associated to the reason."
+                },
+                "rationale": {
+                    "$ref": "#/definitions/vega.ProposalRationale",
+                    "additionalProperties": true,
+                    "description": "The rationale behind a proposal."
                 }
             },
             "additionalProperties": true,
@@ -2076,7 +2104,7 @@
             "properties": {
                 "description": {
                     "type": "string",
-                    "description": "Description to show a short title / something in case the link goes offline. This is to be between 0 and 255 unicode characters. This is mandatory for all proposal."
+                    "description": "Description to show a short title / something in case the link goes offline. This is to be between 0 and 1024 unicode characters. This is mandatory for all proposal."
                 },
                 "hash": {
                     "type": "string",
@@ -2089,7 +2117,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Proposal Rationale"
+            "title": "Proposal Rationale",
+            "description": "The rationale behind a proposal."
         },
         "vega.ProposalTerms": {
             "properties": {
@@ -3160,7 +3189,7 @@
                 "rationale": {
                     "$ref": "#/definitions/vega.ProposalRationale",
                     "additionalProperties": true,
-                    "description": "Proposal rational that summarises the change and link to the complete proposed changed."
+                    "description": "The rationale behind a proposal."
                 }
             },
             "additionalProperties": true,
@@ -3182,6 +3211,11 @@
                 "factor": {
                     "type": "string",
                     "description": "factor needs to be \u003e 0"
+                },
+                "dispatch_strategy": {
+                    "$ref": "#/definitions/vega.DispatchStrategy",
+                    "additionalProperties": true,
+                    "description": "optional parameter defining how a transfer is dispatched"
                 }
             },
             "additionalProperties": true,
@@ -4311,6 +4345,10 @@
                 },
                 "factor": {
                     "type": "string"
+                },
+                "dispatch_strategy": {
+                    "$ref": "#/definitions/vega.DispatchStrategy",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
@@ -4335,6 +4373,12 @@
                     "type": "string"
                 },
                 "timestamp": {
+                    "type": "string"
+                },
+                "reward_type": {
+                    "type": "string"
+                },
+                "market": {
                     "type": "string"
                 }
             },
