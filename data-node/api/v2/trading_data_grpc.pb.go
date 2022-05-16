@@ -22,26 +22,38 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TradingDataServiceClient interface {
+	// -- Orders --
 	// Get a list of Orders by Market
-	OrdersByMarket(ctx context.Context, in *OrdersByMarketRequest, opts ...grpc.CallOption) (*OrdersByMarketResponse, error)
+	GetOrdersByMarket(ctx context.Context, in *GetOrdersByMarketRequest, opts ...grpc.CallOption) (*GetOrdersByMarketResponse, error)
 	// Get all versions of the order by its orderID
-	OrderVersionsByID(ctx context.Context, in *OrderVersionsByIDRequest, opts ...grpc.CallOption) (*OrderVersionsByIDResponse, error)
+	GetOrderVersionsByID(ctx context.Context, in *GetOrderVersionsByIDRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDResponse, error)
+	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
-	QueryBalanceHistory(ctx context.Context, in *QueryBalanceHistoryRequest, opts ...grpc.CallOption) (*QueryBalanceHistoryResponse, error)
+	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
+	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
+	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
+	// -- Candles --
 	// Get candle data for a given candle id
 	GetCandleData(ctx context.Context, in *GetCandleDataRequest, opts ...grpc.CallOption) (*GetCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
 	SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error)
 	// Gets all available intervals for a given market along with the corresponding candle id
 	GetCandlesForMarket(ctx context.Context, in *GetCandlesForMarketRequest, opts ...grpc.CallOption) (*GetCandlesForMarketResponse, error)
+	// -- ERC20 Multi Sig --
 	// Gets the signature bundles that add a particular validator to the multisig contract
 	GetERC20MultiSigSignerAddedBundles(ctx context.Context, in *GetERC20MultiSigSignerAddedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20MultiSigSignerRemovedBundles(ctx context.Context, in *GetERC20MultiSigSignerRemovedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
+	// -- Trades --
+	// Get trades by market using a cursor based pagination model
+	GetTradesByMarket(ctx context.Context, in *GetTradesByMarketRequest, opts ...grpc.CallOption) (*GetTradesByMarketResponse, error)
+	// Get trades by party using a cursor based pagination model
+	GetTradesByParty(ctx context.Context, in *GetTradesByPartyRequest, opts ...grpc.CallOption) (*GetTradesByPartyResponse, error)
+	// -- Oracles --
 	// Get an oracle spec by ID.
 	GetOracleSpecByID(ctx context.Context, in *GetOracleSpecByIDRequest, opts ...grpc.CallOption) (*GetOracleSpecByIDResponse, error)
 	// Get the oracle specs
@@ -50,6 +62,12 @@ type TradingDataServiceClient interface {
 	GetOracleDataBySpecID(ctx context.Context, in *GetOracleDataBySpecIDRequest, opts ...grpc.CallOption) (*GetOracleDataBySpecIDResponse, error)
 	// Get all oracle data
 	ListOracleData(ctx context.Context, in *ListOracleDataRequest, opts ...grpc.CallOption) (*ListOracleDataResponse, error)
+	// -- Markets --
+	// Get all markets using a cursor based pagination model
+	GetMarkets(ctx context.Context, in *GetMarketsRequest, opts ...grpc.CallOption) (*GetMarketsResponse, error)
+	// -- Parties --
+	// Get Parties using a cursor based pagination model
+	GetParties(ctx context.Context, in *GetPartiesRequest, opts ...grpc.CallOption) (*GetPartiesResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -60,27 +78,27 @@ func NewTradingDataServiceClient(cc grpc.ClientConnInterface) TradingDataService
 	return &tradingDataServiceClient{cc}
 }
 
-func (c *tradingDataServiceClient) OrdersByMarket(ctx context.Context, in *OrdersByMarketRequest, opts ...grpc.CallOption) (*OrdersByMarketResponse, error) {
-	out := new(OrdersByMarketResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/OrdersByMarket", in, out, opts...)
+func (c *tradingDataServiceClient) GetOrdersByMarket(ctx context.Context, in *GetOrdersByMarketRequest, opts ...grpc.CallOption) (*GetOrdersByMarketResponse, error) {
+	out := new(GetOrdersByMarketResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrdersByMarket", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) OrderVersionsByID(ctx context.Context, in *OrderVersionsByIDRequest, opts ...grpc.CallOption) (*OrderVersionsByIDResponse, error) {
-	out := new(OrderVersionsByIDResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/OrderVersionsByID", in, out, opts...)
+func (c *tradingDataServiceClient) GetOrderVersionsByID(ctx context.Context, in *GetOrderVersionsByIDRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDResponse, error) {
+	out := new(GetOrderVersionsByIDResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrderVersionsByID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) QueryBalanceHistory(ctx context.Context, in *QueryBalanceHistoryRequest, opts ...grpc.CallOption) (*QueryBalanceHistoryResponse, error) {
-	out := new(QueryBalanceHistoryResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/QueryBalanceHistory", in, out, opts...)
+func (c *tradingDataServiceClient) GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error) {
+	out := new(GetBalanceHistoryResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetBalanceHistory", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -173,6 +191,24 @@ func (c *tradingDataServiceClient) GetERC20MultiSigSignerRemovedBundles(ctx cont
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetTradesByMarket(ctx context.Context, in *GetTradesByMarketRequest, opts ...grpc.CallOption) (*GetTradesByMarketResponse, error) {
+	out := new(GetTradesByMarketResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTradesByMarket", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetTradesByParty(ctx context.Context, in *GetTradesByPartyRequest, opts ...grpc.CallOption) (*GetTradesByPartyResponse, error) {
+	out := new(GetTradesByPartyResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTradesByParty", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tradingDataServiceClient) GetOracleSpecByID(ctx context.Context, in *GetOracleSpecByIDRequest, opts ...grpc.CallOption) (*GetOracleSpecByIDResponse, error) {
 	out := new(GetOracleSpecByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOracleSpecByID", in, out, opts...)
@@ -209,30 +245,60 @@ func (c *tradingDataServiceClient) ListOracleData(ctx context.Context, in *ListO
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetMarkets(ctx context.Context, in *GetMarketsRequest, opts ...grpc.CallOption) (*GetMarketsResponse, error) {
+	out := new(GetMarketsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarkets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetParties(ctx context.Context, in *GetPartiesRequest, opts ...grpc.CallOption) (*GetPartiesResponse, error) {
+	out := new(GetPartiesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetParties", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
 type TradingDataServiceServer interface {
+	// -- Orders --
 	// Get a list of Orders by Market
-	OrdersByMarket(context.Context, *OrdersByMarketRequest) (*OrdersByMarketResponse, error)
+	GetOrdersByMarket(context.Context, *GetOrdersByMarketRequest) (*GetOrdersByMarketResponse, error)
 	// Get all versions of the order by its orderID
-	OrderVersionsByID(context.Context, *OrderVersionsByIDRequest) (*OrderVersionsByIDResponse, error)
+	GetOrderVersionsByID(context.Context, *GetOrderVersionsByIDRequest) (*GetOrderVersionsByIDResponse, error)
+	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
-	QueryBalanceHistory(context.Context, *QueryBalanceHistoryRequest) (*QueryBalanceHistoryResponse, error)
+	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
+	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
+	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
+	// -- Candles --
 	// Get candle data for a given candle id
 	GetCandleData(context.Context, *GetCandleDataRequest) (*GetCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
 	SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error
 	// Gets all available intervals for a given market along with the corresponding candle id
 	GetCandlesForMarket(context.Context, *GetCandlesForMarketRequest) (*GetCandlesForMarketResponse, error)
+	// -- ERC20 Multi Sig --
 	// Gets the signature bundles that add a particular validator to the multisig contract
 	GetERC20MultiSigSignerAddedBundles(context.Context, *GetERC20MultiSigSignerAddedBundlesRequest) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20MultiSigSignerRemovedBundles(context.Context, *GetERC20MultiSigSignerRemovedBundlesRequest) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
+	// -- Trades --
+	// Get trades by market using a cursor based pagination model
+	GetTradesByMarket(context.Context, *GetTradesByMarketRequest) (*GetTradesByMarketResponse, error)
+	// Get trades by party using a cursor based pagination model
+	GetTradesByParty(context.Context, *GetTradesByPartyRequest) (*GetTradesByPartyResponse, error)
+	// -- Oracles --
 	// Get an oracle spec by ID.
 	GetOracleSpecByID(context.Context, *GetOracleSpecByIDRequest) (*GetOracleSpecByIDResponse, error)
 	// Get the oracle specs
@@ -241,6 +307,12 @@ type TradingDataServiceServer interface {
 	GetOracleDataBySpecID(context.Context, *GetOracleDataBySpecIDRequest) (*GetOracleDataBySpecIDResponse, error)
 	// Get all oracle data
 	ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error)
+	// -- Markets --
+	// Get all markets using a cursor based pagination model
+	GetMarkets(context.Context, *GetMarketsRequest) (*GetMarketsResponse, error)
+	// -- Parties --
+	// Get Parties using a cursor based pagination model
+	GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -248,14 +320,14 @@ type TradingDataServiceServer interface {
 type UnimplementedTradingDataServiceServer struct {
 }
 
-func (UnimplementedTradingDataServiceServer) OrdersByMarket(context.Context, *OrdersByMarketRequest) (*OrdersByMarketResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OrdersByMarket not implemented")
+func (UnimplementedTradingDataServiceServer) GetOrdersByMarket(context.Context, *GetOrdersByMarketRequest) (*GetOrdersByMarketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrdersByMarket not implemented")
 }
-func (UnimplementedTradingDataServiceServer) OrderVersionsByID(context.Context, *OrderVersionsByIDRequest) (*OrderVersionsByIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OrderVersionsByID not implemented")
+func (UnimplementedTradingDataServiceServer) GetOrderVersionsByID(context.Context, *GetOrderVersionsByIDRequest) (*GetOrderVersionsByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrderVersionsByID not implemented")
 }
-func (UnimplementedTradingDataServiceServer) QueryBalanceHistory(context.Context, *QueryBalanceHistoryRequest) (*QueryBalanceHistoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method QueryBalanceHistory not implemented")
+func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBalanceHistory not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
@@ -278,6 +350,12 @@ func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerAddedBundles(
 func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerRemovedBundles(context.Context, *GetERC20MultiSigSignerRemovedBundlesRequest) (*GetERC20MultiSigSignerRemovedBundlesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetERC20MultiSigSignerRemovedBundles not implemented")
 }
+func (UnimplementedTradingDataServiceServer) GetTradesByMarket(context.Context, *GetTradesByMarketRequest) (*GetTradesByMarketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTradesByMarket not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetTradesByParty(context.Context, *GetTradesByPartyRequest) (*GetTradesByPartyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTradesByParty not implemented")
+}
 func (UnimplementedTradingDataServiceServer) GetOracleSpecByID(context.Context, *GetOracleSpecByIDRequest) (*GetOracleSpecByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOracleSpecByID not implemented")
 }
@@ -289,6 +367,12 @@ func (UnimplementedTradingDataServiceServer) GetOracleDataBySpecID(context.Conte
 }
 func (UnimplementedTradingDataServiceServer) ListOracleData(context.Context, *ListOracleDataRequest) (*ListOracleDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOracleData not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetMarkets(context.Context, *GetMarketsRequest) (*GetMarketsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMarkets not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetParties not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -303,56 +387,56 @@ func RegisterTradingDataServiceServer(s grpc.ServiceRegistrar, srv TradingDataSe
 	s.RegisterService(&TradingDataService_ServiceDesc, srv)
 }
 
-func _TradingDataService_OrdersByMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OrdersByMarketRequest)
+func _TradingDataService_GetOrdersByMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrdersByMarketRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).OrdersByMarket(ctx, in)
+		return srv.(TradingDataServiceServer).GetOrdersByMarket(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/OrdersByMarket",
+		FullMethod: "/datanode.api.v2.TradingDataService/GetOrdersByMarket",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).OrdersByMarket(ctx, req.(*OrdersByMarketRequest))
+		return srv.(TradingDataServiceServer).GetOrdersByMarket(ctx, req.(*GetOrdersByMarketRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_OrderVersionsByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OrderVersionsByIDRequest)
+func _TradingDataService_GetOrderVersionsByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrderVersionsByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).OrderVersionsByID(ctx, in)
+		return srv.(TradingDataServiceServer).GetOrderVersionsByID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/OrderVersionsByID",
+		FullMethod: "/datanode.api.v2.TradingDataService/GetOrderVersionsByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).OrderVersionsByID(ctx, req.(*OrderVersionsByIDRequest))
+		return srv.(TradingDataServiceServer).GetOrderVersionsByID(ctx, req.(*GetOrderVersionsByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_QueryBalanceHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryBalanceHistoryRequest)
+func _TradingDataService_GetBalanceHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBalanceHistoryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).QueryBalanceHistory(ctx, in)
+		return srv.(TradingDataServiceServer).GetBalanceHistory(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/QueryBalanceHistory",
+		FullMethod: "/datanode.api.v2.TradingDataService/GetBalanceHistory",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).QueryBalanceHistory(ctx, req.(*QueryBalanceHistoryRequest))
+		return srv.(TradingDataServiceServer).GetBalanceHistory(ctx, req.(*GetBalanceHistoryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -486,6 +570,42 @@ func _TradingDataService_GetERC20MultiSigSignerRemovedBundles_Handler(srv interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetTradesByMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTradesByMarketRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetTradesByMarket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetTradesByMarket",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetTradesByMarket(ctx, req.(*GetTradesByMarketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetTradesByParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTradesByPartyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetTradesByParty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetTradesByParty",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetTradesByParty(ctx, req.(*GetTradesByPartyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TradingDataService_GetOracleSpecByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetOracleSpecByIDRequest)
 	if err := dec(in); err != nil {
@@ -558,6 +678,42 @@ func _TradingDataService_ListOracleData_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetMarkets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMarketsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetMarkets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetMarkets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetMarkets(ctx, req.(*GetMarketsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetParties_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPartiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetParties(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetParties",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetParties(ctx, req.(*GetPartiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -566,16 +722,16 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*TradingDataServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "OrdersByMarket",
-			Handler:    _TradingDataService_OrdersByMarket_Handler,
+			MethodName: "GetOrdersByMarket",
+			Handler:    _TradingDataService_GetOrdersByMarket_Handler,
 		},
 		{
-			MethodName: "OrderVersionsByID",
-			Handler:    _TradingDataService_OrderVersionsByID_Handler,
+			MethodName: "GetOrderVersionsByID",
+			Handler:    _TradingDataService_GetOrderVersionsByID_Handler,
 		},
 		{
-			MethodName: "QueryBalanceHistory",
-			Handler:    _TradingDataService_QueryBalanceHistory_Handler,
+			MethodName: "GetBalanceHistory",
+			Handler:    _TradingDataService_GetBalanceHistory_Handler,
 		},
 		{
 			MethodName: "GetMarketDataHistoryByID",
@@ -602,6 +758,14 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetERC20MultiSigSignerRemovedBundles_Handler,
 		},
 		{
+			MethodName: "GetTradesByMarket",
+			Handler:    _TradingDataService_GetTradesByMarket_Handler,
+		},
+		{
+			MethodName: "GetTradesByParty",
+			Handler:    _TradingDataService_GetTradesByParty_Handler,
+		},
+		{
 			MethodName: "GetOracleSpecByID",
 			Handler:    _TradingDataService_GetOracleSpecByID_Handler,
 		},
@@ -616,6 +780,14 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListOracleData",
 			Handler:    _TradingDataService_ListOracleData_Handler,
+		},
+		{
+			MethodName: "GetMarkets",
+			Handler:    _TradingDataService_GetMarkets_Handler,
+		},
+		{
+			MethodName: "GetParties",
+			Handler:    _TradingDataService_GetParties_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

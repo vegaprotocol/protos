@@ -1,19 +1,21 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/ListOracleSpecsRequest",
+    "$ref": "#/definitions/GetPartiesRequest",
     "definitions": {
-        "ListOracleSpecsRequest": {
+        "GetPartiesRequest": {
             "properties": {
+                "party_id": {
+                    "type": "string"
+                },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true,
-                    "description": "Pagination controls"
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "List Oracle Specs Request",
-            "description": "The request to get all active oracle specs"
+            "title": "Get Parties Request",
+            "description": "-- Parties --"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

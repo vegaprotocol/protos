@@ -17,7 +17,7 @@
                     "description": "The epoch which generated the bundle i.e the epoch in which the node was demoted from a tendermint validator"
                 },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "$ref": "#/definitions/datanode.api.v2.OffsetPagination",
                     "additionalProperties": true,
                     "description": "Pagination controls"
                 }
@@ -26,7 +26,7 @@
             "type": "object",
             "title": "Get ERC 20 Multi Sig Signer Removed Bundles Request"
         },
-        "datanode.api.v2.Pagination": {
+        "datanode.api.v2.OffsetPagination": {
             "properties": {
                 "skip": {
                     "type": "string",
@@ -43,8 +43,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Pagination",
-            "description": "Pagination controls"
+            "title": "Offset Pagination",
+            "description": "-- Pagination -- Pagination controls"
         }
     }
 }

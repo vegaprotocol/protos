@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PartyEdge",
+    "definitions": {
+        "PartyEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Party",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party Edge"
+        },
+        "vega.Party": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "A unique identifier for the party, typically represented by a public key"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Party",
+            "description": "A party represents an entity who wishes to trade on or query a Vega network"
+        }
+    }
+}

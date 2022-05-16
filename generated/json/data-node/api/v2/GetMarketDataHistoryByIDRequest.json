@@ -17,7 +17,7 @@
                     "description": "Optional Unix time in nanoseconds"
                 },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "$ref": "#/definitions/datanode.api.v2.OffsetPagination",
                     "additionalProperties": true,
                     "description": "Optional pagination control"
                 }
@@ -25,9 +25,9 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Get Market Data History By ID Request",
-            "description": "Request for Market Data History"
+            "description": "-- Market Data -- Request for Market Data History"
         },
-        "datanode.api.v2.Pagination": {
+        "datanode.api.v2.OffsetPagination": {
             "properties": {
                 "skip": {
                     "type": "string",
@@ -44,8 +44,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Pagination",
-            "description": "Pagination controls"
+            "title": "Offset Pagination",
+            "description": "-- Pagination -- Pagination controls"
         }
     }
 }
