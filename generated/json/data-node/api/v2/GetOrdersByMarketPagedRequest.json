@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetOrdersByMarketPagedRequest",
+    "definitions": {
+        "GetOrdersByMarketPagedRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true,
+                    "description": "Optional pagination controls"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Orders By Market Paged Request",
+            "description": "Request for a list of orders for a market"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}

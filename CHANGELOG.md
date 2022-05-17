@@ -9,7 +9,8 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [418](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2`
+- [418](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Trades, Markets and Parties
+- [427](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Orders
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🐛 Fixes

@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetOrderVersionsByIDPagedRequest",
+    "definitions": {
+        "GetOrderVersionsByIDPagedRequest": {
+            "properties": {
+                "order_id": {
+                    "type": "string",
+                    "description": "Order identifier, required field"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true,
+                    "description": "Pagination controls"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Order Versions By ID Paged Request",
+            "description": "Request for a list of all versions of an order given the specified order identifier"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}
