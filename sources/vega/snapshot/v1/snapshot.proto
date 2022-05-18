@@ -687,8 +687,9 @@ message FloatingPointConsensus {
 message StateVarInternalState {
   string id = 1;
   int32 state = 2;
-	string event_id = 3;
-	repeated FloatingPointValidatorResult validators_results = 4;            
+  string event_id = 3;
+  repeated FloatingPointValidatorResult validators_results = 4;
+  int32 rounds_since_meaningful_update = 5;
 }
 
 message FloatingPointValidatorResult {
