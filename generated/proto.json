@@ -19901,6 +19901,54 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "state_variables",
+              "description": "",
+              "label": "repeated",
+              "type": "StateVarInternalState",
+              "longType": "StateVarInternalState",
+              "fullType": "vega.snapshot.v1.StateVarInternalState",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FloatingPointValidatorResult",
+          "longName": "FloatingPointValidatorResult",
+          "fullName": "vega.snapshot.v1.FloatingPointValidatorResult",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "bundle",
+              "description": "",
+              "label": "repeated",
+              "type": "KeyValueBundle",
+              "longType": "vega.KeyValueBundle",
+              "fullType": "vega.KeyValueBundle",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -20263,12 +20311,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "orders",
+              "name": "party_orders",
               "description": "",
               "label": "repeated",
-              "type": "Order",
-              "longType": "vega.Order",
-              "fullType": "vega.Order",
+              "type": "PartyOrders",
+              "longType": "PartyOrders",
+              "fullType": "vega.snapshot.v1.PartyOrders",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -20299,12 +20347,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "orders",
+              "name": "party_orders",
               "description": "",
               "label": "repeated",
-              "type": "Order",
-              "longType": "vega.Order",
-              "fullType": "vega.Order",
+              "type": "PartyOrders",
+              "longType": "PartyOrders",
+              "fullType": "vega.snapshot.v1.PartyOrders",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -21313,6 +21361,42 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PartyOrders",
+          "longName": "PartyOrders",
+          "fullName": "vega.snapshot.v1.PartyOrders",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "orders",
+              "description": "",
+              "label": "repeated",
+              "type": "Order",
+              "longType": "vega.Order",
+              "fullType": "vega.Order",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -23605,6 +23689,66 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StateVarInternalState",
+          "longName": "StateVarInternalState",
+          "fullName": "vega.snapshot.v1.StateVarInternalState",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "state",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "event_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "validators_results",
+              "description": "",
+              "label": "repeated",
+              "type": "FloatingPointValidatorResult",
+              "longType": "FloatingPointValidatorResult",
+              "fullType": "vega.snapshot.v1.FloatingPointValidatorResult",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
