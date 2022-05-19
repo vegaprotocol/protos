@@ -14,7 +14,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [433](https://github.com/vegaprotocol/protos/pull/433) - remove unnecessary semicolon from vega proto
 
 
 ## 0.51.0
