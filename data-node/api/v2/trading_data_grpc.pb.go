@@ -76,6 +76,9 @@ type TradingDataServiceClient interface {
 	// -- Parties --
 	// Get Parties using a cursor based pagination model
 	GetParties(ctx context.Context, in *GetPartiesRequest, opts ...grpc.CallOption) (*GetPartiesResponse, error)
+	// -- Margin Levels --
+	// Get Margin Levels using a cursor based pagination model
+	GetMarginLevels(ctx context.Context, in *GetMarginLevelsRequest, opts ...grpc.CallOption) (*GetMarginLevelsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -307,6 +310,15 @@ func (c *tradingDataServiceClient) GetParties(ctx context.Context, in *GetPartie
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetMarginLevels(ctx context.Context, in *GetMarginLevelsRequest, opts ...grpc.CallOption) (*GetMarginLevelsResponse, error) {
+	out := new(GetMarginLevelsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarginLevels", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -365,6 +377,9 @@ type TradingDataServiceServer interface {
 	// -- Parties --
 	// Get Parties using a cursor based pagination model
 	GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error)
+	// -- Margin Levels --
+	// Get Margin Levels using a cursor based pagination model
+	GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -437,6 +452,9 @@ func (UnimplementedTradingDataServiceServer) GetMarkets(context.Context, *GetMar
 }
 func (UnimplementedTradingDataServiceServer) GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetParties not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMarginLevels not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -850,6 +868,24 @@ func _TradingDataService_GetParties_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetMarginLevels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMarginLevelsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetMarginLevels(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetMarginLevels",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetMarginLevels(ctx, req.(*GetMarginLevelsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -940,6 +976,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetParties",
 			Handler:    _TradingDataService_GetParties_Handler,
+		},
+		{
+			MethodName: "GetMarginLevels",
+			Handler:    _TradingDataService_GetMarginLevels_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

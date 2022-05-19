@@ -73,6 +73,10 @@ service TradingDataService {
     // -- Parties --
     // Get Parties using a cursor based pagination model
     rpc GetParties(GetPartiesRequest) returns (GetPartiesResponse);
+
+    // -- Margin Levels --
+    // Get Margin Levels using a cursor based pagination model
+    rpc GetMarginLevels(GetMarginLevelsRequest) returns (GetMarginLevelsResponse);
 }
 
 // -- Pagination --
@@ -571,8 +575,29 @@ message OrderEdge {
     string cursor = 2;
 }
 
+message GetMarginLevelsRequest {
+    string party_id = 1;
+    string market_id = 2;
+    Pagination pagination = 3;
+}
+
+message GetMarginLevelsResponse {
+    MarginConnection margin_levels = 1;
+}
+
 message OrderConnection {
     int64 total_count = 1;
     repeated OrderEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+message MarginEdge {
+    vega.MarginLevels node = 1;
+    string cursor = 2;
+}
+
+message MarginConnection {
+    int64 total_count = 1;
+    repeated MarginEdge edges = 2;
     PageInfo page_info = 3;
 }
