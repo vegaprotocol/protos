@@ -1201,7 +1201,7 @@ message Node {
   // The amount the node has put up themselves
   string staked_by_operator = 7;
   // The amount of stake that has been delegated by token holders
-  string staked_by_delegates = 8;;
+  string staked_by_delegates = 8;
   // Total amount staked on node
   string staked_total = 9;
   // Max amount of (wanted) stake, is this a network param or a node param
