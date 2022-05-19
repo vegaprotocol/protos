@@ -1,0 +1,111 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetMarginLevelsResponse",
+    "definitions": {
+        "GetMarginLevelsResponse": {
+            "properties": {
+                "margin_levels": {
+                    "$ref": "#/definitions/datanode.api.v2.MarginConnection",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Margin Levels Response"
+        },
+        "datanode.api.v2.MarginConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.MarginEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Margin Connection"
+        },
+        "datanode.api.v2.MarginEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.MarginLevels",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Margin Edge"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        },
+        "vega.MarginLevels": {
+            "properties": {
+                "maintenance_margin": {
+                    "type": "string",
+                    "description": "Maintenance margin value"
+                },
+                "search_level": {
+                    "type": "string",
+                    "description": "Search level value"
+                },
+                "initial_margin": {
+                    "type": "string",
+                    "description": "Initial margin value"
+                },
+                "collateral_release_level": {
+                    "type": "string",
+                    "description": "Collateral release level value"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for the time the ledger entry was created, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Margin Levels",
+            "description": "Represents the margin levels for a party on a market at a given time"
+        }
+    }
+}
