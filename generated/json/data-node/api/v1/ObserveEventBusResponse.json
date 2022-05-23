@@ -4944,7 +4944,7 @@
                 },
                 "from_epoch": {
                     "type": "string",
-                    "description": "The epoch from which the validator was added"
+                    "description": "The epoch from which the validator was added or removed"
                 }
             },
             "additionalProperties": true,

@@ -869,7 +869,7 @@
         "fromEpoch": {
           "type": "string",
           "format": "uint64",
-          "title": "The epoch from which the validator was added"
+          "title": "The epoch from which the validator was added or removed"
         }
       },
       "title": "A validator update event contains information about validator node"
