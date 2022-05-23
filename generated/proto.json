@@ -14962,7 +14962,7 @@
             },
             {
               "name": "from_epoch",
-              "description": "The epoch from which the validator was added",
+              "description": "The epoch from which the validator was added or removed",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
@@ -27861,7 +27861,7 @@
             },
             {
               "name": "from_epoch",
-              "description": "The epoch from which the validator was added",
+              "description": "The epoch from which the validator was added or removed",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
