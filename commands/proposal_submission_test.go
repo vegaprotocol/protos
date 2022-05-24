@@ -12,6 +12,7 @@ import (
 
 func TestCheckProposalSubmission(t *testing.T) {
 	t.Run("Submitting a nil command fails", testNilProposalSubmissionFails)
+	t.Run("Submitting a proposal change without change fails", testProposalSubmissionWithoutChangeFails)
 	t.Run("Submitting a proposal without terms fails", testProposalSubmissionWithoutTermsFails)
 	t.Run("Submitting a proposal with non-positive closing timestamp fails", testProposalSubmissionWithNonPositiveClosingTimestampFails)
 	t.Run("Submitting a proposal with positive closing timestamp succeeds", testProposalSubmissionWithPositiveClosingTimestampSucceeds)
@@ -43,6 +44,14 @@ func testProposalSubmissionWithoutTermsFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{})
 
 	assert.Contains(t, err.Get("proposal_submission.terms"), commands.ErrIsRequired)
+}
+
+func testProposalSubmissionWithoutChangeFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change"), commands.ErrIsRequired)
 }
 
 func testProposalSubmissionWithNonPositiveClosingTimestampFails(t *testing.T) {

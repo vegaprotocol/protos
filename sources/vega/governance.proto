@@ -150,6 +150,14 @@ message NewAsset {
   AssetDetails changes = 1;
 }
 
+// Update an existing asset on Vega
+message UpdateAsset {
+  // The asset concerned by the update
+  string asset_id = 1;
+  // The changes to apply on an existing asset
+  AssetDetailsUpdate changes = 2;
+}
+
 // Freeform proposal
 // This message is just used as a placeholder to sort out the nature of the
 // proposal once parsed.
@@ -177,6 +185,8 @@ message ProposalTerms {
     NewAsset new_asset = 104;
     // Proposal change for a freeform voting thing
     NewFreeform new_freeform = 105;
+    // Proposal change for updating an asset
+    UpdateAsset update_asset = 106;
   };
 }
 

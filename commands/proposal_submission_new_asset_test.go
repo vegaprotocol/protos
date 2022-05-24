@@ -10,37 +10,32 @@ import (
 )
 
 func TestCheckProposalSubmissionForNewAsset(t *testing.T) {
-	t.Run("Submitting an asset change without change fails", testProposalSubmissionWithoutChangeFails)
-	t.Run("Submitting an asset change without new asset fails", testAssetChangeSubmissionWithoutNewsAssetFails)
-	t.Run("Submitting an asset change without changes fails", testAssetChangeSubmissionWithoutChangesFails)
-	t.Run("Submitting an asset change without source fails", testAssetChangeSubmissionWithoutSourceFails)
-	t.Run("Submitting an built-in asset change without built-in asset fails", testBuiltInAssetChangeSubmissionWithoutBuiltInAssetFails)
-	t.Run("Submitting an built-in asset change without name fails", testBuiltInAssetChangeSubmissionWithoutNameFails)
-	t.Run("Submitting an built-in asset change with name succeeds", testBuiltInAssetChangeSubmissionWithNameSucceeds)
-	t.Run("Submitting an built-in asset change without symbol fails", testBuiltInAssetChangeSubmissionWithoutSymbolFails)
-	t.Run("Submitting an built-in asset change with symbol succeeds", testBuiltInAssetChangeSubmissionWithSymbolSucceeds)
-	t.Run("Submitting an built-in asset change without decimal fails", testBuiltInAssetChangeSubmissionWithoutDecimalsFails)
-	t.Run("Submitting an built-in asset change with decimal succeeds", testBuiltInAssetChangeSubmissionWithDecimalsSucceeds)
-	t.Run("Submitting an built-in asset change without total supply fails", testBuiltInAssetChangeSubmissionWithoutTotalSupplyFails)
-	t.Run("Submitting an built-in asset change with total supply succeeds", testBuiltInAssetChangeSubmissionWithTotalSupplySucceeds)
-	t.Run("Submitting an built-in asset change with not-a-number total supply fails", testBuiltInAssetChangeSubmissionWithNaNTotalSupplyFails)
-	t.Run("Submitting an built-in asset change without max faucet amount fails", testBuiltInAssetChangeSubmissionWithoutMaxFaucetAmountMintFails)
-	t.Run("Submitting an built-in asset change with max faucet amount succeeds", testBuiltInAssetChangeSubmissionWithMaxFaucetAmountMintSucceeds)
-	t.Run("Submitting an built-in asset change with not-a-number max faucet amount fails", testBuiltInAssetChangeSubmissionWithNaNMaxFaucetAmountMintFails)
-	t.Run("Submitting an ERC20 asset change without ERC20 asset fails", testERC20AssetChangeSubmissionWithoutErc20AssetFails)
-	t.Run("Submitting an ERC20 asset change without contract address fails", testErc20AssetChangeSubmissionWithoutContractAddressFails)
-	t.Run("Submitting an ERC20 asset change with contract address succeeds", testErc20AssetChangeSubmissionWithContractAddressSucceeds)
+	t.Run("Submitting an asset change without new asset fails", TestNewAssetChangeSubmissionWithoutNewsAssetFails)
+	t.Run("Submitting an asset change without changes fails", TestNewAssetChangeSubmissionWithoutChangesFails)
+	t.Run("Submitting an asset change without source fails", TestNewAssetChangeSubmissionWithoutSourceFails)
+	t.Run("Submitting an asset change without name fails", testNewAssetChangeSubmissionWithoutNameFails)
+	t.Run("Submitting an asset change with name succeeds", testNewAssetChangeSubmissionWithNameSucceeds)
+	t.Run("Submitting an asset change without symbol fails", testNewAssetChangeSubmissionWithoutSymbolFails)
+	t.Run("Submitting an asset change with symbol succeeds", testNewAssetChangeSubmissionWithSymbolSucceeds)
+	t.Run("Submitting an asset change without decimal fails", testNewAssetChangeSubmissionWithoutDecimalsFails)
+	t.Run("Submitting an asset change with decimal succeeds", testNewAssetChangeSubmissionWithDecimalsSucceeds)
+	t.Run("Submitting an asset change without total supply fails", testNewAssetChangeSubmissionWithoutTotalSupplyFails)
+	t.Run("Submitting an asset change with total supply succeeds", testNewAssetChangeSubmissionWithTotalSupplySucceeds)
+	t.Run("Submitting an asset change with not-a-number total supply fails", testNewAssetChangeSubmissionWithNaNTotalSupplyFails)
+	t.Run("Submitting an built-in asset change without built-in asset fails", testNewAssetChangeSubmissionWithoutBuiltInAssetFails)
+	t.Run("Submitting an built-in asset change without max faucet amount fails", testNewBuiltInAssetChangeSubmissionWithoutMaxFaucetAmountMintFails)
+	t.Run("Submitting an built-in asset change with max faucet amount succeeds", testNewBuiltInAssetChangeSubmissionWithMaxFaucetAmountMintSucceeds)
+	t.Run("Submitting an built-in asset change with not-a-number max faucet amount fails", testNewBuiltInAssetChangeSubmissionWithNaNMaxFaucetAmountMintFails)
+	t.Run("Submitting an ERC20 asset change without ERC20 asset fails", testNewERC20AssetChangeSubmissionWithoutErc20AssetFails)
+	t.Run("Submitting an ERC20 asset change without contract address fails", testNewERC20AssetChangeSubmissionWithoutContractAddressFails)
+	t.Run("Submitting an ERC20 asset change with contract address succeeds", testNewERC20AssetChangeSubmissionWithContractAddressSucceeds)
+	t.Run("Submitting an ERC20 asset change with invalid lifetime limit fails", testNewERC20AssetChangeSubmissionWithInvalidLifetimeLimitFails)
+	t.Run("Submitting an ERC20 asset change with valid lifetime limit succeeds", testNewERC20AssetChangeSubmissionWithValidLifetimeLimitSucceeds)
+	t.Run("Submitting an ERC20 asset change with invalid withdrawal threshold fails", testNewERC20AssetChangeSubmissionWithInvalidWithdrawalThresholdFails)
+	t.Run("Submitting an ERC20 asset change with valid withdrawal threshold succeeds", testNewERC20AssetChangeSubmissionWithValidWithdrawalThresholdSucceeds)
 }
 
-func testProposalSubmissionWithoutChangeFails(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{},
-	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change"), commands.ErrIsRequired)
-}
-
-func testAssetChangeSubmissionWithoutNewsAssetFails(t *testing.T) {
+func TestNewAssetChangeSubmissionWithoutNewsAssetFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{},
@@ -50,7 +45,7 @@ func testAssetChangeSubmissionWithoutNewsAssetFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset"), commands.ErrIsRequired)
 }
 
-func testAssetChangeSubmissionWithoutChangesFails(t *testing.T) {
+func TestNewAssetChangeSubmissionWithoutChangesFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
@@ -62,7 +57,7 @@ func testAssetChangeSubmissionWithoutChangesFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes"), commands.ErrIsRequired)
 }
 
-func testAssetChangeSubmissionWithoutSourceFails(t *testing.T) {
+func TestNewAssetChangeSubmissionWithoutSourceFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
@@ -76,32 +71,13 @@ func testAssetChangeSubmissionWithoutSourceFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source"), commands.ErrIsRequired)
 }
 
-func testBuiltInAssetChangeSubmissionWithoutBuiltInAssetFails(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewAsset{
-				NewAsset: &types.NewAsset{
-					Changes: &types.AssetDetails{
-						Source: &types.AssetDetails_BuiltinAsset{},
-					},
-				},
-			},
-		},
-	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset"), commands.ErrIsRequired)
-}
-
-func testBuiltInAssetChangeSubmissionWithoutNameFails(t *testing.T) {
+func testNewAssetChangeSubmissionWithoutNameFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						Name: "",
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
@@ -111,35 +87,29 @@ func testBuiltInAssetChangeSubmissionWithoutNameFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.name"), commands.ErrIsRequired)
 }
 
-func testBuiltInAssetChangeSubmissionWithNameSucceeds(t *testing.T) {
+func testNewAssetChangeSubmissionWithNameSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						Name: "My built-in asset",
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.name"), commands.ErrIsRequired)
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.name"))
 }
 
-func testBuiltInAssetChangeSubmissionWithoutSymbolFails(t *testing.T) {
+func testNewAssetChangeSubmissionWithoutSymbolFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						Symbol: "",
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
@@ -149,35 +119,29 @@ func testBuiltInAssetChangeSubmissionWithoutSymbolFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.symbol"), commands.ErrIsRequired)
 }
 
-func testBuiltInAssetChangeSubmissionWithSymbolSucceeds(t *testing.T) {
+func testNewAssetChangeSubmissionWithSymbolSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						Symbol: "My symbol",
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.symbol"), commands.ErrIsRequired)
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.symbol"), commands.ErrIsRequired)
 }
 
-func testBuiltInAssetChangeSubmissionWithoutDecimalsFails(t *testing.T) {
+func testNewAssetChangeSubmissionWithoutDecimalsFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						Decimals: 0,
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
@@ -187,35 +151,29 @@ func testBuiltInAssetChangeSubmissionWithoutDecimalsFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.decimals"), commands.ErrIsRequired)
 }
 
-func testBuiltInAssetChangeSubmissionWithDecimalsSucceeds(t *testing.T) {
+func testNewAssetChangeSubmissionWithDecimalsSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						Decimals: RandomPositiveU64(),
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.decimals"), commands.ErrIsRequired)
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.decimals"))
 }
 
-func testBuiltInAssetChangeSubmissionWithoutTotalSupplyFails(t *testing.T) {
+func testNewAssetChangeSubmissionWithoutTotalSupplyFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						TotalSupply: "",
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
@@ -225,28 +183,23 @@ func testBuiltInAssetChangeSubmissionWithoutTotalSupplyFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.total_supply"), commands.ErrIsRequired)
 }
 
-func testBuiltInAssetChangeSubmissionWithTotalSupplySucceeds(t *testing.T) {
+func testNewAssetChangeSubmissionWithTotalSupplySucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
 				NewAsset: &types.NewAsset{
 					Changes: &types.AssetDetails{
 						TotalSupply: "10000",
-						Source: &types.AssetDetails_BuiltinAsset{
-							BuiltinAsset: &types.BuiltinAsset{},
-						},
 					},
 				},
 			},
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.total_supply"), commands.ErrIsRequired)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.total_supply"), commands.ErrIsNotValidNumber)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.total_supply"), commands.ErrMustBePositive)
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.total_supply"))
 }
 
-func testBuiltInAssetChangeSubmissionWithNaNTotalSupplyFails(t *testing.T) {
+func testNewAssetChangeSubmissionWithNaNTotalSupplyFails(t *testing.T) {
 	testCases := []struct {
 		msg   string
 		value string
@@ -270,9 +223,6 @@ func testBuiltInAssetChangeSubmissionWithNaNTotalSupplyFails(t *testing.T) {
 						NewAsset: &types.NewAsset{
 							Changes: &types.AssetDetails{
 								TotalSupply: tc.value,
-								Source: &types.AssetDetails_BuiltinAsset{
-									BuiltinAsset: &types.BuiltinAsset{},
-								},
 							},
 						},
 					},
@@ -284,7 +234,23 @@ func testBuiltInAssetChangeSubmissionWithNaNTotalSupplyFails(t *testing.T) {
 	}
 }
 
-func testBuiltInAssetChangeSubmissionWithoutMaxFaucetAmountMintFails(t *testing.T) {
+func testNewAssetChangeSubmissionWithoutBuiltInAssetFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewAsset{
+				NewAsset: &types.NewAsset{
+					Changes: &types.AssetDetails{
+						Source: &types.AssetDetails_BuiltinAsset{},
+					},
+				},
+			},
+		},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset"), commands.ErrIsRequired)
+}
+
+func testNewBuiltInAssetChangeSubmissionWithoutMaxFaucetAmountMintFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
@@ -304,7 +270,7 @@ func testBuiltInAssetChangeSubmissionWithoutMaxFaucetAmountMintFails(t *testing.
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint"), commands.ErrIsRequired)
 }
 
-func testBuiltInAssetChangeSubmissionWithMaxFaucetAmountMintSucceeds(t *testing.T) {
+func testNewBuiltInAssetChangeSubmissionWithMaxFaucetAmountMintSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
@@ -321,12 +287,10 @@ func testBuiltInAssetChangeSubmissionWithMaxFaucetAmountMintSucceeds(t *testing.
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint"), commands.ErrIsRequired)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint"), commands.ErrIsNotValidNumber)
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint"), commands.ErrMustBePositive)
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.builtin_asset.max_faucet_amount_mint"))
 }
 
-func testBuiltInAssetChangeSubmissionWithNaNMaxFaucetAmountMintFails(t *testing.T) {
+func testNewBuiltInAssetChangeSubmissionWithNaNMaxFaucetAmountMintFails(t *testing.T) {
 	testCases := []struct {
 		msg   string
 		value string
@@ -365,7 +329,7 @@ func testBuiltInAssetChangeSubmissionWithNaNMaxFaucetAmountMintFails(t *testing.
 	}
 }
 
-func testERC20AssetChangeSubmissionWithoutErc20AssetFails(t *testing.T) {
+func testNewERC20AssetChangeSubmissionWithoutErc20AssetFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
@@ -381,7 +345,7 @@ func testERC20AssetChangeSubmissionWithoutErc20AssetFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20"), commands.ErrIsRequired)
 }
 
-func testErc20AssetChangeSubmissionWithoutContractAddressFails(t *testing.T) {
+func testNewERC20AssetChangeSubmissionWithoutContractAddressFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
@@ -401,7 +365,7 @@ func testErc20AssetChangeSubmissionWithoutContractAddressFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20.contract_address"), commands.ErrIsRequired)
 }
 
-func testErc20AssetChangeSubmissionWithContractAddressSucceeds(t *testing.T) {
+func testNewERC20AssetChangeSubmissionWithContractAddressSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_NewAsset{
@@ -418,5 +382,141 @@ func testErc20AssetChangeSubmissionWithContractAddressSucceeds(t *testing.T) {
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20.contract_address"), commands.ErrIsRequired)
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20.contract_address"))
+}
+
+func testNewERC20AssetChangeSubmissionWithInvalidLifetimeLimitFails(t *testing.T) {
+	tcs := []struct {
+		name  string
+		err   error
+		value string
+	}{
+		{
+			name:  "Without lifetime limit",
+			value: "",
+			err:   commands.ErrIsRequired,
+		}, {
+			name:  "With not-a-number lifetime limit",
+			value: "forty-two",
+			err:   commands.ErrIsNotValidNumber,
+		}, {
+			name:  "With zero lifetime limit",
+			value: "0",
+			err:   commands.ErrMustBePositive,
+		}, {
+			name:  "With negative lifetime limit",
+			value: "-10",
+			err:   commands.ErrMustBePositive,
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(tt *testing.T) {
+			err := checkProposalSubmission(&commandspb.ProposalSubmission{
+				Terms: &types.ProposalTerms{
+					Change: &types.ProposalTerms_NewAsset{
+						NewAsset: &types.NewAsset{
+							Changes: &types.AssetDetails{
+								Source: &types.AssetDetails_Erc20{
+									Erc20: &types.ERC20{
+										LifetimeLimit: tc.value,
+									},
+								},
+							},
+						},
+					},
+				},
+			})
+
+			assert.Contains(tt, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20.lifetime_limit"), tc.err)
+		})
+	}
+}
+
+func testNewERC20AssetChangeSubmissionWithValidLifetimeLimitSucceeds(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewAsset{
+				NewAsset: &types.NewAsset{
+					Changes: &types.AssetDetails{
+						Source: &types.AssetDetails_Erc20{
+							Erc20: &types.ERC20{
+								LifetimeLimit: "100",
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20.lifetime_limit"))
+}
+
+func testNewERC20AssetChangeSubmissionWithInvalidWithdrawalThresholdFails(t *testing.T) {
+	tcs := []struct {
+		name  string
+		err   error
+		value string
+	}{
+		{
+			name:  "Without withdraw threshold",
+			value: "",
+			err:   commands.ErrIsRequired,
+		}, {
+			name:  "With not-a-number withdraw threshold",
+			value: "forty-two",
+			err:   commands.ErrIsNotValidNumber,
+		}, {
+			name:  "With zero withdraw threshold",
+			value: "0",
+			err:   commands.ErrMustBePositive,
+		}, {
+			name:  "With negative withdraw threshold",
+			value: "-10",
+			err:   commands.ErrMustBePositive,
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(tt *testing.T) {
+			err := checkProposalSubmission(&commandspb.ProposalSubmission{
+				Terms: &types.ProposalTerms{
+					Change: &types.ProposalTerms_NewAsset{
+						NewAsset: &types.NewAsset{
+							Changes: &types.AssetDetails{
+								Source: &types.AssetDetails_Erc20{
+									Erc20: &types.ERC20{
+										WithdrawThreshold: tc.value,
+									},
+								},
+							},
+						},
+					},
+				},
+			})
+
+			assert.Contains(tt, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold"), tc.err)
+		})
+	}
+}
+
+func testNewERC20AssetChangeSubmissionWithValidWithdrawalThresholdSucceeds(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_NewAsset{
+				NewAsset: &types.NewAsset{
+					Changes: &types.AssetDetails{
+						Source: &types.AssetDetails_Erc20{
+							Erc20: &types.ERC20{
+								WithdrawThreshold: "100",
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	assert.Empty(t, err.Get("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold"))
 }
