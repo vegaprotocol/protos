@@ -387,6 +387,7 @@ message EquityShare {
   bool opening_auction_ended = 2;
   repeated EquityShareLP lps = 3;
   string r = 4;
+  string pMvp = 5;
 }
 
 message FeeSplitter {
