@@ -117,6 +117,8 @@ func checkProposalChanges(terms *types.ProposalTerms) Errors {
 		errs.Merge(checkNetworkParameterUpdateChanges(c))
 	case *types.ProposalTerms_NewAsset:
 		errs.Merge(checkNewAssetChanges(c))
+	case *types.ProposalTerms_UpdateAsset:
+		errs.Merge(checkUpdateAssetChanges(c))
 	case *types.ProposalTerms_NewFreeform:
 		errs.Merge(CheckNewFreeformChanges(c))
 	default:
@@ -161,10 +163,6 @@ func checkNewAssetChanges(change *types.ProposalTerms_NewAsset) Errors {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.new_asset.changes", ErrIsRequired)
 	}
 
-	if change.NewAsset.Changes.Source == nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_asset.changes.source", ErrIsRequired)
-	}
-
 	if len(change.NewAsset.Changes.Name) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.name", ErrIsRequired)
 	}
@@ -182,6 +180,10 @@ func checkNewAssetChanges(change *types.ProposalTerms_NewAsset) Errors {
 		} else if totalSupply.Cmp(big.NewInt(0)) <= 0 {
 			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.total_supply", ErrMustBePositive)
 		}
+	}
+
+	if change.NewAsset.Changes.Source == nil {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.new_asset.changes.source", ErrIsRequired)
 	}
 
 	switch s := change.NewAsset.Changes.Source.(type) {
@@ -242,8 +244,8 @@ func checkERC20AssetSource(s *types.AssetDetails_Erc20) Errors {
 	if len(asset.LifetimeLimit) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.lifetime_limit", ErrIsRequired)
 	} else {
-		lifetimeLimit, overflow := big.NewInt(0).SetString(asset.LifetimeLimit, 10)
-		if overflow {
+
+		if lifetimeLimit, ok := big.NewInt(0).SetString(asset.LifetimeLimit, 10); !ok {
 			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.lifetime_limit", ErrIsNotValidNumber)
 		} else {
 			if lifetimeLimit.Cmp(big.NewInt(0)) <= 0 {
@@ -254,12 +256,91 @@ func checkERC20AssetSource(s *types.AssetDetails_Erc20) Errors {
 	if len(asset.WithdrawThreshold) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold", ErrIsRequired)
 	} else {
-		withdrawThreshold, overflow := big.NewInt(0).SetString(asset.WithdrawThreshold, 10)
-		if overflow {
+		if withdrawThreshold, ok := big.NewInt(0).SetString(asset.WithdrawThreshold, 10); !ok {
 			errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold", ErrIsNotValidNumber)
 		} else {
 			if withdrawThreshold.Cmp(big.NewInt(0)) <= 0 {
 				errs.AddForProperty("proposal_submission.terms.change.new_asset.changes.source.erc20.withdraw_threshold", ErrMustBePositive)
+			}
+		}
+	}
+
+	return errs
+}
+
+func checkUpdateAssetChanges(change *types.ProposalTerms_UpdateAsset) Errors {
+	errs := NewErrors()
+
+	if change.UpdateAsset == nil {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.update_asset", ErrIsRequired)
+	}
+
+	if change.UpdateAsset.Changes == nil {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.update_asset.changes", ErrIsRequired)
+	}
+
+	if len(change.UpdateAsset.Changes.Name) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.name", ErrIsRequired)
+	}
+	if len(change.UpdateAsset.Changes.Symbol) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.symbol", ErrIsRequired)
+	}
+	if change.UpdateAsset.Changes.Decimals == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.decimals", ErrIsRequired)
+	}
+	if len(change.UpdateAsset.Changes.TotalSupply) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.total_supply", ErrIsRequired)
+	} else {
+		if totalSupply, ok := big.NewInt(0).SetString(change.UpdateAsset.Changes.TotalSupply, 10); !ok {
+			errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.total_supply", ErrIsNotValidNumber)
+		} else if totalSupply.Cmp(big.NewInt(0)) <= 0 {
+			errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.total_supply", ErrMustBePositive)
+		}
+	}
+
+	if change.UpdateAsset.Changes.Source == nil {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.update_asset.changes.source", ErrIsRequired)
+	}
+
+	switch s := change.UpdateAsset.Changes.Source.(type) {
+	case *types.AssetDetailsUpdate_Erc20:
+		errs.Merge(checkERC20UpdateAssetSource(s))
+	default:
+		return errs.FinalAddForProperty("proposal_submission.terms.change.update_asset.changes.source", ErrIsNotValid)
+	}
+
+	return errs
+}
+
+func checkERC20UpdateAssetSource(s *types.AssetDetailsUpdate_Erc20) Errors {
+	errs := NewErrors()
+
+	if s.Erc20 == nil {
+		return errs.FinalAddForProperty("proposal_submission.terms.change.update_asset.changes.source.erc20", ErrIsRequired)
+	}
+
+	asset := s.Erc20
+
+	if len(asset.LifetimeLimit) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.source.erc20.lifetime_limit", ErrIsRequired)
+	} else {
+		if lifetimeLimit, ok := big.NewInt(0).SetString(asset.LifetimeLimit, 10); !ok {
+			errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.source.erc20.lifetime_limit", ErrIsNotValidNumber)
+		} else {
+			if lifetimeLimit.Cmp(big.NewInt(0)) <= 0 {
+				errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.source.erc20.lifetime_limit", ErrMustBePositive)
+			}
+		}
+	}
+
+	if len(asset.WithdrawThreshold) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.source.erc20.withdraw_threshold", ErrIsRequired)
+	} else {
+		if withdrawThreshold, ok := big.NewInt(0).SetString(asset.WithdrawThreshold, 10); !ok {
+			errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.source.erc20.withdraw_threshold", ErrIsNotValidNumber)
+		} else {
+			if withdrawThreshold.Cmp(big.NewInt(0)) <= 0 {
+				errs.AddForProperty("proposal_submission.terms.change.update_asset.changes.source.erc20.withdraw_threshold", ErrMustBePositive)
 			}
 		}
 	}

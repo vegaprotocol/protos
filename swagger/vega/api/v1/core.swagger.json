@@ -2548,6 +2548,37 @@
       },
       "title": "The Vega representation of an external asset"
     },
+    "vegaAssetDetailsUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name of the asset (e.g: Great British Pound)"
+        },
+        "symbol": {
+          "type": "string",
+          "title": "Symbol of the asset (e.g: GBP)"
+        },
+        "totalSupply": {
+          "type": "string",
+          "title": "Total circulating supply for the asset"
+        },
+        "decimals": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Number of decimal / precision handled by this asset"
+        },
+        "quantum": {
+          "type": "string",
+          "title": "The minimum economically meaningful amount in the asset"
+        },
+        "erc20": {
+          "$ref": "#/definitions/vegaERC20Update",
+          "title": "An Ethereum ERC20 asset"
+        }
+      },
+      "description": "The changes to apply on an existing asset."
+    },
     "vegaAuctionDuration": {
       "type": "object",
       "properties": {
@@ -2700,6 +2731,19 @@
         }
       },
       "title": "An ERC20 token based asset, living on the ethereum network"
+    },
+    "vegaERC20Update": {
+      "type": "object",
+      "properties": {
+        "lifetimeLimit": {
+          "type": "string",
+          "title": "The lifetime limits deposit per address.\nThis is will be interpreted against the asset decimals.\nnote: this is a temporary measure for restricted mainnet"
+        },
+        "withdrawThreshold": {
+          "type": "string",
+          "title": "The maximum allowed per withdraw.\nThis is will be interpreted against the asset decimals.\nnote: this is a temporary measure for restricted mainnet"
+        }
+      }
     },
     "vegaEpochAction": {
       "type": "string",
@@ -4000,6 +4044,10 @@
         "newFreeform": {
           "$ref": "#/definitions/vegaNewFreeform",
           "title": "Proposal change for a freeform voting thing"
+        },
+        "updateAsset": {
+          "$ref": "#/definitions/vegaUpdateAsset",
+          "title": "Proposal change for updating an asset"
         }
       },
       "title": "Terms for a governance proposal on Vega"
@@ -4268,6 +4316,20 @@
           "format": "uint64"
         }
       }
+    },
+    "vegaUpdateAsset": {
+      "type": "object",
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "title": "The asset concerned by the update"
+        },
+        "changes": {
+          "$ref": "#/definitions/vegaAssetDetailsUpdate",
+          "title": "The changes to apply on an existing asset"
+        }
+      },
+      "title": "Update an existing asset on Vega"
     },
     "vegaUpdateFutureProduct": {
       "type": "object",

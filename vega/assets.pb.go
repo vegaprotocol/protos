@@ -326,6 +326,182 @@ func (x *ERC20) GetWithdrawThreshold() string {
 	return ""
 }
 
+// The changes to apply on an existing asset.
+type AssetDetailsUpdate struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Name of the asset (e.g: Great British Pound)
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// Symbol of the asset (e.g: GBP)
+	Symbol string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	// Total circulating supply for the asset
+	TotalSupply string `protobuf:"bytes,3,opt,name=total_supply,json=totalSupply,proto3" json:"total_supply,omitempty"`
+	// Number of decimal / precision handled by this asset
+	Decimals uint64 `protobuf:"varint,4,opt,name=decimals,proto3" json:"decimals,omitempty"`
+	// The minimum economically meaningful amount in the asset
+	Quantum string `protobuf:"bytes,5,opt,name=quantum,proto3" json:"quantum,omitempty"`
+	// The source
+	//
+	// Types that are assignable to Source:
+	//	*AssetDetailsUpdate_Erc20
+	Source isAssetDetailsUpdate_Source `protobuf_oneof:"source"`
+}
+
+func (x *AssetDetailsUpdate) Reset() {
+	*x = AssetDetailsUpdate{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_vega_assets_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AssetDetailsUpdate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AssetDetailsUpdate) ProtoMessage() {}
+
+func (x *AssetDetailsUpdate) ProtoReflect() protoreflect.Message {
+	mi := &file_vega_assets_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AssetDetailsUpdate.ProtoReflect.Descriptor instead.
+func (*AssetDetailsUpdate) Descriptor() ([]byte, []int) {
+	return file_vega_assets_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *AssetDetailsUpdate) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *AssetDetailsUpdate) GetSymbol() string {
+	if x != nil {
+		return x.Symbol
+	}
+	return ""
+}
+
+func (x *AssetDetailsUpdate) GetTotalSupply() string {
+	if x != nil {
+		return x.TotalSupply
+	}
+	return ""
+}
+
+func (x *AssetDetailsUpdate) GetDecimals() uint64 {
+	if x != nil {
+		return x.Decimals
+	}
+	return 0
+}
+
+func (x *AssetDetailsUpdate) GetQuantum() string {
+	if x != nil {
+		return x.Quantum
+	}
+	return ""
+}
+
+func (m *AssetDetailsUpdate) GetSource() isAssetDetailsUpdate_Source {
+	if m != nil {
+		return m.Source
+	}
+	return nil
+}
+
+func (x *AssetDetailsUpdate) GetErc20() *ERC20Update {
+	if x, ok := x.GetSource().(*AssetDetailsUpdate_Erc20); ok {
+		return x.Erc20
+	}
+	return nil
+}
+
+type isAssetDetailsUpdate_Source interface {
+	isAssetDetailsUpdate_Source()
+}
+
+type AssetDetailsUpdate_Erc20 struct {
+	// An Ethereum ERC20 asset
+	Erc20 *ERC20Update `protobuf:"bytes,101,opt,name=erc20,proto3,oneof"`
+}
+
+func (*AssetDetailsUpdate_Erc20) isAssetDetailsUpdate_Source() {}
+
+type ERC20Update struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The lifetime limits deposit per address.
+	// This is will be interpreted against the asset decimals.
+	// note: this is a temporary measure for restricted mainnet
+	LifetimeLimit string `protobuf:"bytes,1,opt,name=lifetime_limit,json=lifetimeLimit,proto3" json:"lifetime_limit,omitempty"`
+	// The maximum allowed per withdraw.
+	// This is will be interpreted against the asset decimals.
+	// note: this is a temporary measure for restricted mainnet
+	WithdrawThreshold string `protobuf:"bytes,2,opt,name=withdraw_threshold,json=withdrawThreshold,proto3" json:"withdraw_threshold,omitempty"`
+}
+
+func (x *ERC20Update) Reset() {
+	*x = ERC20Update{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_vega_assets_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ERC20Update) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ERC20Update) ProtoMessage() {}
+
+func (x *ERC20Update) ProtoReflect() protoreflect.Message {
+	mi := &file_vega_assets_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ERC20Update.ProtoReflect.Descriptor instead.
+func (*ERC20Update) Descriptor() ([]byte, []int) {
+	return file_vega_assets_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ERC20Update) GetLifetimeLimit() string {
+	if x != nil {
+		return x.LifetimeLimit
+	}
+	return ""
+}
+
+func (x *ERC20Update) GetWithdrawThreshold() string {
+	if x != nil {
+		return x.WithdrawThreshold
+	}
+	return ""
+}
+
 var File_vega_assets_proto protoreflect.FileDescriptor
 
 var file_vega_assets_proto_rawDesc = []byte{
@@ -364,9 +540,29 @@ var file_vega_assets_proto_rawDesc = []byte{
 	0x74, 0x12, 0x2d, 0x0a, 0x12, 0x77, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x5f, 0x74, 0x68,
 	0x72, 0x65, 0x73, 0x68, 0x6f, 0x6c, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x11, 0x77,
 	0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x54, 0x68, 0x72, 0x65, 0x73, 0x68, 0x6f, 0x6c, 0x64,
-	0x42, 0x22, 0x5a, 0x20, 0x63, 0x6f, 0x64, 0x65, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x69, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f,
-	0x76, 0x65, 0x67, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0xce, 0x01, 0x0a, 0x12, 0x41, 0x73, 0x73, 0x65, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c,
+	0x73, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73,
+	0x79, 0x6d, 0x62, 0x6f, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d,
+	0x62, 0x6f, 0x6c, 0x12, 0x21, 0x0a, 0x0c, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x73, 0x75, 0x70,
+	0x70, 0x6c, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c,
+	0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x65, 0x63, 0x69, 0x6d, 0x61,
+	0x6c, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x64, 0x65, 0x63, 0x69, 0x6d, 0x61,
+	0x6c, 0x73, 0x12, 0x18, 0x0a, 0x07, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x75, 0x6d, 0x18, 0x05, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x07, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x75, 0x6d, 0x12, 0x29, 0x0a, 0x05,
+	0x65, 0x72, 0x63, 0x32, 0x30, 0x18, 0x65, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x76, 0x65,
+	0x67, 0x61, 0x2e, 0x45, 0x52, 0x43, 0x32, 0x30, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x48, 0x00,
+	0x52, 0x05, 0x65, 0x72, 0x63, 0x32, 0x30, 0x42, 0x08, 0x0a, 0x06, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x22, 0x63, 0x0a, 0x0b, 0x45, 0x52, 0x43, 0x32, 0x30, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x12, 0x25, 0x0a, 0x0e, 0x6c, 0x69, 0x66, 0x65, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x6c, 0x69, 0x6d,
+	0x69, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x6c, 0x69, 0x66, 0x65, 0x74, 0x69,
+	0x6d, 0x65, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x2d, 0x0a, 0x12, 0x77, 0x69, 0x74, 0x68, 0x64,
+	0x72, 0x61, 0x77, 0x5f, 0x74, 0x68, 0x72, 0x65, 0x73, 0x68, 0x6f, 0x6c, 0x64, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x11, 0x77, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x54, 0x68, 0x72,
+	0x65, 0x73, 0x68, 0x6f, 0x6c, 0x64, 0x42, 0x22, 0x5a, 0x20, 0x63, 0x6f, 0x64, 0x65, 0x2e, 0x76,
+	0x65, 0x67, 0x61, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2e, 0x69, 0x6f, 0x2f, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x76, 0x65, 0x67, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -381,22 +577,25 @@ func file_vega_assets_proto_rawDescGZIP() []byte {
 	return file_vega_assets_proto_rawDescData
 }
 
-var file_vega_assets_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_vega_assets_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_vega_assets_proto_goTypes = []interface{}{
-	(*Asset)(nil),        // 0: vega.Asset
-	(*AssetDetails)(nil), // 1: vega.AssetDetails
-	(*BuiltinAsset)(nil), // 2: vega.BuiltinAsset
-	(*ERC20)(nil),        // 3: vega.ERC20
+	(*Asset)(nil),              // 0: vega.Asset
+	(*AssetDetails)(nil),       // 1: vega.AssetDetails
+	(*BuiltinAsset)(nil),       // 2: vega.BuiltinAsset
+	(*ERC20)(nil),              // 3: vega.ERC20
+	(*AssetDetailsUpdate)(nil), // 4: vega.AssetDetailsUpdate
+	(*ERC20Update)(nil),        // 5: vega.ERC20Update
 }
 var file_vega_assets_proto_depIdxs = []int32{
 	1, // 0: vega.Asset.details:type_name -> vega.AssetDetails
 	2, // 1: vega.AssetDetails.builtin_asset:type_name -> vega.BuiltinAsset
 	3, // 2: vega.AssetDetails.erc20:type_name -> vega.ERC20
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	5, // 3: vega.AssetDetailsUpdate.erc20:type_name -> vega.ERC20Update
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_vega_assets_proto_init() }
@@ -453,10 +652,37 @@ func file_vega_assets_proto_init() {
 				return nil
 			}
 		}
+		file_vega_assets_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AssetDetailsUpdate); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_vega_assets_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ERC20Update); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_vega_assets_proto_msgTypes[1].OneofWrappers = []interface{}{
 		(*AssetDetails_BuiltinAsset)(nil),
 		(*AssetDetails_Erc20)(nil),
+	}
+	file_vega_assets_proto_msgTypes[4].OneofWrappers = []interface{}{
+		(*AssetDetailsUpdate_Erc20)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -464,7 +690,7 @@ func file_vega_assets_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_vega_assets_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
