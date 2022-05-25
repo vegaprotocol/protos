@@ -372,6 +372,7 @@ message AuctionState {
   bool start = 6;
   bool stop = 7;
   vega.AuctionTrigger extension = 8;
+  bool extension_event_sent = 9;
 }
 
 message EquityShareLP {
