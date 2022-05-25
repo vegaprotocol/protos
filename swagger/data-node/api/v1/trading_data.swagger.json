@@ -6089,7 +6089,12 @@
         "sequenceNumber": {
           "type": "string",
           "format": "uint64",
-          "title": "Sequence number for the market depth update data returned"
+          "description": "Sequence number for the market depth update data returned. It is increasing but not monotonic."
+        },
+        "previousSequenceNumber": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Sequence number of of the previous market depth update, for checking there are no gaps."
         }
       },
       "title": "Represents the changed market depth since the last update"
