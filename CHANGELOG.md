@@ -3,7 +3,7 @@
 ## Unreleased (0.52.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/issues/) -
+- [435](https://github.com/vegaprotocol/protos/issues/435) - Rename messages related to list asset method bundle
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
