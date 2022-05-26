@@ -19066,6 +19066,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "erc20_asset_limits_updated",
+              "description": "",
+              "label": "",
+              "type": "ERC20AssetLimitsUpdated",
+              "longType": "vega.ERC20AssetLimitsUpdated",
+              "fullType": "vega.ERC20AssetLimitsUpdated",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -22413,6 +22425,42 @@
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "data",
+              "defaultValue": ""
+            },
+            {
+              "name": "pending_asset_updates",
+              "description": "",
+              "label": "",
+              "type": "PendingAssetUpdates",
+              "longType": "PendingAssetUpdates",
+              "fullType": "vega.snapshot.v1.PendingAssetUpdates",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "data",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PendingAssetUpdates",
+          "longName": "PendingAssetUpdates",
+          "fullName": "vega.snapshot.v1.PendingAssetUpdates",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "assets",
+              "description": "",
+              "label": "repeated",
+              "type": "Asset",
+              "longType": "vega.Asset",
+              "fullType": "vega.Asset",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]

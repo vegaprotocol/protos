@@ -9,7 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [455](https://github.com/vegaprotocol/protos/issues/455) - Add support for snapshot on the update asset.
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
