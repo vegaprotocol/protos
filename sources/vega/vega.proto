@@ -483,8 +483,10 @@ message MarketDepthUpdate {
   repeated PriceLevel buy = 2;
   // Collection of updated price levels for the sell side of the book
   repeated PriceLevel sell = 3;
-  // Sequence number for the market depth update data returned
+  // Sequence number for the market depth update data returned. It is increasing but not monotonic.
   uint64 sequence_number = 4;
+  // Sequence number of of the previous market depth update, for checking there are no gaps.
+  uint64 previous_sequence_number = 5;
 }
 
 // Represents position data for a party on the specified market on Vega

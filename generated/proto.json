@@ -6763,7 +6763,19 @@
             },
             {
               "name": "sequence_number",
-              "description": "Sequence number for the market depth update data returned",
+              "description": "Sequence number for the market depth update data returned. It is increasing but not monotonic.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "previous_sequence_number",
+              "description": "Sequence number of of the previous market depth update, for checking there are no gaps.",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
