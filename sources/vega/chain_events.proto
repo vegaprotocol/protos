@@ -45,6 +45,17 @@ message ERC20AssetDelist {
   string vega_asset_id = 1;
 }
 
+message ERC20AssetLimitsUpdated {
+  // The Vega network internal identifier of the asset
+  string vega_asset_id = 1;
+  // The Ethereum wallet that initiated the deposit
+  string source_ethereum_address = 2;
+  // The updated lifetime limits
+  string lifetime_limits = 3;
+  // The updated withdraw threshold
+  string withdraw_threshold = 4;
+}
+
 // An asset deposit for an ERC20 token
 message ERC20Deposit {
   // The vega network internal identifier of the asset
@@ -83,6 +94,8 @@ message ERC20Event {
     ERC20Deposit deposit = 1003;
     // Withdraw ERC20 asset
     ERC20Withdrawal withdrawal = 1004;
+    // Update an ERC20 asset
+    ERC20AssetLimitsUpdated asset_limits_updated = 1005;
   }
 }
 
