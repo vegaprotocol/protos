@@ -1,25 +1,25 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/OrderVersionsByIDRequest",
+    "$ref": "#/definitions/GetOrderVersionsByIDRequest",
     "definitions": {
-        "OrderVersionsByIDRequest": {
+        "GetOrderVersionsByIDRequest": {
             "properties": {
                 "order_id": {
                     "type": "string",
                     "description": "Order identifier, required field"
                 },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "$ref": "#/definitions/datanode.api.v2.OffsetPagination",
                     "additionalProperties": true,
                     "description": "Pagination controls"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Order Versions By ID Request",
+            "title": "Get Order Versions By ID Request",
             "description": "Request for a list of all versions of an order given the specified order identifier"
         },
-        "datanode.api.v2.Pagination": {
+        "datanode.api.v2.OffsetPagination": {
             "properties": {
                 "skip": {
                     "type": "string",
@@ -36,8 +36,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Pagination",
-            "description": "Pagination controls"
+            "title": "Offset Pagination",
+            "description": "-- Pagination -- Pagination controls"
         }
     }
 }

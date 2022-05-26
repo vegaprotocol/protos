@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20Update",
+    "definitions": {
+        "ERC20Update": {
+            "properties": {
+                "lifetime_limit": {
+                    "type": "string",
+                    "description": "The lifetime limits deposit per address. This is will be interpreted against the asset decimals. note: this is a temporary measure for restricted mainnet"
+                },
+                "withdraw_threshold": {
+                    "type": "string",
+                    "description": "The maximum allowed per withdraw. This is will be interpreted against the asset decimals. note: this is a temporary measure for restricted mainnet"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Update"
+        }
+    }
+}

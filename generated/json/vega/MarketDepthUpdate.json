@@ -24,7 +24,11 @@
                 },
                 "sequence_number": {
                     "type": "string",
-                    "description": "Sequence number for the market depth update data returned"
+                    "description": "Sequence number for the market depth update data returned. It is increasing but not monotonic."
+                },
+                "previous_sequence_number": {
+                    "type": "string",
+                    "description": "Sequence number of of the previous market depth update, for checking there are no gaps."
                 }
             },
             "additionalProperties": true,

@@ -2948,7 +2948,7 @@ type ValidatorUpdate struct {
 	VegaPubKeyIndex uint32 `protobuf:"varint,9,opt,name=vega_pub_key_index,json=vegaPubKeyIndex,proto3" json:"vega_pub_key_index,omitempty"`
 	// Flag indicating if the validator has been added to or removed from vega
 	Added bool `protobuf:"varint,10,opt,name=added,proto3" json:"added,omitempty"`
-	// The epoch from which the validator was added
+	// The epoch from which the validator was added or removed
 	FromEpoch uint64 `protobuf:"varint,11,opt,name=from_epoch,json=fromEpoch,proto3" json:"from_epoch,omitempty"`
 }
 

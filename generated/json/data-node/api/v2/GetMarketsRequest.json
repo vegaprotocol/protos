@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetMarketsRequest",
+    "definitions": {
+        "GetMarketsRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Markets Request",
+            "description": "-- Markets --"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}

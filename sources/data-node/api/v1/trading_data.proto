@@ -1238,7 +1238,7 @@ message OracleSpecRequest {
 // A response for a oracle spec
 message OracleSpecResponse {
   // The withdrawal matching the identifier from the request
-  oracles.v1.OracleSpec oracle_spec = 1 ;
+  oracles.v1.OracleSpec oracle_spec = 1;
 }
 
 // A request to get a specific oracle spec by identifier

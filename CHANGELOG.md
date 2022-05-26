@@ -3,7 +3,7 @@
 ## Unreleased (0.52.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/issues/) -
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -13,6 +13,21 @@
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+## 0.51.1
+
+### 🚨 Breaking changes
+- [435](https://github.com/vegaprotocol/protos/issues/435) - Rename messages related to list asset method bundle
+
+### 🛠 Improvements
+- [418](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Trades, Markets and Parties
+- [427](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Orders
+- [5358](https://github.com/vegaprotocol/vega/issues/5358) - Add previous MVP field to equity shares snapshot.
+- [437](https://github.com/vegaprotocol/protos/issues/437) - Add `UpdateAsset` proto definition.
+- [440](https://github.com/vegaprotocol/protos/issues/440) - Add `previous_sequence_number` to `MarketDataUpdate` message
+
+### 🐛 Fixes
+- [433](https://github.com/vegaprotocol/protos/pull/433) - remove unnecessary semicolon from vega proto
 
 
 ## 0.51.0

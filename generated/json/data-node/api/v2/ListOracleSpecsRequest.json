@@ -17,23 +17,23 @@
         },
         "datanode.api.v2.Pagination": {
             "properties": {
-                "skip": {
-                    "type": "string",
-                    "description": "Skip the number of records specified, default is 0"
+                "first": {
+                    "type": "integer"
                 },
-                "limit": {
-                    "type": "string",
-                    "description": "Limit the number of returned records to the value specified, default is 50"
+                "after": {
+                    "type": "string"
                 },
-                "descending": {
-                    "type": "boolean",
-                    "description": "Descending reverses the order of the records returned, default is true, if false the results will be returned in ascending order"
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "Pagination",
-            "description": "Pagination controls"
+            "description": "Cursor information for cursor based pagination requests"
         }
     }
 }

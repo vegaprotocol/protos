@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/QueryBalanceHistoryResponse",
+    "$ref": "#/definitions/GetBalanceHistoryResponse",
     "definitions": {
-        "QueryBalanceHistoryResponse": {
+        "GetBalanceHistoryResponse": {
             "properties": {
                 "balances": {
                     "items": {
@@ -13,7 +13,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Query Balance History Response"
+            "title": "Get Balance History Response"
         },
         "datanode.api.v2.AggregatedBalance": {
             "properties": {

@@ -144,6 +144,90 @@
           ]
         },
         {
+          "name": "AssetDetailsUpdate",
+          "longName": "AssetDetailsUpdate",
+          "fullName": "vega.AssetDetailsUpdate",
+          "description": "The changes to apply on an existing asset.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "Name of the asset (e.g: Great British Pound)",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "symbol",
+              "description": "Symbol of the asset (e.g: GBP)",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "total_supply",
+              "description": "Total circulating supply for the asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "decimals",
+              "description": "Number of decimal / precision handled by this asset",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "quantum",
+              "description": "The minimum economically meaningful amount in the asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "erc20",
+              "description": "An Ethereum ERC20 asset",
+              "label": "",
+              "type": "ERC20Update",
+              "longType": "ERC20Update",
+              "fullType": "vega.ERC20Update",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "source",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "BuiltinAsset",
           "longName": "BuiltinAsset",
           "fullName": "vega.BuiltinAsset",
@@ -204,6 +288,42 @@
             {
               "name": "withdraw_threshold",
               "description": "The maximum allowed per withdraw\nnote: this is a temporary measure for restricted mainnet",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ERC20Update",
+          "longName": "ERC20Update",
+          "fullName": "vega.ERC20Update",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "lifetime_limit",
+              "description": "The lifetime limits deposit per address.\nThis is will be interpreted against the asset decimals.\nnote: this is a temporary measure for restricted mainnet",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "withdraw_threshold",
+              "description": "The maximum allowed per withdraw.\nThis is will be interpreted against the asset decimals.\nnote: this is a temporary measure for restricted mainnet",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2133,6 +2253,54 @@
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "change",
+              "defaultValue": ""
+            },
+            {
+              "name": "update_asset",
+              "description": "Proposal change for updating an asset",
+              "label": "",
+              "type": "UpdateAsset",
+              "longType": "UpdateAsset",
+              "fullType": "vega.UpdateAsset",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "change",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UpdateAsset",
+          "longName": "UpdateAsset",
+          "fullName": "vega.UpdateAsset",
+          "description": "Update an existing asset on Vega",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset_id",
+              "description": "The asset concerned by the update",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "changes",
+              "description": "The changes to apply on an existing asset",
+              "label": "",
+              "type": "AssetDetailsUpdate",
+              "longType": "AssetDetailsUpdate",
+              "fullType": "vega.AssetDetailsUpdate",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
@@ -6595,7 +6763,19 @@
             },
             {
               "name": "sequence_number",
-              "description": "Sequence number for the market depth update data returned",
+              "description": "Sequence number for the market depth update data returned. It is increasing but not monotonic.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "previous_sequence_number",
+              "description": "Sequence number of of the previous market depth update, for checking there are no gaps.",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
@@ -14962,7 +15142,7 @@
             },
             {
               "name": "from_epoch",
-              "description": "The epoch from which the validator was added",
+              "description": "The epoch from which the validator was added or removed",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
@@ -18917,6 +19097,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "extension_event_sent",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -19721,6 +19913,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "p_mvp",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -19897,6 +20101,54 @@
               "type": "NextTimeTrigger",
               "longType": "NextTimeTrigger",
               "fullType": "vega.snapshot.v1.NextTimeTrigger",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "state_variables",
+              "description": "",
+              "label": "repeated",
+              "type": "StateVarInternalState",
+              "longType": "StateVarInternalState",
+              "fullType": "vega.snapshot.v1.StateVarInternalState",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FloatingPointValidatorResult",
+          "longName": "FloatingPointValidatorResult",
+          "fullName": "vega.snapshot.v1.FloatingPointValidatorResult",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "bundle",
+              "description": "",
+              "label": "repeated",
+              "type": "KeyValueBundle",
+              "longType": "vega.KeyValueBundle",
+              "fullType": "vega.KeyValueBundle",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -20263,12 +20515,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "orders",
+              "name": "party_orders",
               "description": "",
               "label": "repeated",
-              "type": "Order",
-              "longType": "vega.Order",
-              "fullType": "vega.Order",
+              "type": "PartyOrders",
+              "longType": "PartyOrders",
+              "fullType": "vega.snapshot.v1.PartyOrders",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -20299,12 +20551,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "orders",
+              "name": "party_orders",
               "description": "",
               "label": "repeated",
-              "type": "Order",
-              "longType": "vega.Order",
-              "fullType": "vega.Order",
+              "type": "PartyOrders",
+              "longType": "PartyOrders",
+              "fullType": "vega.snapshot.v1.PartyOrders",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -21313,6 +21565,42 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PartyOrders",
+          "longName": "PartyOrders",
+          "fullName": "vega.snapshot.v1.PartyOrders",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "orders",
+              "description": "",
+              "label": "repeated",
+              "type": "Order",
+              "longType": "vega.Order",
+              "fullType": "vega.Order",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -23605,6 +23893,78 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StateVarInternalState",
+          "longName": "StateVarInternalState",
+          "fullName": "vega.snapshot.v1.StateVarInternalState",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "state",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "event_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "validators_results",
+              "description": "",
+              "label": "repeated",
+              "type": "FloatingPointValidatorResult",
+              "longType": "FloatingPointValidatorResult",
+              "fullType": "vega.snapshot.v1.FloatingPointValidatorResult",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "rounds_since_meaningful_update",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -27705,7 +28065,7 @@
             },
             {
               "name": "from_epoch",
-              "description": "The epoch from which the validator was added",
+              "description": "The epoch from which the validator was added or removed",
               "label": "",
               "type": "uint64",
               "longType": "uint64",

@@ -403,7 +403,7 @@ message ValidatorUpdate {
   uint32 vega_pub_key_index = 9;
   // Flag indicating if the validator has been added to or removed from vega
   bool added = 10;
-  // The epoch from which the validator was added
+  // The epoch from which the validator was added or removed
   uint64 from_epoch = 11;
 }
 

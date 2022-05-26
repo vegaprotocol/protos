@@ -1,21 +1,73 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/OrdersByMarketResponse",
+    "$ref": "#/definitions/GetOrdersByMarketPagedResponse",
     "definitions": {
-        "OrdersByMarketResponse": {
+        "GetOrdersByMarketPagedResponse": {
             "properties": {
                 "orders": {
-                    "items": {
-                        "$ref": "#/definitions/vega.Order"
-                    },
-                    "type": "array",
-                    "description": "A list of 0 or more orders"
+                    "$ref": "#/definitions/datanode.api.v2.OrderConnection",
+                    "additionalProperties": true,
+                    "description": "Paged order connection"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Orders By Market Response",
+            "title": "Get Orders By Market Paged Response",
             "description": "Response for a list of orders for a market"
+        },
+        "datanode.api.v2.OrderConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.OrderEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Order Connection"
+        },
+        "datanode.api.v2.OrderEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Order",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Order Edge"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
         },
         "vega.Order": {
             "properties": {

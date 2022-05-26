@@ -372,6 +372,7 @@ message AuctionState {
   bool start = 6;
   bool stop = 7;
   vega.AuctionTrigger extension = 8;
+  bool extension_event_sent = 9;
 }
 
 message EquityShareLP {
@@ -387,6 +388,7 @@ message EquityShare {
   bool opening_auction_ended = 2;
   repeated EquityShareLP lps = 3;
   string r = 4;
+  string p_mvp = 5;
 }
 
 message FeeSplitter {
@@ -656,13 +658,18 @@ message LiquidityPendingProvisions {
 }
 
 message LiquidityPartiesLiquidityOrders {
-  repeated vega.Order orders = 1;
+  repeated PartyOrders party_orders = 1;
   // required for key generation
   string market_id = 2;
 }
 
+message PartyOrders {
+  string party = 1;
+  repeated vega.Order orders = 2;
+}
+
 message LiquidityPartiesOrders {
-  repeated vega.Order orders = 1;
+  repeated PartyOrders party_orders = 1;
   // required for key generation
   string market_id = 2;
 }
@@ -676,6 +683,20 @@ message LiquidityProvisions {
 // snapshot payload for floating point consensus
 message FloatingPointConsensus {
   repeated NextTimeTrigger next_time_trigger = 1;
+  repeated StateVarInternalState state_variables = 2;
+}
+
+message StateVarInternalState {
+  string id = 1;
+  int32 state = 2;
+  string event_id = 3;
+  repeated FloatingPointValidatorResult validators_results = 4;
+  int32 rounds_since_meaningful_update = 5;
+}
+
+message FloatingPointValidatorResult {
+  string id = 1;
+  repeated vega.KeyValueBundle bundle = 2;
 }
 
 message NextTimeTrigger {

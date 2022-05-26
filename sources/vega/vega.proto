@@ -483,8 +483,10 @@ message MarketDepthUpdate {
   repeated PriceLevel buy = 2;
   // Collection of updated price levels for the sell side of the book
   repeated PriceLevel sell = 3;
-  // Sequence number for the market depth update data returned
+  // Sequence number for the market depth update data returned. It is increasing but not monotonic.
   uint64 sequence_number = 4;
+  // Sequence number of of the previous market depth update, for checking there are no gaps.
+  uint64 previous_sequence_number = 5;
 }
 
 // Represents position data for a party on the specified market on Vega
@@ -1201,7 +1203,7 @@ message Node {
   // The amount the node has put up themselves
   string staked_by_operator = 7;
   // The amount of stake that has been delegated by token holders
-  string staked_by_delegates = 8;;
+  string staked_by_delegates = 8;
   // Total amount staked on node
   string staked_total = 9;
   // Max amount of (wanted) stake, is this a network param or a node param

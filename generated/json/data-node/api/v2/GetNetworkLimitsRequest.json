@@ -6,7 +6,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Get Network Limits Request",
-            "description": "Request for the current network limits"
+            "description": "-- Network Limits -- Request for the current network limits"
         }
     }
 }

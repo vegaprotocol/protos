@@ -91,10 +91,10 @@ func checkTransfer(cmd *commandspb.Transfer) Errors {
 			// dispatch strategy only makes sense for reward pools
 			if k.Recurring.DispatchStrategy != nil {
 				// check account type is one of the relevant reward accounts
-				if !(cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES ||
-					cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES ||
-					cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES ||
-					cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS) {
+				if !(cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES ||
+					cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES ||
+					cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES ||
+					cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS) {
 					errs.AddForProperty("transfer.kind.dispatch_strategy", ErrIsNotValid)
 				}
 				// check asset for metric is passed
@@ -102,16 +102,16 @@ func checkTransfer(cmd *commandspb.Transfer) Errors {
 					errs.AddForProperty("transfer.lind.dispatch_strategy.asset_for_metric", vega.ErrUnknownAsset)
 				}
 				// check that that the metric makes sense for the account type
-				if cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_LP_FEES_RECEIVED {
+				if cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_LP_FEES_RECEIVED {
 					errs.AddForProperty("transfer.kind.dispatch_strategy.dispatch_metric", ErrIsNotValid)
 				}
-				if cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_MAKER_FEES_RECEIVED {
+				if cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_MAKER_FEES_RECEIVED {
 					errs.AddForProperty("transfer.kind.dispatch_strategy.dispatch_metric", ErrIsNotValid)
 				}
-				if cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_TAKER_FEES_PAID {
+				if cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_TAKER_FEES_PAID {
 					errs.AddForProperty("transfer.kind.dispatch_strategy.dispatch_metric", ErrIsNotValid)
 				}
-				if cmd.FromAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_MARKET_VALUE {
+				if cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_MARKET_VALUE {
 					errs.AddForProperty("transfer.kind.dispatch_strategy.dispatch_metric", ErrIsNotValid)
 				}
 			}

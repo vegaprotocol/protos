@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/AssetDetailsUpdate",
+    "definitions": {
+        "AssetDetailsUpdate": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name of the asset (e.g: Great British Pound)"
+                },
+                "symbol": {
+                    "type": "string",
+                    "description": "Symbol of the asset (e.g: GBP)"
+                },
+                "total_supply": {
+                    "type": "string",
+                    "description": "Total circulating supply for the asset"
+                },
+                "decimals": {
+                    "type": "string",
+                    "description": "Number of decimal / precision handled by this asset"
+                },
+                "quantum": {
+                    "type": "string",
+                    "description": "The minimum economically meaningful amount in the asset"
+                },
+                "erc20": {
+                    "$ref": "#/definitions/vega.ERC20Update",
+                    "additionalProperties": true,
+                    "description": "An Ethereum ERC20 asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Asset Details Update",
+            "description": "The changes to apply on an existing asset."
+        },
+        "vega.ERC20Update": {
+            "properties": {
+                "lifetime_limit": {
+                    "type": "string",
+                    "description": "The lifetime limits deposit per address. This is will be interpreted against the asset decimals. note: this is a temporary measure for restricted mainnet"
+                },
+                "withdraw_threshold": {
+                    "type": "string",
+                    "description": "The maximum allowed per withdraw. This is will be interpreted against the asset decimals. note: this is a temporary measure for restricted mainnet"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Update"
+        }
+    }
+}
