@@ -275,6 +275,10 @@ func checkUpdateAssetChanges(change *types.ProposalTerms_UpdateAsset) Errors {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.update_asset", ErrIsRequired)
 	}
 
+	if len(change.UpdateAsset.AssetId) == 0 {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.asset_id", ErrIsRequired)
+	}
+
 	if change.UpdateAsset.Changes == nil {
 		return errs.FinalAddForProperty("proposal_submission.terms.change.update_asset.changes", ErrIsRequired)
 	}

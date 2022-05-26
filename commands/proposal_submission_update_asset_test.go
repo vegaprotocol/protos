@@ -10,25 +10,27 @@ import (
 )
 
 func TestCheckProposalSubmissionForUpdateAsset(t *testing.T) {
-	t.Run("Submitting an asset change without new asset fails", TestUpdateAssetChangeSubmissionWithoutUpdateAssetFails)
-	t.Run("Submitting an asset change without changes fails", TestUpdateAssetChangeSubmissionWithoutChangesFails)
-	t.Run("Submitting an asset change without source fails", TestUpdateAssetChangeSubmissionWithoutSourceFails)
-	t.Run("Submitting an asset change without name fails", testUpdateAssetChangeSubmissionWithoutNameFails)
-	t.Run("Submitting an asset change with name succeeds", testUpdateAssetChangeSubmissionWithNameSucceeds)
-	t.Run("Submitting an asset change without symbol fails", testUpdateAssetChangeSubmissionWithoutSymbolFails)
-	t.Run("Submitting an asset change with symbol succeeds", testUpdateAssetChangeSubmissionWithSymbolSucceeds)
-	t.Run("Submitting an asset change without decimal fails", testUpdateAssetChangeSubmissionWithoutDecimalsFails)
-	t.Run("Submitting an asset change with decimal succeeds", testUpdateAssetChangeSubmissionWithDecimalsSucceeds)
-	t.Run("Submitting an asset change without total supply fails", testUpdateAssetChangeSubmissionWithoutTotalSupplyFails)
-	t.Run("Submitting an asset change with total supply succeeds", testUpdateAssetChangeSubmissionWithTotalSupplySucceeds)
-	t.Run("Submitting an asset change with not-a-number total supply fails", testUpdateAssetChangeSubmissionWithNaNTotalSupplyFails)
-	t.Run("Submitting an ERC20 asset change without ERC20 asset fails", testUpdateERC20AssetChangeSubmissionWithoutErc20AssetFails)
-	t.Run("Submitting an ERC20 asset change with invalid lifetime limit fails", testUpdateERC20AssetChangeSubmissionWithInvalidLifetimeLimitFails)
-	t.Run("Submitting an ERC20 asset change with valid lifetime limit succeeds", testUpdateERC20AssetChangeSubmissionWithValidLifetimeLimitSucceeds)
-	t.Run("Submitting an ERC20 asset change with invalid withdrawal threshold fails", testUpdateERC20AssetChangeSubmissionWithInvalidWithdrawalThresholdFails)
-	t.Run("Submitting an ERC20 asset change with valid withdrawal threshold succeeds", testUpdateERC20AssetChangeSubmissionWithValidWithdrawalThresholdSucceeds)
+	t.Run("Submitting an asset update without new asset fails", TestUpdateAssetSubmissionWithoutUpdateAssetFails)
+	t.Run("Submitting an asset update without asset ID fails", TestUpdateAssetSubmissionWithoutAssetIDFails)
+	t.Run("Submitting an asset update with asset ID succeeds", TestUpdateAssetSubmissionWithAssetIDSucceeds)
+	t.Run("Submitting an asset update without changes fails", TestUpdateAssetSubmissionWithoutChangesFails)
+	t.Run("Submitting an asset update without source fails", TestUpdateAssetSubmissionWithoutSourceFails)
+	t.Run("Submitting an asset update without name fails", testUpdateAssetSubmissionWithoutNameFails)
+	t.Run("Submitting an asset update with name succeeds", testUpdateAssetSubmissionWithNameSucceeds)
+	t.Run("Submitting an asset update without symbol fails", testUpdateAssetSubmissionWithoutSymbolFails)
+	t.Run("Submitting an asset update with symbol succeeds", testUpdateAssetSubmissionWithSymbolSucceeds)
+	t.Run("Submitting an asset update without decimal fails", testUpdateAssetSubmissionWithoutDecimalsFails)
+	t.Run("Submitting an asset update with decimal succeeds", testUpdateAssetSubmissionWithDecimalsSucceeds)
+	t.Run("Submitting an asset update without total supply fails", testUpdateAssetSubmissionWithoutTotalSupplyFails)
+	t.Run("Submitting an asset update with total supply succeeds", testUpdateAssetSubmissionWithTotalSupplySucceeds)
+	t.Run("Submitting an asset update with not-a-number total supply fails", testUpdateAssetSubmissionWithNaNTotalSupplyFails)
+	t.Run("Submitting an ERC20 asset update without ERC20 asset fails", testUpdateERC20AssetChangeSubmissionWithoutErc20AssetFails)
+	t.Run("Submitting an ERC20 asset update with invalid lifetime limit fails", testUpdateERC20AssetChangeSubmissionWithInvalidLifetimeLimitFails)
+	t.Run("Submitting an ERC20 asset update with valid lifetime limit succeeds", testUpdateERC20AssetChangeSubmissionWithValidLifetimeLimitSucceeds)
+	t.Run("Submitting an ERC20 asset update with invalid withdrawal threshold fails", testUpdateERC20AssetChangeSubmissionWithInvalidWithdrawalThresholdFails)
+	t.Run("Submitting an ERC20 asset update with valid withdrawal threshold succeeds", testUpdateERC20AssetChangeSubmissionWithValidWithdrawalThresholdSucceeds)
 }
-func TestUpdateAssetChangeSubmissionWithoutUpdateAssetFails(t *testing.T) {
+func TestUpdateAssetSubmissionWithoutUpdateAssetFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{},
@@ -38,7 +40,35 @@ func TestUpdateAssetChangeSubmissionWithoutUpdateAssetFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset"), commands.ErrIsRequired)
 }
 
-func TestUpdateAssetChangeSubmissionWithoutChangesFails(t *testing.T) {
+func TestUpdateAssetSubmissionWithAssetIDSucceeds(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_UpdateAsset{
+				UpdateAsset: &types.UpdateAsset{
+					AssetId: "",
+				},
+			},
+		},
+	})
+
+	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.asset_id"), commands.ErrIsRequired)
+}
+
+func TestUpdateAssetSubmissionWithoutAssetIDFails(t *testing.T) {
+	err := checkProposalSubmission(&commandspb.ProposalSubmission{
+		Terms: &types.ProposalTerms{
+			Change: &types.ProposalTerms_UpdateAsset{
+				UpdateAsset: &types.UpdateAsset{
+					AssetId: "My ID",
+				},
+			},
+		},
+	})
+
+	assert.Empty(t, err.Get("proposal_submission.terms.change.update_asset.asset_id"))
+}
+
+func TestUpdateAssetSubmissionWithoutChangesFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -50,7 +80,7 @@ func TestUpdateAssetChangeSubmissionWithoutChangesFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.changes"), commands.ErrIsRequired)
 }
 
-func TestUpdateAssetChangeSubmissionWithoutSourceFails(t *testing.T) {
+func TestUpdateAssetSubmissionWithoutSourceFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -64,7 +94,7 @@ func TestUpdateAssetChangeSubmissionWithoutSourceFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.changes.source"), commands.ErrIsRequired)
 }
 
-func testUpdateAssetChangeSubmissionWithoutNameFails(t *testing.T) {
+func testUpdateAssetSubmissionWithoutNameFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -80,7 +110,7 @@ func testUpdateAssetChangeSubmissionWithoutNameFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.changes.name"), commands.ErrIsRequired)
 }
 
-func testUpdateAssetChangeSubmissionWithNameSucceeds(t *testing.T) {
+func testUpdateAssetSubmissionWithNameSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -96,7 +126,7 @@ func testUpdateAssetChangeSubmissionWithNameSucceeds(t *testing.T) {
 	assert.Empty(t, err.Get("proposal_submission.terms.change.update_asset.changes.name"), commands.ErrIsRequired)
 }
 
-func testUpdateAssetChangeSubmissionWithoutSymbolFails(t *testing.T) {
+func testUpdateAssetSubmissionWithoutSymbolFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -112,7 +142,7 @@ func testUpdateAssetChangeSubmissionWithoutSymbolFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.changes.symbol"), commands.ErrIsRequired)
 }
 
-func testUpdateAssetChangeSubmissionWithSymbolSucceeds(t *testing.T) {
+func testUpdateAssetSubmissionWithSymbolSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -128,7 +158,7 @@ func testUpdateAssetChangeSubmissionWithSymbolSucceeds(t *testing.T) {
 	assert.Empty(t, err.Get("proposal_submission.terms.change.update_asset.changes.symbol"))
 }
 
-func testUpdateAssetChangeSubmissionWithoutDecimalsFails(t *testing.T) {
+func testUpdateAssetSubmissionWithoutDecimalsFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -144,7 +174,7 @@ func testUpdateAssetChangeSubmissionWithoutDecimalsFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.changes.decimals"), commands.ErrIsRequired)
 }
 
-func testUpdateAssetChangeSubmissionWithDecimalsSucceeds(t *testing.T) {
+func testUpdateAssetSubmissionWithDecimalsSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -160,7 +190,7 @@ func testUpdateAssetChangeSubmissionWithDecimalsSucceeds(t *testing.T) {
 	assert.Empty(t, err.Get("proposal_submission.terms.change.update_asset.changes.decimals"))
 }
 
-func testUpdateAssetChangeSubmissionWithoutTotalSupplyFails(t *testing.T) {
+func testUpdateAssetSubmissionWithoutTotalSupplyFails(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -176,7 +206,7 @@ func testUpdateAssetChangeSubmissionWithoutTotalSupplyFails(t *testing.T) {
 	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.changes.total_supply"), commands.ErrIsRequired)
 }
 
-func testUpdateAssetChangeSubmissionWithTotalSupplySucceeds(t *testing.T) {
+func testUpdateAssetSubmissionWithTotalSupplySucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
@@ -192,7 +222,7 @@ func testUpdateAssetChangeSubmissionWithTotalSupplySucceeds(t *testing.T) {
 	assert.Empty(t, err.Get("proposal_submission.terms.change.update_asset.changes.total_supply"))
 }
 
-func testUpdateAssetChangeSubmissionWithNaNTotalSupplyFails(t *testing.T) {
+func testUpdateAssetSubmissionWithNaNTotalSupplyFails(t *testing.T) {
 	testCases := []struct {
 		msg   string
 		value string
