@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ERC20AssetLimitsUpdated",
+    "definitions": {
+        "ERC20AssetLimitsUpdated": {
+            "properties": {
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The Vega network internal identifier of the asset"
+                },
+                "source_ethereum_address": {
+                    "type": "string",
+                    "description": "The Ethereum wallet that initiated the deposit"
+                },
+                "lifetime_limits": {
+                    "type": "string",
+                    "description": "The updated lifetime limits"
+                },
+                "withdraw_threshold": {
+                    "type": "string",
+                    "description": "The updated withdraw threshold"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20 Asset Limits Updated"
+        }
+    }
+}

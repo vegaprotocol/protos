@@ -506,6 +506,66 @@
           ]
         },
         {
+          "name": "ERC20AssetLimitsUpdated",
+          "longName": "ERC20AssetLimitsUpdated",
+          "fullName": "vega.ERC20AssetLimitsUpdated",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "vega_asset_id",
+              "description": "The Vega network internal identifier of the asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source_ethereum_address",
+              "description": "The Ethereum wallet that initiated the deposit",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lifetime_limits",
+              "description": "The updated lifetime limits",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "withdraw_threshold",
+              "description": "The updated withdraw threshold",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ERC20AssetList",
           "longName": "ERC20AssetList",
           "fullName": "vega.ERC20AssetList",
@@ -666,6 +726,18 @@
               "type": "ERC20Withdrawal",
               "longType": "ERC20Withdrawal",
               "fullType": "vega.ERC20Withdrawal",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "action",
+              "defaultValue": ""
+            },
+            {
+              "name": "asset_limits_updated",
+              "description": "Update an ERC20 asset",
+              "label": "",
+              "type": "ERC20AssetLimitsUpdated",
+              "longType": "ERC20AssetLimitsUpdated",
+              "fullType": "vega.ERC20AssetLimitsUpdated",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "action",
