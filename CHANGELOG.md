@@ -3,10 +3,21 @@
 ## Unreleased (0.52.0)
 
 ### 🚨 Breaking changes
-- [435](https://github.com/vegaprotocol/protos/issues/435) - Rename messages related to list asset method bundle
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🛠 Improvements
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+### 🐛 Fixes
+- [](https://github.com/vegaprotocol/protos/pull/) -
+
+## 0.51.1
+
+### 🚨 Breaking changes
+- [435](https://github.com/vegaprotocol/protos/issues/435) - Rename messages related to list asset method bundle
 
 ### 🛠 Improvements
 - [418](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Trades, Markets and Parties
