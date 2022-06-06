@@ -732,12 +732,22 @@ message ERC20MultiSigTopologyPending {
 message ProofOfWork {
   repeated uint64 block_height = 1;
   repeated string block_hash = 2;
-  repeated string seen_tx = 3;
   repeated TransactionsAtHeight tx_at_height = 4;
-  repeated string seen_tid = 5;
   repeated TransactionsAtHeight tid_at_height = 6;
   repeated BannedParty banned = 7;	
+  repeated ProofOfWorkParams pow_params = 8;
 }
+
+message ProofOfWorkParams {
+  uint64 spam_pow_number_of_past_blocks = 1;
+  uint32 spam_pow_difficulty = 2;
+  string spam_pow_hash_function = 3;
+  uint64 spam_pow_number_of_tx_per_block = 4;
+  bool spam_pow_increasing_difficulty = 5;
+  uint64 from_block = 6;
+  int64 until_block = 7;
+}
+
 message TransactionsAtHeight {
   uint64 height = 1;
   repeated string transactions = 2;
