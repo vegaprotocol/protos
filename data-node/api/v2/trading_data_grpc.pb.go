@@ -27,12 +27,16 @@ type TradingDataServiceClient interface {
 	GetOrdersByMarket(ctx context.Context, in *GetOrdersByMarketRequest, opts ...grpc.CallOption) (*GetOrdersByMarketResponse, error)
 	// Get all versions of the order by its orderID
 	GetOrderVersionsByID(ctx context.Context, in *GetOrderVersionsByIDRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDResponse, error)
+	// Get a list of Positions by Party
+	GetPositionsByParty(ctx context.Context, in *GetPositionsByPartyRequest, opts ...grpc.CallOption) (*GetPositionsByPartyResponse, error)
 	// Get a list of Orders by Market using cursor based pagination
 	GetOrdersByMarketPaged(ctx context.Context, in *GetOrdersByMarketPagedRequest, opts ...grpc.CallOption) (*GetOrdersByMarketPagedResponse, error)
 	// Get a list of Orders by Party using cursor based pagination
 	GetOrdersByPartyPaged(ctx context.Context, in *GetOrdersByPartyPagedRequest, opts ...grpc.CallOption) (*GetOrdersByPartyPagedResponse, error)
 	// Get all versions of the order by its orderID using cursor based pagination
 	GetOrderVersionsByIDPaged(ctx context.Context, in *GetOrderVersionsByIDPagedRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDPagedResponse, error)
+	// Get a list of Positions by Party using cursor based pagination
+	GetPositionsByPartyPaged(ctx context.Context, in *GetPositionsByPartyPagedRequest, opts ...grpc.CallOption) (*GetPositionsByPartyPagedResponse, error)
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
@@ -107,6 +111,15 @@ func (c *tradingDataServiceClient) GetOrderVersionsByID(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetPositionsByParty(ctx context.Context, in *GetPositionsByPartyRequest, opts ...grpc.CallOption) (*GetPositionsByPartyResponse, error) {
+	out := new(GetPositionsByPartyResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetPositionsByParty", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tradingDataServiceClient) GetOrdersByMarketPaged(ctx context.Context, in *GetOrdersByMarketPagedRequest, opts ...grpc.CallOption) (*GetOrdersByMarketPagedResponse, error) {
 	out := new(GetOrdersByMarketPagedResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrdersByMarketPaged", in, out, opts...)
@@ -128,6 +141,15 @@ func (c *tradingDataServiceClient) GetOrdersByPartyPaged(ctx context.Context, in
 func (c *tradingDataServiceClient) GetOrderVersionsByIDPaged(ctx context.Context, in *GetOrderVersionsByIDPagedRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDPagedResponse, error) {
 	out := new(GetOrderVersionsByIDPagedResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrderVersionsByIDPaged", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetPositionsByPartyPaged(ctx context.Context, in *GetPositionsByPartyPagedRequest, opts ...grpc.CallOption) (*GetPositionsByPartyPagedResponse, error) {
+	out := new(GetPositionsByPartyPagedResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetPositionsByPartyPaged", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -328,12 +350,16 @@ type TradingDataServiceServer interface {
 	GetOrdersByMarket(context.Context, *GetOrdersByMarketRequest) (*GetOrdersByMarketResponse, error)
 	// Get all versions of the order by its orderID
 	GetOrderVersionsByID(context.Context, *GetOrderVersionsByIDRequest) (*GetOrderVersionsByIDResponse, error)
+	// Get a list of Positions by Party
+	GetPositionsByParty(context.Context, *GetPositionsByPartyRequest) (*GetPositionsByPartyResponse, error)
 	// Get a list of Orders by Market using cursor based pagination
 	GetOrdersByMarketPaged(context.Context, *GetOrdersByMarketPagedRequest) (*GetOrdersByMarketPagedResponse, error)
 	// Get a list of Orders by Party using cursor based pagination
 	GetOrdersByPartyPaged(context.Context, *GetOrdersByPartyPagedRequest) (*GetOrdersByPartyPagedResponse, error)
 	// Get all versions of the order by its orderID using cursor based pagination
 	GetOrderVersionsByIDPaged(context.Context, *GetOrderVersionsByIDPagedRequest) (*GetOrderVersionsByIDPagedResponse, error)
+	// Get a list of Positions by Party using cursor based pagination
+	GetPositionsByPartyPaged(context.Context, *GetPositionsByPartyPagedRequest) (*GetPositionsByPartyPagedResponse, error)
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
@@ -393,6 +419,9 @@ func (UnimplementedTradingDataServiceServer) GetOrdersByMarket(context.Context, 
 func (UnimplementedTradingDataServiceServer) GetOrderVersionsByID(context.Context, *GetOrderVersionsByIDRequest) (*GetOrderVersionsByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrderVersionsByID not implemented")
 }
+func (UnimplementedTradingDataServiceServer) GetPositionsByParty(context.Context, *GetPositionsByPartyRequest) (*GetPositionsByPartyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPositionsByParty not implemented")
+}
 func (UnimplementedTradingDataServiceServer) GetOrdersByMarketPaged(context.Context, *GetOrdersByMarketPagedRequest) (*GetOrdersByMarketPagedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrdersByMarketPaged not implemented")
 }
@@ -401,6 +430,9 @@ func (UnimplementedTradingDataServiceServer) GetOrdersByPartyPaged(context.Conte
 }
 func (UnimplementedTradingDataServiceServer) GetOrderVersionsByIDPaged(context.Context, *GetOrderVersionsByIDPagedRequest) (*GetOrderVersionsByIDPagedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrderVersionsByIDPaged not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetPositionsByPartyPaged(context.Context, *GetPositionsByPartyPagedRequest) (*GetPositionsByPartyPagedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPositionsByPartyPaged not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalanceHistory not implemented")
@@ -505,6 +537,24 @@ func _TradingDataService_GetOrderVersionsByID_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetPositionsByParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPositionsByPartyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetPositionsByParty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetPositionsByParty",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetPositionsByParty(ctx, req.(*GetPositionsByPartyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TradingDataService_GetOrdersByMarketPaged_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetOrdersByMarketPagedRequest)
 	if err := dec(in); err != nil {
@@ -555,6 +605,24 @@ func _TradingDataService_GetOrderVersionsByIDPaged_Handler(srv interface{}, ctx 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TradingDataServiceServer).GetOrderVersionsByIDPaged(ctx, req.(*GetOrderVersionsByIDPagedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetPositionsByPartyPaged_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPositionsByPartyPagedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetPositionsByPartyPaged(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetPositionsByPartyPaged",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetPositionsByPartyPaged(ctx, req.(*GetPositionsByPartyPagedRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -902,6 +970,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetOrderVersionsByID_Handler,
 		},
 		{
+			MethodName: "GetPositionsByParty",
+			Handler:    _TradingDataService_GetPositionsByParty_Handler,
+		},
+		{
 			MethodName: "GetOrdersByMarketPaged",
 			Handler:    _TradingDataService_GetOrdersByMarketPaged_Handler,
 		},
@@ -912,6 +984,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOrderVersionsByIDPaged",
 			Handler:    _TradingDataService_GetOrderVersionsByIDPaged_Handler,
+		},
+		{
+			MethodName: "GetPositionsByPartyPaged",
+			Handler:    _TradingDataService_GetPositionsByPartyPaged_Handler,
 		},
 		{
 			MethodName: "GetBalanceHistory",
