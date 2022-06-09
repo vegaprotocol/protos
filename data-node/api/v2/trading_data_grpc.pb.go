@@ -37,7 +37,7 @@ type TradingDataServiceClient interface {
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
 	// -- Market Data --
-	// Get Market Data History for a Market ID between given dates
+	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -338,7 +338,7 @@ type TradingDataServiceServer interface {
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
 	// -- Market Data --
-	// Get Market Data History for a Market ID between given dates
+	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
