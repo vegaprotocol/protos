@@ -134,8 +134,10 @@ message GetPositionsByPartyPagedRequest {
     string party_id = 1;
     // Market identifier
     string market_id = 2;
+    // Optional pagination control
+    optional Pagination pagination = 3;
     // Pagination controls
-    OffsetPagination pagination = 3;
+    OffsetPagination offset_pagination = 4[deprecated = true];
 }
 
 // Response for a list of positions for a party
