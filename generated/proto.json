@@ -2883,6 +2883,11 @@
               "name": "TRADING_MODE_MONITORING_AUCTION",
               "number": "4",
               "description": "Auction triggered by monitoring"
+            },
+            {
+              "name": "TRADING_MODE_NO_TRADING",
+              "number": "5",
+              "description": "Not trading is allowed"
             }
           ]
         }
