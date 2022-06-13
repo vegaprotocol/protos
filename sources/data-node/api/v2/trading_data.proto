@@ -77,6 +77,14 @@ service TradingDataService {
     // -- Margin Levels --
     // Get Margin Levels using a cursor based pagination model
     rpc GetMarginLevels(GetMarginLevelsRequest) returns (GetMarginLevelsResponse);
+    // -- Rewards --
+
+    // Get rewards
+    rpc GetRewards(GetRewardsRequest) returns (GetRewardsResponse);
+
+    // Get reward summaries
+    rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
+
 }
 
 // -- Pagination --
@@ -614,5 +622,39 @@ message MarginEdge {
 message MarginConnection {
     int64 total_count = 1;
     repeated MarginEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// A request to get reward details for a party
+message GetRewardSummariesRequest {
+    string party_id = 1;
+    string asset_id = 2;
+}
+
+// The return message with reward details in for a single party
+message GetRewardSummariesResponse {
+    repeated vega.RewardSummary summaries = 1;
+}
+
+// A request to get reward details for a party
+message GetRewardsRequest {
+    string party_id = 1;
+    string asset_id = 2;
+    Pagination pagination = 3;
+}
+
+// The return message with reward details in for a single party
+message GetRewardsResponse {
+    RewardsConnection rewards = 1;
+}
+
+message RewardEdge {
+    vega.Reward node = 1;
+    string cursor = 2;
+}
+
+message RewardsConnection {
+    int64 total_count = 1;
+    repeated RewardEdge edges = 2;
     PageInfo page_info = 3;
 }
