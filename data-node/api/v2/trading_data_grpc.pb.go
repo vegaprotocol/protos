@@ -79,6 +79,10 @@ type TradingDataServiceClient interface {
 	// -- Margin Levels --
 	// Get Margin Levels using a cursor based pagination model
 	GetMarginLevels(ctx context.Context, in *GetMarginLevelsRequest, opts ...grpc.CallOption) (*GetMarginLevelsResponse, error)
+	// Get rewards
+	GetRewards(ctx context.Context, in *GetRewardsRequest, opts ...grpc.CallOption) (*GetRewardsResponse, error)
+	// Get reward summaries
+	GetRewardSummaries(ctx context.Context, in *GetRewardSummariesRequest, opts ...grpc.CallOption) (*GetRewardSummariesResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -319,6 +323,24 @@ func (c *tradingDataServiceClient) GetMarginLevels(ctx context.Context, in *GetM
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetRewards(ctx context.Context, in *GetRewardsRequest, opts ...grpc.CallOption) (*GetRewardsResponse, error) {
+	out := new(GetRewardsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetRewards", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetRewardSummaries(ctx context.Context, in *GetRewardSummariesRequest, opts ...grpc.CallOption) (*GetRewardSummariesResponse, error) {
+	out := new(GetRewardSummariesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetRewardSummaries", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -380,6 +402,10 @@ type TradingDataServiceServer interface {
 	// -- Margin Levels --
 	// Get Margin Levels using a cursor based pagination model
 	GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error)
+	// Get rewards
+	GetRewards(context.Context, *GetRewardsRequest) (*GetRewardsResponse, error)
+	// Get reward summaries
+	GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -455,6 +481,12 @@ func (UnimplementedTradingDataServiceServer) GetParties(context.Context, *GetPar
 }
 func (UnimplementedTradingDataServiceServer) GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarginLevels not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetRewards(context.Context, *GetRewardsRequest) (*GetRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewards not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewardSummaries not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -886,6 +918,42 @@ func _TradingDataService_GetMarginLevels_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetRewards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetRewards",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetRewards(ctx, req.(*GetRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetRewardSummaries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardSummariesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetRewardSummaries(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetRewardSummaries",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetRewardSummaries(ctx, req.(*GetRewardSummariesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -980,6 +1048,14 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMarginLevels",
 			Handler:    _TradingDataService_GetMarginLevels_Handler,
+		},
+		{
+			MethodName: "GetRewards",
+			Handler:    _TradingDataService_GetRewards_Handler,
+		},
+		{
+			MethodName: "GetRewardSummaries",
+			Handler:    _TradingDataService_GetRewardSummaries_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

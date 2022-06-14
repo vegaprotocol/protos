@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetRewardSummariesResponse",
+    "definitions": {
+        "GetRewardSummariesResponse": {
+            "properties": {
+                "summaries": {
+                    "items": {
+                        "$ref": "#/definitions/vega.RewardSummary"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Reward Summaries Response",
+            "description": "The return message with reward details in for a single party"
+        },
+        "vega.RewardSummary": {
+            "properties": {
+                "asset_id": {
+                    "type": "string"
+                },
+                "party_id": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "Total amount of rewards for the asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Reward Summary",
+            "description": "Details for rewards for a single asset"
+        }
+    }
+}
