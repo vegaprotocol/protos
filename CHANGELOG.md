@@ -25,6 +25,7 @@
 - [5358](https://github.com/vegaprotocol/vega/issues/5358) - Add previous MVP field to equity shares snapshot.
 - [437](https://github.com/vegaprotocol/protos/issues/437) - Add `UpdateAsset` proto definition.
 - [440](https://github.com/vegaprotocol/protos/issues/440) - Add `previous_sequence_number` to `MarketDataUpdate` message
+- [459](https://github.com/vegaprotocol/protos/issues/459) - Add market data subscription to  `Data Node API V2`
 
 ### 🐛 Fixes
 - [433](https://github.com/vegaprotocol/protos/pull/433) - remove unnecessary semicolon from vega proto
