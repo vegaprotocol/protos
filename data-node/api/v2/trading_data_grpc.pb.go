@@ -39,6 +39,9 @@ type TradingDataServiceClient interface {
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
+	// -- Transfers --
+	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
+	GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
@@ -146,6 +149,15 @@ func (c *tradingDataServiceClient) GetBalanceHistory(ctx context.Context, in *Ge
 func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error) {
 	out := new(GetMarketDataHistoryByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error) {
+	out := new(GetTransfersResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTransfers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -340,6 +352,9 @@ type TradingDataServiceServer interface {
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
+	// -- Transfers --
+	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
+	GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
@@ -407,6 +422,9 @@ func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, 
 }
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransfers not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
@@ -591,6 +609,24 @@ func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx c
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, req.(*GetMarketDataHistoryByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetTransfers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransfersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetTransfers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetTransfers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetTransfers(ctx, req.(*GetTransfersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -920,6 +956,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMarketDataHistoryByID",
 			Handler:    _TradingDataService_GetMarketDataHistoryByID_Handler,
+		},
+		{
+			MethodName: "GetTransfers",
+			Handler:    _TradingDataService_GetTransfers_Handler,
 		},
 		{
 			MethodName: "GetNetworkLimits",

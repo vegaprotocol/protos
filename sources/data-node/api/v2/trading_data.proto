@@ -30,6 +30,10 @@ service TradingDataService {
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
 
+    // -- Transfers --
+    // Get Market Data History for a Market ID between given dates using a cursor based pagination model
+    rpc GetTransfers(GetTransfersRequest) returns (GetTransfersResponse);
+
     // -- Network Limits --
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
     rpc GetNetworkLimits(GetNetworkLimitsRequest) returns (GetNetworkLimitsResponse);
@@ -260,6 +264,30 @@ message MarketDataEdge {
 message MarketDataConnection {
     int64 total_count = 1;
     repeated MarketDataEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Transfers --
+// Request for transfers
+message GetTransfersRequest {
+    string pubkey = 1;
+    bool is_from = 2;
+    bool is_to = 3;
+}
+
+// Response for transfers
+message GetTransfersResponse {
+    repeated TransferConnection transfers = 1;
+}
+
+message TransferEdge {
+    vega.Transfer node = 1;
+    string cursor = 2;
+}
+
+message TransferConnection {
+    int64 total_count = 1;
+    repeated TransferEdge edges = 2;
     PageInfo page_info = 3;
 }
 
