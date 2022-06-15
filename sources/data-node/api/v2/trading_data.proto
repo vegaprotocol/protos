@@ -29,6 +29,8 @@ service TradingDataService {
     // -- Market Data --
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
+    // Subscribe to a stream of Markets Data
+    rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
 
     // -- Network Limits --
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -269,6 +271,17 @@ message MarketDataConnection {
     int64 total_count = 1;
     repeated MarketDataEdge edges = 2;
     PageInfo page_info = 3;
+}
+
+// Request to subscribe to a stream of MarketsData
+// Optionally, the list can be additionally filtered by market
+message MarketsDataSubscribeRequest {
+    // Market identifier
+    string market_id = 1;
+  }
+
+message MarketsDataSubscribeResponse {
+    repeated vega.MarketData market_data = 1;
 }
 
 // -- Network Limits --

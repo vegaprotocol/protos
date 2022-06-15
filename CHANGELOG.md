@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased (0.52.0)
+## Unreleased (0.53.0)
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -9,10 +9,16 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [455](https://github.com/vegaprotocol/protos/issues/455) - Add support for snapshot on the update asset.
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+## 0.52.0
+
+### 🛠 Improvements
+- [455](https://github.com/vegaprotocol/protos/issues/455) - Add support for snapshot on the update asset.
+
 
 ## 0.51.1
 
@@ -25,6 +31,7 @@
 - [5358](https://github.com/vegaprotocol/vega/issues/5358) - Add previous MVP field to equity shares snapshot.
 - [437](https://github.com/vegaprotocol/protos/issues/437) - Add `UpdateAsset` proto definition.
 - [440](https://github.com/vegaprotocol/protos/issues/440) - Add `previous_sequence_number` to `MarketDataUpdate` message
+- [459](https://github.com/vegaprotocol/protos/issues/459) - Add market data subscription to  `Data Node API V2`
 
 ### 🐛 Fixes
 - [433](https://github.com/vegaprotocol/protos/pull/433) - remove unnecessary semicolon from vega proto
