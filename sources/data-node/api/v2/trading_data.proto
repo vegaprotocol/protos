@@ -359,16 +359,27 @@ message GetCandleDataRequest {
     int64 to_timestamp = 3;
 
     // Time interval for the candles, required field specified as a valid postgres interval
-    string interval = 4;
+    vega.Interval interval = 4;
 
     // pagination controls
-    OffsetPagination pagination = 5;
+    Pagination pagination = 5;
 }
 
 // Response for list of candles for a market at an interval
 message GetCandleDataResponse {
     // A list of 0 or more candles
-    repeated Candle candles = 1;
+    CandleDataConnection candles = 1;
+}
+
+message CandleEdge {
+    Candle node = 1;
+    string cursor = 2;
+}
+
+message CandleDataConnection {
+    int64 total_count = 1;
+    repeated CandleEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- ERC20 Multi Sig --
