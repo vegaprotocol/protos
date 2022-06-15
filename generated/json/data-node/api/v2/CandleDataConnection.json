@@ -1,19 +1,26 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetCandleDataResponse",
+    "$ref": "#/definitions/CandleDataConnection",
     "definitions": {
-        "GetCandleDataResponse": {
+        "CandleDataConnection": {
             "properties": {
-                "candles": {
-                    "$ref": "#/definitions/datanode.api.v2.CandleDataConnection",
-                    "additionalProperties": true,
-                    "description": "A list of 0 or more candles"
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.CandleEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Candle Data Response",
-            "description": "Response for list of candles for a market at an interval"
+            "title": "Candle Data Connection"
         },
         "datanode.api.v2.Candle": {
             "properties": {
@@ -50,26 +57,6 @@
             "type": "object",
             "title": "Candle",
             "description": "Represents the high, low, open, and closing prices for an interval of trading, referred to commonly as a candlestick or candle"
-        },
-        "datanode.api.v2.CandleDataConnection": {
-            "properties": {
-                "total_count": {
-                    "type": "string"
-                },
-                "edges": {
-                    "items": {
-                        "$ref": "#/definitions/datanode.api.v2.CandleEdge"
-                    },
-                    "type": "array"
-                },
-                "page_info": {
-                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
-                    "additionalProperties": true
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Candle Data Connection"
         },
         "datanode.api.v2.CandleEdge": {
             "properties": {
