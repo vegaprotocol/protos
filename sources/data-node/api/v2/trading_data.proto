@@ -366,9 +366,11 @@ message GetCandleDataResponse {
 // -- Votes --
 // Request for Votes
 message GetVotesRequest {
-  string pubkey = 1;
-  bool is_from = 2;
-  bool is_to = 3;
+    // Party of which the votes are requested
+    string party_id = 1;
+
+    // Optional pagination control
+    optional Pagination pagination = 2;
 }
 
 // Response for Votes
