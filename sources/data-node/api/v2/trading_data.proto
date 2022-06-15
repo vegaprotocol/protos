@@ -65,6 +65,8 @@ service TradingDataService {
     rpc GetERC20MultiSigSignerAddedBundles(GetERC20MultiSigSignerAddedBundlesRequest) returns (GetERC20MultiSigSignerAddedBundlesResponse);
     // Gets the signature bundles that remove a particular validator to the multisig contract
     rpc GetERC20MultiSigSignerRemovedBundles(GetERC20MultiSigSignerRemovedBundlesRequest) returns (GetERC20MultiSigSignerRemovedBundlesResponse);
+    // Gets the signature bundles that remove a particular validator to the multisig contract
+    rpc GetERC20ListAssetBundle(GetERC20ListAssetBundleRequest) returns (GetERC20ListAssetBundleResponse);
 
     // -- Trades --
     // Get trades by market using a cursor based pagination model
