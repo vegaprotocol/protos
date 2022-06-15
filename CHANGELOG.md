@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased (0.52.0)
+## Unreleased (0.53.0)
 
 ### 🚨 Breaking changes
 - [](https://github.com/vegaprotocol/protos/pull/) -
@@ -9,10 +9,16 @@
 - [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🛠 Improvements
-- [455](https://github.com/vegaprotocol/protos/issues/455) - Add support for snapshot on the update asset.
+- [](https://github.com/vegaprotocol/protos/pull/) -
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/pull/) -
+
+## 0.52.0
+
+### 🛠 Improvements
+- [455](https://github.com/vegaprotocol/protos/issues/455) - Add support for snapshot on the update asset.
+
 
 ## 0.51.1
 
