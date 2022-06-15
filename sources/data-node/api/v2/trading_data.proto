@@ -3,6 +3,7 @@ syntax = "proto3";
 option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 
 import "vega/vega.proto";
+import "vega/governance.proto";
 import "vega/markets.proto";
 import "vega/oracles/v1/data.proto";
 import "vega/oracles/v1/spec.proto";
@@ -25,6 +26,10 @@ service TradingDataService {
     // -- Balances --
     // Get an aggregated list of the changes in balances in a set of accounts over time
     rpc GetBalanceHistory(GetBalanceHistoryRequest) returns (GetBalanceHistoryResponse) {}
+
+    // -- Votes --
+    // Get Votes for a Party ID using a cursor based pagination model
+    rpc GetVotes(GetVotesRequest) returns (GetVotesResponse);
 
     // -- Market Data --
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
@@ -356,6 +361,30 @@ message GetCandleDataRequest {
 message GetCandleDataResponse {
     // A list of 0 or more candles
     repeated Candle candles = 1;
+}
+
+// -- Votes --
+// Request for Votes
+message GetVotesRequest {
+  string pubkey = 1;
+  bool is_from = 2;
+  bool is_to = 3;
+}
+
+// Response for Votes
+message GetVotesResponse {
+  repeated VoteConnection votes = 1;
+}
+
+message VoteEdge {
+  vega.Vote node = 1;
+  string cursor = 2;
+}
+
+message VoteConnection {
+  int64 total_count = 1;
+  repeated VoteEdge edges = 2;
+  PageInfo page_info = 3;
 }
 
 // -- ERC20 Multi Sig --

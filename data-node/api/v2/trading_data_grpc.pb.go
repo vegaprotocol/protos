@@ -36,6 +36,9 @@ type TradingDataServiceClient interface {
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
+	// -- Votes --
+	// Get Votes for a Party ID using a cursor based pagination model
+	GetVotes(ctx context.Context, in *GetVotesRequest, opts ...grpc.CallOption) (*GetVotesResponse, error)
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
@@ -141,6 +144,15 @@ func (c *tradingDataServiceClient) GetOrderVersionsByIDPaged(ctx context.Context
 func (c *tradingDataServiceClient) GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error) {
 	out := new(GetBalanceHistoryResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetBalanceHistory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetVotes(ctx context.Context, in *GetVotesRequest, opts ...grpc.CallOption) (*GetVotesResponse, error) {
+	out := new(GetVotesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetVotes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -359,6 +371,9 @@ type TradingDataServiceServer interface {
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
+	// -- Votes --
+	// Get Votes for a Party ID using a cursor based pagination model
+	GetVotes(context.Context, *GetVotesRequest) (*GetVotesResponse, error)
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
@@ -430,6 +445,9 @@ func (UnimplementedTradingDataServiceServer) GetOrderVersionsByIDPaged(context.C
 }
 func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalanceHistory not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetVotes(context.Context, *GetVotesRequest) (*GetVotesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVotes not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
@@ -605,6 +623,24 @@ func _TradingDataService_GetBalanceHistory_Handler(srv interface{}, ctx context.
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TradingDataServiceServer).GetBalanceHistory(ctx, req.(*GetBalanceHistoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetVotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetVotesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetVotes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetVotes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetVotes(ctx, req.(*GetVotesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -984,6 +1020,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBalanceHistory",
 			Handler:    _TradingDataService_GetBalanceHistory_Handler,
+		},
+		{
+			MethodName: "GetVotes",
+			Handler:    _TradingDataService_GetVotes_Handler,
 		},
 		{
 			MethodName: "GetMarketDataHistoryByID",
