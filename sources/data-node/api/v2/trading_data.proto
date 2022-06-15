@@ -15,14 +15,14 @@ service TradingDataService {
     rpc GetOrdersByMarket(GetOrdersByMarketRequest) returns (GetOrdersByMarketResponse);
     // Get all versions of the order by its orderID
     rpc GetOrderVersionsByID(GetOrderVersionsByIDRequest) returns (GetOrderVersionsByIDResponse);
-    // Get a list of Positions by Party
-    rpc GetPositionsByParty(GetPositionsByPartyRequest) returns (GetPositionsByPartyResponse);
     // Get a list of Orders by Market using cursor based pagination
     rpc GetOrdersByMarketPaged(GetOrdersByMarketPagedRequest) returns (GetOrdersByMarketPagedResponse);
     // Get a list of Orders by Party using cursor based pagination
     rpc GetOrdersByPartyPaged(GetOrdersByPartyPagedRequest) returns (GetOrdersByPartyPagedResponse);
     // Get all versions of the order by its orderID using cursor based pagination
     rpc GetOrderVersionsByIDPaged(GetOrderVersionsByIDPagedRequest) returns (GetOrderVersionsByIDPagedResponse);
+
+    // -- Positions --
     // Get a list of Positions by Party using cursor based pagination
     rpc GetPositionsByPartyPaged(GetPositionsByPartyPagedRequest) returns (GetPositionsByPartyPagedResponse);
 
@@ -111,39 +111,6 @@ message PageInfo {
     string end_cursor = 4;
 }
 
-// -- Positions --
-// Request for a list of positions for a party
-// Optionally, if a market identifier is set, the results will be filtered for that market only
-message GetPositionsByPartyRequest {
-    // Party identifier, required field
-    string party_id = 1;
-    // Market identifier
-    string market_id = 2;
-}
-
-// Response for a list of positions for a party
-message GetPositionsByPartyResponse {
-    // A list of 0 or more positions
-    repeated vega.Position positions = 1;
-}
-
-// Request for a list of positions for a party
-// Optionally, if a market identifier is set, the results will be filtered for that market only
-message GetPositionsByPartyPagedRequest {
-    // Party identifier, required field
-    string party_id = 1;
-    // Market identifier
-    string market_id = 2;
-    // Optional pagination control
-    optional Pagination pagination = 3;
-}
-
-// Response for a list of positions for a party
-message GetPositionsByPartyPagedResponse {
-    // A list of 0 or more positions
-    PositionConnection positions = 1;
-}
-
 // -- Orders --
 // Request for a list of orders for a market
 message GetOrdersByMarketRequest {
@@ -214,6 +181,24 @@ message GetOrderVersionsByIDPagedRequest {
 message GetOrderVersionsByIDPagedResponse {
     // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
     OrderConnection orders = 1;
+}
+
+// -- Positions --
+// Request for a list of positions for a party
+// Optionally, if a market identifier is set, the results will be filtered for that market only
+message GetPositionsByPartyPagedRequest {
+    // Party identifier, required field
+    string party_id = 1;
+    // Market identifier
+    string market_id = 2;
+    // Optional pagination control
+    optional Pagination pagination = 3;
+}
+
+// Response for a list of positions for a party
+message GetPositionsByPartyPagedResponse {
+    // A list of 0 or more positions
+    PositionConnection positions = 1;
 }
 
 // -- Balances --
