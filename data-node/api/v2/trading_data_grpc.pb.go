@@ -40,7 +40,7 @@ type TradingDataServiceClient interface {
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// -- Transfers --
-	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
+	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
 	GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -353,7 +353,7 @@ type TradingDataServiceServer interface {
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// -- Transfers --
-	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
+	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
 	GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
