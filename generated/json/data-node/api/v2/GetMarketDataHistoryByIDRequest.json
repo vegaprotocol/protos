@@ -17,9 +17,14 @@
                     "description": "Optional Unix time in nanoseconds"
                 },
                 "pagination": {
-                    "$ref": "#/definitions/datanode.api.v2.OffsetPagination",
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true,
                     "description": "Optional pagination control"
+                },
+                "offset_pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.OffsetPagination",
+                    "additionalProperties": true,
+                    "description": "Optional offset pagination control in order to support existing version of the Market Data History query that is available in the GraphQL API. That function has been deprecated, but until it's removed we have added this to support pagination queries that use an offset."
                 }
             },
             "additionalProperties": true,
@@ -46,6 +51,26 @@
             "type": "object",
             "title": "Offset Pagination",
             "description": "-- Pagination -- Pagination controls"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
         }
     }
 }

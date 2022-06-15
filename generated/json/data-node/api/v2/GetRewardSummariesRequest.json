@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetRewardSummariesRequest",
+    "definitions": {
+        "GetRewardSummariesRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string"
+                },
+                "asset_id": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Reward Summaries Request",
+            "description": "A request to get reward details for a party"
+        }
+    }
+}

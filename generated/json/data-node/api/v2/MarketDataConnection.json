@@ -1,20 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetMarketDataHistoryByIDResponse",
+    "$ref": "#/definitions/MarketDataConnection",
     "definitions": {
-        "GetMarketDataHistoryByIDResponse": {
-            "properties": {
-                "market_data": {
-                    "$ref": "#/definitions/datanode.api.v2.MarketDataConnection",
-                    "additionalProperties": true
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Get Market Data History By ID Response",
-            "description": "Response for Market Data History"
-        },
-        "datanode.api.v2.MarketDataConnection": {
+        "MarketDataConnection": {
             "properties": {
                 "total_count": {
                     "type": "string"

@@ -27,7 +27,7 @@ service TradingDataService {
     rpc GetBalanceHistory(GetBalanceHistoryRequest) returns (GetBalanceHistoryResponse) {}
 
     // -- Market Data --
-    // Get Market Data History for a Market ID between given dates
+    // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
 
     // -- Network Limits --
@@ -77,6 +77,14 @@ service TradingDataService {
     // -- Margin Levels --
     // Get Margin Levels using a cursor based pagination model
     rpc GetMarginLevels(GetMarginLevelsRequest) returns (GetMarginLevelsResponse);
+    // -- Rewards --
+
+    // Get rewards
+    rpc GetRewards(GetRewardsRequest) returns (GetRewardsResponse);
+
+    // Get reward summaries
+    rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
+
 }
 
 // -- Pagination --
@@ -240,12 +248,27 @@ message GetMarketDataHistoryByIDRequest {
     // Optional Unix time in nanoseconds
     optional int64 end_timestamp = 3;
     // Optional pagination control
-    optional OffsetPagination pagination = 4;
+    optional Pagination pagination = 4;
+    // Optional offset pagination control in order to support existing version of the Market Data History query
+    // that is available in the GraphQL API. That function has been deprecated, but until it's removed we have
+    // added this to support pagination queries that use an offset.
+    optional OffsetPagination offset_pagination = 5 [deprecated = true];
 }
 
 // Response for Market Data History
 message GetMarketDataHistoryByIDResponse {
-    repeated vega.MarketData market_data = 1;
+    MarketDataConnection market_data = 1;
+}
+
+message MarketDataEdge {
+    vega.MarketData node = 1;
+    string cursor = 2;
+}
+
+message MarketDataConnection {
+    int64 total_count = 1;
+    repeated MarketDataEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- Network Limits --
@@ -599,5 +622,39 @@ message MarginEdge {
 message MarginConnection {
     int64 total_count = 1;
     repeated MarginEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// A request to get reward details for a party
+message GetRewardSummariesRequest {
+    string party_id = 1;
+    string asset_id = 2;
+}
+
+// The return message with reward details in for a single party
+message GetRewardSummariesResponse {
+    repeated vega.RewardSummary summaries = 1;
+}
+
+// A request to get reward details for a party
+message GetRewardsRequest {
+    string party_id = 1;
+    string asset_id = 2;
+    Pagination pagination = 3;
+}
+
+// The return message with reward details in for a single party
+message GetRewardsResponse {
+    RewardsConnection rewards = 1;
+}
+
+message RewardEdge {
+    vega.Reward node = 1;
+    string cursor = 2;
+}
+
+message RewardsConnection {
+    int64 total_count = 1;
+    repeated RewardEdge edges = 2;
     PageInfo page_info = 3;
 }

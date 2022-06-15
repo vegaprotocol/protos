@@ -103,8 +103,8 @@ message Payload {
     LiquidityPartiesLiquidityOrders liquidity_parties_liquidity_orders = 40;
     LiquidityPartiesOrders liquidity_parties_orders = 41;
     LiquidityProvisions liquidity_provisions = 42;
-    LiquiditySupplied liquidity_supplied= 43;
-    LiquidityTarget liquidity_target= 44;
+    LiquiditySupplied liquidity_supplied = 43;
+    LiquidityTarget liquidity_target = 44;
     FloatingPointConsensus floating_point_consensus = 46;
     MarketTracker market_tracker = 47;
     BankingRecurringTransfers banking_recurring_transfers = 49;
@@ -112,6 +112,7 @@ message Payload {
     ERC20MultiSigTopologyVerified erc20_multisig_topology_verified = 51;
     ERC20MultiSigTopologyPending erc20_multisig_topology_pending = 52;
     ProofOfWork proof_of_work = 53;
+    PendingAssetUpdates pending_asset_updates = 54;
   }
 }
 
@@ -135,10 +136,10 @@ message LiquidityPriceProbabilityPair {
 }
 
 message LiquiditySupplied {
-   string market_id = 1;
-   bool consensus_reached = 2;
-   repeated LiquidityPriceProbabilityPair bid_cache = 3;
-   repeated LiquidityPriceProbabilityPair ask_cache = 4;
+  string market_id = 1;
+  bool consensus_reached = 2;
+  repeated LiquidityPriceProbabilityPair bid_cache = 3;
+  repeated LiquidityPriceProbabilityPair ask_cache = 4;
 }
 
 message OracleDataBatch {
@@ -187,6 +188,10 @@ message PendingAssets {
   repeated vega.Asset assets = 1;
 }
 
+message PendingAssetUpdates {
+  repeated vega.Asset assets = 1;
+}
+
 message Withdrawal {
   string ref = 1;
   vega.Withdrawal withdrawal = 2;
@@ -215,6 +220,7 @@ message AssetAction {
   vega.BuiltinAssetDeposit builtin_deposit = 7;
   vega.ERC20Deposit erc20_deposit = 8;
   vega.ERC20AssetList asset_list = 9;
+  vega.ERC20AssetLimitsUpdated erc20_asset_limits_updated = 10;
 }
 
 message BankingWithdrawals {
@@ -707,7 +713,7 @@ message NextTimeTrigger {
 }
 
 message MarketTracker {
-  repeated checkpoint.v1.MarketActivityTracker market_activity = 1; 
+  repeated checkpoint.v1.MarketActivityTracker market_activity = 1;
 }
 
 message SignerEventsPerAddress {
@@ -732,12 +738,22 @@ message ERC20MultiSigTopologyPending {
 message ProofOfWork {
   repeated uint64 block_height = 1;
   repeated string block_hash = 2;
-  repeated string seen_tx = 3;
   repeated TransactionsAtHeight tx_at_height = 4;
-  repeated string seen_tid = 5;
   repeated TransactionsAtHeight tid_at_height = 6;
-  repeated BannedParty banned = 7;	
+  repeated BannedParty banned = 7;
+  repeated ProofOfWorkParams pow_params = 8;
 }
+
+message ProofOfWorkParams {
+  uint64 spam_pow_number_of_past_blocks = 1;
+  uint32 spam_pow_difficulty = 2;
+  string spam_pow_hash_function = 3;
+  uint64 spam_pow_number_of_tx_per_block = 4;
+  bool spam_pow_increasing_difficulty = 5;
+  uint64 from_block = 6;
+  int64 until_block = 7;
+}
+
 message TransactionsAtHeight {
   uint64 height = 1;
   repeated string transactions = 2;
