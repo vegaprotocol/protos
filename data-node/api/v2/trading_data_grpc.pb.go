@@ -36,9 +36,6 @@ type TradingDataServiceClient interface {
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
-	// -- Votes --
-	// Get Votes for a Party ID using a cursor based pagination model
-	GetVotes(ctx context.Context, in *GetVotesRequest, opts ...grpc.CallOption) (*GetVotesResponse, error)
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
@@ -52,6 +49,9 @@ type TradingDataServiceClient interface {
 	SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error)
 	// Gets all available intervals for a given market along with the corresponding candle id
 	GetCandlesForMarket(ctx context.Context, in *GetCandlesForMarketRequest, opts ...grpc.CallOption) (*GetCandlesForMarketResponse, error)
+	// -- Votes --
+	// Get Votes for a Party ID using a cursor based pagination model
+	GetVotes(ctx context.Context, in *GetVotesRequest, opts ...grpc.CallOption) (*GetVotesResponse, error)
 	// -- ERC20 Multi Sig --
 	// Gets the signature bundles that add a particular validator to the multisig contract
 	GetERC20MultiSigSignerAddedBundles(ctx context.Context, in *GetERC20MultiSigSignerAddedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
@@ -150,15 +150,6 @@ func (c *tradingDataServiceClient) GetBalanceHistory(ctx context.Context, in *Ge
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetVotes(ctx context.Context, in *GetVotesRequest, opts ...grpc.CallOption) (*GetVotesResponse, error) {
-	out := new(GetVotesResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetVotes", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error) {
 	out := new(GetMarketDataHistoryByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID", in, out, opts...)
@@ -221,6 +212,15 @@ func (x *tradingDataServiceSubscribeToCandleDataClient) Recv() (*SubscribeToCand
 func (c *tradingDataServiceClient) GetCandlesForMarket(ctx context.Context, in *GetCandlesForMarketRequest, opts ...grpc.CallOption) (*GetCandlesForMarketResponse, error) {
 	out := new(GetCandlesForMarketResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetCandlesForMarket", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetVotes(ctx context.Context, in *GetVotesRequest, opts ...grpc.CallOption) (*GetVotesResponse, error) {
+	out := new(GetVotesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetVotes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -371,9 +371,6 @@ type TradingDataServiceServer interface {
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
-	// -- Votes --
-	// Get Votes for a Party ID using a cursor based pagination model
-	GetVotes(context.Context, *GetVotesRequest) (*GetVotesResponse, error)
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
@@ -387,6 +384,9 @@ type TradingDataServiceServer interface {
 	SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error
 	// Gets all available intervals for a given market along with the corresponding candle id
 	GetCandlesForMarket(context.Context, *GetCandlesForMarketRequest) (*GetCandlesForMarketResponse, error)
+	// -- Votes --
+	// Get Votes for a Party ID using a cursor based pagination model
+	GetVotes(context.Context, *GetVotesRequest) (*GetVotesResponse, error)
 	// -- ERC20 Multi Sig --
 	// Gets the signature bundles that add a particular validator to the multisig contract
 	GetERC20MultiSigSignerAddedBundles(context.Context, *GetERC20MultiSigSignerAddedBundlesRequest) (*GetERC20MultiSigSignerAddedBundlesResponse, error)
@@ -446,9 +446,6 @@ func (UnimplementedTradingDataServiceServer) GetOrderVersionsByIDPaged(context.C
 func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalanceHistory not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetVotes(context.Context, *GetVotesRequest) (*GetVotesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetVotes not implemented")
-}
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
 }
@@ -463,6 +460,9 @@ func (UnimplementedTradingDataServiceServer) SubscribeToCandleData(*SubscribeToC
 }
 func (UnimplementedTradingDataServiceServer) GetCandlesForMarket(context.Context, *GetCandlesForMarketRequest) (*GetCandlesForMarketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCandlesForMarket not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetVotes(context.Context, *GetVotesRequest) (*GetVotesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVotes not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerAddedBundles(context.Context, *GetERC20MultiSigSignerAddedBundlesRequest) (*GetERC20MultiSigSignerAddedBundlesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetERC20MultiSigSignerAddedBundles not implemented")
@@ -627,24 +627,6 @@ func _TradingDataService_GetBalanceHistory_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetVotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetVotesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetVotes(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetVotes",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetVotes(ctx, req.(*GetVotesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMarketDataHistoryByIDRequest)
 	if err := dec(in); err != nil {
@@ -734,6 +716,24 @@ func _TradingDataService_GetCandlesForMarket_Handler(srv interface{}, ctx contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TradingDataServiceServer).GetCandlesForMarket(ctx, req.(*GetCandlesForMarketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetVotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetVotesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetVotes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetVotes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetVotes(ctx, req.(*GetVotesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1022,10 +1022,6 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetBalanceHistory_Handler,
 		},
 		{
-			MethodName: "GetVotes",
-			Handler:    _TradingDataService_GetVotes_Handler,
-		},
-		{
 			MethodName: "GetMarketDataHistoryByID",
 			Handler:    _TradingDataService_GetMarketDataHistoryByID_Handler,
 		},
@@ -1040,6 +1036,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCandlesForMarket",
 			Handler:    _TradingDataService_GetCandlesForMarket_Handler,
+		},
+		{
+			MethodName: "GetVotes",
+			Handler:    _TradingDataService_GetVotes_Handler,
 		},
 		{
 			MethodName: "GetERC20MultiSigSignerAddedBundles",

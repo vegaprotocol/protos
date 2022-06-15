@@ -27,10 +27,6 @@ service TradingDataService {
     // Get an aggregated list of the changes in balances in a set of accounts over time
     rpc GetBalanceHistory(GetBalanceHistoryRequest) returns (GetBalanceHistoryResponse) {}
 
-    // -- Votes --
-    // Get Votes for a Party ID using a cursor based pagination model
-    rpc GetVotes(GetVotesRequest) returns (GetVotesResponse);
-
     // -- Market Data --
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
@@ -46,6 +42,10 @@ service TradingDataService {
     rpc SubscribeToCandleData(SubscribeToCandleDataRequest) returns (stream SubscribeToCandleDataResponse);
     // Gets all available intervals for a given market along with the corresponding candle id
     rpc GetCandlesForMarket(GetCandlesForMarketRequest) returns (GetCandlesForMarketResponse);
+
+    // -- Votes --
+    // Get Votes for a Party ID using a cursor based pagination model
+    rpc GetVotes(GetVotesRequest) returns (GetVotesResponse);
 
     // -- ERC20 Multi Sig --
     // Gets the signature bundles that add a particular validator to the multisig contract
@@ -373,18 +373,18 @@ message GetVotesRequest {
 
 // Response for Votes
 message GetVotesResponse {
-  repeated VoteConnection votes = 1;
+    repeated VoteConnection votes = 1;
 }
 
 message VoteEdge {
-  vega.Vote node = 1;
-  string cursor = 2;
+    vega.Vote node = 1;
+    string cursor = 2;
 }
 
 message VoteConnection {
-  int64 total_count = 1;
-  repeated VoteEdge edges = 2;
-  PageInfo page_info = 3;
+    int64 total_count = 1;
+    repeated VoteEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- ERC20 Multi Sig --
