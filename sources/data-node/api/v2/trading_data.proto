@@ -31,7 +31,7 @@ service TradingDataService {
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
 
     // -- Transfers --
-    // Get Market Data History for a Market ID between given dates using a cursor based pagination model
+    // Get Transfersfor a Market ID for a public key using a cursor based pagination model
     rpc GetTransfers(GetTransfersRequest) returns (GetTransfersResponse);
 
     // -- Network Limits --
