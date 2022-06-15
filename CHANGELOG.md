@@ -26,6 +26,7 @@
 - [435](https://github.com/vegaprotocol/protos/issues/435) - Rename messages related to list asset method bundle
 
 ### 🛠 Improvements
+- [462](https://github.com/vegaprotocol/protos/issues/462) - Add support for cursor based pagination in `Data Node API V2` Votes
 - [418](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Trades, Markets and Parties
 - [427](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Orders
 - [5358](https://github.com/vegaprotocol/vega/issues/5358) - Add previous MVP field to equity shares snapshot.
