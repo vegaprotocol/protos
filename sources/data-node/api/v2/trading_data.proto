@@ -201,6 +201,17 @@ message GetPositionsByPartyPagedResponse {
     PositionConnection positions = 1;
 }
 
+message PositionEdge {
+    vega.Position node = 1;
+    string cursor = 2;
+}
+
+message PositionConnection {
+    int64 total_count = 1;
+    repeated PositionEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
 // -- Balances --
 message GetBalanceHistoryRequest {
     // Limit the accounts considered according to the filter supplied
@@ -625,18 +636,6 @@ message GetMarginLevelsResponse {
 message OrderConnection {
     int64 total_count = 1;
     repeated OrderEdge edges = 2;
-    PageInfo page_info = 3;
-}
-
-// -- Positions --
-message PositionEdge {
-    vega.Position node = 1;
-    string cursor = 2;
-}
-
-message PositionConnection {
-    int64 total_count = 1;
-    repeated PositionEdge edges = 2;
     PageInfo page_info = 3;
 }
 
