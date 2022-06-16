@@ -21132,7 +21132,7 @@
               "defaultValue": ""
             },
             {
-              "name": "SettlementPrice",
+              "name": "settlement_price",
               "description": "",
               "label": "",
               "type": "string",
