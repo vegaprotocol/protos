@@ -278,9 +278,13 @@ message MarketDataConnection {
 // -- Transfers --
 // Request for transfers
 message GetTransfersRequest {
+    // Public key of which transfers to request
     string pubkey = 1;
+    // Directions to include in the response data
     bool is_from = 2;
     bool is_to = 3;
+    // Optional pagination cntrol
+    optional Pagination pagination = 4;
 }
 
 // Response for transfers

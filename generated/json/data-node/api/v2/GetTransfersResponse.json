@@ -1,0 +1,177 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetTransfersResponse",
+    "definitions": {
+        "GetTransfersResponse": {
+            "properties": {
+                "transfers": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.TransferConnection"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Transfers Response",
+            "description": "Response for transfers"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        },
+        "datanode.api.v2.TransferConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.TransferEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Connection"
+        },
+        "datanode.api.v2.TransferEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Transfer",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Edge"
+        },
+        "vega.FinancialAmount": {
+            "properties": {
+                "amount": {
+                    "type": "string",
+                    "description": "A signed integer amount of asset"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "Asset identifier"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Financial Amount",
+            "description": "Asset value information used within a transfer"
+        },
+        "vega.Transfer": {
+            "properties": {
+                "owner": {
+                    "type": "string",
+                    "description": "Party identifier for the owner of the transfer"
+                },
+                "amount": {
+                    "$ref": "#/definitions/vega.FinancialAmount",
+                    "additionalProperties": true,
+                    "description": "A financial amount (of an asset) to transfer"
+                },
+                "type": {
+                    "enum": [
+                        "TRANSFER_TYPE_UNSPECIFIED",
+                        0,
+                        "TRANSFER_TYPE_LOSS",
+                        1,
+                        "TRANSFER_TYPE_WIN",
+                        2,
+                        "TRANSFER_TYPE_CLOSE",
+                        3,
+                        "TRANSFER_TYPE_MTM_LOSS",
+                        4,
+                        "TRANSFER_TYPE_MTM_WIN",
+                        5,
+                        "TRANSFER_TYPE_MARGIN_LOW",
+                        6,
+                        "TRANSFER_TYPE_MARGIN_HIGH",
+                        7,
+                        "TRANSFER_TYPE_MARGIN_CONFISCATED",
+                        8,
+                        "TRANSFER_TYPE_MAKER_FEE_PAY",
+                        9,
+                        "TRANSFER_TYPE_MAKER_FEE_RECEIVE",
+                        10,
+                        "TRANSFER_TYPE_INFRASTRUCTURE_FEE_PAY",
+                        11,
+                        "TRANSFER_TYPE_INFRASTRUCTURE_FEE_DISTRIBUTE",
+                        12,
+                        "TRANSFER_TYPE_LIQUIDITY_FEE_PAY",
+                        13,
+                        "TRANSFER_TYPE_LIQUIDITY_FEE_DISTRIBUTE",
+                        14,
+                        "TRANSFER_TYPE_BOND_LOW",
+                        15,
+                        "TRANSFER_TYPE_BOND_HIGH",
+                        16,
+                        "TRANSFER_TYPE_WITHDRAW_LOCK",
+                        17,
+                        "TRANSFER_TYPE_WITHDRAW",
+                        18,
+                        "TRANSFER_TYPE_DEPOSIT",
+                        19,
+                        "TRANSFER_TYPE_BOND_SLASHING",
+                        20,
+                        "TRANSFER_TYPE_STAKE_REWARD",
+                        21,
+                        "TRANSFER_TYPE_TRANSFER_FUNDS_SEND",
+                        22,
+                        "TRANSFER_TYPE_TRANSFER_FUNDS_DISTRIBUTE",
+                        23
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Transfer Type",
+                    "description": "Transfers can occur between parties on Vega, these are the types that indicate why a transfer took place"
+                },
+                "min_amount": {
+                    "type": "string",
+                    "description": "A minimum amount"
+                },
+                "market_id": {
+                    "type": "string",
+                    "description": "optional dispatch strategy"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer",
+            "description": "Represents a financial transfer within Vega"
+        }
+    }
+}
