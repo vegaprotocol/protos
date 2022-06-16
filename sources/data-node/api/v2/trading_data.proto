@@ -33,6 +33,8 @@ service TradingDataService {
     // -- Market Data --
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
+    // Subscribe to a stream of Markets Data
+    rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
 
     // -- Network Limits --
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -81,6 +83,14 @@ service TradingDataService {
     // -- Margin Levels --
     // Get Margin Levels using a cursor based pagination model
     rpc GetMarginLevels(GetMarginLevelsRequest) returns (GetMarginLevelsResponse);
+    // -- Rewards --
+
+    // Get rewards
+    rpc GetRewards(GetRewardsRequest) returns (GetRewardsResponse);
+
+    // Get reward summaries
+    rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
+
 }
 
 // -- Pagination --
@@ -296,6 +306,17 @@ message MarketDataConnection {
     PageInfo page_info = 3;
 }
 
+// Request to subscribe to a stream of MarketsData
+// Optionally, the list can be additionally filtered by market
+message MarketsDataSubscribeRequest {
+    // Market identifier
+    string market_id = 1;
+  }
+
+message MarketsDataSubscribeResponse {
+    repeated vega.MarketData market_data = 1;
+}
+
 // -- Network Limits --
 // Request for the current network limits
 message GetNetworkLimitsRequest {}
@@ -371,16 +392,27 @@ message GetCandleDataRequest {
     int64 to_timestamp = 3;
 
     // Time interval for the candles, required field specified as a valid postgres interval
-    string interval = 4;
+    vega.Interval interval = 4;
 
     // pagination controls
-    OffsetPagination pagination = 5;
+    Pagination pagination = 5;
 }
 
 // Response for list of candles for a market at an interval
 message GetCandleDataResponse {
     // A list of 0 or more candles
-    repeated Candle candles = 1;
+    CandleDataConnection candles = 1;
+}
+
+message CandleEdge {
+    Candle node = 1;
+    string cursor = 2;
+}
+
+message CandleDataConnection {
+    int64 total_count = 1;
+    repeated CandleEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- ERC20 Multi Sig --
@@ -647,5 +679,39 @@ message MarginEdge {
 message MarginConnection {
     int64 total_count = 1;
     repeated MarginEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// A request to get reward details for a party
+message GetRewardSummariesRequest {
+    string party_id = 1;
+    string asset_id = 2;
+}
+
+// The return message with reward details in for a single party
+message GetRewardSummariesResponse {
+    repeated vega.RewardSummary summaries = 1;
+}
+
+// A request to get reward details for a party
+message GetRewardsRequest {
+    string party_id = 1;
+    string asset_id = 2;
+    Pagination pagination = 3;
+}
+
+// The return message with reward details in for a single party
+message GetRewardsResponse {
+    RewardsConnection rewards = 1;
+}
+
+message RewardEdge {
+    vega.Reward node = 1;
+    string cursor = 2;
+}
+
+message RewardsConnection {
+    int64 total_count = 1;
+    repeated RewardEdge edges = 2;
     PageInfo page_info = 3;
 }

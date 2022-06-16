@@ -42,6 +42,8 @@ type TradingDataServiceClient interface {
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
+	// Subscribe to a stream of Markets Data
+	MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
@@ -82,6 +84,10 @@ type TradingDataServiceClient interface {
 	// -- Margin Levels --
 	// Get Margin Levels using a cursor based pagination model
 	GetMarginLevels(ctx context.Context, in *GetMarginLevelsRequest, opts ...grpc.CallOption) (*GetMarginLevelsResponse, error)
+	// Get rewards
+	GetRewards(ctx context.Context, in *GetRewardsRequest, opts ...grpc.CallOption) (*GetRewardsResponse, error)
+	// Get reward summaries
+	GetRewardSummaries(ctx context.Context, in *GetRewardSummariesRequest, opts ...grpc.CallOption) (*GetRewardSummariesResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -164,6 +170,38 @@ func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context,
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/MarketsDataSubscribe", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceMarketsDataSubscribeClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_MarketsDataSubscribeClient interface {
+	Recv() (*MarketsDataSubscribeResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceMarketsDataSubscribeClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceMarketsDataSubscribeClient) Recv() (*MarketsDataSubscribeResponse, error) {
+	m := new(MarketsDataSubscribeResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error) {
 	out := new(GetNetworkLimitsResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetNetworkLimits", in, out, opts...)
@@ -183,7 +221,7 @@ func (c *tradingDataServiceClient) GetCandleData(ctx context.Context, in *GetCan
 }
 
 func (c *tradingDataServiceClient) SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[1], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -331,6 +369,24 @@ func (c *tradingDataServiceClient) GetMarginLevels(ctx context.Context, in *GetM
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetRewards(ctx context.Context, in *GetRewardsRequest, opts ...grpc.CallOption) (*GetRewardsResponse, error) {
+	out := new(GetRewardsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetRewards", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetRewardSummaries(ctx context.Context, in *GetRewardSummariesRequest, opts ...grpc.CallOption) (*GetRewardSummariesResponse, error) {
+	out := new(GetRewardSummariesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetRewardSummaries", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -355,6 +411,8 @@ type TradingDataServiceServer interface {
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
+	// Subscribe to a stream of Markets Data
+	MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
@@ -395,6 +453,10 @@ type TradingDataServiceServer interface {
 	// -- Margin Levels --
 	// Get Margin Levels using a cursor based pagination model
 	GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error)
+	// Get rewards
+	GetRewards(context.Context, *GetRewardsRequest) (*GetRewardsResponse, error)
+	// Get reward summaries
+	GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -425,6 +487,9 @@ func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, 
 }
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error {
+	return status.Errorf(codes.Unimplemented, "method MarketsDataSubscribe not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
@@ -473,6 +538,12 @@ func (UnimplementedTradingDataServiceServer) GetParties(context.Context, *GetPar
 }
 func (UnimplementedTradingDataServiceServer) GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarginLevels not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetRewards(context.Context, *GetRewardsRequest) (*GetRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewards not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewardSummaries not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -629,6 +700,27 @@ func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx c
 		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, req.(*GetMarketDataHistoryByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_MarketsDataSubscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(MarketsDataSubscribeRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).MarketsDataSubscribe(m, &tradingDataServiceMarketsDataSubscribeServer{stream})
+}
+
+type TradingDataService_MarketsDataSubscribeServer interface {
+	Send(*MarketsDataSubscribeResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceMarketsDataSubscribeServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceMarketsDataSubscribeServer) Send(m *MarketsDataSubscribeResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _TradingDataService_GetNetworkLimits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -922,6 +1014,42 @@ func _TradingDataService_GetMarginLevels_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetRewards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetRewards",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetRewards(ctx, req.(*GetRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetRewardSummaries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardSummariesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetRewardSummaries(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetRewardSummaries",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetRewardSummaries(ctx, req.(*GetRewardSummariesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1021,8 +1149,21 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "GetMarginLevels",
 			Handler:    _TradingDataService_GetMarginLevels_Handler,
 		},
+		{
+			MethodName: "GetRewards",
+			Handler:    _TradingDataService_GetRewards_Handler,
+		},
+		{
+			MethodName: "GetRewardSummaries",
+			Handler:    _TradingDataService_GetRewardSummaries_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "MarketsDataSubscribe",
+			Handler:       _TradingDataService_MarketsDataSubscribe_Handler,
+			ServerStreams: true,
+		},
 		{
 			StreamName:    "SubscribeToCandleData",
 			Handler:       _TradingDataService_SubscribeToCandleData_Handler,
