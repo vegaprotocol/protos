@@ -39,6 +39,8 @@ type TradingDataServiceClient interface {
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
+	// Subscribe to a stream of Markets Data
+	MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error)
 	// -- Transfers --
 	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
 	GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error)
@@ -159,6 +161,38 @@ func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context,
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/MarketsDataSubscribe", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceMarketsDataSubscribeClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_MarketsDataSubscribeClient interface {
+	Recv() (*MarketsDataSubscribeResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceMarketsDataSubscribeClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceMarketsDataSubscribeClient) Recv() (*MarketsDataSubscribeResponse, error) {
+	m := new(MarketsDataSubscribeResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *tradingDataServiceClient) GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error) {
 	out := new(GetTransfersResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTransfers", in, out, opts...)
@@ -187,7 +221,7 @@ func (c *tradingDataServiceClient) GetCandleData(ctx context.Context, in *GetCan
 }
 
 func (c *tradingDataServiceClient) SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[1], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -374,6 +408,8 @@ type TradingDataServiceServer interface {
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
+	// Subscribe to a stream of Markets Data
+	MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error
 	// -- Transfers --
 	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
 	GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error)
@@ -448,6 +484,9 @@ func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, 
 }
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error {
+	return status.Errorf(codes.Unimplemented, "method MarketsDataSubscribe not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTransfers not implemented")
@@ -643,6 +682,27 @@ func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx c
 		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, req.(*GetMarketDataHistoryByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_MarketsDataSubscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(MarketsDataSubscribeRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).MarketsDataSubscribe(m, &tradingDataServiceMarketsDataSubscribeServer{stream})
+}
+
+type TradingDataService_MarketsDataSubscribeServer interface {
+	Send(*MarketsDataSubscribeResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceMarketsDataSubscribeServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceMarketsDataSubscribeServer) Send(m *MarketsDataSubscribeResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _TradingDataService_GetTransfers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1099,6 +1159,11 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "MarketsDataSubscribe",
+			Handler:       _TradingDataService_MarketsDataSubscribe_Handler,
+			ServerStreams: true,
+		},
 		{
 			StreamName:    "SubscribeToCandleData",
 			Handler:       _TradingDataService_SubscribeToCandleData_Handler,
