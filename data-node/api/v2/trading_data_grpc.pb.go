@@ -33,12 +33,20 @@ type TradingDataServiceClient interface {
 	GetOrdersByPartyPaged(ctx context.Context, in *GetOrdersByPartyPagedRequest, opts ...grpc.CallOption) (*GetOrdersByPartyPagedResponse, error)
 	// Get all versions of the order by its orderID using cursor based pagination
 	GetOrderVersionsByIDPaged(ctx context.Context, in *GetOrderVersionsByIDPagedRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDPagedResponse, error)
+	// -- Positions --
+	// Get a list of Positions by Party using cursor based pagination
+	GetPositionsByPartyPaged(ctx context.Context, in *GetPositionsByPartyPagedRequest, opts ...grpc.CallOption) (*GetPositionsByPartyPagedResponse, error)
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
+	// Subscribe to a stream of Markets Data
+	MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error)
+	// -- Transfers --
+	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
+	GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
@@ -141,6 +149,15 @@ func (c *tradingDataServiceClient) GetOrderVersionsByIDPaged(ctx context.Context
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetPositionsByPartyPaged(ctx context.Context, in *GetPositionsByPartyPagedRequest, opts ...grpc.CallOption) (*GetPositionsByPartyPagedResponse, error) {
+	out := new(GetPositionsByPartyPagedResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetPositionsByPartyPaged", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tradingDataServiceClient) GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error) {
 	out := new(GetBalanceHistoryResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetBalanceHistory", in, out, opts...)
@@ -153,6 +170,47 @@ func (c *tradingDataServiceClient) GetBalanceHistory(ctx context.Context, in *Ge
 func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error) {
 	out := new(GetMarketDataHistoryByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/MarketsDataSubscribe", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceMarketsDataSubscribeClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_MarketsDataSubscribeClient interface {
+	Recv() (*MarketsDataSubscribeResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceMarketsDataSubscribeClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceMarketsDataSubscribeClient) Recv() (*MarketsDataSubscribeResponse, error) {
+	m := new(MarketsDataSubscribeResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *tradingDataServiceClient) GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error) {
+	out := new(GetTransfersResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTransfers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +236,7 @@ func (c *tradingDataServiceClient) GetCandleData(ctx context.Context, in *GetCan
 }
 
 func (c *tradingDataServiceClient) SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[1], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -368,12 +426,20 @@ type TradingDataServiceServer interface {
 	GetOrdersByPartyPaged(context.Context, *GetOrdersByPartyPagedRequest) (*GetOrdersByPartyPagedResponse, error)
 	// Get all versions of the order by its orderID using cursor based pagination
 	GetOrderVersionsByIDPaged(context.Context, *GetOrderVersionsByIDPagedRequest) (*GetOrderVersionsByIDPagedResponse, error)
+	// -- Positions --
+	// Get a list of Positions by Party using cursor based pagination
+	GetPositionsByPartyPaged(context.Context, *GetPositionsByPartyPagedRequest) (*GetPositionsByPartyPagedResponse, error)
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
 	// -- Market Data --
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
+	// Subscribe to a stream of Markets Data
+	MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error
+	// -- Transfers --
+	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
+	GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
@@ -443,11 +509,20 @@ func (UnimplementedTradingDataServiceServer) GetOrdersByPartyPaged(context.Conte
 func (UnimplementedTradingDataServiceServer) GetOrderVersionsByIDPaged(context.Context, *GetOrderVersionsByIDPagedRequest) (*GetOrderVersionsByIDPagedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrderVersionsByIDPaged not implemented")
 }
+func (UnimplementedTradingDataServiceServer) GetPositionsByPartyPaged(context.Context, *GetPositionsByPartyPagedRequest) (*GetPositionsByPartyPagedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPositionsByPartyPaged not implemented")
+}
 func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalanceHistory not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
+}
+func (UnimplementedTradingDataServiceServer) MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error {
+	return status.Errorf(codes.Unimplemented, "method MarketsDataSubscribe not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransfers not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
@@ -609,6 +684,24 @@ func _TradingDataService_GetOrderVersionsByIDPaged_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetPositionsByPartyPaged_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPositionsByPartyPagedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetPositionsByPartyPaged(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetPositionsByPartyPaged",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetPositionsByPartyPaged(ctx, req.(*GetPositionsByPartyPagedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TradingDataService_GetBalanceHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetBalanceHistoryRequest)
 	if err := dec(in); err != nil {
@@ -641,6 +734,45 @@ func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx c
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TradingDataServiceServer).GetMarketDataHistoryByID(ctx, req.(*GetMarketDataHistoryByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_MarketsDataSubscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(MarketsDataSubscribeRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).MarketsDataSubscribe(m, &tradingDataServiceMarketsDataSubscribeServer{stream})
+}
+
+type TradingDataService_MarketsDataSubscribeServer interface {
+	Send(*MarketsDataSubscribeResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceMarketsDataSubscribeServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceMarketsDataSubscribeServer) Send(m *MarketsDataSubscribeResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _TradingDataService_GetTransfers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransfersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetTransfers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetTransfers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetTransfers(ctx, req.(*GetTransfersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1018,12 +1150,20 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetOrderVersionsByIDPaged_Handler,
 		},
 		{
+			MethodName: "GetPositionsByPartyPaged",
+			Handler:    _TradingDataService_GetPositionsByPartyPaged_Handler,
+		},
+		{
 			MethodName: "GetBalanceHistory",
 			Handler:    _TradingDataService_GetBalanceHistory_Handler,
 		},
 		{
 			MethodName: "GetMarketDataHistoryByID",
 			Handler:    _TradingDataService_GetMarketDataHistoryByID_Handler,
+		},
+		{
+			MethodName: "GetTransfers",
+			Handler:    _TradingDataService_GetTransfers_Handler,
 		},
 		{
 			MethodName: "GetNetworkLimits",
@@ -1099,6 +1239,11 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "MarketsDataSubscribe",
+			Handler:       _TradingDataService_MarketsDataSubscribe_Handler,
+			ServerStreams: true,
+		},
 		{
 			StreamName:    "SubscribeToCandleData",
 			Handler:       _TradingDataService_SubscribeToCandleData_Handler,

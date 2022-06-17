@@ -26,12 +26,15 @@
 - [435](https://github.com/vegaprotocol/protos/issues/435) - Rename messages related to list asset method bundle
 
 ### 🛠 Improvements
+- [450](https://github.com/vegaprotocol/protos/issues/450) - Add support for cursor based pagination in `Data Node API V2` Positions
+- [458](https://github.com/vegaprotocol/protos/issues/458) - Add support for cursor based pagination in `Data Node API V2` Transfers
 - [462](https://github.com/vegaprotocol/protos/issues/462) - Add support for cursor based pagination in `Data Node API V2` Votes
 - [418](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Trades, Markets and Parties
 - [427](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Orders
 - [5358](https://github.com/vegaprotocol/vega/issues/5358) - Add previous MVP field to equity shares snapshot.
 - [437](https://github.com/vegaprotocol/protos/issues/437) - Add `UpdateAsset` proto definition.
 - [440](https://github.com/vegaprotocol/protos/issues/440) - Add `previous_sequence_number` to `MarketDataUpdate` message
+- [459](https://github.com/vegaprotocol/protos/issues/459) - Add market data subscription to  `Data Node API V2`
 
 ### 🐛 Fixes
 - [433](https://github.com/vegaprotocol/protos/pull/433) - remove unnecessary semicolon from vega proto

@@ -23,6 +23,10 @@ service TradingDataService {
     // Get all versions of the order by its orderID using cursor based pagination
     rpc GetOrderVersionsByIDPaged(GetOrderVersionsByIDPagedRequest) returns (GetOrderVersionsByIDPagedResponse);
 
+    // -- Positions --
+    // Get a list of Positions by Party using cursor based pagination
+    rpc GetPositionsByPartyPaged(GetPositionsByPartyPagedRequest) returns (GetPositionsByPartyPagedResponse);
+
     // -- Balances --
     // Get an aggregated list of the changes in balances in a set of accounts over time
     rpc GetBalanceHistory(GetBalanceHistoryRequest) returns (GetBalanceHistoryResponse) {}
@@ -30,6 +34,12 @@ service TradingDataService {
     // -- Market Data --
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
+    // Subscribe to a stream of Markets Data
+    rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
+
+    // -- Transfers --
+    // Get Transfersfor a Market ID for a public key using a cursor based pagination model
+    rpc GetTransfers(GetTransfersRequest) returns (GetTransfersResponse);
 
     // -- Network Limits --
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -192,6 +202,35 @@ message GetOrderVersionsByIDPagedResponse {
     OrderConnection orders = 1;
 }
 
+// -- Positions --
+// Request for a list of positions for a party
+// Optionally, if a market identifier is set, the results will be filtered for that market only
+message GetPositionsByPartyPagedRequest {
+    // Party identifier, required field
+    string party_id = 1;
+    // Market identifier
+    string market_id = 2;
+    // Optional pagination control
+    optional Pagination pagination = 3;
+}
+
+// Response for a list of positions for a party
+message GetPositionsByPartyPagedResponse {
+    // A list of 0 or more positions
+    PositionConnection positions = 1;
+}
+
+message PositionEdge {
+    vega.Position node = 1;
+    string cursor = 2;
+}
+
+message PositionConnection {
+    int64 total_count = 1;
+    repeated PositionEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
 // -- Balances --
 message GetBalanceHistoryRequest {
     // Limit the accounts considered according to the filter supplied
@@ -276,6 +315,45 @@ message MarketDataConnection {
     PageInfo page_info = 3;
 }
 
+// Request to subscribe to a stream of MarketsData
+// Optionally, the list can be additionally filtered by market
+message MarketsDataSubscribeRequest {
+    // Market identifier
+    string market_id = 1;
+}
+
+message MarketsDataSubscribeResponse {
+    repeated vega.MarketData market_data = 1;
+}
+
+// -- Transfers --
+// Request for transfers
+message GetTransfersRequest {
+    // Public key of which transfers to request
+    string pubkey = 1;
+    // Directions to include in the response data
+    bool is_from = 2;
+    bool is_to = 3;
+    // Optional pagination cntrol
+    optional Pagination pagination = 4;
+}
+
+// Response for transfers
+message GetTransfersResponse {
+    repeated TransferConnection transfers = 1;
+}
+
+message TransferEdge {
+    vega.Transfer node = 1;
+    string cursor = 2;
+}
+
+message TransferConnection {
+    int64 total_count = 1;
+    repeated TransferEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
 // -- Network Limits --
 // Request for the current network limits
 message GetNetworkLimitsRequest {}
@@ -351,16 +429,27 @@ message GetCandleDataRequest {
     int64 to_timestamp = 3;
 
     // Time interval for the candles, required field specified as a valid postgres interval
-    string interval = 4;
+    vega.Interval interval = 4;
 
     // pagination controls
-    OffsetPagination pagination = 5;
+    Pagination pagination = 5;
 }
 
 // Response for list of candles for a market at an interval
 message GetCandleDataResponse {
     // A list of 0 or more candles
-    repeated Candle candles = 1;
+    CandleDataConnection candles = 1;
+}
+
+message CandleEdge {
+    Candle node = 1;
+    string cursor = 2;
+}
+
+message CandleDataConnection {
+    int64 total_count = 1;
+    repeated CandleEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- Votes --

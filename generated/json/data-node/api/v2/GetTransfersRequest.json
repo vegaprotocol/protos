@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetTransfersRequest",
+    "definitions": {
+        "GetTransfersRequest": {
+            "properties": {
+                "pubkey": {
+                    "type": "string",
+                    "description": "Public key of which transfers to request"
+                },
+                "is_from": {
+                    "type": "boolean",
+                    "description": "Directions to include in the response data"
+                },
+                "is_to": {
+                    "type": "boolean"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true,
+                    "description": "Optional pagination cntrol"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Transfers Request",
+            "description": "-- Transfers -- Request for transfers"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}
