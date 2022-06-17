@@ -41,6 +41,9 @@ type TradingDataServiceClient interface {
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// Subscribe to a stream of Markets Data
 	MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error)
+	// -- Transfers --
+	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
+	GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
@@ -188,6 +191,15 @@ func (x *tradingDataServiceMarketsDataSubscribeClient) Recv() (*MarketsDataSubsc
 		return nil, err
 	}
 	return m, nil
+}
+
+func (c *tradingDataServiceClient) GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error) {
+	out := new(GetTransfersResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTransfers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error) {
@@ -398,6 +410,9 @@ type TradingDataServiceServer interface {
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// Subscribe to a stream of Markets Data
 	MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error
+	// -- Transfers --
+	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
+	GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
@@ -472,6 +487,9 @@ func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Co
 }
 func (UnimplementedTradingDataServiceServer) MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error {
 	return status.Errorf(codes.Unimplemented, "method MarketsDataSubscribe not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransfers not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
@@ -685,6 +703,24 @@ type tradingDataServiceMarketsDataSubscribeServer struct {
 
 func (x *tradingDataServiceMarketsDataSubscribeServer) Send(m *MarketsDataSubscribeResponse) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _TradingDataService_GetTransfers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransfersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetTransfers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetTransfers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetTransfers(ctx, req.(*GetTransfersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _TradingDataService_GetNetworkLimits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1048,6 +1084,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMarketDataHistoryByID",
 			Handler:    _TradingDataService_GetMarketDataHistoryByID_Handler,
+		},
+		{
+			MethodName: "GetTransfers",
+			Handler:    _TradingDataService_GetTransfers_Handler,
 		},
 		{
 			MethodName: "GetNetworkLimits",

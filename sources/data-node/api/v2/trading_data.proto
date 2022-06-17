@@ -32,6 +32,10 @@ service TradingDataService {
     // Subscribe to a stream of Markets Data
     rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
 
+    // -- Transfers --
+    // Get Transfersfor a Market ID for a public key using a cursor based pagination model
+    rpc GetTransfers(GetTransfersRequest) returns (GetTransfersResponse);
+
     // -- Network Limits --
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
     rpc GetNetworkLimits(GetNetworkLimitsRequest) returns (GetNetworkLimitsResponse);
@@ -278,10 +282,38 @@ message MarketDataConnection {
 message MarketsDataSubscribeRequest {
     // Market identifier
     string market_id = 1;
-  }
+}
 
 message MarketsDataSubscribeResponse {
     repeated vega.MarketData market_data = 1;
+}
+
+// -- Transfers --
+// Request for transfers
+message GetTransfersRequest {
+    // Public key of which transfers to request
+    string pubkey = 1;
+    // Directions to include in the response data
+    bool is_from = 2;
+    bool is_to = 3;
+    // Optional pagination cntrol
+    optional Pagination pagination = 4;
+}
+
+// Response for transfers
+message GetTransfersResponse {
+    repeated TransferConnection transfers = 1;
+}
+
+message TransferEdge {
+    vega.Transfer node = 1;
+    string cursor = 2;
+}
+
+message TransferConnection {
+    int64 total_count = 1;
+    repeated TransferEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- Network Limits --
