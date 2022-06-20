@@ -94,6 +94,10 @@ type TradingDataServiceClient interface {
 	GetRewards(ctx context.Context, in *GetRewardsRequest, opts ...grpc.CallOption) (*GetRewardsResponse, error)
 	// Get reward summaries
 	GetRewardSummaries(ctx context.Context, in *GetRewardSummariesRequest, opts ...grpc.CallOption) (*GetRewardSummariesResponse, error)
+	// -- Deposits --
+	GetDeposits(ctx context.Context, in *GetDepositsRequest, opts ...grpc.CallOption) (*GetDepositsResponse, error)
+	// -- Withdrawals --
+	GetWithdrawals(ctx context.Context, in *GetWithdrawalsRequest, opts ...grpc.CallOption) (*GetWithdrawalsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -411,6 +415,24 @@ func (c *tradingDataServiceClient) GetRewardSummaries(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetDeposits(ctx context.Context, in *GetDepositsRequest, opts ...grpc.CallOption) (*GetDepositsResponse, error) {
+	out := new(GetDepositsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetDeposits", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetWithdrawals(ctx context.Context, in *GetWithdrawalsRequest, opts ...grpc.CallOption) (*GetWithdrawalsResponse, error) {
+	out := new(GetWithdrawalsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetWithdrawals", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -487,6 +509,10 @@ type TradingDataServiceServer interface {
 	GetRewards(context.Context, *GetRewardsRequest) (*GetRewardsResponse, error)
 	// Get reward summaries
 	GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error)
+	// -- Deposits --
+	GetDeposits(context.Context, *GetDepositsRequest) (*GetDepositsResponse, error)
+	// -- Withdrawals --
+	GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -580,6 +606,12 @@ func (UnimplementedTradingDataServiceServer) GetRewards(context.Context, *GetRew
 }
 func (UnimplementedTradingDataServiceServer) GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRewardSummaries not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetDeposits(context.Context, *GetDepositsRequest) (*GetDepositsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDeposits not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWithdrawals not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -1122,6 +1154,42 @@ func _TradingDataService_GetRewardSummaries_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetDeposits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDepositsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetDeposits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetDeposits",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetDeposits(ctx, req.(*GetDepositsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWithdrawalsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetWithdrawals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetWithdrawals",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetWithdrawals(ctx, req.(*GetWithdrawalsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1236,6 +1304,14 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRewardSummaries",
 			Handler:    _TradingDataService_GetRewardSummaries_Handler,
+		},
+		{
+			MethodName: "GetDeposits",
+			Handler:    _TradingDataService_GetDeposits_Handler,
+		},
+		{
+			MethodName: "GetWithdrawals",
+			Handler:    _TradingDataService_GetWithdrawals_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

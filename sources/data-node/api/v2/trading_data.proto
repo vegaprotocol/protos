@@ -100,6 +100,11 @@ service TradingDataService {
     // Get reward summaries
     rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
 
+    // -- Deposits --
+    rpc GetDeposits(GetDepositsRequest) returns (GetDepositsResponse);
+
+    // -- Withdrawals --
+    rpc GetWithdrawals(GetWithdrawalsRequest) returns (GetWithdrawalsResponse);
 }
 
 // -- Pagination --
@@ -776,5 +781,47 @@ message RewardEdge {
 message RewardsConnection {
     int64 total_count = 1;
     repeated RewardEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Deposits --
+message GetDepositsRequest {
+    string party_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetDepositsResponse {
+    DepositsConnection deposits = 1;
+}
+
+message DepositEdge {
+    vega.Deposit node = 1;
+    string cursor = 2;
+}
+
+message DepositsConnection {
+    int64 total_count = 1;
+    repeated DepositEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Withdrawals --
+message GetWithdrawalsRequest {
+    string party_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetWithdrawalsResponse {
+    WithdrawalsConnection withdrawals = 1;
+}
+
+message WithdrawalEdge {
+    vega.Withdrawal node = 1;
+    string cursor = 2;
+}
+
+message WithdrawalsConnection {
+    int64 total_count = 1;
+    repeated WithdrawalEdge edges = 2;
     PageInfo page_info = 3;
 }
