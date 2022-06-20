@@ -1,0 +1,129 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetDepositsResponse",
+    "definitions": {
+        "GetDepositsResponse": {
+            "properties": {
+                "deposits": {
+                    "$ref": "#/definitions/datanode.api.v2.DepositsConnection",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Deposits Response"
+        },
+        "datanode.api.v2.DepositEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Deposit",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Deposit Edge"
+        },
+        "datanode.api.v2.DepositsConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.DepositEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Deposits Connection"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        },
+        "vega.Deposit": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the deposit"
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_OPEN",
+                        1,
+                        "STATUS_CANCELLED",
+                        2,
+                        "STATUS_FINALIZED",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status",
+                    "description": "The status of the deposit"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier of the user initiating the deposit"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "The Vega asset targeted by this deposit"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be deposited"
+                },
+                "tx_hash": {
+                    "type": "string",
+                    "description": "The hash of the transaction from the foreign chain"
+                },
+                "credited_timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for when the Vega account was updated with the deposit"
+                },
+                "created_timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for when the deposit was created on the Vega network"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Deposit",
+            "description": "A deposit on to the Vega network"
+        }
+    }
+}
