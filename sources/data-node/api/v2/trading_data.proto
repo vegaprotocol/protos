@@ -5,6 +5,7 @@ option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 import "vega/vega.proto";
 import "vega/governance.proto";
 import "vega/markets.proto";
+import "vega/assets.proto";
 import "vega/oracles/v1/data.proto";
 import "vega/oracles/v1/spec.proto";
 
@@ -38,7 +39,7 @@ service TradingDataService {
     rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
 
     // -- Transfers --
-    // Get Transfersfor a Market ID for a public key using a cursor based pagination model
+    // Get Transfers for a Market ID for a public key using a cursor based pagination model
     rpc GetTransfers(GetTransfersRequest) returns (GetTransfersResponse);
 
     // -- Network Limits --
@@ -105,6 +106,9 @@ service TradingDataService {
 
     // -- Withdrawals --
     rpc GetWithdrawals(GetWithdrawalsRequest) returns (GetWithdrawalsResponse);
+
+    // -- Assets --
+    rpc GetAssets(GetAssetsRequest) returns (GetAssetsResponse);
 }
 
 // -- Pagination --
@@ -823,5 +827,26 @@ message WithdrawalEdge {
 message WithdrawalsConnection {
     int64 total_count = 1;
     repeated WithdrawalEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Assets --
+message GetAssetsRequest {
+    string asset_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetAssetsResponse {
+    AssetsConnection assets = 1;
+}
+
+message AssetEdge {
+    vega.Asset node = 1;
+    string cursor = 2;
+}
+
+message AssetsConnection {
+    int64 total_count = 1;
+    repeated AssetEdge edges = 2;
     PageInfo page_info = 3;
 }
