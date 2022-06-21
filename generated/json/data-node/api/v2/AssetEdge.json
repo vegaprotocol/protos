@@ -1,0 +1,107 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/AssetEdge",
+    "definitions": {
+        "AssetEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Asset",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Asset Edge"
+        },
+        "vega.Asset": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Internal identifier of the asset"
+                },
+                "details": {
+                    "$ref": "#/definitions/vega.AssetDetails",
+                    "additionalProperties": true,
+                    "description": "The definition of the external source for this asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Asset",
+            "description": "The Vega representation of an external asset"
+        },
+        "vega.AssetDetails": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name of the asset (e.g: Great British Pound)"
+                },
+                "symbol": {
+                    "type": "string",
+                    "description": "Symbol of the asset (e.g: GBP)"
+                },
+                "total_supply": {
+                    "type": "string",
+                    "description": "Total circulating supply for the asset"
+                },
+                "decimals": {
+                    "type": "string",
+                    "description": "Number of decimal / precision handled by this asset"
+                },
+                "quantum": {
+                    "type": "string",
+                    "description": "The minimum economically meaningful amount in the asset"
+                },
+                "builtin_asset": {
+                    "$ref": "#/definitions/vega.BuiltinAsset",
+                    "additionalProperties": true,
+                    "description": "A built-in asset"
+                },
+                "erc20": {
+                    "$ref": "#/definitions/vega.ERC20",
+                    "additionalProperties": true,
+                    "description": "An Ethereum ERC20 asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Asset Details",
+            "description": "The Vega representation of an external asset"
+        },
+        "vega.BuiltinAsset": {
+            "properties": {
+                "max_faucet_amount_mint": {
+                    "type": "string",
+                    "description": "Maximum amount that can be requested by a party through the built-in asset faucet at a time"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Builtin Asset",
+            "description": "A Vega internal asset"
+        },
+        "vega.ERC20": {
+            "properties": {
+                "contract_address": {
+                    "type": "string",
+                    "description": "The address of the contract for the token, on the ethereum network"
+                },
+                "lifetime_limit": {
+                    "type": "string",
+                    "description": "The lifetime limits deposit per address note: this is a temporary measure for restricted mainnet"
+                },
+                "withdraw_threshold": {
+                    "type": "string",
+                    "description": "The maximum allowed per withdraw note: this is a temporary measure for restricted mainnet"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "ERC 20",
+            "description": "An ERC20 token based asset, living on the ethereum network"
+        }
+    }
+}

@@ -45,7 +45,7 @@ type TradingDataServiceClient interface {
 	// Subscribe to a stream of Markets Data
 	MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error)
 	// -- Transfers --
-	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
+	// Get Transfers for a Market ID for a public key using a cursor based pagination model
 	GetTransfers(ctx context.Context, in *GetTransfersRequest, opts ...grpc.CallOption) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -98,6 +98,8 @@ type TradingDataServiceClient interface {
 	GetDeposits(ctx context.Context, in *GetDepositsRequest, opts ...grpc.CallOption) (*GetDepositsResponse, error)
 	// -- Withdrawals --
 	GetWithdrawals(ctx context.Context, in *GetWithdrawalsRequest, opts ...grpc.CallOption) (*GetWithdrawalsResponse, error)
+	// -- Assets --
+	GetAssets(ctx context.Context, in *GetAssetsRequest, opts ...grpc.CallOption) (*GetAssetsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -433,6 +435,15 @@ func (c *tradingDataServiceClient) GetWithdrawals(ctx context.Context, in *GetWi
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetAssets(ctx context.Context, in *GetAssetsRequest, opts ...grpc.CallOption) (*GetAssetsResponse, error) {
+	out := new(GetAssetsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetAssets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -460,7 +471,7 @@ type TradingDataServiceServer interface {
 	// Subscribe to a stream of Markets Data
 	MarketsDataSubscribe(*MarketsDataSubscribeRequest, TradingDataService_MarketsDataSubscribeServer) error
 	// -- Transfers --
-	// Get Transfersfor a Market ID for a public key using a cursor based pagination model
+	// Get Transfers for a Market ID for a public key using a cursor based pagination model
 	GetTransfers(context.Context, *GetTransfersRequest) (*GetTransfersResponse, error)
 	// -- Network Limits --
 	// Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -513,6 +524,8 @@ type TradingDataServiceServer interface {
 	GetDeposits(context.Context, *GetDepositsRequest) (*GetDepositsResponse, error)
 	// -- Withdrawals --
 	GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error)
+	// -- Assets --
+	GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -612,6 +625,9 @@ func (UnimplementedTradingDataServiceServer) GetDeposits(context.Context, *GetDe
 }
 func (UnimplementedTradingDataServiceServer) GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWithdrawals not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAssets not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -1190,6 +1206,24 @@ func _TradingDataService_GetWithdrawals_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAssetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetAssets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetAssets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetAssets(ctx, req.(*GetAssetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1312,6 +1346,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWithdrawals",
 			Handler:    _TradingDataService_GetWithdrawals_Handler,
+		},
+		{
+			MethodName: "GetAssets",
+			Handler:    _TradingDataService_GetAssets_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
