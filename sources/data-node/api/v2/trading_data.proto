@@ -18,15 +18,15 @@ service TradingDataService {
     // Get all versions of the order by its orderID
     rpc GetOrderVersionsByID(GetOrderVersionsByIDRequest) returns (GetOrderVersionsByIDResponse);
     // Get a list of Orders by Market using cursor based pagination
-    rpc GetOrdersByMarketPaged(GetOrdersByMarketPagedRequest) returns (GetOrdersByMarketPagedResponse);
+    rpc GetOrdersByMarketConnection(GetOrdersByMarketConnectionRequest) returns (GetOrdersByMarketConnectionResponse);
     // Get a list of Orders by Party using cursor based pagination
-    rpc GetOrdersByPartyPaged(GetOrdersByPartyPagedRequest) returns (GetOrdersByPartyPagedResponse);
+    rpc GetOrdersByPartyConnection(GetOrdersByPartyConnectionRequest) returns (GetOrdersByPartyConnectionResponse);
     // Get all versions of the order by its orderID using cursor based pagination
-    rpc GetOrderVersionsByIDPaged(GetOrderVersionsByIDPagedRequest) returns (GetOrderVersionsByIDPagedResponse);
+    rpc GetOrderVersionsByIDConnection(GetOrderVersionsByIDConnectionRequest) returns (GetOrderVersionsByIDConnectionResponse);
 
     // -- Positions --
     // Get a list of Positions by Party using cursor based pagination
-    rpc GetPositionsByPartyPaged(GetPositionsByPartyPagedRequest) returns (GetPositionsByPartyPagedResponse);
+    rpc GetPositionsByPartyConnection(GetPositionsByPartyConnectionRequest) returns (GetPositionsByPartyConnectionResponse);
 
     // -- Balances --
     // Get an aggregated list of the changes in balances in a set of accounts over time
@@ -81,6 +81,10 @@ service TradingDataService {
     rpc GetOracleDataBySpecID(GetOracleDataBySpecIDRequest) returns (GetOracleDataBySpecIDResponse);
     // Get all oracle data
     rpc ListOracleData(ListOracleDataRequest) returns (ListOracleDataResponse);
+    // Get cursor based paginated oracle specs data
+    rpc GetOracleSpecsConnection(GetOracleSpecsConnectionRequest) returns (GetOracleSpecsConnectionResponse);
+    // Get cursor based paginated oracle data
+    rpc GetOracleDataConnection(GetOracleDataConnectionRequest) returns (GetOracleDataConnectionResponse);
 
     // -- Markets --
     // Get all markets using a cursor based pagination model
@@ -109,6 +113,7 @@ service TradingDataService {
 
     // -- Assets --
     rpc GetAssets(GetAssetsRequest) returns (GetAssetsResponse);
+
 }
 
 // -- Pagination --
@@ -169,7 +174,7 @@ message GetOrderVersionsByIDResponse {
 }
 
 // Request for a list of orders for a market
-message GetOrdersByMarketPagedRequest {
+message GetOrdersByMarketConnectionRequest {
     // Market identifier, required field
     string market_id = 1;
     // Optional pagination controls
@@ -177,13 +182,13 @@ message GetOrdersByMarketPagedRequest {
 }
 
 // Response for a list of orders for a market
-message GetOrdersByMarketPagedResponse {
+message GetOrdersByMarketConnectionResponse {
     // Paged order connection
     OrderConnection orders = 1;
 }
 
 // Request for a list of orders for a market
-message GetOrdersByPartyPagedRequest {
+message GetOrdersByPartyConnectionRequest {
     // Market identifier, required field
     string party_id = 1;
     string market_id = 2;
@@ -192,13 +197,13 @@ message GetOrdersByPartyPagedRequest {
 }
 
 // Response for a list of orders for a market
-message GetOrdersByPartyPagedResponse {
+message GetOrdersByPartyConnectionResponse {
     // Paged order connection
     OrderConnection orders = 1;
 }
 
 // Request for a list of all versions of an order given the specified order identifier
-message GetOrderVersionsByIDPagedRequest {
+message GetOrderVersionsByIDConnectionRequest {
     // Order identifier, required field
     string order_id = 1;
     // Pagination controls
@@ -206,7 +211,7 @@ message GetOrderVersionsByIDPagedRequest {
 }
 
 // Response to a request for a list of all versions of an order
-message GetOrderVersionsByIDPagedResponse {
+message GetOrderVersionsByIDConnectionResponse {
     // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
     OrderConnection orders = 1;
 }
@@ -214,7 +219,7 @@ message GetOrderVersionsByIDPagedResponse {
 // -- Positions --
 // Request for a list of positions for a party
 // Optionally, if a market identifier is set, the results will be filtered for that market only
-message GetPositionsByPartyPagedRequest {
+message GetPositionsByPartyConnectionRequest {
     // Party identifier, required field
     string party_id = 1;
     // Market identifier
@@ -224,7 +229,7 @@ message GetPositionsByPartyPagedRequest {
 }
 
 // Response for a list of positions for a party
-message GetPositionsByPartyPagedResponse {
+message GetPositionsByPartyConnectionResponse {
     // A list of 0 or more positions
     PositionConnection positions = 1;
 }
@@ -629,6 +634,8 @@ message GetTradesByPartyResponse {
     TradeConnection trades = 1;
 }
 
+// -- Oracles --
+
 // The request to get a specific oracle spec by identifier
 message GetOracleSpecByIDRequest {
     // The ID to get the oracle spec for
@@ -678,6 +685,46 @@ message ListOracleDataRequest {
 message ListOracleDataResponse {
     // The list of seen oracle data
     repeated oracles.v1.OracleData oracle_data = 1;
+}
+
+message GetOracleSpecsConnectionRequest {
+    string spec_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetOracleSpecsConnectionResponse {
+    OracleSpecsConnection oracle_specs = 1;
+}
+
+message GetOracleDataConnectionRequest {
+    string spec_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetOracleDataConnectionResponse {
+    OracleDataConnection oracle_data = 1;
+}
+
+message OracleSpecEdge {
+    oracles.v1.OracleSpec node = 1;
+    string cursor = 2;
+}
+
+message OracleSpecsConnection {
+    int64 total_count = 1;
+    repeated OracleSpecEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+message OracleDataEdge {
+    oracles.v1.OracleData node = 1;
+    string cursor = 2;
+}
+
+message OracleDataConnection {
+    int64 total_count = 1;
+    repeated OracleDataEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- Markets --
