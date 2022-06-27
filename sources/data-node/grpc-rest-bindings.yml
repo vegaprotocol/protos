@@ -138,6 +138,8 @@ http:
       get: "/oracle-specs/{id}/oracle-data"
     - selector: datanode.api.v1.TradingDataService.OracleSpecs
       get: "/oracle-specs"
+    - selector: datanode.api.v1.TradingDataService.ListOracleData
+      get: '/oracle-data'
 
     # Nodes
     - selector: datanode.api.v1.TradingDataService.GetNodeData

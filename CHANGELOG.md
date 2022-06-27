@@ -3,16 +3,16 @@
 ## Unreleased (0.53.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ## 0.52.0
 
