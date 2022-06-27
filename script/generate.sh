@@ -36,6 +36,7 @@ function gen_swagger() {
 }
 
 function gen_json() {
+	rm -rf generated
 	mkdir -p generated/json/vega
 	mkdir -p ./generated/json/data-node/api/v1
 	mkdir -p ./generated/json/data-node/api/v2
