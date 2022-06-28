@@ -104,6 +104,8 @@ type TradingDataServiceClient interface {
 	GetWithdrawals(ctx context.Context, in *GetWithdrawalsRequest, opts ...grpc.CallOption) (*GetWithdrawalsResponse, error)
 	// -- Assets --
 	GetAssets(ctx context.Context, in *GetAssetsRequest, opts ...grpc.CallOption) (*GetAssetsResponse, error)
+	// -- Liquidity Provisions --
+	GetLiquidityProvisions(ctx context.Context, in *GetLiquidityProvisionsRequest, opts ...grpc.CallOption) (*GetLiquidityProvisionsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -466,6 +468,15 @@ func (c *tradingDataServiceClient) GetAssets(ctx context.Context, in *GetAssetsR
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetLiquidityProvisions(ctx context.Context, in *GetLiquidityProvisionsRequest, opts ...grpc.CallOption) (*GetLiquidityProvisionsResponse, error) {
+	out := new(GetLiquidityProvisionsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetLiquidityProvisions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -552,6 +563,8 @@ type TradingDataServiceServer interface {
 	GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error)
 	// -- Assets --
 	GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error)
+	// -- Liquidity Provisions --
+	GetLiquidityProvisions(context.Context, *GetLiquidityProvisionsRequest) (*GetLiquidityProvisionsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -660,6 +673,9 @@ func (UnimplementedTradingDataServiceServer) GetWithdrawals(context.Context, *Ge
 }
 func (UnimplementedTradingDataServiceServer) GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAssets not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetLiquidityProvisions(context.Context, *GetLiquidityProvisionsRequest) (*GetLiquidityProvisionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLiquidityProvisions not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -1292,6 +1308,24 @@ func _TradingDataService_GetAssets_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetLiquidityProvisions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLiquidityProvisionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetLiquidityProvisions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetLiquidityProvisions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetLiquidityProvisions(ctx, req.(*GetLiquidityProvisionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1426,6 +1460,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAssets",
 			Handler:    _TradingDataService_GetAssets_Handler,
+		},
+		{
+			MethodName: "GetLiquidityProvisions",
+			Handler:    _TradingDataService_GetLiquidityProvisions_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
