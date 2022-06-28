@@ -5,10 +5,25 @@ option go_package = "code.vegaprotocol.io/protos/vega";
 
 // The Vega representation of an external asset
 message Asset {
+  enum Status {
+    // Default value, always invalid
+    STATUS_UNSPECIFIED = 0;
+    // Asset is proposed and under vote
+    STATUS_PROPOSED = 1;
+    // Asset has been rejected from governance
+    STATUS_REJECTED = 2;
+    // Asset is pending listing from the bridge
+    STATUS_PENDING_LISTING = 3;
+    // Asset is fully usable in the network
+    STATUS_ENABLED = 4;
+  }
+
   // Internal identifier of the asset
   string id = 1;
   // The definition of the external source for this asset
   AssetDetails details = 2;
+  // Status of the asset
+  Status status = 3;
 }
 
 // The Vega representation of an external asset
