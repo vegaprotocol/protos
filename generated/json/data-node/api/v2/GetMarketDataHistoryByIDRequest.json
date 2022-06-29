@@ -65,6 +65,10 @@
                 },
                 "before": {
                     "type": "string"
+                },
+                "newest_first": {
+                    "type": "boolean",
+                    "description": "Newest records first, older records last, default is true"
                 }
             },
             "additionalProperties": true,
