@@ -29,6 +29,10 @@
                 },
                 "before": {
                     "type": "string"
+                },
+                "newestFirst": {
+                    "type": "boolean",
+                    "description": "Newest records first, older records last, default is true"
                 }
             },
             "additionalProperties": true,

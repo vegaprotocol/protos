@@ -134,6 +134,8 @@ message Pagination {
     optional string after = 2;
     optional int32 last = 3;
     optional string before = 4;
+    // Newest records first, older records last, default is true
+    optional bool newestFirst = 5;
 }
 
 // Page information for cursor based pagination
