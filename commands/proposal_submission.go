@@ -865,9 +865,8 @@ func checkUpdateLogNormalRiskParameters(params *types.UpdateMarketConfiguration_
 
 func checkLiquidityCommitment(commitment *types.NewMarketCommitment) Errors {
 	errs := NewErrors()
-
 	if commitment == nil {
-		return errs.FinalAddForProperty("proposal_submission.terms.change.new_market.liquidity_commitment", ErrIsRequired)
+		return errs
 	}
 
 	if len(commitment.CommitmentAmount) <= 0 {
