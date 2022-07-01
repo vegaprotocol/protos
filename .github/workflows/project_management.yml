@@ -355,9 +355,8 @@ jobs:
 
   verify-changelog-updated:
     if: |
-      ((startsWith(github.head_ref, 'renovate/') != true) && (contains(github.event.*.name, 'labeled')
-      || contains(github.event.*.name, 'unlabeled') || !contains(github.event.pull_request.labels.*.name, 'no-changelog') == true)
-      && (github.event.pull_request.draft != true) && (contains(github.event.*.name, 'ready_for_review')))
+      startsWith(github.head_ref, 'renovate/') != true && github.event.pull_request.draft != true 
+      && contains(github.event.pull_request.labels.*.name, 'no-changelog') == true
     name: Verify CHANGELOG Updated
     runs-on: ubuntu-latest
     steps:
