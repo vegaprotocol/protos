@@ -5,10 +5,8 @@
         "GetVotesResponse": {
             "properties": {
                 "votes": {
-                    "items": {
-                        "$ref": "#/definitions/datanode.api.v2.VoteConnection"
-                    },
-                    "type": "array"
+                    "$ref": "#/definitions/datanode.api.v2.VoteConnection",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,

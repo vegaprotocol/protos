@@ -480,7 +480,7 @@ message GetVotesRequest {
 
 // Response for Votes
 message GetVotesResponse {
-    repeated VoteConnection votes = 1;
+    VoteConnection votes = 1;
 }
 
 message VoteEdge {
