@@ -5,7 +5,7 @@ name: 'Project Board Automation'
 
 "on":
   pull_request:
-    branches: [main]
+    branches: [develop, master]
     types: [edited, synchronize, opened, reopened, labeled, unlabeled, ready_for_review, review_requested, converted_to_draft, closed]
   pull_request_review:
     types: [submitted]
