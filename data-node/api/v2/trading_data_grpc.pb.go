@@ -104,6 +104,8 @@ type TradingDataServiceClient interface {
 	GetWithdrawals(ctx context.Context, in *GetWithdrawalsRequest, opts ...grpc.CallOption) (*GetWithdrawalsResponse, error)
 	// -- Assets --
 	GetAssets(ctx context.Context, in *GetAssetsRequest, opts ...grpc.CallOption) (*GetAssetsResponse, error)
+	// -- Delegations --
+	GetDelegations(ctx context.Context, in *GetDelegationsRequest, opts ...grpc.CallOption) (*GetDelegationsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -466,6 +468,15 @@ func (c *tradingDataServiceClient) GetAssets(ctx context.Context, in *GetAssetsR
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetDelegations(ctx context.Context, in *GetDelegationsRequest, opts ...grpc.CallOption) (*GetDelegationsResponse, error) {
+	out := new(GetDelegationsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetDelegations", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -552,6 +563,8 @@ type TradingDataServiceServer interface {
 	GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error)
 	// -- Assets --
 	GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error)
+	// -- Delegations --
+	GetDelegations(context.Context, *GetDelegationsRequest) (*GetDelegationsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -660,6 +673,9 @@ func (UnimplementedTradingDataServiceServer) GetWithdrawals(context.Context, *Ge
 }
 func (UnimplementedTradingDataServiceServer) GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAssets not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetDelegations(context.Context, *GetDelegationsRequest) (*GetDelegationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDelegations not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -1292,6 +1308,24 @@ func _TradingDataService_GetAssets_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetDelegations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDelegationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetDelegations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetDelegations",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetDelegations(ctx, req.(*GetDelegationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1426,6 +1460,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAssets",
 			Handler:    _TradingDataService_GetAssets_Handler,
+		},
+		{
+			MethodName: "GetDelegations",
+			Handler:    _TradingDataService_GetDelegations_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

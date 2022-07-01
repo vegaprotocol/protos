@@ -114,6 +114,9 @@ service TradingDataService {
     // -- Assets --
     rpc GetAssets(GetAssetsRequest) returns (GetAssetsResponse);
 
+    // -- Delegations --
+    rpc GetDelegations(GetDelegationsRequest) returns (GetDelegationsResponse);
+
 }
 
 // -- Pagination --
@@ -897,5 +900,27 @@ message AssetEdge {
 message AssetsConnection {
     int64 total_count = 1;
     repeated AssetEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Delegations --
+message GetDelegationsRequest {
+    string asset_id = 1;
+    string node_id = 2;
+    Pagination pagination = 3;
+}
+
+message GetDelegationsResponse {
+    DelegationsConnection assets = 1;
+}
+
+message DelegationEdge {
+    vega.Delegation node = 1;
+    string cursor = 2;
+}
+
+message DelegationsConnection {
+    int64 total_count = 1;
+    repeated DelegationEdge edges = 2;
     PageInfo page_info = 3;
 }
