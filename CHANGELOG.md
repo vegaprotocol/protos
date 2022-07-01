@@ -9,6 +9,7 @@
 - [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🛠 Improvements
+- [481](https://github.com/vegaprotocol/protos/issues/481) -Add support for cursor based pagination in `Data Node API V2` Delegations
 - [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
 
 ### 🐛 Fixes
