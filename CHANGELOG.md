@@ -12,7 +12,7 @@
 - [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/issues/) -
+- [484](https://github.com/vegaprotocol/protos/issues/484) - Replace votes connection array by connection in votes request
 
 ## 0.52.0
 
