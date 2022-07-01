@@ -3295,19 +3295,6 @@
             "title": "Recurring Transfer",
             "description": "Specific details for a recurring transfer"
         },
-        "vega.commands.v1.RestoreSnapshot": {
-            "properties": {
-                "data": {
-                    "type": "string",
-                    "format": "binary",
-                    "binaryEncoding": "base64"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Restore Snapshot",
-            "description": "A command that loads the state from a given checkpoint"
-        },
         "vega.commands.v1.Signature": {
             "properties": {
                 "value": {
@@ -4866,10 +4853,6 @@
                 },
                 "undelegate_submission": {
                     "$ref": "#/definitions/vega.commands.v1.UndelegateSubmission",
-                    "additionalProperties": true
-                },
-                "restore_snapshot": {
-                    "$ref": "#/definitions/vega.commands.v1.RestoreSnapshot",
                     "additionalProperties": true
                 },
                 "liquidity_provision_cancellation": {

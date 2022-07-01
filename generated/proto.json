@@ -10324,30 +10324,6 @@
           ]
         },
         {
-          "name": "RestoreSnapshot",
-          "longName": "RestoreSnapshot",
-          "fullName": "vega.commands.v1.RestoreSnapshot",
-          "description": "A command that loads the state from a given checkpoint",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "data",
-              "description": "",
-              "label": "",
-              "type": "bytes",
-              "longType": "bytes",
-              "fullType": "bytes",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "Transfer",
           "longName": "Transfer",
           "fullName": "vega.commands.v1.Transfer",
@@ -11030,18 +11006,6 @@
               "type": "OracleDataSubmission",
               "longType": "OracleDataSubmission",
               "fullType": "vega.commands.v1.OracleDataSubmission",
-              "ismap": false,
-              "isoneof": true,
-              "oneofdecl": "command",
-              "defaultValue": ""
-            },
-            {
-              "name": "restore_snapshot_submission",
-              "description": "Checkpoints",
-              "label": "",
-              "type": "RestoreSnapshot",
-              "longType": "RestoreSnapshot",
-              "fullType": "vega.commands.v1.RestoreSnapshot",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "command",
@@ -14780,18 +14744,6 @@
               "type": "UndelegateSubmission",
               "longType": "vega.commands.v1.UndelegateSubmission",
               "fullType": "vega.commands.v1.UndelegateSubmission",
-              "ismap": false,
-              "isoneof": true,
-              "oneofdecl": "transaction",
-              "defaultValue": ""
-            },
-            {
-              "name": "restore_snapshot",
-              "description": "",
-              "label": "",
-              "type": "RestoreSnapshot",
-              "longType": "vega.commands.v1.RestoreSnapshot",
-              "fullType": "vega.commands.v1.RestoreSnapshot",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "transaction",
@@ -27847,18 +27799,6 @@
               "type": "UndelegateSubmission",
               "longType": "vega.commands.v1.UndelegateSubmission",
               "fullType": "vega.commands.v1.UndelegateSubmission",
-              "ismap": false,
-              "isoneof": true,
-              "oneofdecl": "transaction",
-              "defaultValue": ""
-            },
-            {
-              "name": "restore_snapshot",
-              "description": "",
-              "label": "",
-              "type": "RestoreSnapshot",
-              "longType": "vega.commands.v1.RestoreSnapshot",
-              "fullType": "vega.commands.v1.RestoreSnapshot",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "transaction",
