@@ -4390,16 +4390,6 @@
       },
       "title": "A command to submit a new proposal for the\nVega network governance"
     },
-    "v1RestoreSnapshot": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "string",
-          "format": "byte"
-        }
-      },
-      "title": "A command that loads the state from a given checkpoint"
-    },
     "v1RewardPayoutEvent": {
       "type": "object",
       "properties": {
@@ -4755,9 +4745,6 @@
         },
         "undelegateSubmission": {
           "$ref": "#/definitions/v1UndelegateSubmission"
-        },
-        "restoreSnapshot": {
-          "$ref": "#/definitions/v1RestoreSnapshot"
         },
         "liquidityProvisionCancellation": {
           "$ref": "#/definitions/v1LiquidityProvisionCancellation"

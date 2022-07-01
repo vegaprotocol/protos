@@ -9,6 +9,8 @@ import "vega/commands/v1/oracles.proto";
 import "vega/commands/v1/signature.proto";
 
 message InputData {
+  // this was the old restore checkpoint command
+  reserved 4001;
   // A number to provide uniqueness to prevent accidental replays and,
   // in combination with `block_height`, deliberate attacks.
   // A nonce provides uniqueness for otherwise identical transactions,
@@ -60,9 +62,6 @@ message InputData {
 
     // Oracles
     OracleDataSubmission oracle_data_submission = 3001;
-
-    // Checkpoints
-    RestoreSnapshot restore_snapshot_submission = 4001;
   }
 }
 
@@ -87,7 +86,7 @@ message Transaction {
   // to the Transaction format.
   uint32 version = 2000;
 
-  // Proof of work contains the random transaction id used by the client and the nonce. 
+  // Proof of work contains the random transaction id used by the client and the nonce.
   ProofOfWork pow = 3000;
 }
 

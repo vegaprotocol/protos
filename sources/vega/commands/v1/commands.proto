@@ -165,11 +165,6 @@ message UndelegateSubmission {
   Method method = 3;
 }
 
-// A command that loads the state from a given checkpoint
-message RestoreSnapshot {
-  bytes data = 1;
-}
-
 // A transfer initiated by a party
 message Transfer {
   // The account type from which the funds of the party
