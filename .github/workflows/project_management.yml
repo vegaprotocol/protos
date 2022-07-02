@@ -58,7 +58,7 @@ jobs:
 
       - name: 'Check if PR raised by bot'
         id: bot-pr
-        if: startsWith(github.head_ref, 'renovate/') == true
+        if: startsWith(github.head_ref, 'renovate/') == true || startsWith(github.head_ref, 'dependabot/') == true
         uses: actions/github-script@v6.1.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
