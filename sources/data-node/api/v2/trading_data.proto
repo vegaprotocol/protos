@@ -56,7 +56,9 @@ service TradingDataService {
 
     // -- Votes --
     // Get Votes for a Party ID using a cursor based pagination model
-    rpc GetVotes(GetVotesRequest) returns (GetVotesResponse);
+    rpc ListVotes(ListVotesRequest) returns (ListVotesResponse);
+    // Subscribe to a stream of votes
+    rpc ObserveVotes(ObserveVotesRequest) returns (stream ObserveVotesResponse);
 
     // -- ERC20 Multi Sig --
     // Gets the signature bundles that add a particular validator to the multisig contract
@@ -473,7 +475,7 @@ message CandleDataConnection {
 
 // -- Votes --
 // Request for Votes
-message GetVotesRequest {
+message ListVotesRequest {
     // Party of which the votes are requested
     string party_id = 1;
 
@@ -482,8 +484,8 @@ message GetVotesRequest {
 }
 
 // Response for Votes
-message GetVotesResponse {
-    repeated VoteConnection votes = 1;
+message ListVotesResponse {
+    VoteConnection votes = 1;
 }
 
 message VoteEdge {
@@ -495,6 +497,17 @@ message VoteConnection {
     int64 total_count = 1;
     repeated VoteEdge edges = 2;
     PageInfo page_info = 3;
+}
+
+message ObserveVotesRequest {
+    // Party of which the votes are requested
+    optional string party_id = 1;
+    // Option proposal id for which the votes are requested
+    optional string proposal_id = 2;
+}
+
+message ObserveVotesResponse {
+    vega.Vote vote = 1;
 }
 
 // -- ERC20 Multi Sig --
