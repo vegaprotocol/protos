@@ -1,74 +1,17 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetVotesResponse",
+    "$ref": "#/definitions/ObserveVotesResponse",
     "definitions": {
-        "GetVotesResponse": {
+        "ObserveVotesResponse": {
             "properties": {
-                "votes": {
-                    "items": {
-                        "$ref": "#/definitions/datanode.api.v2.VoteConnection"
-                    },
-                    "type": "array"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Get Votes Response",
-            "description": "Response for Votes"
-        },
-        "datanode.api.v2.PageInfo": {
-            "properties": {
-                "has_next_page": {
-                    "type": "boolean"
-                },
-                "has_previous_page": {
-                    "type": "boolean"
-                },
-                "start_cursor": {
-                    "type": "string"
-                },
-                "end_cursor": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Page Info",
-            "description": "Page information for cursor based pagination"
-        },
-        "datanode.api.v2.VoteConnection": {
-            "properties": {
-                "total_count": {
-                    "type": "string"
-                },
-                "edges": {
-                    "items": {
-                        "$ref": "#/definitions/datanode.api.v2.VoteEdge"
-                    },
-                    "type": "array"
-                },
-                "page_info": {
-                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
-                    "additionalProperties": true
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Vote Connection"
-        },
-        "datanode.api.v2.VoteEdge": {
-            "properties": {
-                "node": {
+                "vote": {
                     "$ref": "#/definitions/vega.Vote",
                     "additionalProperties": true
-                },
-                "cursor": {
-                    "type": "string"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Vote Edge"
+            "title": "Observe Votes Response"
         },
         "vega.Vote": {
             "properties": {

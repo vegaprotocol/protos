@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetVotesRequest",
+    "$ref": "#/definitions/ListVotesRequest",
     "definitions": {
-        "GetVotesRequest": {
+        "ListVotesRequest": {
             "properties": {
                 "party_id": {
                     "type": "string",
@@ -16,7 +16,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Votes Request",
+            "title": "List Votes Request",
             "description": "-- Votes -- Request for Votes"
         },
         "datanode.api.v2.Pagination": {
