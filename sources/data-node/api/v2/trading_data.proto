@@ -114,6 +114,9 @@ service TradingDataService {
     // -- Assets --
     rpc GetAssets(GetAssetsRequest) returns (GetAssetsResponse);
 
+    // -- Liquidity Provisions --
+    rpc GetLiquidityProvisions(GetLiquidityProvisionsRequest) returns (GetLiquidityProvisionsResponse);
+
 }
 
 // -- Pagination --
@@ -897,5 +900,32 @@ message AssetEdge {
 message AssetsConnection {
     int64 total_count = 1;
     repeated AssetEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Liquidity Provisions --
+message GetLiquidityProvisionsRequest {
+    // The target market for the liquidity provision orders
+    string market = 1;
+    // The party which submitted the liquidity provision orders
+    string party = 2;
+    // The reference of the liquidity provision
+    string reference = 3;
+
+    Pagination pagination = 4;
+}
+
+message GetLiquidityProvisionsResponse {
+    LiquidityProvisionsConnection liquidity_provisions = 1;
+}
+
+message LiquidityProvisionsEdge {
+    vega.LiquidityProvision node = 1;
+    string cursor = 2;
+}
+
+message LiquidityProvisionsConnection {
+    int64 total_count = 1;
+    repeated LiquidityProvisionsEdge edges = 2;
     PageInfo page_info = 3;
 }
