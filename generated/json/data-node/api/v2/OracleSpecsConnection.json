@@ -25,7 +25,7 @@
         "datanode.api.v2.OracleSpecEdge": {
             "properties": {
                 "node": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "$ref": "#/definitions/vega.oracles.v1.OracleSpec",
                     "additionalProperties": true
                 },
                 "cursor": {
@@ -56,7 +56,7 @@
             "title": "Page Info",
             "description": "Page information for cursor based pagination"
         },
-        "oracles.v1.Condition": {
+        "vega.oracles.v1.Condition": {
             "properties": {
                 "operator": {
                     "enum": [
@@ -94,16 +94,16 @@
             "title": "Condition",
             "description": "Condition describes the condition that must be validated by the"
         },
-        "oracles.v1.Filter": {
+        "vega.oracles.v1.Filter": {
             "properties": {
                 "key": {
-                    "$ref": "#/definitions/oracles.v1.PropertyKey",
+                    "$ref": "#/definitions/vega.oracles.v1.PropertyKey",
                     "additionalProperties": true,
                     "description": "key is the oracle data property key targeted by the filter."
                 },
                 "conditions": {
                     "items": {
-                        "$ref": "#/definitions/oracles.v1.Condition"
+                        "$ref": "#/definitions/vega.oracles.v1.Condition"
                     },
                     "type": "array",
                     "description": "conditions are the conditions that should be matched by the data to be considered of interest."
@@ -114,7 +114,7 @@
             "title": "Filter",
             "description": "Filter describes the conditions under which an oracle data is considered of interest or not."
         },
-        "oracles.v1.OracleSpec": {
+        "vega.oracles.v1.OracleSpec": {
             "properties": {
                 "id": {
                     "type": "string",
@@ -137,7 +137,7 @@
                 },
                 "filters": {
                     "items": {
-                        "$ref": "#/definitions/oracles.v1.Filter"
+                        "$ref": "#/definitions/vega.oracles.v1.Filter"
                     },
                     "type": "array",
                     "description": "filters describes which oracle data are considered of interest or not for the product (or the risk model)."
@@ -168,7 +168,7 @@
             "title": "Oracle Spec",
             "description": "An oracle spec describe the oracle data that a product (or a risk model) wants to get from the oracle engine. This message contains additional information used by the API."
         },
-        "oracles.v1.PropertyKey": {
+        "vega.oracles.v1.PropertyKey": {
             "properties": {
                 "name": {
                     "type": "string",
