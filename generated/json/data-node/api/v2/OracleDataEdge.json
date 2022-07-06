@@ -5,7 +5,7 @@
         "OracleDataEdge": {
             "properties": {
                 "node": {
-                    "$ref": "#/definitions/oracles.v1.OracleData",
+                    "$ref": "#/definitions/vega.oracles.v1.OracleData",
                     "additionalProperties": true
                 },
                 "cursor": {
@@ -16,7 +16,7 @@
             "type": "object",
             "title": "Oracle Data Edge"
         },
-        "oracles.v1.OracleData": {
+        "vega.oracles.v1.OracleData": {
             "properties": {
                 "pub_keys": {
                     "items": {
@@ -27,7 +27,7 @@
                 },
                 "data": {
                     "items": {
-                        "$ref": "#/definitions/oracles.v1.Property"
+                        "$ref": "#/definitions/vega.oracles.v1.Property"
                     },
                     "type": "array",
                     "description": "data holds all the properties of the oracle data"
@@ -49,7 +49,7 @@
             "title": "Oracle Data",
             "description": "OracleData describes valid oracle data that has been received by the node. It represents both matched and unmatched oracle data."
         },
-        "oracles.v1.Property": {
+        "vega.oracles.v1.Property": {
             "properties": {
                 "name": {
                     "type": "string",
