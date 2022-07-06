@@ -8,7 +8,41 @@
       "hasExtensions": false,
       "hasMessages": true,
       "hasServices": false,
-      "enums": [],
+      "enums": [
+        {
+          "name": "Status",
+          "longName": "Asset.Status",
+          "fullName": "vega.Asset.Status",
+          "description": "",
+          "values": [
+            {
+              "name": "STATUS_UNSPECIFIED",
+              "number": "0",
+              "description": "Default value, always invalid"
+            },
+            {
+              "name": "STATUS_PROPOSED",
+              "number": "1",
+              "description": "Asset is proposed and under vote"
+            },
+            {
+              "name": "STATUS_REJECTED",
+              "number": "2",
+              "description": "Asset has been rejected from governance"
+            },
+            {
+              "name": "STATUS_PENDING_LISTING",
+              "number": "3",
+              "description": "Asset is pending listing from the bridge"
+            },
+            {
+              "name": "STATUS_ENABLED",
+              "number": "4",
+              "description": "Asset is fully usable in the network"
+            }
+          ]
+        }
+      ],
       "extensions": [],
       "messages": [
         {
@@ -40,6 +74,18 @@
               "type": "AssetDetails",
               "longType": "AssetDetails",
               "fullType": "vega.AssetDetails",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "description": "Status of the asset",
+              "label": "",
+              "type": "Status",
+              "longType": "Asset.Status",
+              "fullType": "vega.Asset.Status",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -578,6 +624,18 @@
             {
               "name": "vega_asset_id",
               "description": "The Vega network internal identifier of the asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "asset_source",
+              "description": "The ethereum address of the asset",
               "label": "",
               "type": "string",
               "longType": "string",

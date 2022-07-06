@@ -7,6 +7,10 @@
                 "vega_asset_id": {
                     "type": "string",
                     "description": "The Vega network internal identifier of the asset"
+                },
+                "asset_source": {
+                    "type": "string",
+                    "description": "The ethereum address of the asset"
                 }
             },
             "additionalProperties": true,

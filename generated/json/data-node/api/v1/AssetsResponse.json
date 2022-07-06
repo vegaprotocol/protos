@@ -27,6 +27,29 @@
                     "$ref": "#/definitions/vega.AssetDetails",
                     "additionalProperties": true,
                     "description": "The definition of the external source for this asset"
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_PROPOSED",
+                        1,
+                        "STATUS_REJECTED",
+                        2,
+                        "STATUS_PENDING_LISTING",
+                        3,
+                        "STATUS_ENABLED",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status"
                 }
             },
             "additionalProperties": true,
