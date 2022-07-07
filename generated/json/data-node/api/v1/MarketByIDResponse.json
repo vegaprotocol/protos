@@ -417,7 +417,9 @@
                         "TRADING_MODE_OPENING_AUCTION",
                         3,
                         "TRADING_MODE_MONITORING_AUCTION",
-                        4
+                        4,
+                        "TRADING_MODE_NO_TRADING",
+                        5
                     ],
                     "oneOf": [
                         {

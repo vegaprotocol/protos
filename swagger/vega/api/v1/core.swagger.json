@@ -239,10 +239,11 @@
         "TRADING_MODE_CONTINUOUS",
         "TRADING_MODE_BATCH_AUCTION",
         "TRADING_MODE_OPENING_AUCTION",
-        "TRADING_MODE_MONITORING_AUCTION"
+        "TRADING_MODE_MONITORING_AUCTION",
+        "TRADING_MODE_NO_TRADING"
       ],
       "default": "TRADING_MODE_UNSPECIFIED",
-      "description": "- TRADING_MODE_UNSPECIFIED: Default value, this is invalid\n - TRADING_MODE_CONTINUOUS: Normal trading\n - TRADING_MODE_BATCH_AUCTION: Auction trading (FBA)\n - TRADING_MODE_OPENING_AUCTION: Opening auction\n - TRADING_MODE_MONITORING_AUCTION: Auction triggered by monitoring",
+      "description": "- TRADING_MODE_UNSPECIFIED: Default value, this is invalid\n - TRADING_MODE_CONTINUOUS: Normal trading\n - TRADING_MODE_BATCH_AUCTION: Auction trading (FBA)\n - TRADING_MODE_OPENING_AUCTION: Opening auction\n - TRADING_MODE_MONITORING_AUCTION: Auction triggered by monitoring\n - TRADING_MODE_NO_TRADING: Not trading is allowed",
       "title": "The trading mode the market is currently running, also referred to as 'market state'"
     },
     "OracleDataSubmissionOracleSource": {

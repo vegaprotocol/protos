@@ -244,6 +244,8 @@ message Market {
     TRADING_MODE_OPENING_AUCTION = 3;
     // Auction triggered by monitoring
     TRADING_MODE_MONITORING_AUCTION = 4;
+    // Not trading is allowed
+    TRADING_MODE_NO_TRADING = 5;
 
     // Note: If adding an enum value, add a matching entry in:
     //       - gateway/graphql/helpers_enum.go
