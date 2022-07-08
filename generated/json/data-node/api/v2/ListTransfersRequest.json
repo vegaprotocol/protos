@@ -10,12 +10,14 @@
                 },
                 "direction": {
                     "enum": [
-                        "TRANSFER_FROM",
+                        "TRANSFER_DIRECTION_UNSPECIFIED",
                         0,
-                        "TRANSFER_TO",
+                        "TRANSFER_DIRECTION_TRANSFER_FROM",
                         1,
-                        "TRANSFER_TO_OR_FROM",
-                        2
+                        "TRANSFER_DIRECTION_TRANSFER_TO",
+                        2,
+                        "TRANSFER_DIRECTION_TRANSFER_TO_OR_FROM",
+                        3
                     ],
                     "oneOf": [
                         {
