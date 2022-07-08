@@ -8,6 +8,7 @@ import "vega/markets.proto";
 import "vega/assets.proto";
 import "vega/oracles/v1/data.proto";
 import "vega/oracles/v1/spec.proto";
+import "vega/events/v1/events.proto";
 
 package datanode.api.v2;
 
@@ -39,8 +40,8 @@ service TradingDataService {
     rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
 
     // -- Transfers --
-    // Get Transfers for a Market ID for a public key using a cursor based pagination model
-    rpc GetTransfers(GetTransfersRequest) returns (GetTransfersResponse);
+    // List Transfers to/from/either a public key using a cursor based pagination model
+    rpc ListTransfers(ListTransfersRequest) returns (ListTransfersResponse);
 
     // -- Network Limits --
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -350,24 +351,30 @@ message MarketsDataSubscribeResponse {
 }
 
 // -- Transfers --
+enum TransferDirection {
+    TRANSFER_DIRECTION_UNSPECIFIED = 0;
+    TRANSFER_DIRECTION_TRANSFER_FROM = 1;
+    TRANSFER_DIRECTION_TRANSFER_TO = 2;
+    TRANSFER_DIRECTION_TRANSFER_TO_OR_FROM = 3;
+}
+
 // Request for transfers
-message GetTransfersRequest {
+message ListTransfersRequest {
     // Public key of which transfers to request
-    string pubkey = 1;
+    optional string pubkey = 1;
     // Directions to include in the response data
-    bool is_from = 2;
-    bool is_to = 3;
+    TransferDirection direction = 2;
     // Optional pagination cntrol
-    optional Pagination pagination = 4;
+    optional Pagination pagination = 3;
 }
 
 // Response for transfers
-message GetTransfersResponse {
-    repeated TransferConnection transfers = 1;
+message ListTransfersResponse {
+    TransferConnection transfers = 1;
 }
 
 message TransferEdge {
-    vega.Transfer node = 1;
+    vega.events.v1.Transfer node = 1;
     string cursor = 2;
 }
 
