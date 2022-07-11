@@ -33,10 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-#######
-## Gather data, reopen closed issues and ensure work item is on the board
-#######
-# yamllint enable rule:line-length
+    #######
+    ## Gather data, reopen closed issues and ensure work item is on the board
+    #######
+    # yamllint disable rule:line-length
       - name: 'Get linked issue id and state'
         id: linked-issue
         run: |
