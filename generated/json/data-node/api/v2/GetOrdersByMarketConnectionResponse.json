@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOrdersByMarketPagedResponse",
+    "$ref": "#/definitions/GetOrdersByMarketConnectionResponse",
     "definitions": {
-        "GetOrdersByMarketPagedResponse": {
+        "GetOrdersByMarketConnectionResponse": {
             "properties": {
                 "orders": {
                     "$ref": "#/definitions/datanode.api.v2.OrderConnection",
@@ -12,7 +12,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Orders By Market Paged Response",
+            "title": "Get Orders By Market Connection Response",
             "description": "Response for a list of orders for a market"
         },
         "datanode.api.v2.OrderConnection": {

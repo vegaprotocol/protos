@@ -13,6 +13,10 @@ function gen_code() {
 	# generate code, grpc and validators code
 	buf generate
 
+	if [ $? -ne 0 ]; then
+		exit $?
+	fi
+
 	# Since ./proto/github/{grpc-ecosystem,mwitkow} are dependencies,
 	# buf will generate code for them to
 	rm -rf ./github.com
@@ -36,6 +40,7 @@ function gen_swagger() {
 }
 
 function gen_json() {
+	rm -rf generated
 	mkdir -p generated/json/vega
 	mkdir -p ./generated/json/data-node/api/v1
 	mkdir -p ./generated/json/data-node/api/v2

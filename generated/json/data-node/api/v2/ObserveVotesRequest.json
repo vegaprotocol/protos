@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ObserveVotesRequest",
+    "definitions": {
+        "ObserveVotesRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party of which the votes are requested"
+                },
+                "proposal_id": {
+                    "type": "string",
+                    "description": "Option proposal id for which the votes are requested"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observe Votes Request"
+        }
+    }
+}

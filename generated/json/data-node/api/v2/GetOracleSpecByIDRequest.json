@@ -11,8 +11,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Oracle Spec By ID Request",
-            "description": "The request to get a specific oracle spec by identifier"
+            "title": "-- Oracles --",
+            "description": "-- Oracles --  The request to get a specific oracle spec by identifier"
         }
     }
 }

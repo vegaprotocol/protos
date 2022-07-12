@@ -1,23 +1,20 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOrderVersionsByIDPagedRequest",
+    "$ref": "#/definitions/GetOracleSpecsConnectionRequest",
     "definitions": {
-        "GetOrderVersionsByIDPagedRequest": {
+        "GetOracleSpecsConnectionRequest": {
             "properties": {
-                "order_id": {
-                    "type": "string",
-                    "description": "Order identifier, required field"
+                "spec_id": {
+                    "type": "string"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true,
-                    "description": "Pagination controls"
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Order Versions By ID Paged Request",
-            "description": "Request for a list of all versions of an order given the specified order identifier"
+            "title": "Get Oracle Specs Connection Request"
         },
         "datanode.api.v2.Pagination": {
             "properties": {
@@ -32,6 +29,10 @@
                 },
                 "before": {
                     "type": "string"
+                },
+                "newest_first": {
+                    "type": "boolean",
+                    "description": "Newest records first, older records last, default is true"
                 }
             },
             "additionalProperties": true,

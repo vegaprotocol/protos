@@ -37,6 +37,8 @@ message BuiltinAssetEvent {
 message ERC20AssetList {
   // The Vega network internal identifier of the asset
   string vega_asset_id = 1;
+  // The ethereum address of the asset
+  string asset_source = 2;
 }
 
 // An asset deny-listing for an ERC20 token

@@ -1,71 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetMarketDataHistoryConnectionByIDResponse",
+    "$ref": "#/definitions/MarketsDataSubscribeResponse",
     "definitions": {
-        "GetMarketDataHistoryConnectionByIDResponse": {
+        "MarketsDataSubscribeResponse": {
             "properties": {
                 "market_data": {
-                    "$ref": "#/definitions/datanode.api.v2.MarketDataConnection",
-                    "additionalProperties": true
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Get Market Data History Connection By ID Response"
-        },
-        "datanode.api.v2.MarketDataConnection": {
-            "properties": {
-                "total_count": {
-                    "type": "string"
-                },
-                "edges": {
                     "items": {
-                        "$ref": "#/definitions/datanode.api.v2.MarketDataEdge"
+                        "$ref": "#/definitions/vega.MarketData"
                     },
                     "type": "array"
-                },
-                "page_info": {
-                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
-                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Market Data Connection"
-        },
-        "datanode.api.v2.MarketDataEdge": {
-            "properties": {
-                "node": {
-                    "$ref": "#/definitions/vega.MarketData",
-                    "additionalProperties": true
-                },
-                "cursor": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Market Data Edge"
-        },
-        "datanode.api.v2.PageInfo": {
-            "properties": {
-                "has_next_page": {
-                    "type": "boolean"
-                },
-                "has_previous_page": {
-                    "type": "boolean"
-                },
-                "start_cursor": {
-                    "type": "string"
-                },
-                "end_cursor": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Page Info",
-            "description": "Page information for cursor based pagination"
+            "title": "Markets Data Subscribe Response"
         },
         "vega.LiquidityProviderFeeShare": {
             "properties": {
@@ -172,7 +120,9 @@
                         "TRADING_MODE_OPENING_AUCTION",
                         3,
                         "TRADING_MODE_MONITORING_AUCTION",
-                        4
+                        4,
+                        "TRADING_MODE_NO_TRADING",
+                        5
                     ],
                     "oneOf": [
                         {

@@ -1,0 +1,315 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ListTransfersResponse",
+    "definitions": {
+        "ListTransfersResponse": {
+            "properties": {
+                "transfers": {
+                    "$ref": "#/definitions/datanode.api.v2.TransferConnection",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "List Transfers Response",
+            "description": "Response for transfers"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        },
+        "datanode.api.v2.TransferConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.TransferEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Connection"
+        },
+        "datanode.api.v2.TransferEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.events.v1.Transfer",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer Edge"
+        },
+        "vega.DispatchStrategy": {
+            "properties": {
+                "asset_for_metric": {
+                    "type": "string",
+                    "description": "The asset to use for metric"
+                },
+                "metric": {
+                    "enum": [
+                        "DISPATCH_METRIC_UNSPECIFIED",
+                        0,
+                        "DISPATCH_METRIC_TAKER_FEES_PAID",
+                        1,
+                        "DISPATCH_METRIC_MAKER_FEES_RECEIVED",
+                        2,
+                        "DISPATCH_METRIC_LP_FEES_RECEIVED",
+                        3,
+                        "DISPATCH_METRIC_MARKET_VALUE",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Dispatch Metric"
+                },
+                "markets": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Optional markets in scope"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Dispatch Strategy"
+        },
+        "vega.Uint64Value": {
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Uint 64 Value"
+        },
+        "vega.events.v1.OneOffTransfer": {
+            "properties": {
+                "deliver_on": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "One Off Transfer"
+        },
+        "vega.events.v1.RecurringTransfer": {
+            "properties": {
+                "start_epoch": {
+                    "type": "string"
+                },
+                "end_epoch": {
+                    "$ref": "#/definitions/vega.Uint64Value",
+                    "additionalProperties": true
+                },
+                "factor": {
+                    "type": "string"
+                },
+                "dispatch_strategy": {
+                    "$ref": "#/definitions/vega.DispatchStrategy",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Recurring Transfer"
+        },
+        "vega.events.v1.Transfer": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "from_account_type": {
+                    "enum": [
+                        "ACCOUNT_TYPE_UNSPECIFIED",
+                        0,
+                        "ACCOUNT_TYPE_INSURANCE",
+                        1,
+                        "ACCOUNT_TYPE_SETTLEMENT",
+                        2,
+                        "ACCOUNT_TYPE_MARGIN",
+                        3,
+                        "ACCOUNT_TYPE_GENERAL",
+                        4,
+                        "ACCOUNT_TYPE_FEES_INFRASTRUCTURE",
+                        5,
+                        "ACCOUNT_TYPE_FEES_LIQUIDITY",
+                        6,
+                        "ACCOUNT_TYPE_FEES_MAKER",
+                        7,
+                        "ACCOUNT_TYPE_LOCK_WITHDRAW",
+                        8,
+                        "ACCOUNT_TYPE_BOND",
+                        9,
+                        "ACCOUNT_TYPE_EXTERNAL",
+                        10,
+                        "ACCOUNT_TYPE_GLOBAL_INSURANCE",
+                        11,
+                        "ACCOUNT_TYPE_GLOBAL_REWARD",
+                        12,
+                        "ACCOUNT_TYPE_PENDING_TRANSFERS",
+                        13,
+                        "ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES",
+                        14,
+                        "ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES",
+                        15,
+                        "ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES",
+                        16,
+                        "ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS",
+                        17
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Account Type",
+                    "description": "Various collateral/account types as used by Vega"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "to_account_type": {
+                    "enum": [
+                        "ACCOUNT_TYPE_UNSPECIFIED",
+                        0,
+                        "ACCOUNT_TYPE_INSURANCE",
+                        1,
+                        "ACCOUNT_TYPE_SETTLEMENT",
+                        2,
+                        "ACCOUNT_TYPE_MARGIN",
+                        3,
+                        "ACCOUNT_TYPE_GENERAL",
+                        4,
+                        "ACCOUNT_TYPE_FEES_INFRASTRUCTURE",
+                        5,
+                        "ACCOUNT_TYPE_FEES_LIQUIDITY",
+                        6,
+                        "ACCOUNT_TYPE_FEES_MAKER",
+                        7,
+                        "ACCOUNT_TYPE_LOCK_WITHDRAW",
+                        8,
+                        "ACCOUNT_TYPE_BOND",
+                        9,
+                        "ACCOUNT_TYPE_EXTERNAL",
+                        10,
+                        "ACCOUNT_TYPE_GLOBAL_INSURANCE",
+                        11,
+                        "ACCOUNT_TYPE_GLOBAL_REWARD",
+                        12,
+                        "ACCOUNT_TYPE_PENDING_TRANSFERS",
+                        13,
+                        "ACCOUNT_TYPE_REWARD_TAKER_PAID_FEES",
+                        14,
+                        "ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES",
+                        15,
+                        "ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES",
+                        16,
+                        "ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS",
+                        17
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Account Type",
+                    "description": "Various collateral/account types as used by Vega"
+                },
+                "asset": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "string"
+                },
+                "reference": {
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_PENDING",
+                        1,
+                        "STATUS_DONE",
+                        2,
+                        "STATUS_REJECTED",
+                        3,
+                        "STATUS_STOPPED",
+                        4,
+                        "STATUS_CANCELLED",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "one_off": {
+                    "$ref": "#/definitions/vega.events.v1.OneOffTransfer",
+                    "additionalProperties": true
+                },
+                "recurring": {
+                    "$ref": "#/definitions/vega.events.v1.RecurringTransfer",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Transfer"
+        }
+    }
+}

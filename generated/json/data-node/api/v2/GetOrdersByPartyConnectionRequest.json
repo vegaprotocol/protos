@@ -1,26 +1,26 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetMarketDataHistoryConnectionByIDRequest",
+    "$ref": "#/definitions/GetOrdersByPartyConnectionRequest",
     "definitions": {
-        "GetMarketDataHistoryConnectionByIDRequest": {
+        "GetOrdersByPartyConnectionRequest": {
             "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                },
                 "market_id": {
-                    "type": "string"
-                },
-                "start": {
-                    "type": "string"
-                },
-                "end": {
                     "type": "string"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "description": "Optional pagination controls"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Market Data History Connection By ID Request"
+            "title": "Get Orders By Party Connection Request",
+            "description": "Request for a list of orders for a market"
         },
         "datanode.api.v2.Pagination": {
             "properties": {
@@ -35,6 +35,10 @@
                 },
                 "before": {
                     "type": "string"
+                },
+                "newest_first": {
+                    "type": "boolean",
+                    "description": "Newest records first, older records last, default is true"
                 }
             },
             "additionalProperties": true,

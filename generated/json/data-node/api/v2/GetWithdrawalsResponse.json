@@ -1,0 +1,167 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetWithdrawalsResponse",
+    "definitions": {
+        "GetWithdrawalsResponse": {
+            "properties": {
+                "withdrawals": {
+                    "$ref": "#/definitions/datanode.api.v2.WithdrawalsConnection",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Withdrawals Response"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        },
+        "datanode.api.v2.WithdrawalEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Withdrawal",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Withdrawal Edge"
+        },
+        "datanode.api.v2.WithdrawalsConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.WithdrawalEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Withdrawals Connection"
+        },
+        "vega.Erc20WithdrawExt": {
+            "properties": {
+                "receiver_address": {
+                    "type": "string",
+                    "description": "The address into which the bridge will release the funds"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Erc 20 Withdraw Ext",
+            "description": "An extension of data required for the withdraw submissions"
+        },
+        "vega.WithdrawExt": {
+            "properties": {
+                "erc20": {
+                    "$ref": "#/definitions/vega.Erc20WithdrawExt",
+                    "additionalProperties": true,
+                    "description": "ERC20 withdrawal details"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Withdraw Ext",
+            "description": "Withdrawal external details"
+        },
+        "vega.Withdrawal": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the withdrawal"
+                },
+                "party_id": {
+                    "type": "string",
+                    "description": "Unique party identifier of the user initiating the withdrawal"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be withdrawn"
+                },
+                "asset": {
+                    "type": "string",
+                    "description": "The asset we want to withdraw funds from"
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_OPEN",
+                        1,
+                        "STATUS_REJECTED",
+                        2,
+                        "STATUS_FINALIZED",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status",
+                    "description": "The status of the withdrawal"
+                },
+                "ref": {
+                    "type": "string",
+                    "description": "The reference which is used by the foreign chain to refer to this withdrawal"
+                },
+                "expiry": {
+                    "type": "string",
+                    "description": "The time until when the withdrawal is valid"
+                },
+                "tx_hash": {
+                    "type": "string",
+                    "description": "The hash of the foreign chain for this transaction"
+                },
+                "created_timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for when the network started to process this withdrawal"
+                },
+                "withdrawn_timestamp": {
+                    "type": "string",
+                    "description": "Timestamp for when the withdrawal was finalised by the network"
+                },
+                "ext": {
+                    "$ref": "#/definitions/vega.WithdrawExt",
+                    "additionalProperties": true,
+                    "description": "Foreign chain specifics"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Withdrawal",
+            "description": "A withdrawal from the Vega network"
+        }
+    }
+}

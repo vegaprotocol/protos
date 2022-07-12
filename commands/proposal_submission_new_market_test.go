@@ -101,7 +101,6 @@ func TestCheckProposalSubmissionForNewMarket(t *testing.T) {
 	t.Run("Submitting a log normal risk parameters change with invalid mu", testNewLogNormalRiskParametersChangeSubmissionInvalidMu)
 	t.Run("Submitting a log normal risk parameters change with invalid sigma", testNewLogNormalRiskParametersChangeSubmissionInvalidSigma)
 	t.Run("Submitting a log normal risk parameters change with invalid r", testNewLogNormalRiskParametersChangeSubmissionInvalidR)
-	t.Run("Submitting a new market without liquidity commitment fails", testNewMarketSubmissionWithoutLiquidityCommitmentFails)
 	t.Run("Submitting a new market with liquidity commitment succeeds", testNewMarketSubmissionWithLiquidityCommitmentSucceeds)
 	t.Run("Submitting a new market without commitment amount fails", testNewMarketSubmissionWithoutCommitmentAmountFails)
 	t.Run("Submitting a new market with commitment amount succeeds", testNewMarketSubmissionWithCommitmentAmountSucceeds)
@@ -2410,18 +2409,6 @@ func testNewLogNormalRiskParametersChangeSubmissionInvalidSigma(t *testing.T) {
 	}
 	err = checkProposalSubmission(c0)
 	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.changes.risk_parameters.log_normal.params.sigma"), commands.ErrMustBePositive)
-}
-
-func testNewMarketSubmissionWithoutLiquidityCommitmentFails(t *testing.T) {
-	err := checkProposalSubmission(&commandspb.ProposalSubmission{
-		Terms: &types.ProposalTerms{
-			Change: &types.ProposalTerms_NewMarket{
-				NewMarket: &types.NewMarket{},
-			},
-		},
-	})
-
-	assert.Contains(t, err.Get("proposal_submission.terms.change.new_market.liquidity_commitment"), commands.ErrIsRequired)
 }
 
 func testNewMarketSubmissionWithLiquidityCommitmentSucceeds(t *testing.T) {

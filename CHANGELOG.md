@@ -1,18 +1,36 @@
 # Changelog
 
-## Unreleased (0.53.0)
+## Unreleased (0.54.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🗑️ Deprecation
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🛠 Improvements
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/pull/) -
+- [](https://github.com/vegaprotocol/protos/issues/) -
+
+
+## 0.53.0
+
+### 🛠 Improvements
+- [477](https://github.com/vegaprotocol/protos/issues/477) - Make liquidity provision optional in market proposals
+- [450](https://github.com/vegaprotocol/protos/issues/450) - Add pagination for positions
+- [465](https://github.com/vegaprotocol/protos/issues/465) - Candles pagination
+- [459](https://github.com/vegaprotocol/protos/issues/459) - Market data subscription
+- [458](https://github.com/vegaprotocol/protos/issues/458) - Add transfers pagination
+- [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
+- [479](https://github.com/vegaprotocol/protos/issues/479) - Remove checkpoint restore command
+- [466](https://github.com/vegaprotocol/protos/issues/466) - Add list asset endpoint and add status to asset
+
+### 🐛 Fixes
+- [467](https://github.com/vegaprotocol/protos/issues/467) - Add settlement price to snapshots
+- [456](https://github.com/vegaprotocol/protos/issues/456) - Fix market lifecycle
+
 
 ## 0.52.0
 
@@ -26,11 +44,15 @@
 - [435](https://github.com/vegaprotocol/protos/issues/435) - Rename messages related to list asset method bundle
 
 ### 🛠 Improvements
+- [450](https://github.com/vegaprotocol/protos/issues/450) - Add support for cursor based pagination in `Data Node API V2` Positions
+- [458](https://github.com/vegaprotocol/protos/issues/458) - Add support for cursor based pagination in `Data Node API V2` Transfers
+- [462](https://github.com/vegaprotocol/protos/issues/462) - Add support for cursor based pagination in `Data Node API V2` Votes
 - [418](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Trades, Markets and Parties
 - [427](https://github.com/vegaprotocol/protos/issues/418) - Add support for cursor based pagination in `Data Node API V2` Orders
 - [5358](https://github.com/vegaprotocol/vega/issues/5358) - Add previous MVP field to equity shares snapshot.
 - [437](https://github.com/vegaprotocol/protos/issues/437) - Add `UpdateAsset` proto definition.
 - [440](https://github.com/vegaprotocol/protos/issues/440) - Add `previous_sequence_number` to `MarketDataUpdate` message
+- [459](https://github.com/vegaprotocol/protos/issues/459) - Add market data subscription to  `Data Node API V2`
 
 ### 🐛 Fixes
 - [433](https://github.com/vegaprotocol/protos/pull/433) - remove unnecessary semicolon from vega proto

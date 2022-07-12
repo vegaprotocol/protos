@@ -3,9 +3,12 @@ syntax = "proto3";
 option go_package = "code.vegaprotocol.io/protos/data-node/api/v2";
 
 import "vega/vega.proto";
+import "vega/governance.proto";
 import "vega/markets.proto";
+import "vega/assets.proto";
 import "vega/oracles/v1/data.proto";
 import "vega/oracles/v1/spec.proto";
+import "vega/events/v1/events.proto";
 
 package datanode.api.v2;
 
@@ -16,11 +19,15 @@ service TradingDataService {
     // Get all versions of the order by its orderID
     rpc GetOrderVersionsByID(GetOrderVersionsByIDRequest) returns (GetOrderVersionsByIDResponse);
     // Get a list of Orders by Market using cursor based pagination
-    rpc GetOrdersByMarketPaged(GetOrdersByMarketPagedRequest) returns (GetOrdersByMarketPagedResponse);
+    rpc GetOrdersByMarketConnection(GetOrdersByMarketConnectionRequest) returns (GetOrdersByMarketConnectionResponse);
     // Get a list of Orders by Party using cursor based pagination
-    rpc GetOrdersByPartyPaged(GetOrdersByPartyPagedRequest) returns (GetOrdersByPartyPagedResponse);
+    rpc GetOrdersByPartyConnection(GetOrdersByPartyConnectionRequest) returns (GetOrdersByPartyConnectionResponse);
     // Get all versions of the order by its orderID using cursor based pagination
-    rpc GetOrderVersionsByIDPaged(GetOrderVersionsByIDPagedRequest) returns (GetOrderVersionsByIDPagedResponse);
+    rpc GetOrderVersionsByIDConnection(GetOrderVersionsByIDConnectionRequest) returns (GetOrderVersionsByIDConnectionResponse);
+
+    // -- Positions --
+    // Get a list of Positions by Party using cursor based pagination
+    rpc GetPositionsByPartyConnection(GetPositionsByPartyConnectionRequest) returns (GetPositionsByPartyConnectionResponse);
 
     // -- Balances --
     // Get an aggregated list of the changes in balances in a set of accounts over time
@@ -29,6 +36,12 @@ service TradingDataService {
     // -- Market Data --
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
+    // Subscribe to a stream of Markets Data
+    rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
+
+    // -- Transfers --
+    // List Transfers to/from/either a public key using a cursor based pagination model
+    rpc ListTransfers(ListTransfersRequest) returns (ListTransfersResponse);
 
     // -- Network Limits --
     // Get the current network limits (is bootstrapping finished, are proposals enabled etc..)
@@ -42,11 +55,19 @@ service TradingDataService {
     // Gets all available intervals for a given market along with the corresponding candle id
     rpc GetCandlesForMarket(GetCandlesForMarketRequest) returns (GetCandlesForMarketResponse);
 
+    // -- Votes --
+    // Get Votes for a Party ID using a cursor based pagination model
+    rpc ListVotes(ListVotesRequest) returns (ListVotesResponse);
+    // Subscribe to a stream of votes
+    rpc ObserveVotes(ObserveVotesRequest) returns (stream ObserveVotesResponse);
+
     // -- ERC20 Multi Sig --
     // Gets the signature bundles that add a particular validator to the multisig contract
     rpc GetERC20MultiSigSignerAddedBundles(GetERC20MultiSigSignerAddedBundlesRequest) returns (GetERC20MultiSigSignerAddedBundlesResponse);
     // Gets the signature bundles that remove a particular validator to the multisig contract
     rpc GetERC20MultiSigSignerRemovedBundles(GetERC20MultiSigSignerRemovedBundlesRequest) returns (GetERC20MultiSigSignerRemovedBundlesResponse);
+    // Gets the signature bundles that remove a particular validator to the multisig contract
+    rpc GetERC20ListAssetBundle(GetERC20ListAssetBundleRequest) returns (GetERC20ListAssetBundleResponse);
 
     // -- Trades --
     // Get trades by market using a cursor based pagination model
@@ -65,6 +86,10 @@ service TradingDataService {
     rpc GetOracleDataBySpecID(GetOracleDataBySpecIDRequest) returns (GetOracleDataBySpecIDResponse);
     // Get all oracle data
     rpc ListOracleData(ListOracleDataRequest) returns (ListOracleDataResponse);
+    // Get cursor based paginated oracle specs data
+    rpc GetOracleSpecsConnection(GetOracleSpecsConnectionRequest) returns (GetOracleSpecsConnectionResponse);
+    // Get cursor based paginated oracle data
+    rpc GetOracleDataConnection(GetOracleDataConnectionRequest) returns (GetOracleDataConnectionResponse);
 
     // -- Markets --
     // Get all markets using a cursor based pagination model
@@ -84,6 +109,18 @@ service TradingDataService {
 
     // Get reward summaries
     rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
+
+    // -- Deposits --
+    rpc GetDeposits(GetDepositsRequest) returns (GetDepositsResponse);
+
+    // -- Withdrawals --
+    rpc GetWithdrawals(GetWithdrawalsRequest) returns (GetWithdrawalsResponse);
+
+    // -- Assets --
+    rpc GetAssets(GetAssetsRequest) returns (GetAssetsResponse);
+
+    // -- Liquidity Provisions --
+    rpc GetLiquidityProvisions(GetLiquidityProvisionsRequest) returns (GetLiquidityProvisionsResponse);
 
 }
 
@@ -105,6 +142,8 @@ message Pagination {
     optional string after = 2;
     optional int32 last = 3;
     optional string before = 4;
+    // Newest records first, older records last, default is true
+    optional bool newest_first = 5;
 }
 
 // Page information for cursor based pagination
@@ -145,7 +184,7 @@ message GetOrderVersionsByIDResponse {
 }
 
 // Request for a list of orders for a market
-message GetOrdersByMarketPagedRequest {
+message GetOrdersByMarketConnectionRequest {
     // Market identifier, required field
     string market_id = 1;
     // Optional pagination controls
@@ -153,13 +192,13 @@ message GetOrdersByMarketPagedRequest {
 }
 
 // Response for a list of orders for a market
-message GetOrdersByMarketPagedResponse {
+message GetOrdersByMarketConnectionResponse {
     // Paged order connection
     OrderConnection orders = 1;
 }
 
 // Request for a list of orders for a market
-message GetOrdersByPartyPagedRequest {
+message GetOrdersByPartyConnectionRequest {
     // Market identifier, required field
     string party_id = 1;
     string market_id = 2;
@@ -168,13 +207,13 @@ message GetOrdersByPartyPagedRequest {
 }
 
 // Response for a list of orders for a market
-message GetOrdersByPartyPagedResponse {
+message GetOrdersByPartyConnectionResponse {
     // Paged order connection
     OrderConnection orders = 1;
 }
 
 // Request for a list of all versions of an order given the specified order identifier
-message GetOrderVersionsByIDPagedRequest {
+message GetOrderVersionsByIDConnectionRequest {
     // Order identifier, required field
     string order_id = 1;
     // Pagination controls
@@ -182,9 +221,38 @@ message GetOrderVersionsByIDPagedRequest {
 }
 
 // Response to a request for a list of all versions of an order
-message GetOrderVersionsByIDPagedResponse {
+message GetOrderVersionsByIDConnectionResponse {
     // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
     OrderConnection orders = 1;
+}
+
+// -- Positions --
+// Request for a list of positions for a party
+// Optionally, if a market identifier is set, the results will be filtered for that market only
+message GetPositionsByPartyConnectionRequest {
+    // Party identifier, required field
+    string party_id = 1;
+    // Market identifier
+    string market_id = 2;
+    // Optional pagination control
+    optional Pagination pagination = 3;
+}
+
+// Response for a list of positions for a party
+message GetPositionsByPartyConnectionResponse {
+    // A list of 0 or more positions
+    PositionConnection positions = 1;
+}
+
+message PositionEdge {
+    vega.Position node = 1;
+    string cursor = 2;
+}
+
+message PositionConnection {
+    int64 total_count = 1;
+    repeated PositionEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- Balances --
@@ -271,6 +339,51 @@ message MarketDataConnection {
     PageInfo page_info = 3;
 }
 
+// Request to subscribe to a stream of MarketsData
+// Optionally, the list can be additionally filtered by market
+message MarketsDataSubscribeRequest {
+    // Market identifier
+    string market_id = 1;
+}
+
+message MarketsDataSubscribeResponse {
+    repeated vega.MarketData market_data = 1;
+}
+
+// -- Transfers --
+enum TransferDirection {
+    TRANSFER_DIRECTION_UNSPECIFIED = 0;
+    TRANSFER_DIRECTION_TRANSFER_FROM = 1;
+    TRANSFER_DIRECTION_TRANSFER_TO = 2;
+    TRANSFER_DIRECTION_TRANSFER_TO_OR_FROM = 3;
+}
+
+// Request for transfers
+message ListTransfersRequest {
+    // Public key of which transfers to request
+    optional string pubkey = 1;
+    // Directions to include in the response data
+    TransferDirection direction = 2;
+    // Optional pagination cntrol
+    optional Pagination pagination = 3;
+}
+
+// Response for transfers
+message ListTransfersResponse {
+    TransferConnection transfers = 1;
+}
+
+message TransferEdge {
+    vega.events.v1.Transfer node = 1;
+    string cursor = 2;
+}
+
+message TransferConnection {
+    int64 total_count = 1;
+    repeated TransferEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
 // -- Network Limits --
 // Request for the current network limits
 message GetNetworkLimitsRequest {}
@@ -346,16 +459,64 @@ message GetCandleDataRequest {
     int64 to_timestamp = 3;
 
     // Time interval for the candles, required field specified as a valid postgres interval
-    string interval = 4;
+    vega.Interval interval = 4;
 
     // pagination controls
-    OffsetPagination pagination = 5;
+    Pagination pagination = 5;
 }
 
 // Response for list of candles for a market at an interval
 message GetCandleDataResponse {
     // A list of 0 or more candles
-    repeated Candle candles = 1;
+    CandleDataConnection candles = 1;
+}
+
+message CandleEdge {
+    Candle node = 1;
+    string cursor = 2;
+}
+
+message CandleDataConnection {
+    int64 total_count = 1;
+    repeated CandleEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Votes --
+// Request for Votes
+message ListVotesRequest {
+    // Party of which the votes are requested
+    string party_id = 1;
+
+    // Optional pagination control
+    optional Pagination pagination = 2;
+}
+
+// Response for Votes
+message ListVotesResponse {
+    VoteConnection votes = 1;
+}
+
+message VoteEdge {
+    vega.Vote node = 1;
+    string cursor = 2;
+}
+
+message VoteConnection {
+    int64 total_count = 1;
+    repeated VoteEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+message ObserveVotesRequest {
+    // Party of which the votes are requested
+    optional string party_id = 1;
+    // Option proposal id for which the votes are requested
+    optional string proposal_id = 2;
+}
+
+message ObserveVotesResponse {
+    vega.Vote vote = 1;
 }
 
 // -- ERC20 Multi Sig --
@@ -500,6 +661,8 @@ message GetTradesByPartyResponse {
     TradeConnection trades = 1;
 }
 
+// -- Oracles --
+
 // The request to get a specific oracle spec by identifier
 message GetOracleSpecByIDRequest {
     // The ID to get the oracle spec for
@@ -549,6 +712,46 @@ message ListOracleDataRequest {
 message ListOracleDataResponse {
     // The list of seen oracle data
     repeated oracles.v1.OracleData oracle_data = 1;
+}
+
+message GetOracleSpecsConnectionRequest {
+    string spec_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetOracleSpecsConnectionResponse {
+    OracleSpecsConnection oracle_specs = 1;
+}
+
+message GetOracleDataConnectionRequest {
+    string spec_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetOracleDataConnectionResponse {
+    OracleDataConnection oracle_data = 1;
+}
+
+message OracleSpecEdge {
+    oracles.v1.OracleSpec node = 1;
+    string cursor = 2;
+}
+
+message OracleSpecsConnection {
+    int64 total_count = 1;
+    repeated OracleSpecEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+message OracleDataEdge {
+    oracles.v1.OracleData node = 1;
+    string cursor = 2;
+}
+
+message OracleDataConnection {
+    int64 total_count = 1;
+    repeated OracleDataEdge edges = 2;
+    PageInfo page_info = 3;
 }
 
 // -- Markets --
@@ -656,5 +859,95 @@ message RewardEdge {
 message RewardsConnection {
     int64 total_count = 1;
     repeated RewardEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Deposits --
+message GetDepositsRequest {
+    string party_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetDepositsResponse {
+    DepositsConnection deposits = 1;
+}
+
+message DepositEdge {
+    vega.Deposit node = 1;
+    string cursor = 2;
+}
+
+message DepositsConnection {
+    int64 total_count = 1;
+    repeated DepositEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Withdrawals --
+message GetWithdrawalsRequest {
+    string party_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetWithdrawalsResponse {
+    WithdrawalsConnection withdrawals = 1;
+}
+
+message WithdrawalEdge {
+    vega.Withdrawal node = 1;
+    string cursor = 2;
+}
+
+message WithdrawalsConnection {
+    int64 total_count = 1;
+    repeated WithdrawalEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Assets --
+message GetAssetsRequest {
+    string asset_id = 1;
+    Pagination pagination = 2;
+}
+
+message GetAssetsResponse {
+    AssetsConnection assets = 1;
+}
+
+message AssetEdge {
+    vega.Asset node = 1;
+    string cursor = 2;
+}
+
+message AssetsConnection {
+    int64 total_count = 1;
+    repeated AssetEdge edges = 2;
+    PageInfo page_info = 3;
+}
+
+// -- Liquidity Provisions --
+message GetLiquidityProvisionsRequest {
+    // The target market for the liquidity provision orders
+    string market = 1;
+    // The party which submitted the liquidity provision orders
+    string party = 2;
+    // The reference of the liquidity provision
+    string reference = 3;
+
+    Pagination pagination = 4;
+}
+
+message GetLiquidityProvisionsResponse {
+    LiquidityProvisionsConnection liquidity_provisions = 1;
+}
+
+message LiquidityProvisionsEdge {
+    vega.LiquidityProvision node = 1;
+    string cursor = 2;
+}
+
+message LiquidityProvisionsConnection {
+    int64 total_count = 1;
+    repeated LiquidityProvisionsEdge edges = 2;
     PageInfo page_info = 3;
 }

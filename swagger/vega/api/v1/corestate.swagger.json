@@ -404,10 +404,11 @@
         "TRADING_MODE_CONTINUOUS",
         "TRADING_MODE_BATCH_AUCTION",
         "TRADING_MODE_OPENING_AUCTION",
-        "TRADING_MODE_MONITORING_AUCTION"
+        "TRADING_MODE_MONITORING_AUCTION",
+        "TRADING_MODE_NO_TRADING"
       ],
       "default": "TRADING_MODE_UNSPECIFIED",
-      "description": "- TRADING_MODE_UNSPECIFIED: Default value, this is invalid\n - TRADING_MODE_CONTINUOUS: Normal trading\n - TRADING_MODE_BATCH_AUCTION: Auction trading (FBA)\n - TRADING_MODE_OPENING_AUCTION: Opening auction\n - TRADING_MODE_MONITORING_AUCTION: Auction triggered by monitoring",
+      "description": "- TRADING_MODE_UNSPECIFIED: Default value, this is invalid\n - TRADING_MODE_CONTINUOUS: Normal trading\n - TRADING_MODE_BATCH_AUCTION: Auction trading (FBA)\n - TRADING_MODE_OPENING_AUCTION: Opening auction\n - TRADING_MODE_MONITORING_AUCTION: Auction triggered by monitoring\n - TRADING_MODE_NO_TRADING: Not trading is allowed",
       "title": "The trading mode the market is currently running, also referred to as 'market state'"
     },
     "VoteValue": {
@@ -884,6 +885,10 @@
         "details": {
           "$ref": "#/definitions/vegaAssetDetails",
           "title": "The definition of the external source for this asset"
+        },
+        "status": {
+          "$ref": "#/definitions/vegaAssetStatus",
+          "title": "Status of the asset"
         }
       },
       "title": "The Vega representation of an external asset"
@@ -953,6 +958,18 @@
         }
       },
       "description": "The changes to apply on an existing asset."
+    },
+    "vegaAssetStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_PROPOSED",
+        "STATUS_REJECTED",
+        "STATUS_PENDING_LISTING",
+        "STATUS_ENABLED"
+      ],
+      "default": "STATUS_UNSPECIFIED",
+      "title": "- STATUS_UNSPECIFIED: Default value, always invalid\n - STATUS_PROPOSED: Asset is proposed and under vote\n - STATUS_REJECTED: Asset has been rejected from governance\n - STATUS_PENDING_LISTING: Asset is pending listing from the bridge\n - STATUS_ENABLED: Asset is fully usable in the network"
     },
     "vegaAuctionDuration": {
       "type": "object",

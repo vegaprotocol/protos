@@ -5,10 +5,8 @@
         "GetCandleDataResponse": {
             "properties": {
                 "candles": {
-                    "items": {
-                        "$ref": "#/definitions/datanode.api.v2.Candle"
-                    },
-                    "type": "array",
+                    "$ref": "#/definitions/datanode.api.v2.CandleDataConnection",
+                    "additionalProperties": true,
                     "description": "A list of 0 or more candles"
                 }
             },
@@ -52,6 +50,60 @@
             "type": "object",
             "title": "Candle",
             "description": "Represents the high, low, open, and closing prices for an interval of trading, referred to commonly as a candlestick or candle"
+        },
+        "datanode.api.v2.CandleDataConnection": {
+            "properties": {
+                "total_count": {
+                    "type": "string"
+                },
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.CandleEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candle Data Connection"
+        },
+        "datanode.api.v2.CandleEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/datanode.api.v2.Candle",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Candle Edge"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
         }
     }
 }

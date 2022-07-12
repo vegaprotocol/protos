@@ -1,26 +1,21 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOrdersByPartyPagedRequest",
+    "$ref": "#/definitions/GetAssetsRequest",
     "definitions": {
-        "GetOrdersByPartyPagedRequest": {
+        "GetAssetsRequest": {
             "properties": {
-                "party_id": {
-                    "type": "string",
-                    "description": "Market identifier, required field"
-                },
-                "market_id": {
+                "asset_id": {
                     "type": "string"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true,
-                    "description": "Optional pagination controls"
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Orders By Party Paged Request",
-            "description": "Request for a list of orders for a market"
+            "title": "Get Assets Request",
+            "description": "-- Assets --"
         },
         "datanode.api.v2.Pagination": {
             "properties": {
@@ -35,6 +30,10 @@
                 },
                 "before": {
                     "type": "string"
+                },
+                "newest_first": {
+                    "type": "boolean",
+                    "description": "Newest records first, older records last, default is true"
                 }
             },
             "additionalProperties": true,
