@@ -1,19 +1,18 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOrderVersionsByIDConnectionResponse",
+    "$ref": "#/definitions/ListOrderVersionsResponse",
     "definitions": {
-        "GetOrderVersionsByIDConnectionResponse": {
+        "ListOrderVersionsResponse": {
             "properties": {
                 "orders": {
                     "$ref": "#/definitions/datanode.api.v2.OrderConnection",
                     "additionalProperties": true,
-                    "description": "A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)"
+                    "description": "Paged connection with 0 or more order versions"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Order Versions By ID Connection Response",
-            "description": "Response to a request for a list of all versions of an order"
+            "title": "List Order Versions Response"
         },
         "datanode.api.v2.OrderConnection": {
             "properties": {

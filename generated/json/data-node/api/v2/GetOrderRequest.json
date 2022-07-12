@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetOrderRequest",
+    "definitions": {
+        "GetOrderRequest": {
+            "properties": {
+                "order_id": {
+                    "type": "string",
+                    "description": "Order identifier"
+                },
+                "version": {
+                    "type": "integer",
+                    "description": "Optional version"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Order Request"
+        }
+    }
+}

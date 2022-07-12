@@ -10,6 +10,7 @@
 
 ### 🛠 Improvements
 - [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
+- [495](https://github.com/vegaprotocol/protos/issues/495) - `v2` orders `api` 
 
 ### 🐛 Fixes
 - [](https://github.com/vegaprotocol/protos/issues/) -
