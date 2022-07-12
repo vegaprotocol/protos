@@ -28,6 +28,8 @@ type TradingDataServiceClient interface {
 	ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error)
 	// Subscribe to a stream of Accounts
 	ObserveAccounts(ctx context.Context, in *ObserveAccountsRequest, opts ...grpc.CallOption) (TradingDataService_ObserveAccountsClient, error)
+	// node info
+	Info(ctx context.Context, in *InfoRequest, opts ...grpc.CallOption) (*InfoResponse, error)
 	// -- Orders --
 	// Gets the current version of an order, or optionally provide a version id to retrieve a given version.
 	GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error)
@@ -167,6 +169,15 @@ func (x *tradingDataServiceObserveAccountsClient) Recv() (*ObserveAccountsRespon
 		return nil, err
 	}
 	return m, nil
+}
+
+func (c *tradingDataServiceClient) Info(ctx context.Context, in *InfoRequest, opts ...grpc.CallOption) (*InfoResponse, error) {
+	out := new(InfoResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/Info", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *tradingDataServiceClient) GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error) {
@@ -581,6 +592,8 @@ type TradingDataServiceServer interface {
 	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
 	// Subscribe to a stream of Accounts
 	ObserveAccounts(*ObserveAccountsRequest, TradingDataService_ObserveAccountsServer) error
+	// node info
+	Info(context.Context, *InfoRequest) (*InfoResponse, error)
 	// -- Orders --
 	// Gets the current version of an order, or optionally provide a version id to retrieve a given version.
 	GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error)
@@ -683,6 +696,9 @@ func (UnimplementedTradingDataServiceServer) ListAccounts(context.Context, *List
 }
 func (UnimplementedTradingDataServiceServer) ObserveAccounts(*ObserveAccountsRequest, TradingDataService_ObserveAccountsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ObserveAccounts not implemented")
+}
+func (UnimplementedTradingDataServiceServer) Info(context.Context, *InfoRequest) (*InfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Info not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
@@ -845,6 +861,24 @@ type tradingDataServiceObserveAccountsServer struct {
 
 func (x *tradingDataServiceObserveAccountsServer) Send(m *ObserveAccountsResponse) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _TradingDataService_Info_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).Info(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/Info",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).Info(ctx, req.(*InfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _TradingDataService_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1532,6 +1566,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListAccounts",
 			Handler:    _TradingDataService_ListAccounts_Handler,
+		},
+		{
+			MethodName: "Info",
+			Handler:    _TradingDataService_Info_Handler,
 		},
 		{
 			MethodName: "GetOrder",
