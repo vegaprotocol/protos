@@ -35,9 +35,6 @@
         },
         "datanode.api.v2.PartyConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.PartyEdge"

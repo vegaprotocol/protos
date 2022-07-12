@@ -49,9 +49,6 @@
         },
         "datanode.api.v2.WithdrawalsConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.WithdrawalEdge"

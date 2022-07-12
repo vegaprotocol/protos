@@ -37,9 +37,6 @@
         },
         "datanode.api.v2.PositionConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.PositionEdge"

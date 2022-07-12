@@ -15,9 +15,6 @@
         },
         "datanode.api.v2.MarginConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.MarginEdge"

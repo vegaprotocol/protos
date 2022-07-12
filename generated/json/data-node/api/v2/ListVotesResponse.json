@@ -36,9 +36,6 @@
         },
         "datanode.api.v2.VoteConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.VoteEdge"

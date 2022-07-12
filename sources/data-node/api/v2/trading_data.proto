@@ -221,9 +221,8 @@ message PositionEdge {
 }
 
 message PositionConnection {
-    int64 total_count = 1;
-    repeated PositionEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated PositionEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Balances --
@@ -305,9 +304,8 @@ message MarketDataEdge {
 }
 
 message MarketDataConnection {
-    int64 total_count = 1;
-    repeated MarketDataEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated MarketDataEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // Request to subscribe to a stream of MarketsData
@@ -350,9 +348,8 @@ message TransferEdge {
 }
 
 message TransferConnection {
-    int64 total_count = 1;
-    repeated TransferEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated TransferEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Network Limits --
@@ -448,9 +445,8 @@ message CandleEdge {
 }
 
 message CandleDataConnection {
-    int64 total_count = 1;
-    repeated CandleEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated CandleEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Votes --
@@ -474,9 +470,8 @@ message VoteEdge {
 }
 
 message VoteConnection {
-    int64 total_count = 1;
-    repeated VoteEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated VoteEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message ObserveVotesRequest {
@@ -598,9 +593,8 @@ message TradeEdge {
 }
 
 message TradeConnection {
-    int64 total_count = 1;
-    repeated TradeEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated TradeEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message GetTradesByMarketRequest {
@@ -709,9 +703,8 @@ message OracleSpecEdge {
 }
 
 message OracleSpecsConnection {
-    int64 total_count = 1;
-    repeated OracleSpecEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated OracleSpecEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message OracleDataEdge {
@@ -720,9 +713,8 @@ message OracleDataEdge {
 }
 
 message OracleDataConnection {
-    int64 total_count = 1;
-    repeated OracleDataEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated OracleDataEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Markets --
@@ -741,9 +733,8 @@ message MarketEdge {
 }
 
 message MarketConnection {
-    int64 total_count = 1;
-    repeated MarketEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated MarketEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Parties --
@@ -762,9 +753,8 @@ message PartyEdge {
 }
 
 message PartyConnection {
-    int64 total_count = 1;
-    repeated PartyEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated PartyEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message OrderEdge {
@@ -783,9 +773,8 @@ message GetMarginLevelsResponse {
 }
 
 message OrderConnection {
-    int64 total_count = 1;
-    repeated OrderEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated OrderEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message MarginEdge {
@@ -794,9 +783,8 @@ message MarginEdge {
 }
 
 message MarginConnection {
-    int64 total_count = 1;
-    repeated MarginEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated MarginEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // A request to get reward details for a party
@@ -828,9 +816,8 @@ message RewardEdge {
 }
 
 message RewardsConnection {
-    int64 total_count = 1;
-    repeated RewardEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated RewardEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Deposits --
@@ -849,9 +836,8 @@ message DepositEdge {
 }
 
 message DepositsConnection {
-    int64 total_count = 1;
-    repeated DepositEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated DepositEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Withdrawals --
@@ -870,9 +856,8 @@ message WithdrawalEdge {
 }
 
 message WithdrawalsConnection {
-    int64 total_count = 1;
-    repeated WithdrawalEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated WithdrawalEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Assets --
@@ -891,9 +876,8 @@ message AssetEdge {
 }
 
 message AssetsConnection {
-    int64 total_count = 1;
-    repeated AssetEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated AssetEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Liquidity Provisions --
@@ -918,7 +902,6 @@ message LiquidityProvisionsEdge {
 }
 
 message LiquidityProvisionsConnection {
-    int64 total_count = 1;
-    repeated LiquidityProvisionsEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated LiquidityProvisionsEdge edges = 1;
+    PageInfo page_info = 2;
 }

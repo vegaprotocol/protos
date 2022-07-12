@@ -29,9 +29,6 @@
         },
         "datanode.api.v2.AssetsConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.AssetEdge"
