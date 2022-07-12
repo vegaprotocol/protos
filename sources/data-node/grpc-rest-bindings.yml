@@ -169,4 +169,4 @@ http:
 
     # Transfers
     - selector: datanode.api.v2.TradingDataService.Info
-      get: "/info"
+      get: "/api/v2/info"

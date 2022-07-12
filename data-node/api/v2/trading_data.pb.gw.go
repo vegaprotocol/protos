@@ -61,7 +61,7 @@ func RegisterTradingDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/datanode.api.v2.TradingDataService/Info", runtime.WithHTTPPathPattern("/info"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/datanode.api.v2.TradingDataService/Info", runtime.WithHTTPPathPattern("/api/v2/info"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -123,7 +123,7 @@ func RegisterTradingDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/datanode.api.v2.TradingDataService/Info", runtime.WithHTTPPathPattern("/info"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/datanode.api.v2.TradingDataService/Info", runtime.WithHTTPPathPattern("/api/v2/info"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -143,7 +143,7 @@ func RegisterTradingDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 }
 
 var (
-	pattern_TradingDataService_Info_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"info"}, ""))
+	pattern_TradingDataService_Info_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v2", "info"}, ""))
 )
 
 var (
