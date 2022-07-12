@@ -23,16 +23,12 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TradingDataServiceClient interface {
 	// -- Orders --
-	// Get a list of Orders by Market
-	GetOrdersByMarket(ctx context.Context, in *GetOrdersByMarketRequest, opts ...grpc.CallOption) (*GetOrdersByMarketResponse, error)
-	// Get all versions of the order by its orderID
-	GetOrderVersionsByID(ctx context.Context, in *GetOrderVersionsByIDRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDResponse, error)
-	// Get a list of Orders by Market using cursor based pagination
-	GetOrdersByMarketConnection(ctx context.Context, in *GetOrdersByMarketConnectionRequest, opts ...grpc.CallOption) (*GetOrdersByMarketConnectionResponse, error)
-	// Get a list of Orders by Party using cursor based pagination
-	GetOrdersByPartyConnection(ctx context.Context, in *GetOrdersByPartyConnectionRequest, opts ...grpc.CallOption) (*GetOrdersByPartyConnectionResponse, error)
-	// Get all versions of the order by its orderID using cursor based pagination
-	GetOrderVersionsByIDConnection(ctx context.Context, in *GetOrderVersionsByIDConnectionRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDConnectionResponse, error)
+	// Gets the current version of an order, or optionally provide a version id to retrieve a given version.
+	GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error)
+	// Get a list of orders that match the given filters
+	ListOrders(ctx context.Context, in *ListOrdersRequest, opts ...grpc.CallOption) (*ListOrdersResponse, error)
+	// List all versions of an order in the order history
+	ListOrderVersions(ctx context.Context, in *ListOrderVersionsRequest, opts ...grpc.CallOption) (*ListOrderVersionsResponse, error)
 	// -- Positions --
 	// Get a list of Positions by Party using cursor based pagination
 	GetPositionsByPartyConnection(ctx context.Context, in *GetPositionsByPartyConnectionRequest, opts ...grpc.CallOption) (*GetPositionsByPartyConnectionResponse, error)
@@ -120,45 +116,27 @@ func NewTradingDataServiceClient(cc grpc.ClientConnInterface) TradingDataService
 	return &tradingDataServiceClient{cc}
 }
 
-func (c *tradingDataServiceClient) GetOrdersByMarket(ctx context.Context, in *GetOrdersByMarketRequest, opts ...grpc.CallOption) (*GetOrdersByMarketResponse, error) {
-	out := new(GetOrdersByMarketResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrdersByMarket", in, out, opts...)
+func (c *tradingDataServiceClient) GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error) {
+	out := new(GetOrderResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetOrderVersionsByID(ctx context.Context, in *GetOrderVersionsByIDRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDResponse, error) {
-	out := new(GetOrderVersionsByIDResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrderVersionsByID", in, out, opts...)
+func (c *tradingDataServiceClient) ListOrders(ctx context.Context, in *ListOrdersRequest, opts ...grpc.CallOption) (*ListOrdersResponse, error) {
+	out := new(ListOrdersResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListOrders", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetOrdersByMarketConnection(ctx context.Context, in *GetOrdersByMarketConnectionRequest, opts ...grpc.CallOption) (*GetOrdersByMarketConnectionResponse, error) {
-	out := new(GetOrdersByMarketConnectionResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrdersByMarketConnection", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *tradingDataServiceClient) GetOrdersByPartyConnection(ctx context.Context, in *GetOrdersByPartyConnectionRequest, opts ...grpc.CallOption) (*GetOrdersByPartyConnectionResponse, error) {
-	out := new(GetOrdersByPartyConnectionResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrdersByPartyConnection", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *tradingDataServiceClient) GetOrderVersionsByIDConnection(ctx context.Context, in *GetOrderVersionsByIDConnectionRequest, opts ...grpc.CallOption) (*GetOrderVersionsByIDConnectionResponse, error) {
-	out := new(GetOrderVersionsByIDConnectionResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrderVersionsByIDConnection", in, out, opts...)
+func (c *tradingDataServiceClient) ListOrderVersions(ctx context.Context, in *ListOrderVersionsRequest, opts ...grpc.CallOption) (*ListOrderVersionsResponse, error) {
+	out := new(ListOrderVersionsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListOrderVersions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -527,16 +505,12 @@ func (c *tradingDataServiceClient) GetLiquidityProvisions(ctx context.Context, i
 // for forward compatibility
 type TradingDataServiceServer interface {
 	// -- Orders --
-	// Get a list of Orders by Market
-	GetOrdersByMarket(context.Context, *GetOrdersByMarketRequest) (*GetOrdersByMarketResponse, error)
-	// Get all versions of the order by its orderID
-	GetOrderVersionsByID(context.Context, *GetOrderVersionsByIDRequest) (*GetOrderVersionsByIDResponse, error)
-	// Get a list of Orders by Market using cursor based pagination
-	GetOrdersByMarketConnection(context.Context, *GetOrdersByMarketConnectionRequest) (*GetOrdersByMarketConnectionResponse, error)
-	// Get a list of Orders by Party using cursor based pagination
-	GetOrdersByPartyConnection(context.Context, *GetOrdersByPartyConnectionRequest) (*GetOrdersByPartyConnectionResponse, error)
-	// Get all versions of the order by its orderID using cursor based pagination
-	GetOrderVersionsByIDConnection(context.Context, *GetOrderVersionsByIDConnectionRequest) (*GetOrderVersionsByIDConnectionResponse, error)
+	// Gets the current version of an order, or optionally provide a version id to retrieve a given version.
+	GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error)
+	// Get a list of orders that match the given filters
+	ListOrders(context.Context, *ListOrdersRequest) (*ListOrdersResponse, error)
+	// List all versions of an order in the order history
+	ListOrderVersions(context.Context, *ListOrderVersionsRequest) (*ListOrderVersionsResponse, error)
 	// -- Positions --
 	// Get a list of Positions by Party using cursor based pagination
 	GetPositionsByPartyConnection(context.Context, *GetPositionsByPartyConnectionRequest) (*GetPositionsByPartyConnectionResponse, error)
@@ -621,20 +595,14 @@ type TradingDataServiceServer interface {
 type UnimplementedTradingDataServiceServer struct {
 }
 
-func (UnimplementedTradingDataServiceServer) GetOrdersByMarket(context.Context, *GetOrdersByMarketRequest) (*GetOrdersByMarketResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrdersByMarket not implemented")
+func (UnimplementedTradingDataServiceServer) GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetOrderVersionsByID(context.Context, *GetOrderVersionsByIDRequest) (*GetOrderVersionsByIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrderVersionsByID not implemented")
+func (UnimplementedTradingDataServiceServer) ListOrders(context.Context, *ListOrdersRequest) (*ListOrdersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrders not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetOrdersByMarketConnection(context.Context, *GetOrdersByMarketConnectionRequest) (*GetOrdersByMarketConnectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrdersByMarketConnection not implemented")
-}
-func (UnimplementedTradingDataServiceServer) GetOrdersByPartyConnection(context.Context, *GetOrdersByPartyConnectionRequest) (*GetOrdersByPartyConnectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrdersByPartyConnection not implemented")
-}
-func (UnimplementedTradingDataServiceServer) GetOrderVersionsByIDConnection(context.Context, *GetOrderVersionsByIDConnectionRequest) (*GetOrderVersionsByIDConnectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrderVersionsByIDConnection not implemented")
+func (UnimplementedTradingDataServiceServer) ListOrderVersions(context.Context, *ListOrderVersionsRequest) (*ListOrderVersionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrderVersions not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetPositionsByPartyConnection(context.Context, *GetPositionsByPartyConnectionRequest) (*GetPositionsByPartyConnectionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPositionsByPartyConnection not implemented")
@@ -745,92 +713,56 @@ func RegisterTradingDataServiceServer(s grpc.ServiceRegistrar, srv TradingDataSe
 	s.RegisterService(&TradingDataService_ServiceDesc, srv)
 }
 
-func _TradingDataService_GetOrdersByMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOrdersByMarketRequest)
+func _TradingDataService_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrderRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetOrdersByMarket(ctx, in)
+		return srv.(TradingDataServiceServer).GetOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetOrdersByMarket",
+		FullMethod: "/datanode.api.v2.TradingDataService/GetOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetOrdersByMarket(ctx, req.(*GetOrdersByMarketRequest))
+		return srv.(TradingDataServiceServer).GetOrder(ctx, req.(*GetOrderRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetOrderVersionsByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOrderVersionsByIDRequest)
+func _TradingDataService_ListOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOrdersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetOrderVersionsByID(ctx, in)
+		return srv.(TradingDataServiceServer).ListOrders(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetOrderVersionsByID",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListOrders",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetOrderVersionsByID(ctx, req.(*GetOrderVersionsByIDRequest))
+		return srv.(TradingDataServiceServer).ListOrders(ctx, req.(*ListOrdersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetOrdersByMarketConnection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOrdersByMarketConnectionRequest)
+func _TradingDataService_ListOrderVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOrderVersionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetOrdersByMarketConnection(ctx, in)
+		return srv.(TradingDataServiceServer).ListOrderVersions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetOrdersByMarketConnection",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListOrderVersions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetOrdersByMarketConnection(ctx, req.(*GetOrdersByMarketConnectionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TradingDataService_GetOrdersByPartyConnection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOrdersByPartyConnectionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetOrdersByPartyConnection(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetOrdersByPartyConnection",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetOrdersByPartyConnection(ctx, req.(*GetOrdersByPartyConnectionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TradingDataService_GetOrderVersionsByIDConnection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOrderVersionsByIDConnectionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetOrderVersionsByIDConnection(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetOrderVersionsByIDConnection",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetOrderVersionsByIDConnection(ctx, req.(*GetOrderVersionsByIDConnectionRequest))
+		return srv.(TradingDataServiceServer).ListOrderVersions(ctx, req.(*ListOrderVersionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1428,24 +1360,16 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*TradingDataServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetOrdersByMarket",
-			Handler:    _TradingDataService_GetOrdersByMarket_Handler,
+			MethodName: "GetOrder",
+			Handler:    _TradingDataService_GetOrder_Handler,
 		},
 		{
-			MethodName: "GetOrderVersionsByID",
-			Handler:    _TradingDataService_GetOrderVersionsByID_Handler,
+			MethodName: "ListOrders",
+			Handler:    _TradingDataService_ListOrders_Handler,
 		},
 		{
-			MethodName: "GetOrdersByMarketConnection",
-			Handler:    _TradingDataService_GetOrdersByMarketConnection_Handler,
-		},
-		{
-			MethodName: "GetOrdersByPartyConnection",
-			Handler:    _TradingDataService_GetOrdersByPartyConnection_Handler,
-		},
-		{
-			MethodName: "GetOrderVersionsByIDConnection",
-			Handler:    _TradingDataService_GetOrderVersionsByIDConnection_Handler,
+			MethodName: "ListOrderVersions",
+			Handler:    _TradingDataService_ListOrderVersions_Handler,
 		},
 		{
 			MethodName: "GetPositionsByPartyConnection",

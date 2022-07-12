@@ -1,23 +1,30 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOrdersByMarketConnectionRequest",
+    "$ref": "#/definitions/ListOrdersRequest",
     "definitions": {
-        "GetOrdersByMarketConnectionRequest": {
+        "ListOrdersRequest": {
             "properties": {
+                "party_id": {
+                    "type": "string",
+                    "description": "Party identifier"
+                },
                 "market_id": {
                     "type": "string",
-                    "description": "Market identifier, required field"
+                    "description": "Market identifier"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "Reference"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true,
-                    "description": "Optional pagination controls"
+                    "description": "Optional pagination control"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Orders By Market Connection Request",
-            "description": "Request for a list of orders for a market"
+            "title": "List Orders Request"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

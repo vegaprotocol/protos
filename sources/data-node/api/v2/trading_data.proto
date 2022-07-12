@@ -14,16 +14,14 @@ package datanode.api.v2;
 
 service TradingDataService {
     // -- Orders --
-    // Get a list of Orders by Market
-    rpc GetOrdersByMarket(GetOrdersByMarketRequest) returns (GetOrdersByMarketResponse);
-    // Get all versions of the order by its orderID
-    rpc GetOrderVersionsByID(GetOrderVersionsByIDRequest) returns (GetOrderVersionsByIDResponse);
-    // Get a list of Orders by Market using cursor based pagination
-    rpc GetOrdersByMarketConnection(GetOrdersByMarketConnectionRequest) returns (GetOrdersByMarketConnectionResponse);
-    // Get a list of Orders by Party using cursor based pagination
-    rpc GetOrdersByPartyConnection(GetOrdersByPartyConnectionRequest) returns (GetOrdersByPartyConnectionResponse);
-    // Get all versions of the order by its orderID using cursor based pagination
-    rpc GetOrderVersionsByIDConnection(GetOrderVersionsByIDConnectionRequest) returns (GetOrderVersionsByIDConnectionResponse);
+    // Gets the current version of an order, or optionally provide a version id to retrieve a given version.
+    rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+
+    // Get a list of orders that match the given filters
+    rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse);
+
+    // List all versions of an order in the order history
+    rpc ListOrderVersions(ListOrderVersionsRequest) returns (ListOrderVersionsResponse);
 
     // -- Positions --
     // Get a list of Positions by Party using cursor based pagination
@@ -155,74 +153,47 @@ message PageInfo {
 }
 
 // -- Orders --
-// Request for a list of orders for a market
-message GetOrdersByMarketRequest {
-    // Market identifier, required field
-    string market_id = 1;
-    // Optional pagination controls
-    OffsetPagination pagination = 2;
-}
-
-// Response for a list of orders for a market
-message GetOrdersByMarketResponse {
-    // A list of 0 or more orders
-    repeated vega.Order orders = 1;
-}
-
-// Request for a list of all versions of an order given the specified order identifier
-message GetOrderVersionsByIDRequest {
-    // Order identifier, required field
+message ListOrderVersionsRequest {
+    // Order identifier
     string order_id = 1;
-    // Pagination controls
-    OffsetPagination pagination = 2;
+
+    // Optional pagination control
+    optional Pagination pagination = 4;
 }
 
-// Response to a request for a list of all versions of an order
-message GetOrderVersionsByIDResponse {
-    // Paged connection with 0 or more orders (list will contain the same order but with different versions, if it has been amended)
+message ListOrderVersionsResponse {
+    // Paged connection with 0 or more order versions
     OrderConnection orders = 1;
 }
 
-// Request for a list of orders for a market
-message GetOrdersByMarketConnectionRequest {
-    // Market identifier, required field
-    string market_id = 1;
-    // Optional pagination controls
-    Pagination pagination = 2;
-}
 
-// Response for a list of orders for a market
-message GetOrdersByMarketConnectionResponse {
-    // Paged order connection
-    OrderConnection orders = 1;
-}
-
-// Request for a list of orders for a market
-message GetOrdersByPartyConnectionRequest {
-    // Market identifier, required field
-    string party_id = 1;
-    string market_id = 2;
-    // Optional pagination controls
-    Pagination pagination = 3;
-}
-
-// Response for a list of orders for a market
-message GetOrdersByPartyConnectionResponse {
-    // Paged order connection
-    OrderConnection orders = 1;
-}
-
-// Request for a list of all versions of an order given the specified order identifier
-message GetOrderVersionsByIDConnectionRequest {
-    // Order identifier, required field
+message GetOrderRequest {
+    // Order identifier
     string order_id = 1;
-    // Pagination controls
-    Pagination pagination = 2;
+
+    // Optional version
+    optional int32 version = 2;
 }
 
-// Response to a request for a list of all versions of an order
-message GetOrderVersionsByIDConnectionResponse {
-    // A list of 0 or more orders (list will contain the same order but with different versions, if it has been amended)
+message GetOrderResponse {
+    // An order, if found
+    vega.Order order = 1;
+}
+
+message ListOrdersRequest {
+    // Party identifier
+    optional string party_id = 1;
+    // Market identifier
+    optional string market_id = 2;
+    // Reference
+    optional string reference = 3;
+    // Optional pagination control
+    optional Pagination pagination = 4;
+
+}
+
+message ListOrdersResponse {
+    // Paged connection with 0 or more orders
     OrderConnection orders = 1;
 }
 
