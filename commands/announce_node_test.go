@@ -43,7 +43,7 @@ func testAnnounceNodeWithInvalidEncodingOfVegaPubKeyFails(t *testing.T) {
 	err := checkAnnounceNode(&commandspb.AnnounceNode{
 		VegaPubKey: "invalid-hex-encoding",
 	})
-	assert.Contains(t, err.Get("announce_node.vega_pub_key"), commands.ErrShouldBeHexEncoded)
+	assert.Contains(t, err.Get("announce_node.vega_pub_key"), commands.ErrShouldBeAValidVegaPubkey)
 }
 
 func testAnnounceNodeWithoutEthereumAddressFails(t *testing.T) {

@@ -11,7 +11,8 @@ import (
 )
 
 var (
-	ErrShouldBeHexEncoded = errors.New("should be hex encoded")
+	ErrShouldBeHexEncoded       = errors.New("should be hex encoded")
+	ErrShouldBeAValidVegaPubkey = errors.New("should be a valid vega public key")
 )
 
 func NewTransaction(pubKey string, data []byte, signature *commandspb.Signature) *commandspb.Transaction {
