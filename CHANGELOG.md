@@ -10,11 +10,11 @@
 
 ### 🛠 Improvements
 - [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
-- [495](https://github.com/vegaprotocol/protos/issues/495) - `v2` orders `api` 
+- [495](https://github.com/vegaprotocol/protos/issues/495) - `v2` orders `api`
 - [](https://github.com/vegaprotocol/protos/issues/) -
 
 ### 🐛 Fixes
-- [](https://github.com/vegaprotocol/protos/issues/) -
+- [499](https://github.com/vegaprotocol/protos/issues/499) - Add validation on vega `IDs` and public keys
 
 
 ## 0.53.0
