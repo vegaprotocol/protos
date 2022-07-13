@@ -13,6 +13,14 @@ import "vega/events/v1/events.proto";
 package datanode.api.v2;
 
 service TradingDataService {
+    // -- Accounts --
+    // Returns a list of accounts matching the supplied filter, including their current balances.
+    // If a given account has never had a balance, it will be absent from the list.
+    rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
+
+    // Subscribe to a stream of Accounts
+    rpc ObserveAccounts(ObserveAccountsRequest) returns (stream ObserveAccountsResponse);
+
     // -- Orders --
     // Gets the current version of an order, or optionally provide a version id to retrieve a given version.
     rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
@@ -150,6 +158,52 @@ message PageInfo {
     bool has_previous_page = 2;
     string start_cursor = 3;
     string end_cursor = 4;
+}
+
+// -- Accounts --
+message ListAccountsRequest {
+    // Limit the accounts considered according to the filter supplied
+    AccountFilter filter = 1;
+    // Optional pagination control
+    optional Pagination pagination = 2;
+}
+
+message ListAccountsResponse {
+    // Paged connection with 0 or more accounts
+    AccountsConnection accounts = 1;
+}
+
+message AccountsConnection {
+    // Total number of accounts matching the supplied filter
+    int64 total_count = 1;
+    // The accounts & cursors
+    repeated AccountEdge edges = 2;
+    // Information for fetching further pages
+    PageInfo page_info = 3;
+}
+
+message AccountEdge {
+    // The actual account object
+    vega.Account account = 1;
+    // A cursor which can be used to fetch further pages with reference to this account
+    string cursor = 2;
+}
+
+// Request to subscribe to a stream of (Accounts)[#vega.Account]
+message ObserveAccountsRequest {
+    // Market identifier
+    string market_id = 1;
+    // Party identifier
+    string party_id = 2;
+    // Asset identifier
+    string asset = 3;
+    // Account type to subscribe to, required field
+    vega.AccountType type = 4;
+}
+
+
+message ObserveAccountsResponse {
+    vega.Account account = 1;
 }
 
 // -- Orders --
