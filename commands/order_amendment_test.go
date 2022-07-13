@@ -34,8 +34,8 @@ func testNilOrderAmendmentFails(t *testing.T) {
 
 func testAmendOrderJustPriceSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:  "orderid",
-		MarketId: "marketid",
+		OrderId:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		Price:    &proto.Price{Value: "1000"},
 	}
 	err := checkOrderAmendment(arg)
@@ -45,8 +45,8 @@ func testAmendOrderJustPriceSuccess(t *testing.T) {
 
 func testAmendOrderJustReduceSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:   "orderid",
-		MarketId:  "marketid",
+		OrderId:   "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		SizeDelta: -10,
 	}
 	err := checkOrderAmendment(arg)
@@ -55,8 +55,8 @@ func testAmendOrderJustReduceSuccess(t *testing.T) {
 
 func testAmendOrderJustIncreaseSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:   "orderid",
-		MarketId:  "marketid",
+		OrderId:   "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		SizeDelta: 10,
 	}
 	err := checkOrderAmendment(arg)
@@ -67,8 +67,8 @@ func testAmendOrderJustExpirySuccess(t *testing.T) {
 	now := time.Now()
 	expires := now.Add(-2 * time.Hour)
 	arg := &commandspb.OrderAmendment{
-		OrderId:   "orderid",
-		MarketId:  "marketid",
+		OrderId:   "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		ExpiresAt: &proto.Timestamp{Value: expires.UnixNano()},
 	}
 	err := checkOrderAmendment(arg)
@@ -77,8 +77,8 @@ func testAmendOrderJustExpirySuccess(t *testing.T) {
 
 func testAmendOrderJustTIFSuccess(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:     "orderid",
-		MarketId:    "marketid",
+		OrderId:     "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId:    "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GTC,
 	}
 	err := checkOrderAmendment(arg)
@@ -91,8 +91,8 @@ func testAmendOrderEmptyFail(t *testing.T) {
 	assert.Error(t, err)
 
 	arg2 := &commandspb.OrderAmendment{
-		OrderId:  "orderid",
-		MarketId: "marketid",
+		OrderId:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 	}
 	err = checkOrderAmendment(arg2)
 	assert.Error(t, err)
@@ -100,8 +100,8 @@ func testAmendOrderEmptyFail(t *testing.T) {
 
 func testAmendEmptyFail(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:  "orderid",
-		MarketId: "marketid",
+		OrderId:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 	}
 	err := checkOrderAmendment(arg)
 	assert.Error(t, err)
@@ -109,7 +109,7 @@ func testAmendEmptyFail(t *testing.T) {
 
 func testAmendOrderInvalidExpiryFail(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:     "orderid",
+		OrderId:     "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GTC,
 		ExpiresAt:   &proto.Timestamp{Value: 10},
 	}
@@ -131,8 +131,8 @@ func testAmendOrderInvalidExpiryFail(t *testing.T) {
  */
 func testAmendOrderPastExpiry(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:     "orderid",
-		MarketId:    "marketid",
+		OrderId:     "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
+		MarketId:    "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GTT,
 		ExpiresAt:   &proto.Timestamp{Value: 10},
 	}
@@ -142,7 +142,7 @@ func testAmendOrderPastExpiry(t *testing.T) {
 
 func testAmendOrderToGFN(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:     "orderid",
+		OrderId:     "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GFN,
 		ExpiresAt:   &proto.Timestamp{Value: 10},
 	}
@@ -152,7 +152,7 @@ func testAmendOrderToGFN(t *testing.T) {
 
 func testAmendOrderToGFA(t *testing.T) {
 	arg := &commandspb.OrderAmendment{
-		OrderId:     "orderid",
+		OrderId:     "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		TimeInForce: proto.Order_TIME_IN_FORCE_GFA,
 		ExpiresAt:   &proto.Timestamp{Value: 10},
 	}

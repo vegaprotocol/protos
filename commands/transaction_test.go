@@ -113,7 +113,7 @@ func testSubmittingTransactionWithInvalidEncodingOfPubKeyFails(t *testing.T) {
 
 	err := checkTransaction(tx)
 
-	assert.Contains(t, err.Get("tx.from.pub_key"), commands.ErrShouldBeHexEncoded)
+	assert.Contains(t, err.Get("tx.from.pub_key"), commands.ErrShouldBeAValidVegaPubkey)
 }
 
 func checkTransaction(cmd *commandspb.Transaction) commands.Errors {

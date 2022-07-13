@@ -24,13 +24,13 @@ func TestWithdrawSubmission(t *testing.T) {
 		{
 			withdraw: commandspb.WithdrawSubmission{
 				Amount: "100",
-				Asset:  "OKASSETID",
+				Asset:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 			},
 		},
 		{
 			withdraw: commandspb.WithdrawSubmission{
 				Amount: "100",
-				Asset:  "OKASSETID",
+				Asset:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Ext: &types.WithdrawExt{
 					Ext: &types.WithdrawExt_Erc20{
 						Erc20: &types.Erc20WithdrawExt{
@@ -42,7 +42,7 @@ func TestWithdrawSubmission(t *testing.T) {
 		},
 		{
 			withdraw: commandspb.WithdrawSubmission{
-				Asset: "OKASSETID",
+				Asset: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 			},
 			errString: "withdraw_submission.amount (is required)",
 		},
@@ -65,7 +65,7 @@ func TestWithdrawSubmission(t *testing.T) {
 		{
 			withdraw: commandspb.WithdrawSubmission{
 				Amount: "100",
-				Asset:  "OKASSETID",
+				Asset:  "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Ext: &types.WithdrawExt{
 					Ext: &types.WithdrawExt_Erc20{
 						Erc20: &types.Erc20WithdrawExt{},

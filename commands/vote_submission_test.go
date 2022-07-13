@@ -24,19 +24,19 @@ func TestVoteSubmission(t *testing.T) {
 		{
 			vote: commandspb.VoteSubmission{
 				Value:      types.Vote_VALUE_YES,
-				ProposalId: "OKPROPOSALID",
+				ProposalId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 			},
 		},
 		{
 			vote: commandspb.VoteSubmission{
-				ProposalId: "OKPROPOSALID",
+				ProposalId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 			},
 			errString: "vote_submission.value (is required)",
 		},
 		{
 			vote: commandspb.VoteSubmission{
 				Value:      types.Vote_Value(-42),
-				ProposalId: "OKPROPOSALID",
+				ProposalId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 			},
 			errString: "vote_submission.value (is not a valid value)",
 		},

@@ -31,6 +31,8 @@ func checkDelegateSubmission(cmd *commandspb.DelegateSubmission) Errors {
 
 	if len(cmd.NodeId) <= 0 {
 		errs.AddForProperty("delegate_submission.node_id", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.NodeId) {
+		errs.AddForProperty("delegate_submission.node_id", ErrShouldBeAValidVegaPubkey)
 	}
 
 	return errs
@@ -53,6 +55,8 @@ func checkUndelegateSubmission(cmd *commandspb.UndelegateSubmission) Errors {
 
 	if len(cmd.NodeId) <= 0 {
 		errs.AddForProperty("undelegate_submission.node_id", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.NodeId) {
+		errs.AddForProperty("undelegate_submission.node_id", ErrShouldBeAValidVegaPubkey)
 	}
 
 	return errs

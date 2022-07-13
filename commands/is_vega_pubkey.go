@@ -1,8 +1,16 @@
 package commands
 
-import "encoding/hex"
+import (
+	"encoding/hex"
+	"errors"
+)
 
 const vegaPubkeyLen = 64
+
+var (
+	ErrShouldBeAValidVegaPubkey = errors.New("should be a valid vega public key")
+	ErrShouldBeAValidVegaID     = errors.New("should be a valid vega ID")
+)
 
 // IsVegaPubkey check if a string is a valid vega public vega public key.
 // A vega public key is a string of 64 characters containing only hexadecimal characters.

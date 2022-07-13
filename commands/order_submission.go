@@ -21,6 +21,8 @@ func checkOrderSubmission(cmd *commandspb.OrderSubmission) Errors {
 
 	if len(cmd.MarketId) == 0 {
 		errs.AddForProperty("order_submission.market_id", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.MarketId) {
+		errs.AddForProperty("order_submission.market_id", ErrShouldBeAValidVegaID)
 	}
 
 	if cmd.Side == types.Side_SIDE_UNSPECIFIED {
