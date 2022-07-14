@@ -17,6 +17,8 @@ func checkCancelTransfer(cmd *commandspb.CancelTransfer) Errors {
 
 	if len(cmd.TransferId) <= 0 {
 		errs.AddForProperty("cancel_transfer.transfer_id", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.TransferId) {
+		errs.AddForProperty("cancel_transfer.transfer_id", ErrShouldBeAValidVegaID)
 	}
 
 	return errs

@@ -34,6 +34,8 @@ func checkLiquidityProvisionSubmission(cmd *commandspb.LiquidityProvisionSubmiss
 
 	if len(cmd.MarketId) <= 0 {
 		errs.AddForProperty("liquidity_provision_submission.market_id", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.MarketId) {
+		errs.AddForProperty("liquidity_provision_submission.market_id", ErrShouldBeAValidVegaID)
 	}
 
 	// if the commitment amount is 0, then the command should be interpreted as
@@ -190,6 +192,8 @@ func checkLiquidityProvisionCancellation(cmd *commandspb.LiquidityProvisionCance
 
 	if len(cmd.MarketId) <= 0 {
 		return errs.FinalAddForProperty("liquidity_provision_cancellation.market_id", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.MarketId) {
+		errs.AddForProperty("liquidity_provision_cancellation.market_id", ErrShouldBeAValidVegaID)
 	}
 
 	return errs

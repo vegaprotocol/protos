@@ -40,6 +40,8 @@ func checkTransfer(cmd *commandspb.Transfer) Errors {
 
 	if len(cmd.To) <= 0 {
 		errs.AddForProperty("transfer.to", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.To) {
+		errs.AddForProperty("transfer_to", ErrShouldBeAValidVegaPubkey)
 	}
 
 	if cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_UNSPECIFIED {
@@ -56,6 +58,8 @@ func checkTransfer(cmd *commandspb.Transfer) Errors {
 
 	if len(cmd.Asset) <= 0 {
 		errs.AddForProperty("transfer.asset", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.Asset) {
+		errs.AddForProperty("transfer.asset", ErrShouldBeAValidVegaID)
 	}
 
 	// arbitrary 100 char length for now
@@ -99,7 +103,9 @@ func checkTransfer(cmd *commandspb.Transfer) Errors {
 				}
 				// check asset for metric is passed
 				if len(k.Recurring.DispatchStrategy.AssetForMetric) <= 0 {
-					errs.AddForProperty("transfer.lind.dispatch_strategy.asset_for_metric", vega.ErrUnknownAsset)
+					errs.AddForProperty("transfer.kind.dispatch_strategy.asset_for_metric", vega.ErrUnknownAsset)
+				} else if !IsVegaPubkey(k.Recurring.DispatchStrategy.AssetForMetric) {
+					errs.AddForProperty("transfer.lind.dispatch_strategy.asset_for_metric", ErrShouldBeAValidVegaID)
 				}
 				// check that that the metric makes sense for the account type
 				if cmd.ToAccountType == vega.AccountType_ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES && k.Recurring.DispatchStrategy.Metric != vega.DispatchMetric_DISPATCH_METRIC_LP_FEES_RECEIVED {

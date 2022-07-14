@@ -29,7 +29,7 @@ func TestSubmittingNoDelegateNodeIdFails(t *testing.T) {
 
 func TestSubmittingNoDelegateAmountFails(t *testing.T) {
 	cmd := &commandspb.DelegateSubmission{
-		NodeId: "TestingNodeID",
+		NodeId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 	}
 	err := checkDelegateSubmission(cmd)
 
@@ -67,7 +67,7 @@ func TestSubmittingNoUndelegateNodeIdFails(t *testing.T) {
 func TestSubmittingInvalidUndelegateMethod(t *testing.T) {
 	invalidMethod := len(commandspb.UndelegateSubmission_Method_value)
 	cmd := &commandspb.UndelegateSubmission{
-		NodeId: "TestingNodeID",
+		NodeId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		Method: commandspb.UndelegateSubmission_Method(invalidMethod),
 	}
 	err := checkUndelegateSubmission(cmd)
@@ -75,7 +75,7 @@ func TestSubmittingInvalidUndelegateMethod(t *testing.T) {
 	assert.Contains(t, err.Get("undelegate_submission.method"), commands.ErrIsRequired)
 
 	cmd = &commandspb.UndelegateSubmission{
-		NodeId: "TestingNodeID",
+		NodeId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 	}
 	err = checkUndelegateSubmission(cmd)
 
@@ -84,7 +84,7 @@ func TestSubmittingInvalidUndelegateMethod(t *testing.T) {
 
 func TestSubmittingNoUndelegateAmountSucceeds(t *testing.T) {
 	cmd := &commandspb.UndelegateSubmission{
-		NodeId: "TestingNodeID",
+		NodeId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 		Method: 1,
 	}
 	err := checkUndelegateSubmission(cmd)

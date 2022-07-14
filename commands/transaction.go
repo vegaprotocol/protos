@@ -59,6 +59,8 @@ func CheckTransaction(tx *commandspb.Transaction) (*commandspb.InputData, error)
 		errs.AddForProperty("tx.from", ErrIsRequired)
 	} else if len(tx.GetPubKey()) == 0 {
 		errs.AddForProperty("tx.from.pub_key", ErrIsRequired)
+	} else if !IsVegaPubkey(tx.GetPubKey()) {
+		errs.AddForProperty("tx.from.pub_key", ErrShouldBeAValidVegaPubkey)
 	}
 
 	if !errs.Empty() {

@@ -59,13 +59,13 @@ func TestUpdateAssetSubmissionWithoutAssetIDFails(t *testing.T) {
 		Terms: &types.ProposalTerms{
 			Change: &types.ProposalTerms_UpdateAsset{
 				UpdateAsset: &types.UpdateAsset{
-					AssetId: "My ID",
+					AssetId: "invalid",
 				},
 			},
 		},
 	})
 
-	assert.Empty(t, err.Get("proposal_submission.terms.change.update_asset.asset_id"))
+	assert.Contains(t, err.Get("proposal_submission.terms.change.update_asset.asset_id"), commands.ErrShouldBeAValidVegaID)
 }
 
 func TestUpdateAssetSubmissionWithoutChangesFails(t *testing.T) {

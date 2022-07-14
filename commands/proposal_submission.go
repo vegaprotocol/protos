@@ -277,6 +277,8 @@ func checkUpdateAssetChanges(change *types.ProposalTerms_UpdateAsset) Errors {
 
 	if len(change.UpdateAsset.AssetId) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.update_asset.asset_id", ErrIsRequired)
+	} else if !IsVegaPubkey(change.UpdateAsset.AssetId) {
+		errs.AddForProperty("proposal_submission.terms.change.update_asset.asset_id", ErrShouldBeAValidVegaID)
 	}
 
 	if change.UpdateAsset.Changes == nil {

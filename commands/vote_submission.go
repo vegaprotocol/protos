@@ -18,6 +18,8 @@ func checkVoteSubmission(cmd *commandspb.VoteSubmission) Errors {
 
 	if len(cmd.ProposalId) <= 0 {
 		errs.AddForProperty("vote_submission.proposal_id", ErrIsRequired)
+	} else if !IsVegaPubkey(cmd.ProposalId) {
+		errs.AddForProperty("vote_submission.market_id", ErrShouldBeAValidVegaID)
 	}
 
 	if cmd.Value == types.Vote_VALUE_UNSPECIFIED {

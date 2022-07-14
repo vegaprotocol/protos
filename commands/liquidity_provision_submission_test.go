@@ -26,7 +26,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			// this is a valid cancellation.
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "0",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 			},
 			errString: "liquidity_provision_submission.commitment_amount (is not a valid number)",
 		},
@@ -34,7 +34,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "abcd",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: "10", Proportion: 1},
 				},
@@ -48,7 +48,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "-1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: "10", Proportion: 1},
 				},
@@ -75,7 +75,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "0.1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: "10"},
 				},
@@ -89,7 +89,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "0.1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: "10", Proportion: 1},
 				},
@@ -103,7 +103,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "0.1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: "0", Proportion: 1},
 				},
@@ -116,7 +116,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "0.1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_ASK, Offset: "10", Proportion: 1},
 				},
@@ -128,7 +128,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "0.1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells:            []*types.LiquidityOrder{},
 				Buys: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID, Offset: "10", Proportion: 1},
@@ -140,7 +140,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "0.1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID, Offset: "10", Proportion: 1},
 				},
@@ -154,7 +154,7 @@ func TestLiquidityProvisionSubmission(t *testing.T) {
 			lp: commandspb.LiquidityProvisionSubmission{
 				CommitmentAmount: "100",
 				Fee:              "0.1",
-				MarketId:         "okmarketid",
+				MarketId:         "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				Sells: []*types.LiquidityOrder{
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_MID, Offset: "0", Proportion: 1},
 					{Reference: types.PeggedReference_PEGGED_REFERENCE_BEST_BID, Offset: "0", Proportion: 1},
@@ -216,7 +216,7 @@ func TestCheckLiquidityProvisionCancellation(t *testing.T) {
 			name: "Should succeed if market id is provided",
 			args: args{
 				cmd: &commandspb.LiquidityProvisionCancellation{
-					MarketId: "abcd",
+					MarketId: "08dce6ebf50e34fedee32860b6f459824e4b834762ea66a96504fdc57a9c4741",
 				},
 			},
 			wantErr: assert.NoError,
