@@ -394,6 +394,8 @@ func checkUpdateMarketChanges(change *types.ProposalTerms_UpdateMarket) Errors {
 
 	if len(change.UpdateMarket.MarketId) == 0 {
 		errs.AddForProperty("proposal_submission.terms.change.update_market.market_id", ErrIsRequired)
+	} else if !IsVegaPubkey(change.UpdateMarket.MarketId) {
+		errs.AddForProperty("proposal_submission.terms.change.update_market.market_id", ErrShouldBeAValidVegaID)
 	}
 
 	if change.UpdateMarket.Changes == nil {
