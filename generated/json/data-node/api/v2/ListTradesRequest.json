@@ -1,13 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetTradesByPartyRequest",
+    "$ref": "#/definitions/ListTradesRequest",
     "definitions": {
-        "GetTradesByPartyRequest": {
+        "ListTradesRequest": {
             "properties": {
-                "party_id": {
+                "market_id": {
                     "type": "string"
                 },
-                "market_id": {
+                "order_id": {
+                    "type": "string"
+                },
+                "party_id": {
                     "type": "string"
                 },
                 "pagination": {
@@ -17,7 +20,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Trades By Party Request"
+            "title": "List Trades Request",
+            "description": "-- Trades --"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

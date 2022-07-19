@@ -36391,210 +36391,6 @@
           ]
         },
         {
-          "name": "GetTradesByMarketRequest",
-          "longName": "GetTradesByMarketRequest",
-          "fullName": "datanode.api.v2.GetTradesByMarketRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "market_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetTradesByMarketResponse",
-          "longName": "GetTradesByMarketResponse",
-          "fullName": "datanode.api.v2.GetTradesByMarketResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "trades",
-              "description": "",
-              "label": "",
-              "type": "TradeConnection",
-              "longType": "TradeConnection",
-              "fullType": "datanode.api.v2.TradeConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetTradesByOrderIDRequest",
-          "longName": "GetTradesByOrderIDRequest",
-          "fullName": "datanode.api.v2.GetTradesByOrderIDRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "market_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "order_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetTradesByOrderIDResponse",
-          "longName": "GetTradesByOrderIDResponse",
-          "fullName": "datanode.api.v2.GetTradesByOrderIDResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "trades",
-              "description": "",
-              "label": "",
-              "type": "TradeConnection",
-              "longType": "TradeConnection",
-              "fullType": "datanode.api.v2.TradeConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetTradesByPartyRequest",
-          "longName": "GetTradesByPartyRequest",
-          "fullName": "datanode.api.v2.GetTradesByPartyRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "market_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetTradesByPartyResponse",
-          "longName": "GetTradesByPartyResponse",
-          "fullName": "datanode.api.v2.GetTradesByPartyResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "trades",
-              "description": "",
-              "label": "",
-              "type": "TradeConnection",
-              "longType": "TradeConnection",
-              "fullType": "datanode.api.v2.TradeConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "GovernanceDataConnection",
           "longName": "GovernanceDataConnection",
           "fullName": "datanode.api.v2.GovernanceDataConnection",
@@ -38081,6 +37877,90 @@
           ]
         },
         {
+          "name": "ListTradesRequest",
+          "longName": "ListTradesRequest",
+          "fullName": "datanode.api.v2.ListTradesRequest",
+          "description": "-- Trades --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_market_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "order_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_order_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListTradesResponse",
+          "longName": "ListTradesResponse",
+          "fullName": "datanode.api.v2.ListTradesResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "trades",
+              "description": "",
+              "label": "",
+              "type": "TradeConnection",
+              "longType": "TradeConnection",
+              "fullType": "datanode.api.v2.TradeConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ListTransfersRequest",
           "longName": "ListTransfersRequest",
           "fullName": "datanode.api.v2.ListTransfersRequest",
@@ -38813,6 +38693,66 @@
           ]
         },
         {
+          "name": "ObserveTradesRequest",
+          "longName": "ObserveTradesRequest",
+          "fullName": "datanode.api.v2.ObserveTradesRequest",
+          "description": "Request to subscribe to a stream of (Trades)[#vega.Trade]\n\nThe fields for market identifier and party identifier are optional filters:\nIf omitted all trades, for all parties on all markets will be returned on the stream\nIf market identifier is given, trades from that market will be returned on the stream\nIf party identifier is given, trades from that party will be returned on the stream\nBoth filters can be combined",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "Market identifier",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_market_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "party_id",
+              "description": "Party identifier",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveTradesResponse",
+          "longName": "ObserveTradesResponse",
+          "fullName": "datanode.api.v2.ObserveTradesResponse",
+          "description": "A stream of trades",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "trades",
+              "description": "A list of 0 or more trades",
+              "label": "repeated",
+              "type": "Trade",
+              "longType": "vega.Trade",
+              "fullType": "vega.Trade",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ObserveVotesRequest",
           "longName": "ObserveVotesRequest",
           "fullName": "datanode.api.v2.ObserveVotesRequest",
@@ -39524,7 +39464,7 @@
           "name": "TradeEdge",
           "longName": "TradeEdge",
           "fullName": "datanode.api.v2.TradeEdge",
-          "description": "-- Trades --",
+          "description": "",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -40093,40 +40033,28 @@
               "responseStreaming": false
             },
             {
-              "name": "GetTradesByMarket",
-              "description": "-- Trades --\nGet trades by market using a cursor based pagination model",
-              "requestType": "GetTradesByMarketRequest",
-              "requestLongType": "GetTradesByMarketRequest",
-              "requestFullType": "datanode.api.v2.GetTradesByMarketRequest",
+              "name": "ListTrades",
+              "description": "-- Trades --\nGet a list of all trades, optionally filtered by party/market/order using a cursor based pagination model",
+              "requestType": "ListTradesRequest",
+              "requestLongType": "ListTradesRequest",
+              "requestFullType": "datanode.api.v2.ListTradesRequest",
               "requestStreaming": false,
-              "responseType": "GetTradesByMarketResponse",
-              "responseLongType": "GetTradesByMarketResponse",
-              "responseFullType": "datanode.api.v2.GetTradesByMarketResponse",
+              "responseType": "ListTradesResponse",
+              "responseLongType": "ListTradesResponse",
+              "responseFullType": "datanode.api.v2.ListTradesResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetTradesByParty",
-              "description": "Get trades by party using a cursor based pagination model",
-              "requestType": "GetTradesByPartyRequest",
-              "requestLongType": "GetTradesByPartyRequest",
-              "requestFullType": "datanode.api.v2.GetTradesByPartyRequest",
+              "name": "ObserveTrades",
+              "description": "Subscribe to a stream of Trades, optionally filtered by party/market",
+              "requestType": "ObserveTradesRequest",
+              "requestLongType": "ObserveTradesRequest",
+              "requestFullType": "datanode.api.v2.ObserveTradesRequest",
               "requestStreaming": false,
-              "responseType": "GetTradesByPartyResponse",
-              "responseLongType": "GetTradesByPartyResponse",
-              "responseFullType": "datanode.api.v2.GetTradesByPartyResponse",
-              "responseStreaming": false
-            },
-            {
-              "name": "GetTradesByOrderID",
-              "description": "Get trades by market with the corresponding orderID using a cursor based pagination model",
-              "requestType": "GetTradesByOrderIDRequest",
-              "requestLongType": "GetTradesByOrderIDRequest",
-              "requestFullType": "datanode.api.v2.GetTradesByOrderIDRequest",
-              "requestStreaming": false,
-              "responseType": "GetTradesByOrderIDResponse",
-              "responseLongType": "GetTradesByOrderIDResponse",
-              "responseFullType": "datanode.api.v2.GetTradesByOrderIDResponse",
-              "responseStreaming": false
+              "responseType": "ObserveTradesResponse",
+              "responseLongType": "ObserveTradesResponse",
+              "responseFullType": "datanode.api.v2.ObserveTradesResponse",
+              "responseStreaming": true
             },
             {
               "name": "GetOracleSpecByID",

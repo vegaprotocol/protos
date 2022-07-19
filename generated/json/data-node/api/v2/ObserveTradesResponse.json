@@ -1,69 +1,21 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetTradesByPartyResponse",
+    "$ref": "#/definitions/ObserveTradesResponse",
     "definitions": {
-        "GetTradesByPartyResponse": {
+        "ObserveTradesResponse": {
             "properties": {
                 "trades": {
-                    "$ref": "#/definitions/datanode.api.v2.TradeConnection",
-                    "additionalProperties": true
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Get Trades By Party Response"
-        },
-        "datanode.api.v2.PageInfo": {
-            "properties": {
-                "has_next_page": {
-                    "type": "boolean"
-                },
-                "has_previous_page": {
-                    "type": "boolean"
-                },
-                "start_cursor": {
-                    "type": "string"
-                },
-                "end_cursor": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Page Info",
-            "description": "Page information for cursor based pagination"
-        },
-        "datanode.api.v2.TradeConnection": {
-            "properties": {
-                "edges": {
                     "items": {
-                        "$ref": "#/definitions/datanode.api.v2.TradeEdge"
+                        "$ref": "#/definitions/vega.Trade"
                     },
-                    "type": "array"
-                },
-                "page_info": {
-                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
-                    "additionalProperties": true
+                    "type": "array",
+                    "description": "A list of 0 or more trades"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Trade Connection"
-        },
-        "datanode.api.v2.TradeEdge": {
-            "properties": {
-                "node": {
-                    "$ref": "#/definitions/vega.Trade",
-                    "additionalProperties": true
-                },
-                "cursor": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Trade Edge",
-            "description": "-- Trades --"
+            "title": "Observe Trades Response",
+            "description": "A stream of trades"
         },
         "vega.Fee": {
             "properties": {
