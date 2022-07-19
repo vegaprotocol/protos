@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ListLatestMarketDataRequest",
+    "definitions": {
+        "ListLatestMarketDataRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "List Latest Market Data Request",
+            "description": "Request to get the latest market data for every market"
+        }
+    }
+}

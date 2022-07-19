@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ObserveMarketsDepthUpdatesRequest",
+    "definitions": {
+        "ObserveMarketsDepthUpdatesRequest": {
+            "properties": {
+                "market_ids": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observe Markets Depth Updates Request"
+        }
+    }
+}

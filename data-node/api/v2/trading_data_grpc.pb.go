@@ -44,6 +44,15 @@ type TradingDataServiceClient interface {
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
 	// -- Market Data --
+	// Get the lastest market data for a given market
+	GetLatestMarketData(ctx context.Context, in *GetLatestMarketDataRequest, opts ...grpc.CallOption) (*GetLatestMarketDataResponse, error)
+	// Lists the latest market data for every market
+	ListLatestMarketData(ctx context.Context, in *ListLatestMarketDataRequest, opts ...grpc.CallOption) (*ListLatestMarketDataResponse, error)
+	// Get the latest market depth for a given market
+	GetLatestMarketDepth(ctx context.Context, in *GetLatestMarketDepthRequest, opts ...grpc.CallOption) (*GetLatestMarketDepthResponse, error)
+	ObserveMarketsDepth(ctx context.Context, in *ObserveMarketsDepthRequest, opts ...grpc.CallOption) (TradingDataService_ObserveMarketsDepthClient, error)
+	ObserveMarketsDepthUpdates(ctx context.Context, in *ObserveMarketsDepthUpdatesRequest, opts ...grpc.CallOption) (TradingDataService_ObserveMarketsDepthUpdatesClient, error)
+	ObserveMarketsData(ctx context.Context, in *ObserveMarketsDataRequest, opts ...grpc.CallOption) (TradingDataService_ObserveMarketsDataClient, error)
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error)
 	// Subscribe to a stream of Markets Data
@@ -58,9 +67,9 @@ type TradingDataServiceClient interface {
 	// Get candle data for a given candle id
 	ListCandleData(ctx context.Context, in *ListCandleDataRequest, opts ...grpc.CallOption) (*ListCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
-	SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error)
+	ObserveCandleData(ctx context.Context, in *ObserveCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_ObserveCandleDataClient, error)
 	// Gets all available intervals for a given market along with the corresponding candle id
-	GetCandlesForMarket(ctx context.Context, in *GetCandlesForMarketRequest, opts ...grpc.CallOption) (*GetCandlesForMarketResponse, error)
+	ListCandleIntervals(ctx context.Context, in *ListCandleIntervalsRequest, opts ...grpc.CallOption) (*ListCandleIntervalsResponse, error)
 	// -- Votes --
 	// Get Votes for a Party ID using a cursor based pagination model
 	ListVotes(ctx context.Context, in *ListVotesRequest, opts ...grpc.CallOption) (*ListVotesResponse, error)
@@ -225,6 +234,129 @@ func (c *tradingDataServiceClient) GetBalanceHistory(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetLatestMarketData(ctx context.Context, in *GetLatestMarketDataRequest, opts ...grpc.CallOption) (*GetLatestMarketDataResponse, error) {
+	out := new(GetLatestMarketDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetLatestMarketData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ListLatestMarketData(ctx context.Context, in *ListLatestMarketDataRequest, opts ...grpc.CallOption) (*ListLatestMarketDataResponse, error) {
+	out := new(ListLatestMarketDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListLatestMarketData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetLatestMarketDepth(ctx context.Context, in *GetLatestMarketDepthRequest, opts ...grpc.CallOption) (*GetLatestMarketDepthResponse, error) {
+	out := new(GetLatestMarketDepthResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetLatestMarketDepth", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ObserveMarketsDepth(ctx context.Context, in *ObserveMarketsDepthRequest, opts ...grpc.CallOption) (TradingDataService_ObserveMarketsDepthClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[1], "/datanode.api.v2.TradingDataService/ObserveMarketsDepth", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceObserveMarketsDepthClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_ObserveMarketsDepthClient interface {
+	Recv() (*ObserveMarketsDepthResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceObserveMarketsDepthClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceObserveMarketsDepthClient) Recv() (*ObserveMarketsDepthResponse, error) {
+	m := new(ObserveMarketsDepthResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *tradingDataServiceClient) ObserveMarketsDepthUpdates(ctx context.Context, in *ObserveMarketsDepthUpdatesRequest, opts ...grpc.CallOption) (TradingDataService_ObserveMarketsDepthUpdatesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[2], "/datanode.api.v2.TradingDataService/ObserveMarketsDepthUpdates", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceObserveMarketsDepthUpdatesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_ObserveMarketsDepthUpdatesClient interface {
+	Recv() (*ObserveMarketsDepthUpdatesResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceObserveMarketsDepthUpdatesClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceObserveMarketsDepthUpdatesClient) Recv() (*ObserveMarketsDepthUpdatesResponse, error) {
+	m := new(ObserveMarketsDepthUpdatesResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *tradingDataServiceClient) ObserveMarketsData(ctx context.Context, in *ObserveMarketsDataRequest, opts ...grpc.CallOption) (TradingDataService_ObserveMarketsDataClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[3], "/datanode.api.v2.TradingDataService/ObserveMarketsData", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceObserveMarketsDataClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_ObserveMarketsDataClient interface {
+	Recv() (*ObserveMarketsDataResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceObserveMarketsDataClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceObserveMarketsDataClient) Recv() (*ObserveMarketsDataResponse, error) {
+	m := new(ObserveMarketsDataResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context, in *GetMarketDataHistoryByIDRequest, opts ...grpc.CallOption) (*GetMarketDataHistoryByIDResponse, error) {
 	out := new(GetMarketDataHistoryByIDResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarketDataHistoryByID", in, out, opts...)
@@ -235,7 +367,7 @@ func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context,
 }
 
 func (c *tradingDataServiceClient) MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[1], "/datanode.api.v2.TradingDataService/MarketsDataSubscribe", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[4], "/datanode.api.v2.TradingDataService/MarketsDataSubscribe", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -293,12 +425,12 @@ func (c *tradingDataServiceClient) ListCandleData(ctx context.Context, in *ListC
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[2], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
+func (c *tradingDataServiceClient) ObserveCandleData(ctx context.Context, in *ObserveCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_ObserveCandleDataClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[5], "/datanode.api.v2.TradingDataService/ObserveCandleData", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &tradingDataServiceSubscribeToCandleDataClient{stream}
+	x := &tradingDataServiceObserveCandleDataClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -308,26 +440,26 @@ func (c *tradingDataServiceClient) SubscribeToCandleData(ctx context.Context, in
 	return x, nil
 }
 
-type TradingDataService_SubscribeToCandleDataClient interface {
-	Recv() (*SubscribeToCandleDataResponse, error)
+type TradingDataService_ObserveCandleDataClient interface {
+	Recv() (*ObserveCandleDataResponse, error)
 	grpc.ClientStream
 }
 
-type tradingDataServiceSubscribeToCandleDataClient struct {
+type tradingDataServiceObserveCandleDataClient struct {
 	grpc.ClientStream
 }
 
-func (x *tradingDataServiceSubscribeToCandleDataClient) Recv() (*SubscribeToCandleDataResponse, error) {
-	m := new(SubscribeToCandleDataResponse)
+func (x *tradingDataServiceObserveCandleDataClient) Recv() (*ObserveCandleDataResponse, error) {
+	m := new(ObserveCandleDataResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *tradingDataServiceClient) GetCandlesForMarket(ctx context.Context, in *GetCandlesForMarketRequest, opts ...grpc.CallOption) (*GetCandlesForMarketResponse, error) {
-	out := new(GetCandlesForMarketResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetCandlesForMarket", in, out, opts...)
+func (c *tradingDataServiceClient) ListCandleIntervals(ctx context.Context, in *ListCandleIntervalsRequest, opts ...grpc.CallOption) (*ListCandleIntervalsResponse, error) {
+	out := new(ListCandleIntervalsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListCandleIntervals", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -344,7 +476,7 @@ func (c *tradingDataServiceClient) ListVotes(ctx context.Context, in *ListVotesR
 }
 
 func (c *tradingDataServiceClient) ObserveVotes(ctx context.Context, in *ObserveVotesRequest, opts ...grpc.CallOption) (TradingDataService_ObserveVotesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[3], "/datanode.api.v2.TradingDataService/ObserveVotes", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[6], "/datanode.api.v2.TradingDataService/ObserveVotes", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -608,6 +740,15 @@ type TradingDataServiceServer interface {
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
 	// -- Market Data --
+	// Get the lastest market data for a given market
+	GetLatestMarketData(context.Context, *GetLatestMarketDataRequest) (*GetLatestMarketDataResponse, error)
+	// Lists the latest market data for every market
+	ListLatestMarketData(context.Context, *ListLatestMarketDataRequest) (*ListLatestMarketDataResponse, error)
+	// Get the latest market depth for a given market
+	GetLatestMarketDepth(context.Context, *GetLatestMarketDepthRequest) (*GetLatestMarketDepthResponse, error)
+	ObserveMarketsDepth(*ObserveMarketsDepthRequest, TradingDataService_ObserveMarketsDepthServer) error
+	ObserveMarketsDepthUpdates(*ObserveMarketsDepthUpdatesRequest, TradingDataService_ObserveMarketsDepthUpdatesServer) error
+	ObserveMarketsData(*ObserveMarketsDataRequest, TradingDataService_ObserveMarketsDataServer) error
 	// Get Market Data History for a Market ID between given dates using a cursor based pagination model
 	GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error)
 	// Subscribe to a stream of Markets Data
@@ -622,9 +763,9 @@ type TradingDataServiceServer interface {
 	// Get candle data for a given candle id
 	ListCandleData(context.Context, *ListCandleDataRequest) (*ListCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
-	SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error
+	ObserveCandleData(*ObserveCandleDataRequest, TradingDataService_ObserveCandleDataServer) error
 	// Gets all available intervals for a given market along with the corresponding candle id
-	GetCandlesForMarket(context.Context, *GetCandlesForMarketRequest) (*GetCandlesForMarketResponse, error)
+	ListCandleIntervals(context.Context, *ListCandleIntervalsRequest) (*ListCandleIntervalsResponse, error)
 	// -- Votes --
 	// Get Votes for a Party ID using a cursor based pagination model
 	ListVotes(context.Context, *ListVotesRequest) (*ListVotesResponse, error)
@@ -715,6 +856,24 @@ func (UnimplementedTradingDataServiceServer) ListPositions(context.Context, *Lis
 func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalanceHistory not implemented")
 }
+func (UnimplementedTradingDataServiceServer) GetLatestMarketData(context.Context, *GetLatestMarketDataRequest) (*GetLatestMarketDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestMarketData not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ListLatestMarketData(context.Context, *ListLatestMarketDataRequest) (*ListLatestMarketDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLatestMarketData not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetLatestMarketDepth(context.Context, *GetLatestMarketDepthRequest) (*GetLatestMarketDepthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestMarketDepth not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ObserveMarketsDepth(*ObserveMarketsDepthRequest, TradingDataService_ObserveMarketsDepthServer) error {
+	return status.Errorf(codes.Unimplemented, "method ObserveMarketsDepth not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ObserveMarketsDepthUpdates(*ObserveMarketsDepthUpdatesRequest, TradingDataService_ObserveMarketsDepthUpdatesServer) error {
+	return status.Errorf(codes.Unimplemented, "method ObserveMarketsDepthUpdates not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ObserveMarketsData(*ObserveMarketsDataRequest, TradingDataService_ObserveMarketsDataServer) error {
+	return status.Errorf(codes.Unimplemented, "method ObserveMarketsData not implemented")
+}
 func (UnimplementedTradingDataServiceServer) GetMarketDataHistoryByID(context.Context, *GetMarketDataHistoryByIDRequest) (*GetMarketDataHistoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMarketDataHistoryByID not implemented")
 }
@@ -730,11 +889,11 @@ func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *
 func (UnimplementedTradingDataServiceServer) ListCandleData(context.Context, *ListCandleDataRequest) (*ListCandleDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCandleData not implemented")
 }
-func (UnimplementedTradingDataServiceServer) SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error {
-	return status.Errorf(codes.Unimplemented, "method SubscribeToCandleData not implemented")
+func (UnimplementedTradingDataServiceServer) ObserveCandleData(*ObserveCandleDataRequest, TradingDataService_ObserveCandleDataServer) error {
+	return status.Errorf(codes.Unimplemented, "method ObserveCandleData not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetCandlesForMarket(context.Context, *GetCandlesForMarketRequest) (*GetCandlesForMarketResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCandlesForMarket not implemented")
+func (UnimplementedTradingDataServiceServer) ListCandleIntervals(context.Context, *ListCandleIntervalsRequest) (*ListCandleIntervalsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCandleIntervals not implemented")
 }
 func (UnimplementedTradingDataServiceServer) ListVotes(context.Context, *ListVotesRequest) (*ListVotesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListVotes not implemented")
@@ -971,6 +1130,123 @@ func _TradingDataService_GetBalanceHistory_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetLatestMarketData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLatestMarketDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetLatestMarketData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetLatestMarketData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetLatestMarketData(ctx, req.(*GetLatestMarketDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ListLatestMarketData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLatestMarketDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListLatestMarketData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/ListLatestMarketData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListLatestMarketData(ctx, req.(*ListLatestMarketDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetLatestMarketDepth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLatestMarketDepthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetLatestMarketDepth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetLatestMarketDepth",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetLatestMarketDepth(ctx, req.(*GetLatestMarketDepthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ObserveMarketsDepth_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ObserveMarketsDepthRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).ObserveMarketsDepth(m, &tradingDataServiceObserveMarketsDepthServer{stream})
+}
+
+type TradingDataService_ObserveMarketsDepthServer interface {
+	Send(*ObserveMarketsDepthResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceObserveMarketsDepthServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceObserveMarketsDepthServer) Send(m *ObserveMarketsDepthResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _TradingDataService_ObserveMarketsDepthUpdates_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ObserveMarketsDepthUpdatesRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).ObserveMarketsDepthUpdates(m, &tradingDataServiceObserveMarketsDepthUpdatesServer{stream})
+}
+
+type TradingDataService_ObserveMarketsDepthUpdatesServer interface {
+	Send(*ObserveMarketsDepthUpdatesResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceObserveMarketsDepthUpdatesServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceObserveMarketsDepthUpdatesServer) Send(m *ObserveMarketsDepthUpdatesResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _TradingDataService_ObserveMarketsData_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ObserveMarketsDataRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).ObserveMarketsData(m, &tradingDataServiceObserveMarketsDataServer{stream})
+}
+
+type TradingDataService_ObserveMarketsDataServer interface {
+	Send(*ObserveMarketsDataResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceObserveMarketsDataServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceObserveMarketsDataServer) Send(m *ObserveMarketsDataResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 func _TradingDataService_GetMarketDataHistoryByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMarketDataHistoryByIDRequest)
 	if err := dec(in); err != nil {
@@ -1064,41 +1340,41 @@ func _TradingDataService_ListCandleData_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_SubscribeToCandleData_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SubscribeToCandleDataRequest)
+func _TradingDataService_ObserveCandleData_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ObserveCandleDataRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(TradingDataServiceServer).SubscribeToCandleData(m, &tradingDataServiceSubscribeToCandleDataServer{stream})
+	return srv.(TradingDataServiceServer).ObserveCandleData(m, &tradingDataServiceObserveCandleDataServer{stream})
 }
 
-type TradingDataService_SubscribeToCandleDataServer interface {
-	Send(*SubscribeToCandleDataResponse) error
+type TradingDataService_ObserveCandleDataServer interface {
+	Send(*ObserveCandleDataResponse) error
 	grpc.ServerStream
 }
 
-type tradingDataServiceSubscribeToCandleDataServer struct {
+type tradingDataServiceObserveCandleDataServer struct {
 	grpc.ServerStream
 }
 
-func (x *tradingDataServiceSubscribeToCandleDataServer) Send(m *SubscribeToCandleDataResponse) error {
+func (x *tradingDataServiceObserveCandleDataServer) Send(m *ObserveCandleDataResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _TradingDataService_GetCandlesForMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCandlesForMarketRequest)
+func _TradingDataService_ListCandleIntervals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCandleIntervalsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetCandlesForMarket(ctx, in)
+		return srv.(TradingDataServiceServer).ListCandleIntervals(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetCandlesForMarket",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListCandleIntervals",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetCandlesForMarket(ctx, req.(*GetCandlesForMarketRequest))
+		return srv.(TradingDataServiceServer).ListCandleIntervals(ctx, req.(*ListCandleIntervalsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1592,6 +1868,18 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetBalanceHistory_Handler,
 		},
 		{
+			MethodName: "GetLatestMarketData",
+			Handler:    _TradingDataService_GetLatestMarketData_Handler,
+		},
+		{
+			MethodName: "ListLatestMarketData",
+			Handler:    _TradingDataService_ListLatestMarketData_Handler,
+		},
+		{
+			MethodName: "GetLatestMarketDepth",
+			Handler:    _TradingDataService_GetLatestMarketDepth_Handler,
+		},
+		{
 			MethodName: "GetMarketDataHistoryByID",
 			Handler:    _TradingDataService_GetMarketDataHistoryByID_Handler,
 		},
@@ -1608,8 +1896,8 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_ListCandleData_Handler,
 		},
 		{
-			MethodName: "GetCandlesForMarket",
-			Handler:    _TradingDataService_GetCandlesForMarket_Handler,
+			MethodName: "ListCandleIntervals",
+			Handler:    _TradingDataService_ListCandleIntervals_Handler,
 		},
 		{
 			MethodName: "ListVotes",
@@ -1715,13 +2003,28 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 		{
+			StreamName:    "ObserveMarketsDepth",
+			Handler:       _TradingDataService_ObserveMarketsDepth_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "ObserveMarketsDepthUpdates",
+			Handler:       _TradingDataService_ObserveMarketsDepthUpdates_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "ObserveMarketsData",
+			Handler:       _TradingDataService_ObserveMarketsData_Handler,
+			ServerStreams: true,
+		},
+		{
 			StreamName:    "MarketsDataSubscribe",
 			Handler:       _TradingDataService_MarketsDataSubscribe_Handler,
 			ServerStreams: true,
 		},
 		{
-			StreamName:    "SubscribeToCandleData",
-			Handler:       _TradingDataService_SubscribeToCandleData_Handler,
+			StreamName:    "ObserveCandleData",
+			Handler:       _TradingDataService_ObserveCandleData_Handler,
 			ServerStreams: true,
 		},
 		{

@@ -30,7 +30,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Get Market Data History By ID Request",
-            "description": "-- Market Data -- Request for Market Data History"
+            "description": "Request for Market Data History"
         },
         "datanode.api.v2.OffsetPagination": {
             "properties": {
