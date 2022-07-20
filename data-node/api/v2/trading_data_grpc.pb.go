@@ -22,6 +22,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TradingDataServiceClient interface {
+	// -- Accounts --
+	// Returns a list of accounts matching the supplied filter, including their current balances.
+	// If a given account has never had a balance, it will be absent from the list.
+	ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error)
+	// Subscribe to a stream of Accounts
+	ObserveAccounts(ctx context.Context, in *ObserveAccountsRequest, opts ...grpc.CallOption) (TradingDataService_ObserveAccountsClient, error)
 	// -- Orders --
 	// Gets the current version of an order, or optionally provide a version id to retrieve a given version.
 	GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error)
@@ -122,6 +128,47 @@ func NewTradingDataServiceClient(cc grpc.ClientConnInterface) TradingDataService
 	return &tradingDataServiceClient{cc}
 }
 
+func (c *tradingDataServiceClient) ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error) {
+	out := new(ListAccountsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListAccounts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ObserveAccounts(ctx context.Context, in *ObserveAccountsRequest, opts ...grpc.CallOption) (TradingDataService_ObserveAccountsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/ObserveAccounts", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &tradingDataServiceObserveAccountsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TradingDataService_ObserveAccountsClient interface {
+	Recv() (*ObserveAccountsResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceObserveAccountsClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceObserveAccountsClient) Recv() (*ObserveAccountsResponse, error) {
+	m := new(ObserveAccountsResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *tradingDataServiceClient) GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error) {
 	out := new(GetOrderResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetOrder", in, out, opts...)
@@ -177,7 +224,7 @@ func (c *tradingDataServiceClient) GetMarketDataHistoryByID(ctx context.Context,
 }
 
 func (c *tradingDataServiceClient) MarketsDataSubscribe(ctx context.Context, in *MarketsDataSubscribeRequest, opts ...grpc.CallOption) (TradingDataService_MarketsDataSubscribeClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[0], "/datanode.api.v2.TradingDataService/MarketsDataSubscribe", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[1], "/datanode.api.v2.TradingDataService/MarketsDataSubscribe", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +283,7 @@ func (c *tradingDataServiceClient) ListCandleData(ctx context.Context, in *ListC
 }
 
 func (c *tradingDataServiceClient) SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[1], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[2], "/datanode.api.v2.TradingDataService/SubscribeToCandleData", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +333,7 @@ func (c *tradingDataServiceClient) ListVotes(ctx context.Context, in *ListVotesR
 }
 
 func (c *tradingDataServiceClient) ObserveVotes(ctx context.Context, in *ObserveVotesRequest, opts ...grpc.CallOption) (TradingDataService_ObserveVotesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[2], "/datanode.api.v2.TradingDataService/ObserveVotes", opts...)
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[3], "/datanode.api.v2.TradingDataService/ObserveVotes", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -528,6 +575,12 @@ func (c *tradingDataServiceClient) ListDelegations(ctx context.Context, in *List
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
 type TradingDataServiceServer interface {
+	// -- Accounts --
+	// Returns a list of accounts matching the supplied filter, including their current balances.
+	// If a given account has never had a balance, it will be absent from the list.
+	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+	// Subscribe to a stream of Accounts
+	ObserveAccounts(*ObserveAccountsRequest, TradingDataService_ObserveAccountsServer) error
 	// -- Orders --
 	// Gets the current version of an order, or optionally provide a version id to retrieve a given version.
 	GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error)
@@ -625,6 +678,12 @@ type TradingDataServiceServer interface {
 type UnimplementedTradingDataServiceServer struct {
 }
 
+func (UnimplementedTradingDataServiceServer) ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ObserveAccounts(*ObserveAccountsRequest, TradingDataService_ObserveAccountsServer) error {
+	return status.Errorf(codes.Unimplemented, "method ObserveAccounts not implemented")
+}
 func (UnimplementedTradingDataServiceServer) GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
 }
@@ -747,6 +806,45 @@ type UnsafeTradingDataServiceServer interface {
 
 func RegisterTradingDataServiceServer(s grpc.ServiceRegistrar, srv TradingDataServiceServer) {
 	s.RegisterService(&TradingDataService_ServiceDesc, srv)
+}
+
+func _TradingDataService_ListAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/ListAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListAccounts(ctx, req.(*ListAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ObserveAccounts_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ObserveAccountsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TradingDataServiceServer).ObserveAccounts(m, &tradingDataServiceObserveAccountsServer{stream})
+}
+
+type TradingDataService_ObserveAccountsServer interface {
+	Send(*ObserveAccountsResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceObserveAccountsServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceObserveAccountsServer) Send(m *ObserveAccountsResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _TradingDataService_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1432,6 +1530,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*TradingDataServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "ListAccounts",
+			Handler:    _TradingDataService_ListAccounts_Handler,
+		},
+		{
 			MethodName: "GetOrder",
 			Handler:    _TradingDataService_GetOrder_Handler,
 		},
@@ -1569,6 +1671,11 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ObserveAccounts",
+			Handler:       _TradingDataService_ObserveAccounts_Handler,
+			ServerStreams: true,
+		},
 		{
 			StreamName:    "MarketsDataSubscribe",
 			Handler:       _TradingDataService_MarketsDataSubscribe_Handler,
