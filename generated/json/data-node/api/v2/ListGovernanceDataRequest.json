@@ -36,18 +36,20 @@
                 },
                 "proposal_type": {
                     "enum": [
-                        "PROPOSAL_TYPE_ALL",
+                        "TYPE_UNSPECIFIED",
                         0,
-                        "PROPOSAL_TYPE_NEW_MARKET",
+                        "TYPE_ALL",
                         1,
-                        "PROPOSAL_TYPE_UPDATE_MARKET",
+                        "TYPE_NEW_MARKET",
                         2,
-                        "PROPOSAL_TYPE_NETWORK_PARAMETERS",
+                        "TYPE_UPDATE_MARKET",
                         3,
-                        "PROPOSAL_TYPE_NEW_ASSET",
+                        "TYPE_NETWORK_PARAMETERS",
                         4,
-                        "PROPOSAL_TYPE_NEW_FREE_FORM",
-                        5
+                        "TYPE_NEW_ASSET",
+                        5,
+                        "TYPE_NEW_FREE_FORM",
+                        6
                     ],
                     "oneOf": [
                         {
