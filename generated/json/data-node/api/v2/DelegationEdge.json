@@ -4,7 +4,7 @@
     "definitions": {
         "DelegationEdge": {
             "properties": {
-                "delegation": {
+                "node": {
                     "$ref": "#/definitions/vega.Delegation",
                     "additionalProperties": true
                 },

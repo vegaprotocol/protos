@@ -15,7 +15,7 @@
         },
         "datanode.api.v2.DelegationEdge": {
             "properties": {
-                "delegation": {
+                "node": {
                     "$ref": "#/definitions/vega.Delegation",
                     "additionalProperties": true
                 },
