@@ -1016,7 +1016,7 @@ message ListDelegationsResponse {
 }
 
 message DelegationEdge {
-    vega.Delegation delegation = 1;
+    vega.Delegation node = 1;
     string cursor = 2;
 }
 
