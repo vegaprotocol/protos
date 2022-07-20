@@ -7,9 +7,9 @@ import (
 	"code.vegaprotocol.io/protos/crypto"
 )
 
-func (OracleSpec) IsEvent() {}
+func (DataSpec) IsEvent() {}
 
-func NewOracleSpec(pubKeys []string, filters []*Filter) *OracleSpec {
+func NewOracleSpec(pubKeys []string, filters []*Filter) *DataSpec {
 	return &OracleSpec{
 		Id:      NewID(pubKeys, filters),
 		PubKeys: pubKeys,

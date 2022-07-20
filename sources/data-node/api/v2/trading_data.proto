@@ -6,8 +6,8 @@ import "vega/vega.proto";
 import "vega/governance.proto";
 import "vega/markets.proto";
 import "vega/assets.proto";
-import "vega/oracles/v1/data.proto";
-import "vega/oracles/v1/spec.proto";
+import "vega/data/v1/data.proto";
+import "vega/data/v1/spec.proto";
 import "vega/events/v1/events.proto";
 
 package datanode.api.v2;
@@ -643,7 +643,7 @@ message GetOracleSpecByIDRequest {
 // The response for a oracle spec
 message GetOracleSpecByIDResponse {
     // The oracle spec matching the ID.
-    oracles.v1.OracleSpec oracle_spec = 1 ;
+    data.v1.DataSpec oracle_spec = 1 ;
 }
 
 // The request to get all active oracle specs
@@ -655,7 +655,7 @@ message ListOracleSpecsRequest {
 // The response to get all active oracle specs
 message ListOracleSpecsResponse {
     // The list of active oracle specs
-    repeated oracles.v1.OracleSpec oracle_specs = 1;
+    repeated data.v1.DataSpec oracle_specs = 1;
 }
 
 // The request to get all oracle data broadcast to a given oracle spec
@@ -670,7 +670,7 @@ message GetOracleDataBySpecIDRequest {
 // The response for a list of all oracle data broadcast to a given spec
 message  GetOracleDataBySpecIDResponse {
     // The list of oracle data broadcast to a given spec
-    repeated oracles.v1.OracleData oracle_data = 1;
+    repeated data.v1.ExternalData oracle_data = 1;
 }
 
 // The request to get all seen oracle data
@@ -682,7 +682,7 @@ message ListOracleDataRequest {
 // The response to get all seen oracle data
 message ListOracleDataResponse {
     // The list of seen oracle data
-    repeated oracles.v1.OracleData oracle_data = 1;
+    repeated data.v1.ExternalData oracle_data = 1;
 }
 
 message GetOracleSpecsConnectionRequest {
@@ -704,7 +704,7 @@ message GetOracleDataConnectionResponse {
 }
 
 message OracleSpecEdge {
-    oracles.v1.OracleSpec node = 1;
+    data.v1.DataSpec node = 1;
     string cursor = 2;
 }
 
@@ -715,7 +715,7 @@ message OracleSpecsConnection {
 }
 
 message OracleDataEdge {
-    oracles.v1.OracleData node = 1;
+    data.v1.ExternalData node = 1;
     string cursor = 2;
 }
 

@@ -569,7 +569,7 @@ func checkUpdateFuture(future *types.UpdateFutureProduct) Errors {
 	return errs
 }
 
-func checkOracleSpec(spec *oraclespb.OracleSpecConfiguration, name string, parentProperty string) Errors {
+func checkOracleSpec(spec *datapb.DataSpecConfiguration, name string, parentProperty string) Errors {
 	errs := NewErrors()
 	if spec == nil {
 		return errs.FinalAddForProperty(fmt.Sprintf("%s.%s", parentProperty, name), ErrIsRequired)
@@ -609,7 +609,7 @@ func isBuiltInSpec(filters []*oraclespb.Filter) bool {
 	return false
 }
 
-func checkOracleSpecFilters(spec *oraclespb.OracleSpecConfiguration, name string, parentProperty string) Errors {
+func checkOracleSpecFilters(spec *datapb.DataSpecConfiguration, name string, parentProperty string) Errors {
 	errs := NewErrors()
 
 	if len(spec.Filters) == 0 {
@@ -643,7 +643,7 @@ func checkOracleSpecFilters(spec *oraclespb.OracleSpecConfiguration, name string
 	return errs
 }
 
-func isBindingMatchingSpec(spec *oraclespb.OracleSpecConfiguration, bindingProperty string) bool {
+func isBindingMatchingSpec(spec *datapb.DataSpecConfiguration, bindingProperty string) bool {
 	bindingPropertyFound := false
 	if spec != nil && spec.Filters != nil {
 		for _, filter := range spec.Filters {
