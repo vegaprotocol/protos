@@ -1,10 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetWithdrawalsRequest",
+    "$ref": "#/definitions/ListDelegationsRequest",
     "definitions": {
-        "GetWithdrawalsRequest": {
+        "ListDelegationsRequest": {
             "properties": {
                 "party_id": {
+                    "type": "string"
+                },
+                "node_id": {
+                    "type": "string"
+                },
+                "epoch_id": {
                     "type": "string"
                 },
                 "pagination": {
@@ -14,8 +20,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Withdrawals Request",
-            "description": "-- Withdrawals --"
+            "title": "List Delegations Request"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

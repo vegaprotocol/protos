@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetMarginLevelsResponse",
+    "$ref": "#/definitions/ListMarginLevelsResponse",
     "definitions": {
-        "GetMarginLevelsResponse": {
+        "ListMarginLevelsResponse": {
             "properties": {
                 "margin_levels": {
                     "$ref": "#/definitions/datanode.api.v2.MarginConnection",
@@ -11,13 +11,10 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Margin Levels Response"
+            "title": "List Margin Levels Response"
         },
         "datanode.api.v2.MarginConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.MarginEdge"

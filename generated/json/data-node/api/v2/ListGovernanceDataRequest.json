@@ -1,0 +1,102 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ListGovernanceDataRequest",
+    "definitions": {
+        "ListGovernanceDataRequest": {
+            "properties": {
+                "proposal_state": {
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        0,
+                        "STATE_FAILED",
+                        1,
+                        "STATE_OPEN",
+                        2,
+                        "STATE_PASSED",
+                        3,
+                        "STATE_REJECTED",
+                        4,
+                        "STATE_DECLINED",
+                        5,
+                        "STATE_ENACTED",
+                        6,
+                        "STATE_WAITING_FOR_NODE_VOTE",
+                        7
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "State",
+                    "description": "Proposal state transition: Open -\u003e   - Passed -\u003e Enacted.   - Passed -\u003e Failed.   - Declined Rejected Proposal can enter Failed state from any other state"
+                },
+                "proposal_type": {
+                    "enum": [
+                        "PROPOSAL_TYPE_ALL",
+                        0,
+                        "PROPOSAL_TYPE_NEW_MARKET",
+                        1,
+                        "PROPOSAL_TYPE_UPDATE_MARKET",
+                        2,
+                        "PROPOSAL_TYPE_NETWORK_PARAMETERS",
+                        3,
+                        "PROPOSAL_TYPE_NEW_ASSET",
+                        4,
+                        "PROPOSAL_TYPE_NEW_FREE_FORM",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "proposer_party_id": {
+                    "type": "string"
+                },
+                "proposal_reference": {
+                    "type": "string"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/datanode.api.v2.Pagination",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "List Governance Data Request"
+        },
+        "datanode.api.v2.Pagination": {
+            "properties": {
+                "first": {
+                    "type": "integer"
+                },
+                "after": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "integer"
+                },
+                "before": {
+                    "type": "string"
+                },
+                "newest_first": {
+                    "type": "boolean",
+                    "description": "Newest records first, older records last, default is true"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pagination",
+            "description": "Cursor information for cursor based pagination requests"
+        }
+    }
+}

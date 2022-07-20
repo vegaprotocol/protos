@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetMarketsResponse",
+    "$ref": "#/definitions/ListMarketsResponse",
     "definitions": {
-        "GetMarketsResponse": {
+        "ListMarketsResponse": {
             "properties": {
                 "markets": {
                     "$ref": "#/definitions/datanode.api.v2.MarketConnection",
@@ -11,13 +11,10 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Markets Response"
+            "title": "List Markets Response"
         },
         "datanode.api.v2.MarketConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.MarketEdge"

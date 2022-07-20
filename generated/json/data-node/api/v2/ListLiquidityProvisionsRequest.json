@@ -1,11 +1,20 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetPartiesRequest",
+    "$ref": "#/definitions/ListLiquidityProvisionsRequest",
     "definitions": {
-        "GetPartiesRequest": {
+        "ListLiquidityProvisionsRequest": {
             "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "The target market for the liquidity provision orders"
+                },
                 "party_id": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The party which submitted the liquidity provision orders"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "The reference of the liquidity provision"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
@@ -14,8 +23,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Parties Request",
-            "description": "-- Parties --"
+            "title": "List Liquidity Provisions Request",
+            "description": "-- Liquidity Provisions --"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

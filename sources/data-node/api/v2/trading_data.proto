@@ -25,7 +25,7 @@ service TradingDataService {
 
     // -- Positions --
     // Get a list of Positions by Party using cursor based pagination
-    rpc GetPositionsByPartyConnection(GetPositionsByPartyConnectionRequest) returns (GetPositionsByPartyConnectionResponse);
+    rpc ListPositions(ListPositionsRequest) returns (ListPositionsResponse);
 
     // -- Balances --
     // Get an aggregated list of the changes in balances in a set of accounts over time
@@ -47,7 +47,7 @@ service TradingDataService {
 
     // -- Candles --
     // Get candle data for a given candle id
-    rpc GetCandleData(GetCandleDataRequest) returns (GetCandleDataResponse);
+    rpc ListCandleData(ListCandleDataRequest) returns (ListCandleDataResponse);
     // Subscribe to a stream of Candle updates
     rpc SubscribeToCandleData(SubscribeToCandleDataRequest) returns (stream SubscribeToCandleDataResponse);
     // Gets all available intervals for a given market along with the corresponding candle id
@@ -91,35 +91,42 @@ service TradingDataService {
 
     // -- Markets --
     // Get all markets using a cursor based pagination model
-    rpc GetMarkets(GetMarketsRequest) returns (GetMarketsResponse);
+    rpc ListMarkets(ListMarketsRequest) returns (ListMarketsResponse);
 
     // -- Parties --
     // Get Parties using a cursor based pagination model
-    rpc GetParties(GetPartiesRequest) returns (GetPartiesResponse);
+    rpc ListParties(ListPartiesRequest) returns (ListPartiesResponse);
 
     // -- Margin Levels --
     // Get Margin Levels using a cursor based pagination model
-    rpc GetMarginLevels(GetMarginLevelsRequest) returns (GetMarginLevelsResponse);
+    rpc ListMarginLevels(ListMarginLevelsRequest) returns (ListMarginLevelsResponse);
     // -- Rewards --
 
     // Get rewards
-    rpc GetRewards(GetRewardsRequest) returns (GetRewardsResponse);
+    rpc ListRewards(ListRewardsRequest) returns (ListRewardsResponse);
 
     // Get reward summaries
-    rpc GetRewardSummaries(GetRewardSummariesRequest) returns (GetRewardSummariesResponse);
+    rpc ListRewardSummaries(ListRewardSummariesRequest) returns (ListRewardSummariesResponse);
 
     // -- Deposits --
-    rpc GetDeposits(GetDepositsRequest) returns (GetDepositsResponse);
+    rpc ListDeposits(ListDepositsRequest) returns (ListDepositsResponse);
 
     // -- Withdrawals --
-    rpc GetWithdrawals(GetWithdrawalsRequest) returns (GetWithdrawalsResponse);
+    rpc ListWithdrawals(ListWithdrawalsRequest) returns (ListWithdrawalsResponse);
 
     // -- Assets --
-    rpc GetAssets(GetAssetsRequest) returns (GetAssetsResponse);
+    rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
 
     // -- Liquidity Provisions --
-    rpc GetLiquidityProvisions(GetLiquidityProvisionsRequest) returns (GetLiquidityProvisionsResponse);
+    rpc ListLiquidityProvisions(ListLiquidityProvisionsRequest) returns (ListLiquidityProvisionsResponse);
 
+    // -- Governance --
+    // List proposals using a cursor based pagination model
+    rpc ListGovernanceData(ListGovernanceDataRequest) returns (ListGovernanceDataResponse);
+
+    // -- Delegation --
+    // List delegations
+    rpc ListDelegations(ListDelegationsRequest) returns (ListDelegationsResponse);
 }
 
 // -- Pagination --
@@ -200,7 +207,7 @@ message ListOrdersResponse {
 // -- Positions --
 // Request for a list of positions for a party
 // Optionally, if a market identifier is set, the results will be filtered for that market only
-message GetPositionsByPartyConnectionRequest {
+message ListPositionsRequest {
     // Party identifier, required field
     string party_id = 1;
     // Market identifier
@@ -210,7 +217,7 @@ message GetPositionsByPartyConnectionRequest {
 }
 
 // Response for a list of positions for a party
-message GetPositionsByPartyConnectionResponse {
+message ListPositionsResponse {
     // A list of 0 or more positions
     PositionConnection positions = 1;
 }
@@ -221,9 +228,8 @@ message PositionEdge {
 }
 
 message PositionConnection {
-    int64 total_count = 1;
-    repeated PositionEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated PositionEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Balances --
@@ -305,9 +311,8 @@ message MarketDataEdge {
 }
 
 message MarketDataConnection {
-    int64 total_count = 1;
-    repeated MarketDataEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated MarketDataEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // Request to subscribe to a stream of MarketsData
@@ -350,9 +355,8 @@ message TransferEdge {
 }
 
 message TransferConnection {
-    int64 total_count = 1;
-    repeated TransferEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated TransferEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Network Limits --
@@ -417,7 +421,7 @@ message SubscribeToCandleDataResponse {
 }
 
 // Request for a list of candles for a market at an interval
-message GetCandleDataRequest {
+message ListCandleDataRequest {
     // Candle identifier, required field.
     string candle_id = 1;
 
@@ -437,7 +441,7 @@ message GetCandleDataRequest {
 }
 
 // Response for list of candles for a market at an interval
-message GetCandleDataResponse {
+message ListCandleDataResponse {
     // A list of 0 or more candles
     CandleDataConnection candles = 1;
 }
@@ -448,9 +452,8 @@ message CandleEdge {
 }
 
 message CandleDataConnection {
-    int64 total_count = 1;
-    repeated CandleEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated CandleEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Votes --
@@ -474,9 +477,8 @@ message VoteEdge {
 }
 
 message VoteConnection {
-    int64 total_count = 1;
-    repeated VoteEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated VoteEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message ObserveVotesRequest {
@@ -598,9 +600,8 @@ message TradeEdge {
 }
 
 message TradeConnection {
-    int64 total_count = 1;
-    repeated TradeEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated TradeEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message GetTradesByMarketRequest {
@@ -709,9 +710,8 @@ message OracleSpecEdge {
 }
 
 message OracleSpecsConnection {
-    int64 total_count = 1;
-    repeated OracleSpecEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated OracleSpecEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message OracleDataEdge {
@@ -720,18 +720,17 @@ message OracleDataEdge {
 }
 
 message OracleDataConnection {
-    int64 total_count = 1;
-    repeated OracleDataEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated OracleDataEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Markets --
-message GetMarketsRequest {
+message ListMarketsRequest {
     string market_id = 1;
-    Pagination pagination = 2;
+    optional Pagination pagination = 2;
 }
 
-message GetMarketsResponse {
+message ListMarketsResponse {
     MarketConnection markets = 1;
 }
 
@@ -741,18 +740,17 @@ message MarketEdge {
 }
 
 message MarketConnection {
-    int64 total_count = 1;
-    repeated MarketEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated MarketEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Parties --
-message GetPartiesRequest {
+message ListPartiesRequest {
     string party_id = 1;
     Pagination pagination = 2;
 }
 
-message GetPartiesResponse {
+message ListPartiesResponse {
     PartyConnection party = 1;
 }
 
@@ -762,9 +760,8 @@ message PartyEdge {
 }
 
 message PartyConnection {
-    int64 total_count = 1;
-    repeated PartyEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated PartyEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message OrderEdge {
@@ -772,20 +769,19 @@ message OrderEdge {
     string cursor = 2;
 }
 
-message GetMarginLevelsRequest {
+message ListMarginLevelsRequest {
     string party_id = 1;
     string market_id = 2;
     Pagination pagination = 3;
 }
 
-message GetMarginLevelsResponse {
+message ListMarginLevelsResponse {
     MarginConnection margin_levels = 1;
 }
 
 message OrderConnection {
-    int64 total_count = 1;
-    repeated OrderEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated OrderEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 message MarginEdge {
@@ -794,31 +790,30 @@ message MarginEdge {
 }
 
 message MarginConnection {
-    int64 total_count = 1;
-    repeated MarginEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated MarginEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // A request to get reward details for a party
-message GetRewardSummariesRequest {
+message ListRewardSummariesRequest {
     string party_id = 1;
     string asset_id = 2;
 }
 
 // The return message with reward details in for a single party
-message GetRewardSummariesResponse {
+message ListRewardSummariesResponse {
     repeated vega.RewardSummary summaries = 1;
 }
 
 // A request to get reward details for a party
-message GetRewardsRequest {
+message ListRewardsRequest {
     string party_id = 1;
     string asset_id = 2;
     Pagination pagination = 3;
 }
 
 // The return message with reward details in for a single party
-message GetRewardsResponse {
+message ListRewardsResponse {
     RewardsConnection rewards = 1;
 }
 
@@ -828,18 +823,17 @@ message RewardEdge {
 }
 
 message RewardsConnection {
-    int64 total_count = 1;
-    repeated RewardEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated RewardEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Deposits --
-message GetDepositsRequest {
+message ListDepositsRequest {
     string party_id = 1;
     Pagination pagination = 2;
 }
 
-message GetDepositsResponse {
+message ListDepositsResponse {
     DepositsConnection deposits = 1;
 }
 
@@ -849,18 +843,17 @@ message DepositEdge {
 }
 
 message DepositsConnection {
-    int64 total_count = 1;
-    repeated DepositEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated DepositEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Withdrawals --
-message GetWithdrawalsRequest {
+message ListWithdrawalsRequest {
     string party_id = 1;
     Pagination pagination = 2;
 }
 
-message GetWithdrawalsResponse {
+message ListWithdrawalsResponse {
     WithdrawalsConnection withdrawals = 1;
 }
 
@@ -870,18 +863,17 @@ message WithdrawalEdge {
 }
 
 message WithdrawalsConnection {
-    int64 total_count = 1;
-    repeated WithdrawalEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated WithdrawalEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Assets --
-message GetAssetsRequest {
+message ListAssetsRequest {
     string asset_id = 1;
     Pagination pagination = 2;
 }
 
-message GetAssetsResponse {
+message ListAssetsResponse {
     AssetsConnection assets = 1;
 }
 
@@ -891,24 +883,23 @@ message AssetEdge {
 }
 
 message AssetsConnection {
-    int64 total_count = 1;
-    repeated AssetEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated AssetEdge edges = 1;
+    PageInfo page_info = 2;
 }
 
 // -- Liquidity Provisions --
-message GetLiquidityProvisionsRequest {
+message ListLiquidityProvisionsRequest {
     // The target market for the liquidity provision orders
-    string market = 1;
+    optional string market_id = 1;
     // The party which submitted the liquidity provision orders
-    string party = 2;
+    optional string party_id = 2;
     // The reference of the liquidity provision
-    string reference = 3;
+    optional string reference = 3;
 
-    Pagination pagination = 4;
+    optional Pagination pagination = 4;
 }
 
-message GetLiquidityProvisionsResponse {
+message ListLiquidityProvisionsResponse {
     LiquidityProvisionsConnection liquidity_provisions = 1;
 }
 
@@ -918,7 +909,63 @@ message LiquidityProvisionsEdge {
 }
 
 message LiquidityProvisionsConnection {
-    int64 total_count = 1;
-    repeated LiquidityProvisionsEdge edges = 2;
-    PageInfo page_info = 3;
+    repeated LiquidityProvisionsEdge edges = 1;
+    PageInfo page_info = 2;
+}
+
+message ListGovernanceDataRequest {
+    enum Type {
+        // List all proposals
+        PROPOSAL_TYPE_ALL = 0;
+        // List new market proposals
+        PROPOSAL_TYPE_NEW_MARKET = 1;
+        // List update market proposals
+        PROPOSAL_TYPE_UPDATE_MARKET = 2;
+        // List change Vega network parameter proposals
+        PROPOSAL_TYPE_NETWORK_PARAMETERS = 3;
+        // New asset proposals
+        PROPOSAL_TYPE_NEW_ASSET = 4;
+        // Proposals for creating a new free form proposal
+        PROPOSAL_TYPE_NEW_FREE_FORM = 5;
+    }
+    optional vega.Proposal.State proposal_state = 1;
+    optional Type proposal_type = 2;
+    optional string proposer_party_id = 3;
+    optional string proposal_reference = 4;
+    optional Pagination pagination = 5;
+}
+
+message ListGovernanceDataResponse {
+    GovernanceDataConnection connection = 1;
+}
+
+message GovernanceDataEdge {
+    vega.GovernanceData node = 1;
+    string cursor = 2;
+}
+
+message GovernanceDataConnection {
+    repeated GovernanceDataEdge edges = 1;
+    PageInfo page_info = 2;
+}
+
+message ListDelegationsRequest {
+    optional string party_id = 1;
+    optional string node_id = 2;
+    optional string epoch_id = 3;
+    optional Pagination pagination = 4;
+}
+
+message ListDelegationsResponse {
+    DelegationsConnection delegations = 1;
+}
+
+message DelegationEdge {
+    vega.Delegation delegation = 1;
+    string cursor = 2;
+}
+
+message DelegationsConnection {
+    repeated DelegationEdge edges = 1;
+    PageInfo page_info = 2;
 }

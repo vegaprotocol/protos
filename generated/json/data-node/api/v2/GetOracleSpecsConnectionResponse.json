@@ -29,9 +29,6 @@
         },
         "datanode.api.v2.OracleSpecsConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.OracleSpecEdge"

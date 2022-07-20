@@ -31,7 +31,7 @@ type TradingDataServiceClient interface {
 	ListOrderVersions(ctx context.Context, in *ListOrderVersionsRequest, opts ...grpc.CallOption) (*ListOrderVersionsResponse, error)
 	// -- Positions --
 	// Get a list of Positions by Party using cursor based pagination
-	GetPositionsByPartyConnection(ctx context.Context, in *GetPositionsByPartyConnectionRequest, opts ...grpc.CallOption) (*GetPositionsByPartyConnectionResponse, error)
+	ListPositions(ctx context.Context, in *ListPositionsRequest, opts ...grpc.CallOption) (*ListPositionsResponse, error)
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(ctx context.Context, in *GetBalanceHistoryRequest, opts ...grpc.CallOption) (*GetBalanceHistoryResponse, error)
@@ -48,7 +48,7 @@ type TradingDataServiceClient interface {
 	GetNetworkLimits(ctx context.Context, in *GetNetworkLimitsRequest, opts ...grpc.CallOption) (*GetNetworkLimitsResponse, error)
 	// -- Candles --
 	// Get candle data for a given candle id
-	GetCandleData(ctx context.Context, in *GetCandleDataRequest, opts ...grpc.CallOption) (*GetCandleDataResponse, error)
+	ListCandleData(ctx context.Context, in *ListCandleDataRequest, opts ...grpc.CallOption) (*ListCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
 	SubscribeToCandleData(ctx context.Context, in *SubscribeToCandleDataRequest, opts ...grpc.CallOption) (TradingDataService_SubscribeToCandleDataClient, error)
 	// Gets all available intervals for a given market along with the corresponding candle id
@@ -87,25 +87,31 @@ type TradingDataServiceClient interface {
 	GetOracleDataConnection(ctx context.Context, in *GetOracleDataConnectionRequest, opts ...grpc.CallOption) (*GetOracleDataConnectionResponse, error)
 	// -- Markets --
 	// Get all markets using a cursor based pagination model
-	GetMarkets(ctx context.Context, in *GetMarketsRequest, opts ...grpc.CallOption) (*GetMarketsResponse, error)
+	ListMarkets(ctx context.Context, in *ListMarketsRequest, opts ...grpc.CallOption) (*ListMarketsResponse, error)
 	// -- Parties --
 	// Get Parties using a cursor based pagination model
-	GetParties(ctx context.Context, in *GetPartiesRequest, opts ...grpc.CallOption) (*GetPartiesResponse, error)
+	ListParties(ctx context.Context, in *ListPartiesRequest, opts ...grpc.CallOption) (*ListPartiesResponse, error)
 	// -- Margin Levels --
 	// Get Margin Levels using a cursor based pagination model
-	GetMarginLevels(ctx context.Context, in *GetMarginLevelsRequest, opts ...grpc.CallOption) (*GetMarginLevelsResponse, error)
+	ListMarginLevels(ctx context.Context, in *ListMarginLevelsRequest, opts ...grpc.CallOption) (*ListMarginLevelsResponse, error)
 	// Get rewards
-	GetRewards(ctx context.Context, in *GetRewardsRequest, opts ...grpc.CallOption) (*GetRewardsResponse, error)
+	ListRewards(ctx context.Context, in *ListRewardsRequest, opts ...grpc.CallOption) (*ListRewardsResponse, error)
 	// Get reward summaries
-	GetRewardSummaries(ctx context.Context, in *GetRewardSummariesRequest, opts ...grpc.CallOption) (*GetRewardSummariesResponse, error)
+	ListRewardSummaries(ctx context.Context, in *ListRewardSummariesRequest, opts ...grpc.CallOption) (*ListRewardSummariesResponse, error)
 	// -- Deposits --
-	GetDeposits(ctx context.Context, in *GetDepositsRequest, opts ...grpc.CallOption) (*GetDepositsResponse, error)
+	ListDeposits(ctx context.Context, in *ListDepositsRequest, opts ...grpc.CallOption) (*ListDepositsResponse, error)
 	// -- Withdrawals --
-	GetWithdrawals(ctx context.Context, in *GetWithdrawalsRequest, opts ...grpc.CallOption) (*GetWithdrawalsResponse, error)
+	ListWithdrawals(ctx context.Context, in *ListWithdrawalsRequest, opts ...grpc.CallOption) (*ListWithdrawalsResponse, error)
 	// -- Assets --
-	GetAssets(ctx context.Context, in *GetAssetsRequest, opts ...grpc.CallOption) (*GetAssetsResponse, error)
+	ListAssets(ctx context.Context, in *ListAssetsRequest, opts ...grpc.CallOption) (*ListAssetsResponse, error)
 	// -- Liquidity Provisions --
-	GetLiquidityProvisions(ctx context.Context, in *GetLiquidityProvisionsRequest, opts ...grpc.CallOption) (*GetLiquidityProvisionsResponse, error)
+	ListLiquidityProvisions(ctx context.Context, in *ListLiquidityProvisionsRequest, opts ...grpc.CallOption) (*ListLiquidityProvisionsResponse, error)
+	// -- Governance --
+	// List proposals using a cursor based pagination model
+	ListGovernanceData(ctx context.Context, in *ListGovernanceDataRequest, opts ...grpc.CallOption) (*ListGovernanceDataResponse, error)
+	// -- Delegation --
+	// List delegations
+	ListDelegations(ctx context.Context, in *ListDelegationsRequest, opts ...grpc.CallOption) (*ListDelegationsResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -143,9 +149,9 @@ func (c *tradingDataServiceClient) ListOrderVersions(ctx context.Context, in *Li
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetPositionsByPartyConnection(ctx context.Context, in *GetPositionsByPartyConnectionRequest, opts ...grpc.CallOption) (*GetPositionsByPartyConnectionResponse, error) {
-	out := new(GetPositionsByPartyConnectionResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetPositionsByPartyConnection", in, out, opts...)
+func (c *tradingDataServiceClient) ListPositions(ctx context.Context, in *ListPositionsRequest, opts ...grpc.CallOption) (*ListPositionsResponse, error) {
+	out := new(ListPositionsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListPositions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -220,9 +226,9 @@ func (c *tradingDataServiceClient) GetNetworkLimits(ctx context.Context, in *Get
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetCandleData(ctx context.Context, in *GetCandleDataRequest, opts ...grpc.CallOption) (*GetCandleDataResponse, error) {
-	out := new(GetCandleDataResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetCandleData", in, out, opts...)
+func (c *tradingDataServiceClient) ListCandleData(ctx context.Context, in *ListCandleDataRequest, opts ...grpc.CallOption) (*ListCandleDataResponse, error) {
+	out := new(ListCandleDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListCandleData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -419,81 +425,99 @@ func (c *tradingDataServiceClient) GetOracleDataConnection(ctx context.Context, 
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetMarkets(ctx context.Context, in *GetMarketsRequest, opts ...grpc.CallOption) (*GetMarketsResponse, error) {
-	out := new(GetMarketsResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarkets", in, out, opts...)
+func (c *tradingDataServiceClient) ListMarkets(ctx context.Context, in *ListMarketsRequest, opts ...grpc.CallOption) (*ListMarketsResponse, error) {
+	out := new(ListMarketsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListMarkets", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetParties(ctx context.Context, in *GetPartiesRequest, opts ...grpc.CallOption) (*GetPartiesResponse, error) {
-	out := new(GetPartiesResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetParties", in, out, opts...)
+func (c *tradingDataServiceClient) ListParties(ctx context.Context, in *ListPartiesRequest, opts ...grpc.CallOption) (*ListPartiesResponse, error) {
+	out := new(ListPartiesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListParties", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetMarginLevels(ctx context.Context, in *GetMarginLevelsRequest, opts ...grpc.CallOption) (*GetMarginLevelsResponse, error) {
-	out := new(GetMarginLevelsResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetMarginLevels", in, out, opts...)
+func (c *tradingDataServiceClient) ListMarginLevels(ctx context.Context, in *ListMarginLevelsRequest, opts ...grpc.CallOption) (*ListMarginLevelsResponse, error) {
+	out := new(ListMarginLevelsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListMarginLevels", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetRewards(ctx context.Context, in *GetRewardsRequest, opts ...grpc.CallOption) (*GetRewardsResponse, error) {
-	out := new(GetRewardsResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetRewards", in, out, opts...)
+func (c *tradingDataServiceClient) ListRewards(ctx context.Context, in *ListRewardsRequest, opts ...grpc.CallOption) (*ListRewardsResponse, error) {
+	out := new(ListRewardsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListRewards", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetRewardSummaries(ctx context.Context, in *GetRewardSummariesRequest, opts ...grpc.CallOption) (*GetRewardSummariesResponse, error) {
-	out := new(GetRewardSummariesResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetRewardSummaries", in, out, opts...)
+func (c *tradingDataServiceClient) ListRewardSummaries(ctx context.Context, in *ListRewardSummariesRequest, opts ...grpc.CallOption) (*ListRewardSummariesResponse, error) {
+	out := new(ListRewardSummariesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListRewardSummaries", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetDeposits(ctx context.Context, in *GetDepositsRequest, opts ...grpc.CallOption) (*GetDepositsResponse, error) {
-	out := new(GetDepositsResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetDeposits", in, out, opts...)
+func (c *tradingDataServiceClient) ListDeposits(ctx context.Context, in *ListDepositsRequest, opts ...grpc.CallOption) (*ListDepositsResponse, error) {
+	out := new(ListDepositsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListDeposits", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetWithdrawals(ctx context.Context, in *GetWithdrawalsRequest, opts ...grpc.CallOption) (*GetWithdrawalsResponse, error) {
-	out := new(GetWithdrawalsResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetWithdrawals", in, out, opts...)
+func (c *tradingDataServiceClient) ListWithdrawals(ctx context.Context, in *ListWithdrawalsRequest, opts ...grpc.CallOption) (*ListWithdrawalsResponse, error) {
+	out := new(ListWithdrawalsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListWithdrawals", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetAssets(ctx context.Context, in *GetAssetsRequest, opts ...grpc.CallOption) (*GetAssetsResponse, error) {
-	out := new(GetAssetsResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetAssets", in, out, opts...)
+func (c *tradingDataServiceClient) ListAssets(ctx context.Context, in *ListAssetsRequest, opts ...grpc.CallOption) (*ListAssetsResponse, error) {
+	out := new(ListAssetsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListAssets", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetLiquidityProvisions(ctx context.Context, in *GetLiquidityProvisionsRequest, opts ...grpc.CallOption) (*GetLiquidityProvisionsResponse, error) {
-	out := new(GetLiquidityProvisionsResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetLiquidityProvisions", in, out, opts...)
+func (c *tradingDataServiceClient) ListLiquidityProvisions(ctx context.Context, in *ListLiquidityProvisionsRequest, opts ...grpc.CallOption) (*ListLiquidityProvisionsResponse, error) {
+	out := new(ListLiquidityProvisionsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListLiquidityProvisions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ListGovernanceData(ctx context.Context, in *ListGovernanceDataRequest, opts ...grpc.CallOption) (*ListGovernanceDataResponse, error) {
+	out := new(ListGovernanceDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListGovernanceData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ListDelegations(ctx context.Context, in *ListDelegationsRequest, opts ...grpc.CallOption) (*ListDelegationsResponse, error) {
+	out := new(ListDelegationsResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListDelegations", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -513,7 +537,7 @@ type TradingDataServiceServer interface {
 	ListOrderVersions(context.Context, *ListOrderVersionsRequest) (*ListOrderVersionsResponse, error)
 	// -- Positions --
 	// Get a list of Positions by Party using cursor based pagination
-	GetPositionsByPartyConnection(context.Context, *GetPositionsByPartyConnectionRequest) (*GetPositionsByPartyConnectionResponse, error)
+	ListPositions(context.Context, *ListPositionsRequest) (*ListPositionsResponse, error)
 	// -- Balances --
 	// Get an aggregated list of the changes in balances in a set of accounts over time
 	GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error)
@@ -530,7 +554,7 @@ type TradingDataServiceServer interface {
 	GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error)
 	// -- Candles --
 	// Get candle data for a given candle id
-	GetCandleData(context.Context, *GetCandleDataRequest) (*GetCandleDataResponse, error)
+	ListCandleData(context.Context, *ListCandleDataRequest) (*ListCandleDataResponse, error)
 	// Subscribe to a stream of Candle updates
 	SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error
 	// Gets all available intervals for a given market along with the corresponding candle id
@@ -569,25 +593,31 @@ type TradingDataServiceServer interface {
 	GetOracleDataConnection(context.Context, *GetOracleDataConnectionRequest) (*GetOracleDataConnectionResponse, error)
 	// -- Markets --
 	// Get all markets using a cursor based pagination model
-	GetMarkets(context.Context, *GetMarketsRequest) (*GetMarketsResponse, error)
+	ListMarkets(context.Context, *ListMarketsRequest) (*ListMarketsResponse, error)
 	// -- Parties --
 	// Get Parties using a cursor based pagination model
-	GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error)
+	ListParties(context.Context, *ListPartiesRequest) (*ListPartiesResponse, error)
 	// -- Margin Levels --
 	// Get Margin Levels using a cursor based pagination model
-	GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error)
+	ListMarginLevels(context.Context, *ListMarginLevelsRequest) (*ListMarginLevelsResponse, error)
 	// Get rewards
-	GetRewards(context.Context, *GetRewardsRequest) (*GetRewardsResponse, error)
+	ListRewards(context.Context, *ListRewardsRequest) (*ListRewardsResponse, error)
 	// Get reward summaries
-	GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error)
+	ListRewardSummaries(context.Context, *ListRewardSummariesRequest) (*ListRewardSummariesResponse, error)
 	// -- Deposits --
-	GetDeposits(context.Context, *GetDepositsRequest) (*GetDepositsResponse, error)
+	ListDeposits(context.Context, *ListDepositsRequest) (*ListDepositsResponse, error)
 	// -- Withdrawals --
-	GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error)
+	ListWithdrawals(context.Context, *ListWithdrawalsRequest) (*ListWithdrawalsResponse, error)
 	// -- Assets --
-	GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error)
+	ListAssets(context.Context, *ListAssetsRequest) (*ListAssetsResponse, error)
 	// -- Liquidity Provisions --
-	GetLiquidityProvisions(context.Context, *GetLiquidityProvisionsRequest) (*GetLiquidityProvisionsResponse, error)
+	ListLiquidityProvisions(context.Context, *ListLiquidityProvisionsRequest) (*ListLiquidityProvisionsResponse, error)
+	// -- Governance --
+	// List proposals using a cursor based pagination model
+	ListGovernanceData(context.Context, *ListGovernanceDataRequest) (*ListGovernanceDataResponse, error)
+	// -- Delegation --
+	// List delegations
+	ListDelegations(context.Context, *ListDelegationsRequest) (*ListDelegationsResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -604,8 +634,8 @@ func (UnimplementedTradingDataServiceServer) ListOrders(context.Context, *ListOr
 func (UnimplementedTradingDataServiceServer) ListOrderVersions(context.Context, *ListOrderVersionsRequest) (*ListOrderVersionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOrderVersions not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetPositionsByPartyConnection(context.Context, *GetPositionsByPartyConnectionRequest) (*GetPositionsByPartyConnectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPositionsByPartyConnection not implemented")
+func (UnimplementedTradingDataServiceServer) ListPositions(context.Context, *ListPositionsRequest) (*ListPositionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPositions not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetBalanceHistory(context.Context, *GetBalanceHistoryRequest) (*GetBalanceHistoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalanceHistory not implemented")
@@ -622,8 +652,8 @@ func (UnimplementedTradingDataServiceServer) ListTransfers(context.Context, *Lis
 func (UnimplementedTradingDataServiceServer) GetNetworkLimits(context.Context, *GetNetworkLimitsRequest) (*GetNetworkLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkLimits not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetCandleData(context.Context, *GetCandleDataRequest) (*GetCandleDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCandleData not implemented")
+func (UnimplementedTradingDataServiceServer) ListCandleData(context.Context, *ListCandleDataRequest) (*ListCandleDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCandleData not implemented")
 }
 func (UnimplementedTradingDataServiceServer) SubscribeToCandleData(*SubscribeToCandleDataRequest, TradingDataService_SubscribeToCandleDataServer) error {
 	return status.Errorf(codes.Unimplemented, "method SubscribeToCandleData not implemented")
@@ -673,32 +703,38 @@ func (UnimplementedTradingDataServiceServer) GetOracleSpecsConnection(context.Co
 func (UnimplementedTradingDataServiceServer) GetOracleDataConnection(context.Context, *GetOracleDataConnectionRequest) (*GetOracleDataConnectionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOracleDataConnection not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetMarkets(context.Context, *GetMarketsRequest) (*GetMarketsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMarkets not implemented")
+func (UnimplementedTradingDataServiceServer) ListMarkets(context.Context, *ListMarketsRequest) (*ListMarketsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMarkets not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetParties(context.Context, *GetPartiesRequest) (*GetPartiesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetParties not implemented")
+func (UnimplementedTradingDataServiceServer) ListParties(context.Context, *ListPartiesRequest) (*ListPartiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListParties not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetMarginLevels(context.Context, *GetMarginLevelsRequest) (*GetMarginLevelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMarginLevels not implemented")
+func (UnimplementedTradingDataServiceServer) ListMarginLevels(context.Context, *ListMarginLevelsRequest) (*ListMarginLevelsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMarginLevels not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetRewards(context.Context, *GetRewardsRequest) (*GetRewardsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRewards not implemented")
+func (UnimplementedTradingDataServiceServer) ListRewards(context.Context, *ListRewardsRequest) (*ListRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRewards not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetRewardSummaries(context.Context, *GetRewardSummariesRequest) (*GetRewardSummariesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRewardSummaries not implemented")
+func (UnimplementedTradingDataServiceServer) ListRewardSummaries(context.Context, *ListRewardSummariesRequest) (*ListRewardSummariesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRewardSummaries not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetDeposits(context.Context, *GetDepositsRequest) (*GetDepositsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDeposits not implemented")
+func (UnimplementedTradingDataServiceServer) ListDeposits(context.Context, *ListDepositsRequest) (*ListDepositsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDeposits not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetWithdrawals(context.Context, *GetWithdrawalsRequest) (*GetWithdrawalsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetWithdrawals not implemented")
+func (UnimplementedTradingDataServiceServer) ListWithdrawals(context.Context, *ListWithdrawalsRequest) (*ListWithdrawalsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListWithdrawals not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetAssets(context.Context, *GetAssetsRequest) (*GetAssetsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAssets not implemented")
+func (UnimplementedTradingDataServiceServer) ListAssets(context.Context, *ListAssetsRequest) (*ListAssetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAssets not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetLiquidityProvisions(context.Context, *GetLiquidityProvisionsRequest) (*GetLiquidityProvisionsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLiquidityProvisions not implemented")
+func (UnimplementedTradingDataServiceServer) ListLiquidityProvisions(context.Context, *ListLiquidityProvisionsRequest) (*ListLiquidityProvisionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLiquidityProvisions not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ListGovernanceData(context.Context, *ListGovernanceDataRequest) (*ListGovernanceDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGovernanceData not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ListDelegations(context.Context, *ListDelegationsRequest) (*ListDelegationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDelegations not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -767,20 +803,20 @@ func _TradingDataService_ListOrderVersions_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetPositionsByPartyConnection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPositionsByPartyConnectionRequest)
+func _TradingDataService_ListPositions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPositionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetPositionsByPartyConnection(ctx, in)
+		return srv.(TradingDataServiceServer).ListPositions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetPositionsByPartyConnection",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListPositions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetPositionsByPartyConnection(ctx, req.(*GetPositionsByPartyConnectionRequest))
+		return srv.(TradingDataServiceServer).ListPositions(ctx, req.(*ListPositionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -878,20 +914,20 @@ func _TradingDataService_GetNetworkLimits_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetCandleData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCandleDataRequest)
+func _TradingDataService_ListCandleData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCandleDataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetCandleData(ctx, in)
+		return srv.(TradingDataServiceServer).ListCandleData(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetCandleData",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListCandleData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetCandleData(ctx, req.(*GetCandleDataRequest))
+		return srv.(TradingDataServiceServer).ListCandleData(ctx, req.(*ListCandleDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1190,164 +1226,200 @@ func _TradingDataService_GetOracleDataConnection_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetMarkets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetMarketsRequest)
+func _TradingDataService_ListMarkets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMarketsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetMarkets(ctx, in)
+		return srv.(TradingDataServiceServer).ListMarkets(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetMarkets",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListMarkets",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetMarkets(ctx, req.(*GetMarketsRequest))
+		return srv.(TradingDataServiceServer).ListMarkets(ctx, req.(*ListMarketsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetParties_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPartiesRequest)
+func _TradingDataService_ListParties_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPartiesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetParties(ctx, in)
+		return srv.(TradingDataServiceServer).ListParties(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetParties",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListParties",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetParties(ctx, req.(*GetPartiesRequest))
+		return srv.(TradingDataServiceServer).ListParties(ctx, req.(*ListPartiesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetMarginLevels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetMarginLevelsRequest)
+func _TradingDataService_ListMarginLevels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMarginLevelsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetMarginLevels(ctx, in)
+		return srv.(TradingDataServiceServer).ListMarginLevels(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetMarginLevels",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListMarginLevels",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetMarginLevels(ctx, req.(*GetMarginLevelsRequest))
+		return srv.(TradingDataServiceServer).ListMarginLevels(ctx, req.(*ListMarginLevelsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRewardsRequest)
+func _TradingDataService_ListRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRewardsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetRewards(ctx, in)
+		return srv.(TradingDataServiceServer).ListRewards(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetRewards",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListRewards",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetRewards(ctx, req.(*GetRewardsRequest))
+		return srv.(TradingDataServiceServer).ListRewards(ctx, req.(*ListRewardsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetRewardSummaries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRewardSummariesRequest)
+func _TradingDataService_ListRewardSummaries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRewardSummariesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetRewardSummaries(ctx, in)
+		return srv.(TradingDataServiceServer).ListRewardSummaries(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetRewardSummaries",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListRewardSummaries",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetRewardSummaries(ctx, req.(*GetRewardSummariesRequest))
+		return srv.(TradingDataServiceServer).ListRewardSummaries(ctx, req.(*ListRewardSummariesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetDeposits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDepositsRequest)
+func _TradingDataService_ListDeposits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDepositsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetDeposits(ctx, in)
+		return srv.(TradingDataServiceServer).ListDeposits(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetDeposits",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListDeposits",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetDeposits(ctx, req.(*GetDepositsRequest))
+		return srv.(TradingDataServiceServer).ListDeposits(ctx, req.(*ListDepositsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetWithdrawalsRequest)
+func _TradingDataService_ListWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListWithdrawalsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetWithdrawals(ctx, in)
+		return srv.(TradingDataServiceServer).ListWithdrawals(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetWithdrawals",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListWithdrawals",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetWithdrawals(ctx, req.(*GetWithdrawalsRequest))
+		return srv.(TradingDataServiceServer).ListWithdrawals(ctx, req.(*ListWithdrawalsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAssetsRequest)
+func _TradingDataService_ListAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAssetsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetAssets(ctx, in)
+		return srv.(TradingDataServiceServer).ListAssets(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetAssets",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListAssets",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetAssets(ctx, req.(*GetAssetsRequest))
+		return srv.(TradingDataServiceServer).ListAssets(ctx, req.(*ListAssetsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetLiquidityProvisions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetLiquidityProvisionsRequest)
+func _TradingDataService_ListLiquidityProvisions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLiquidityProvisionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetLiquidityProvisions(ctx, in)
+		return srv.(TradingDataServiceServer).ListLiquidityProvisions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetLiquidityProvisions",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListLiquidityProvisions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetLiquidityProvisions(ctx, req.(*GetLiquidityProvisionsRequest))
+		return srv.(TradingDataServiceServer).ListLiquidityProvisions(ctx, req.(*ListLiquidityProvisionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ListGovernanceData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListGovernanceDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListGovernanceData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/ListGovernanceData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListGovernanceData(ctx, req.(*ListGovernanceDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ListDelegations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDelegationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListDelegations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/ListDelegations",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListDelegations(ctx, req.(*ListDelegationsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1372,8 +1444,8 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_ListOrderVersions_Handler,
 		},
 		{
-			MethodName: "GetPositionsByPartyConnection",
-			Handler:    _TradingDataService_GetPositionsByPartyConnection_Handler,
+			MethodName: "ListPositions",
+			Handler:    _TradingDataService_ListPositions_Handler,
 		},
 		{
 			MethodName: "GetBalanceHistory",
@@ -1392,8 +1464,8 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetNetworkLimits_Handler,
 		},
 		{
-			MethodName: "GetCandleData",
-			Handler:    _TradingDataService_GetCandleData_Handler,
+			MethodName: "ListCandleData",
+			Handler:    _TradingDataService_ListCandleData_Handler,
 		},
 		{
 			MethodName: "GetCandlesForMarket",
@@ -1452,40 +1524,48 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetOracleDataConnection_Handler,
 		},
 		{
-			MethodName: "GetMarkets",
-			Handler:    _TradingDataService_GetMarkets_Handler,
+			MethodName: "ListMarkets",
+			Handler:    _TradingDataService_ListMarkets_Handler,
 		},
 		{
-			MethodName: "GetParties",
-			Handler:    _TradingDataService_GetParties_Handler,
+			MethodName: "ListParties",
+			Handler:    _TradingDataService_ListParties_Handler,
 		},
 		{
-			MethodName: "GetMarginLevels",
-			Handler:    _TradingDataService_GetMarginLevels_Handler,
+			MethodName: "ListMarginLevels",
+			Handler:    _TradingDataService_ListMarginLevels_Handler,
 		},
 		{
-			MethodName: "GetRewards",
-			Handler:    _TradingDataService_GetRewards_Handler,
+			MethodName: "ListRewards",
+			Handler:    _TradingDataService_ListRewards_Handler,
 		},
 		{
-			MethodName: "GetRewardSummaries",
-			Handler:    _TradingDataService_GetRewardSummaries_Handler,
+			MethodName: "ListRewardSummaries",
+			Handler:    _TradingDataService_ListRewardSummaries_Handler,
 		},
 		{
-			MethodName: "GetDeposits",
-			Handler:    _TradingDataService_GetDeposits_Handler,
+			MethodName: "ListDeposits",
+			Handler:    _TradingDataService_ListDeposits_Handler,
 		},
 		{
-			MethodName: "GetWithdrawals",
-			Handler:    _TradingDataService_GetWithdrawals_Handler,
+			MethodName: "ListWithdrawals",
+			Handler:    _TradingDataService_ListWithdrawals_Handler,
 		},
 		{
-			MethodName: "GetAssets",
-			Handler:    _TradingDataService_GetAssets_Handler,
+			MethodName: "ListAssets",
+			Handler:    _TradingDataService_ListAssets_Handler,
 		},
 		{
-			MethodName: "GetLiquidityProvisions",
-			Handler:    _TradingDataService_GetLiquidityProvisions_Handler,
+			MethodName: "ListLiquidityProvisions",
+			Handler:    _TradingDataService_ListLiquidityProvisions_Handler,
+		},
+		{
+			MethodName: "ListGovernanceData",
+			Handler:    _TradingDataService_ListGovernanceData_Handler,
+		},
+		{
+			MethodName: "ListDelegations",
+			Handler:    _TradingDataService_ListDelegations_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

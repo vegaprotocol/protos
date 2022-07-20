@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetRewardsRequest",
+    "$ref": "#/definitions/ListRewardsRequest",
     "definitions": {
-        "GetRewardsRequest": {
+        "ListRewardsRequest": {
             "properties": {
                 "party_id": {
                     "type": "string"
@@ -17,7 +17,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Rewards Request",
+            "title": "List Rewards Request",
             "description": "A request to get reward details for a party"
         },
         "datanode.api.v2.Pagination": {
