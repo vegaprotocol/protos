@@ -483,6 +483,75 @@
       },
       "title": "Condition describes the condition that must be validated by the"
     },
+    "v1DataSpec": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "id is a hash generated from the OracleSpec data."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Creation Date time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Last Updated timestamp"
+        },
+        "pubKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "pubKeys is the list of authorized public keys that signed the data for this\noracle. All the public keys in the oracle data should be contained in these\npublic keys."
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Filter"
+          },
+          "description": "filters describes which oracle data are considered of interest or not for\nthe product (or the risk model)."
+        },
+        "status": {
+          "$ref": "#/definitions/v1DataSpecStatus",
+          "title": "status describes the status of the oracle spec"
+        }
+      },
+      "description": "A data spec describes the source data that a product (or a risk model)\nwants to get from the data source engine.\nThis message contains additional information used by the API."
+    },
+    "v1DataSpecConfiguration": {
+      "type": "object",
+      "properties": {
+        "pubKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "pubKeys is the list of authorized public keys that signed the data for this\nexternal source. All the public keys in the data should be contained in these\npublic keys."
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Filter"
+          },
+          "description": "filters describes which source data are considered of interest or not for\nthe product (or the risk model)."
+        }
+      },
+      "description": "In all types of external data sources we have the same configuration set for meeting requirements\nin order the data to be useful for Vega - valid public keys and matching filters."
+    },
+    "v1DataSpecStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_ACTIVE",
+        "STATUS_DEACTIVATED"
+      ],
+      "default": "STATUS_UNSPECIFIED",
+      "description": "- STATUS_UNSPECIFIED: The default value.\n - STATUS_ACTIVE: STATUS_ACTIVE describes an active oracle spec.\n - STATUS_DEACTIVATED: STATUS_DEACTIVATED describes an oracle spec that is not listening to data\nanymore.",
+      "title": "Status describe the status of the oracle spec"
+    },
     "v1Filter": {
       "type": "object",
       "properties": {
@@ -628,75 +697,6 @@
           }
         }
       }
-    },
-    "v1OracleSpec": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "id is a hash generated from the OracleSpec data."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "int64",
-          "title": "Creation Date time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "int64",
-          "title": "Last Updated timestamp"
-        },
-        "pubKeys": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "pubKeys is the list of authorized public keys that signed the data for this\noracle. All the public keys in the oracle data should be contained in these\npublic keys."
-        },
-        "filters": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Filter"
-          },
-          "description": "filters describes which oracle data are considered of interest or not for\nthe product (or the risk model)."
-        },
-        "status": {
-          "$ref": "#/definitions/v1OracleSpecStatus",
-          "title": "status describes the status of the oracle spec"
-        }
-      },
-      "description": "An oracle spec describe the oracle data that a product (or a risk model)\nwants to get from the oracle engine.\nThis message contains additional information used by the API."
-    },
-    "v1OracleSpecConfiguration": {
-      "type": "object",
-      "properties": {
-        "pubKeys": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "pubKeys is the list of authorized public keys that signed the data for this\noracle. All the public keys in the oracle data should be contained in these\npublic keys."
-        },
-        "filters": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Filter"
-          },
-          "description": "filters describes which oracle data are considered of interest or not for\nthe product (or the risk model)."
-        }
-      },
-      "description": "An oracle spec describe the oracle data that a product (or a risk model)\nwants to get from the oracle engine."
-    },
-    "v1OracleSpecStatus": {
-      "type": "string",
-      "enum": [
-        "STATUS_UNSPECIFIED",
-        "STATUS_ACTIVE",
-        "STATUS_DEACTIVATED"
-      ],
-      "default": "STATUS_UNSPECIFIED",
-      "description": "- STATUS_UNSPECIFIED: The default value.\n - STATUS_ACTIVE: STATUS_ACTIVE describes an active oracle spec.\n - STATUS_DEACTIVATED: STATUS_DEACTIVATED describes an oracle spec that is not listening to data\nanymore.",
-      "title": "Status describe the status of the oracle spec"
     },
     "v1PartyStake": {
       "type": "object",
@@ -1102,11 +1102,11 @@
           "title": "Quote name of the instrument"
         },
         "oracleSpecForSettlementPrice": {
-          "$ref": "#/definitions/v1OracleSpec",
+          "$ref": "#/definitions/v1DataSpec",
           "title": "The oracle spec describing the settlement price oracle filter"
         },
         "oracleSpecForTradingTermination": {
-          "$ref": "#/definitions/v1OracleSpec",
+          "$ref": "#/definitions/v1DataSpec",
           "title": "the oracle spec describing the trading termination oracle filter"
         },
         "oracleSpecBinding": {
@@ -1133,11 +1133,11 @@
           "title": "Product quote name"
         },
         "oracleSpecForSettlementPrice": {
-          "$ref": "#/definitions/v1OracleSpecConfiguration",
+          "$ref": "#/definitions/v1DataSpecConfiguration",
           "title": "The oracle spec describing the oracle data of settlement price"
         },
         "oracleSpecForTradingTermination": {
-          "$ref": "#/definitions/v1OracleSpecConfiguration",
+          "$ref": "#/definitions/v1DataSpecConfiguration",
           "title": "The oracle spec describing the oracle data of trading termination"
         },
         "oracleSpecBinding": {
@@ -2091,11 +2091,11 @@
           "title": "Human-readable name/abbreviation of the quote name"
         },
         "oracleSpecForSettlementPrice": {
-          "$ref": "#/definitions/v1OracleSpecConfiguration",
+          "$ref": "#/definitions/v1DataSpecConfiguration",
           "title": "The oracle spec describing the oracle data of settlement price"
         },
         "oracleSpecForTradingTermination": {
-          "$ref": "#/definitions/v1OracleSpecConfiguration",
+          "$ref": "#/definitions/v1DataSpecConfiguration",
           "title": "The oracle spec describing the oracle data of trading termination"
         },
         "oracleSpecBinding": {

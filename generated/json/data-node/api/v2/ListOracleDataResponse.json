@@ -35,7 +35,7 @@
         "datanode.api.v2.OracleDataEdge": {
             "properties": {
                 "node": {
-                    "$ref": "#/definitions/oracles.v1.OracleData",
+                    "$ref": "#/definitions/vega.data.v1.ExternalData",
                     "additionalProperties": true
                 },
                 "cursor": {
@@ -66,40 +66,39 @@
             "title": "Page Info",
             "description": "Page information for cursor based pagination"
         },
-        "oracles.v1.OracleData": {
+        "vega.data.v1.ExternalData": {
             "properties": {
-                "pub_keys": {
+                "signers": {
                     "items": {
-                        "type": "string"
+                        "$ref": "#/definitions/vega.data.v1.Signer"
                     },
-                    "type": "array",
-                    "description": "pubKeys is the list of authorized public keys that signed the data for this oracle. All the public keys in the oracle data should be contained in these public keys."
+                    "type": "array"
                 },
                 "data": {
                     "items": {
-                        "$ref": "#/definitions/oracles.v1.Property"
+                        "$ref": "#/definitions/vega.data.v1.Property"
                     },
                     "type": "array",
-                    "description": "data holds all the properties of the oracle data"
+                    "description": "data holds all the properties of the data"
                 },
                 "matched_spec_ids": {
                     "items": {
                         "type": "string"
                     },
                     "type": "array",
-                    "description": "matched_specs_ids lists all the oracle specs that matched this oracle data. When the array is empty, it means no oracle spec matched this oracle data."
+                    "description": "matched_specs_ids lists all the specs that matched this data. When the array is empty, it means no spec matched this data."
                 },
                 "broadcast_at": {
                     "type": "string",
-                    "description": "broadcast_at is the time at which the data was broadcast to the markets with a matching oracle spec. It has no value when the oracle date did not match any oracle spec. The value is a Unix timestamp in nanoseconds."
+                    "description": "broadcast_at is the time at which the data was broadcast to the markets with a matching spec. It has no value when the date did not match any spec. The value is a Unix timestamp in nanoseconds."
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Oracle Data",
-            "description": "OracleData describes valid oracle data that has been received by the node. It represents both matched and unmatched oracle data."
+            "title": "External Data",
+            "description": "ExternalData describes valid external source data that has been received by the node. It represents both matched and unmatched data."
         },
-        "oracles.v1.Property": {
+        "vega.data.v1.Property": {
             "properties": {
                 "name": {
                     "type": "string",
@@ -114,6 +113,21 @@
             "type": "object",
             "title": "Property",
             "description": "Property describes one property of an oracle spec with a key with its value."
+        },
+        "vega.data.v1.Signer": {
+            "properties": {
+                "pub_key": {
+                    "type": "string",
+                    "description": "pubKeys is the list of authorized public keys that signed the data for this source. All the public keys in the data should be contained in these public keys."
+                },
+                "address": {
+                    "type": "string",
+                    "description": "in case of an open oracle - Ethereum address will be submitted"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Signer"
         }
     }
 }

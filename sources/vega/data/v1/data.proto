@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package vega.data.v1;
+
+option go_package = "code.vegaprotocol.io/protos/vega/data/v1";
+
+message Signer {
+  oneof signer {
+    // pubKeys is the list of authorized public keys that signed the data for this
+    // source. All the public keys in the data should be contained in these
+    // public keys.
+    string pub_key = 1;
+    // in case of an open oracle - Ethereum address will be submitted
+    string address = 2;
+  }
+}
+// ExternalData describes valid external source data that has been received by the node.
+// It represents both matched and unmatched data.
+message ExternalData {
+  repeated Signer signers = 1;
+  // data holds all the properties of the data
+  repeated Property data = 2;
+  // matched_specs_ids lists all the specs that matched this data.
+  // When the array is empty, it means no spec matched this data.
+  repeated string matched_spec_ids = 3;
+  // broadcast_at is the time at which the data was broadcast to the markets
+  // with a matching spec.
+  // It has no value when the date did not match any spec.
+  // The value is a Unix timestamp in nanoseconds.
+  int64 broadcast_at = 4;
+}
+
+// Property describes one property of an oracle spec with a key with its value.
+message Property {
+  // name is the name of the property.
+  string name = 1;
+  // value is the value of the property.
+  string value = 2;
+}

@@ -23,7 +23,7 @@ func (f Filter) DeepClone() *Filter {
 	return &f
 }
 
-func (o OracleSpecConfiguration) DeepClone() *OracleSpecConfiguration {
+func (o DataSpecConfiguration) DeepClone() *DataSpecConfiguration {
 	if len(o.Filters) > 0 {
 		filters := o.Filters
 		o.Filters = make([]*Filter, len(filters))
@@ -34,7 +34,7 @@ func (o OracleSpecConfiguration) DeepClone() *OracleSpecConfiguration {
 	return &o
 }
 
-func (o OracleSpec) DeepClone() *OracleSpec {
+func (o DataSpec) DeepClone() *DataSpec {
 	if len(o.PubKeys) > 0 {
 		pks := o.PubKeys
 		o.PubKeys = make([]string, len(pks))
@@ -57,15 +57,18 @@ func (p Property) DeepClone() *Property {
 	return &p
 }
 
-func (o OracleData) DeepClone() *OracleData {
-	if len(o.PubKeys) > 0 {
-		pks := o.PubKeys
-		o.PubKeys = make([]string, len(pks))
-		for i, k := range pks {
-			o.PubKeys[i] = k
+func (s Signer) DeepClone() *Signer {
+	return &s
+}
+
+func (o ExternalData) DeepClone() *ExternalData {
+	if len(o.Signers) > 0 {
+		sgns := o.Signers
+		o.Signers = make([]*Signer, len(sgns))
+		for i, s := range sgns {
+			sgns[i] = s.DeepClone()
 		}
 	}
-
 	if len(o.Data) > 0 {
 		data := o.Data
 		o.Data = make([]*Property, len(data))

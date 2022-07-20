@@ -5,7 +5,7 @@
         "OracleSpecResponse": {
             "properties": {
                 "oracle_spec": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "$ref": "#/definitions/vega.data.v1.DataSpec",
                     "additionalProperties": true,
                     "description": "The withdrawal matching the identifier from the request"
                 }
@@ -15,7 +15,7 @@
             "title": "Oracle Spec Response",
             "description": "A response for a oracle spec"
         },
-        "oracles.v1.Condition": {
+        "vega.data.v1.Condition": {
             "properties": {
                 "operator": {
                     "enum": [
@@ -53,27 +53,7 @@
             "title": "Condition",
             "description": "Condition describes the condition that must be validated by the"
         },
-        "oracles.v1.Filter": {
-            "properties": {
-                "key": {
-                    "$ref": "#/definitions/oracles.v1.PropertyKey",
-                    "additionalProperties": true,
-                    "description": "key is the oracle data property key targeted by the filter."
-                },
-                "conditions": {
-                    "items": {
-                        "$ref": "#/definitions/oracles.v1.Condition"
-                    },
-                    "type": "array",
-                    "description": "conditions are the conditions that should be matched by the data to be considered of interest."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Filter",
-            "description": "Filter describes the conditions under which an oracle data is considered of interest or not."
-        },
-        "oracles.v1.OracleSpec": {
+        "vega.data.v1.DataSpec": {
             "properties": {
                 "id": {
                     "type": "string",
@@ -96,7 +76,7 @@
                 },
                 "filters": {
                     "items": {
-                        "$ref": "#/definitions/oracles.v1.Filter"
+                        "$ref": "#/definitions/vega.data.v1.Filter"
                     },
                     "type": "array",
                     "description": "filters describes which oracle data are considered of interest or not for the product (or the risk model)."
@@ -124,10 +104,30 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Oracle Spec",
-            "description": "An oracle spec describe the oracle data that a product (or a risk model) wants to get from the oracle engine. This message contains additional information used by the API."
+            "title": "Data Spec",
+            "description": "A data spec describes the source data that a product (or a risk model) wants to get from the data source engine. This message contains additional information used by the API."
         },
-        "oracles.v1.PropertyKey": {
+        "vega.data.v1.Filter": {
+            "properties": {
+                "key": {
+                    "$ref": "#/definitions/vega.data.v1.PropertyKey",
+                    "additionalProperties": true,
+                    "description": "key is the oracle data property key targeted by the filter."
+                },
+                "conditions": {
+                    "items": {
+                        "$ref": "#/definitions/vega.data.v1.Condition"
+                    },
+                    "type": "array",
+                    "description": "conditions are the conditions that should be matched by the data to be considered of interest."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "An oracle spec is a data source spec.\nmessage OracleSpec {\nDataSpec oracle_spec = 1;\n}",
+            "description": "An oracle spec is a data source spec.message OracleSpec {DataSpec oracle_spec = 1;}  Filter describes the conditions under which an oracle data is considered of interest or not."
+        },
+        "vega.data.v1.PropertyKey": {
             "properties": {
                 "name": {
                     "type": "string",

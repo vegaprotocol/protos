@@ -17,229 +17,6 @@
             "title": "Observe Event Bus Response",
             "description": "Response to a subscribed stream of events from the Vega event bus"
         },
-        "oracles.v1.Condition": {
-            "properties": {
-                "operator": {
-                    "enum": [
-                        "OPERATOR_UNSPECIFIED",
-                        0,
-                        "OPERATOR_EQUALS",
-                        1,
-                        "OPERATOR_GREATER_THAN",
-                        2,
-                        "OPERATOR_GREATER_THAN_OR_EQUAL",
-                        3,
-                        "OPERATOR_LESS_THAN",
-                        4,
-                        "OPERATOR_LESS_THAN_OR_EQUAL",
-                        5
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        }
-                    ],
-                    "title": "Operator",
-                    "description": "Comparator describes the type of comparison."
-                },
-                "value": {
-                    "type": "string",
-                    "description": "value is used by the comparator."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Condition",
-            "description": "Condition describes the condition that must be validated by the"
-        },
-        "oracles.v1.Filter": {
-            "properties": {
-                "key": {
-                    "$ref": "#/definitions/oracles.v1.PropertyKey",
-                    "additionalProperties": true,
-                    "description": "key is the oracle data property key targeted by the filter."
-                },
-                "conditions": {
-                    "items": {
-                        "$ref": "#/definitions/oracles.v1.Condition"
-                    },
-                    "type": "array",
-                    "description": "conditions are the conditions that should be matched by the data to be considered of interest."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Filter",
-            "description": "Filter describes the conditions under which an oracle data is considered of interest or not."
-        },
-        "oracles.v1.OracleData": {
-            "properties": {
-                "pub_keys": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array",
-                    "description": "pubKeys is the list of authorized public keys that signed the data for this oracle. All the public keys in the oracle data should be contained in these public keys."
-                },
-                "data": {
-                    "items": {
-                        "$ref": "#/definitions/oracles.v1.Property"
-                    },
-                    "type": "array",
-                    "description": "data holds all the properties of the oracle data"
-                },
-                "matched_spec_ids": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array",
-                    "description": "matched_specs_ids lists all the oracle specs that matched this oracle data. When the array is empty, it means no oracle spec matched this oracle data."
-                },
-                "broadcast_at": {
-                    "type": "string",
-                    "description": "broadcast_at is the time at which the data was broadcast to the markets with a matching oracle spec. It has no value when the oracle date did not match any oracle spec. The value is a Unix timestamp in nanoseconds."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Oracle Data",
-            "description": "OracleData describes valid oracle data that has been received by the node. It represents both matched and unmatched oracle data."
-        },
-        "oracles.v1.OracleSpec": {
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "id is a hash generated from the OracleSpec data."
-                },
-                "created_at": {
-                    "type": "string",
-                    "description": "Creation Date time"
-                },
-                "updated_at": {
-                    "type": "string",
-                    "description": "Last Updated timestamp"
-                },
-                "pub_keys": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array",
-                    "description": "pubKeys is the list of authorized public keys that signed the data for this oracle. All the public keys in the oracle data should be contained in these public keys."
-                },
-                "filters": {
-                    "items": {
-                        "$ref": "#/definitions/oracles.v1.Filter"
-                    },
-                    "type": "array",
-                    "description": "filters describes which oracle data are considered of interest or not for the product (or the risk model)."
-                },
-                "status": {
-                    "enum": [
-                        "STATUS_UNSPECIFIED",
-                        0,
-                        "STATUS_ACTIVE",
-                        1,
-                        "STATUS_DEACTIVATED",
-                        2
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        }
-                    ],
-                    "title": "Status",
-                    "description": "Status describe the status of the oracle spec"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Oracle Spec",
-            "description": "An oracle spec describe the oracle data that a product (or a risk model) wants to get from the oracle engine. This message contains additional information used by the API."
-        },
-        "oracles.v1.OracleSpecConfiguration": {
-            "properties": {
-                "pub_keys": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array",
-                    "description": "pubKeys is the list of authorized public keys that signed the data for this oracle. All the public keys in the oracle data should be contained in these public keys."
-                },
-                "filters": {
-                    "items": {
-                        "$ref": "#/definitions/oracles.v1.Filter"
-                    },
-                    "type": "array",
-                    "description": "filters describes which oracle data are considered of interest or not for the product (or the risk model)."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Oracle Spec Configuration",
-            "description": "An oracle spec describe the oracle data that a product (or a risk model) wants to get from the oracle engine."
-        },
-        "oracles.v1.Property": {
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "name is the name of the property."
-                },
-                "value": {
-                    "type": "string",
-                    "description": "value is the value of the property."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Property",
-            "description": "Property describes one property of an oracle spec with a key with its value."
-        },
-        "oracles.v1.PropertyKey": {
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "name is the name of the property."
-                },
-                "type": {
-                    "enum": [
-                        "TYPE_UNSPECIFIED",
-                        0,
-                        "TYPE_EMPTY",
-                        1,
-                        "TYPE_INTEGER",
-                        2,
-                        "TYPE_STRING",
-                        3,
-                        "TYPE_BOOLEAN",
-                        4,
-                        "TYPE_DECIMAL",
-                        5,
-                        "TYPE_TIMESTAMP",
-                        6
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        }
-                    ],
-                    "title": "Type",
-                    "description": "Type describes the type of properties that are supported by the oracle engine."
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Property Key",
-            "description": "PropertyKey describes the property key contained in an oracle data."
-        },
         "vega.Account": {
             "properties": {
                 "id": {
@@ -665,12 +442,12 @@
                     "description": "Quote name of the instrument"
                 },
                 "oracle_spec_for_settlement_price": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "$ref": "#/definitions/vega.data.v1.DataSpec",
                     "additionalProperties": true,
                     "description": "The oracle spec describing the settlement price oracle filter"
                 },
                 "oracle_spec_for_trading_termination": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "$ref": "#/definitions/vega.data.v1.DataSpec",
                     "additionalProperties": true,
                     "description": "the oracle spec describing the trading termination oracle filter"
                 },
@@ -700,12 +477,12 @@
                     "description": "Product quote name"
                 },
                 "oracle_spec_for_settlement_price": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "$ref": "#/definitions/vega.data.v1.DataSpecConfiguration",
                     "additionalProperties": true,
                     "description": "The oracle spec describing the oracle data of settlement price"
                 },
                 "oracle_spec_for_trading_termination": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "$ref": "#/definitions/vega.data.v1.DataSpecConfiguration",
                     "additionalProperties": true,
                     "description": "The oracle spec describing the oracle data of trading termination"
                 },
@@ -2520,12 +2297,12 @@
                     "description": "Human-readable name/abbreviation of the quote name"
                 },
                 "oracle_spec_for_settlement_price": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "$ref": "#/definitions/vega.data.v1.DataSpecConfiguration",
                     "additionalProperties": true,
                     "description": "The oracle spec describing the oracle data of settlement price"
                 },
                 "oracle_spec_for_trading_termination": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
+                    "$ref": "#/definitions/vega.data.v1.DataSpecConfiguration",
                     "additionalProperties": true,
                     "description": "The oracle spec describing the oracle data of trading termination"
                 },
@@ -3535,6 +3312,243 @@
             "title": "Withdraw Submission",
             "description": "Represents the submission request to withdraw funds for a party on Vega"
         },
+        "vega.data.v1.Condition": {
+            "properties": {
+                "operator": {
+                    "enum": [
+                        "OPERATOR_UNSPECIFIED",
+                        0,
+                        "OPERATOR_EQUALS",
+                        1,
+                        "OPERATOR_GREATER_THAN",
+                        2,
+                        "OPERATOR_GREATER_THAN_OR_EQUAL",
+                        3,
+                        "OPERATOR_LESS_THAN",
+                        4,
+                        "OPERATOR_LESS_THAN_OR_EQUAL",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Operator",
+                    "description": "Comparator describes the type of comparison."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "value is used by the comparator."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Condition",
+            "description": "Condition describes the condition that must be validated by the"
+        },
+        "vega.data.v1.DataSpec": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "id is a hash generated from the OracleSpec data."
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Creation Date time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Last Updated timestamp"
+                },
+                "pub_keys": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "pubKeys is the list of authorized public keys that signed the data for this oracle. All the public keys in the oracle data should be contained in these public keys."
+                },
+                "filters": {
+                    "items": {
+                        "$ref": "#/definitions/vega.data.v1.Filter"
+                    },
+                    "type": "array",
+                    "description": "filters describes which oracle data are considered of interest or not for the product (or the risk model)."
+                },
+                "status": {
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        0,
+                        "STATUS_ACTIVE",
+                        1,
+                        "STATUS_DEACTIVATED",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status",
+                    "description": "Status describe the status of the oracle spec"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data Spec",
+            "description": "A data spec describes the source data that a product (or a risk model) wants to get from the data source engine. This message contains additional information used by the API."
+        },
+        "vega.data.v1.DataSpecConfiguration": {
+            "properties": {
+                "pub_keys": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "pubKeys is the list of authorized public keys that signed the data for this external source. All the public keys in the data should be contained in these public keys."
+                },
+                "filters": {
+                    "items": {
+                        "$ref": "#/definitions/vega.data.v1.Filter"
+                    },
+                    "type": "array",
+                    "description": "filters describes which source data are considered of interest or not for the product (or the risk model)."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data Spec Configuration",
+            "description": "In all types of external data sources we have the same configuration set for meeting requirements in order the data to be useful for Vega - valid public keys and matching filters."
+        },
+        "vega.data.v1.ExternalData": {
+            "properties": {
+                "signers": {
+                    "items": {
+                        "$ref": "#/definitions/vega.data.v1.Signer"
+                    },
+                    "type": "array"
+                },
+                "data": {
+                    "items": {
+                        "$ref": "#/definitions/vega.data.v1.Property"
+                    },
+                    "type": "array",
+                    "description": "data holds all the properties of the data"
+                },
+                "matched_spec_ids": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "matched_specs_ids lists all the specs that matched this data. When the array is empty, it means no spec matched this data."
+                },
+                "broadcast_at": {
+                    "type": "string",
+                    "description": "broadcast_at is the time at which the data was broadcast to the markets with a matching spec. It has no value when the date did not match any spec. The value is a Unix timestamp in nanoseconds."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "External Data",
+            "description": "ExternalData describes valid external source data that has been received by the node. It represents both matched and unmatched data."
+        },
+        "vega.data.v1.Filter": {
+            "properties": {
+                "key": {
+                    "$ref": "#/definitions/vega.data.v1.PropertyKey",
+                    "additionalProperties": true,
+                    "description": "key is the oracle data property key targeted by the filter."
+                },
+                "conditions": {
+                    "items": {
+                        "$ref": "#/definitions/vega.data.v1.Condition"
+                    },
+                    "type": "array",
+                    "description": "conditions are the conditions that should be matched by the data to be considered of interest."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "An oracle spec is a data source spec.\nmessage OracleSpec {\nDataSpec oracle_spec = 1;\n}",
+            "description": "An oracle spec is a data source spec.message OracleSpec {DataSpec oracle_spec = 1;}  Filter describes the conditions under which an oracle data is considered of interest or not."
+        },
+        "vega.data.v1.Property": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "name is the name of the property."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "value is the value of the property."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Property",
+            "description": "Property describes one property of an oracle spec with a key with its value."
+        },
+        "vega.data.v1.PropertyKey": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "name is the name of the property."
+                },
+                "type": {
+                    "enum": [
+                        "TYPE_UNSPECIFIED",
+                        0,
+                        "TYPE_EMPTY",
+                        1,
+                        "TYPE_INTEGER",
+                        2,
+                        "TYPE_STRING",
+                        3,
+                        "TYPE_BOOLEAN",
+                        4,
+                        "TYPE_DECIMAL",
+                        5,
+                        "TYPE_TIMESTAMP",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type",
+                    "description": "Type describes the type of properties that are supported by the oracle engine."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Property Key",
+            "description": "PropertyKey describes the property key contained in an oracle data."
+        },
+        "vega.data.v1.Signer": {
+            "properties": {
+                "pub_key": {
+                    "type": "string",
+                    "description": "pubKeys is the list of authorized public keys that signed the data for this source. All the public keys in the data should be contained in these public keys."
+                },
+                "address": {
+                    "type": "string",
+                    "description": "in case of an open oracle - Ethereum address will be submitted"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Signer"
+        },
         "vega.events.v1.AuctionEvent": {
             "properties": {
                 "market_id": {
@@ -3863,12 +3877,12 @@
                     "description": "Market created events"
                 },
                 "oracle_spec": {
-                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "$ref": "#/definitions/vega.data.v1.DataSpec",
                     "additionalProperties": true,
                     "description": "OracleSpec events"
                 },
                 "oracle_data": {
-                    "$ref": "#/definitions/oracles.v1.OracleData",
+                    "$ref": "#/definitions/vega.data.v1.ExternalData",
                     "additionalProperties": true,
                     "description": "OracleData events"
                 },

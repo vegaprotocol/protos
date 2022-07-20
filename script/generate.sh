@@ -55,7 +55,7 @@ function gen_docs() {
 
   protoc --doc_out=./generated --doc_opt=json,proto.json --proto_path=sources/ \
   sources/vega/*.proto \
-  sources/vega/oracles/**/*.proto \
+  sources/vega/data/**/*.proto \
   sources/vega/commands/**/*.proto \
   sources/vega/events/**/*.proto \
   sources/vega/api/**/*.proto \

@@ -10,7 +10,7 @@ import (
 	"code.vegaprotocol.io/protos/commands"
 	types "code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
-	oraclespb "code.vegaprotocol.io/protos/vega/oracles/v1"
+	datapb "code.vegaprotocol.io/protos/vega/data/v1"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -805,9 +805,9 @@ func testUpdateFutureMarketChangeSubmissionMissingSingleOracleSpecFails(t *testi
 func testUpdateFutureMarketChangeSubmissionWithoutEitherOracleSpecFails(t *testing.T, oracleSpecName string) {
 	future := &types.UpdateFutureProduct{}
 	if oracleSpecName == "oracle_spec_for_settlement_price" {
-		future.OracleSpecForTradingTermination = &oraclespb.OracleSpecConfiguration{}
+		future.OracleSpecForTradingTermination = &datapb.DataSpecConfiguration{}
 	} else {
-		future.OracleSpecForSettlementPrice = &oraclespb.OracleSpecConfiguration{}
+		future.OracleSpecForSettlementPrice = &datapb.DataSpecConfiguration{}
 	}
 
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
@@ -838,8 +838,8 @@ func testUpdateFutureMarketChangeSubmissionWithOracleSpecSucceeds(t *testing.T) 
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice:    &oraclespb.OracleSpecConfiguration{},
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{},
+									OracleSpecForSettlementPrice:    &datapb.DataSpecConfiguration{},
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{},
 								},
 							},
 						},
@@ -861,7 +861,7 @@ func testUpdateFutureMarketChangeSubmissionWithoutPubKeysFails(t *testing.T) {
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
 										PubKeys: []string{},
 									},
 								},
@@ -899,7 +899,7 @@ func testUpdateFutureMarketChangeSubmissionWithWrongPubKeysFails(t *testing.T) {
 								Instrument: &types.UpdateInstrumentConfiguration{
 									Product: &types.UpdateInstrumentConfiguration_Future{
 										Future: &types.UpdateFutureProduct{
-											OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
+											OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
 												PubKeys: tc.value,
 											},
 										},
@@ -925,10 +925,10 @@ func testUpdateFutureMarketChangeSubmissionWithPubKeysSucceeds(t *testing.T) {
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
 										PubKeys: []string{"0xDEADBEEF", "0xCAFEDUDE"},
 									},
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{
 										PubKeys: []string{"0xDEADBEEF", "0xCAFEDUDE"},
 									},
 								},
@@ -954,8 +954,8 @@ func testUpdateFutureMarketChangeSubmissionWithoutFiltersFails(t *testing.T) {
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{},
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{},
 									},
 								},
 							},
@@ -978,13 +978,13 @@ func testUpdateFutureMarketChangeSubmissionWithFiltersSucceeds(t *testing.T) {
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{},
 										},
 									},
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{},
 										},
 									},
@@ -1009,8 +1009,8 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutKeyFails(t *testing.
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{}, {},
 										},
 									},
@@ -1036,21 +1036,21 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithKeySucceeds(t *testing.
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{},
+												Key: &datapb.PropertyKey{},
 											}, {
-												Key: &oraclespb.PropertyKey{},
+												Key: &datapb.PropertyKey{},
 											},
 										},
 									},
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{},
+												Key: &datapb.PropertyKey{},
 											}, {
-												Key: &oraclespb.PropertyKey{},
+												Key: &datapb.PropertyKey{},
 											},
 										},
 									},
@@ -1076,14 +1076,14 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutKeyNameFails(t *test
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "",
 												},
 											}, {
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "",
 												},
 											},
@@ -1111,27 +1111,27 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithKeyNameSucceeds(t *test
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "key1",
 												},
 											}, {
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "key2",
 												},
 											},
 										},
 									},
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "key1",
 												},
 											}, {
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "key2",
 												},
 											},
@@ -1159,25 +1159,25 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutKeyTypeFails(t *test
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
-													Type: oraclespb.PropertyKey_TYPE_UNSPECIFIED,
+												Key: &datapb.PropertyKey{
+													Type: datapb.PropertyKey_TYPE_UNSPECIFIED,
 												},
 											}, {
-												Key: &oraclespb.PropertyKey{},
+												Key: &datapb.PropertyKey{},
 											},
 										},
 									},
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
-													Type: oraclespb.PropertyKey_TYPE_UNSPECIFIED,
+												Key: &datapb.PropertyKey{
+													Type: datapb.PropertyKey_TYPE_UNSPECIFIED,
 												},
 											}, {
-												Key: &oraclespb.PropertyKey{},
+												Key: &datapb.PropertyKey{},
 											},
 										},
 									},
@@ -1197,26 +1197,26 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutKeyTypeFails(t *test
 func testUpdateFutureMarketChangeSubmissionWithFilterWithKeyTypeSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value oraclespb.PropertyKey_Type
+		value datapb.PropertyKey_Type
 	}{
 		{
 			msg:   "with EMPTY",
-			value: oraclespb.PropertyKey_TYPE_EMPTY,
+			value: datapb.PropertyKey_TYPE_EMPTY,
 		}, {
 			msg:   "with INTEGER",
-			value: oraclespb.PropertyKey_TYPE_INTEGER,
+			value: datapb.PropertyKey_TYPE_INTEGER,
 		}, {
 			msg:   "with STRING",
-			value: oraclespb.PropertyKey_TYPE_STRING,
+			value: datapb.PropertyKey_TYPE_STRING,
 		}, {
 			msg:   "with BOOLEAN",
-			value: oraclespb.PropertyKey_TYPE_BOOLEAN,
+			value: datapb.PropertyKey_TYPE_BOOLEAN,
 		}, {
 			msg:   "with DECIMAL",
-			value: oraclespb.PropertyKey_TYPE_DECIMAL,
+			value: datapb.PropertyKey_TYPE_DECIMAL,
 		}, {
 			msg:   "with TIMESTAMP",
-			value: oraclespb.PropertyKey_TYPE_TIMESTAMP,
+			value: datapb.PropertyKey_TYPE_TIMESTAMP,
 		},
 	}
 	for _, tc := range testCases {
@@ -1229,14 +1229,14 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithKeyTypeSucceeds(t *test
 								Instrument: &types.UpdateInstrumentConfiguration{
 									Product: &types.UpdateInstrumentConfiguration_Future{
 										Future: &types.UpdateFutureProduct{
-											OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-												Filters: []*oraclespb.Filter{
+											OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+												Filters: []*datapb.Filter{
 													{
-														Key: &oraclespb.PropertyKey{
+														Key: &datapb.PropertyKey{
 															Type: tc.value,
 														},
 													}, {
-														Key: &oraclespb.PropertyKey{
+														Key: &datapb.PropertyKey{
 															Type: tc.value,
 														},
 													},
@@ -1266,10 +1266,10 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutConditionsSucceeds(t
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Conditions: []*oraclespb.Condition{},
+												Conditions: []*datapb.Condition{},
 											},
 										},
 									},
@@ -1294,12 +1294,12 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutConditionOperatorFai
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Conditions: []*oraclespb.Condition{
+												Conditions: []*datapb.Condition{
 													{
-														Operator: oraclespb.Condition_OPERATOR_UNSPECIFIED,
+														Operator: datapb.Condition_OPERATOR_UNSPECIFIED,
 													},
 													{},
 												},
@@ -1322,23 +1322,23 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutConditionOperatorFai
 func testUpdateFutureMarketChangeSubmissionWithFilterWithConditionOperatorSucceeds(t *testing.T) {
 	testCases := []struct {
 		msg   string
-		value oraclespb.Condition_Operator
+		value datapb.Condition_Operator
 	}{
 		{
 			msg:   "with EQUALS",
-			value: oraclespb.Condition_OPERATOR_EQUALS,
+			value: datapb.Condition_OPERATOR_EQUALS,
 		}, {
 			msg:   "with GREATER_THAN",
-			value: oraclespb.Condition_OPERATOR_GREATER_THAN,
+			value: datapb.Condition_OPERATOR_GREATER_THAN,
 		}, {
 			msg:   "with GREATER_THAN_OR_EQUAL",
-			value: oraclespb.Condition_OPERATOR_GREATER_THAN_OR_EQUAL,
+			value: datapb.Condition_OPERATOR_GREATER_THAN_OR_EQUAL,
 		}, {
 			msg:   "with LESS_THAN",
-			value: oraclespb.Condition_OPERATOR_LESS_THAN,
+			value: datapb.Condition_OPERATOR_LESS_THAN,
 		}, {
 			msg:   "with LESS_THAN_OR_EQUAL",
-			value: oraclespb.Condition_OPERATOR_LESS_THAN_OR_EQUAL,
+			value: datapb.Condition_OPERATOR_LESS_THAN_OR_EQUAL,
 		},
 	}
 	for _, tc := range testCases {
@@ -1351,10 +1351,10 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithConditionOperatorSuccee
 								Instrument: &types.UpdateInstrumentConfiguration{
 									Product: &types.UpdateInstrumentConfiguration_Future{
 										Future: &types.UpdateFutureProduct{
-											OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-												Filters: []*oraclespb.Filter{
+											OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+												Filters: []*datapb.Filter{
 													{
-														Conditions: []*oraclespb.Condition{
+														Conditions: []*datapb.Condition{
 															{
 																Operator: tc.value,
 															},
@@ -1389,10 +1389,10 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithoutConditionValueFails(
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Conditions: []*oraclespb.Condition{
+												Conditions: []*datapb.Condition{
 													{
 														Value: "",
 													},
@@ -1425,10 +1425,10 @@ func testUpdateFutureMarketChangeSubmissionWithFilterWithConditionValueSucceeds(
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Conditions: []*oraclespb.Condition{
+												Conditions: []*datapb.Condition{
 													{
 														Value: "value 1",
 													},
@@ -1550,14 +1550,14 @@ func testUpdateFutureMarketChangeSubmissionWithNoMismatchBetweenFilterAndBinding
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForSettlementPrice: &oraclespb.OracleSpecConfiguration{
-										Filters: []*oraclespb.Filter{
+									OracleSpecForSettlementPrice: &datapb.DataSpecConfiguration{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: bindingKey,
 												},
 											}, {
-												Key: &oraclespb.PropertyKey{},
+												Key: &datapb.PropertyKey{},
 											},
 										},
 									},
@@ -2149,17 +2149,17 @@ func testUpdateMarketFutureMarketSubmissionWithInternalTimestampForTradingTermin
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{
 										PubKeys: []string{},
-										Filters: []*oraclespb.Filter{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "vegaprotocol.builtin.timestamp",
-													Type: oraclespb.PropertyKey_TYPE_TIMESTAMP,
+													Type: datapb.PropertyKey_TYPE_TIMESTAMP,
 												},
-												Conditions: []*oraclespb.Condition{
+												Conditions: []*datapb.Condition{
 													{
-														Operator: oraclespb.Condition_OPERATOR_GREATER_THAN_OR_EQUAL,
+														Operator: datapb.Condition_OPERATOR_GREATER_THAN_OR_EQUAL,
 														Value:    fmt.Sprintf("%d", time.Now().Add(time.Hour*24*365).UnixNano()),
 													},
 												},
@@ -2187,15 +2187,15 @@ func testUpdateMarketFutureMarketSubmissionWithExternalTradingTerminationNoPubli
 						Instrument: &types.UpdateInstrumentConfiguration{
 							Product: &types.UpdateInstrumentConfiguration_Future{
 								Future: &types.UpdateFutureProduct{
-									OracleSpecForTradingTermination: &oraclespb.OracleSpecConfiguration{
+									OracleSpecForTradingTermination: &datapb.DataSpecConfiguration{
 										PubKeys: []string{},
-										Filters: []*oraclespb.Filter{
+										Filters: []*datapb.Filter{
 											{
-												Key: &oraclespb.PropertyKey{
+												Key: &datapb.PropertyKey{
 													Name: "trading.terminated",
-													Type: oraclespb.PropertyKey_TYPE_BOOLEAN,
+													Type: datapb.PropertyKey_TYPE_BOOLEAN,
 												},
-												Conditions: []*oraclespb.Condition{},
+												Conditions: []*datapb.Condition{},
 											},
 										},
 									},

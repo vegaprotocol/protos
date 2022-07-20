@@ -10,7 +10,7 @@ import (
 
 	types "code.vegaprotocol.io/protos/vega"
 	commandspb "code.vegaprotocol.io/protos/vega/commands/v1"
-	oraclespb "code.vegaprotocol.io/protos/vega/oracles/v1"
+	datapb "code.vegaprotocol.io/protos/vega/data/v1"
 )
 
 const ReferenceMaxLen int = 100
@@ -569,7 +569,7 @@ func checkUpdateFuture(future *types.UpdateFutureProduct) Errors {
 	return errs
 }
 
-func checkOracleSpec(spec *oraclespb.OracleSpecConfiguration, name string, parentProperty string) Errors {
+func checkOracleSpec(spec *datapb.DataSpecConfiguration, name string, parentProperty string) Errors {
 	errs := NewErrors()
 	if spec == nil {
 		return errs.FinalAddForProperty(fmt.Sprintf("%s.%s", parentProperty, name), ErrIsRequired)
@@ -593,7 +593,7 @@ func checkOracleSpec(spec *oraclespb.OracleSpecConfiguration, name string, paren
 	return errs
 }
 
-func isBuiltInSpec(filters []*oraclespb.Filter) bool {
+func isBuiltInSpec(filters []*datapb.Filter) bool {
 	if len(filters) != 1 {
 		return false
 	}
@@ -602,14 +602,14 @@ func isBuiltInSpec(filters []*oraclespb.Filter) bool {
 		return false
 	}
 
-	if strings.HasPrefix(filters[0].Key.Name, "vegaprotocol.builtin") && filters[0].Key.Type == oraclespb.PropertyKey_TYPE_TIMESTAMP {
+	if strings.HasPrefix(filters[0].Key.Name, "vegaprotocol.builtin") && filters[0].Key.Type == datapb.PropertyKey_TYPE_TIMESTAMP {
 		return true
 	}
 
 	return false
 }
 
-func checkOracleSpecFilters(spec *oraclespb.OracleSpecConfiguration, name string, parentProperty string) Errors {
+func checkOracleSpecFilters(spec *datapb.DataSpecConfiguration, name string, parentProperty string) Errors {
 	errs := NewErrors()
 
 	if len(spec.Filters) == 0 {
@@ -623,7 +623,7 @@ func checkOracleSpecFilters(spec *oraclespb.OracleSpecConfiguration, name string
 			if len(filter.Key.Name) == 0 {
 				errs.AddForProperty(fmt.Sprintf("%s.%s.filters.%d.key.name", parentProperty, name, i), ErrIsRequired)
 			}
-			if filter.Key.Type == oraclespb.PropertyKey_TYPE_UNSPECIFIED {
+			if filter.Key.Type == datapb.PropertyKey_TYPE_UNSPECIFIED {
 				errs.AddForProperty(fmt.Sprintf("%s.%s.filters.%d.key.type", parentProperty, name, i), ErrIsRequired)
 			}
 		}
@@ -633,7 +633,7 @@ func checkOracleSpecFilters(spec *oraclespb.OracleSpecConfiguration, name string
 				if len(condition.Value) == 0 {
 					errs.AddForProperty(fmt.Sprintf("%s.%s.filters.%d.conditions.%d.value", parentProperty, name, i, j), ErrIsRequired)
 				}
-				if condition.Operator == oraclespb.Condition_OPERATOR_UNSPECIFIED {
+				if condition.Operator == datapb.Condition_OPERATOR_UNSPECIFIED {
 					errs.AddForProperty(fmt.Sprintf("%s.%s.filters.%d.conditions.%d.operator", parentProperty, name, i, j), ErrIsRequired)
 				}
 			}
@@ -643,7 +643,7 @@ func checkOracleSpecFilters(spec *oraclespb.OracleSpecConfiguration, name string
 	return errs
 }
 
-func isBindingMatchingSpec(spec *oraclespb.OracleSpecConfiguration, bindingProperty string) bool {
+func isBindingMatchingSpec(spec *datapb.DataSpecConfiguration, bindingProperty string) bool {
 	bindingPropertyFound := false
 	if spec != nil && spec.Filters != nil {
 		for _, filter := range spec.Filters {
