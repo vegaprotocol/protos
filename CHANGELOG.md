@@ -12,6 +12,7 @@
 - [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
 - [495](https://github.com/vegaprotocol/protos/issues/495) - `v2` orders `api`
 - [501](https://github.com/vegaprotocol/protos/issues/501) - `v2` accounts `api`
+- [515](https://github.com/vegaprotocol/protos/issues/515) - Data node info endpoint
 
 - [](https://github.com/vegaprotocol/protos/issues/) -
 
