@@ -7,6 +7,7 @@ import "vega/vega.proto";
 import "vega/assets.proto";
 import "vega/governance.proto";
 import "vega/events/v1/events.proto";
+import "vega/markets.proto";
 
 // CheckpointState is the entire checkpoint serialised (basically serialised the Checkpoint message + hash)
 message CheckpointState {
@@ -29,6 +30,7 @@ message Checkpoint {
   bytes staking = 11;
   bytes multisig_control = 12;
   bytes market_tracker = 13;
+  bytes markets = 14;
 }
 
 // AssetEntrty is a single (enabled) asset
@@ -192,4 +194,13 @@ message MarketActivityTracker {
 message PartyFees {
   string party = 1;
   string fee = 2;
+}
+
+message Markets {
+  repeated MarketDefinitionAndLP markets = 1;
+}
+
+message MarketDefinitionAndLP {
+  vega.Market market = 1;
+  repeated vega.LiquidityProvision liquidity_provisions = 2;
 }
