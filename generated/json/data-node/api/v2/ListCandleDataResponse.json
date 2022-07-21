@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetCandleDataResponse",
+    "$ref": "#/definitions/ListCandleDataResponse",
     "definitions": {
-        "GetCandleDataResponse": {
+        "ListCandleDataResponse": {
             "properties": {
                 "candles": {
                     "$ref": "#/definitions/datanode.api.v2.CandleDataConnection",
@@ -12,7 +12,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Candle Data Response",
+            "title": "List Candle Data Response",
             "description": "Response for list of candles for a market at an interval"
         },
         "datanode.api.v2.Candle": {
@@ -53,9 +53,6 @@
         },
         "datanode.api.v2.CandleDataConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.CandleEdge"

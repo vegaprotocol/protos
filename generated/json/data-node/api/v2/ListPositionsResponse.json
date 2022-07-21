@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetPositionsByPartyConnectionResponse",
+    "$ref": "#/definitions/ListPositionsResponse",
     "definitions": {
-        "GetPositionsByPartyConnectionResponse": {
+        "ListPositionsResponse": {
             "properties": {
                 "positions": {
                     "$ref": "#/definitions/datanode.api.v2.PositionConnection",
@@ -12,7 +12,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Positions By Party Connection Response",
+            "title": "List Positions Response",
             "description": "Response for a list of positions for a party"
         },
         "datanode.api.v2.PageInfo": {
@@ -37,9 +37,6 @@
         },
         "datanode.api.v2.PositionConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.PositionEdge"

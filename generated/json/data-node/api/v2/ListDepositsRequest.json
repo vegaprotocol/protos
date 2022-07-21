@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetDepositsRequest",
+    "$ref": "#/definitions/ListDepositsRequest",
     "definitions": {
-        "GetDepositsRequest": {
+        "ListDepositsRequest": {
             "properties": {
                 "party_id": {
                     "type": "string"
@@ -14,7 +14,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Deposits Request",
+            "title": "List Deposits Request",
             "description": "-- Deposits --"
         },
         "datanode.api.v2.Pagination": {

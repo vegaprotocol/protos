@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetPartiesResponse",
+    "$ref": "#/definitions/ListPartiesResponse",
     "definitions": {
-        "GetPartiesResponse": {
+        "ListPartiesResponse": {
             "properties": {
                 "party": {
                     "$ref": "#/definitions/datanode.api.v2.PartyConnection",
@@ -11,7 +11,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Parties Response"
+            "title": "List Parties Response"
         },
         "datanode.api.v2.PageInfo": {
             "properties": {
@@ -35,9 +35,6 @@
         },
         "datanode.api.v2.PartyConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.PartyEdge"

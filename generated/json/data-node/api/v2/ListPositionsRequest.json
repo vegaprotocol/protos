@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetPositionsByPartyConnectionRequest",
+    "$ref": "#/definitions/ListPositionsRequest",
     "definitions": {
-        "GetPositionsByPartyConnectionRequest": {
+        "ListPositionsRequest": {
             "properties": {
                 "party_id": {
                     "type": "string",
@@ -20,7 +20,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Positions By Party Connection Request",
+            "title": "List Positions Request",
             "description": "-- Positions -- Request for a list of positions for a party Optionally, if a market identifier is set, the results will be filtered for that market only"
         },
         "datanode.api.v2.Pagination": {

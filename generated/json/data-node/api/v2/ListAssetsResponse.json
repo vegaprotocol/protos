@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetAssetsResponse",
+    "$ref": "#/definitions/ListAssetsResponse",
     "definitions": {
-        "GetAssetsResponse": {
+        "ListAssetsResponse": {
             "properties": {
                 "assets": {
                     "$ref": "#/definitions/datanode.api.v2.AssetsConnection",
@@ -11,7 +11,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Assets Response"
+            "title": "List Assets Response"
         },
         "datanode.api.v2.AssetEdge": {
             "properties": {
@@ -29,9 +29,6 @@
         },
         "datanode.api.v2.AssetsConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.AssetEdge"

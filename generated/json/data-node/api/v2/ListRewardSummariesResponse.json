@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetRewardSummariesResponse",
+    "$ref": "#/definitions/ListRewardSummariesResponse",
     "definitions": {
-        "GetRewardSummariesResponse": {
+        "ListRewardSummariesResponse": {
             "properties": {
                 "summaries": {
                     "items": {
@@ -13,7 +13,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Reward Summaries Response",
+            "title": "List Reward Summaries Response",
             "description": "The return message with reward details in for a single party"
         },
         "vega.RewardSummary": {

@@ -1,12 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/MarginConnection",
+    "$ref": "#/definitions/DelegationsConnection",
     "definitions": {
-        "MarginConnection": {
+        "DelegationsConnection": {
             "properties": {
                 "edges": {
                     "items": {
-                        "$ref": "#/definitions/datanode.api.v2.MarginEdge"
+                        "$ref": "#/definitions/datanode.api.v2.DelegationEdge"
                     },
                     "type": "array"
                 },
@@ -17,12 +17,12 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Margin Connection"
+            "title": "Delegations Connection"
         },
-        "datanode.api.v2.MarginEdge": {
+        "datanode.api.v2.DelegationEdge": {
             "properties": {
                 "node": {
-                    "$ref": "#/definitions/vega.MarginLevels",
+                    "$ref": "#/definitions/vega.Delegation",
                     "additionalProperties": true
                 },
                 "cursor": {
@@ -31,7 +31,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Margin Edge"
+            "title": "Delegation Edge"
         },
         "datanode.api.v2.PageInfo": {
             "properties": {
@@ -53,45 +53,28 @@
             "title": "Page Info",
             "description": "Page information for cursor based pagination"
         },
-        "vega.MarginLevels": {
+        "vega.Delegation": {
             "properties": {
-                "maintenance_margin": {
+                "party": {
                     "type": "string",
-                    "description": "Maintenance margin value"
+                    "description": "Party which is delegating"
                 },
-                "search_level": {
+                "node_id": {
                     "type": "string",
-                    "description": "Search level value"
+                    "description": "Node ID"
                 },
-                "initial_margin": {
+                "amount": {
                     "type": "string",
-                    "description": "Initial margin value"
+                    "description": "Amount delegated"
                 },
-                "collateral_release_level": {
+                "epoch_seq": {
                     "type": "string",
-                    "description": "Collateral release level value"
-                },
-                "party_id": {
-                    "type": "string",
-                    "description": "Party identifier"
-                },
-                "market_id": {
-                    "type": "string",
-                    "description": "Market identifier"
-                },
-                "asset": {
-                    "type": "string",
-                    "description": "Asset identifier"
-                },
-                "timestamp": {
-                    "type": "string",
-                    "description": "Timestamp for the time the ledger entry was created, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                    "description": "Epoch of delegation"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Margin Levels",
-            "description": "Represents the margin levels for a party on a market at a given time"
+            "title": "Delegation"
         }
     }
 }

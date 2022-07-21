@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetWithdrawalsResponse",
+    "$ref": "#/definitions/ListWithdrawalsResponse",
     "definitions": {
-        "GetWithdrawalsResponse": {
+        "ListWithdrawalsResponse": {
             "properties": {
                 "withdrawals": {
                     "$ref": "#/definitions/datanode.api.v2.WithdrawalsConnection",
@@ -11,7 +11,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Withdrawals Response"
+            "title": "List Withdrawals Response"
         },
         "datanode.api.v2.PageInfo": {
             "properties": {
@@ -49,9 +49,6 @@
         },
         "datanode.api.v2.WithdrawalsConnection": {
             "properties": {
-                "total_count": {
-                    "type": "string"
-                },
                 "edges": {
                     "items": {
                         "$ref": "#/definitions/datanode.api.v2.WithdrawalEdge"

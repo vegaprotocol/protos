@@ -1,10 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetMarketsRequest",
+    "$ref": "#/definitions/ListPartiesRequest",
     "definitions": {
-        "GetMarketsRequest": {
+        "ListPartiesRequest": {
             "properties": {
-                "market_id": {
+                "party_id": {
                     "type": "string"
                 },
                 "pagination": {
@@ -14,8 +14,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Markets Request",
-            "description": "-- Markets --"
+            "title": "List Parties Request",
+            "description": "-- Parties --"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

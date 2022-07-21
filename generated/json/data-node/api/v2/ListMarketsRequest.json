@@ -1,10 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetAssetsRequest",
+    "$ref": "#/definitions/ListMarketsRequest",
     "definitions": {
-        "GetAssetsRequest": {
+        "ListMarketsRequest": {
             "properties": {
-                "asset_id": {
+                "market_id": {
                     "type": "string"
                 },
                 "pagination": {
@@ -14,8 +14,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Assets Request",
-            "description": "-- Assets --"
+            "title": "List Markets Request",
+            "description": "-- Markets --"
         },
         "datanode.api.v2.Pagination": {
             "properties": {
