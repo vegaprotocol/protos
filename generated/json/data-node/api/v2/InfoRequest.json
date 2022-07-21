@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/InfoRequest",
+    "definitions": {
+        "InfoRequest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Info Request"
+        }
+    }
+}

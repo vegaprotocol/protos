@@ -21,6 +21,9 @@ service TradingDataService {
     // Subscribe to a stream of Accounts
     rpc ObserveAccounts(ObserveAccountsRequest) returns (stream ObserveAccountsResponse);
 
+    // node info
+    rpc Info(InfoRequest) returns (InfoResponse);
+
     // -- Orders --
     // Gets the current version of an order, or optionally provide a version id to retrieve a given version.
     rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
@@ -1023,4 +1026,13 @@ message DelegationEdge {
 message DelegationsConnection {
     repeated DelegationEdge edges = 1;
     PageInfo page_info = 2;
+}
+
+message InfoRequest {}
+
+message InfoResponse {
+    // A semver formatted version of the data node
+    string version = 1;
+    // The commit hash from which the data-node was built
+    string commit_hash = 2;
 }

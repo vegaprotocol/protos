@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/InfoResponse",
+    "definitions": {
+        "InfoResponse": {
+            "properties": {
+                "version": {
+                    "type": "string",
+                    "description": "A semver formatted version of the data node"
+                },
+                "commit_hash": {
+                    "type": "string",
+                    "description": "The commit hash from which the data-node was built"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Info Response"
+        }
+    }
+}
