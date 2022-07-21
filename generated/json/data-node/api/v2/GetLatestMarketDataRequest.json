@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetLatestMarketDataRequest",
+    "definitions": {
+        "GetLatestMarketDataRequest": {
+            "properties": {
+                "market_id": {
+                    "type": "string",
+                    "description": "Market identifier, required field"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Latest Market Data Request",
+            "description": "Request for the latest market data for a given market"
+        }
+    }
+}

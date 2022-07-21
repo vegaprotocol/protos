@@ -43,6 +43,22 @@ service TradingDataService {
     rpc GetBalanceHistory(GetBalanceHistoryRequest) returns (GetBalanceHistoryResponse) {}
 
     // -- Market Data --
+    // Get the lastest market data for a given market
+    rpc GetLatestMarketData(GetLatestMarketDataRequest) returns (GetLatestMarketDataResponse);
+
+    // Lists the latest market data for every market
+    rpc ListLatestMarketData(ListLatestMarketDataRequest) returns (ListLatestMarketDataResponse);
+
+    // Get the latest market depth for a given market
+    rpc GetLatestMarketDepth(GetLatestMarketDepthRequest) returns (GetLatestMarketDepthResponse);
+
+    rpc ObserveMarketsDepth(ObserveMarketsDepthRequest) returns (stream ObserveMarketsDepthResponse);
+
+    rpc ObserveMarketsDepthUpdates(ObserveMarketsDepthUpdatesRequest) returns (stream ObserveMarketsDepthUpdatesResponse);
+
+    rpc ObserveMarketsData(ObserveMarketsDataRequest) returns (stream ObserveMarketsDataResponse);
+
+
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
     // Subscribe to a stream of Markets Data
@@ -60,9 +76,9 @@ service TradingDataService {
     // Get candle data for a given candle id
     rpc ListCandleData(ListCandleDataRequest) returns (ListCandleDataResponse);
     // Subscribe to a stream of Candle updates
-    rpc SubscribeToCandleData(SubscribeToCandleDataRequest) returns (stream SubscribeToCandleDataResponse);
+    rpc ObserveCandleData(ObserveCandleDataRequest) returns (stream ObserveCandleDataResponse);
     // Gets all available intervals for a given market along with the corresponding candle id
-    rpc GetCandlesForMarket(GetCandlesForMarketRequest) returns (GetCandlesForMarketResponse);
+    rpc ListCandleIntervals(ListCandleIntervalsRequest) returns (ListCandleIntervalsResponse);
 
     // -- Votes --
     // Get Votes for a Party ID using a cursor based pagination model
@@ -341,6 +357,71 @@ message AggregatedBalance {
 }
 
 // -- Market Data --
+message ObserveMarketsDepthRequest {
+    repeated string market_ids = 1;
+}
+
+message ObserveMarketsDepthResponse {
+    repeated vega.MarketDepth market_depth = 1;
+}
+
+message ObserveMarketsDepthUpdatesRequest {
+    repeated string market_ids = 1;
+}
+
+message ObserveMarketsDepthUpdatesResponse {
+    repeated vega.MarketDepthUpdate update = 1;
+}
+
+message ObserveMarketsDataRequest {
+    repeated string market_ids = 1;
+}
+
+message ObserveMarketsDataResponse {
+    repeated vega.MarketData market_data = 1;
+}
+
+message GetLatestMarketDepthRequest {
+    // Market identifier, required field
+    string market_id = 1;
+
+    optional uint64 max_depth = 2;
+}
+
+message GetLatestMarketDepthResponse {
+    // Market identifier
+    string market_id = 1;
+    // Zero or more price levels for the buy side of the market depth data
+    repeated vega.PriceLevel buy = 2;
+    // Zero or more price levels for the sell side of the market depth data
+    repeated vega.PriceLevel sell = 3;
+    // Last trade recorded on Vega at the time of retrieving the `MarketDepthResponse`
+    vega.Trade last_trade = 4;
+    // Sequence number incremented after each update
+    uint64 sequence_number = 5;
+}
+
+// Request to get the latest market data for every market
+message ListLatestMarketDataRequest {
+}
+
+message ListLatestMarketDataResponse {
+    repeated vega.MarketData markets_data = 1;
+}
+
+
+// Request for the latest market data for a given market
+message GetLatestMarketDataRequest {
+    // Market identifier, required field
+    string market_id = 1;
+}
+
+message GetLatestMarketDataResponse {
+    // Market identifier, required field
+    vega.MarketData market_data = 1;
+}
+
+
 // Request for Market Data History
 message GetMarketDataHistoryByIDRequest {
     // Market identifier, required field
@@ -427,7 +508,7 @@ message GetNetworkLimitsResponse {
 
 // -- Candles --
 // Request to get a list of supported intervals for the given market along with the corresponding candle id
-message GetCandlesForMarketRequest {
+message ListCandleIntervalsRequest {
     // The unique identifier for the market
     string market_id = 1;
 }
@@ -442,7 +523,7 @@ message IntervalToCandleId {
 }
 
 // A list of interval to candle id mappings for a given market
-message GetCandlesForMarketResponse {
+message ListCandleIntervalsResponse {
     repeated IntervalToCandleId interval_to_candle_id = 1;
 }
 
@@ -468,12 +549,12 @@ message Candle {
 }
 
 // Request to subscribe to a stream of (Candles)[#vega.Candle]
-message SubscribeToCandleDataRequest {
+message ObserveCandleDataRequest {
     // The unique identifier for the candle
     string candle_id = 1;
 }
 
-message SubscribeToCandleDataResponse {
+message ObserveCandleDataResponse {
     Candle candle = 1;
 }
 
@@ -494,7 +575,7 @@ message ListCandleDataRequest {
     vega.Interval interval = 4;
 
     // pagination controls
-    Pagination pagination = 5;
+    optional Pagination pagination = 5;
 }
 
 // Response for list of candles for a market at an interval

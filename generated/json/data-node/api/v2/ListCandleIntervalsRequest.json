@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetCandlesForMarketRequest",
+    "$ref": "#/definitions/ListCandleIntervalsRequest",
     "definitions": {
-        "GetCandlesForMarketRequest": {
+        "ListCandleIntervalsRequest": {
             "properties": {
                 "market_id": {
                     "type": "string",
@@ -11,7 +11,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Candles For Market Request",
+            "title": "List Candle Intervals Request",
             "description": "-- Candles -- Request to get a list of supported intervals for the given market along with the corresponding candle id"
         }
     }

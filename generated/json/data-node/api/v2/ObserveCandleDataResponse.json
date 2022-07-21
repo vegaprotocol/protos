@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/SubscribeToCandleDataResponse",
+    "$ref": "#/definitions/ObserveCandleDataResponse",
     "definitions": {
-        "SubscribeToCandleDataResponse": {
+        "ObserveCandleDataResponse": {
             "properties": {
                 "candle": {
                     "$ref": "#/definitions/datanode.api.v2.Candle",
@@ -11,7 +11,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Subscribe To Candle Data Response"
+            "title": "Observe Candle Data Response"
         },
         "datanode.api.v2.Candle": {
             "properties": {

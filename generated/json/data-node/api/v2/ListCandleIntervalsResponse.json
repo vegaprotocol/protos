@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetCandlesForMarketResponse",
+    "$ref": "#/definitions/ListCandleIntervalsResponse",
     "definitions": {
-        "GetCandlesForMarketResponse": {
+        "ListCandleIntervalsResponse": {
             "properties": {
                 "interval_to_candle_id": {
                     "items": {
@@ -13,7 +13,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Candles For Market Response",
+            "title": "List Candle Intervals Response",
             "description": "A list of interval to candle id mappings for a given market"
         },
         "datanode.api.v2.IntervalToCandleId": {
