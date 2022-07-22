@@ -62,7 +62,8 @@ function gen_docs() {
   sources/vega/checkpoint/**/*.proto \
   sources/vega/snapshot/**/*.proto \
   sources/vega/events/**/*.proto \
-  sources/vega/wallet/**/*.proto
+  sources/vega/wallet/**/*.proto \
+  sources/data-node/api/**/*.proto
 }
 
 check
