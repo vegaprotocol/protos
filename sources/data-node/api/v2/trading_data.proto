@@ -95,12 +95,11 @@ service TradingDataService {
     rpc GetERC20ListAssetBundle(GetERC20ListAssetBundleRequest) returns (GetERC20ListAssetBundleResponse);
 
     // -- Trades --
-    // Get trades by market using a cursor based pagination model
-    rpc GetTradesByMarket(GetTradesByMarketRequest) returns (GetTradesByMarketResponse);
-    // Get trades by party using a cursor based pagination model
-    rpc GetTradesByParty(GetTradesByPartyRequest) returns (GetTradesByPartyResponse);
-    // Get trades by market with the corresponding orderID using a cursor based pagination model
-    rpc GetTradesByOrderID(GetTradesByOrderIDRequest) returns (GetTradesByOrderIDResponse);
+    // Get a list of all trades, optionally filtered by party/market/order using a cursor based pagination model
+    rpc ListTrades(ListTradesRequest) returns (ListTradesResponse);
+
+    // Subscribe to a stream of Trades, optionally filtered by party/market
+    rpc ObserveTrades(ObserveTradesRequest) returns (stream ObserveTradesResponse);
 
     // -- Oracles --
     // Get an oracle spec by ID.
@@ -732,9 +731,15 @@ message GetERC20ListAssetBundleResponse {
 }
 
 // -- Trades --
-message TradeEdge {
-    vega.Trade node = 1;
-    string cursor = 2;
+message ListTradesRequest {
+    optional string market_id = 1;
+    optional string order_id = 2;
+    optional string party_id = 3;
+    optional Pagination pagination = 4;
+}
+
+message ListTradesResponse {
+    TradeConnection trades = 1;
 }
 
 message TradeConnection {
@@ -742,33 +747,29 @@ message TradeConnection {
     PageInfo page_info = 2;
 }
 
-message GetTradesByMarketRequest {
-    string market_id = 1;
-    Pagination pagination = 2;
+message TradeEdge {
+    vega.Trade node = 1;
+    string cursor = 2;
 }
 
-message GetTradesByMarketResponse {
-    TradeConnection trades = 1;
+// Request to subscribe to a stream of (Trades)[#vega.Trade]
+message ObserveTradesRequest {
+    // The fields for market identifier and party identifier are optional filters:
+    // If omitted all trades, for all parties on all markets will be returned on the stream
+    // If market identifier is given, trades from that market will be returned on the stream
+    // If party identifier is given, trades from that party will be returned on the stream
+    // Both filters can be combined
+
+    // Market identifier
+    optional string market_id = 1;
+    // Party identifier
+    optional string party_id = 2;
 }
 
-message GetTradesByOrderIDRequest {
-    string market_id = 1;
-    string order_id = 2;
-    Pagination pagination = 3;
-}
-
-message GetTradesByOrderIDResponse {
-    TradeConnection trades = 1;
-}
-
-message GetTradesByPartyRequest {
-    string party_id = 1;
-    string market_id = 2;
-    Pagination pagination = 3;
-}
-
-message GetTradesByPartyResponse {
-    TradeConnection trades = 1;
+// A stream of trades
+message ObserveTradesResponse {
+    // A list of 0 or more trades
+    repeated vega.Trade trades = 1;
 }
 
 // -- Oracles --

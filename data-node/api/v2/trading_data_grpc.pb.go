@@ -83,12 +83,10 @@ type TradingDataServiceClient interface {
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20ListAssetBundle(ctx context.Context, in *GetERC20ListAssetBundleRequest, opts ...grpc.CallOption) (*GetERC20ListAssetBundleResponse, error)
 	// -- Trades --
-	// Get trades by market using a cursor based pagination model
-	GetTradesByMarket(ctx context.Context, in *GetTradesByMarketRequest, opts ...grpc.CallOption) (*GetTradesByMarketResponse, error)
-	// Get trades by party using a cursor based pagination model
-	GetTradesByParty(ctx context.Context, in *GetTradesByPartyRequest, opts ...grpc.CallOption) (*GetTradesByPartyResponse, error)
-	// Get trades by market with the corresponding orderID using a cursor based pagination model
-	GetTradesByOrderID(ctx context.Context, in *GetTradesByOrderIDRequest, opts ...grpc.CallOption) (*GetTradesByOrderIDResponse, error)
+	// Get a list of all trades, optionally filtered by party/market/order using a cursor based pagination model
+	ListTrades(ctx context.Context, in *ListTradesRequest, opts ...grpc.CallOption) (*ListTradesResponse, error)
+	// Subscribe to a stream of Trades, optionally filtered by party/market
+	ObserveTrades(ctx context.Context, in *ObserveTradesRequest, opts ...grpc.CallOption) (TradingDataService_ObserveTradesClient, error)
 	// -- Oracles --
 	// Get an oracle spec by ID.
 	GetOracleSpecByID(ctx context.Context, in *GetOracleSpecByIDRequest, opts ...grpc.CallOption) (*GetOracleSpecByIDResponse, error)
@@ -534,31 +532,45 @@ func (c *tradingDataServiceClient) GetERC20ListAssetBundle(ctx context.Context, 
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetTradesByMarket(ctx context.Context, in *GetTradesByMarketRequest, opts ...grpc.CallOption) (*GetTradesByMarketResponse, error) {
-	out := new(GetTradesByMarketResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTradesByMarket", in, out, opts...)
+func (c *tradingDataServiceClient) ListTrades(ctx context.Context, in *ListTradesRequest, opts ...grpc.CallOption) (*ListTradesResponse, error) {
+	out := new(ListTradesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListTrades", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tradingDataServiceClient) GetTradesByParty(ctx context.Context, in *GetTradesByPartyRequest, opts ...grpc.CallOption) (*GetTradesByPartyResponse, error) {
-	out := new(GetTradesByPartyResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTradesByParty", in, out, opts...)
+func (c *tradingDataServiceClient) ObserveTrades(ctx context.Context, in *ObserveTradesRequest, opts ...grpc.CallOption) (TradingDataService_ObserveTradesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TradingDataService_ServiceDesc.Streams[7], "/datanode.api.v2.TradingDataService/ObserveTrades", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &tradingDataServiceObserveTradesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
 }
 
-func (c *tradingDataServiceClient) GetTradesByOrderID(ctx context.Context, in *GetTradesByOrderIDRequest, opts ...grpc.CallOption) (*GetTradesByOrderIDResponse, error) {
-	out := new(GetTradesByOrderIDResponse)
-	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetTradesByOrderID", in, out, opts...)
-	if err != nil {
+type TradingDataService_ObserveTradesClient interface {
+	Recv() (*ObserveTradesResponse, error)
+	grpc.ClientStream
+}
+
+type tradingDataServiceObserveTradesClient struct {
+	grpc.ClientStream
+}
+
+func (x *tradingDataServiceObserveTradesClient) Recv() (*ObserveTradesResponse, error) {
+	m := new(ObserveTradesResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	return out, nil
+	return m, nil
 }
 
 func (c *tradingDataServiceClient) GetOracleSpecByID(ctx context.Context, in *GetOracleSpecByIDRequest, opts ...grpc.CallOption) (*GetOracleSpecByIDResponse, error) {
@@ -779,12 +791,10 @@ type TradingDataServiceServer interface {
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20ListAssetBundle(context.Context, *GetERC20ListAssetBundleRequest) (*GetERC20ListAssetBundleResponse, error)
 	// -- Trades --
-	// Get trades by market using a cursor based pagination model
-	GetTradesByMarket(context.Context, *GetTradesByMarketRequest) (*GetTradesByMarketResponse, error)
-	// Get trades by party using a cursor based pagination model
-	GetTradesByParty(context.Context, *GetTradesByPartyRequest) (*GetTradesByPartyResponse, error)
-	// Get trades by market with the corresponding orderID using a cursor based pagination model
-	GetTradesByOrderID(context.Context, *GetTradesByOrderIDRequest) (*GetTradesByOrderIDResponse, error)
+	// Get a list of all trades, optionally filtered by party/market/order using a cursor based pagination model
+	ListTrades(context.Context, *ListTradesRequest) (*ListTradesResponse, error)
+	// Subscribe to a stream of Trades, optionally filtered by party/market
+	ObserveTrades(*ObserveTradesRequest, TradingDataService_ObserveTradesServer) error
 	// -- Oracles --
 	// Get an oracle spec by ID.
 	GetOracleSpecByID(context.Context, *GetOracleSpecByIDRequest) (*GetOracleSpecByIDResponse, error)
@@ -910,14 +920,11 @@ func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerRemovedBundle
 func (UnimplementedTradingDataServiceServer) GetERC20ListAssetBundle(context.Context, *GetERC20ListAssetBundleRequest) (*GetERC20ListAssetBundleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetERC20ListAssetBundle not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetTradesByMarket(context.Context, *GetTradesByMarketRequest) (*GetTradesByMarketResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTradesByMarket not implemented")
+func (UnimplementedTradingDataServiceServer) ListTrades(context.Context, *ListTradesRequest) (*ListTradesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTrades not implemented")
 }
-func (UnimplementedTradingDataServiceServer) GetTradesByParty(context.Context, *GetTradesByPartyRequest) (*GetTradesByPartyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTradesByParty not implemented")
-}
-func (UnimplementedTradingDataServiceServer) GetTradesByOrderID(context.Context, *GetTradesByOrderIDRequest) (*GetTradesByOrderIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTradesByOrderID not implemented")
+func (UnimplementedTradingDataServiceServer) ObserveTrades(*ObserveTradesRequest, TradingDataService_ObserveTradesServer) error {
+	return status.Errorf(codes.Unimplemented, "method ObserveTrades not implemented")
 }
 func (UnimplementedTradingDataServiceServer) GetOracleSpecByID(context.Context, *GetOracleSpecByIDRequest) (*GetOracleSpecByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOracleSpecByID not implemented")
@@ -1472,58 +1479,43 @@ func _TradingDataService_GetERC20ListAssetBundle_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetTradesByMarket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTradesByMarketRequest)
+func _TradingDataService_ListTrades_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTradesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetTradesByMarket(ctx, in)
+		return srv.(TradingDataServiceServer).ListTrades(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetTradesByMarket",
+		FullMethod: "/datanode.api.v2.TradingDataService/ListTrades",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetTradesByMarket(ctx, req.(*GetTradesByMarketRequest))
+		return srv.(TradingDataServiceServer).ListTrades(ctx, req.(*ListTradesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TradingDataService_GetTradesByParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTradesByPartyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _TradingDataService_ObserveTrades_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ObserveTradesRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetTradesByParty(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetTradesByParty",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetTradesByParty(ctx, req.(*GetTradesByPartyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(TradingDataServiceServer).ObserveTrades(m, &tradingDataServiceObserveTradesServer{stream})
 }
 
-func _TradingDataService_GetTradesByOrderID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTradesByOrderIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TradingDataServiceServer).GetTradesByOrderID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datanode.api.v2.TradingDataService/GetTradesByOrderID",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TradingDataServiceServer).GetTradesByOrderID(ctx, req.(*GetTradesByOrderIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+type TradingDataService_ObserveTradesServer interface {
+	Send(*ObserveTradesResponse) error
+	grpc.ServerStream
+}
+
+type tradingDataServiceObserveTradesServer struct {
+	grpc.ServerStream
+}
+
+func (x *tradingDataServiceObserveTradesServer) Send(m *ObserveTradesResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _TradingDataService_GetOracleSpecByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1916,16 +1908,8 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TradingDataService_GetERC20ListAssetBundle_Handler,
 		},
 		{
-			MethodName: "GetTradesByMarket",
-			Handler:    _TradingDataService_GetTradesByMarket_Handler,
-		},
-		{
-			MethodName: "GetTradesByParty",
-			Handler:    _TradingDataService_GetTradesByParty_Handler,
-		},
-		{
-			MethodName: "GetTradesByOrderID",
-			Handler:    _TradingDataService_GetTradesByOrderID_Handler,
+			MethodName: "ListTrades",
+			Handler:    _TradingDataService_ListTrades_Handler,
 		},
 		{
 			MethodName: "GetOracleSpecByID",
@@ -2030,6 +2014,11 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "ObserveVotes",
 			Handler:       _TradingDataService_ObserveVotes_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "ObserveTrades",
+			Handler:       _TradingDataService_ObserveTrades_Handler,
 			ServerStreams: true,
 		},
 	},
