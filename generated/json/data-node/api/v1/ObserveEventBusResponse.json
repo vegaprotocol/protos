@@ -3296,6 +3296,25 @@
             "title": "Proposal Submission",
             "description": "A command to submit a new proposal for the Vega network governance"
         },
+        "vega.commands.v1.ProtocolUpgradeProposal": {
+            "properties": {
+                "upgrade_block_height": {
+                    "type": "string",
+                    "description": "The block height at which to perform the upgrade"
+                },
+                "vega_release_tag": {
+                    "type": "string",
+                    "description": "the release tag for the vega binary"
+                },
+                "data_node_release_tag": {
+                    "type": "string",
+                    "description": "the release tag for the data-node binary"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Protocol Upgrade Proposal"
+        },
         "vega.commands.v1.RecurringTransfer": {
             "properties": {
                 "start_epoch": {
@@ -3746,6 +3765,8 @@
                         46,
                         "BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION",
                         47,
+                        "BUS_EVENT_TYPE_PROTOCOL_UPGRADE_PROPOSAL",
+                        48,
                         "BUS_EVENT_TYPE_MARKET",
                         101,
                         "BUS_EVENT_TYPE_TX_ERROR",
@@ -3986,6 +4007,11 @@
                     "$ref": "#/definitions/vega.events.v1.EthereumKeyRotation",
                     "additionalProperties": true,
                     "description": "Ethereum key rotation took place"
+                },
+                "protocol_upgrade_event": {
+                    "$ref": "#/definitions/vega.events.v1.ProtocolUpgradeEvent",
+                    "additionalProperties": true,
+                    "description": "Protocol upgrade proposal updates"
                 },
                 "market": {
                     "$ref": "#/definitions/vega.events.v1.MarketEvent",
@@ -4419,6 +4445,53 @@
             "type": "object",
             "title": "Position State Event",
             "description": "A position state event contains the current position state for a single party in a single market"
+        },
+        "vega.events.v1.ProtocolUpgradeEvent": {
+            "properties": {
+                "upgrade_block_height": {
+                    "type": "string",
+                    "description": "The block height at which to perform the upgrade"
+                },
+                "vega_release_tag": {
+                    "type": "string",
+                    "description": "the release tag for the vega binary"
+                },
+                "data_node_release_tag": {
+                    "type": "string",
+                    "description": "the release tag for the data-node binary"
+                },
+                "approvers": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "tendermint validators that have agreed to the upgrade"
+                },
+                "status": {
+                    "enum": [
+                        "PROTOCOL_UPGRADE_PROPOSAL_STATUS_UNSPECIFIED",
+                        0,
+                        "PROTOCOL_UPGRADE_PROPOSAL_STATUS_PENDING",
+                        1,
+                        "PROTOCOL_UPGRADE_PROPOSAL_STATUS_APPROVED",
+                        2,
+                        "PROTOCOL_UPGRADE_PROPOSAL_STATUS_REJECTED",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Protocol Upgrade Proposal Status"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Protocol Upgrade Event"
         },
         "vega.events.v1.RecurringTransfer": {
             "properties": {
@@ -4904,6 +4977,10 @@
                 },
                 "oracle_data_submission": {
                     "$ref": "#/definitions/vega.commands.v1.OracleDataSubmission",
+                    "additionalProperties": true
+                },
+                "protocol_upgrade_proposal": {
+                    "$ref": "#/definitions/vega.commands.v1.ProtocolUpgradeProposal",
                     "additionalProperties": true
                 }
             },

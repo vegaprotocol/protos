@@ -153,6 +153,8 @@ func checkInputData(inputData []byte) (*commandspb.InputData, Errors) {
 			errs.Merge(checkValidatorHeartbeat(cmd.ValidatorHeartbeat))
 		case *commandspb.InputData_EthereumKeyRotateSubmission:
 			errs.Merge(checkEthereumKeyRotateSubmission(cmd.EthereumKeyRotateSubmission))
+		case *commandspb.InputData_ProtocolUpgradeProposal:
+			errs.Merge(checkProtocolUpgradeProposal(cmd.ProtocolUpgradeProposal))
 		default:
 			errs.AddForProperty("tx.input_data.command", ErrIsNotSupported)
 		}

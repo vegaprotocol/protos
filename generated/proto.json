@@ -11063,6 +11063,18 @@
               "defaultValue": ""
             },
             {
+              "name": "protocol_upgrade_proposal",
+              "description": "",
+              "label": "",
+              "type": "ProtocolUpgradeProposal",
+              "longType": "ProtocolUpgradeProposal",
+              "fullType": "vega.commands.v1.ProtocolUpgradeProposal",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "command",
+              "defaultValue": ""
+            },
+            {
               "name": "oracle_data_submission",
               "description": "Oracles",
               "label": "",
@@ -11682,6 +11694,54 @@
           ]
         },
         {
+          "name": "ProtocolUpgradeProposal",
+          "longName": "ProtocolUpgradeProposal",
+          "fullName": "vega.commands.v1.ProtocolUpgradeProposal",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upgrade_block_height",
+              "description": "The block height at which to perform the upgrade",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "vega_release_tag",
+              "description": "the release tag for the vega binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "data_node_release_tag",
+              "description": "the release tag for the data-node binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "StateVariableProposal",
           "longName": "StateVariableProposal",
           "fullName": "vega.commands.v1.StateVariableProposal",
@@ -12012,6 +12072,11 @@
               "description": "Event indicating Ethereum key rotation took place"
             },
             {
+              "name": "BUS_EVENT_TYPE_PROTOCOL_UPGRADE_PROPOSAL",
+              "number": "48",
+              "description": "Event indicating protocol upgrade proposal updates"
+            },
+            {
               "name": "BUS_EVENT_TYPE_MARKET",
               "number": "101",
               "description": "Event indicating a market related event, for example when a market opens"
@@ -12043,6 +12108,34 @@
               "name": "TYPE_REMOVED",
               "number": "2",
               "description": ""
+            }
+          ]
+        },
+        {
+          "name": "ProtocolUpgradeProposalStatus",
+          "longName": "ProtocolUpgradeProposalStatus",
+          "fullName": "vega.events.v1.ProtocolUpgradeProposalStatus",
+          "description": "",
+          "values": [
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_PENDING",
+              "number": "1",
+              "description": "The proposal is pending"
+            },
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_APPROVED",
+              "number": "2",
+              "description": "The proposal is approved"
+            },
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_REJECTED",
+              "number": "3",
+              "description": "The proposal is rejected"
             }
           ]
         },
@@ -12815,6 +12908,18 @@
               "type": "EthereumKeyRotation",
               "longType": "EthereumKeyRotation",
               "fullType": "vega.events.v1.EthereumKeyRotation",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
+              "name": "protocol_upgrade_event",
+              "description": "Protocol upgrade proposal updates",
+              "label": "",
+              "type": "ProtocolUpgradeEvent",
+              "longType": "ProtocolUpgradeEvent",
+              "fullType": "vega.events.v1.ProtocolUpgradeEvent",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "event",
@@ -13903,6 +14008,78 @@
           ]
         },
         {
+          "name": "ProtocolUpgradeEvent",
+          "longName": "ProtocolUpgradeEvent",
+          "fullName": "vega.events.v1.ProtocolUpgradeEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upgrade_block_height",
+              "description": "The block height at which to perform the upgrade",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "vega_release_tag",
+              "description": "the release tag for the vega binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "data_node_release_tag",
+              "description": "the release tag for the data-node binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "approvers",
+              "description": "tendermint validators that have agreed to the upgrade",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "description": "the status of the proposal",
+              "label": "",
+              "type": "ProtocolUpgradeProposalStatus",
+              "longType": "ProtocolUpgradeProposalStatus",
+              "fullType": "vega.events.v1.ProtocolUpgradeProposalStatus",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "RecurringTransfer",
           "longName": "RecurringTransfer",
           "fullName": "vega.events.v1.RecurringTransfer",
@@ -14879,6 +15056,18 @@
               "type": "OracleDataSubmission",
               "longType": "vega.commands.v1.OracleDataSubmission",
               "fullType": "vega.commands.v1.OracleDataSubmission",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "transaction",
+              "defaultValue": ""
+            },
+            {
+              "name": "protocol_upgrade_proposal",
+              "description": "",
+              "label": "",
+              "type": "ProtocolUpgradeProposal",
+              "longType": "vega.commands.v1.ProtocolUpgradeProposal",
+              "fullType": "vega.commands.v1.ProtocolUpgradeProposal",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "transaction",
@@ -18881,6 +19070,54 @@
       "extensions": [],
       "messages": [
         {
+          "name": "AcceptedProtocolUpgradeProposal",
+          "longName": "AcceptedProtocolUpgradeProposal",
+          "fullName": "vega.snapshot.v1.AcceptedProtocolUpgradeProposal",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upgrade_block_height",
+              "description": "The block height at which to perform the upgrade",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "vega_release_tag",
+              "description": "the release tag for the vega binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "data_node_release_tag",
+              "description": "the release tag for the data-node binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ActiveAssets",
           "longName": "ActiveAssets",
           "fullName": "vega.snapshot.v1.ActiveAssets",
@@ -22465,6 +22702,18 @@
               "isoneof": true,
               "oneofdecl": "data",
               "defaultValue": ""
+            },
+            {
+              "name": "protocol_upgrade_proposals",
+              "description": "",
+              "label": "",
+              "type": "ProtocolUpgradeProposals",
+              "longType": "ProtocolUpgradeProposals",
+              "fullType": "vega.snapshot.v1.ProtocolUpgradeProposals",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "data",
+              "defaultValue": ""
             }
           ]
         },
@@ -23385,6 +23634,42 @@
               "type": "Vote",
               "longType": "vega.Vote",
               "fullType": "vega.Vote",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ProtocolUpgradeProposals",
+          "longName": "ProtocolUpgradeProposals",
+          "fullName": "vega.snapshot.v1.ProtocolUpgradeProposals",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "active_proposals",
+              "description": "",
+              "label": "repeated",
+              "type": "ProtocolUpgradeEvent",
+              "longType": "vega.events.v1.ProtocolUpgradeEvent",
+              "fullType": "vega.events.v1.ProtocolUpgradeEvent",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "accepted_proposal",
+              "description": "",
+              "label": "",
+              "type": "AcceptedProtocolUpgradeProposal",
+              "longType": "AcceptedProtocolUpgradeProposal",
+              "fullType": "vega.snapshot.v1.AcceptedProtocolUpgradeProposal",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -25067,6 +25352,11 @@
               "description": "Event indicating Ethereum key rotation took place"
             },
             {
+              "name": "BUS_EVENT_TYPE_PROTOCOL_UPGRADE_PROPOSAL",
+              "number": "48",
+              "description": "Event indicating protocol upgrade proposal updates"
+            },
+            {
               "name": "BUS_EVENT_TYPE_MARKET",
               "number": "101",
               "description": "Event indicating a market related event, for example when a market opens"
@@ -25098,6 +25388,34 @@
               "name": "TYPE_REMOVED",
               "number": "2",
               "description": ""
+            }
+          ]
+        },
+        {
+          "name": "ProtocolUpgradeProposalStatus",
+          "longName": "ProtocolUpgradeProposalStatus",
+          "fullName": "vega.events.v1.ProtocolUpgradeProposalStatus",
+          "description": "",
+          "values": [
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_PENDING",
+              "number": "1",
+              "description": "The proposal is pending"
+            },
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_APPROVED",
+              "number": "2",
+              "description": "The proposal is approved"
+            },
+            {
+              "name": "PROTOCOL_UPGRADE_PROPOSAL_STATUS_REJECTED",
+              "number": "3",
+              "description": "The proposal is rejected"
             }
           ]
         },
@@ -25870,6 +26188,18 @@
               "type": "EthereumKeyRotation",
               "longType": "EthereumKeyRotation",
               "fullType": "vega.events.v1.EthereumKeyRotation",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
+              "name": "protocol_upgrade_event",
+              "description": "Protocol upgrade proposal updates",
+              "label": "",
+              "type": "ProtocolUpgradeEvent",
+              "longType": "ProtocolUpgradeEvent",
+              "fullType": "vega.events.v1.ProtocolUpgradeEvent",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "event",
@@ -26958,6 +27288,78 @@
           ]
         },
         {
+          "name": "ProtocolUpgradeEvent",
+          "longName": "ProtocolUpgradeEvent",
+          "fullName": "vega.events.v1.ProtocolUpgradeEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upgrade_block_height",
+              "description": "The block height at which to perform the upgrade",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "vega_release_tag",
+              "description": "the release tag for the vega binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "data_node_release_tag",
+              "description": "the release tag for the data-node binary",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "approvers",
+              "description": "tendermint validators that have agreed to the upgrade",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "description": "the status of the proposal",
+              "label": "",
+              "type": "ProtocolUpgradeProposalStatus",
+              "longType": "ProtocolUpgradeProposalStatus",
+              "fullType": "vega.events.v1.ProtocolUpgradeProposalStatus",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "RecurringTransfer",
           "longName": "RecurringTransfer",
           "fullName": "vega.events.v1.RecurringTransfer",
@@ -27938,6 +28340,18 @@
               "isoneof": true,
               "oneofdecl": "transaction",
               "defaultValue": ""
+            },
+            {
+              "name": "protocol_upgrade_proposal",
+              "description": "",
+              "label": "",
+              "type": "ProtocolUpgradeProposal",
+              "longType": "vega.commands.v1.ProtocolUpgradeProposal",
+              "fullType": "vega.commands.v1.ProtocolUpgradeProposal",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "transaction",
+              "defaultValue": ""
             }
           ]
         },
@@ -28596,6 +29010,18 @@
               "type": "EthereumKeyRotateSubmission",
               "longType": "vega.commands.v1.EthereumKeyRotateSubmission",
               "fullType": "vega.commands.v1.EthereumKeyRotateSubmission",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "command",
+              "defaultValue": ""
+            },
+            {
+              "name": "protocol_upgrade_proposal",
+              "description": "",
+              "label": "",
+              "type": "ProtocolUpgradeProposal",
+              "longType": "vega.commands.v1.ProtocolUpgradeProposal",
+              "fullType": "vega.commands.v1.ProtocolUpgradeProposal",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "command",
@@ -34221,6 +34647,49 @@
           ]
         },
         {
+          "name": "Type",
+          "longName": "ListGovernanceDataRequest.Type",
+          "fullName": "datanode.api.v2.ListGovernanceDataRequest.Type",
+          "description": "",
+          "values": [
+            {
+              "name": "TYPE_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "TYPE_ALL",
+              "number": "1",
+              "description": "List all proposals"
+            },
+            {
+              "name": "TYPE_NEW_MARKET",
+              "number": "2",
+              "description": "List new market proposals"
+            },
+            {
+              "name": "TYPE_UPDATE_MARKET",
+              "number": "3",
+              "description": "List update market proposals"
+            },
+            {
+              "name": "TYPE_NETWORK_PARAMETERS",
+              "number": "4",
+              "description": "List change Vega network parameter proposals"
+            },
+            {
+              "name": "TYPE_NEW_ASSET",
+              "number": "5",
+              "description": "New asset proposals"
+            },
+            {
+              "name": "TYPE_NEW_FREE_FORM",
+              "number": "6",
+              "description": "Proposals for creating a new free form proposal"
+            }
+          ]
+        },
+        {
           "name": "TransferDirection",
           "longName": "TransferDirection",
           "fullName": "datanode.api.v2.TransferDirection",
@@ -34251,6 +34720,42 @@
       ],
       "extensions": [],
       "messages": [
+        {
+          "name": "AccountEdge",
+          "longName": "AccountEdge",
+          "fullName": "datanode.api.v2.AccountEdge",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "account",
+              "description": "The actual account object",
+              "label": "",
+              "type": "Account",
+              "longType": "vega.Account",
+              "fullType": "vega.Account",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cursor",
+              "description": "A cursor which can be used to fetch further pages with reference to this account",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
         {
           "name": "AccountFilter",
           "longName": "AccountFilter",
@@ -34304,6 +34809,54 @@
               "type": "AccountType",
               "longType": "vega.AccountType",
               "fullType": "vega.AccountType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AccountsConnection",
+          "longName": "AccountsConnection",
+          "fullName": "datanode.api.v2.AccountsConnection",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "total_count",
+              "description": "Total number of accounts matching the supplied filter",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "edges",
+              "description": "The accounts \u0026 cursors",
+              "label": "repeated",
+              "type": "AccountEdge",
+              "longType": "AccountEdge",
+              "fullType": "datanode.api.v2.AccountEdge",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_info",
+              "description": "Information for fetching further pages",
+              "label": "",
+              "type": "PageInfo",
+              "longType": "PageInfo",
+              "fullType": "datanode.api.v2.PageInfo",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -34454,18 +35007,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -34598,18 +35139,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -34672,6 +35201,78 @@
           ]
         },
         {
+          "name": "DelegationEdge",
+          "longName": "DelegationEdge",
+          "fullName": "datanode.api.v2.DelegationEdge",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node",
+              "description": "",
+              "label": "",
+              "type": "Delegation",
+              "longType": "vega.Delegation",
+              "fullType": "vega.Delegation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cursor",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DelegationsConnection",
+          "longName": "DelegationsConnection",
+          "fullName": "datanode.api.v2.DelegationsConnection",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "edges",
+              "description": "",
+              "label": "repeated",
+              "type": "DelegationEdge",
+              "longType": "DelegationEdge",
+              "fullType": "datanode.api.v2.DelegationEdge",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_info",
+              "description": "",
+              "label": "",
+              "type": "PageInfo",
+              "longType": "PageInfo",
+              "fullType": "datanode.api.v2.PageInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "DepositEdge",
           "longName": "DepositEdge",
           "fullName": "datanode.api.v2.DepositEdge",
@@ -34717,18 +35318,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -34924,66 +35513,6 @@
           ]
         },
         {
-          "name": "GetAssetsRequest",
-          "longName": "GetAssetsRequest",
-          "fullName": "datanode.api.v2.GetAssetsRequest",
-          "description": "-- Assets --",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "asset_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetAssetsResponse",
-          "longName": "GetAssetsResponse",
-          "fullName": "datanode.api.v2.GetAssetsResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "assets",
-              "description": "",
-              "label": "",
-              "type": "AssetsConnection",
-              "longType": "AssetsConnection",
-              "fullType": "datanode.api.v2.AssetsConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "GetBalanceHistoryRequest",
           "longName": "GetBalanceHistoryRequest",
           "fullName": "datanode.api.v2.GetBalanceHistoryRequest",
@@ -35036,210 +35565,6 @@
               "type": "AggregatedBalance",
               "longType": "AggregatedBalance",
               "fullType": "datanode.api.v2.AggregatedBalance",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetCandleDataRequest",
-          "longName": "GetCandleDataRequest",
-          "fullName": "datanode.api.v2.GetCandleDataRequest",
-          "description": "Request for a list of candles for a market at an interval",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "candle_id",
-              "description": "Candle identifier, required field.",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "from_timestamp",
-              "description": "Timestamp to retrieve candles since, in nanoseconds since the epoch,\nrequired field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "to_timestamp",
-              "description": "Timestamp to retrieve candles since, in nanoseconds since the epoch,\nrequired field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "interval",
-              "description": "Time interval for the candles, required field specified as a valid postgres interval",
-              "label": "",
-              "type": "Interval",
-              "longType": "vega.Interval",
-              "fullType": "vega.Interval",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "pagination controls",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetCandleDataResponse",
-          "longName": "GetCandleDataResponse",
-          "fullName": "datanode.api.v2.GetCandleDataResponse",
-          "description": "Response for list of candles for a market at an interval",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "candles",
-              "description": "A list of 0 or more candles",
-              "label": "",
-              "type": "CandleDataConnection",
-              "longType": "CandleDataConnection",
-              "fullType": "datanode.api.v2.CandleDataConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetCandlesForMarketRequest",
-          "longName": "GetCandlesForMarketRequest",
-          "fullName": "datanode.api.v2.GetCandlesForMarketRequest",
-          "description": "-- Candles --\nRequest to get a list of supported intervals for the given market along with the corresponding candle id",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "market_id",
-              "description": "The unique identifier for the market",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetCandlesForMarketResponse",
-          "longName": "GetCandlesForMarketResponse",
-          "fullName": "datanode.api.v2.GetCandlesForMarketResponse",
-          "description": "A list of interval to candle id mappings for a given market",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "interval_to_candle_id",
-              "description": "",
-              "label": "repeated",
-              "type": "IntervalToCandleId",
-              "longType": "IntervalToCandleId",
-              "fullType": "datanode.api.v2.IntervalToCandleId",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetDepositsRequest",
-          "longName": "GetDepositsRequest",
-          "fullName": "datanode.api.v2.GetDepositsRequest",
-          "description": "-- Deposits --",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetDepositsResponse",
-          "longName": "GetDepositsResponse",
-          "fullName": "datanode.api.v2.GetDepositsResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "deposits",
-              "description": "",
-              "label": "",
-              "type": "DepositsConnection",
-              "longType": "DepositsConnection",
-              "fullType": "datanode.api.v2.DepositsConnection",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -35488,114 +35813,66 @@
           ]
         },
         {
-          "name": "GetLiquidityProvisionsRequest",
-          "longName": "GetLiquidityProvisionsRequest",
-          "fullName": "datanode.api.v2.GetLiquidityProvisionsRequest",
-          "description": "-- Liquidity Provisions --",
+          "name": "GetLatestMarketDataRequest",
+          "longName": "GetLatestMarketDataRequest",
+          "fullName": "datanode.api.v2.GetLatestMarketDataRequest",
+          "description": "Request for the latest market data for a given market",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "market",
-              "description": "The target market for the liquidity provision orders",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "party",
-              "description": "The party which submitted the liquidity provision orders",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "reference",
-              "description": "The reference of the liquidity provision",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetLiquidityProvisionsResponse",
-          "longName": "GetLiquidityProvisionsResponse",
-          "fullName": "datanode.api.v2.GetLiquidityProvisionsResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "liquidity_provisions",
-              "description": "",
-              "label": "",
-              "type": "LiquidityProvisionsConnection",
-              "longType": "LiquidityProvisionsConnection",
-              "fullType": "datanode.api.v2.LiquidityProvisionsConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetMarginLevelsRequest",
-          "longName": "GetMarginLevelsRequest",
-          "fullName": "datanode.api.v2.GetMarginLevelsRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "market_id",
-              "description": "",
+              "description": "Market identifier, required field",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetLatestMarketDataResponse",
+          "longName": "GetLatestMarketDataResponse",
+          "fullName": "datanode.api.v2.GetLatestMarketDataResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_data",
+              "description": "Market identifier, required field",
+              "label": "",
+              "type": "MarketData",
+              "longType": "vega.MarketData",
+              "fullType": "vega.MarketData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetLatestMarketDepthRequest",
+          "longName": "GetLatestMarketDepthRequest",
+          "fullName": "datanode.api.v2.GetLatestMarketDepthRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "Market identifier, required field",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -35606,23 +35883,23 @@
               "defaultValue": ""
             },
             {
-              "name": "pagination",
+              "name": "max_depth",
               "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_max_depth",
               "defaultValue": ""
             }
           ]
         },
         {
-          "name": "GetMarginLevelsResponse",
-          "longName": "GetMarginLevelsResponse",
-          "fullName": "datanode.api.v2.GetMarginLevelsResponse",
+          "name": "GetLatestMarketDepthResponse",
+          "longName": "GetLatestMarketDepthResponse",
+          "fullName": "datanode.api.v2.GetLatestMarketDepthResponse",
           "description": "",
           "hasExtensions": false,
           "hasFields": true,
@@ -35630,12 +35907,60 @@
           "extensions": [],
           "fields": [
             {
-              "name": "margin_levels",
-              "description": "",
+              "name": "market_id",
+              "description": "Market identifier",
               "label": "",
-              "type": "MarginConnection",
-              "longType": "MarginConnection",
-              "fullType": "datanode.api.v2.MarginConnection",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "buy",
+              "description": "Zero or more price levels for the buy side of the market depth data",
+              "label": "repeated",
+              "type": "PriceLevel",
+              "longType": "vega.PriceLevel",
+              "fullType": "vega.PriceLevel",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sell",
+              "description": "Zero or more price levels for the sell side of the market depth data",
+              "label": "repeated",
+              "type": "PriceLevel",
+              "longType": "vega.PriceLevel",
+              "fullType": "vega.PriceLevel",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "last_trade",
+              "description": "Last trade recorded on Vega at the time of retrieving the `MarketDepthResponse`",
+              "label": "",
+              "type": "Trade",
+              "longType": "vega.Trade",
+              "fullType": "vega.Trade",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sequence_number",
+              "description": "Sequence number incremented after each update",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -35647,7 +35972,7 @@
           "name": "GetMarketDataHistoryByIDRequest",
           "longName": "GetMarketDataHistoryByIDRequest",
           "fullName": "datanode.api.v2.GetMarketDataHistoryByIDRequest",
-          "description": "-- Market Data --\nRequest for Market Data History",
+          "description": "Request for Market Data History",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": true,
@@ -35735,66 +36060,6 @@
               "type": "MarketDataConnection",
               "longType": "MarketDataConnection",
               "fullType": "datanode.api.v2.MarketDataConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetMarketsRequest",
-          "longName": "GetMarketsRequest",
-          "fullName": "datanode.api.v2.GetMarketsRequest",
-          "description": "-- Markets --",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "market_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetMarketsResponse",
-          "longName": "GetMarketsResponse",
-          "fullName": "datanode.api.v2.GetMarketsResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "markets",
-              "description": "",
-              "label": "",
-              "type": "MarketConnection",
-              "longType": "MarketConnection",
-              "fullType": "datanode.api.v2.MarketConnection",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -36126,270 +36391,6 @@
           ]
         },
         {
-          "name": "GetPartiesRequest",
-          "longName": "GetPartiesRequest",
-          "fullName": "datanode.api.v2.GetPartiesRequest",
-          "description": "-- Parties --",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetPartiesResponse",
-          "longName": "GetPartiesResponse",
-          "fullName": "datanode.api.v2.GetPartiesResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party",
-              "description": "",
-              "label": "",
-              "type": "PartyConnection",
-              "longType": "PartyConnection",
-              "fullType": "datanode.api.v2.PartyConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetPositionsByPartyConnectionRequest",
-          "longName": "GetPositionsByPartyConnectionRequest",
-          "fullName": "datanode.api.v2.GetPositionsByPartyConnectionRequest",
-          "description": "-- Positions --\nRequest for a list of positions for a party\nOptionally, if a market identifier is set, the results will be filtered for that market only",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": true,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party_id",
-              "description": "Party identifier, required field",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "market_id",
-              "description": "Market identifier",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "Optional pagination control",
-              "label": "optional",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": true,
-              "oneofdecl": "_pagination",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetPositionsByPartyConnectionResponse",
-          "longName": "GetPositionsByPartyConnectionResponse",
-          "fullName": "datanode.api.v2.GetPositionsByPartyConnectionResponse",
-          "description": "Response for a list of positions for a party",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "positions",
-              "description": "A list of 0 or more positions",
-              "label": "",
-              "type": "PositionConnection",
-              "longType": "PositionConnection",
-              "fullType": "datanode.api.v2.PositionConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetRewardSummariesRequest",
-          "longName": "GetRewardSummariesRequest",
-          "fullName": "datanode.api.v2.GetRewardSummariesRequest",
-          "description": "A request to get reward details for a party",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "asset_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetRewardSummariesResponse",
-          "longName": "GetRewardSummariesResponse",
-          "fullName": "datanode.api.v2.GetRewardSummariesResponse",
-          "description": "The return message with reward details in for a single party",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "summaries",
-              "description": "",
-              "label": "repeated",
-              "type": "RewardSummary",
-              "longType": "vega.RewardSummary",
-              "fullType": "vega.RewardSummary",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetRewardsRequest",
-          "longName": "GetRewardsRequest",
-          "fullName": "datanode.api.v2.GetRewardsRequest",
-          "description": "A request to get reward details for a party",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "party_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "asset_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetRewardsResponse",
-          "longName": "GetRewardsResponse",
-          "fullName": "datanode.api.v2.GetRewardsResponse",
-          "description": "The return message with reward details in for a single party",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "rewards",
-              "description": "",
-              "label": "",
-              "type": "RewardsConnection",
-              "longType": "RewardsConnection",
-              "fullType": "datanode.api.v2.RewardsConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "GetTradesByMarketRequest",
           "longName": "GetTradesByMarketRequest",
           "fullName": "datanode.api.v2.GetTradesByMarketRequest",
@@ -36594,18 +36595,101 @@
           ]
         },
         {
-          "name": "GetWithdrawalsRequest",
-          "longName": "GetWithdrawalsRequest",
-          "fullName": "datanode.api.v2.GetWithdrawalsRequest",
-          "description": "-- Withdrawals --",
+          "name": "GovernanceDataConnection",
+          "longName": "GovernanceDataConnection",
+          "fullName": "datanode.api.v2.GovernanceDataConnection",
+          "description": "",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
-              "name": "party_id",
+              "name": "edges",
               "description": "",
+              "label": "repeated",
+              "type": "GovernanceDataEdge",
+              "longType": "GovernanceDataEdge",
+              "fullType": "datanode.api.v2.GovernanceDataEdge",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_info",
+              "description": "",
+              "label": "",
+              "type": "PageInfo",
+              "longType": "PageInfo",
+              "fullType": "datanode.api.v2.PageInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GovernanceDataEdge",
+          "longName": "GovernanceDataEdge",
+          "fullName": "datanode.api.v2.GovernanceDataEdge",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node",
+              "description": "",
+              "label": "",
+              "type": "GovernanceData",
+              "longType": "vega.GovernanceData",
+              "fullType": "vega.GovernanceData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cursor",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InfoRequest",
+          "longName": "InfoRequest",
+          "fullName": "datanode.api.v2.InfoRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "InfoResponse",
+          "longName": "InfoResponse",
+          "fullName": "datanode.api.v2.InfoResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "A semver formatted version of the data node",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -36616,36 +36700,12 @@
               "defaultValue": ""
             },
             {
-              "name": "pagination",
-              "description": "",
+              "name": "commit_hash",
+              "description": "The commit hash from which the data-node was built",
               "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetWithdrawalsResponse",
-          "longName": "GetWithdrawalsResponse",
-          "fullName": "datanode.api.v2.GetWithdrawalsResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "withdrawals",
-              "description": "",
-              "label": "",
-              "type": "WithdrawalsConnection",
-              "longType": "WithdrawalsConnection",
-              "fullType": "datanode.api.v2.WithdrawalsConnection",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -36699,18 +36759,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -36766,6 +36814,761 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListAccountsRequest",
+          "longName": "ListAccountsRequest",
+          "fullName": "datanode.api.v2.ListAccountsRequest",
+          "description": "-- Accounts --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "filter",
+              "description": "Limit the accounts considered according to the filter supplied",
+              "label": "",
+              "type": "AccountFilter",
+              "longType": "AccountFilter",
+              "fullType": "datanode.api.v2.AccountFilter",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "Optional pagination control",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListAccountsResponse",
+          "longName": "ListAccountsResponse",
+          "fullName": "datanode.api.v2.ListAccountsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "accounts",
+              "description": "Paged connection with 0 or more accounts",
+              "label": "",
+              "type": "AccountsConnection",
+              "longType": "AccountsConnection",
+              "fullType": "datanode.api.v2.AccountsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListAssetsRequest",
+          "longName": "ListAssetsRequest",
+          "fullName": "datanode.api.v2.ListAssetsRequest",
+          "description": "-- Assets --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListAssetsResponse",
+          "longName": "ListAssetsResponse",
+          "fullName": "datanode.api.v2.ListAssetsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "assets",
+              "description": "",
+              "label": "",
+              "type": "AssetsConnection",
+              "longType": "AssetsConnection",
+              "fullType": "datanode.api.v2.AssetsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListCandleDataRequest",
+          "longName": "ListCandleDataRequest",
+          "fullName": "datanode.api.v2.ListCandleDataRequest",
+          "description": "Request for a list of candles for a market at an interval",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "candle_id",
+              "description": "Candle identifier, required field.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "from_timestamp",
+              "description": "Timestamp to retrieve candles since, in nanoseconds since the epoch,\nrequired field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "to_timestamp",
+              "description": "Timestamp to retrieve candles since, in nanoseconds since the epoch,\nrequired field - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "interval",
+              "description": "Time interval for the candles, required field specified as a valid postgres interval",
+              "label": "",
+              "type": "Interval",
+              "longType": "vega.Interval",
+              "fullType": "vega.Interval",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "pagination controls",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListCandleDataResponse",
+          "longName": "ListCandleDataResponse",
+          "fullName": "datanode.api.v2.ListCandleDataResponse",
+          "description": "Response for list of candles for a market at an interval",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "candles",
+              "description": "A list of 0 or more candles",
+              "label": "",
+              "type": "CandleDataConnection",
+              "longType": "CandleDataConnection",
+              "fullType": "datanode.api.v2.CandleDataConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListCandleIntervalsRequest",
+          "longName": "ListCandleIntervalsRequest",
+          "fullName": "datanode.api.v2.ListCandleIntervalsRequest",
+          "description": "-- Candles --\nRequest to get a list of supported intervals for the given market along with the corresponding candle id",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "The unique identifier for the market",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListCandleIntervalsResponse",
+          "longName": "ListCandleIntervalsResponse",
+          "fullName": "datanode.api.v2.ListCandleIntervalsResponse",
+          "description": "A list of interval to candle id mappings for a given market",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "interval_to_candle_id",
+              "description": "",
+              "label": "repeated",
+              "type": "IntervalToCandleId",
+              "longType": "IntervalToCandleId",
+              "fullType": "datanode.api.v2.IntervalToCandleId",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListDelegationsRequest",
+          "longName": "ListDelegationsRequest",
+          "fullName": "datanode.api.v2.ListDelegationsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "node_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_node_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "epoch_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_epoch_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListDelegationsResponse",
+          "longName": "ListDelegationsResponse",
+          "fullName": "datanode.api.v2.ListDelegationsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "delegations",
+              "description": "",
+              "label": "",
+              "type": "DelegationsConnection",
+              "longType": "DelegationsConnection",
+              "fullType": "datanode.api.v2.DelegationsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListDepositsRequest",
+          "longName": "ListDepositsRequest",
+          "fullName": "datanode.api.v2.ListDepositsRequest",
+          "description": "-- Deposits --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListDepositsResponse",
+          "longName": "ListDepositsResponse",
+          "fullName": "datanode.api.v2.ListDepositsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deposits",
+              "description": "",
+              "label": "",
+              "type": "DepositsConnection",
+              "longType": "DepositsConnection",
+              "fullType": "datanode.api.v2.DepositsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListGovernanceDataRequest",
+          "longName": "ListGovernanceDataRequest",
+          "fullName": "datanode.api.v2.ListGovernanceDataRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "proposal_state",
+              "description": "",
+              "label": "optional",
+              "type": "State",
+              "longType": "vega.Proposal.State",
+              "fullType": "vega.Proposal.State",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_proposal_state",
+              "defaultValue": ""
+            },
+            {
+              "name": "proposal_type",
+              "description": "",
+              "label": "optional",
+              "type": "Type",
+              "longType": "ListGovernanceDataRequest.Type",
+              "fullType": "datanode.api.v2.ListGovernanceDataRequest.Type",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_proposal_type",
+              "defaultValue": ""
+            },
+            {
+              "name": "proposer_party_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_proposer_party_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "proposal_reference",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_proposal_reference",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListGovernanceDataResponse",
+          "longName": "ListGovernanceDataResponse",
+          "fullName": "datanode.api.v2.ListGovernanceDataResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "connection",
+              "description": "",
+              "label": "",
+              "type": "GovernanceDataConnection",
+              "longType": "GovernanceDataConnection",
+              "fullType": "datanode.api.v2.GovernanceDataConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListLatestMarketDataRequest",
+          "longName": "ListLatestMarketDataRequest",
+          "fullName": "datanode.api.v2.ListLatestMarketDataRequest",
+          "description": "Request to get the latest market data for every market",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ListLatestMarketDataResponse",
+          "longName": "ListLatestMarketDataResponse",
+          "fullName": "datanode.api.v2.ListLatestMarketDataResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "markets_data",
+              "description": "",
+              "label": "repeated",
+              "type": "MarketData",
+              "longType": "vega.MarketData",
+              "fullType": "vega.MarketData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListLiquidityProvisionsRequest",
+          "longName": "ListLiquidityProvisionsRequest",
+          "fullName": "datanode.api.v2.ListLiquidityProvisionsRequest",
+          "description": "-- Liquidity Provisions --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "The target market for the liquidity provision orders",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_market_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "party_id",
+              "description": "The party which submitted the liquidity provision orders",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "reference",
+              "description": "The reference of the liquidity provision",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_reference",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListLiquidityProvisionsResponse",
+          "longName": "ListLiquidityProvisionsResponse",
+          "fullName": "datanode.api.v2.ListLiquidityProvisionsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "liquidity_provisions",
+              "description": "",
+              "label": "",
+              "type": "LiquidityProvisionsConnection",
+              "longType": "LiquidityProvisionsConnection",
+              "fullType": "datanode.api.v2.LiquidityProvisionsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListMarginLevelsRequest",
+          "longName": "ListMarginLevelsRequest",
+          "fullName": "datanode.api.v2.ListMarginLevelsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListMarginLevelsResponse",
+          "longName": "ListMarginLevelsResponse",
+          "fullName": "datanode.api.v2.ListMarginLevelsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "margin_levels",
+              "description": "",
+              "label": "",
+              "type": "MarginConnection",
+              "longType": "MarginConnection",
+              "fullType": "datanode.api.v2.MarginConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListMarketsRequest",
+          "longName": "ListMarketsRequest",
+          "fullName": "datanode.api.v2.ListMarketsRequest",
+          "description": "-- Markets --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListMarketsResponse",
+          "longName": "ListMarketsResponse",
+          "fullName": "datanode.api.v2.ListMarketsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "markets",
+              "description": "",
+              "label": "",
+              "type": "MarketConnection",
+              "longType": "MarketConnection",
+              "fullType": "datanode.api.v2.MarketConnection",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -37014,6 +37817,270 @@
           ]
         },
         {
+          "name": "ListPartiesRequest",
+          "longName": "ListPartiesRequest",
+          "fullName": "datanode.api.v2.ListPartiesRequest",
+          "description": "-- Parties --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListPartiesResponse",
+          "longName": "ListPartiesResponse",
+          "fullName": "datanode.api.v2.ListPartiesResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party",
+              "description": "",
+              "label": "",
+              "type": "PartyConnection",
+              "longType": "PartyConnection",
+              "fullType": "datanode.api.v2.PartyConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListPositionsRequest",
+          "longName": "ListPositionsRequest",
+          "fullName": "datanode.api.v2.ListPositionsRequest",
+          "description": "-- Positions --\nRequest for a list of positions for a party\nOptionally, if a market identifier is set, the results will be filtered for that market only",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "Party identifier, required field",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market_id",
+              "description": "Market identifier",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "Optional pagination control",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListPositionsResponse",
+          "longName": "ListPositionsResponse",
+          "fullName": "datanode.api.v2.ListPositionsResponse",
+          "description": "Response for a list of positions for a party",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "positions",
+              "description": "A list of 0 or more positions",
+              "label": "",
+              "type": "PositionConnection",
+              "longType": "PositionConnection",
+              "fullType": "datanode.api.v2.PositionConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListRewardSummariesRequest",
+          "longName": "ListRewardSummariesRequest",
+          "fullName": "datanode.api.v2.ListRewardSummariesRequest",
+          "description": "A request to get reward details for a party",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "asset_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListRewardSummariesResponse",
+          "longName": "ListRewardSummariesResponse",
+          "fullName": "datanode.api.v2.ListRewardSummariesResponse",
+          "description": "The return message with reward details in for a single party",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "summaries",
+              "description": "",
+              "label": "repeated",
+              "type": "RewardSummary",
+              "longType": "vega.RewardSummary",
+              "fullType": "vega.RewardSummary",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListRewardsRequest",
+          "longName": "ListRewardsRequest",
+          "fullName": "datanode.api.v2.ListRewardsRequest",
+          "description": "A request to get reward details for a party",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "asset_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListRewardsResponse",
+          "longName": "ListRewardsResponse",
+          "fullName": "datanode.api.v2.ListRewardsResponse",
+          "description": "The return message with reward details in for a single party",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "rewards",
+              "description": "",
+              "label": "",
+              "type": "RewardsConnection",
+              "longType": "RewardsConnection",
+              "fullType": "datanode.api.v2.RewardsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ListTransfersRequest",
           "longName": "ListTransfersRequest",
           "fullName": "datanode.api.v2.ListTransfersRequest",
@@ -37146,6 +38213,66 @@
           ]
         },
         {
+          "name": "ListWithdrawalsRequest",
+          "longName": "ListWithdrawalsRequest",
+          "fullName": "datanode.api.v2.ListWithdrawalsRequest",
+          "description": "-- Withdrawals --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListWithdrawalsResponse",
+          "longName": "ListWithdrawalsResponse",
+          "fullName": "datanode.api.v2.ListWithdrawalsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "withdrawals",
+              "description": "",
+              "label": "",
+              "type": "WithdrawalsConnection",
+              "longType": "WithdrawalsConnection",
+              "fullType": "datanode.api.v2.WithdrawalsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "MarginConnection",
           "longName": "MarginConnection",
           "fullName": "datanode.api.v2.MarginConnection",
@@ -37155,18 +38282,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -37240,18 +38355,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -37287,18 +38390,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -37446,6 +38537,282 @@
           ]
         },
         {
+          "name": "ObserveAccountsRequest",
+          "longName": "ObserveAccountsRequest",
+          "fullName": "datanode.api.v2.ObserveAccountsRequest",
+          "description": "Request to subscribe to a stream of (Accounts)[#vega.Account]",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "Market identifier",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "party_id",
+              "description": "Party identifier",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "asset",
+              "description": "Asset identifier",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "Account type to subscribe to, required field",
+              "label": "",
+              "type": "AccountType",
+              "longType": "vega.AccountType",
+              "fullType": "vega.AccountType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveAccountsResponse",
+          "longName": "ObserveAccountsResponse",
+          "fullName": "datanode.api.v2.ObserveAccountsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "account",
+              "description": "",
+              "label": "",
+              "type": "Account",
+              "longType": "vega.Account",
+              "fullType": "vega.Account",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveCandleDataRequest",
+          "longName": "ObserveCandleDataRequest",
+          "fullName": "datanode.api.v2.ObserveCandleDataRequest",
+          "description": "Request to subscribe to a stream of (Candles)[#vega.Candle]",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "candle_id",
+              "description": "The unique identifier for the candle",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveCandleDataResponse",
+          "longName": "ObserveCandleDataResponse",
+          "fullName": "datanode.api.v2.ObserveCandleDataResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "candle",
+              "description": "",
+              "label": "",
+              "type": "Candle",
+              "longType": "Candle",
+              "fullType": "datanode.api.v2.Candle",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarketsDataRequest",
+          "longName": "ObserveMarketsDataRequest",
+          "fullName": "datanode.api.v2.ObserveMarketsDataRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_ids",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarketsDataResponse",
+          "longName": "ObserveMarketsDataResponse",
+          "fullName": "datanode.api.v2.ObserveMarketsDataResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_data",
+              "description": "",
+              "label": "repeated",
+              "type": "MarketData",
+              "longType": "vega.MarketData",
+              "fullType": "vega.MarketData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarketsDepthRequest",
+          "longName": "ObserveMarketsDepthRequest",
+          "fullName": "datanode.api.v2.ObserveMarketsDepthRequest",
+          "description": "-- Market Data --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_ids",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarketsDepthResponse",
+          "longName": "ObserveMarketsDepthResponse",
+          "fullName": "datanode.api.v2.ObserveMarketsDepthResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_depth",
+              "description": "",
+              "label": "repeated",
+              "type": "MarketDepth",
+              "longType": "vega.MarketDepth",
+              "fullType": "vega.MarketDepth",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarketsDepthUpdatesRequest",
+          "longName": "ObserveMarketsDepthUpdatesRequest",
+          "fullName": "datanode.api.v2.ObserveMarketsDepthUpdatesRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_ids",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarketsDepthUpdatesResponse",
+          "longName": "ObserveMarketsDepthUpdatesResponse",
+          "fullName": "datanode.api.v2.ObserveMarketsDepthUpdatesResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "update",
+              "description": "",
+              "label": "repeated",
+              "type": "MarketDepthUpdate",
+              "longType": "vega.MarketDepthUpdate",
+              "fullType": "vega.MarketDepthUpdate",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ObserveVotesRequest",
           "longName": "ObserveVotesRequest",
           "fullName": "datanode.api.v2.ObserveVotesRequest",
@@ -37564,18 +38931,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -37684,18 +39039,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -37731,18 +39074,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -37948,18 +39279,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -38031,18 +39350,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -38152,18 +39459,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -38190,54 +39485,6 @@
           ]
         },
         {
-          "name": "SubscribeToCandleDataRequest",
-          "longName": "SubscribeToCandleDataRequest",
-          "fullName": "datanode.api.v2.SubscribeToCandleDataRequest",
-          "description": "Request to subscribe to a stream of (Candles)[#vega.Candle]",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "candle_id",
-              "description": "The unique identifier for the candle",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "SubscribeToCandleDataResponse",
-          "longName": "SubscribeToCandleDataResponse",
-          "fullName": "datanode.api.v2.SubscribeToCandleDataResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "candle",
-              "description": "",
-              "label": "",
-              "type": "Candle",
-              "longType": "Candle",
-              "fullType": "datanode.api.v2.Candle",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "TradeConnection",
           "longName": "TradeConnection",
           "fullName": "datanode.api.v2.TradeConnection",
@@ -38247,18 +39494,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -38332,18 +39567,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -38415,18 +39638,6 @@
           "hasOneofs": false,
           "extensions": [],
           "fields": [
-            {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
             {
               "name": "edges",
               "description": "",
@@ -38536,18 +39747,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "total_count",
-              "description": "",
-              "label": "",
-              "type": "int64",
-              "longType": "int64",
-              "fullType": "int64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "edges",
               "description": "",
               "label": "repeated",
@@ -38581,6 +39780,42 @@
           "fullName": "datanode.api.v2.TradingDataService",
           "description": "",
           "methods": [
+            {
+              "name": "ListAccounts",
+              "description": "-- Accounts --\nReturns a list of accounts matching the supplied filter, including their current balances.\nIf a given account has never had a balance, it will be absent from the list.",
+              "requestType": "ListAccountsRequest",
+              "requestLongType": "ListAccountsRequest",
+              "requestFullType": "datanode.api.v2.ListAccountsRequest",
+              "requestStreaming": false,
+              "responseType": "ListAccountsResponse",
+              "responseLongType": "ListAccountsResponse",
+              "responseFullType": "datanode.api.v2.ListAccountsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ObserveAccounts",
+              "description": "Subscribe to a stream of Accounts",
+              "requestType": "ObserveAccountsRequest",
+              "requestLongType": "ObserveAccountsRequest",
+              "requestFullType": "datanode.api.v2.ObserveAccountsRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveAccountsResponse",
+              "responseLongType": "ObserveAccountsResponse",
+              "responseFullType": "datanode.api.v2.ObserveAccountsResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Info",
+              "description": "node info",
+              "requestType": "InfoRequest",
+              "requestLongType": "InfoRequest",
+              "requestFullType": "datanode.api.v2.InfoRequest",
+              "requestStreaming": false,
+              "responseType": "InfoResponse",
+              "responseLongType": "InfoResponse",
+              "responseFullType": "datanode.api.v2.InfoResponse",
+              "responseStreaming": false
+            },
             {
               "name": "GetOrder",
               "description": "-- Orders --\nGets the current version of an order, or optionally provide a version id to retrieve a given version.",
@@ -38618,15 +39853,15 @@
               "responseStreaming": false
             },
             {
-              "name": "GetPositionsByPartyConnection",
+              "name": "ListPositions",
               "description": "-- Positions --\nGet a list of Positions by Party using cursor based pagination",
-              "requestType": "GetPositionsByPartyConnectionRequest",
-              "requestLongType": "GetPositionsByPartyConnectionRequest",
-              "requestFullType": "datanode.api.v2.GetPositionsByPartyConnectionRequest",
+              "requestType": "ListPositionsRequest",
+              "requestLongType": "ListPositionsRequest",
+              "requestFullType": "datanode.api.v2.ListPositionsRequest",
               "requestStreaming": false,
-              "responseType": "GetPositionsByPartyConnectionResponse",
-              "responseLongType": "GetPositionsByPartyConnectionResponse",
-              "responseFullType": "datanode.api.v2.GetPositionsByPartyConnectionResponse",
+              "responseType": "ListPositionsResponse",
+              "responseLongType": "ListPositionsResponse",
+              "responseFullType": "datanode.api.v2.ListPositionsResponse",
               "responseStreaming": false
             },
             {
@@ -38642,8 +39877,80 @@
               "responseStreaming": false
             },
             {
+              "name": "GetLatestMarketData",
+              "description": "-- Market Data --\nGet the lastest market data for a given market",
+              "requestType": "GetLatestMarketDataRequest",
+              "requestLongType": "GetLatestMarketDataRequest",
+              "requestFullType": "datanode.api.v2.GetLatestMarketDataRequest",
+              "requestStreaming": false,
+              "responseType": "GetLatestMarketDataResponse",
+              "responseLongType": "GetLatestMarketDataResponse",
+              "responseFullType": "datanode.api.v2.GetLatestMarketDataResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListLatestMarketData",
+              "description": "Lists the latest market data for every market",
+              "requestType": "ListLatestMarketDataRequest",
+              "requestLongType": "ListLatestMarketDataRequest",
+              "requestFullType": "datanode.api.v2.ListLatestMarketDataRequest",
+              "requestStreaming": false,
+              "responseType": "ListLatestMarketDataResponse",
+              "responseLongType": "ListLatestMarketDataResponse",
+              "responseFullType": "datanode.api.v2.ListLatestMarketDataResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetLatestMarketDepth",
+              "description": "Get the latest market depth for a given market",
+              "requestType": "GetLatestMarketDepthRequest",
+              "requestLongType": "GetLatestMarketDepthRequest",
+              "requestFullType": "datanode.api.v2.GetLatestMarketDepthRequest",
+              "requestStreaming": false,
+              "responseType": "GetLatestMarketDepthResponse",
+              "responseLongType": "GetLatestMarketDepthResponse",
+              "responseFullType": "datanode.api.v2.GetLatestMarketDepthResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ObserveMarketsDepth",
+              "description": "",
+              "requestType": "ObserveMarketsDepthRequest",
+              "requestLongType": "ObserveMarketsDepthRequest",
+              "requestFullType": "datanode.api.v2.ObserveMarketsDepthRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveMarketsDepthResponse",
+              "responseLongType": "ObserveMarketsDepthResponse",
+              "responseFullType": "datanode.api.v2.ObserveMarketsDepthResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "ObserveMarketsDepthUpdates",
+              "description": "",
+              "requestType": "ObserveMarketsDepthUpdatesRequest",
+              "requestLongType": "ObserveMarketsDepthUpdatesRequest",
+              "requestFullType": "datanode.api.v2.ObserveMarketsDepthUpdatesRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveMarketsDepthUpdatesResponse",
+              "responseLongType": "ObserveMarketsDepthUpdatesResponse",
+              "responseFullType": "datanode.api.v2.ObserveMarketsDepthUpdatesResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "ObserveMarketsData",
+              "description": "",
+              "requestType": "ObserveMarketsDataRequest",
+              "requestLongType": "ObserveMarketsDataRequest",
+              "requestFullType": "datanode.api.v2.ObserveMarketsDataRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveMarketsDataResponse",
+              "responseLongType": "ObserveMarketsDataResponse",
+              "responseFullType": "datanode.api.v2.ObserveMarketsDataResponse",
+              "responseStreaming": true
+            },
+            {
               "name": "GetMarketDataHistoryByID",
-              "description": "-- Market Data --\nGet Market Data History for a Market ID between given dates using a cursor based pagination model",
+              "description": "Get Market Data History for a Market ID between given dates using a cursor based pagination model",
               "requestType": "GetMarketDataHistoryByIDRequest",
               "requestLongType": "GetMarketDataHistoryByIDRequest",
               "requestFullType": "datanode.api.v2.GetMarketDataHistoryByIDRequest",
@@ -38690,39 +39997,39 @@
               "responseStreaming": false
             },
             {
-              "name": "GetCandleData",
+              "name": "ListCandleData",
               "description": "-- Candles --\nGet candle data for a given candle id",
-              "requestType": "GetCandleDataRequest",
-              "requestLongType": "GetCandleDataRequest",
-              "requestFullType": "datanode.api.v2.GetCandleDataRequest",
+              "requestType": "ListCandleDataRequest",
+              "requestLongType": "ListCandleDataRequest",
+              "requestFullType": "datanode.api.v2.ListCandleDataRequest",
               "requestStreaming": false,
-              "responseType": "GetCandleDataResponse",
-              "responseLongType": "GetCandleDataResponse",
-              "responseFullType": "datanode.api.v2.GetCandleDataResponse",
+              "responseType": "ListCandleDataResponse",
+              "responseLongType": "ListCandleDataResponse",
+              "responseFullType": "datanode.api.v2.ListCandleDataResponse",
               "responseStreaming": false
             },
             {
-              "name": "SubscribeToCandleData",
+              "name": "ObserveCandleData",
               "description": "Subscribe to a stream of Candle updates",
-              "requestType": "SubscribeToCandleDataRequest",
-              "requestLongType": "SubscribeToCandleDataRequest",
-              "requestFullType": "datanode.api.v2.SubscribeToCandleDataRequest",
+              "requestType": "ObserveCandleDataRequest",
+              "requestLongType": "ObserveCandleDataRequest",
+              "requestFullType": "datanode.api.v2.ObserveCandleDataRequest",
               "requestStreaming": false,
-              "responseType": "SubscribeToCandleDataResponse",
-              "responseLongType": "SubscribeToCandleDataResponse",
-              "responseFullType": "datanode.api.v2.SubscribeToCandleDataResponse",
+              "responseType": "ObserveCandleDataResponse",
+              "responseLongType": "ObserveCandleDataResponse",
+              "responseFullType": "datanode.api.v2.ObserveCandleDataResponse",
               "responseStreaming": true
             },
             {
-              "name": "GetCandlesForMarket",
+              "name": "ListCandleIntervals",
               "description": "Gets all available intervals for a given market along with the corresponding candle id",
-              "requestType": "GetCandlesForMarketRequest",
-              "requestLongType": "GetCandlesForMarketRequest",
-              "requestFullType": "datanode.api.v2.GetCandlesForMarketRequest",
+              "requestType": "ListCandleIntervalsRequest",
+              "requestLongType": "ListCandleIntervalsRequest",
+              "requestFullType": "datanode.api.v2.ListCandleIntervalsRequest",
               "requestStreaming": false,
-              "responseType": "GetCandlesForMarketResponse",
-              "responseLongType": "GetCandlesForMarketResponse",
-              "responseFullType": "datanode.api.v2.GetCandlesForMarketResponse",
+              "responseType": "ListCandleIntervalsResponse",
+              "responseLongType": "ListCandleIntervalsResponse",
+              "responseFullType": "datanode.api.v2.ListCandleIntervalsResponse",
               "responseStreaming": false
             },
             {
@@ -38894,111 +40201,135 @@
               "responseStreaming": false
             },
             {
-              "name": "GetMarkets",
+              "name": "ListMarkets",
               "description": "-- Markets --\nGet all markets using a cursor based pagination model",
-              "requestType": "GetMarketsRequest",
-              "requestLongType": "GetMarketsRequest",
-              "requestFullType": "datanode.api.v2.GetMarketsRequest",
+              "requestType": "ListMarketsRequest",
+              "requestLongType": "ListMarketsRequest",
+              "requestFullType": "datanode.api.v2.ListMarketsRequest",
               "requestStreaming": false,
-              "responseType": "GetMarketsResponse",
-              "responseLongType": "GetMarketsResponse",
-              "responseFullType": "datanode.api.v2.GetMarketsResponse",
+              "responseType": "ListMarketsResponse",
+              "responseLongType": "ListMarketsResponse",
+              "responseFullType": "datanode.api.v2.ListMarketsResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetParties",
+              "name": "ListParties",
               "description": "-- Parties --\nGet Parties using a cursor based pagination model",
-              "requestType": "GetPartiesRequest",
-              "requestLongType": "GetPartiesRequest",
-              "requestFullType": "datanode.api.v2.GetPartiesRequest",
+              "requestType": "ListPartiesRequest",
+              "requestLongType": "ListPartiesRequest",
+              "requestFullType": "datanode.api.v2.ListPartiesRequest",
               "requestStreaming": false,
-              "responseType": "GetPartiesResponse",
-              "responseLongType": "GetPartiesResponse",
-              "responseFullType": "datanode.api.v2.GetPartiesResponse",
+              "responseType": "ListPartiesResponse",
+              "responseLongType": "ListPartiesResponse",
+              "responseFullType": "datanode.api.v2.ListPartiesResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetMarginLevels",
+              "name": "ListMarginLevels",
               "description": "-- Margin Levels --\nGet Margin Levels using a cursor based pagination model\n\n-- Rewards --",
-              "requestType": "GetMarginLevelsRequest",
-              "requestLongType": "GetMarginLevelsRequest",
-              "requestFullType": "datanode.api.v2.GetMarginLevelsRequest",
+              "requestType": "ListMarginLevelsRequest",
+              "requestLongType": "ListMarginLevelsRequest",
+              "requestFullType": "datanode.api.v2.ListMarginLevelsRequest",
               "requestStreaming": false,
-              "responseType": "GetMarginLevelsResponse",
-              "responseLongType": "GetMarginLevelsResponse",
-              "responseFullType": "datanode.api.v2.GetMarginLevelsResponse",
+              "responseType": "ListMarginLevelsResponse",
+              "responseLongType": "ListMarginLevelsResponse",
+              "responseFullType": "datanode.api.v2.ListMarginLevelsResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetRewards",
+              "name": "ListRewards",
               "description": "Get rewards",
-              "requestType": "GetRewardsRequest",
-              "requestLongType": "GetRewardsRequest",
-              "requestFullType": "datanode.api.v2.GetRewardsRequest",
+              "requestType": "ListRewardsRequest",
+              "requestLongType": "ListRewardsRequest",
+              "requestFullType": "datanode.api.v2.ListRewardsRequest",
               "requestStreaming": false,
-              "responseType": "GetRewardsResponse",
-              "responseLongType": "GetRewardsResponse",
-              "responseFullType": "datanode.api.v2.GetRewardsResponse",
+              "responseType": "ListRewardsResponse",
+              "responseLongType": "ListRewardsResponse",
+              "responseFullType": "datanode.api.v2.ListRewardsResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetRewardSummaries",
+              "name": "ListRewardSummaries",
               "description": "Get reward summaries",
-              "requestType": "GetRewardSummariesRequest",
-              "requestLongType": "GetRewardSummariesRequest",
-              "requestFullType": "datanode.api.v2.GetRewardSummariesRequest",
+              "requestType": "ListRewardSummariesRequest",
+              "requestLongType": "ListRewardSummariesRequest",
+              "requestFullType": "datanode.api.v2.ListRewardSummariesRequest",
               "requestStreaming": false,
-              "responseType": "GetRewardSummariesResponse",
-              "responseLongType": "GetRewardSummariesResponse",
-              "responseFullType": "datanode.api.v2.GetRewardSummariesResponse",
+              "responseType": "ListRewardSummariesResponse",
+              "responseLongType": "ListRewardSummariesResponse",
+              "responseFullType": "datanode.api.v2.ListRewardSummariesResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetDeposits",
+              "name": "ListDeposits",
               "description": "-- Deposits --",
-              "requestType": "GetDepositsRequest",
-              "requestLongType": "GetDepositsRequest",
-              "requestFullType": "datanode.api.v2.GetDepositsRequest",
+              "requestType": "ListDepositsRequest",
+              "requestLongType": "ListDepositsRequest",
+              "requestFullType": "datanode.api.v2.ListDepositsRequest",
               "requestStreaming": false,
-              "responseType": "GetDepositsResponse",
-              "responseLongType": "GetDepositsResponse",
-              "responseFullType": "datanode.api.v2.GetDepositsResponse",
+              "responseType": "ListDepositsResponse",
+              "responseLongType": "ListDepositsResponse",
+              "responseFullType": "datanode.api.v2.ListDepositsResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetWithdrawals",
+              "name": "ListWithdrawals",
               "description": "-- Withdrawals --",
-              "requestType": "GetWithdrawalsRequest",
-              "requestLongType": "GetWithdrawalsRequest",
-              "requestFullType": "datanode.api.v2.GetWithdrawalsRequest",
+              "requestType": "ListWithdrawalsRequest",
+              "requestLongType": "ListWithdrawalsRequest",
+              "requestFullType": "datanode.api.v2.ListWithdrawalsRequest",
               "requestStreaming": false,
-              "responseType": "GetWithdrawalsResponse",
-              "responseLongType": "GetWithdrawalsResponse",
-              "responseFullType": "datanode.api.v2.GetWithdrawalsResponse",
+              "responseType": "ListWithdrawalsResponse",
+              "responseLongType": "ListWithdrawalsResponse",
+              "responseFullType": "datanode.api.v2.ListWithdrawalsResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetAssets",
+              "name": "ListAssets",
               "description": "-- Assets --",
-              "requestType": "GetAssetsRequest",
-              "requestLongType": "GetAssetsRequest",
-              "requestFullType": "datanode.api.v2.GetAssetsRequest",
+              "requestType": "ListAssetsRequest",
+              "requestLongType": "ListAssetsRequest",
+              "requestFullType": "datanode.api.v2.ListAssetsRequest",
               "requestStreaming": false,
-              "responseType": "GetAssetsResponse",
-              "responseLongType": "GetAssetsResponse",
-              "responseFullType": "datanode.api.v2.GetAssetsResponse",
+              "responseType": "ListAssetsResponse",
+              "responseLongType": "ListAssetsResponse",
+              "responseFullType": "datanode.api.v2.ListAssetsResponse",
               "responseStreaming": false
             },
             {
-              "name": "GetLiquidityProvisions",
+              "name": "ListLiquidityProvisions",
               "description": "-- Liquidity Provisions --",
-              "requestType": "GetLiquidityProvisionsRequest",
-              "requestLongType": "GetLiquidityProvisionsRequest",
-              "requestFullType": "datanode.api.v2.GetLiquidityProvisionsRequest",
+              "requestType": "ListLiquidityProvisionsRequest",
+              "requestLongType": "ListLiquidityProvisionsRequest",
+              "requestFullType": "datanode.api.v2.ListLiquidityProvisionsRequest",
               "requestStreaming": false,
-              "responseType": "GetLiquidityProvisionsResponse",
-              "responseLongType": "GetLiquidityProvisionsResponse",
-              "responseFullType": "datanode.api.v2.GetLiquidityProvisionsResponse",
+              "responseType": "ListLiquidityProvisionsResponse",
+              "responseLongType": "ListLiquidityProvisionsResponse",
+              "responseFullType": "datanode.api.v2.ListLiquidityProvisionsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListGovernanceData",
+              "description": "-- Governance --\nList proposals using a cursor based pagination model",
+              "requestType": "ListGovernanceDataRequest",
+              "requestLongType": "ListGovernanceDataRequest",
+              "requestFullType": "datanode.api.v2.ListGovernanceDataRequest",
+              "requestStreaming": false,
+              "responseType": "ListGovernanceDataResponse",
+              "responseLongType": "ListGovernanceDataResponse",
+              "responseFullType": "datanode.api.v2.ListGovernanceDataResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListDelegations",
+              "description": "-- Delegation --\nList delegations",
+              "requestType": "ListDelegationsRequest",
+              "requestLongType": "ListDelegationsRequest",
+              "requestFullType": "datanode.api.v2.ListDelegationsRequest",
+              "requestStreaming": false,
+              "responseType": "ListDelegationsResponse",
+              "responseLongType": "ListDelegationsResponse",
+              "responseFullType": "datanode.api.v2.ListDelegationsResponse",
               "responseStreaming": false
             }
           ]

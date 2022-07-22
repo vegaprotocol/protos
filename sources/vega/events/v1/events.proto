@@ -250,6 +250,7 @@ message TxErrorEvent {
     commands.v1.CancelTransfer cancel_transfer = 114;
     commands.v1.AnnounceNode announce_node = 115;
     commands.v1.OracleDataSubmission oracle_data_submission = 116;
+    commands.v1.ProtocolUpgradeProposal protocol_upgrade_proposal = 117;
   }
 }
 
@@ -452,6 +453,29 @@ message EthereumKeyRotation {
   uint64 block_height = 4;
 }
 
+enum ProtocolUpgradeProposalStatus {
+  PROTOCOL_UPGRADE_PROPOSAL_STATUS_UNSPECIFIED = 0;
+  // The proposal is pending
+  PROTOCOL_UPGRADE_PROPOSAL_STATUS_PENDING = 1;
+  // The proposal is approved
+  PROTOCOL_UPGRADE_PROPOSAL_STATUS_APPROVED = 2;
+  // The proposal is rejected
+  PROTOCOL_UPGRADE_PROPOSAL_STATUS_REJECTED = 3;
+}
+
+message ProtocolUpgradeEvent {
+   // The block height at which to perform the upgrade
+   uint64 upgrade_block_height = 1;
+   // the release tag for the vega binary
+   string vega_release_tag = 2;
+   // the release tag for the data-node binary
+   string data_node_release_tag = 3;
+   // tendermint validators that have agreed to the upgrade
+  repeated string approvers = 4;
+  // the status of the proposal
+  ProtocolUpgradeProposalStatus status = 5;
+}
+
 //StateVarEvent - updates on state changes in state variable consensus
 message StateVar {
   string id = 1;
@@ -560,7 +584,8 @@ enum BusEventType {
   BUS_EVENT_TYPE_POSITION_STATE = 46;
   // Event indicating Ethereum key rotation took place
   BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION = 47;
-
+  // Event indicating protocol upgrade proposal updates
+  BUS_EVENT_TYPE_PROTOCOL_UPGRADE_PROPOSAL = 48;
 
   // Event indicating a market related event, for example when a market opens
   BUS_EVENT_TYPE_MARKET = 101;
@@ -667,6 +692,8 @@ message BusEvent {
     PositionStateEvent position_state_event = 145;
     // Ethereum key rotation took place
     EthereumKeyRotation ethereum_key_rotation = 146;
+    // Protocol upgrade proposal updates
+    ProtocolUpgradeEvent protocol_upgrade_event = 147;
 
     // Market tick events - See [MarketEvent](#vega.MarketEvent)
     MarketEvent market = 1001;

@@ -113,6 +113,7 @@ message Payload {
     ERC20MultiSigTopologyPending erc20_multisig_topology_pending = 52;
     ProofOfWork proof_of_work = 53;
     PendingAssetUpdates pending_asset_updates = 54;
+    ProtocolUpgradeProposals protocol_upgrade_proposals = 55;
   }
 }
 
@@ -759,3 +760,19 @@ message TransactionsAtHeight {
   uint64 height = 1;
   repeated string transactions = 2;
 }
+
+message ProtocolUpgradeProposals {
+  repeated vega.events.v1.ProtocolUpgradeEvent active_proposals = 1;  
+  AcceptedProtocolUpgradeProposal accepted_proposal = 2;
+}
+
+message AcceptedProtocolUpgradeProposal {
+    // The block height at which to perform the upgrade
+    uint64 upgrade_block_height = 1;
+    // the release tag for the vega binary
+    string vega_release_tag = 2;
+    // the release tag for the data-node binary
+    string data_node_release_tag = 3;
+}
+
+
