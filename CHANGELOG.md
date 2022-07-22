@@ -15,6 +15,7 @@
 - [501](https://github.com/vegaprotocol/protos/issues/501) - `v2` accounts `api`
 - [515](https://github.com/vegaprotocol/protos/issues/515) - Data node info endpoint
 - [509](https://github.com/vegaprotocol/protos/issues/509) - `v2` candles and market data `api`
+- [516](https://github.com/vegaprotocol/protos/issues/516) - Protocol upgrade proto definitions
 
 ### 🐛 Fixes
 - [499](https://github.com/vegaprotocol/protos/issues/499) - Add validation on vega `IDs` and public keys
