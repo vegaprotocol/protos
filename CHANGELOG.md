@@ -10,12 +10,12 @@
 
 ### 🛠 Improvements
 - [474](https://github.com/vegaprotocol/protos/issues/474) - Add REST endpoint to list `OracleData`
+- [485](https://github.com/vegaprotocol/protos/issues/485) - Proto definitions for protocol upgrade
 - [495](https://github.com/vegaprotocol/protos/issues/495) - `v2` orders `api`
 - [501](https://github.com/vegaprotocol/protos/issues/501) - `v2` accounts `api`
 - [515](https://github.com/vegaprotocol/protos/issues/515) - Data node info endpoint
 - [509](https://github.com/vegaprotocol/protos/issues/509) - `v2` candles and market data `api`
-
-- [](https://github.com/vegaprotocol/protos/issues/) -
+- [516](https://github.com/vegaprotocol/protos/issues/516) - Protocol upgrade proto definitions
 
 ### 🐛 Fixes
 - [499](https://github.com/vegaprotocol/protos/issues/499) - Add validation on vega `IDs` and public keys
