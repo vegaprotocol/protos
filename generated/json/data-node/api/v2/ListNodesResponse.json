@@ -1,0 +1,327 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ListNodesResponse",
+    "definitions": {
+        "ListNodesResponse": {
+            "properties": {
+                "nodes": {
+                    "$ref": "#/definitions/datanode.api.v2.NodesConnection",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "List Nodes Response"
+        },
+        "datanode.api.v2.NodeEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.Node",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Edge"
+        },
+        "datanode.api.v2.NodesConnection": {
+            "properties": {
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.NodeEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Nodes Connection"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        },
+        "vega.Delegation": {
+            "properties": {
+                "party": {
+                    "type": "string",
+                    "description": "Party which is delegating"
+                },
+                "node_id": {
+                    "type": "string",
+                    "description": "Node ID"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "Amount delegated"
+                },
+                "epoch_seq": {
+                    "type": "string",
+                    "description": "Epoch of delegation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Delegation"
+        },
+        "vega.EpochData": {
+            "properties": {
+                "total": {
+                    "type": "integer",
+                    "description": "Total number of epochs since node was created"
+                },
+                "offline": {
+                    "type": "integer",
+                    "description": "Total number of offline epochs since node was created"
+                },
+                "online": {
+                    "type": "integer",
+                    "description": "Total number of online epochs since node was created"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Epoch Data"
+        },
+        "vega.Node": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The node ID (wallet ID)"
+                },
+                "pub_key": {
+                    "type": "string",
+                    "description": "Pub key of the node operator"
+                },
+                "tm_pub_key": {
+                    "type": "string",
+                    "description": "Public key of Tendermint"
+                },
+                "ethereum_adddress": {
+                    "type": "string",
+                    "description": "Ethereum public key of the node"
+                },
+                "info_url": {
+                    "type": "string",
+                    "description": "URL where I can find out more info on the node"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "Country code for the location of the node"
+                },
+                "staked_by_operator": {
+                    "type": "string",
+                    "description": "The amount the node has put up themselves"
+                },
+                "staked_by_delegates": {
+                    "type": "string",
+                    "description": "The amount of stake that has been delegated by token holders"
+                },
+                "staked_total": {
+                    "type": "string",
+                    "description": "Total amount staked on node"
+                },
+                "max_intended_stake": {
+                    "type": "string",
+                    "description": "Max amount of (wanted) stake, is this a network param or a node param"
+                },
+                "pending_stake": {
+                    "type": "string",
+                    "description": "Amount of stake on the next epoch"
+                },
+                "epoch_data": {
+                    "$ref": "#/definitions/vega.EpochData",
+                    "additionalProperties": true,
+                    "description": "Informantion about epoch"
+                },
+                "status": {
+                    "enum": [
+                        "NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "NODE_STATUS_VALIDATOR",
+                        1,
+                        "NODE_STATUS_NON_VALIDATOR",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Node Status",
+                    "description": "Node status type"
+                },
+                "delegations": {
+                    "items": {
+                        "$ref": "#/definitions/vega.Delegation"
+                    },
+                    "type": "array",
+                    "description": "Node's delegations"
+                },
+                "reward_score": {
+                    "$ref": "#/definitions/vega.RewardScore",
+                    "additionalProperties": true,
+                    "description": "Node reward score"
+                },
+                "ranking_score": {
+                    "$ref": "#/definitions/vega.RankingScore",
+                    "additionalProperties": true,
+                    "description": "Node ranking information"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Node name"
+                },
+                "avatar_url": {
+                    "type": "string",
+                    "description": "Avatar url"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node"
+        },
+        "vega.RankingScore": {
+            "properties": {
+                "stake_score": {
+                    "type": "string",
+                    "description": "stake based score - no anti-whaling"
+                },
+                "performance_score": {
+                    "type": "string",
+                    "description": "performance based score"
+                },
+                "previous_status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                },
+                "status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                },
+                "voting_power": {
+                    "type": "integer",
+                    "description": "tendermint voting power of the validator"
+                },
+                "ranking_score": {
+                    "type": "string",
+                    "description": "final score"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ranking Score"
+        },
+        "vega.RewardScore": {
+            "properties": {
+                "raw_validator_score": {
+                    "type": "string",
+                    "description": "stake based score - with anti-whaling"
+                },
+                "performance_score": {
+                    "type": "string",
+                    "description": "performance based score"
+                },
+                "multisig_score": {
+                    "type": "string",
+                    "description": "multisig score"
+                },
+                "validator_score": {
+                    "type": "string",
+                    "description": "un-normalised score"
+                },
+                "normalised_score": {
+                    "type": "string",
+                    "description": "normalised validator score for rewards"
+                },
+                "validator_status": {
+                    "enum": [
+                        "VALIDATOR_NODE_STATUS_UNSPECIFIED",
+                        0,
+                        "VALIDATOR_NODE_STATUS_TENDERMINT",
+                        1,
+                        "VALIDATOR_NODE_STATUS_ERSATZ",
+                        2,
+                        "VALIDATOR_NODE_STATUS_PENDING",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Validator Node Status",
+                    "description": "Validation status of the node"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Reward Score"
+        }
+    }
+}

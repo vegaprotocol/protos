@@ -35813,6 +35813,54 @@
           ]
         },
         {
+          "name": "GetEpochRequest",
+          "longName": "GetEpochRequest",
+          "fullName": "datanode.api.v2.GetEpochRequest",
+          "description": "-- Epochs --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetEpochResponse",
+          "longName": "GetEpochResponse",
+          "fullName": "datanode.api.v2.GetEpochResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "epoch",
+              "description": "",
+              "label": "",
+              "type": "Epoch",
+              "longType": "vega.Epoch",
+              "fullType": "vega.Epoch",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "GetLatestMarketDataRequest",
           "longName": "GetLatestMarketDataRequest",
           "fullName": "datanode.api.v2.GetLatestMarketDataRequest",
@@ -36068,6 +36116,41 @@
           ]
         },
         {
+          "name": "GetNetworkDataRequest",
+          "longName": "GetNetworkDataRequest",
+          "fullName": "datanode.api.v2.GetNetworkDataRequest",
+          "description": "-- Nodes --",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetNetworkDataResponse",
+          "longName": "GetNetworkDataResponse",
+          "fullName": "datanode.api.v2.GetNetworkDataResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node_data",
+              "description": "",
+              "label": "",
+              "type": "NodeData",
+              "longType": "vega.NodeData",
+              "fullType": "vega.NodeData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "GetNetworkLimitsRequest",
           "longName": "GetNetworkLimitsRequest",
           "fullName": "datanode.api.v2.GetNetworkLimitsRequest",
@@ -36095,6 +36178,54 @@
               "type": "NetworkLimits",
               "longType": "vega.NetworkLimits",
               "fullType": "vega.NetworkLimits",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetNodeRequest",
+          "longName": "GetNodeRequest",
+          "fullName": "datanode.api.v2.GetNodeRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetNodeResponse",
+          "longName": "GetNodeResponse",
+          "fullName": "datanode.api.v2.GetNodeResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node",
+              "description": "",
+              "label": "",
+              "type": "Node",
+              "longType": "vega.Node",
+              "fullType": "vega.Node",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -36466,7 +36597,7 @@
           "name": "InfoRequest",
           "longName": "InfoRequest",
           "fullName": "datanode.api.v2.InfoRequest",
-          "description": "",
+          "description": "-- Info --\nnode info",
           "hasExtensions": false,
           "hasFields": false,
           "hasOneofs": false,
@@ -37365,6 +37496,66 @@
               "type": "MarketConnection",
               "longType": "MarketConnection",
               "fullType": "datanode.api.v2.MarketConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListNodesRequest",
+          "longName": "ListNodesRequest",
+          "fullName": "datanode.api.v2.ListNodesRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "epoch_seq",
+              "description": "",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_epoch_seq",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListNodesResponse",
+          "longName": "ListNodesResponse",
+          "fullName": "datanode.api.v2.ListNodesResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "nodes",
+              "description": "",
+              "label": "",
+              "type": "NodesConnection",
+              "longType": "NodesConnection",
+              "fullType": "datanode.api.v2.NodesConnection",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -38409,6 +38600,78 @@
               "type": "MarketData",
               "longType": "vega.MarketData",
               "fullType": "vega.MarketData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NodeEdge",
+          "longName": "NodeEdge",
+          "fullName": "datanode.api.v2.NodeEdge",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node",
+              "description": "",
+              "label": "",
+              "type": "Node",
+              "longType": "vega.Node",
+              "fullType": "vega.Node",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cursor",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NodesConnection",
+          "longName": "NodesConnection",
+          "fullName": "datanode.api.v2.NodesConnection",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "edges",
+              "description": "",
+              "label": "repeated",
+              "type": "NodeEdge",
+              "longType": "NodeEdge",
+              "fullType": "datanode.api.v2.NodeEdge",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_info",
+              "description": "",
+              "label": "",
+              "type": "PageInfo",
+              "longType": "PageInfo",
+              "fullType": "datanode.api.v2.PageInfo",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -40258,6 +40521,54 @@
               "responseType": "ListDelegationsResponse",
               "responseLongType": "ListDelegationsResponse",
               "responseFullType": "datanode.api.v2.ListDelegationsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetNetworkData",
+              "description": "-- Nodes --\nGet data regarding the nodes of the network",
+              "requestType": "GetNetworkDataRequest",
+              "requestLongType": "GetNetworkDataRequest",
+              "requestFullType": "datanode.api.v2.GetNetworkDataRequest",
+              "requestStreaming": false,
+              "responseType": "GetNetworkDataResponse",
+              "responseLongType": "GetNetworkDataResponse",
+              "responseFullType": "datanode.api.v2.GetNetworkDataResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetNode",
+              "description": "Get information about a given node",
+              "requestType": "GetNodeRequest",
+              "requestLongType": "GetNodeRequest",
+              "requestFullType": "datanode.api.v2.GetNodeRequest",
+              "requestStreaming": false,
+              "responseType": "GetNodeResponse",
+              "responseLongType": "GetNodeResponse",
+              "responseFullType": "datanode.api.v2.GetNodeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListNodes",
+              "description": "List information about the nodes on the network",
+              "requestType": "ListNodesRequest",
+              "requestLongType": "ListNodesRequest",
+              "requestFullType": "datanode.api.v2.ListNodesRequest",
+              "requestStreaming": false,
+              "responseType": "ListNodesResponse",
+              "responseLongType": "ListNodesResponse",
+              "responseFullType": "datanode.api.v2.ListNodesResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetEpoch",
+              "description": "-- Epochs --\nGet data for a specific epoch, if id omitted it gets the current epoch",
+              "requestType": "GetEpochRequest",
+              "requestLongType": "GetEpochRequest",
+              "requestFullType": "datanode.api.v2.GetEpochRequest",
+              "requestStreaming": false,
+              "responseType": "GetEpochResponse",
+              "responseLongType": "GetEpochResponse",
+              "responseFullType": "datanode.api.v2.GetEpochResponse",
               "responseStreaming": false
             }
           ]

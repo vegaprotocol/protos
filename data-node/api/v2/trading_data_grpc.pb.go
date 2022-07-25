@@ -127,6 +127,16 @@ type TradingDataServiceClient interface {
 	// -- Delegation --
 	// List delegations
 	ListDelegations(ctx context.Context, in *ListDelegationsRequest, opts ...grpc.CallOption) (*ListDelegationsResponse, error)
+	// -- Nodes --
+	// Get data regarding the nodes of the network
+	GetNetworkData(ctx context.Context, in *GetNetworkDataRequest, opts ...grpc.CallOption) (*GetNetworkDataResponse, error)
+	// Get information about a given node
+	GetNode(ctx context.Context, in *GetNodeRequest, opts ...grpc.CallOption) (*GetNodeResponse, error)
+	// List information about the nodes on the network
+	ListNodes(ctx context.Context, in *ListNodesRequest, opts ...grpc.CallOption) (*ListNodesResponse, error)
+	// -- Epochs --
+	// Get data for a specific epoch, if id omitted it gets the current epoch
+	GetEpoch(ctx context.Context, in *GetEpochRequest, opts ...grpc.CallOption) (*GetEpochResponse, error)
 }
 
 type tradingDataServiceClient struct {
@@ -726,6 +736,42 @@ func (c *tradingDataServiceClient) ListDelegations(ctx context.Context, in *List
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetNetworkData(ctx context.Context, in *GetNetworkDataRequest, opts ...grpc.CallOption) (*GetNetworkDataResponse, error) {
+	out := new(GetNetworkDataResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetNetworkData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetNode(ctx context.Context, in *GetNodeRequest, opts ...grpc.CallOption) (*GetNodeResponse, error) {
+	out := new(GetNodeResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetNode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) ListNodes(ctx context.Context, in *ListNodesRequest, opts ...grpc.CallOption) (*ListNodesResponse, error) {
+	out := new(ListNodesResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListNodes", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tradingDataServiceClient) GetEpoch(ctx context.Context, in *GetEpochRequest, opts ...grpc.CallOption) (*GetEpochResponse, error) {
+	out := new(GetEpochResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetEpoch", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TradingDataServiceServer is the server API for TradingDataService service.
 // All implementations must embed UnimplementedTradingDataServiceServer
 // for forward compatibility
@@ -835,6 +881,16 @@ type TradingDataServiceServer interface {
 	// -- Delegation --
 	// List delegations
 	ListDelegations(context.Context, *ListDelegationsRequest) (*ListDelegationsResponse, error)
+	// -- Nodes --
+	// Get data regarding the nodes of the network
+	GetNetworkData(context.Context, *GetNetworkDataRequest) (*GetNetworkDataResponse, error)
+	// Get information about a given node
+	GetNode(context.Context, *GetNodeRequest) (*GetNodeResponse, error)
+	// List information about the nodes on the network
+	ListNodes(context.Context, *ListNodesRequest) (*ListNodesResponse, error)
+	// -- Epochs --
+	// Get data for a specific epoch, if id omitted it gets the current epoch
+	GetEpoch(context.Context, *GetEpochRequest) (*GetEpochResponse, error)
 	mustEmbedUnimplementedTradingDataServiceServer()
 }
 
@@ -976,6 +1032,18 @@ func (UnimplementedTradingDataServiceServer) ListGovernanceData(context.Context,
 }
 func (UnimplementedTradingDataServiceServer) ListDelegations(context.Context, *ListDelegationsRequest) (*ListDelegationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDelegations not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetNetworkData(context.Context, *GetNetworkDataRequest) (*GetNetworkDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkData not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetNode(context.Context, *GetNodeRequest) (*GetNodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNode not implemented")
+}
+func (UnimplementedTradingDataServiceServer) ListNodes(context.Context, *ListNodesRequest) (*ListNodesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListNodes not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetEpoch(context.Context, *GetEpochRequest) (*GetEpochResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEpoch not implemented")
 }
 func (UnimplementedTradingDataServiceServer) mustEmbedUnimplementedTradingDataServiceServer() {}
 
@@ -1824,6 +1892,78 @@ func _TradingDataService_ListDelegations_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetNetworkData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNetworkDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetNetworkData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetNetworkData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetNetworkData(ctx, req.(*GetNetworkDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetNode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetNode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetNode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetNode(ctx, req.(*GetNodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_ListNodes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListNodesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).ListNodes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/ListNodes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).ListNodes(ctx, req.(*ListNodesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TradingDataService_GetEpoch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEpochRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetEpoch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetEpoch",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetEpoch(ctx, req.(*GetEpochRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TradingDataService_ServiceDesc is the grpc.ServiceDesc for TradingDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1978,6 +2118,22 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListDelegations",
 			Handler:    _TradingDataService_ListDelegations_Handler,
+		},
+		{
+			MethodName: "GetNetworkData",
+			Handler:    _TradingDataService_GetNetworkData_Handler,
+		},
+		{
+			MethodName: "GetNode",
+			Handler:    _TradingDataService_GetNode_Handler,
+		},
+		{
+			MethodName: "ListNodes",
+			Handler:    _TradingDataService_ListNodes_Handler,
+		},
+		{
+			MethodName: "GetEpoch",
+			Handler:    _TradingDataService_GetEpoch_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

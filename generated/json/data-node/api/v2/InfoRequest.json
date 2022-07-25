@@ -5,7 +5,8 @@
         "InfoRequest": {
             "additionalProperties": true,
             "type": "object",
-            "title": "Info Request"
+            "title": "Info Request",
+            "description": "-- Info -- node info"
         }
     }
 }

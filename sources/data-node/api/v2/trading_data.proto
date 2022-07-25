@@ -153,6 +153,18 @@ service TradingDataService {
     // -- Delegation --
     // List delegations
     rpc ListDelegations(ListDelegationsRequest) returns (ListDelegationsResponse);
+
+    // -- Nodes --
+    // Get data regarding the nodes of the network
+    rpc GetNetworkData(GetNetworkDataRequest) returns (GetNetworkDataResponse);
+    // Get information about a given node
+    rpc GetNode(GetNodeRequest) returns (GetNodeResponse);
+    // List information about the nodes on the network
+    rpc ListNodes(ListNodesRequest) returns (ListNodesResponse);
+
+    // -- Epochs --
+    // Get data for a specific epoch, if id omitted it gets the current epoch
+    rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
 }
 
 // -- Pagination --
@@ -226,9 +238,19 @@ message ObserveAccountsRequest {
     vega.AccountType type = 4;
 }
 
-
 message ObserveAccountsResponse {
     vega.Account account = 1;
+}
+
+// -- Info --
+// node info
+message InfoRequest {}
+
+message InfoResponse {
+    // A semver formatted version of the data node
+    string version = 1;
+    // The commit hash from which the data-node was built
+    string commit_hash = 2;
 }
 
 // -- Orders --
@@ -1110,11 +1132,46 @@ message DelegationsConnection {
     PageInfo page_info = 2;
 }
 
-message InfoRequest {}
 
-message InfoResponse {
-    // A semver formatted version of the data node
-    string version = 1;
-    // The commit hash from which the data-node was built
-    string commit_hash = 2;
+// -- Nodes --
+message GetNetworkDataRequest {}
+
+message GetNetworkDataResponse {
+    vega.NodeData node_data = 1;
+}
+
+message GetNodeRequest {
+    string id = 1;
+}
+
+message GetNodeResponse {
+    vega.Node node = 1;
+}
+
+message ListNodesRequest {
+    optional uint64 epoch_seq = 1;
+    optional Pagination pagination = 2;
+}
+
+message ListNodesResponse {
+    NodesConnection nodes = 1;
+}
+
+message NodeEdge {
+    vega.Node node = 1;
+    string cursor = 2;
+}
+
+message NodesConnection {
+    repeated NodeEdge edges = 1;
+    PageInfo page_info = 2;
+}
+
+// -- Epochs --
+message GetEpochRequest {
+   optional uint64 id = 1;
+}
+
+message GetEpochResponse {
+    vega.Epoch epoch = 1;
 }
