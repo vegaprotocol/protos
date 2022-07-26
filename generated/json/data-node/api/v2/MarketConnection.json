@@ -579,10 +579,6 @@
                     "$ref": "#/definitions/vega.PriceMonitoringParameters",
                     "additionalProperties": true,
                     "description": "Specifies price monitoring parameters to be used for price monitoring purposes"
-                },
-                "update_frequency": {
-                    "type": "string",
-                    "description": "Specifies how often (expressed in seconds) the price monitoring bounds should be updated"
                 }
             },
             "additionalProperties": true,
