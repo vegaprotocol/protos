@@ -35796,6 +35796,114 @@
           ]
         },
         {
+          "name": "GetERC20SetAssetLimitsBundleRequest",
+          "longName": "GetERC20SetAssetLimitsBundleRequest",
+          "fullName": "datanode.api.v2.GetERC20SetAssetLimitsBundleRequest",
+          "description": "A request to get an asset bundle details",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "proposal_id",
+              "description": "The ID of the proposal to update an asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetERC20SetAssetLimitsBundleResponse",
+          "longName": "GetERC20SetAssetLimitsBundleResponse",
+          "fullName": "datanode.api.v2.GetERC20SetAssetLimitsBundleResponse",
+          "description": "The response with all information required to bundle the call to propose an erc20 asset",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset_source",
+              "description": "The address of the asset on ethereum",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "vega_asset_id",
+              "description": "The ID of the vega asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "nonce",
+              "description": "The nonce, which is actually the internal reference for the proposal",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lifetime_limit",
+              "description": "The lifetime limit deposit for this asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "threshold",
+              "description": "The threshold withdraw for this asset",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "signatures",
+              "description": "The signatures bundle as hex encoded data, forward by 0x\ne.g: 0x + sig1 + sig2 + ... + sixN",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "GetEpochRequest",
           "longName": "GetEpochRequest",
           "fullName": "datanode.api.v2.GetEpochRequest",
@@ -40276,6 +40384,18 @@
               "responseType": "GetERC20ListAssetBundleResponse",
               "responseLongType": "GetERC20ListAssetBundleResponse",
               "responseFullType": "datanode.api.v2.GetERC20ListAssetBundleResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetERC20SetAssetLimitsBundle",
+              "description": "Gets the signature bundles that remove a particular validator to the multisig contract",
+              "requestType": "GetERC20SetAssetLimitsBundleRequest",
+              "requestLongType": "GetERC20SetAssetLimitsBundleRequest",
+              "requestFullType": "datanode.api.v2.GetERC20SetAssetLimitsBundleRequest",
+              "requestStreaming": false,
+              "responseType": "GetERC20SetAssetLimitsBundleResponse",
+              "responseLongType": "GetERC20SetAssetLimitsBundleResponse",
+              "responseFullType": "datanode.api.v2.GetERC20SetAssetLimitsBundleResponse",
               "responseStreaming": false
             },
             {

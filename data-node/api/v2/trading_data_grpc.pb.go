@@ -82,6 +82,8 @@ type TradingDataServiceClient interface {
 	GetERC20MultiSigSignerRemovedBundles(ctx context.Context, in *GetERC20MultiSigSignerRemovedBundlesRequest, opts ...grpc.CallOption) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20ListAssetBundle(ctx context.Context, in *GetERC20ListAssetBundleRequest, opts ...grpc.CallOption) (*GetERC20ListAssetBundleResponse, error)
+	// Gets the signature bundles that remove a particular validator to the multisig contract
+	GetERC20SetAssetLimitsBundle(ctx context.Context, in *GetERC20SetAssetLimitsBundleRequest, opts ...grpc.CallOption) (*GetERC20SetAssetLimitsBundleResponse, error)
 	// -- Trades --
 	// Get a list of all trades, optionally filtered by party/market/order using a cursor based pagination model
 	ListTrades(ctx context.Context, in *ListTradesRequest, opts ...grpc.CallOption) (*ListTradesResponse, error)
@@ -542,6 +544,15 @@ func (c *tradingDataServiceClient) GetERC20ListAssetBundle(ctx context.Context, 
 	return out, nil
 }
 
+func (c *tradingDataServiceClient) GetERC20SetAssetLimitsBundle(ctx context.Context, in *GetERC20SetAssetLimitsBundleRequest, opts ...grpc.CallOption) (*GetERC20SetAssetLimitsBundleResponse, error) {
+	out := new(GetERC20SetAssetLimitsBundleResponse)
+	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/GetERC20SetAssetLimitsBundle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tradingDataServiceClient) ListTrades(ctx context.Context, in *ListTradesRequest, opts ...grpc.CallOption) (*ListTradesResponse, error) {
 	out := new(ListTradesResponse)
 	err := c.cc.Invoke(ctx, "/datanode.api.v2.TradingDataService/ListTrades", in, out, opts...)
@@ -836,6 +847,8 @@ type TradingDataServiceServer interface {
 	GetERC20MultiSigSignerRemovedBundles(context.Context, *GetERC20MultiSigSignerRemovedBundlesRequest) (*GetERC20MultiSigSignerRemovedBundlesResponse, error)
 	// Gets the signature bundles that remove a particular validator to the multisig contract
 	GetERC20ListAssetBundle(context.Context, *GetERC20ListAssetBundleRequest) (*GetERC20ListAssetBundleResponse, error)
+	// Gets the signature bundles that remove a particular validator to the multisig contract
+	GetERC20SetAssetLimitsBundle(context.Context, *GetERC20SetAssetLimitsBundleRequest) (*GetERC20SetAssetLimitsBundleResponse, error)
 	// -- Trades --
 	// Get a list of all trades, optionally filtered by party/market/order using a cursor based pagination model
 	ListTrades(context.Context, *ListTradesRequest) (*ListTradesResponse, error)
@@ -975,6 +988,9 @@ func (UnimplementedTradingDataServiceServer) GetERC20MultiSigSignerRemovedBundle
 }
 func (UnimplementedTradingDataServiceServer) GetERC20ListAssetBundle(context.Context, *GetERC20ListAssetBundleRequest) (*GetERC20ListAssetBundleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetERC20ListAssetBundle not implemented")
+}
+func (UnimplementedTradingDataServiceServer) GetERC20SetAssetLimitsBundle(context.Context, *GetERC20SetAssetLimitsBundleRequest) (*GetERC20SetAssetLimitsBundleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetERC20SetAssetLimitsBundle not implemented")
 }
 func (UnimplementedTradingDataServiceServer) ListTrades(context.Context, *ListTradesRequest) (*ListTradesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTrades not implemented")
@@ -1547,6 +1563,24 @@ func _TradingDataService_GetERC20ListAssetBundle_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TradingDataService_GetERC20SetAssetLimitsBundle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetERC20SetAssetLimitsBundleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TradingDataServiceServer).GetERC20SetAssetLimitsBundle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/datanode.api.v2.TradingDataService/GetERC20SetAssetLimitsBundle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TradingDataServiceServer).GetERC20SetAssetLimitsBundle(ctx, req.(*GetERC20SetAssetLimitsBundleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TradingDataService_ListTrades_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListTradesRequest)
 	if err := dec(in); err != nil {
@@ -2046,6 +2080,10 @@ var TradingDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetERC20ListAssetBundle",
 			Handler:    _TradingDataService_GetERC20ListAssetBundle_Handler,
+		},
+		{
+			MethodName: "GetERC20SetAssetLimitsBundle",
+			Handler:    _TradingDataService_GetERC20SetAssetLimitsBundle_Handler,
 		},
 		{
 			MethodName: "ListTrades",
