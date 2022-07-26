@@ -3,7 +3,7 @@
 ## Unreleased (0.54.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/issues/) -
+- [519](https://github.com/vegaprotocol/protos/issues/519) - Get rid of unused price monitoring `updateFrequency`
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/issues/) -

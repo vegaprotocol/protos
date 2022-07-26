@@ -181,8 +181,6 @@ message PriceMonitoringParameters {
 message PriceMonitoringSettings {
   // Specifies price monitoring parameters to be used for price monitoring purposes
   PriceMonitoringParameters parameters = 1;
-  // Specifies how often (expressed in seconds) the price monitoring bounds should be updated
-  int64 update_frequency = 2;
 }
 
 // LiquidityMonitoringParameters contains settings used for liquidity monitoring

@@ -3925,11 +3925,6 @@
         "parameters": {
           "$ref": "#/definitions/vegaPriceMonitoringParameters",
           "title": "Specifies price monitoring parameters to be used for price monitoring purposes"
-        },
-        "updateFrequency": {
-          "type": "string",
-          "format": "int64",
-          "title": "Specifies how often (expressed in seconds) the price monitoring bounds should be updated"
         }
       },
       "title": "PriceMonitoringSettings contains the settings for price monitoring"
