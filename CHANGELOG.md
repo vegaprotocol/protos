@@ -21,6 +21,7 @@
 ### 🐛 Fixes
 - [499](https://github.com/vegaprotocol/protos/issues/499) - Add validation on vega `IDs` and public keys
 - [506](https://github.com/vegaprotocol/protos/issues/506) - Fix validation error message
+- [208](https://github.com/vegaprotocol/protos/issues/208) - Remove `ACCOUNT_TYPE_LOCK_WITHDRAW` account type
 
 
 

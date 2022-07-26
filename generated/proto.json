@@ -3985,11 +3985,6 @@
               "description": "This account is created to hold fees earned by placing orders that sit on the book\nand are then matched with an incoming order to create a trade - These fees reward parties\nwho provide the best priced liquidity that actually allows trading to take place"
             },
             {
-              "name": "ACCOUNT_TYPE_LOCK_WITHDRAW",
-              "number": "8",
-              "description": "This account is created to lock funds to be withdrawn by parties"
-            },
-            {
               "name": "ACCOUNT_TYPE_BOND",
               "number": "9",
               "description": "This account is created to maintain liquidity providers funds commitments"
