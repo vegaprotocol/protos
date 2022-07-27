@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Checkpoint",
+    "definitions": {
+        "Checkpoint": {
+            "properties": {
+                "hash": {
+                    "type": "string"
+                },
+                "block_hash": {
+                    "type": "string"
+                },
+                "at_block": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Checkpoint",
+            "description": "-- Checkpoints -- The actual data regarding a checkpoint"
+        }
+    }
+}

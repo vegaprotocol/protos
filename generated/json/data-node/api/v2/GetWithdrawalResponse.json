@@ -1,69 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/ListWithdrawalsResponse",
+    "$ref": "#/definitions/GetWithdrawalResponse",
     "definitions": {
-        "ListWithdrawalsResponse": {
+        "GetWithdrawalResponse": {
             "properties": {
-                "withdrawals": {
-                    "$ref": "#/definitions/datanode.api.v2.WithdrawalsConnection",
-                    "additionalProperties": true
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "List Withdrawals Response",
-            "description": "A paged connection with the requested withdrawal information"
-        },
-        "datanode.api.v2.PageInfo": {
-            "properties": {
-                "has_next_page": {
-                    "type": "boolean"
-                },
-                "has_previous_page": {
-                    "type": "boolean"
-                },
-                "start_cursor": {
-                    "type": "string"
-                },
-                "end_cursor": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Page Info",
-            "description": "Page information for cursor based pagination"
-        },
-        "datanode.api.v2.WithdrawalEdge": {
-            "properties": {
-                "node": {
+                "withdrawal": {
                     "$ref": "#/definitions/vega.Withdrawal",
-                    "additionalProperties": true
-                },
-                "cursor": {
-                    "type": "string"
+                    "additionalProperties": true,
+                    "description": "The withdrawal matching the identifier from the request"
                 }
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Withdrawal Edge"
-        },
-        "datanode.api.v2.WithdrawalsConnection": {
-            "properties": {
-                "edges": {
-                    "items": {
-                        "$ref": "#/definitions/datanode.api.v2.WithdrawalEdge"
-                    },
-                    "type": "array"
-                },
-                "page_info": {
-                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
-                    "additionalProperties": true
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Withdrawals Connection"
+            "title": "Get Withdrawal Response",
+            "description": "A response for a withdrawal request"
         },
         "vega.Erc20WithdrawExt": {
             "properties": {

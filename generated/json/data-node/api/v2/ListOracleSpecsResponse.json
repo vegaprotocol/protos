@@ -5,10 +5,8 @@
         "ListOracleSpecsResponse": {
             "properties": {
                 "oracle_specs": {
-                    "items": {
-                        "$ref": "#/definitions/oracles.v1.OracleSpec"
-                    },
-                    "type": "array",
+                    "$ref": "#/definitions/datanode.api.v2.OracleSpecsConnection",
+                    "additionalProperties": true,
                     "description": "The list of active oracle specs"
                 }
             },
@@ -16,6 +14,57 @@
             "type": "object",
             "title": "List Oracle Specs Response",
             "description": "The response to get all active oracle specs"
+        },
+        "datanode.api.v2.OracleSpecEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/oracles.v1.OracleSpec",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Spec Edge"
+        },
+        "datanode.api.v2.OracleSpecsConnection": {
+            "properties": {
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.OracleSpecEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Oracle Specs Connection"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
         },
         "oracles.v1.Condition": {
             "properties": {

@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOracleSpecByIDResponse",
+    "$ref": "#/definitions/GetOracleSpecResponse",
     "definitions": {
-        "GetOracleSpecByIDResponse": {
+        "GetOracleSpecResponse": {
             "properties": {
                 "oracle_spec": {
                     "$ref": "#/definitions/oracles.v1.OracleSpec",
@@ -12,7 +12,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Oracle Spec By ID Response",
+            "title": "Get Oracle Spec Response",
             "description": "The response for a oracle spec"
         },
         "oracles.v1.Condition": {

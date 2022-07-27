@@ -4,6 +4,9 @@
     "definitions": {
         "ListOracleDataRequest": {
             "properties": {
+                "oracle_spec_id": {
+                    "type": "string"
+                },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true,

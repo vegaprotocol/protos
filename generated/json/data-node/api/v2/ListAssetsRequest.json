@@ -14,8 +14,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "List Assets Request",
-            "description": "-- Assets --"
+            "title": "List Assets Request"
         },
         "datanode.api.v2.Pagination": {
             "properties": {
