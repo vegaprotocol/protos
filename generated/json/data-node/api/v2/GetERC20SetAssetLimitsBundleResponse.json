@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetERC20SetAssetLimitsBundleResponse",
+    "definitions": {
+        "GetERC20SetAssetLimitsBundleResponse": {
+            "properties": {
+                "asset_source": {
+                    "type": "string",
+                    "description": "The address of the asset on ethereum"
+                },
+                "vega_asset_id": {
+                    "type": "string",
+                    "description": "The ID of the vega asset"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce, which is actually the internal reference for the proposal"
+                },
+                "lifetime_limit": {
+                    "type": "string",
+                    "description": "The lifetime limit deposit for this asset"
+                },
+                "threshold": {
+                    "type": "string",
+                    "description": "The threshold withdraw for this asset"
+                },
+                "signatures": {
+                    "type": "string",
+                    "description": "The signatures bundle as hex encoded data, forward by 0x e.g: 0x + sig1 + sig2 + ... + sixN"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get ERC 20 Set Asset Limits Bundle Response",
+            "description": "The response with all information required to bundle the call to propose an erc20 asset"
+        }
+    }
+}
