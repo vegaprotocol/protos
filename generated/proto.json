@@ -35184,6 +35184,126 @@
           ]
         },
         {
+          "name": "Checkpoint",
+          "longName": "Checkpoint",
+          "fullName": "datanode.api.v2.Checkpoint",
+          "description": "-- Checkpoints --\nThe actual data regarding a checkpoint",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "hash",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "block_hash",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "at_block",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CheckpointEdge",
+          "longName": "CheckpointEdge",
+          "fullName": "datanode.api.v2.CheckpointEdge",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node",
+              "description": "",
+              "label": "",
+              "type": "Checkpoint",
+              "longType": "Checkpoint",
+              "fullType": "datanode.api.v2.Checkpoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cursor",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CheckpointsConnection",
+          "longName": "CheckpointsConnection",
+          "fullName": "datanode.api.v2.CheckpointsConnection",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "edges",
+              "description": "",
+              "label": "repeated",
+              "type": "CheckpointEdge",
+              "longType": "CheckpointEdge",
+              "fullType": "datanode.api.v2.CheckpointEdge",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_info",
+              "description": "",
+              "label": "",
+              "type": "PageInfo",
+              "longType": "PageInfo",
+              "fullType": "datanode.api.v2.PageInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "DelegationEdge",
           "longName": "DelegationEdge",
           "fullName": "datanode.api.v2.DelegationEdge",
@@ -35496,6 +35616,150 @@
           ]
         },
         {
+          "name": "EstimateFeeRequest",
+          "longName": "EstimateFeeRequest",
+          "fullName": "datanode.api.v2.EstimateFeeRequest",
+          "description": "-- Estimates --\nRequest to fetch the estimated fee if an order were to trade immediately",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "order",
+              "description": "Order to estimate fees for\nthe following fields in the order are required:\nMarketID (used to specify the fee factors)\nPrice (the price at which the order could trade)\nSize (the size at which the order could eventually trade)",
+              "label": "",
+              "type": "Order",
+              "longType": "vega.Order",
+              "fullType": "vega.Order",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EstimateFeeResponse",
+          "longName": "EstimateFeeResponse",
+          "fullName": "datanode.api.v2.EstimateFeeResponse",
+          "description": "Response to a EstimateFeeRequest, containing the estimated fees for a given order",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "fee",
+              "description": "Summary of the estimated fees for this order if it were to trade now",
+              "label": "",
+              "type": "Fee",
+              "longType": "vega.Fee",
+              "fullType": "vega.Fee",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EstimateMarginRequest",
+          "longName": "EstimateMarginRequest",
+          "fullName": "datanode.api.v2.EstimateMarginRequest",
+          "description": "Request to fetch the estimated MarginLevels if an order were to trade immediately",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "order",
+              "description": "Order to estimate fees for",
+              "label": "",
+              "type": "Order",
+              "longType": "vega.Order",
+              "fullType": "vega.Order",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EstimateMarginResponse",
+          "longName": "EstimateMarginResponse",
+          "fullName": "datanode.api.v2.EstimateMarginResponse",
+          "description": "Response to a EstimateMarginRequest, containing the estimated marginLevels for a given order",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "margin_levels",
+              "description": "Summary of the estimated margins for this order if it were to trade now",
+              "label": "",
+              "type": "MarginLevels",
+              "longType": "vega.MarginLevels",
+              "fullType": "vega.MarginLevels",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetAssetRequest",
+          "longName": "GetAssetRequest",
+          "fullName": "datanode.api.v2.GetAssetRequest",
+          "description": "-- Assets --",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetAssetResponse",
+          "longName": "GetAssetResponse",
+          "fullName": "datanode.api.v2.GetAssetResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset",
+              "description": "",
+              "label": "",
+              "type": "Asset",
+              "longType": "vega.Asset",
+              "fullType": "vega.Asset",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "GetBalanceHistoryRequest",
           "longName": "GetBalanceHistoryRequest",
           "fullName": "datanode.api.v2.GetBalanceHistoryRequest",
@@ -35548,6 +35812,54 @@
               "type": "AggregatedBalance",
               "longType": "AggregatedBalance",
               "fullType": "datanode.api.v2.AggregatedBalance",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetDepositRequest",
+          "longName": "GetDepositRequest",
+          "fullName": "datanode.api.v2.GetDepositRequest",
+          "description": "-- Deposits --\nA request to get a specific deposit by identifier",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "The identifier of the deposit",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetDepositResponse",
+          "longName": "GetDepositResponse",
+          "fullName": "datanode.api.v2.GetDepositResponse",
+          "description": "A response for a deposit",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deposit",
+              "description": "The deposit matching the identifier from the request",
+              "label": "",
+              "type": "Deposit",
+              "longType": "vega.Deposit",
+              "fullType": "vega.Deposit",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -35896,6 +36208,126 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetERC20WithdrawalApprovalRequest",
+          "longName": "GetERC20WithdrawalApprovalRequest",
+          "fullName": "datanode.api.v2.GetERC20WithdrawalApprovalRequest",
+          "description": "The request to get all information required to bundle the call to finalise the withdrawal on the erc20 bridge",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "withdrawal_id",
+              "description": "The identifier of the withdrawal",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetERC20WithdrawalApprovalResponse",
+          "longName": "GetERC20WithdrawalApprovalResponse",
+          "fullName": "datanode.api.v2.GetERC20WithdrawalApprovalResponse",
+          "description": "The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge\nfunction withdraw_asset(address asset_source, uint256 asset_id, uint256 amount, uint256 expiry, uint256 nonce, bytes memory signatures)",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset_source",
+              "description": "The address of asset on ethereum",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "amount",
+              "description": "The amount to be withdrawn",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "expiry",
+              "description": "The expiry / until what time the request is valid",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "nonce",
+              "description": "The nonce, which is actually the internal reference for the withdrawal",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "signatures",
+              "description": "The signatures bundle as hex encoded data, forward by 0x\ne.g: 0x + sig1 + sig2 + ... + sixN",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "target_address",
+              "description": "The ethereum address to withdraw the funds to, 0x prefixed",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "creation",
+              "description": "The creation timestamps",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -36325,129 +36757,9 @@
           ]
         },
         {
-          "name": "GetOracleDataBySpecIDRequest",
-          "longName": "GetOracleDataBySpecIDRequest",
-          "fullName": "datanode.api.v2.GetOracleDataBySpecIDRequest",
-          "description": "The request to get all oracle data broadcast to a given oracle spec",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "oracle_spec_id",
-              "description": "The oracle spec ID the oracle data are broadcast to",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "Pagination controls",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetOracleDataBySpecIDResponse",
-          "longName": "GetOracleDataBySpecIDResponse",
-          "fullName": "datanode.api.v2.GetOracleDataBySpecIDResponse",
-          "description": "The response for a list of all oracle data broadcast to a given spec",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "oracle_data",
-              "description": "The list of oracle data broadcast to a given spec",
-              "label": "repeated",
-              "type": "OracleData",
-              "longType": "oracles.v1.OracleData",
-              "fullType": "oracles.v1.OracleData",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetOracleDataConnectionRequest",
-          "longName": "GetOracleDataConnectionRequest",
-          "fullName": "datanode.api.v2.GetOracleDataConnectionRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "spec_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetOracleDataConnectionResponse",
-          "longName": "GetOracleDataConnectionResponse",
-          "fullName": "datanode.api.v2.GetOracleDataConnectionResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "oracle_data",
-              "description": "",
-              "label": "",
-              "type": "OracleDataConnection",
-              "longType": "OracleDataConnection",
-              "fullType": "datanode.api.v2.OracleDataConnection",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetOracleSpecByIDRequest",
-          "longName": "GetOracleSpecByIDRequest",
-          "fullName": "datanode.api.v2.GetOracleSpecByIDRequest",
+          "name": "GetOracleSpecRequest",
+          "longName": "GetOracleSpecRequest",
+          "fullName": "datanode.api.v2.GetOracleSpecRequest",
           "description": "The request to get a specific oracle spec by identifier",
           "hasExtensions": false,
           "hasFields": true,
@@ -36469,9 +36781,9 @@
           ]
         },
         {
-          "name": "GetOracleSpecByIDResponse",
-          "longName": "GetOracleSpecByIDResponse",
-          "fullName": "datanode.api.v2.GetOracleSpecByIDResponse",
+          "name": "GetOracleSpecResponse",
+          "longName": "GetOracleSpecResponse",
+          "fullName": "datanode.api.v2.GetOracleSpecResponse",
           "description": "The response for a oracle spec",
           "hasExtensions": false,
           "hasFields": true,
@@ -36485,66 +36797,6 @@
               "type": "OracleSpec",
               "longType": "oracles.v1.OracleSpec",
               "fullType": "oracles.v1.OracleSpec",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetOracleSpecsConnectionRequest",
-          "longName": "GetOracleSpecsConnectionRequest",
-          "fullName": "datanode.api.v2.GetOracleSpecsConnectionRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "spec_id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "pagination",
-              "description": "",
-              "label": "",
-              "type": "Pagination",
-              "longType": "Pagination",
-              "fullType": "datanode.api.v2.Pagination",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "GetOracleSpecsConnectionResponse",
-          "longName": "GetOracleSpecsConnectionResponse",
-          "fullName": "datanode.api.v2.GetOracleSpecsConnectionResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "oracle_specs",
-              "description": "",
-              "label": "",
-              "type": "OracleSpecsConnection",
-              "longType": "OracleSpecsConnection",
-              "fullType": "datanode.api.v2.OracleSpecsConnection",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -36605,6 +36857,174 @@
               "type": "Order",
               "longType": "vega.Order",
               "fullType": "vega.Order",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetRiskFactorsRequest",
+          "longName": "GetRiskFactorsRequest",
+          "fullName": "datanode.api.v2.GetRiskFactorsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetRiskFactorsResponse",
+          "longName": "GetRiskFactorsResponse",
+          "fullName": "datanode.api.v2.GetRiskFactorsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "risk_factor",
+              "description": "",
+              "label": "",
+              "type": "RiskFactor",
+              "longType": "vega.RiskFactor",
+              "fullType": "vega.RiskFactor",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetStakeRequest",
+          "longName": "GetStakeRequest",
+          "fullName": "datanode.api.v2.GetStakeRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetStakeResponse",
+          "longName": "GetStakeResponse",
+          "fullName": "datanode.api.v2.GetStakeResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "current_stake_available",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "stake_linkings",
+              "description": "",
+              "label": "",
+              "type": "StakesConnection",
+              "longType": "StakesConnection",
+              "fullType": "datanode.api.v2.StakesConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetWithdrawalRequest",
+          "longName": "GetWithdrawalRequest",
+          "fullName": "datanode.api.v2.GetWithdrawalRequest",
+          "description": "-- Withdrawals --\nA request to get a specific withdrawal by identifier",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "The identifier of the withdrawal",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetWithdrawalResponse",
+          "longName": "GetWithdrawalResponse",
+          "fullName": "datanode.api.v2.GetWithdrawalResponse",
+          "description": "A response for a withdrawal request",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "withdrawal",
+              "description": "The withdrawal matching the identifier from the request",
+              "label": "",
+              "type": "Withdrawal",
+              "longType": "vega.Withdrawal",
+              "fullType": "vega.Withdrawal",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -36903,34 +37323,34 @@
           "name": "ListAssetsRequest",
           "longName": "ListAssetsRequest",
           "fullName": "datanode.api.v2.ListAssetsRequest",
-          "description": "-- Assets --",
+          "description": "",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
               "name": "asset_id",
               "description": "",
-              "label": "",
+              "label": "optional",
               "type": "string",
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_asset_id",
               "defaultValue": ""
             },
             {
               "name": "pagination",
               "description": "",
-              "label": "",
+              "label": "optional",
               "type": "Pagination",
               "longType": "Pagination",
               "fullType": "datanode.api.v2.Pagination",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_pagination",
               "defaultValue": ""
             }
           ]
@@ -37104,6 +37524,54 @@
           ]
         },
         {
+          "name": "ListCheckpointsRequest",
+          "longName": "ListCheckpointsRequest",
+          "fullName": "datanode.api.v2.ListCheckpointsRequest",
+          "description": "Request to get all checkpoints. Currently no fields, probably will be expanded to allow filtering data",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListCheckpointsResponse",
+          "longName": "ListCheckpointsResponse",
+          "fullName": "datanode.api.v2.ListCheckpointsResponse",
+          "description": "Response message containing all checkpoints requested",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "checkpoints",
+              "description": "",
+              "label": "",
+              "type": "CheckpointsConnection",
+              "longType": "CheckpointsConnection",
+              "fullType": "datanode.api.v2.CheckpointsConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ListDelegationsRequest",
           "longName": "ListDelegationsRequest",
           "fullName": "datanode.api.v2.ListDelegationsRequest",
@@ -37191,15 +37659,15 @@
           "name": "ListDepositsRequest",
           "longName": "ListDepositsRequest",
           "fullName": "datanode.api.v2.ListDepositsRequest",
-          "description": "-- Deposits --",
+          "description": "A request to list all deposits for a given party",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
               "name": "party_id",
-              "description": "",
+              "description": "The identifier of a party whose deposits are to be retrieved",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -37211,14 +37679,14 @@
             },
             {
               "name": "pagination",
-              "description": "",
-              "label": "",
+              "description": "Optional pagination control",
+              "label": "optional",
               "type": "Pagination",
               "longType": "Pagination",
               "fullType": "datanode.api.v2.Pagination",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_pagination",
               "defaultValue": ""
             }
           ]
@@ -37595,6 +38063,54 @@
           ]
         },
         {
+          "name": "ListNetworkParametersRequest",
+          "longName": "ListNetworkParametersRequest",
+          "fullName": "datanode.api.v2.ListNetworkParametersRequest",
+          "description": "A message requesting for the list of all network parameters",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pagination",
+              "description": "",
+              "label": "optional",
+              "type": "Pagination",
+              "longType": "Pagination",
+              "fullType": "datanode.api.v2.Pagination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_pagination",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListNetworkParametersResponse",
+          "longName": "ListNetworkParametersResponse",
+          "fullName": "datanode.api.v2.ListNetworkParametersResponse",
+          "description": "A response containing all of the vega network parameters",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "network_parameters",
+              "description": "",
+              "label": "",
+              "type": "NetworkParameterConnection",
+              "longType": "NetworkParameterConnection",
+              "fullType": "datanode.api.v2.NetworkParameterConnection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ListNodesRequest",
           "longName": "ListNodesRequest",
           "fullName": "datanode.api.v2.ListNodesRequest",
@@ -37661,19 +38177,31 @@
           "description": "The request to get all seen oracle data",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
+              "name": "oracle_spec_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_oracle_spec_id",
+              "defaultValue": ""
+            },
+            {
               "name": "pagination",
               "description": "Pagination controls",
-              "label": "",
+              "label": "optional",
               "type": "Pagination",
               "longType": "Pagination",
               "fullType": "datanode.api.v2.Pagination",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_pagination",
               "defaultValue": ""
             }
           ]
@@ -37691,10 +38219,10 @@
             {
               "name": "oracle_data",
               "description": "The list of seen oracle data",
-              "label": "repeated",
-              "type": "OracleData",
-              "longType": "oracles.v1.OracleData",
-              "fullType": "oracles.v1.OracleData",
+              "label": "",
+              "type": "OracleDataConnection",
+              "longType": "OracleDataConnection",
+              "fullType": "datanode.api.v2.OracleDataConnection",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -37709,19 +38237,19 @@
           "description": "The request to get all active oracle specs",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
               "name": "pagination",
               "description": "Pagination controls",
-              "label": "",
+              "label": "optional",
               "type": "Pagination",
               "longType": "Pagination",
               "fullType": "datanode.api.v2.Pagination",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_pagination",
               "defaultValue": ""
             }
           ]
@@ -37739,10 +38267,10 @@
             {
               "name": "oracle_specs",
               "description": "The list of active oracle specs",
-              "label": "repeated",
-              "type": "OracleSpec",
-              "longType": "oracles.v1.OracleSpec",
-              "fullType": "oracles.v1.OracleSpec",
+              "label": "",
+              "type": "OracleSpecsConnection",
+              "longType": "OracleSpecsConnection",
+              "fullType": "datanode.api.v2.OracleSpecsConnection",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -38378,15 +38906,15 @@
           "name": "ListWithdrawalsRequest",
           "longName": "ListWithdrawalsRequest",
           "fullName": "datanode.api.v2.ListWithdrawalsRequest",
-          "description": "-- Withdrawals --",
+          "description": "List all withdrawals for a given party",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
               "name": "party_id",
-              "description": "",
+              "description": "The identifier for the party whose withdrawals we want to retrieve",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -38398,14 +38926,14 @@
             },
             {
               "name": "pagination",
-              "description": "",
-              "label": "",
+              "description": "Optional pagination information to limit the data that is returned",
+              "label": "optional",
               "type": "Pagination",
               "longType": "Pagination",
               "fullType": "datanode.api.v2.Pagination",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_pagination",
               "defaultValue": ""
             }
           ]
@@ -38414,7 +38942,7 @@
           "name": "ListWithdrawalsResponse",
           "longName": "ListWithdrawalsResponse",
           "fullName": "datanode.api.v2.ListWithdrawalsResponse",
-          "description": "",
+          "description": "A paged connection with the requested withdrawal information",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -38691,6 +39219,78 @@
               "type": "MarketData",
               "longType": "vega.MarketData",
               "fullType": "vega.MarketData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NetworkParameterConnection",
+          "longName": "NetworkParameterConnection",
+          "fullName": "datanode.api.v2.NetworkParameterConnection",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "edges",
+              "description": "",
+              "label": "repeated",
+              "type": "NetworkParameterEdge",
+              "longType": "NetworkParameterEdge",
+              "fullType": "datanode.api.v2.NetworkParameterEdge",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_info",
+              "description": "",
+              "label": "",
+              "type": "PageInfo",
+              "longType": "PageInfo",
+              "fullType": "datanode.api.v2.PageInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NetworkParameterEdge",
+          "longName": "NetworkParameterEdge",
+          "fullName": "datanode.api.v2.NetworkParameterEdge",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node",
+              "description": "",
+              "label": "",
+              "type": "NetworkParameter",
+              "longType": "vega.NetworkParameter",
+              "fullType": "vega.NetworkParameter",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cursor",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -39779,6 +40379,78 @@
           ]
         },
         {
+          "name": "StakeLinkingEdge",
+          "longName": "StakeLinkingEdge",
+          "fullName": "datanode.api.v2.StakeLinkingEdge",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node",
+              "description": "",
+              "label": "",
+              "type": "StakeLinking",
+              "longType": "vega.events.v1.StakeLinking",
+              "fullType": "vega.events.v1.StakeLinking",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cursor",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StakesConnection",
+          "longName": "StakesConnection",
+          "fullName": "datanode.api.v2.StakesConnection",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "edges",
+              "description": "",
+              "label": "repeated",
+              "type": "StakeLinkingEdge",
+              "longType": "StakeLinkingEdge",
+              "fullType": "datanode.api.v2.StakeLinkingEdge",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_info",
+              "description": "",
+              "label": "",
+              "type": "PageInfo",
+              "longType": "PageInfo",
+              "fullType": "datanode.api.v2.PageInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "TradeConnection",
           "longName": "TradeConnection",
           "fullName": "datanode.api.v2.TradeConnection",
@@ -40255,18 +40927,6 @@
               "responseStreaming": false
             },
             {
-              "name": "MarketsDataSubscribe",
-              "description": "Subscribe to a stream of Markets Data",
-              "requestType": "MarketsDataSubscribeRequest",
-              "requestLongType": "MarketsDataSubscribeRequest",
-              "requestFullType": "datanode.api.v2.MarketsDataSubscribeRequest",
-              "requestStreaming": false,
-              "responseType": "MarketsDataSubscribeResponse",
-              "responseLongType": "MarketsDataSubscribeResponse",
-              "responseFullType": "datanode.api.v2.MarketsDataSubscribeResponse",
-              "responseStreaming": true
-            },
-            {
               "name": "ListTransfers",
               "description": "-- Transfers --\nList Transfers to/from/either a public key using a cursor based pagination model",
               "requestType": "ListTransfersRequest",
@@ -40399,6 +41059,18 @@
               "responseStreaming": false
             },
             {
+              "name": "GetERC20WithdrawalApproval",
+              "description": "",
+              "requestType": "GetERC20WithdrawalApprovalRequest",
+              "requestLongType": "GetERC20WithdrawalApprovalRequest",
+              "requestFullType": "datanode.api.v2.GetERC20WithdrawalApprovalRequest",
+              "requestStreaming": false,
+              "responseType": "GetERC20WithdrawalApprovalResponse",
+              "responseLongType": "GetERC20WithdrawalApprovalResponse",
+              "responseFullType": "datanode.api.v2.GetERC20WithdrawalApprovalResponse",
+              "responseStreaming": false
+            },
+            {
               "name": "ListTrades",
               "description": "-- Trades --\nGet a list of all trades, optionally filtered by party/market/order using a cursor based pagination model",
               "requestType": "ListTradesRequest",
@@ -40423,15 +41095,15 @@
               "responseStreaming": true
             },
             {
-              "name": "GetOracleSpecByID",
+              "name": "GetOracleSpec",
               "description": "-- Oracles --\nGet an oracle spec by ID.",
-              "requestType": "GetOracleSpecByIDRequest",
-              "requestLongType": "GetOracleSpecByIDRequest",
-              "requestFullType": "datanode.api.v2.GetOracleSpecByIDRequest",
+              "requestType": "GetOracleSpecRequest",
+              "requestLongType": "GetOracleSpecRequest",
+              "requestFullType": "datanode.api.v2.GetOracleSpecRequest",
               "requestStreaming": false,
-              "responseType": "GetOracleSpecByIDResponse",
-              "responseLongType": "GetOracleSpecByIDResponse",
-              "responseFullType": "datanode.api.v2.GetOracleSpecByIDResponse",
+              "responseType": "GetOracleSpecResponse",
+              "responseLongType": "GetOracleSpecResponse",
+              "responseFullType": "datanode.api.v2.GetOracleSpecResponse",
               "responseStreaming": false
             },
             {
@@ -40447,18 +41119,6 @@
               "responseStreaming": false
             },
             {
-              "name": "GetOracleDataBySpecID",
-              "description": "Get oracle data that matched the given spec",
-              "requestType": "GetOracleDataBySpecIDRequest",
-              "requestLongType": "GetOracleDataBySpecIDRequest",
-              "requestFullType": "datanode.api.v2.GetOracleDataBySpecIDRequest",
-              "requestStreaming": false,
-              "responseType": "GetOracleDataBySpecIDResponse",
-              "responseLongType": "GetOracleDataBySpecIDResponse",
-              "responseFullType": "datanode.api.v2.GetOracleDataBySpecIDResponse",
-              "responseStreaming": false
-            },
-            {
               "name": "ListOracleData",
               "description": "Get all oracle data",
               "requestType": "ListOracleDataRequest",
@@ -40468,30 +41128,6 @@
               "responseType": "ListOracleDataResponse",
               "responseLongType": "ListOracleDataResponse",
               "responseFullType": "datanode.api.v2.ListOracleDataResponse",
-              "responseStreaming": false
-            },
-            {
-              "name": "GetOracleSpecsConnection",
-              "description": "Get cursor based paginated oracle specs data",
-              "requestType": "GetOracleSpecsConnectionRequest",
-              "requestLongType": "GetOracleSpecsConnectionRequest",
-              "requestFullType": "datanode.api.v2.GetOracleSpecsConnectionRequest",
-              "requestStreaming": false,
-              "responseType": "GetOracleSpecsConnectionResponse",
-              "responseLongType": "GetOracleSpecsConnectionResponse",
-              "responseFullType": "datanode.api.v2.GetOracleSpecsConnectionResponse",
-              "responseStreaming": false
-            },
-            {
-              "name": "GetOracleDataConnection",
-              "description": "Get cursor based paginated oracle data",
-              "requestType": "GetOracleDataConnectionRequest",
-              "requestLongType": "GetOracleDataConnectionRequest",
-              "requestFullType": "datanode.api.v2.GetOracleDataConnectionRequest",
-              "requestStreaming": false,
-              "responseType": "GetOracleDataConnectionResponse",
-              "responseLongType": "GetOracleDataConnectionResponse",
-              "responseFullType": "datanode.api.v2.GetOracleDataConnectionResponse",
               "responseStreaming": false
             },
             {
@@ -40555,8 +41191,20 @@
               "responseStreaming": false
             },
             {
+              "name": "GetDeposit",
+              "description": "-- Deposits --\nGet a deposit by its identifier",
+              "requestType": "GetDepositRequest",
+              "requestLongType": "GetDepositRequest",
+              "requestFullType": "datanode.api.v2.GetDepositRequest",
+              "requestStreaming": false,
+              "responseType": "GetDepositResponse",
+              "responseLongType": "GetDepositResponse",
+              "responseFullType": "datanode.api.v2.GetDepositResponse",
+              "responseStreaming": false
+            },
+            {
               "name": "ListDeposits",
-              "description": "-- Deposits --",
+              "description": "Get a list of deposits for a given party",
               "requestType": "ListDepositsRequest",
               "requestLongType": "ListDepositsRequest",
               "requestFullType": "datanode.api.v2.ListDepositsRequest",
@@ -40567,8 +41215,20 @@
               "responseStreaming": false
             },
             {
-              "name": "ListWithdrawals",
+              "name": "GetWithdrawal",
               "description": "-- Withdrawals --",
+              "requestType": "GetWithdrawalRequest",
+              "requestLongType": "GetWithdrawalRequest",
+              "requestFullType": "datanode.api.v2.GetWithdrawalRequest",
+              "requestStreaming": false,
+              "responseType": "GetWithdrawalResponse",
+              "responseLongType": "GetWithdrawalResponse",
+              "responseFullType": "datanode.api.v2.GetWithdrawalResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListWithdrawals",
+              "description": "",
               "requestType": "ListWithdrawalsRequest",
               "requestLongType": "ListWithdrawalsRequest",
               "requestFullType": "datanode.api.v2.ListWithdrawalsRequest",
@@ -40579,8 +41239,20 @@
               "responseStreaming": false
             },
             {
-              "name": "ListAssets",
+              "name": "GetAsset",
               "description": "-- Assets --",
+              "requestType": "GetAssetRequest",
+              "requestLongType": "GetAssetRequest",
+              "requestFullType": "datanode.api.v2.GetAssetRequest",
+              "requestStreaming": false,
+              "responseType": "GetAssetResponse",
+              "responseLongType": "GetAssetResponse",
+              "responseFullType": "datanode.api.v2.GetAssetResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListAssets",
+              "description": "",
               "requestType": "ListAssetsRequest",
               "requestLongType": "ListAssetsRequest",
               "requestFullType": "datanode.api.v2.ListAssetsRequest",
@@ -40672,6 +41344,78 @@
               "responseType": "GetEpochResponse",
               "responseLongType": "GetEpochResponse",
               "responseFullType": "datanode.api.v2.GetEpochResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "EstimateFee",
+              "description": "-- Estimates --",
+              "requestType": "EstimateFeeRequest",
+              "requestLongType": "EstimateFeeRequest",
+              "requestFullType": "datanode.api.v2.EstimateFeeRequest",
+              "requestStreaming": false,
+              "responseType": "EstimateFeeResponse",
+              "responseLongType": "EstimateFeeResponse",
+              "responseFullType": "datanode.api.v2.EstimateFeeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "EstimateMargin",
+              "description": "",
+              "requestType": "EstimateMarginRequest",
+              "requestLongType": "EstimateMarginRequest",
+              "requestFullType": "datanode.api.v2.EstimateMarginRequest",
+              "requestStreaming": false,
+              "responseType": "EstimateMarginResponse",
+              "responseLongType": "EstimateMarginResponse",
+              "responseFullType": "datanode.api.v2.EstimateMarginResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListNetworkParameters",
+              "description": "-- Network Parameters --\nGet the network parameters",
+              "requestType": "ListNetworkParametersRequest",
+              "requestLongType": "ListNetworkParametersRequest",
+              "requestFullType": "datanode.api.v2.ListNetworkParametersRequest",
+              "requestStreaming": false,
+              "responseType": "ListNetworkParametersResponse",
+              "responseLongType": "ListNetworkParametersResponse",
+              "responseFullType": "datanode.api.v2.ListNetworkParametersResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListCheckpoints",
+              "description": "-- Checkpoints --",
+              "requestType": "ListCheckpointsRequest",
+              "requestLongType": "ListCheckpointsRequest",
+              "requestFullType": "datanode.api.v2.ListCheckpointsRequest",
+              "requestStreaming": false,
+              "responseType": "ListCheckpointsResponse",
+              "responseLongType": "ListCheckpointsResponse",
+              "responseFullType": "datanode.api.v2.ListCheckpointsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetStake",
+              "description": "-- Stake --",
+              "requestType": "GetStakeRequest",
+              "requestLongType": "GetStakeRequest",
+              "requestFullType": "datanode.api.v2.GetStakeRequest",
+              "requestStreaming": false,
+              "responseType": "GetStakeResponse",
+              "responseLongType": "GetStakeResponse",
+              "responseFullType": "datanode.api.v2.GetStakeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetRiskFactors",
+              "description": "-- Risk Factors --\nGet Risk Factor data for a given market",
+              "requestType": "GetRiskFactorsRequest",
+              "requestLongType": "GetRiskFactorsRequest",
+              "requestFullType": "datanode.api.v2.GetRiskFactorsRequest",
+              "requestStreaming": false,
+              "responseType": "GetRiskFactorsResponse",
+              "responseLongType": "GetRiskFactorsResponse",
+              "responseFullType": "datanode.api.v2.GetRiskFactorsResponse",
               "responseStreaming": false
             }
           ]

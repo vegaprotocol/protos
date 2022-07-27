@@ -5,17 +5,19 @@
         "ListDepositsRequest": {
             "properties": {
                 "party_id": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The identifier of a party whose deposits are to be retrieved"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "description": "Optional pagination control"
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "List Deposits Request",
-            "description": "-- Deposits --"
+            "description": "A request to list all deposits for a given party"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

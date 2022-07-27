@@ -61,8 +61,6 @@ service TradingDataService {
 
     // Get Market Data History for a Market ID between given dates using a cursor based pagination model
     rpc GetMarketDataHistoryByID(GetMarketDataHistoryByIDRequest) returns (GetMarketDataHistoryByIDResponse);
-    // Subscribe to a stream of Markets Data
-    rpc MarketsDataSubscribe(MarketsDataSubscribeRequest) returns (stream MarketsDataSubscribeResponse);
 
     // -- Transfers --
     // List Transfers to/from/either a public key using a cursor based pagination model
@@ -95,6 +93,7 @@ service TradingDataService {
     rpc GetERC20ListAssetBundle(GetERC20ListAssetBundleRequest) returns (GetERC20ListAssetBundleResponse);
     // Gets the signature bundles that remove a particular validator to the multisig contract
     rpc GetERC20SetAssetLimitsBundle(GetERC20SetAssetLimitsBundleRequest) returns (GetERC20SetAssetLimitsBundleResponse);
+    rpc GetERC20WithdrawalApproval(GetERC20WithdrawalApprovalRequest) returns (GetERC20WithdrawalApprovalResponse);
 
     // -- Trades --
     // Get a list of all trades, optionally filtered by party/market/order using a cursor based pagination model
@@ -105,17 +104,11 @@ service TradingDataService {
 
     // -- Oracles --
     // Get an oracle spec by ID.
-    rpc GetOracleSpecByID(GetOracleSpecByIDRequest) returns (GetOracleSpecByIDResponse);
+    rpc GetOracleSpec(GetOracleSpecRequest) returns (GetOracleSpecResponse);
     // Get the oracle specs
     rpc ListOracleSpecs(ListOracleSpecsRequest) returns (ListOracleSpecsResponse);
-    // Get oracle data that matched the given spec
-    rpc GetOracleDataBySpecID(GetOracleDataBySpecIDRequest) returns (GetOracleDataBySpecIDResponse);
     // Get all oracle data
     rpc ListOracleData(ListOracleDataRequest) returns (ListOracleDataResponse);
-    // Get cursor based paginated oracle specs data
-    rpc GetOracleSpecsConnection(GetOracleSpecsConnectionRequest) returns (GetOracleSpecsConnectionResponse);
-    // Get cursor based paginated oracle data
-    rpc GetOracleDataConnection(GetOracleDataConnectionRequest) returns (GetOracleDataConnectionResponse);
 
     // -- Markets --
     // Get all markets using a cursor based pagination model
@@ -137,12 +130,17 @@ service TradingDataService {
     rpc ListRewardSummaries(ListRewardSummariesRequest) returns (ListRewardSummariesResponse);
 
     // -- Deposits --
+    // Get a deposit by its identifier
+    rpc GetDeposit(GetDepositRequest) returns (GetDepositResponse);
+    // Get a list of deposits for a given party
     rpc ListDeposits(ListDepositsRequest) returns (ListDepositsResponse);
 
     // -- Withdrawals --
+    rpc GetWithdrawal(GetWithdrawalRequest) returns (GetWithdrawalResponse);
     rpc ListWithdrawals(ListWithdrawalsRequest) returns (ListWithdrawalsResponse);
 
     // -- Assets --
+    rpc GetAsset(GetAssetRequest) returns (GetAssetResponse);
     rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
 
     // -- Liquidity Provisions --
@@ -167,6 +165,24 @@ service TradingDataService {
     // -- Epochs --
     // Get data for a specific epoch, if id omitted it gets the current epoch
     rpc GetEpoch(GetEpochRequest) returns (GetEpochResponse);
+
+    // -- Estimates --
+    rpc EstimateFee(EstimateFeeRequest) returns (EstimateFeeResponse);
+    rpc EstimateMargin(EstimateMarginRequest) returns (EstimateMarginResponse);
+
+    // -- Network Parameters --
+    // Get the network parameters
+    rpc ListNetworkParameters(ListNetworkParametersRequest) returns (ListNetworkParametersResponse);
+
+    // -- Checkpoints --
+    rpc ListCheckpoints(ListCheckpointsRequest) returns (ListCheckpointsResponse);
+
+    // -- Stake --
+    rpc GetStake(GetStakeRequest) returns (GetStakeResponse);
+
+    // -- Risk Factors --
+    // Get Risk Factor data for a given market
+    rpc GetRiskFactors(GetRiskFactorsRequest) returns (GetRiskFactorsResponse);
 }
 
 // -- Pagination --
@@ -777,6 +793,32 @@ message GetERC20SetAssetLimitsBundleResponse {
   string signatures = 6;
 }
 
+// The request to get all information required to bundle the call to finalise the withdrawal on the erc20 bridge
+message GetERC20WithdrawalApprovalRequest {
+    // The identifier of the withdrawal
+    string withdrawal_id = 1;
+}
+
+// The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge
+// function withdraw_asset(address asset_source, uint256 asset_id, uint256 amount, uint256 expiry, uint256 nonce, bytes memory signatures)
+message GetERC20WithdrawalApprovalResponse {
+    // The address of asset on ethereum
+    string asset_source = 1;
+    // The amount to be withdrawn
+    string amount = 2;
+    // The expiry / until what time the request is valid
+    int64 expiry = 3;
+    // The nonce, which is actually the internal reference for the withdrawal
+    string nonce = 4;
+    // The signatures bundle as hex encoded data, forward by 0x
+    // e.g: 0x + sig1 + sig2 + ... + sixN
+    string signatures = 5;
+    // The ethereum address to withdraw the funds to, 0x prefixed
+    string target_address = 6;
+    // The creation timestamps
+    int64 creation = 7;
+}
+
 // -- Trades --
 message ListTradesRequest {
     optional string market_id = 1;
@@ -822,13 +864,13 @@ message ObserveTradesResponse {
 // -- Oracles --
 
 // The request to get a specific oracle spec by identifier
-message GetOracleSpecByIDRequest {
+message GetOracleSpecRequest {
     // The ID to get the oracle spec for
     string oracle_spec_id = 1;
 }
 
 // The response for a oracle spec
-message GetOracleSpecByIDResponse {
+message GetOracleSpecResponse {
     // The oracle spec matching the ID.
     oracles.v1.OracleSpec oracle_spec = 1 ;
 }
@@ -836,57 +878,25 @@ message GetOracleSpecByIDResponse {
 // The request to get all active oracle specs
 message ListOracleSpecsRequest {
     // Pagination controls
-    Pagination pagination = 1;
+    optional Pagination pagination = 2;
 }
 
 // The response to get all active oracle specs
 message ListOracleSpecsResponse {
     // The list of active oracle specs
-    repeated oracles.v1.OracleSpec oracle_specs = 1;
-}
-
-// The request to get all oracle data broadcast to a given oracle spec
-message GetOracleDataBySpecIDRequest {
-    // The oracle spec ID the oracle data are broadcast to
-    string oracle_spec_id = 1;
-
-    // Pagination controls
-    Pagination pagination = 2;
-}
-
-// The response for a list of all oracle data broadcast to a given spec
-message  GetOracleDataBySpecIDResponse {
-    // The list of oracle data broadcast to a given spec
-    repeated oracles.v1.OracleData oracle_data = 1;
+    OracleSpecsConnection oracle_specs = 1;
 }
 
 // The request to get all seen oracle data
 message ListOracleDataRequest {
+    optional string oracle_spec_id = 1;
     // Pagination controls
-    Pagination pagination = 1;
+    optional Pagination pagination = 2;
 }
 
 // The response to get all seen oracle data
 message ListOracleDataResponse {
     // The list of seen oracle data
-    repeated oracles.v1.OracleData oracle_data = 1;
-}
-
-message GetOracleSpecsConnectionRequest {
-    string spec_id = 1;
-    Pagination pagination = 2;
-}
-
-message GetOracleSpecsConnectionResponse {
-    OracleSpecsConnection oracle_specs = 1;
-}
-
-message GetOracleDataConnectionRequest {
-    string spec_id = 1;
-    Pagination pagination = 2;
-}
-
-message GetOracleDataConnectionResponse {
     OracleDataConnection oracle_data = 1;
 }
 
@@ -1014,9 +1024,24 @@ message RewardsConnection {
 }
 
 // -- Deposits --
+// A request to get a specific deposit by identifier
+message GetDepositRequest {
+    // The identifier of the deposit
+    string id = 1;
+}
+
+// A response for a deposit
+message GetDepositResponse {
+    // The deposit matching the identifier from the request
+    vega.Deposit deposit = 1 ;
+}
+
+// A request to list all deposits for a given party
 message ListDepositsRequest {
+    // The identifier of a party whose deposits are to be retrieved
     string party_id = 1;
-    Pagination pagination = 2;
+    // Optional pagination control
+    optional Pagination pagination = 2;
 }
 
 message ListDepositsResponse {
@@ -1034,11 +1059,27 @@ message DepositsConnection {
 }
 
 // -- Withdrawals --
-message ListWithdrawalsRequest {
-    string party_id = 1;
-    Pagination pagination = 2;
+// A request to get a specific withdrawal by identifier
+message GetWithdrawalRequest {
+    // The identifier of the withdrawal
+    string id = 1;
 }
 
+// A response for a withdrawal request
+message GetWithdrawalResponse {
+    // The withdrawal matching the identifier from the request
+    vega.Withdrawal withdrawal = 1;
+}
+
+// List all withdrawals for a given party
+message ListWithdrawalsRequest {
+    // The identifier for the party whose withdrawals we want to retrieve
+    string party_id = 1;
+    // Optional pagination information to limit the data that is returned
+    optional Pagination pagination = 2;
+}
+
+// A paged connection with the requested withdrawal information
 message ListWithdrawalsResponse {
     WithdrawalsConnection withdrawals = 1;
 }
@@ -1054,9 +1095,17 @@ message WithdrawalsConnection {
 }
 
 // -- Assets --
-message ListAssetsRequest {
+message GetAssetRequest {
     string asset_id = 1;
-    Pagination pagination = 2;
+}
+
+message GetAssetResponse {
+    vega.Asset asset = 1;
+}
+
+message ListAssetsRequest {
+    optional string asset_id = 1;
+    optional Pagination pagination = 2;
 }
 
 message ListAssetsResponse {
@@ -1199,4 +1248,109 @@ message GetEpochRequest {
 
 message GetEpochResponse {
     vega.Epoch epoch = 1;
+}
+
+// -- Estimates --
+// Request to fetch the estimated fee if an order were to trade immediately
+message EstimateFeeRequest {
+    // Order to estimate fees for
+    // the following fields in the order are required:
+    // MarketID (used to specify the fee factors)
+    // Price (the price at which the order could trade)
+    // Size (the size at which the order could eventually trade)
+    vega.Order order = 1;
+}
+
+// Response to a EstimateFeeRequest, containing the estimated fees for a given order
+message EstimateFeeResponse {
+    // Summary of the estimated fees for this order if it were to trade now
+    vega.Fee fee = 2;
+}
+
+// Request to fetch the estimated MarginLevels if an order were to trade immediately
+message EstimateMarginRequest {
+    // Order to estimate fees for
+    vega.Order order = 1;
+}
+
+// Response to a EstimateMarginRequest, containing the estimated marginLevels for a given order
+message EstimateMarginResponse {
+    // Summary of the estimated margins for this order if it were to trade now
+    vega.MarginLevels margin_levels = 2;
+}
+
+// A message requesting for the list of all network parameters
+message ListNetworkParametersRequest {
+    optional Pagination pagination = 1;
+}
+
+// A response containing all of the vega network parameters
+message ListNetworkParametersResponse {
+    NetworkParameterConnection network_parameters = 1;
+}
+
+message NetworkParameterEdge {
+    vega.NetworkParameter node = 1;
+    string cursor = 2;
+}
+
+message NetworkParameterConnection {
+    repeated NetworkParameterEdge edges = 1;
+    PageInfo page_info = 2;
+}
+
+// -- Checkpoints --
+// The actual data regarding a checkpoint
+message Checkpoint {
+    string hash = 1;
+    string block_hash = 2;
+    uint64 at_block = 3;
+}
+
+// Request to get all checkpoints. Currently no fields, probably will be expanded to allow filtering data
+message ListCheckpointsRequest {
+    optional Pagination pagination = 1;
+}
+
+// Response message containing all checkpoints requested
+message ListCheckpointsResponse {
+    CheckpointsConnection checkpoints = 1;
+}
+
+message CheckpointEdge {
+    Checkpoint node = 1;
+    string cursor = 2;
+}
+
+message CheckpointsConnection {
+    repeated CheckpointEdge edges= 1;
+    PageInfo page_info = 2;
+}
+
+message GetStakeRequest {
+    string party = 1;
+    optional Pagination pagination = 2;
+}
+
+message GetStakeResponse {
+    string current_stake_available = 1;
+    StakesConnection stake_linkings = 2;
+}
+
+message StakeLinkingEdge {
+    vega.events.v1.StakeLinking node = 1;
+    string cursor = 2;
+}
+
+message StakesConnection {
+    repeated StakeLinkingEdge edges = 1;
+    PageInfo page_info = 2;
+}
+
+message GetRiskFactorsRequest {
+    string market_id = 1;
+}
+
+message GetRiskFactorsResponse {
+    vega.RiskFactor risk_factor = 1;
 }

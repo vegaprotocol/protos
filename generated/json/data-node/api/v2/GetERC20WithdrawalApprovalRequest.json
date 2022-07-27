@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetERC20WithdrawalApprovalRequest",
+    "definitions": {
+        "GetERC20WithdrawalApprovalRequest": {
+            "properties": {
+                "withdrawal_id": {
+                    "type": "string",
+                    "description": "The identifier of the withdrawal"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get ERC 20 Withdrawal Approval Request",
+            "description": "The request to get all information required to bundle the call to finalise the withdrawal on the erc20 bridge"
+        }
+    }
+}

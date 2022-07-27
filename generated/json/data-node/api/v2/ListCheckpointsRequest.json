@@ -1,12 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOracleDataConnectionRequest",
+    "$ref": "#/definitions/ListCheckpointsRequest",
     "definitions": {
-        "GetOracleDataConnectionRequest": {
+        "ListCheckpointsRequest": {
             "properties": {
-                "spec_id": {
-                    "type": "string"
-                },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
                     "additionalProperties": true
@@ -14,7 +11,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Oracle Data Connection Request"
+            "title": "List Checkpoints Request",
+            "description": "Request to get all checkpoints. Currently no fields, probably will be expanded to allow filtering data"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

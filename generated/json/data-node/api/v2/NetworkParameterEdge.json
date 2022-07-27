@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NetworkParameterEdge",
+    "definitions": {
+        "NetworkParameterEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/vega.NetworkParameter",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Network Parameter Edge"
+        },
+        "vega.NetworkParameter": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The unique key"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value for the network parameter"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Network Parameter",
+            "description": "Represents a network parameter on Vega"
+        }
+    }
+}

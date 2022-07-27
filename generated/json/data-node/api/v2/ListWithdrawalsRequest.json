@@ -5,17 +5,19 @@
         "ListWithdrawalsRequest": {
             "properties": {
                 "party_id": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The identifier for the party whose withdrawals we want to retrieve"
                 },
                 "pagination": {
                     "$ref": "#/definitions/datanode.api.v2.Pagination",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "description": "Optional pagination information to limit the data that is returned"
                 }
             },
             "additionalProperties": true,
             "type": "object",
             "title": "List Withdrawals Request",
-            "description": "-- Withdrawals --"
+            "description": "List all withdrawals for a given party"
         },
         "datanode.api.v2.Pagination": {
             "properties": {

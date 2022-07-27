@@ -1,0 +1,86 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ListCheckpointsResponse",
+    "definitions": {
+        "ListCheckpointsResponse": {
+            "properties": {
+                "checkpoints": {
+                    "$ref": "#/definitions/datanode.api.v2.CheckpointsConnection",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "List Checkpoints Response",
+            "description": "Response message containing all checkpoints requested"
+        },
+        "datanode.api.v2.Checkpoint": {
+            "properties": {
+                "hash": {
+                    "type": "string"
+                },
+                "block_hash": {
+                    "type": "string"
+                },
+                "at_block": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Checkpoint",
+            "description": "-- Checkpoints -- The actual data regarding a checkpoint"
+        },
+        "datanode.api.v2.CheckpointEdge": {
+            "properties": {
+                "node": {
+                    "$ref": "#/definitions/datanode.api.v2.Checkpoint",
+                    "additionalProperties": true
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Checkpoint Edge"
+        },
+        "datanode.api.v2.CheckpointsConnection": {
+            "properties": {
+                "edges": {
+                    "items": {
+                        "$ref": "#/definitions/datanode.api.v2.CheckpointEdge"
+                    },
+                    "type": "array"
+                },
+                "page_info": {
+                    "$ref": "#/definitions/datanode.api.v2.PageInfo",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Checkpoints Connection"
+        },
+        "datanode.api.v2.PageInfo": {
+            "properties": {
+                "has_next_page": {
+                    "type": "boolean"
+                },
+                "has_previous_page": {
+                    "type": "boolean"
+                },
+                "start_cursor": {
+                    "type": "string"
+                },
+                "end_cursor": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Page Info",
+            "description": "Page information for cursor based pagination"
+        }
+    }
+}

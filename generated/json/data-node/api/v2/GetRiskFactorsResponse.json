@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetRiskFactorsResponse",
+    "definitions": {
+        "GetRiskFactorsResponse": {
+            "properties": {
+                "risk_factor": {
+                    "$ref": "#/definitions/vega.RiskFactor",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Risk Factors Response"
+        },
+        "vega.RiskFactor": {
+            "properties": {
+                "market": {
+                    "type": "string",
+                    "description": "Market ID that relates to this risk factor"
+                },
+                "short": {
+                    "type": "string",
+                    "description": "Short Risk factor value"
+                },
+                "long": {
+                    "type": "string",
+                    "description": "Long Risk factor value"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Risk Factor",
+            "description": "Risk factors are used to calculate the current risk associated with orders trading on a given market"
+        }
+    }
+}

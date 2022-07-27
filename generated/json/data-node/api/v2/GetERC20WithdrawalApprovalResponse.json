@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetERC20WithdrawalApprovalResponse",
+    "definitions": {
+        "GetERC20WithdrawalApprovalResponse": {
+            "properties": {
+                "asset_source": {
+                    "type": "string",
+                    "description": "The address of asset on ethereum"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount to be withdrawn"
+                },
+                "expiry": {
+                    "type": "string",
+                    "description": "The expiry / until what time the request is valid"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "The nonce, which is actually the internal reference for the withdrawal"
+                },
+                "signatures": {
+                    "type": "string",
+                    "description": "The signatures bundle as hex encoded data, forward by 0x e.g: 0x + sig1 + sig2 + ... + sixN"
+                },
+                "target_address": {
+                    "type": "string",
+                    "description": "The ethereum address to withdraw the funds to, 0x prefixed"
+                },
+                "creation": {
+                    "type": "string",
+                    "description": "The creation timestamps"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get ERC 20 Withdrawal Approval Response",
+            "description": "The response with all information required to bundle the call to finalise the withdrawal on the erc20 bridge function withdraw_asset(address asset_source, uint256 asset_id, uint256 amount, uint256 expiry, uint256 nonce, bytes memory signatures)"
+        }
+    }
+}

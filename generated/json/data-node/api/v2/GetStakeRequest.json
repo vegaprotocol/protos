@@ -1,10 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/GetOracleSpecsConnectionRequest",
+    "$ref": "#/definitions/GetStakeRequest",
     "definitions": {
-        "GetOracleSpecsConnectionRequest": {
+        "GetStakeRequest": {
             "properties": {
-                "spec_id": {
+                "party": {
                     "type": "string"
                 },
                 "pagination": {
@@ -14,7 +14,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Oracle Specs Connection Request"
+            "title": "Get Stake Request"
         },
         "datanode.api.v2.Pagination": {
             "properties": {
