@@ -1369,7 +1369,7 @@
             {
               "name": "PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON",
               "number": "1",
-              "description": "The specified close time is too early base on network parameters"
+              "description": "The specified close time is too early based on network parameters"
             },
             {
               "name": "PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE",
@@ -1379,17 +1379,17 @@
             {
               "name": "PROPOSAL_ERROR_ENACT_TIME_TOO_SOON",
               "number": "3",
-              "description": "The specified enact time is too early based on network parameters"
+              "description": "The specified enactment time is too early based on network parameters"
             },
             {
               "name": "PROPOSAL_ERROR_ENACT_TIME_TOO_LATE",
               "number": "4",
-              "description": "The specified enact time is too late based on network parameters"
+              "description": "The specified enactment time is too late based on network parameters"
             },
             {
               "name": "PROPOSAL_ERROR_INSUFFICIENT_TOKENS",
               "number": "5",
-              "description": "The proposer for this proposal as insufficient tokens"
+              "description": "The proposer for this proposal has insufficient tokens"
             },
             {
               "name": "PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY",
@@ -1434,7 +1434,7 @@
             {
               "name": "PROPOSAL_ERROR_INVALID_ASSET",
               "number": "16",
-              "description": "The asset identifier is invalid or does not exist on the Vega network"
+              "description": "The asset ID is invalid or does not exist on the Vega network"
             },
             {
               "name": "PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS",
@@ -1454,7 +1454,7 @@
             {
               "name": "PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE",
               "number": "20",
-              "description": "Invalid valid in update network parameter proposal"
+              "description": "Invalid value in update network parameter proposal"
             },
             {
               "name": "PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED",
@@ -1479,7 +1479,7 @@
             {
               "name": "PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET",
               "number": "25",
-              "description": "Market proposal market could not be instantiate in execution"
+              "description": "Market proposal market could not be instantiated in execution"
             },
             {
               "name": "PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT",
@@ -1489,22 +1489,22 @@
             {
               "name": "PROPOSAL_ERROR_MISSING_COMMITMENT_AMOUNT",
               "number": "27",
-              "description": "Market proposal is missing commitment amount"
+              "description": "Market proposal is missing liquidity commitment amount"
             },
             {
               "name": "PROPOSAL_ERROR_INVALID_FEE_AMOUNT",
               "number": "28",
-              "description": "Market proposal have invalid fee"
+              "description": "Market proposal has invalid fee amount"
             },
             {
               "name": "PROPOSAL_ERROR_INVALID_SHAPE",
               "number": "29",
-              "description": "Market proposal have invalid shape"
+              "description": "Market proposal has invalid liquidity commitment shape"
             },
             {
               "name": "PROPOSAL_ERROR_INVALID_RISK_PARAMETER",
               "number": "30",
-              "description": "Market proposal invalid risk parameter"
+              "description": "Market proposal has invalid risk parameter"
             },
             {
               "name": "PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED",
@@ -1519,37 +1519,37 @@
             {
               "name": "PROPOSAL_ERROR_INVALID_ASSET_DETAILS",
               "number": "33",
-              "description": "Asset proposal invalid asset details"
+              "description": "Asset proposal has invalid asset details"
             },
             {
               "name": "PROPOSAL_ERROR_UNKNOWN_TYPE",
               "number": "34",
-              "description": "Proposal is an unknown type."
+              "description": "Proposal is an unknown type"
             },
             {
               "name": "PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE",
               "number": "35",
-              "description": "Proposal has an unknown risk parameter type."
+              "description": "Proposal has an unknown risk parameter type"
             },
             {
               "name": "PROPOSAL_ERROR_INVALID_FREEFORM",
               "number": "36",
-              "description": "Validation failed for freeform proposal."
+              "description": "Validation failed for freeform proposal"
             },
             {
               "name": "PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE",
               "number": "37",
-              "description": "The party doesn't have enough equity-like share to propose an update on the market\ntargeted by the proposal."
+              "description": "The party doesn't have enough equity-like share to propose an update on the market\ntargeted by the proposal"
             },
             {
               "name": "PROPOSAL_ERROR_INVALID_MARKET",
               "number": "38",
-              "description": "The market targeted by the proposal does not exist or is not eligible to modification."
+              "description": "The market targeted by the proposal does not exist or is not eligible for modification"
             },
             {
               "name": "PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES",
               "number": "39",
-              "description": "The market proposal decimal place is higher to the market settlement asset decimal places"
+              "description": "The market proposal decimal place is higher than the market settlement asset decimal places"
             },
             {
               "name": "PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS",
@@ -1596,7 +1596,7 @@
           "fields": [
             {
               "name": "settlement_asset",
-              "description": "Product settlement asset identifier",
+              "description": "Asset ID for the product's settlement asset",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -1656,7 +1656,7 @@
             },
             {
               "name": "settlement_price_decimals",
-              "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle",
+              "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle",
               "label": "",
               "type": "uint32",
               "longType": "uint32",
@@ -1692,7 +1692,7 @@
             },
             {
               "name": "yes",
-              "description": "All \"yes\" votes in favour of the proposal above",
+              "description": "All YES votes in favour of the proposal above",
               "label": "repeated",
               "type": "Vote",
               "longType": "Vote",
@@ -1704,7 +1704,7 @@
             },
             {
               "name": "no",
-              "description": "All \"no\" votes against the proposal above",
+              "description": "All NO votes against the proposal above",
               "label": "repeated",
               "type": "Vote",
               "longType": "Vote",
@@ -1836,7 +1836,7 @@
             },
             {
               "name": "code",
-              "description": "Instrument code",
+              "description": "Instrument code, human-readable shortcode used to describe the instrument",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2027,7 +2027,7 @@
             },
             {
               "name": "decimal_places",
-              "description": "Decimal places used for the new market",
+              "description": "Decimal places used for the new market, sets the smallest price increment on the book",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
@@ -2099,7 +2099,7 @@
             },
             {
               "name": "position_decimal_places",
-              "description": "Decimal places for order sizes",
+              "description": "Decimal places for order sizes, sets what size the smallest order / position on the market can be",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
@@ -2147,7 +2147,7 @@
             },
             {
               "name": "party_id",
-              "description": "Party identifier of the author (the party submitting the proposal)",
+              "description": "Party identifier (public key) of the author (the party submitting the proposal)",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2207,7 +2207,7 @@
             },
             {
               "name": "error_details",
-              "description": "The detailed error associated to the reason.",
+              "description": "The detailed error associated to the reason",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2219,7 +2219,7 @@
             },
             {
               "name": "rationale",
-              "description": "The rationale behind a proposal.",
+              "description": "The rationale behind a proposal",
               "label": "",
               "type": "ProposalRationale",
               "longType": "ProposalRationale",
@@ -2243,7 +2243,7 @@
           "fields": [
             {
               "name": "description",
-              "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 1024 unicode characters.\nThis is mandatory for all proposal.",
+              "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 1024 unicode characters.\nThis is mandatory for all proposals.",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2375,7 +2375,7 @@
             },
             {
               "name": "new_freeform",
-              "description": "Proposal change for a freeform voting thing",
+              "description": "Proposal change for a freeform request, which can be voted on but does not change the behaviour of the system, \nand can be used to gauge community sentiment",
               "label": "",
               "type": "NewFreeform",
               "longType": "NewFreeform",
@@ -2411,7 +2411,7 @@
           "fields": [
             {
               "name": "asset_id",
-              "description": "The asset concerned by the update",
+              "description": "The ID of the asset to be updated",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2447,7 +2447,7 @@
           "fields": [
             {
               "name": "quote_name",
-              "description": "Product quote name",
+              "description": "Human-readable name/abbreviation of the quote name",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2495,7 +2495,7 @@
             },
             {
               "name": "settlement_price_decimals",
-              "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle",
+              "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle",
               "label": "",
               "type": "uint32",
               "longType": "uint32",
@@ -2519,7 +2519,7 @@
           "fields": [
             {
               "name": "code",
-              "description": "Instrument code",
+              "description": "Instrument code, human-readable shortcode used to describe the instrument",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2555,7 +2555,7 @@
           "fields": [
             {
               "name": "market_id",
-              "description": "The market to update",
+              "description": "The identifier of the market to update",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -2898,7 +2898,7 @@
           "name": "AuctionDuration",
           "longName": "AuctionDuration",
           "fullName": "vega.AuctionDuration",
-          "description": "An auction duration is used to configure 3 auction periods:\n1. `duration \u003e 0`, `volume == 0`:\n  The auction will last for at least N seconds\n2. `duration == 0`, `volume \u003e 0`:\n  The auction will end once we can close with given traded volume\n3. `duration \u003e 0`, `volume \u003e 0`:\n  The auction will take at least N seconds, but can end sooner if we can trade a certain volume",
+          "description": "An auction duration is used to configure 3 auction periods:\n1. `duration \u003e 0`, `volume == 0`:\n  The auction will last for at least N seconds\n2. `duration == 0`, `volume \u003e 0`:\n  The auction will end once the given volume will match at uncrossing\n3. `duration \u003e 0`, `volume \u003e 0`:\n  The auction will take at least N seconds, but can end sooner if the market can trade a certain volume",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -3962,12 +3962,12 @@
             {
               "name": "ACCOUNT_TYPE_MARGIN",
               "number": "3",
-              "description": "Margin accounts contain margin funds for a party and each party will\nhave multiple margin accounts, one for each market they have traded in\n\nMargin account funds will alter as margin requirements on positions change"
+              "description": "Margin accounts contain funds set aside for the margin needed to support a party's open positions. \nEach party will have a margin account for each market they have traded in. \nThe required initial margin is allocated to each market from your general account.\nCollateral in the margin account can't be withdrawn or used as margin on another market until \nit is released back to the general account.\nThe Vega protocol uses an internal accounting system to segregate funds held as \nmargin from other funds to ensure they are never lost or 'double spent'\n\nMargin account funds will vary as margin requirements on positions change"
             },
             {
               "name": "ACCOUNT_TYPE_GENERAL",
               "number": "4",
-              "description": "General accounts contains general funds for a party. A party will\nhave multiple general accounts, one for each asset they want\nto trade with\n\nGeneral accounts are where funds are initially deposited or withdrawn from,\nit is also the account where funds are taken to fulfil fees and initial margin requirements"
+              "description": "General accounts contain the collateral for a party that is not otherwise allocated. A party will\nhave multiple general accounts, one for each asset they want\nto trade with\n\nGeneral accounts are where funds are initially deposited or withdrawn from,\nit is also the account where funds are taken to fulfil fees and initial margin requirements"
             },
             {
               "name": "ACCOUNT_TYPE_FEES_INFRASTRUCTURE",
@@ -4258,7 +4258,7 @@
             {
               "name": "STATUS_PENDING",
               "number": "6",
-              "description": "The liquidity provision is valid and accepted by network\nbut have never been deployed. I when it's possible to deploy them for the first time\nmargin check fails, then they will be cancelled without any penalties."
+              "description": "The liquidity provision is valid and accepted by network\nbut has never been deployed. If when it's possible to deploy the orders for the first time\nmargin check fails, then they will be cancelled without any penalties."
             }
           ]
         },
@@ -4289,7 +4289,7 @@
           "name": "Status",
           "longName": "Order.Status",
           "fullName": "vega.Order.Status",
-          "description": "Status values for an order\nSee resulting status in [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail.",
+          "description": "Status values for an order",
           "values": [
             {
               "name": "STATUS_UNSPECIFIED",
@@ -4342,7 +4342,7 @@
           "name": "TimeInForce",
           "longName": "Order.TimeInForce",
           "fullName": "vega.Order.TimeInForce",
-          "description": "Time In Force for an order\nSee [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail",
+          "description": "Time In Force for an order",
           "values": [
             {
               "name": "TIME_IN_FORCE_UNSPECIFIED",
@@ -4352,32 +4352,32 @@
             {
               "name": "TIME_IN_FORCE_GTC",
               "number": "1",
-              "description": "Good until cancelled"
+              "description": "Good until cancelled, the order trades any amount and as much as possible \nand remains on the book until it either trades completely or is cancelled"
             },
             {
               "name": "TIME_IN_FORCE_GTT",
               "number": "2",
-              "description": "Good until specified time"
+              "description": "Good until specified time, this order type trades any amount and as much as possible\nand remains on the book until it either trades completely, is cancelled, or expires at a set time \nNOTE: this may in future be multiple types or have sub types for orders that provide different ways of specifying expiry"
             },
             {
               "name": "TIME_IN_FORCE_IOC",
               "number": "3",
-              "description": "Immediate or cancel"
+              "description": "Immediate or cancel, the order trades any amount and as much as possible \nbut does not remain on the book (whether it trades or not)"
             },
             {
               "name": "TIME_IN_FORCE_FOK",
               "number": "4",
-              "description": "Fill or kill"
+              "description": "Fill or kill, The order either trades completely (remainingSize == 0 after adding) \nor not at all, does not remain on the book if it doesn't trade"
             },
             {
               "name": "TIME_IN_FORCE_GFA",
               "number": "5",
-              "description": "Good for auction"
+              "description": "Good for auction, this order is only accepted during an auction period"
             },
             {
               "name": "TIME_IN_FORCE_GFN",
               "number": "6",
-              "description": "Good for normal"
+              "description": "Good for normal, this order is only accepted during normal trading (that can be continuous trading or frequent batched auctions)"
             }
           ]
         },
@@ -4628,12 +4628,12 @@
             {
               "name": "ORDER_ERROR_CANNOT_AMEND_PEGGED_ORDER_DETAILS_ON_NON_PEGGED_ORDER",
               "number": "44",
-              "description": "Cannot amend a non pegged orders details"
+              "description": "Cannot amend details of a non pegged details"
             },
             {
               "name": "ORDER_ERROR_UNABLE_TO_REPRICE_PEGGED_ORDER",
               "number": "45",
-              "description": "We are unable to re-price a pegged order because a market price is unavailable"
+              "description": "Could not re-price a pegged order because a market price is unavailable"
             },
             {
               "name": "ORDER_ERROR_UNABLE_TO_AMEND_PRICE_ON_PEGGED_ORDER",
@@ -5021,7 +5021,7 @@
             },
             {
               "name": "indicative_price",
-              "description": "The Indicative Uncrossing Price is the price at which all trades would occur if we uncrossed the auction now",
+              "description": "The Indicative Uncrossing Price is the price at which all trades would occur if the auction uncrossed now",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -5033,7 +5033,7 @@
             },
             {
               "name": "indicative_volume",
-              "description": "The Indicative Uncrossing Volume is the volume available at the Indicative crossing price if we uncrossed the auction now",
+              "description": "The Indicative Uncrossing Volume is the volume available at the Indicative crossing price if the auction uncrossed now",
               "label": "",
               "type": "uint64",
               "longType": "uint64",
@@ -6105,7 +6105,7 @@
           "name": "LiquidityOrderReference",
           "longName": "LiquidityOrderReference",
           "fullName": "vega.LiquidityOrderReference",
-          "description": "A pair of a liquidity order and the id of the generated order by the core",
+          "description": "A pair of a liquidity order and the ID of the generated order by the core",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -6329,7 +6329,7 @@
             },
             {
               "name": "reference",
-              "description": "A reference shared between this liquidity provision and all it's orders",
+              "description": "A reference shared between this liquidity provision and all its orders",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -6641,7 +6641,7 @@
             },
             {
               "name": "auction_start",
-              "description": "Time until next auction (used in FBA's) - currently always 0",
+              "description": "Time until next auction, or start time of the current auction if market is in auction period",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -7229,7 +7229,7 @@
             },
             {
               "name": "epoch_data",
-              "description": "Informantion about epoch",
+              "description": "Information about epoch",
               "label": "",
               "type": "EpochData",
               "longType": "EpochData",
@@ -7433,7 +7433,7 @@
             },
             {
               "name": "side",
-              "description": "Side for the order, e.g. SIDE_BUY or SIDE_SELL - See [`Side`](#vega.Side)",
+              "description": "Side for the order, e.g. SIDE_BUY or SIDE_SELL",
               "label": "",
               "type": "Side",
               "longType": "Side",
@@ -7481,7 +7481,7 @@
             },
             {
               "name": "time_in_force",
-              "description": "Time in force indicates how long an order will remain active before it is executed or expires.\n- See [`Order.TimeInForce`](#vega.Order.TimeInForce)",
+              "description": "Time in force indicates how long an order will remain active before it is executed or expires.\n- See OrderTimeInForce",
               "label": "",
               "type": "TimeInForce",
               "longType": "Order.TimeInForce",
@@ -7493,7 +7493,7 @@
             },
             {
               "name": "type",
-              "description": "Type for the order - See [`Order.Type`](#vega.Order.Type)",
+              "description": "Type for the order - See OrderType",
               "label": "",
               "type": "Type",
               "longType": "Order.Type",
@@ -7505,7 +7505,7 @@
             },
             {
               "name": "created_at",
-              "description": "Timestamp for when the order was created at, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
+              "description": "Timestamp for when the order was created at, in nanoseconds since the epoch",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -7517,7 +7517,7 @@
             },
             {
               "name": "status",
-              "description": "The current status for the order. See [`Order.Status`](#vega.Order.Status)\n- For detail on `STATUS_REJECTED` please check the [`OrderError`](#vega.OrderError) value given in the `reason` field",
+              "description": "The current status for the order.\n- For detail on `STATUS_REJECTED` please check the OrderError value given in the `reason` field",
               "label": "",
               "type": "Status",
               "longType": "Order.Status",
@@ -7529,7 +7529,7 @@
             },
             {
               "name": "expires_at",
-              "description": "Timestamp for when the order will expire, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`, valid only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`",
+              "description": "Timestamp for when the order will expire, in nanoseconds since the epoch",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -7553,7 +7553,7 @@
             },
             {
               "name": "reason",
-              "description": "If the Order `status` is `STATUS_REJECTED` then an [`OrderError`](#vega.OrderError) reason will be specified\n- The default for this field is `ORDER_ERROR_NONE` which signifies that there were no errors",
+              "description": "If the Order `status` is `STATUS_REJECTED` then an OrderError reason will be specified\n- The default for this field is `ORDER_ERROR_NONE` which signifies that there were no errors",
               "label": "",
               "type": "OrderError",
               "longType": "OrderError",
@@ -7565,7 +7565,7 @@
             },
             {
               "name": "updated_at",
-              "description": "Timestamp for when the Order was last updated, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
+              "description": "Timestamp for when the order was last updated, in nanoseconds since the epoch\n- See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -7629,7 +7629,7 @@
           "name": "OrderCancellationConfirmation",
           "longName": "OrderCancellationConfirmation",
           "fullName": "vega.OrderCancellationConfirmation",
-          "description": "Used when cancelling an Order",
+          "description": "Used when cancelling an order",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -7653,7 +7653,7 @@
           "name": "OrderConfirmation",
           "longName": "OrderConfirmation",
           "fullName": "vega.OrderConfirmation",
-          "description": "Used when confirming an Order",
+          "description": "Used when confirming an order",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -7733,7 +7733,7 @@
           "fields": [
             {
               "name": "reference",
-              "description": "Which price point are we linked to",
+              "description": "The price point the order is linked to",
               "label": "",
               "type": "PeggedReference",
               "longType": "PeggedReference",
@@ -9101,7 +9101,7 @@
             },
             {
               "name": "asset",
-              "description": "The asset we want to withdraw funds from",
+              "description": "The asset to withdraw funds from",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -30274,7 +30274,7 @@
           "name": "GetNodeSignaturesAggregateRequest",
           "longName": "GetNodeSignaturesAggregateRequest",
           "fullName": "datanode.api.v1.GetNodeSignaturesAggregateRequest",
-          "description": "Request to specify the identifier of the resource we want to retrieve aggregated signatures for",
+          "description": "Request to specify the identifier of the resource to retrieve aggregated signatures for",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -30298,7 +30298,7 @@
           "name": "GetNodeSignaturesAggregateResponse",
           "longName": "GetNodeSignaturesAggregateResponse",
           "fullName": "datanode.api.v1.GetNodeSignaturesAggregateResponse",
-          "description": "Response to specify the identifier of the resource we want to retrieve aggregated signatures for",
+          "description": "Response to specify the identifier of the resource to retrieve aggregated signatures for",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,

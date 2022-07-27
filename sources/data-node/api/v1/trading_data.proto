@@ -417,13 +417,13 @@ message AssetByIDResponse {
   vega.Asset asset = 1;
 }
 
-// Request to specify the identifier of the resource we want to retrieve aggregated signatures for
+// Request to specify the identifier of the resource to retrieve aggregated signatures for
 message GetNodeSignaturesAggregateRequest {
   // Resource identifier, required field
   string id = 1;
 }
 
-// Response to specify the identifier of the resource we want to retrieve aggregated signatures for
+// Response to specify the identifier of the resource to retrieve aggregated signatures for
 message GetNodeSignaturesAggregateResponse {
   // A list of 0 or more signatures
   repeated vega.commands.v1.NodeSignature signatures = 1;

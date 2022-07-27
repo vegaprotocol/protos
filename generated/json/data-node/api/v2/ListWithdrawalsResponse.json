@@ -105,7 +105,7 @@
                 },
                 "asset": {
                     "type": "string",
-                    "description": "The asset we want to withdraw funds from"
+                    "description": "The asset to withdraw funds from"
                 },
                 "status": {
                     "enum": [

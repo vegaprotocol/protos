@@ -12,7 +12,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Get Node Signatures Aggregate Request",
-            "description": "Request to specify the identifier of the resource we want to retrieve aggregated signatures for"
+            "description": "Request to specify the identifier of the resource to retrieve aggregated signatures for"
         }
     }
 }

@@ -14,7 +14,7 @@
                 },
                 "party_id": {
                     "type": "string",
-                    "description": "Party identifier of the author (the party submitting the proposal)"
+                    "description": "Party identifier (public key) of the author (the party submitting the proposal)"
                 },
                 "state": {
                     "enum": [
@@ -149,12 +149,12 @@
                 },
                 "error_details": {
                     "type": "string",
-                    "description": "The detailed error associated to the reason."
+                    "description": "The detailed error associated to the reason"
                 },
                 "rationale": {
                     "$ref": "#/definitions/vega.ProposalRationale",
                     "additionalProperties": true,
-                    "description": "The rationale behind a proposal."
+                    "description": "The rationale behind a proposal"
                 }
             },
             "additionalProperties": true,
@@ -404,7 +404,7 @@
             "properties": {
                 "settlement_asset": {
                     "type": "string",
-                    "description": "Product settlement asset identifier"
+                    "description": "Asset ID for the product's settlement asset"
                 },
                 "quote_name": {
                     "type": "string",
@@ -427,7 +427,7 @@
                 },
                 "settlement_price_decimals": {
                     "type": "integer",
-                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+                    "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
@@ -443,7 +443,7 @@
                 },
                 "code": {
                     "type": "string",
-                    "description": "Instrument code"
+                    "description": "Instrument code, human-readable shortcode used to describe the instrument"
                 },
                 "future": {
                     "$ref": "#/definitions/vega.FutureProduct",
@@ -652,7 +652,7 @@
                 },
                 "decimal_places": {
                     "type": "string",
-                    "description": "Decimal places used for the new market"
+                    "description": "Decimal places used for the new market, sets the smallest price increment on the book"
                 },
                 "metadata": {
                     "items": {
@@ -683,7 +683,7 @@
                 },
                 "position_decimal_places": {
                     "type": "string",
-                    "description": "Decimal places for order sizes"
+                    "description": "Decimal places for order sizes, sets what size the smallest order / position on the market can be"
                 }
             },
             "additionalProperties": true,
@@ -745,7 +745,7 @@
             "properties": {
                 "description": {
                     "type": "string",
-                    "description": "Description to show a short title / something in case the link goes offline. This is to be between 0 and 1024 unicode characters. This is mandatory for all proposal."
+                    "description": "Description to show a short title / something in case the link goes offline. This is to be between 0 and 1024 unicode characters. This is mandatory for all proposals."
                 },
                 "hash": {
                     "type": "string",
@@ -798,7 +798,7 @@
                 "new_freeform": {
                     "$ref": "#/definitions/vega.NewFreeform",
                     "additionalProperties": true,
-                    "description": "Proposal change for a freeform voting thing"
+                    "description": "Proposal change for a freeform request, which can be voted on but does not change the behaviour of the system,  and can be used to gauge community sentiment"
                 },
                 "update_asset": {
                     "$ref": "#/definitions/vega.UpdateAsset",
@@ -859,7 +859,7 @@
             "properties": {
                 "asset_id": {
                     "type": "string",
-                    "description": "The asset concerned by the update"
+                    "description": "The ID of the asset to be updated"
                 },
                 "changes": {
                     "$ref": "#/definitions/vega.AssetDetailsUpdate",
@@ -876,7 +876,7 @@
             "properties": {
                 "quote_name": {
                     "type": "string",
-                    "description": "Product quote name"
+                    "description": "Human-readable name/abbreviation of the quote name"
                 },
                 "oracle_spec_for_settlement_price": {
                     "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
@@ -895,7 +895,7 @@
                 },
                 "settlement_price_decimals": {
                     "type": "integer",
-                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+                    "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
@@ -907,7 +907,7 @@
             "properties": {
                 "code": {
                     "type": "string",
-                    "description": "Instrument code"
+                    "description": "Instrument code, human-readable shortcode used to describe the instrument"
                 },
                 "future": {
                     "$ref": "#/definitions/vega.UpdateFutureProduct",
@@ -924,7 +924,7 @@
             "properties": {
                 "market_id": {
                     "type": "string",
-                    "description": "The market to update"
+                    "description": "The identifier of the market to update"
                 },
                 "changes": {
                     "$ref": "#/definitions/vega.UpdateMarketConfiguration",

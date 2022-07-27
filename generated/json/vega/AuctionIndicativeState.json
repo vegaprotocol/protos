@@ -10,11 +10,11 @@
                 },
                 "indicative_price": {
                     "type": "string",
-                    "description": "The Indicative Uncrossing Price is the price at which all trades would occur if we uncrossed the auction now"
+                    "description": "The Indicative Uncrossing Price is the price at which all trades would occur if the auction uncrossed now"
                 },
                 "indicative_volume": {
                     "type": "string",
-                    "description": "The Indicative Uncrossing Volume is the volume available at the Indicative crossing price if we uncrossed the auction now"
+                    "description": "The Indicative Uncrossing Volume is the volume available at the Indicative crossing price if the auction uncrossed now"
                 },
                 "auction_start": {
                     "type": "string",

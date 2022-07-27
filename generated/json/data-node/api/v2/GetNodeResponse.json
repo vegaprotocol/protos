@@ -104,7 +104,7 @@
                 "epoch_data": {
                     "$ref": "#/definitions/vega.EpochData",
                     "additionalProperties": true,
-                    "description": "Informantion about epoch"
+                    "description": "Information about epoch"
                 },
                 "status": {
                     "enum": [

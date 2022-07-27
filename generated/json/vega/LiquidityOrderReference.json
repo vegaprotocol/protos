@@ -17,7 +17,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Liquidity Order Reference",
-            "description": "A pair of a liquidity order and the id of the generated order by the core"
+            "description": "A pair of a liquidity order and the ID of the generated order by the core"
         },
         "vega.LiquidityOrder": {
             "properties": {

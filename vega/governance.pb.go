@@ -27,15 +27,15 @@ type ProposalError int32
 const (
 	// Default value
 	ProposalError_PROPOSAL_ERROR_UNSPECIFIED ProposalError = 0
-	// The specified close time is too early base on network parameters
+	// The specified close time is too early based on network parameters
 	ProposalError_PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON ProposalError = 1
 	// The specified close time is too late based on network parameters
 	ProposalError_PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE ProposalError = 2
-	// The specified enact time is too early based on network parameters
+	// The specified enactment time is too early based on network parameters
 	ProposalError_PROPOSAL_ERROR_ENACT_TIME_TOO_SOON ProposalError = 3
-	// The specified enact time is too late based on network parameters
+	// The specified enactment time is too late based on network parameters
 	ProposalError_PROPOSAL_ERROR_ENACT_TIME_TOO_LATE ProposalError = 4
-	// The proposer for this proposal as insufficient tokens
+	// The proposer for this proposal has insufficient tokens
 	ProposalError_PROPOSAL_ERROR_INSUFFICIENT_TOKENS ProposalError = 5
 	// The instrument quote name and base name were the same
 	ProposalError_PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY ProposalError = 6
@@ -53,7 +53,7 @@ const (
 	ProposalError_PROPOSAL_ERROR_MISSING_BUILTIN_ASSET_FIELD ProposalError = 14
 	// The contract address is missing in the ERC20 asset source
 	ProposalError_PROPOSAL_ERROR_MISSING_ERC20_CONTRACT_ADDRESS ProposalError = 15
-	// The asset identifier is invalid or does not exist on the Vega network
+	// The asset ID is invalid or does not exist on the Vega network
 	ProposalError_PROPOSAL_ERROR_INVALID_ASSET ProposalError = 16
 	// Proposal terms timestamps are not compatible (Validation < Closing < Enactment)
 	ProposalError_PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS ProposalError = 17
@@ -61,7 +61,7 @@ const (
 	ProposalError_PROPOSAL_ERROR_NO_RISK_PARAMETERS ProposalError = 18
 	// Invalid key in update network parameter proposal
 	ProposalError_PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_KEY ProposalError = 19
-	// Invalid valid in update network parameter proposal
+	// Invalid value in update network parameter proposal
 	ProposalError_PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE ProposalError = 20
 	// Validation failed for network parameter proposal
 	ProposalError_PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED ProposalError = 21
@@ -71,36 +71,36 @@ const (
 	ProposalError_PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_LARGE ProposalError = 23
 	// Market proposal is missing a liquidity commitment
 	ProposalError_PROPOSAL_ERROR_MARKET_MISSING_LIQUIDITY_COMMITMENT ProposalError = 24
-	// Market proposal market could not be instantiate in execution
+	// Market proposal market could not be instantiated in execution
 	ProposalError_PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET ProposalError = 25
 	// Market proposal market contained invalid product definition
 	ProposalError_PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT ProposalError = 26
-	// Market proposal is missing commitment amount
+	// Market proposal is missing liquidity commitment amount
 	ProposalError_PROPOSAL_ERROR_MISSING_COMMITMENT_AMOUNT ProposalError = 27
-	// Market proposal have invalid fee
+	// Market proposal has invalid fee amount
 	ProposalError_PROPOSAL_ERROR_INVALID_FEE_AMOUNT ProposalError = 28
-	// Market proposal have invalid shape
+	// Market proposal has invalid liquidity commitment shape
 	ProposalError_PROPOSAL_ERROR_INVALID_SHAPE ProposalError = 29
-	// Market proposal invalid risk parameter
+	// Market proposal has invalid risk parameter
 	ProposalError_PROPOSAL_ERROR_INVALID_RISK_PARAMETER ProposalError = 30
 	// Proposal was declined because vote didn't reach the majority threshold required
 	ProposalError_PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED ProposalError = 31
 	// Proposal declined because the participation threshold was not reached
 	ProposalError_PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED ProposalError = 32
-	// Asset proposal invalid asset details
+	// Asset proposal has invalid asset details
 	ProposalError_PROPOSAL_ERROR_INVALID_ASSET_DETAILS ProposalError = 33
-	// Proposal is an unknown type.
+	// Proposal is an unknown type
 	ProposalError_PROPOSAL_ERROR_UNKNOWN_TYPE ProposalError = 34
-	// Proposal has an unknown risk parameter type.
+	// Proposal has an unknown risk parameter type
 	ProposalError_PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE ProposalError = 35
-	// Validation failed for freeform proposal.
+	// Validation failed for freeform proposal
 	ProposalError_PROPOSAL_ERROR_INVALID_FREEFORM ProposalError = 36
 	// The party doesn't have enough equity-like share to propose an update on the market
-	// targeted by the proposal.
+	// targeted by the proposal
 	ProposalError_PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE ProposalError = 37
-	// The market targeted by the proposal does not exist or is not eligible to modification.
+	// The market targeted by the proposal does not exist or is not eligible for modification
 	ProposalError_PROPOSAL_ERROR_INVALID_MARKET ProposalError = 38
-	// The market proposal decimal place is higher to the market settlement asset decimal places
+	// The market proposal decimal place is higher than the market settlement asset decimal places
 	ProposalError_PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES ProposalError = 39
 	// The market proposal contains too many price monitoring triggers
 	ProposalError_PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS ProposalError = 40
@@ -357,7 +357,7 @@ type FutureProduct struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Product settlement asset identifier
+	// Asset ID for the product's settlement asset
 	SettlementAsset string `protobuf:"bytes,2,opt,name=settlement_asset,json=settlementAsset,proto3" json:"settlement_asset,omitempty"`
 	// Product quote name
 	QuoteName string `protobuf:"bytes,3,opt,name=quote_name,json=quoteName,proto3" json:"quote_name,omitempty"`
@@ -367,7 +367,7 @@ type FutureProduct struct {
 	OracleSpecForTradingTermination *v1.OracleSpecConfiguration `protobuf:"bytes,6,opt,name=oracle_spec_for_trading_termination,json=oracleSpecForTradingTermination,proto3" json:"oracle_spec_for_trading_termination,omitempty"`
 	// The binding between the oracle spec and the settlement price
 	OracleSpecBinding *OracleSpecToFutureBinding `protobuf:"bytes,7,opt,name=oracle_spec_binding,json=oracleSpecBinding,proto3" json:"oracle_spec_binding,omitempty"`
-	// the number of decimal places implied by the settlement price emitted by the settlement oracle
+	// The number of decimal places implied by the settlement price emitted by the settlement oracle
 	SettlementPriceDecimals uint32 `protobuf:"varint,8,opt,name=settlement_price_decimals,json=settlementPriceDecimals,proto3" json:"settlement_price_decimals,omitempty"`
 }
 
@@ -453,7 +453,7 @@ type InstrumentConfiguration struct {
 
 	// Instrument name
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Instrument code
+	// Instrument code, human-readable shortcode used to describe the instrument
 	Code string `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
 	// Product specification
 	//
@@ -541,7 +541,7 @@ type NewMarketConfiguration struct {
 
 	// New market instrument configuration
 	Instrument *InstrumentConfiguration `protobuf:"bytes,1,opt,name=instrument,proto3" json:"instrument,omitempty"`
-	// Decimal places used for the new market
+	// Decimal places used for the new market, sets the smallest price increment on the book
 	DecimalPlaces uint64 `protobuf:"varint,2,opt,name=decimal_places,json=decimalPlaces,proto3" json:"decimal_places,omitempty"`
 	// Optional new market meta data, tags
 	Metadata []string `protobuf:"bytes,3,rep,name=metadata,proto3" json:"metadata,omitempty"`
@@ -555,7 +555,7 @@ type NewMarketConfiguration struct {
 	//	*NewMarketConfiguration_Simple
 	//	*NewMarketConfiguration_LogNormal
 	RiskParameters isNewMarketConfiguration_RiskParameters `protobuf_oneof:"risk_parameters"`
-	// Decimal places for order sizes
+	// Decimal places for order sizes, sets what size the smallest order / position on the market can be
 	PositionDecimalPlaces uint64 `protobuf:"varint,6,opt,name=position_decimal_places,json=positionDecimalPlaces,proto3" json:"position_decimal_places,omitempty"`
 }
 
@@ -821,7 +821,7 @@ type UpdateMarket struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// The market to update
+	// The identifier of the market to update
 	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
 	// The updated configuration of the market
 	Changes *UpdateMarketConfiguration `protobuf:"bytes,2,opt,name=changes,proto3" json:"changes,omitempty"`
@@ -1000,7 +1000,7 @@ type UpdateInstrumentConfiguration struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Instrument code
+	// Instrument code, human-readable shortcode used to describe the instrument
 	Code string `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
 	// Product specification
 	//
@@ -1079,7 +1079,7 @@ type UpdateFutureProduct struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Product quote name
+	// Human-readable name/abbreviation of the quote name
 	QuoteName string `protobuf:"bytes,1,opt,name=quote_name,json=quoteName,proto3" json:"quote_name,omitempty"`
 	// The oracle spec describing the oracle data of settlement price
 	OracleSpecForSettlementPrice *v1.OracleSpecConfiguration `protobuf:"bytes,2,opt,name=oracle_spec_for_settlement_price,json=oracleSpecForSettlementPrice,proto3" json:"oracle_spec_for_settlement_price,omitempty"`
@@ -1087,7 +1087,7 @@ type UpdateFutureProduct struct {
 	OracleSpecForTradingTermination *v1.OracleSpecConfiguration `protobuf:"bytes,3,opt,name=oracle_spec_for_trading_termination,json=oracleSpecForTradingTermination,proto3" json:"oracle_spec_for_trading_termination,omitempty"`
 	// The binding between the oracle spec and the settlement price
 	OracleSpecBinding *OracleSpecToFutureBinding `protobuf:"bytes,4,opt,name=oracle_spec_binding,json=oracleSpecBinding,proto3" json:"oracle_spec_binding,omitempty"`
-	// the number of decimal places implied by the settlement price emitted by the settlement oracle
+	// The number of decimal places implied by the settlement price emitted by the settlement oracle
 	SettlementPriceDecimals uint32 `protobuf:"varint,5,opt,name=settlement_price_decimals,json=settlementPriceDecimals,proto3" json:"settlement_price_decimals,omitempty"`
 }
 
@@ -1262,7 +1262,7 @@ type UpdateAsset struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// The asset concerned by the update
+	// The ID of the asset to be updated
 	AssetId string `protobuf:"bytes,1,opt,name=asset_id,json=assetId,proto3" json:"asset_id,omitempty"`
 	// The changes to apply on an existing asset
 	Changes *AssetDetailsUpdate `protobuf:"bytes,2,opt,name=changes,proto3" json:"changes,omitempty"`
@@ -1508,7 +1508,8 @@ type ProposalTerms_NewAsset struct {
 }
 
 type ProposalTerms_NewFreeform struct {
-	// Proposal change for a freeform voting thing
+	// Proposal change for a freeform request, which can be voted on but does not change the behaviour of the system,
+	// and can be used to gauge community sentiment
 	NewFreeform *NewFreeform `protobuf:"bytes,105,opt,name=new_freeform,json=newFreeform,proto3,oneof"`
 }
 
@@ -1537,7 +1538,7 @@ type ProposalRationale struct {
 
 	// Description to show a short title / something in case the link goes offline.
 	// This is to be between 0 and 1024 unicode characters.
-	// This is mandatory for all proposal.
+	// This is mandatory for all proposals.
 	Description string `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
 	// Cryptographically secure hash (SHA3-512) of the text pointed by the `url` property
 	// so that viewers can check that the text hasn't been changed over time.
@@ -1611,9 +1612,9 @@ type GovernanceData struct {
 
 	// The governance proposal
 	Proposal *Proposal `protobuf:"bytes,1,opt,name=proposal,proto3" json:"proposal,omitempty"`
-	// All "yes" votes in favour of the proposal above
+	// All YES votes in favour of the proposal above
 	Yes []*Vote `protobuf:"bytes,2,rep,name=yes,proto3" json:"yes,omitempty"`
-	// All "no" votes against the proposal above
+	// All NO votes against the proposal above
 	No []*Vote `protobuf:"bytes,3,rep,name=no,proto3" json:"no,omitempty"`
 	// All latest YES votes by party (guaranteed to be unique),
 	// where key (string) is the party ID (public key) and
@@ -1702,7 +1703,7 @@ type Proposal struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// Proposal reference
 	Reference string `protobuf:"bytes,2,opt,name=reference,proto3" json:"reference,omitempty"`
-	// Party identifier of the author (the party submitting the proposal)
+	// Party identifier (public key) of the author (the party submitting the proposal)
 	PartyId string `protobuf:"bytes,3,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
 	// Proposal state - See (Proposal.State)[#vega.Proposal.State] definition
 	State Proposal_State `protobuf:"varint,4,opt,name=state,proto3,enum=vega.Proposal_State" json:"state,omitempty"`
@@ -1712,9 +1713,9 @@ type Proposal struct {
 	Terms *ProposalTerms `protobuf:"bytes,6,opt,name=terms,proto3" json:"terms,omitempty"`
 	// A reason for the current state of the proposal, this may be set in case of REJECTED and FAILED statuses
 	Reason ProposalError `protobuf:"varint,7,opt,name=reason,proto3,enum=vega.ProposalError" json:"reason,omitempty"`
-	// The detailed error associated to the reason.
+	// The detailed error associated to the reason
 	ErrorDetails string `protobuf:"bytes,8,opt,name=error_details,json=errorDetails,proto3" json:"error_details,omitempty"`
-	// The rationale behind a proposal.
+	// The rationale behind a proposal
 	Rationale *ProposalRationale `protobuf:"bytes,9,opt,name=rationale,proto3" json:"rationale,omitempty"`
 }
 

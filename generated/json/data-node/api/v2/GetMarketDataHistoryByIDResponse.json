@@ -149,7 +149,7 @@
                 },
                 "auction_start": {
                     "type": "string",
-                    "description": "Time until next auction (used in FBA's) - currently always 0"
+                    "description": "Time until next auction, or start time of the current auction if market is in auction period"
                 },
                 "indicative_price": {
                     "type": "string",

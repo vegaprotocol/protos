@@ -6,7 +6,7 @@
             "properties": {
                 "market_id": {
                     "type": "string",
-                    "description": "The market to update"
+                    "description": "The identifier of the market to update"
                 },
                 "changes": {
                     "$ref": "#/definitions/vega.UpdateMarketConfiguration",
@@ -299,7 +299,7 @@
             "properties": {
                 "quote_name": {
                     "type": "string",
-                    "description": "Product quote name"
+                    "description": "Human-readable name/abbreviation of the quote name"
                 },
                 "oracle_spec_for_settlement_price": {
                     "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
@@ -318,7 +318,7 @@
                 },
                 "settlement_price_decimals": {
                     "type": "integer",
-                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+                    "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
@@ -330,7 +330,7 @@
             "properties": {
                 "code": {
                     "type": "string",
-                    "description": "Instrument code"
+                    "description": "Instrument code, human-readable shortcode used to describe the instrument"
                 },
                 "future": {
                     "$ref": "#/definitions/vega.UpdateFutureProduct",

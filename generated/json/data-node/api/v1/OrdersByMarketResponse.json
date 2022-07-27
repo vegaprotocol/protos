@@ -89,7 +89,7 @@
                         }
                     ],
                     "title": "Time In Force",
-                    "description": "Time In Force for an order See [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
+                    "description": "Time In Force for an order"
                 },
                 "type": {
                     "enum": [
@@ -115,7 +115,7 @@
                 },
                 "created_at": {
                     "type": "string",
-                    "description": "Timestamp for when the order was created at, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                    "description": "Timestamp for when the order was created at, in nanoseconds since the epoch"
                 },
                 "status": {
                     "enum": [
@@ -147,11 +147,11 @@
                         }
                     ],
                     "title": "Status",
-                    "description": "Status values for an order See resulting status in [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail."
+                    "description": "Status values for an order"
                 },
                 "expires_at": {
                     "type": "string",
-                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`, valid only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`"
+                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch"
                 },
                 "reference": {
                     "type": "string",
@@ -265,7 +265,7 @@
                 },
                 "updated_at": {
                     "type": "string",
-                    "description": "Timestamp for when the Order was last updated, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                    "description": "Timestamp for when the order was last updated, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
                 },
                 "version": {
                     "type": "string",

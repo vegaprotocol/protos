@@ -353,9 +353,9 @@ const (
 	// a general account to submit the order (no deposits made
 	// for the required asset)
 	OrderError_ORDER_ERROR_INSUFFICIENT_ASSET_BALANCE OrderError = 43
-	// Cannot amend a non pegged orders details
+	// Cannot amend details of a non pegged details
 	OrderError_ORDER_ERROR_CANNOT_AMEND_PEGGED_ORDER_DETAILS_ON_NON_PEGGED_ORDER OrderError = 44
-	// We are unable to re-price a pegged order because a market price is unavailable
+	// Could not re-price a pegged order because a market price is unavailable
 	OrderError_ORDER_ERROR_UNABLE_TO_REPRICE_PEGGED_ORDER OrderError = 45
 	// It is not possible to amend the price of an existing pegged order
 	OrderError_ORDER_ERROR_UNABLE_TO_AMEND_PRICE_ON_PEGGED_ORDER OrderError = 46
@@ -557,12 +557,17 @@ const (
 	AccountType_ACCOUNT_TYPE_INSURANCE AccountType = 1
 	// Settlement accounts exist only during settlement or mark-to-market
 	AccountType_ACCOUNT_TYPE_SETTLEMENT AccountType = 2
-	// Margin accounts contain margin funds for a party and each party will
-	// have multiple margin accounts, one for each market they have traded in
+	// Margin accounts contain funds set aside for the margin needed to support a party's open positions.
+	// Each party will have a margin account for each market they have traded in.
+	// The required initial margin is allocated to each market from your general account.
+	// Collateral in the margin account can't be withdrawn or used as margin on another market until
+	// it is released back to the general account.
+	// The Vega protocol uses an internal accounting system to segregate funds held as
+	// margin from other funds to ensure they are never lost or 'double spent'
 	//
-	// Margin account funds will alter as margin requirements on positions change
+	// Margin account funds will vary as margin requirements on positions change
 	AccountType_ACCOUNT_TYPE_MARGIN AccountType = 3
-	// General accounts contains general funds for a party. A party will
+	// General accounts contain the collateral for a party that is not otherwise allocated. A party will
 	// have multiple general accounts, one for each asset they want
 	// to trade with
 	//
@@ -1023,23 +1028,27 @@ func (ValidatorNodeStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 // Time In Force for an order
-// See [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail
 type Order_TimeInForce int32
 
 const (
 	// Default value for TimeInForce, can be valid for an amend
 	Order_TIME_IN_FORCE_UNSPECIFIED Order_TimeInForce = 0
-	// Good until cancelled
+	// Good until cancelled, the order trades any amount and as much as possible
+	// and remains on the book until it either trades completely or is cancelled
 	Order_TIME_IN_FORCE_GTC Order_TimeInForce = 1
-	// Good until specified time
+	// Good until specified time, this order type trades any amount and as much as possible
+	// and remains on the book until it either trades completely, is cancelled, or expires at a set time
+	// NOTE: this may in future be multiple types or have sub types for orders that provide different ways of specifying expiry
 	Order_TIME_IN_FORCE_GTT Order_TimeInForce = 2
-	// Immediate or cancel
+	// Immediate or cancel, the order trades any amount and as much as possible
+	// but does not remain on the book (whether it trades or not)
 	Order_TIME_IN_FORCE_IOC Order_TimeInForce = 3
-	// Fill or kill
+	// Fill or kill, The order either trades completely (remainingSize == 0 after adding)
+	// or not at all, does not remain on the book if it doesn't trade
 	Order_TIME_IN_FORCE_FOK Order_TimeInForce = 4
-	// Good for auction
+	// Good for auction, this order is only accepted during an auction period
 	Order_TIME_IN_FORCE_GFA Order_TimeInForce = 5
-	// Good for normal
+	// Good for normal, this order is only accepted during normal trading (that can be continuous trading or frequent batched auctions)
 	Order_TIME_IN_FORCE_GFN Order_TimeInForce = 6
 )
 
@@ -1150,7 +1159,6 @@ func (Order_Type) EnumDescriptor() ([]byte, []int) {
 }
 
 // Status values for an order
-// See resulting status in [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail.
 type Order_Status int32
 
 const (
@@ -1418,7 +1426,7 @@ const (
 	// The liquidity provision is valid and accepted by network, but orders aren't deployed
 	LiquidityProvision_STATUS_UNDEPLOYED LiquidityProvision_Status = 5
 	// The liquidity provision is valid and accepted by network
-	// but have never been deployed. I when it's possible to deploy them for the first time
+	// but has never been deployed. If when it's possible to deploy the orders for the first time
 	// margin check fails, then they will be cancelled without any penalties.
 	LiquidityProvision_STATUS_PENDING LiquidityProvision_Status = 6
 )
@@ -1694,7 +1702,7 @@ type PeggedOrder struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Which price point are we linked to
+	// The price point the order is linked to
 	Reference PeggedReference `protobuf:"varint,1,opt,name=reference,proto3,enum=vega.PeggedReference" json:"reference,omitempty"`
 	// Offset from the price reference
 	Offset string `protobuf:"bytes,2,opt,name=offset,proto3" json:"offset,omitempty"`
@@ -1758,7 +1766,7 @@ type Order struct {
 	MarketId string `protobuf:"bytes,2,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
 	// Party identifier for the order
 	PartyId string `protobuf:"bytes,3,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
-	// Side for the order, e.g. SIDE_BUY or SIDE_SELL - See [`Side`](#vega.Side)
+	// Side for the order, e.g. SIDE_BUY or SIDE_SELL
 	Side Side `protobuf:"varint,4,opt,name=side,proto3,enum=vega.Side" json:"side,omitempty"`
 	// Price for the order, the price is an integer, for example `123456` is a correctly
 	// formatted price of `1.23456` assuming market configured to 5 decimal places
@@ -1768,26 +1776,24 @@ type Order struct {
 	// Size remaining, when this reaches 0 then the order is fully filled and status becomes STATUS_FILLED
 	Remaining uint64 `protobuf:"varint,7,opt,name=remaining,proto3" json:"remaining,omitempty"`
 	// Time in force indicates how long an order will remain active before it is executed or expires.
-	// - See [`Order.TimeInForce`](#vega.Order.TimeInForce)
+	// - See OrderTimeInForce
 	TimeInForce Order_TimeInForce `protobuf:"varint,8,opt,name=time_in_force,json=timeInForce,proto3,enum=vega.Order_TimeInForce" json:"time_in_force,omitempty"`
-	// Type for the order - See [`Order.Type`](#vega.Order.Type)
+	// Type for the order - See OrderType
 	Type Order_Type `protobuf:"varint,9,opt,name=type,proto3,enum=vega.Order_Type" json:"type,omitempty"`
 	// Timestamp for when the order was created at, in nanoseconds since the epoch
-	// - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
 	CreatedAt int64 `protobuf:"varint,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	// The current status for the order. See [`Order.Status`](#vega.Order.Status)
-	// - For detail on `STATUS_REJECTED` please check the [`OrderError`](#vega.OrderError) value given in the `reason` field
+	// The current status for the order.
+	// - For detail on `STATUS_REJECTED` please check the OrderError value given in the `reason` field
 	Status Order_Status `protobuf:"varint,11,opt,name=status,proto3,enum=vega.Order_Status" json:"status,omitempty"`
 	// Timestamp for when the order will expire, in nanoseconds since the epoch
-	// - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`, valid only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`
 	ExpiresAt int64 `protobuf:"varint,12,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
 	// Reference given for the order, this is typically used to retrieve an order submitted through consensus
 	// - Currently set internally by the node to return a unique reference identifier for the order submission
 	Reference string `protobuf:"bytes,13,opt,name=reference,proto3" json:"reference,omitempty"`
-	// If the Order `status` is `STATUS_REJECTED` then an [`OrderError`](#vega.OrderError) reason will be specified
+	// If the Order `status` is `STATUS_REJECTED` then an OrderError reason will be specified
 	// - The default for this field is `ORDER_ERROR_NONE` which signifies that there were no errors
 	Reason OrderError `protobuf:"varint,14,opt,name=reason,proto3,enum=vega.OrderError" json:"reason,omitempty"`
-	// Timestamp for when the Order was last updated, in nanoseconds since the epoch
+	// Timestamp for when the order was last updated, in nanoseconds since the epoch
 	// - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
 	UpdatedAt int64 `protobuf:"varint,15,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	// The version for the order, initial value is version 1 and is incremented after each successful amend
@@ -1966,7 +1972,7 @@ func (x *Order) GetLiquidityProvisionId() string {
 	return ""
 }
 
-// Used when cancelling an Order
+// Used when cancelling an order
 type OrderCancellationConfirmation struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2015,7 +2021,7 @@ func (x *OrderCancellationConfirmation) GetOrder() *Order {
 	return nil
 }
 
-// Used when confirming an Order
+// Used when confirming an order
 type OrderConfirmation struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2090,9 +2096,9 @@ type AuctionIndicativeState struct {
 
 	// The market identifier for which this state relates to
 	MarketId string `protobuf:"bytes,1,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
-	// The Indicative Uncrossing Price is the price at which all trades would occur if we uncrossed the auction now
+	// The Indicative Uncrossing Price is the price at which all trades would occur if the auction uncrossed now
 	IndicativePrice string `protobuf:"bytes,2,opt,name=indicative_price,json=indicativePrice,proto3" json:"indicative_price,omitempty"`
-	// The Indicative Uncrossing Volume is the volume available at the Indicative crossing price if we uncrossed the auction now
+	// The Indicative Uncrossing Volume is the volume available at the Indicative crossing price if the auction uncrossed now
 	IndicativeVolume uint64 `protobuf:"varint,3,opt,name=indicative_volume,json=indicativeVolume,proto3" json:"indicative_volume,omitempty"`
 	// The timestamp at which the auction started
 	AuctionStart int64 `protobuf:"varint,4,opt,name=auction_start,json=auctionStart,proto3" json:"auction_start,omitempty"`
@@ -3088,7 +3094,7 @@ type Withdrawal struct {
 	PartyId string `protobuf:"bytes,2,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
 	// The amount to be withdrawn
 	Amount string `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
-	// The asset we want to withdraw funds from
+	// The asset to withdraw funds from
 	Asset string `protobuf:"bytes,4,opt,name=asset,proto3" json:"asset,omitempty"`
 	// The status of the withdrawal
 	Status Withdrawal_Status `protobuf:"varint,5,opt,name=status,proto3,enum=vega.Withdrawal_Status" json:"status,omitempty"`
@@ -4100,7 +4106,7 @@ type MarketData struct {
 	OpenInterest uint64 `protobuf:"varint,14,opt,name=open_interest,json=openInterest,proto3" json:"open_interest,omitempty"`
 	// Time in seconds until the end of the auction (0 if currently not in auction period)
 	AuctionEnd int64 `protobuf:"varint,15,opt,name=auction_end,json=auctionEnd,proto3" json:"auction_end,omitempty"`
-	// Time until next auction (used in FBA's) - currently always 0
+	// Time until next auction, or start time of the current auction if market is in auction period
 	AuctionStart int64 `protobuf:"varint,16,opt,name=auction_start,json=auctionStart,proto3" json:"auction_start,omitempty"`
 	// Indicative price (zero if not in auction)
 	IndicativePrice string `protobuf:"bytes,17,opt,name=indicative_price,json=indicativePrice,proto3" json:"indicative_price,omitempty"`
@@ -4794,7 +4800,7 @@ func (x *LiquidityOrder) GetOffset() string {
 	return ""
 }
 
-// A pair of a liquidity order and the id of the generated order by the core
+// A pair of a liquidity order and the ID of the generated order by the core
 type LiquidityOrderReference struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4882,7 +4888,7 @@ type LiquidityProvision struct {
 	Version uint64 `protobuf:"varint,10,opt,name=version,proto3" json:"version,omitempty"`
 	// Status of this liquidity provision order
 	Status LiquidityProvision_Status `protobuf:"varint,11,opt,name=status,proto3,enum=vega.LiquidityProvision_Status" json:"status,omitempty"`
-	// A reference shared between this liquidity provision and all it's orders
+	// A reference shared between this liquidity provision and all its orders
 	Reference string `protobuf:"bytes,12,opt,name=reference,proto3" json:"reference,omitempty"`
 }
 
@@ -5679,7 +5685,7 @@ type Node struct {
 	MaxIntendedStake string `protobuf:"bytes,10,opt,name=max_intended_stake,json=maxIntendedStake,proto3" json:"max_intended_stake,omitempty"`
 	// Amount of stake on the next epoch
 	PendingStake string `protobuf:"bytes,11,opt,name=pending_stake,json=pendingStake,proto3" json:"pending_stake,omitempty"`
-	// Informantion about epoch
+	// Information about epoch
 	EpochData *EpochData `protobuf:"bytes,12,opt,name=epoch_data,json=epochData,proto3" json:"epoch_data,omitempty"`
 	// Node status
 	Status NodeStatus `protobuf:"varint,13,opt,name=status,proto3,enum=vega.NodeStatus" json:"status,omitempty"`

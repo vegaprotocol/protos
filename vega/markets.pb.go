@@ -173,9 +173,9 @@ func (Market_TradingMode) EnumDescriptor() ([]byte, []int) {
 // 1. `duration > 0`, `volume == 0`:
 //   The auction will last for at least N seconds
 // 2. `duration == 0`, `volume > 0`:
-//   The auction will end once we can close with given traded volume
+//   The auction will end once the given volume will match at uncrossing
 // 3. `duration > 0`, `volume > 0`:
-//   The auction will take at least N seconds, but can end sooner if we can trade a certain volume
+//   The auction will take at least N seconds, but can end sooner if the market can trade a certain volume
 type AuctionDuration struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
