@@ -3,7 +3,7 @@
 ## Unreleased (0.54.0)
 
 ### 🚨 Breaking changes
-- [](https://github.com/vegaprotocol/protos/issues/) -
+- [519](https://github.com/vegaprotocol/protos/issues/519) - Get rid of unused price monitoring `updateFrequency`
 
 ### 🗑️ Deprecation
 - [](https://github.com/vegaprotocol/protos/issues/) -
@@ -21,6 +21,7 @@
 ### 🐛 Fixes
 - [499](https://github.com/vegaprotocol/protos/issues/499) - Add validation on vega `IDs` and public keys
 - [506](https://github.com/vegaprotocol/protos/issues/506) - Fix validation error message
+- [208](https://github.com/vegaprotocol/protos/issues/208) - Remove `ACCOUNT_TYPE_LOCK_WITHDRAW` account type
 
 
 

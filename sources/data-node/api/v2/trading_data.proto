@@ -91,6 +91,8 @@ service TradingDataService {
     rpc GetERC20MultiSigSignerRemovedBundles(GetERC20MultiSigSignerRemovedBundlesRequest) returns (GetERC20MultiSigSignerRemovedBundlesResponse);
     // Gets the signature bundles that remove a particular validator to the multisig contract
     rpc GetERC20ListAssetBundle(GetERC20ListAssetBundleRequest) returns (GetERC20ListAssetBundleResponse);
+    // Gets the signature bundles that remove a particular validator to the multisig contract
+    rpc GetERC20SetAssetLimitsBundle(GetERC20SetAssetLimitsBundleRequest) returns (GetERC20SetAssetLimitsBundleResponse);
     rpc GetERC20WithdrawalApproval(GetERC20WithdrawalApprovalRequest) returns (GetERC20WithdrawalApprovalResponse);
 
     // -- Trades --
@@ -766,6 +768,29 @@ message GetERC20ListAssetBundleResponse {
    // The signatures bundle as hex encoded data, forward by 0x
   // e.g: 0x + sig1 + sig2 + ... + sixN
   string signatures = 4;
+}
+
+// A request to get an asset bundle details
+message GetERC20SetAssetLimitsBundleRequest {
+  // The ID of the proposal to update an asset
+  string proposal_id = 1;
+}
+
+// The response with all information required to bundle the call to propose an erc20 asset
+message GetERC20SetAssetLimitsBundleResponse {
+  // The address of the asset on ethereum
+  string asset_source = 1;
+  // The ID of the vega asset
+  string vega_asset_id = 2;
+  // The nonce, which is actually the internal reference for the proposal
+  string nonce = 3;
+  // The lifetime limit deposit for this asset
+  string lifetime_limit = 4;
+  // The threshold withdraw for this asset
+  string threshold = 5;
+  // The signatures bundle as hex encoded data, forward by 0x
+  // e.g: 0x + sig1 + sig2 + ... + sixN
+  string signatures = 6;
 }
 
 // The request to get all information required to bundle the call to finalise the withdrawal on the erc20 bridge

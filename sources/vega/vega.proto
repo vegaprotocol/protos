@@ -619,6 +619,7 @@ message Erc20WithdrawExt {
 
 // Various collateral/account types as used by Vega
 enum AccountType {
+  reserved 8;
   // Default value
   ACCOUNT_TYPE_UNSPECIFIED = 0;
   // Insurance pool accounts contain insurance pool funds for a market
@@ -645,8 +646,6 @@ enum AccountType {
   // and are then matched with an incoming order to create a trade - These fees reward parties
   // who provide the best priced liquidity that actually allows trading to take place
   ACCOUNT_TYPE_FEES_MAKER = 7;
-  // This account is created to lock funds to be withdrawn by parties
-  ACCOUNT_TYPE_LOCK_WITHDRAW = 8;
   // This account is created to maintain liquidity providers funds commitments
   ACCOUNT_TYPE_BOND = 9;
 
@@ -780,7 +779,7 @@ enum DispatchMetric {
   DISPATCH_METRIC_MAKER_FEES_RECEIVED = 2;
   // Dispatch metric that is using the total LP fees received in the market
   DISPATCH_METRIC_LP_FEES_RECEIVED = 3;
-  // Dispatch metric that is using total value of the market if above the required threshold and not paid given proposer bonus yet 
+  // Dispatch metric that is using total value of the market if above the required threshold and not paid given proposer bonus yet
   DISPATCH_METRIC_MARKET_VALUE = 4;
 }
 
@@ -789,7 +788,7 @@ message DispatchStrategy {
   string asset_for_metric = 1;
   // The metric to apply
   DispatchMetric metric = 2;
-  // Optional markets in scope 
+  // Optional markets in scope
   repeated string markets = 3;
 }
 

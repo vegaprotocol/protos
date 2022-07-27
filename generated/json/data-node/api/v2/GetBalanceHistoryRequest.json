@@ -75,8 +75,6 @@
                             6,
                             "ACCOUNT_TYPE_FEES_MAKER",
                             7,
-                            "ACCOUNT_TYPE_LOCK_WITHDRAW",
-                            8,
                             "ACCOUNT_TYPE_BOND",
                             9,
                             "ACCOUNT_TYPE_EXTERNAL",
