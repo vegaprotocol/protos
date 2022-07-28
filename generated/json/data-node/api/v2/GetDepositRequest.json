@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetDepositRequest",
+    "definitions": {
+        "GetDepositRequest": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The identifier of the deposit"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get Deposit Request",
+            "description": "-- Deposits -- A request to get a specific deposit by identifier"
+        }
+    }
+}

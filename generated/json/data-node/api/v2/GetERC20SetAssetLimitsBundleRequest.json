@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetERC20SetAssetLimitsBundleRequest",
+    "definitions": {
+        "GetERC20SetAssetLimitsBundleRequest": {
+            "properties": {
+                "proposal_id": {
+                    "type": "string",
+                    "description": "The ID of the proposal to update an asset"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Get ERC 20 Set Asset Limits Bundle Request",
+            "description": "A request to get an asset bundle details"
+        }
+    }
+}
