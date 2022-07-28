@@ -1015,7 +1015,7 @@ type RecurringTransfer struct {
 	unknownFields protoimpl.UnknownFields
 
 	StartEpoch       uint64                 `protobuf:"varint,1,opt,name=start_epoch,json=startEpoch,proto3" json:"start_epoch,omitempty"`
-	EndEpoch         *vega.Uint64Value      `protobuf:"bytes,2,opt,name=end_epoch,json=endEpoch,proto3" json:"end_epoch,omitempty"`
+	EndEpoch         *uint64                `protobuf:"varint,2,opt,name=end_epoch,json=endEpoch,proto3,oneof" json:"end_epoch,omitempty"`
 	Factor           string                 `protobuf:"bytes,3,opt,name=factor,proto3" json:"factor,omitempty"`
 	DispatchStrategy *vega.DispatchStrategy `protobuf:"bytes,4,opt,name=dispatch_strategy,json=dispatchStrategy,proto3" json:"dispatch_strategy,omitempty"`
 }
@@ -1059,11 +1059,11 @@ func (x *RecurringTransfer) GetStartEpoch() uint64 {
 	return 0
 }
 
-func (x *RecurringTransfer) GetEndEpoch() *vega.Uint64Value {
-	if x != nil {
-		return x.EndEpoch
+func (x *RecurringTransfer) GetEndEpoch() uint64 {
+	if x != nil && x.EndEpoch != nil {
+		return *x.EndEpoch
 	}
-	return nil
+	return 0
 }
 
 func (x *RecurringTransfer) GetFactor() string {
@@ -4461,16 +4461,16 @@ var file_vega_events_v1_events_proto_rawDesc = []byte{
 	0x6e, 0x22, 0xc1, 0x01, 0x0a, 0x11, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x54,
 	0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74,
 	0x5f, 0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a, 0x73, 0x74,
-	0x61, 0x72, 0x74, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x12, 0x2e, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f,
-	0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x76, 0x65,
-	0x67, 0x61, 0x2e, 0x55, 0x69, 0x6e, 0x74, 0x36, 0x34, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x08,
-	0x65, 0x6e, 0x64, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x12, 0x16, 0x0a, 0x06, 0x66, 0x61, 0x63, 0x74,
-	0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x66, 0x61, 0x63, 0x74, 0x6f, 0x72,
-	0x12, 0x43, 0x0a, 0x11, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x5f, 0x73, 0x74, 0x72,
-	0x61, 0x74, 0x65, 0x67, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x76, 0x65,
-	0x67, 0x61, 0x2e, 0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x53, 0x74, 0x72, 0x61, 0x74,
-	0x65, 0x67, 0x79, 0x52, 0x10, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x53, 0x74, 0x72,
-	0x61, 0x74, 0x65, 0x67, 0x79, 0x22, 0xb4, 0x04, 0x0a, 0x0c, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x4c,
+	0x61, 0x72, 0x74, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x12, 0x20, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f,
+	0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x48, 0x00, 0x52, 0x08, 0x65,
+	0x6e, 0x64, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x88, 0x01, 0x01, 0x12, 0x16, 0x0a, 0x06, 0x66, 0x61,
+	0x63, 0x74, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x66, 0x61, 0x63, 0x74,
+	0x6f, 0x72, 0x12, 0x43, 0x0a, 0x11, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x5f, 0x73,
+	0x74, 0x72, 0x61, 0x74, 0x65, 0x67, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e,
+	0x76, 0x65, 0x67, 0x61, 0x2e, 0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x53, 0x74, 0x72,
+	0x61, 0x74, 0x65, 0x67, 0x79, 0x52, 0x10, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x53,
+	0x74, 0x72, 0x61, 0x74, 0x65, 0x67, 0x79, 0x42, 0x0c, 0x0a, 0x0a, 0x5f, 0x65, 0x6e, 0x64, 0x5f,
+	0x65, 0x70, 0x6f, 0x63, 0x68, 0x22, 0xb4, 0x04, 0x0a, 0x0c, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x4c,
 	0x69, 0x6e, 0x6b, 0x69, 0x6e, 0x67, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x35, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x0e, 0x32, 0x21, 0x2e, 0x76, 0x65, 0x67, 0x61, 0x2e, 0x65, 0x76, 0x65, 0x6e,
@@ -5274,46 +5274,45 @@ var file_vega_events_v1_events_proto_goTypes = []interface{}{
 	(*StateVar)(nil),                             // 38: vega.events.v1.StateVar
 	(*BusEvent)(nil),                             // 39: vega.events.v1.BusEvent
 	(vega.AccountType)(0),                        // 40: vega.AccountType
-	(*vega.Uint64Value)(nil),                     // 41: vega.Uint64Value
-	(*vega.DispatchStrategy)(nil),                // 42: vega.DispatchStrategy
-	(*v1.OrderSubmission)(nil),                   // 43: vega.commands.v1.OrderSubmission
-	(*v1.OrderAmendment)(nil),                    // 44: vega.commands.v1.OrderAmendment
-	(*v1.OrderCancellation)(nil),                 // 45: vega.commands.v1.OrderCancellation
-	(*v1.ProposalSubmission)(nil),                // 46: vega.commands.v1.ProposalSubmission
-	(*v1.VoteSubmission)(nil),                    // 47: vega.commands.v1.VoteSubmission
-	(*v1.LiquidityProvisionSubmission)(nil),      // 48: vega.commands.v1.LiquidityProvisionSubmission
-	(*v1.WithdrawSubmission)(nil),                // 49: vega.commands.v1.WithdrawSubmission
-	(*v1.DelegateSubmission)(nil),                // 50: vega.commands.v1.DelegateSubmission
-	(*v1.UndelegateSubmission)(nil),              // 51: vega.commands.v1.UndelegateSubmission
-	(*v1.LiquidityProvisionCancellation)(nil),    // 52: vega.commands.v1.LiquidityProvisionCancellation
-	(*v1.LiquidityProvisionAmendment)(nil),       // 53: vega.commands.v1.LiquidityProvisionAmendment
-	(*v1.Transfer)(nil),                          // 54: vega.commands.v1.Transfer
-	(*v1.CancelTransfer)(nil),                    // 55: vega.commands.v1.CancelTransfer
-	(*v1.AnnounceNode)(nil),                      // 56: vega.commands.v1.AnnounceNode
-	(*v1.OracleDataSubmission)(nil),              // 57: vega.commands.v1.OracleDataSubmission
-	(*v1.ProtocolUpgradeProposal)(nil),           // 58: vega.commands.v1.ProtocolUpgradeProposal
-	(vega.EpochAction)(0),                        // 59: vega.EpochAction
-	(*vega.TransferResponse)(nil),                // 60: vega.TransferResponse
-	(vega.AuctionTrigger)(0),                     // 61: vega.AuctionTrigger
-	(*vega.Order)(nil),                           // 62: vega.Order
-	(*vega.Account)(nil),                         // 63: vega.Account
-	(*vega.Party)(nil),                           // 64: vega.Party
-	(*vega.Trade)(nil),                           // 65: vega.Trade
-	(*vega.MarginLevels)(nil),                    // 66: vega.MarginLevels
-	(*vega.Proposal)(nil),                        // 67: vega.Proposal
-	(*vega.Vote)(nil),                            // 68: vega.Vote
-	(*vega.MarketData)(nil),                      // 69: vega.MarketData
-	(*v1.NodeSignature)(nil),                     // 70: vega.commands.v1.NodeSignature
-	(*vega.Market)(nil),                          // 71: vega.Market
-	(*vega.Asset)(nil),                           // 72: vega.Asset
-	(*vega.Withdrawal)(nil),                      // 73: vega.Withdrawal
-	(*vega.Deposit)(nil),                         // 74: vega.Deposit
-	(*vega.RiskFactor)(nil),                      // 75: vega.RiskFactor
-	(*vega.NetworkParameter)(nil),                // 76: vega.NetworkParameter
-	(*vega.LiquidityProvision)(nil),              // 77: vega.LiquidityProvision
-	(*v11.OracleSpec)(nil),                       // 78: oracles.v1.OracleSpec
-	(*v11.OracleData)(nil),                       // 79: oracles.v1.OracleData
-	(*vega.NetworkLimits)(nil),                   // 80: vega.NetworkLimits
+	(*vega.DispatchStrategy)(nil),                // 41: vega.DispatchStrategy
+	(*v1.OrderSubmission)(nil),                   // 42: vega.commands.v1.OrderSubmission
+	(*v1.OrderAmendment)(nil),                    // 43: vega.commands.v1.OrderAmendment
+	(*v1.OrderCancellation)(nil),                 // 44: vega.commands.v1.OrderCancellation
+	(*v1.ProposalSubmission)(nil),                // 45: vega.commands.v1.ProposalSubmission
+	(*v1.VoteSubmission)(nil),                    // 46: vega.commands.v1.VoteSubmission
+	(*v1.LiquidityProvisionSubmission)(nil),      // 47: vega.commands.v1.LiquidityProvisionSubmission
+	(*v1.WithdrawSubmission)(nil),                // 48: vega.commands.v1.WithdrawSubmission
+	(*v1.DelegateSubmission)(nil),                // 49: vega.commands.v1.DelegateSubmission
+	(*v1.UndelegateSubmission)(nil),              // 50: vega.commands.v1.UndelegateSubmission
+	(*v1.LiquidityProvisionCancellation)(nil),    // 51: vega.commands.v1.LiquidityProvisionCancellation
+	(*v1.LiquidityProvisionAmendment)(nil),       // 52: vega.commands.v1.LiquidityProvisionAmendment
+	(*v1.Transfer)(nil),                          // 53: vega.commands.v1.Transfer
+	(*v1.CancelTransfer)(nil),                    // 54: vega.commands.v1.CancelTransfer
+	(*v1.AnnounceNode)(nil),                      // 55: vega.commands.v1.AnnounceNode
+	(*v1.OracleDataSubmission)(nil),              // 56: vega.commands.v1.OracleDataSubmission
+	(*v1.ProtocolUpgradeProposal)(nil),           // 57: vega.commands.v1.ProtocolUpgradeProposal
+	(vega.EpochAction)(0),                        // 58: vega.EpochAction
+	(*vega.TransferResponse)(nil),                // 59: vega.TransferResponse
+	(vega.AuctionTrigger)(0),                     // 60: vega.AuctionTrigger
+	(*vega.Order)(nil),                           // 61: vega.Order
+	(*vega.Account)(nil),                         // 62: vega.Account
+	(*vega.Party)(nil),                           // 63: vega.Party
+	(*vega.Trade)(nil),                           // 64: vega.Trade
+	(*vega.MarginLevels)(nil),                    // 65: vega.MarginLevels
+	(*vega.Proposal)(nil),                        // 66: vega.Proposal
+	(*vega.Vote)(nil),                            // 67: vega.Vote
+	(*vega.MarketData)(nil),                      // 68: vega.MarketData
+	(*v1.NodeSignature)(nil),                     // 69: vega.commands.v1.NodeSignature
+	(*vega.Market)(nil),                          // 70: vega.Market
+	(*vega.Asset)(nil),                           // 71: vega.Asset
+	(*vega.Withdrawal)(nil),                      // 72: vega.Withdrawal
+	(*vega.Deposit)(nil),                         // 73: vega.Deposit
+	(*vega.RiskFactor)(nil),                      // 74: vega.RiskFactor
+	(*vega.NetworkParameter)(nil),                // 75: vega.NetworkParameter
+	(*vega.LiquidityProvision)(nil),              // 76: vega.LiquidityProvision
+	(*v11.OracleSpec)(nil),                       // 77: oracles.v1.OracleSpec
+	(*v11.OracleData)(nil),                       // 78: oracles.v1.OracleData
+	(*vega.NetworkLimits)(nil),                   // 79: vega.NetworkLimits
 }
 var file_vega_events_v1_events_proto_depIdxs = []int32{
 	7,  // 0: vega.events.v1.ERC20MultiSigSignerRemoved.signature_submitters:type_name -> vega.events.v1.ERC20MulistSigSignerRemovedSubmitter
@@ -5322,87 +5321,86 @@ var file_vega_events_v1_events_proto_depIdxs = []int32{
 	2,  // 3: vega.events.v1.Transfer.status:type_name -> vega.events.v1.Transfer.Status
 	10, // 4: vega.events.v1.Transfer.one_off:type_name -> vega.events.v1.OneOffTransfer
 	11, // 5: vega.events.v1.Transfer.recurring:type_name -> vega.events.v1.RecurringTransfer
-	41, // 6: vega.events.v1.RecurringTransfer.end_epoch:type_name -> vega.Uint64Value
-	42, // 7: vega.events.v1.RecurringTransfer.dispatch_strategy:type_name -> vega.DispatchStrategy
-	3,  // 8: vega.events.v1.StakeLinking.type:type_name -> vega.events.v1.StakeLinking.Type
-	4,  // 9: vega.events.v1.StakeLinking.status:type_name -> vega.events.v1.StakeLinking.Status
-	5,  // 10: vega.events.v1.ERC20MultiSigSignerEvent.type:type_name -> vega.events.v1.ERC20MultiSigSignerEvent.Type
-	43, // 11: vega.events.v1.TxErrorEvent.order_submission:type_name -> vega.commands.v1.OrderSubmission
-	44, // 12: vega.events.v1.TxErrorEvent.order_amendment:type_name -> vega.commands.v1.OrderAmendment
-	45, // 13: vega.events.v1.TxErrorEvent.order_cancellation:type_name -> vega.commands.v1.OrderCancellation
-	46, // 14: vega.events.v1.TxErrorEvent.proposal:type_name -> vega.commands.v1.ProposalSubmission
-	47, // 15: vega.events.v1.TxErrorEvent.vote_submission:type_name -> vega.commands.v1.VoteSubmission
-	48, // 16: vega.events.v1.TxErrorEvent.liquidity_provision_submission:type_name -> vega.commands.v1.LiquidityProvisionSubmission
-	49, // 17: vega.events.v1.TxErrorEvent.withdraw_submission:type_name -> vega.commands.v1.WithdrawSubmission
-	50, // 18: vega.events.v1.TxErrorEvent.delegate_submission:type_name -> vega.commands.v1.DelegateSubmission
-	51, // 19: vega.events.v1.TxErrorEvent.undelegate_submission:type_name -> vega.commands.v1.UndelegateSubmission
-	52, // 20: vega.events.v1.TxErrorEvent.liquidity_provision_cancellation:type_name -> vega.commands.v1.LiquidityProvisionCancellation
-	53, // 21: vega.events.v1.TxErrorEvent.liquidity_provision_amendment:type_name -> vega.commands.v1.LiquidityProvisionAmendment
-	54, // 22: vega.events.v1.TxErrorEvent.transfer:type_name -> vega.commands.v1.Transfer
-	55, // 23: vega.events.v1.TxErrorEvent.cancel_transfer:type_name -> vega.commands.v1.CancelTransfer
-	56, // 24: vega.events.v1.TxErrorEvent.announce_node:type_name -> vega.commands.v1.AnnounceNode
-	57, // 25: vega.events.v1.TxErrorEvent.oracle_data_submission:type_name -> vega.commands.v1.OracleDataSubmission
-	58, // 26: vega.events.v1.TxErrorEvent.protocol_upgrade_proposal:type_name -> vega.commands.v1.ProtocolUpgradeProposal
-	59, // 27: vega.events.v1.EpochEvent.action:type_name -> vega.EpochAction
-	60, // 28: vega.events.v1.TransferResponses.responses:type_name -> vega.TransferResponse
-	27, // 29: vega.events.v1.SettlePosition.trade_settlements:type_name -> vega.events.v1.TradeSettlement
-	61, // 30: vega.events.v1.AuctionEvent.trigger:type_name -> vega.AuctionTrigger
-	61, // 31: vega.events.v1.AuctionEvent.extension_trigger:type_name -> vega.AuctionTrigger
-	0,  // 32: vega.events.v1.ProtocolUpgradeEvent.status:type_name -> vega.events.v1.ProtocolUpgradeProposalStatus
-	1,  // 33: vega.events.v1.BusEvent.type:type_name -> vega.events.v1.BusEventType
-	22, // 34: vega.events.v1.BusEvent.time_update:type_name -> vega.events.v1.TimeUpdate
-	24, // 35: vega.events.v1.BusEvent.transfer_responses:type_name -> vega.events.v1.TransferResponses
-	25, // 36: vega.events.v1.BusEvent.position_resolution:type_name -> vega.events.v1.PositionResolution
-	62, // 37: vega.events.v1.BusEvent.order:type_name -> vega.Order
-	63, // 38: vega.events.v1.BusEvent.account:type_name -> vega.Account
-	64, // 39: vega.events.v1.BusEvent.party:type_name -> vega.Party
-	65, // 40: vega.events.v1.BusEvent.trade:type_name -> vega.Trade
-	66, // 41: vega.events.v1.BusEvent.margin_levels:type_name -> vega.MarginLevels
-	67, // 42: vega.events.v1.BusEvent.proposal:type_name -> vega.Proposal
-	68, // 43: vega.events.v1.BusEvent.vote:type_name -> vega.Vote
-	69, // 44: vega.events.v1.BusEvent.market_data:type_name -> vega.MarketData
-	70, // 45: vega.events.v1.BusEvent.node_signature:type_name -> vega.commands.v1.NodeSignature
-	26, // 46: vega.events.v1.BusEvent.loss_socialization:type_name -> vega.events.v1.LossSocialization
-	28, // 47: vega.events.v1.BusEvent.settle_position:type_name -> vega.events.v1.SettlePosition
-	30, // 48: vega.events.v1.BusEvent.settle_distressed:type_name -> vega.events.v1.SettleDistressed
-	71, // 49: vega.events.v1.BusEvent.market_created:type_name -> vega.Market
-	72, // 50: vega.events.v1.BusEvent.asset:type_name -> vega.Asset
-	31, // 51: vega.events.v1.BusEvent.market_tick:type_name -> vega.events.v1.MarketTick
-	73, // 52: vega.events.v1.BusEvent.withdrawal:type_name -> vega.Withdrawal
-	74, // 53: vega.events.v1.BusEvent.deposit:type_name -> vega.Deposit
-	32, // 54: vega.events.v1.BusEvent.auction:type_name -> vega.events.v1.AuctionEvent
-	75, // 55: vega.events.v1.BusEvent.risk_factor:type_name -> vega.RiskFactor
-	76, // 56: vega.events.v1.BusEvent.network_parameter:type_name -> vega.NetworkParameter
-	77, // 57: vega.events.v1.BusEvent.liquidity_provision:type_name -> vega.LiquidityProvision
-	71, // 58: vega.events.v1.BusEvent.market_updated:type_name -> vega.Market
-	78, // 59: vega.events.v1.BusEvent.oracle_spec:type_name -> oracles.v1.OracleSpec
-	79, // 60: vega.events.v1.BusEvent.oracle_data:type_name -> oracles.v1.OracleData
-	19, // 61: vega.events.v1.BusEvent.delegation_balance:type_name -> vega.events.v1.DelegationBalanceEvent
-	18, // 62: vega.events.v1.BusEvent.validator_score:type_name -> vega.events.v1.ValidatorScoreEvent
-	23, // 63: vega.events.v1.BusEvent.epoch_event:type_name -> vega.events.v1.EpochEvent
-	33, // 64: vega.events.v1.BusEvent.validator_update:type_name -> vega.events.v1.ValidatorUpdate
-	12, // 65: vega.events.v1.BusEvent.stake_linking:type_name -> vega.events.v1.StakeLinking
-	17, // 66: vega.events.v1.BusEvent.reward_payout:type_name -> vega.events.v1.RewardPayoutEvent
-	15, // 67: vega.events.v1.BusEvent.checkpoint:type_name -> vega.events.v1.CheckpointEvent
-	35, // 68: vega.events.v1.BusEvent.key_rotation:type_name -> vega.events.v1.KeyRotation
-	38, // 69: vega.events.v1.BusEvent.state_var:type_name -> vega.events.v1.StateVar
-	80, // 70: vega.events.v1.BusEvent.network_limits:type_name -> vega.NetworkLimits
-	9,  // 71: vega.events.v1.BusEvent.transfer:type_name -> vega.events.v1.Transfer
-	34, // 72: vega.events.v1.BusEvent.ranking_event:type_name -> vega.events.v1.ValidatorRankingEvent
-	13, // 73: vega.events.v1.BusEvent.erc20_multisig_signer_event:type_name -> vega.events.v1.ERC20MultiSigSignerEvent
-	14, // 74: vega.events.v1.BusEvent.erc20_multisig_set_threshold_event:type_name -> vega.events.v1.ERC20MultiSigThresholdSetEvent
-	6,  // 75: vega.events.v1.BusEvent.erc20_multisig_signer_added:type_name -> vega.events.v1.ERC20MultiSigSignerAdded
-	8,  // 76: vega.events.v1.BusEvent.erc20_multisig_signer_removed:type_name -> vega.events.v1.ERC20MultiSigSignerRemoved
-	29, // 77: vega.events.v1.BusEvent.position_state_event:type_name -> vega.events.v1.PositionStateEvent
-	36, // 78: vega.events.v1.BusEvent.ethereum_key_rotation:type_name -> vega.events.v1.EthereumKeyRotation
-	37, // 79: vega.events.v1.BusEvent.protocol_upgrade_event:type_name -> vega.events.v1.ProtocolUpgradeEvent
-	20, // 80: vega.events.v1.BusEvent.market:type_name -> vega.events.v1.MarketEvent
-	21, // 81: vega.events.v1.BusEvent.tx_err_event:type_name -> vega.events.v1.TxErrorEvent
-	82, // [82:82] is the sub-list for method output_type
-	82, // [82:82] is the sub-list for method input_type
-	82, // [82:82] is the sub-list for extension type_name
-	82, // [82:82] is the sub-list for extension extendee
-	0,  // [0:82] is the sub-list for field type_name
+	41, // 6: vega.events.v1.RecurringTransfer.dispatch_strategy:type_name -> vega.DispatchStrategy
+	3,  // 7: vega.events.v1.StakeLinking.type:type_name -> vega.events.v1.StakeLinking.Type
+	4,  // 8: vega.events.v1.StakeLinking.status:type_name -> vega.events.v1.StakeLinking.Status
+	5,  // 9: vega.events.v1.ERC20MultiSigSignerEvent.type:type_name -> vega.events.v1.ERC20MultiSigSignerEvent.Type
+	42, // 10: vega.events.v1.TxErrorEvent.order_submission:type_name -> vega.commands.v1.OrderSubmission
+	43, // 11: vega.events.v1.TxErrorEvent.order_amendment:type_name -> vega.commands.v1.OrderAmendment
+	44, // 12: vega.events.v1.TxErrorEvent.order_cancellation:type_name -> vega.commands.v1.OrderCancellation
+	45, // 13: vega.events.v1.TxErrorEvent.proposal:type_name -> vega.commands.v1.ProposalSubmission
+	46, // 14: vega.events.v1.TxErrorEvent.vote_submission:type_name -> vega.commands.v1.VoteSubmission
+	47, // 15: vega.events.v1.TxErrorEvent.liquidity_provision_submission:type_name -> vega.commands.v1.LiquidityProvisionSubmission
+	48, // 16: vega.events.v1.TxErrorEvent.withdraw_submission:type_name -> vega.commands.v1.WithdrawSubmission
+	49, // 17: vega.events.v1.TxErrorEvent.delegate_submission:type_name -> vega.commands.v1.DelegateSubmission
+	50, // 18: vega.events.v1.TxErrorEvent.undelegate_submission:type_name -> vega.commands.v1.UndelegateSubmission
+	51, // 19: vega.events.v1.TxErrorEvent.liquidity_provision_cancellation:type_name -> vega.commands.v1.LiquidityProvisionCancellation
+	52, // 20: vega.events.v1.TxErrorEvent.liquidity_provision_amendment:type_name -> vega.commands.v1.LiquidityProvisionAmendment
+	53, // 21: vega.events.v1.TxErrorEvent.transfer:type_name -> vega.commands.v1.Transfer
+	54, // 22: vega.events.v1.TxErrorEvent.cancel_transfer:type_name -> vega.commands.v1.CancelTransfer
+	55, // 23: vega.events.v1.TxErrorEvent.announce_node:type_name -> vega.commands.v1.AnnounceNode
+	56, // 24: vega.events.v1.TxErrorEvent.oracle_data_submission:type_name -> vega.commands.v1.OracleDataSubmission
+	57, // 25: vega.events.v1.TxErrorEvent.protocol_upgrade_proposal:type_name -> vega.commands.v1.ProtocolUpgradeProposal
+	58, // 26: vega.events.v1.EpochEvent.action:type_name -> vega.EpochAction
+	59, // 27: vega.events.v1.TransferResponses.responses:type_name -> vega.TransferResponse
+	27, // 28: vega.events.v1.SettlePosition.trade_settlements:type_name -> vega.events.v1.TradeSettlement
+	60, // 29: vega.events.v1.AuctionEvent.trigger:type_name -> vega.AuctionTrigger
+	60, // 30: vega.events.v1.AuctionEvent.extension_trigger:type_name -> vega.AuctionTrigger
+	0,  // 31: vega.events.v1.ProtocolUpgradeEvent.status:type_name -> vega.events.v1.ProtocolUpgradeProposalStatus
+	1,  // 32: vega.events.v1.BusEvent.type:type_name -> vega.events.v1.BusEventType
+	22, // 33: vega.events.v1.BusEvent.time_update:type_name -> vega.events.v1.TimeUpdate
+	24, // 34: vega.events.v1.BusEvent.transfer_responses:type_name -> vega.events.v1.TransferResponses
+	25, // 35: vega.events.v1.BusEvent.position_resolution:type_name -> vega.events.v1.PositionResolution
+	61, // 36: vega.events.v1.BusEvent.order:type_name -> vega.Order
+	62, // 37: vega.events.v1.BusEvent.account:type_name -> vega.Account
+	63, // 38: vega.events.v1.BusEvent.party:type_name -> vega.Party
+	64, // 39: vega.events.v1.BusEvent.trade:type_name -> vega.Trade
+	65, // 40: vega.events.v1.BusEvent.margin_levels:type_name -> vega.MarginLevels
+	66, // 41: vega.events.v1.BusEvent.proposal:type_name -> vega.Proposal
+	67, // 42: vega.events.v1.BusEvent.vote:type_name -> vega.Vote
+	68, // 43: vega.events.v1.BusEvent.market_data:type_name -> vega.MarketData
+	69, // 44: vega.events.v1.BusEvent.node_signature:type_name -> vega.commands.v1.NodeSignature
+	26, // 45: vega.events.v1.BusEvent.loss_socialization:type_name -> vega.events.v1.LossSocialization
+	28, // 46: vega.events.v1.BusEvent.settle_position:type_name -> vega.events.v1.SettlePosition
+	30, // 47: vega.events.v1.BusEvent.settle_distressed:type_name -> vega.events.v1.SettleDistressed
+	70, // 48: vega.events.v1.BusEvent.market_created:type_name -> vega.Market
+	71, // 49: vega.events.v1.BusEvent.asset:type_name -> vega.Asset
+	31, // 50: vega.events.v1.BusEvent.market_tick:type_name -> vega.events.v1.MarketTick
+	72, // 51: vega.events.v1.BusEvent.withdrawal:type_name -> vega.Withdrawal
+	73, // 52: vega.events.v1.BusEvent.deposit:type_name -> vega.Deposit
+	32, // 53: vega.events.v1.BusEvent.auction:type_name -> vega.events.v1.AuctionEvent
+	74, // 54: vega.events.v1.BusEvent.risk_factor:type_name -> vega.RiskFactor
+	75, // 55: vega.events.v1.BusEvent.network_parameter:type_name -> vega.NetworkParameter
+	76, // 56: vega.events.v1.BusEvent.liquidity_provision:type_name -> vega.LiquidityProvision
+	70, // 57: vega.events.v1.BusEvent.market_updated:type_name -> vega.Market
+	77, // 58: vega.events.v1.BusEvent.oracle_spec:type_name -> oracles.v1.OracleSpec
+	78, // 59: vega.events.v1.BusEvent.oracle_data:type_name -> oracles.v1.OracleData
+	19, // 60: vega.events.v1.BusEvent.delegation_balance:type_name -> vega.events.v1.DelegationBalanceEvent
+	18, // 61: vega.events.v1.BusEvent.validator_score:type_name -> vega.events.v1.ValidatorScoreEvent
+	23, // 62: vega.events.v1.BusEvent.epoch_event:type_name -> vega.events.v1.EpochEvent
+	33, // 63: vega.events.v1.BusEvent.validator_update:type_name -> vega.events.v1.ValidatorUpdate
+	12, // 64: vega.events.v1.BusEvent.stake_linking:type_name -> vega.events.v1.StakeLinking
+	17, // 65: vega.events.v1.BusEvent.reward_payout:type_name -> vega.events.v1.RewardPayoutEvent
+	15, // 66: vega.events.v1.BusEvent.checkpoint:type_name -> vega.events.v1.CheckpointEvent
+	35, // 67: vega.events.v1.BusEvent.key_rotation:type_name -> vega.events.v1.KeyRotation
+	38, // 68: vega.events.v1.BusEvent.state_var:type_name -> vega.events.v1.StateVar
+	79, // 69: vega.events.v1.BusEvent.network_limits:type_name -> vega.NetworkLimits
+	9,  // 70: vega.events.v1.BusEvent.transfer:type_name -> vega.events.v1.Transfer
+	34, // 71: vega.events.v1.BusEvent.ranking_event:type_name -> vega.events.v1.ValidatorRankingEvent
+	13, // 72: vega.events.v1.BusEvent.erc20_multisig_signer_event:type_name -> vega.events.v1.ERC20MultiSigSignerEvent
+	14, // 73: vega.events.v1.BusEvent.erc20_multisig_set_threshold_event:type_name -> vega.events.v1.ERC20MultiSigThresholdSetEvent
+	6,  // 74: vega.events.v1.BusEvent.erc20_multisig_signer_added:type_name -> vega.events.v1.ERC20MultiSigSignerAdded
+	8,  // 75: vega.events.v1.BusEvent.erc20_multisig_signer_removed:type_name -> vega.events.v1.ERC20MultiSigSignerRemoved
+	29, // 76: vega.events.v1.BusEvent.position_state_event:type_name -> vega.events.v1.PositionStateEvent
+	36, // 77: vega.events.v1.BusEvent.ethereum_key_rotation:type_name -> vega.events.v1.EthereumKeyRotation
+	37, // 78: vega.events.v1.BusEvent.protocol_upgrade_event:type_name -> vega.events.v1.ProtocolUpgradeEvent
+	20, // 79: vega.events.v1.BusEvent.market:type_name -> vega.events.v1.MarketEvent
+	21, // 80: vega.events.v1.BusEvent.tx_err_event:type_name -> vega.events.v1.TxErrorEvent
+	81, // [81:81] is the sub-list for method output_type
+	81, // [81:81] is the sub-list for method input_type
+	81, // [81:81] is the sub-list for extension type_name
+	81, // [81:81] is the sub-list for extension extendee
+	0,  // [0:81] is the sub-list for field type_name
 }
 
 func init() { file_vega_events_v1_events_proto_init() }
@@ -5824,6 +5822,7 @@ func file_vega_events_v1_events_proto_init() {
 		(*Transfer_OneOff)(nil),
 		(*Transfer_Recurring)(nil),
 	}
+	file_vega_events_v1_events_proto_msgTypes[5].OneofWrappers = []interface{}{}
 	file_vega_events_v1_events_proto_msgTypes[15].OneofWrappers = []interface{}{
 		(*TxErrorEvent_OrderSubmission)(nil),
 		(*TxErrorEvent_OrderAmendment)(nil),

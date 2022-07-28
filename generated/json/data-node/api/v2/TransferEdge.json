@@ -57,16 +57,6 @@
             "type": "object",
             "title": "Dispatch Strategy"
         },
-        "vega.Uint64Value": {
-            "properties": {
-                "value": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Uint 64 Value"
-        },
         "vega.events.v1.OneOffTransfer": {
             "properties": {
                 "deliver_on": {
@@ -83,8 +73,7 @@
                     "type": "string"
                 },
                 "end_epoch": {
-                    "$ref": "#/definitions/vega.Uint64Value",
-                    "additionalProperties": true
+                    "type": "string"
                 },
                 "factor": {
                     "type": "string"

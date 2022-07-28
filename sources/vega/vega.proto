@@ -41,19 +41,6 @@ enum Interval {
   //       - gateway/graphql/schema.graphql (enum Interval)
 }
 
-message Price {
-  // Price value, given as an integer, for example `123456` is a correctly
-  // formatted price of `1.23456` assuming market configured to 5 decimal places
-  string value = 1;
-}
-
-// A timestamp in nanoseconds since epoch
-// See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`
-message Timestamp {
-  // Timestamp value
-  int64 value = 1;
-}
-
 // A party represents an entity who wishes to trade on or query a Vega network
 message Party {
   // A unique identifier for the party, typically represented by a public key
@@ -1308,8 +1295,4 @@ message VectorValue {
 
 message MatrixValue {
   repeated VectorValue value = 1;
-}
-
-message Uint64Value {
-  uint64 value = 1;
 }
