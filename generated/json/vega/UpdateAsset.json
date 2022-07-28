@@ -6,7 +6,7 @@
             "properties": {
                 "asset_id": {
                     "type": "string",
-                    "description": "The asset concerned by the update"
+                    "description": "The ID of the asset to be updated"
                 },
                 "changes": {
                     "$ref": "#/definitions/vega.AssetDetailsUpdate",

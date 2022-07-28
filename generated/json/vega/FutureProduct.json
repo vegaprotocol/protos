@@ -6,7 +6,7 @@
             "properties": {
                 "settlement_asset": {
                     "type": "string",
-                    "description": "Product settlement asset identifier"
+                    "description": "Asset ID for the product's settlement asset"
                 },
                 "quote_name": {
                     "type": "string",
@@ -29,7 +29,7 @@
                 },
                 "settlement_price_decimals": {
                     "type": "integer",
-                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+                    "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,

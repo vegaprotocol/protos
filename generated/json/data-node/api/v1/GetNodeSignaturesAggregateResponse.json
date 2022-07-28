@@ -15,7 +15,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Get Node Signatures Aggregate Response",
-            "description": "Response to specify the identifier of the resource we want to retrieve aggregated signatures for"
+            "description": "Response to specify the identifier of the resource to retrieve aggregated signatures for"
         },
         "vega.commands.v1.NodeSignature": {
             "properties": {

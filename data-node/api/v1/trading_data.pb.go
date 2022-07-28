@@ -1270,7 +1270,7 @@ func (x *AssetByIDResponse) GetAsset() *vega.Asset {
 	return nil
 }
 
-// Request to specify the identifier of the resource we want to retrieve aggregated signatures for
+// Request to specify the identifier of the resource to retrieve aggregated signatures for
 type GetNodeSignaturesAggregateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1319,7 +1319,7 @@ func (x *GetNodeSignaturesAggregateRequest) GetId() string {
 	return ""
 }
 
-// Response to specify the identifier of the resource we want to retrieve aggregated signatures for
+// Response to specify the identifier of the resource to retrieve aggregated signatures for
 type GetNodeSignaturesAggregateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

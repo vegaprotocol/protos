@@ -441,7 +441,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Auction Duration",
-            "description": "An auction duration is used to configure 3 auction periods: 1. `duration \u003e 0`, `volume == 0`:   The auction will last for at least N seconds 2. `duration == 0`, `volume \u003e 0`:   The auction will end once we can close with given traded volume 3. `duration \u003e 0`, `volume \u003e 0`:   The auction will take at least N seconds, but can end sooner if we can trade a certain volume"
+            "description": "An auction duration is used to configure 3 auction periods: 1. `duration \u003e 0`, `volume == 0`:   The auction will last for at least N seconds 2. `duration == 0`, `volume \u003e 0`:   The auction will end once the given volume will match at uncrossing 3. `duration \u003e 0`, `volume \u003e 0`:   The auction will take at least N seconds, but can end sooner if the market can trade a certain volume"
         },
         "vega.BuiltinAsset": {
             "properties": {
@@ -693,7 +693,7 @@
             "properties": {
                 "settlement_asset": {
                     "type": "string",
-                    "description": "Product settlement asset identifier"
+                    "description": "Asset ID for the product's settlement asset"
                 },
                 "quote_name": {
                     "type": "string",
@@ -716,7 +716,7 @@
                 },
                 "settlement_price_decimals": {
                     "type": "integer",
-                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+                    "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
@@ -762,7 +762,7 @@
                 },
                 "code": {
                     "type": "string",
-                    "description": "Instrument code"
+                    "description": "Instrument code, human-readable shortcode used to describe the instrument"
                 },
                 "future": {
                     "$ref": "#/definitions/vega.FutureProduct",
@@ -896,7 +896,7 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Liquidity Order Reference",
-            "description": "A pair of a liquidity order and the id of the generated order by the core"
+            "description": "A pair of a liquidity order and the ID of the generated order by the core"
         },
         "vega.LiquidityProviderFeeShare": {
             "properties": {
@@ -996,7 +996,7 @@
                 },
                 "reference": {
                     "type": "string",
-                    "description": "A reference shared between this liquidity provision and all it's orders"
+                    "description": "A reference shared between this liquidity provision and all its orders"
                 }
             },
             "additionalProperties": true,
@@ -1272,7 +1272,7 @@
                 },
                 "auction_start": {
                     "type": "string",
-                    "description": "Time until next auction (used in FBA's) - currently always 0"
+                    "description": "Time until next auction, or start time of the current auction if market is in auction period"
                 },
                 "indicative_price": {
                     "type": "string",
@@ -1552,7 +1552,7 @@
                 },
                 "decimal_places": {
                     "type": "string",
-                    "description": "Decimal places used for the new market"
+                    "description": "Decimal places used for the new market, sets the smallest price increment on the book"
                 },
                 "metadata": {
                     "items": {
@@ -1583,7 +1583,7 @@
                 },
                 "position_decimal_places": {
                     "type": "string",
-                    "description": "Decimal places for order sizes"
+                    "description": "Decimal places for order sizes, sets what size the smallest order / position on the market can be"
                 }
             },
             "additionalProperties": true,
@@ -1679,7 +1679,7 @@
                         }
                     ],
                     "title": "Time In Force",
-                    "description": "Time In Force for an order See [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
+                    "description": "Time In Force for an order"
                 },
                 "type": {
                     "enum": [
@@ -1705,7 +1705,7 @@
                 },
                 "created_at": {
                     "type": "string",
-                    "description": "Timestamp for when the order was created at, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                    "description": "Timestamp for when the order was created at, in nanoseconds since the epoch"
                 },
                 "status": {
                     "enum": [
@@ -1737,11 +1737,11 @@
                         }
                     ],
                     "title": "Status",
-                    "description": "Status values for an order See resulting status in [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail."
+                    "description": "Status values for an order"
                 },
                 "expires_at": {
                     "type": "string",
-                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`, valid only for [`Order.TimeInForce`](#vega.Order.TimeInForce)`.TIME_IN_FORCE_GTT`"
+                    "description": "Timestamp for when the order will expire, in nanoseconds since the epoch"
                 },
                 "reference": {
                     "type": "string",
@@ -1855,7 +1855,7 @@
                 },
                 "updated_at": {
                     "type": "string",
-                    "description": "Timestamp for when the Order was last updated, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
+                    "description": "Timestamp for when the order was last updated, in nanoseconds since the epoch - See [`VegaTimeResponse`](#api.VegaTimeResponse).`timestamp`"
                 },
                 "version": {
                     "type": "string",
@@ -2010,7 +2010,7 @@
                 },
                 "party_id": {
                     "type": "string",
-                    "description": "Party identifier of the author (the party submitting the proposal)"
+                    "description": "Party identifier (public key) of the author (the party submitting the proposal)"
                 },
                 "state": {
                     "enum": [
@@ -2145,12 +2145,12 @@
                 },
                 "error_details": {
                     "type": "string",
-                    "description": "The detailed error associated to the reason."
+                    "description": "The detailed error associated to the reason"
                 },
                 "rationale": {
                     "$ref": "#/definitions/vega.ProposalRationale",
                     "additionalProperties": true,
-                    "description": "The rationale behind a proposal."
+                    "description": "The rationale behind a proposal"
                 }
             },
             "additionalProperties": true,
@@ -2162,7 +2162,7 @@
             "properties": {
                 "description": {
                     "type": "string",
-                    "description": "Description to show a short title / something in case the link goes offline. This is to be between 0 and 1024 unicode characters. This is mandatory for all proposal."
+                    "description": "Description to show a short title / something in case the link goes offline. This is to be between 0 and 1024 unicode characters. This is mandatory for all proposals."
                 },
                 "hash": {
                     "type": "string",
@@ -2215,7 +2215,7 @@
                 "new_freeform": {
                     "$ref": "#/definitions/vega.NewFreeform",
                     "additionalProperties": true,
-                    "description": "Proposal change for a freeform voting thing"
+                    "description": "Proposal change for a freeform request, which can be voted on but does not change the behaviour of the system,  and can be used to gauge community sentiment"
                 },
                 "update_asset": {
                     "$ref": "#/definitions/vega.UpdateAsset",
@@ -2500,7 +2500,7 @@
             "properties": {
                 "asset_id": {
                     "type": "string",
-                    "description": "The asset concerned by the update"
+                    "description": "The ID of the asset to be updated"
                 },
                 "changes": {
                     "$ref": "#/definitions/vega.AssetDetailsUpdate",
@@ -2517,7 +2517,7 @@
             "properties": {
                 "quote_name": {
                     "type": "string",
-                    "description": "Product quote name"
+                    "description": "Human-readable name/abbreviation of the quote name"
                 },
                 "oracle_spec_for_settlement_price": {
                     "$ref": "#/definitions/oracles.v1.OracleSpecConfiguration",
@@ -2536,7 +2536,7 @@
                 },
                 "settlement_price_decimals": {
                     "type": "integer",
-                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+                    "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
@@ -2548,7 +2548,7 @@
             "properties": {
                 "code": {
                     "type": "string",
-                    "description": "Instrument code"
+                    "description": "Instrument code, human-readable shortcode used to describe the instrument"
                 },
                 "future": {
                     "$ref": "#/definitions/vega.UpdateFutureProduct",
@@ -2565,7 +2565,7 @@
             "properties": {
                 "market_id": {
                     "type": "string",
-                    "description": "The market to update"
+                    "description": "The identifier of the market to update"
                 },
                 "changes": {
                     "$ref": "#/definitions/vega.UpdateMarketConfiguration",
@@ -2712,7 +2712,7 @@
                 },
                 "asset": {
                     "type": "string",
-                    "description": "The asset we want to withdraw funds from"
+                    "description": "The asset to withdraw funds from"
                 },
                 "status": {
                     "enum": [
@@ -3080,7 +3080,7 @@
                         }
                     ],
                     "title": "Time In Force",
-                    "description": "Time In Force for an order See [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
+                    "description": "Time In Force for an order"
                 },
                 "pegged_offset": {
                     "type": "string",
@@ -3190,7 +3190,7 @@
                         }
                     ],
                     "title": "Time In Force",
-                    "description": "Time In Force for an order See [What order types are available to trade on Vega?](https://docs.testnet.vega.xyz/docs/trading-questions/#what-order-types-are-available-to-trade-on-vega) for more detail"
+                    "description": "Time In Force for an order"
                 },
                 "expires_at": {
                     "type": "string",

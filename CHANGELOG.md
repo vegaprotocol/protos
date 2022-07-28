@@ -22,8 +22,8 @@
 - [499](https://github.com/vegaprotocol/protos/issues/499) - Add validation on vega `IDs` and public keys
 - [506](https://github.com/vegaprotocol/protos/issues/506) - Fix validation error message
 - [208](https://github.com/vegaprotocol/protos/issues/208) - Remove `ACCOUNT_TYPE_LOCK_WITHDRAW` account type
+- [524](https://github.com/vegaprotocol/protos/issues/524) - Improve API descriptions for governance
 - [340](https://github.com/vegaprotocol/protos/issues/340) - Remove optional types and use proto optionals
-
 
 ## 0.53.0
 

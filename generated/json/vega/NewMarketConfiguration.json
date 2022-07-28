@@ -11,7 +11,7 @@
                 },
                 "decimal_places": {
                     "type": "string",
-                    "description": "Decimal places used for the new market"
+                    "description": "Decimal places used for the new market, sets the smallest price increment on the book"
                 },
                 "metadata": {
                     "items": {
@@ -42,7 +42,7 @@
                 },
                 "position_decimal_places": {
                     "type": "string",
-                    "description": "Decimal places for order sizes"
+                    "description": "Decimal places for order sizes, sets what size the smallest order / position on the market can be"
                 }
             },
             "additionalProperties": true,
@@ -174,7 +174,7 @@
             "properties": {
                 "settlement_asset": {
                     "type": "string",
-                    "description": "Product settlement asset identifier"
+                    "description": "Asset ID for the product's settlement asset"
                 },
                 "quote_name": {
                     "type": "string",
@@ -197,7 +197,7 @@
                 },
                 "settlement_price_decimals": {
                     "type": "integer",
-                    "description": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+                    "description": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
                 }
             },
             "additionalProperties": true,
@@ -213,7 +213,7 @@
                 },
                 "code": {
                     "type": "string",
-                    "description": "Instrument code"
+                    "description": "Instrument code, human-readable shortcode used to describe the instrument"
                 },
                 "future": {
                     "$ref": "#/definitions/vega.FutureProduct",

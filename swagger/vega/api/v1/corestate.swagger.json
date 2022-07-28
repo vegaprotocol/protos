@@ -985,7 +985,7 @@
           "title": "Target uncrossing trading volume"
         }
       },
-      "title": "An auction duration is used to configure 3 auction periods:\n1. `duration \u003e 0`, `volume == 0`:\n  The auction will last for at least N seconds\n2. `duration == 0`, `volume \u003e 0`:\n  The auction will end once we can close with given traded volume\n3. `duration \u003e 0`, `volume \u003e 0`:\n  The auction will take at least N seconds, but can end sooner if we can trade a certain volume"
+      "title": "An auction duration is used to configure 3 auction periods:\n1. `duration \u003e 0`, `volume == 0`:\n  The auction will last for at least N seconds\n2. `duration == 0`, `volume \u003e 0`:\n  The auction will end once the given volume will match at uncrossing\n3. `duration \u003e 0`, `volume \u003e 0`:\n  The auction will take at least N seconds, but can end sooner if the market can trade a certain volume"
     },
     "vegaAuctionTrigger": {
       "type": "string",
@@ -1126,7 +1126,7 @@
       "properties": {
         "settlementAsset": {
           "type": "string",
-          "title": "Product settlement asset identifier"
+          "title": "Asset ID for the product's settlement asset"
         },
         "quoteName": {
           "type": "string",
@@ -1147,7 +1147,7 @@
         "settlementPriceDecimals": {
           "type": "integer",
           "format": "int64",
-          "title": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+          "title": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
         }
       },
       "title": "Future product configuration"
@@ -1187,7 +1187,7 @@
         },
         "code": {
           "type": "string",
-          "title": "Instrument code"
+          "title": "Instrument code, human-readable shortcode used to describe the instrument"
         },
         "future": {
           "$ref": "#/definitions/vegaFutureProduct",
@@ -1442,7 +1442,7 @@
         "auctionStart": {
           "type": "string",
           "format": "int64",
-          "title": "Time until next auction (used in FBA's) - currently always 0"
+          "title": "Time until next auction, or start time of the current auction if market is in auction period"
         },
         "indicativePrice": {
           "type": "string",
@@ -1667,7 +1667,7 @@
         "decimalPlaces": {
           "type": "string",
           "format": "uint64",
-          "title": "Decimal places used for the new market"
+          "title": "Decimal places used for the new market, sets the smallest price increment on the book"
         },
         "metadata": {
           "type": "array",
@@ -1695,7 +1695,7 @@
         "positionDecimalPlaces": {
           "type": "string",
           "format": "uint64",
-          "title": "Decimal places for order sizes"
+          "title": "Decimal places for order sizes, sets what size the smallest order / position on the market can be"
         }
       },
       "title": "Configuration for a new market on Vega"
@@ -1813,7 +1813,7 @@
         },
         "partyId": {
           "type": "string",
-          "title": "Party identifier of the author (the party submitting the proposal)"
+          "title": "Party identifier (public key) of the author (the party submitting the proposal)"
         },
         "state": {
           "$ref": "#/definitions/vegaProposalState",
@@ -1834,11 +1834,11 @@
         },
         "errorDetails": {
           "type": "string",
-          "description": "The detailed error associated to the reason."
+          "title": "The detailed error associated to the reason"
         },
         "rationale": {
           "$ref": "#/definitions/vegaProposalRationale",
-          "description": "The rationale behind a proposal."
+          "title": "The rationale behind a proposal"
         }
       },
       "title": "Governance proposal"
@@ -1887,7 +1887,7 @@
         "PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS"
       ],
       "default": "PROPOSAL_ERROR_UNSPECIFIED",
-      "description": "- PROPOSAL_ERROR_UNSPECIFIED: Default value\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON: The specified close time is too early base on network parameters\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE: The specified close time is too late based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_SOON: The specified enact time is too early based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_LATE: The specified enact time is too late based on network parameters\n - PROPOSAL_ERROR_INSUFFICIENT_TOKENS: The proposer for this proposal as insufficient tokens\n - PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY: The instrument quote name and base name were the same\n - PROPOSAL_ERROR_NO_PRODUCT: The proposal has no product\n - PROPOSAL_ERROR_UNSUPPORTED_PRODUCT: The specified product is not supported\n - PROPOSAL_ERROR_NO_TRADING_MODE: The proposal has no trading mode\n - PROPOSAL_ERROR_UNSUPPORTED_TRADING_MODE: The proposal has an unsupported trading mode\n - PROPOSAL_ERROR_NODE_VALIDATION_FAILED: The proposal failed node validation\n - PROPOSAL_ERROR_MISSING_BUILTIN_ASSET_FIELD: A field is missing in a builtin asset source\n - PROPOSAL_ERROR_MISSING_ERC20_CONTRACT_ADDRESS: The contract address is missing in the ERC20 asset source\n - PROPOSAL_ERROR_INVALID_ASSET: The asset identifier is invalid or does not exist on the Vega network\n - PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS: Proposal terms timestamps are not compatible (Validation \u003c Closing \u003c Enactment)\n - PROPOSAL_ERROR_NO_RISK_PARAMETERS: No risk parameters were specified\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_KEY: Invalid key in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE: Invalid valid in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED: Validation failed for network parameter proposal\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_SMALL: Opening auction duration is less than the network minimum opening auction time\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_LARGE: Opening auction duration is more than the network minimum opening auction time\n - PROPOSAL_ERROR_MARKET_MISSING_LIQUIDITY_COMMITMENT: Market proposal is missing a liquidity commitment\n - PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET: Market proposal market could not be instantiate in execution\n - PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT: Market proposal market contained invalid product definition\n - PROPOSAL_ERROR_MISSING_COMMITMENT_AMOUNT: Market proposal is missing commitment amount\n - PROPOSAL_ERROR_INVALID_FEE_AMOUNT: Market proposal have invalid fee\n - PROPOSAL_ERROR_INVALID_SHAPE: Market proposal have invalid shape\n - PROPOSAL_ERROR_INVALID_RISK_PARAMETER: Market proposal invalid risk parameter\n - PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED: Proposal was declined because vote didn't reach the majority threshold required\n - PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED: Proposal declined because the participation threshold was not reached\n - PROPOSAL_ERROR_INVALID_ASSET_DETAILS: Asset proposal invalid asset details\n - PROPOSAL_ERROR_UNKNOWN_TYPE: Proposal is an unknown type.\n - PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE: Proposal has an unknown risk parameter type.\n - PROPOSAL_ERROR_INVALID_FREEFORM: Validation failed for freeform proposal.\n - PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE: The party doesn't have enough equity-like share to propose an update on the market\ntargeted by the proposal.\n - PROPOSAL_ERROR_INVALID_MARKET: The market targeted by the proposal does not exist or is not eligible to modification.\n - PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES: The market proposal decimal place is higher to the market settlement asset decimal places\n - PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS: The market proposal contains too many price monitoring triggers",
+      "description": "- PROPOSAL_ERROR_UNSPECIFIED: Default value\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON: The specified close time is too early based on network parameters\n - PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE: The specified close time is too late based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_SOON: The specified enactment time is too early based on network parameters\n - PROPOSAL_ERROR_ENACT_TIME_TOO_LATE: The specified enactment time is too late based on network parameters\n - PROPOSAL_ERROR_INSUFFICIENT_TOKENS: The proposer for this proposal has insufficient tokens\n - PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY: The instrument quote name and base name were the same\n - PROPOSAL_ERROR_NO_PRODUCT: The proposal has no product\n - PROPOSAL_ERROR_UNSUPPORTED_PRODUCT: The specified product is not supported\n - PROPOSAL_ERROR_NO_TRADING_MODE: The proposal has no trading mode\n - PROPOSAL_ERROR_UNSUPPORTED_TRADING_MODE: The proposal has an unsupported trading mode\n - PROPOSAL_ERROR_NODE_VALIDATION_FAILED: The proposal failed node validation\n - PROPOSAL_ERROR_MISSING_BUILTIN_ASSET_FIELD: A field is missing in a builtin asset source\n - PROPOSAL_ERROR_MISSING_ERC20_CONTRACT_ADDRESS: The contract address is missing in the ERC20 asset source\n - PROPOSAL_ERROR_INVALID_ASSET: The asset ID is invalid or does not exist on the Vega network\n - PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS: Proposal terms timestamps are not compatible (Validation \u003c Closing \u003c Enactment)\n - PROPOSAL_ERROR_NO_RISK_PARAMETERS: No risk parameters were specified\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_KEY: Invalid key in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE: Invalid value in update network parameter proposal\n - PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED: Validation failed for network parameter proposal\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_SMALL: Opening auction duration is less than the network minimum opening auction time\n - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_LARGE: Opening auction duration is more than the network minimum opening auction time\n - PROPOSAL_ERROR_MARKET_MISSING_LIQUIDITY_COMMITMENT: Market proposal is missing a liquidity commitment\n - PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET: Market proposal market could not be instantiated in execution\n - PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT: Market proposal market contained invalid product definition\n - PROPOSAL_ERROR_MISSING_COMMITMENT_AMOUNT: Market proposal is missing liquidity commitment amount\n - PROPOSAL_ERROR_INVALID_FEE_AMOUNT: Market proposal has invalid fee amount\n - PROPOSAL_ERROR_INVALID_SHAPE: Market proposal has invalid liquidity commitment shape\n - PROPOSAL_ERROR_INVALID_RISK_PARAMETER: Market proposal has invalid risk parameter\n - PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED: Proposal was declined because vote didn't reach the majority threshold required\n - PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED: Proposal declined because the participation threshold was not reached\n - PROPOSAL_ERROR_INVALID_ASSET_DETAILS: Asset proposal has invalid asset details\n - PROPOSAL_ERROR_UNKNOWN_TYPE: Proposal is an unknown type\n - PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE: Proposal has an unknown risk parameter type\n - PROPOSAL_ERROR_INVALID_FREEFORM: Validation failed for freeform proposal\n - PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE: The party doesn't have enough equity-like share to propose an update on the market\ntargeted by the proposal\n - PROPOSAL_ERROR_INVALID_MARKET: The market targeted by the proposal does not exist or is not eligible for modification\n - PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES: The market proposal decimal place is higher than the market settlement asset decimal places\n - PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS: The market proposal contains too many price monitoring triggers",
       "title": "A list of possible errors that can cause a proposal to be in state rejected or failed"
     },
     "vegaProposalRationale": {
@@ -1895,7 +1895,7 @@
       "properties": {
         "description": {
           "type": "string",
-          "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 1024 unicode characters.\nThis is mandatory for all proposal."
+          "description": "Description to show a short title / something in case the link goes offline.\nThis is to be between 0 and 1024 unicode characters.\nThis is mandatory for all proposals."
         },
         "hash": {
           "type": "string",
@@ -1960,7 +1960,7 @@
         },
         "newFreeform": {
           "$ref": "#/definitions/vegaNewFreeform",
-          "title": "Proposal change for a freeform voting thing"
+          "title": "Proposal change for a freeform request, which can be voted on but does not change the behaviour of the system, \nand can be used to gauge community sentiment"
         },
         "updateAsset": {
           "$ref": "#/definitions/vegaUpdateAsset",
@@ -2074,7 +2074,7 @@
       "properties": {
         "assetId": {
           "type": "string",
-          "title": "The asset concerned by the update"
+          "title": "The ID of the asset to be updated"
         },
         "changes": {
           "$ref": "#/definitions/vegaAssetDetailsUpdate",
@@ -2088,7 +2088,7 @@
       "properties": {
         "quoteName": {
           "type": "string",
-          "title": "Product quote name"
+          "title": "Human-readable name/abbreviation of the quote name"
         },
         "oracleSpecForSettlementPrice": {
           "$ref": "#/definitions/v1OracleSpecConfiguration",
@@ -2105,7 +2105,7 @@
         "settlementPriceDecimals": {
           "type": "integer",
           "format": "int64",
-          "title": "the number of decimal places implied by the settlement price emitted by the settlement oracle"
+          "title": "The number of decimal places implied by the settlement price emitted by the settlement oracle"
         }
       },
       "title": "Future product configuration"
@@ -2115,7 +2115,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "title": "Instrument code"
+          "title": "Instrument code, human-readable shortcode used to describe the instrument"
         },
         "future": {
           "$ref": "#/definitions/vegaUpdateFutureProduct",
@@ -2129,7 +2129,7 @@
       "properties": {
         "marketId": {
           "type": "string",
-          "title": "The market to update"
+          "title": "The identifier of the market to update"
         },
         "changes": {
           "$ref": "#/definitions/vegaUpdateMarketConfiguration",
