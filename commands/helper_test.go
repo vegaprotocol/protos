@@ -40,3 +40,14 @@ func RandomPositiveU64AsString() string {
 func RandomPositiveU64Before(n int64) uint64 {
 	return uint64(rand.Int63n(n))
 }
+
+func StringPtr(s string) *string {
+	return &s
+}
+
+func Int64Ptr(i int64) *int64 {
+	return &i
+}
+func Uint64Ptr(u uint64) *uint64 {
+	return &u
+}
