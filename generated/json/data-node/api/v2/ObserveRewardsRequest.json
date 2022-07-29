@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ObserveRewardsRequest",
+    "definitions": {
+        "ObserveRewardsRequest": {
+            "properties": {
+                "asset_id": {
+                    "type": "string"
+                },
+                "party_id": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observe Rewards Request"
+        }
+    }
+}

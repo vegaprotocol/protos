@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ObserveDelegationsRequest",
+    "definitions": {
+        "ObserveDelegationsRequest": {
+            "properties": {
+                "party_id": {
+                    "type": "string"
+                },
+                "node_id": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observe Delegations Request",
+            "description": "Request to obsever all event related to delegation with the given filters"
+        }
+    }
+}

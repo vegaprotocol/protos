@@ -38186,7 +38186,7 @@
           "name": "ListOrderVersionsRequest",
           "longName": "ListOrderVersionsRequest",
           "fullName": "datanode.api.v2.ListOrderVersionsRequest",
-          "description": "-- Orders --",
+          "description": "",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": true,
@@ -38465,31 +38465,31 @@
           "description": "A request to get reward details for a party",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
               "name": "party_id",
               "description": "",
-              "label": "",
+              "label": "optional",
               "type": "string",
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_party_id",
               "defaultValue": ""
             },
             {
               "name": "asset_id",
               "description": "",
-              "label": "",
+              "label": "optional",
               "type": "string",
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_asset_id",
               "defaultValue": ""
             }
           ]
@@ -38525,7 +38525,7 @@
           "description": "A request to get reward details for a party",
           "hasExtensions": false,
           "hasFields": true,
-          "hasOneofs": false,
+          "hasOneofs": true,
           "extensions": [],
           "fields": [
             {
@@ -38543,25 +38543,25 @@
             {
               "name": "asset_id",
               "description": "",
-              "label": "",
+              "label": "optional",
               "type": "string",
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_asset_id",
               "defaultValue": ""
             },
             {
               "name": "pagination",
               "description": "",
-              "label": "",
+              "label": "optional",
               "type": "Pagination",
               "longType": "Pagination",
               "fullType": "datanode.api.v2.Pagination",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "_pagination",
               "defaultValue": ""
             }
           ]
@@ -39407,6 +39407,258 @@
           ]
         },
         {
+          "name": "ObserveDelegationsRequest",
+          "longName": "ObserveDelegationsRequest",
+          "fullName": "datanode.api.v2.ObserveDelegationsRequest",
+          "description": "Request to obsever all event related to delegation with the given filters",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "node_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_node_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveDelegationsResponse",
+          "longName": "ObserveDelegationsResponse",
+          "fullName": "datanode.api.v2.ObserveDelegationsResponse",
+          "description": "All events related to delegation with the given filters",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "delegation",
+              "description": "",
+              "label": "",
+              "type": "Delegation",
+              "longType": "vega.Delegation",
+              "fullType": "vega.Delegation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveEventBusRequest",
+          "longName": "ObserveEventBusRequest",
+          "fullName": "datanode.api.v2.ObserveEventBusRequest",
+          "description": "-- EventBus --\nRequest to subscribe to a stream of one or more event types from the Vega event bus",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "One or more types of event, required field",
+              "label": "repeated",
+              "type": "BusEventType",
+              "longType": "vega.events.v1.BusEventType",
+              "fullType": "vega.events.v1.BusEventType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market_id",
+              "description": "Market identifier, optional field",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "party_id",
+              "description": "Party identifier, optional field",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "batch_size",
+              "description": "Batch size, optional field -\nIf not specified, any events received will be sent immediately. If the client is not ready\nfor the next data-set, data may be dropped a number of times, and eventually the stream is closed.\nif specified, the first batch will be sent when ready. To receive the next set of events, the client\nmust write an `ObserveEventBatch` message on the stream to flush the buffer.\nIf no message is received in 5 seconds, the stream is closed.\nDefault: 0, send any and all events when they are available.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveEventBusResponse",
+          "longName": "ObserveEventBusResponse",
+          "fullName": "datanode.api.v2.ObserveEventBusResponse",
+          "description": "Response to a subscribed stream of events from the Vega event bus",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "events",
+              "description": "One or more events",
+              "label": "repeated",
+              "type": "BusEvent",
+              "longType": "vega.events.v1.BusEvent",
+              "fullType": "vega.events.v1.BusEvent",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveGovernanceRequest",
+          "longName": "ObserveGovernanceRequest",
+          "fullName": "datanode.api.v2.ObserveGovernanceRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveGovernanceResponse",
+          "longName": "ObserveGovernanceResponse",
+          "fullName": "datanode.api.v2.ObserveGovernanceResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "data",
+              "description": "",
+              "label": "",
+              "type": "GovernanceData",
+              "longType": "vega.GovernanceData",
+              "fullType": "vega.GovernanceData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarginLevelsRequest",
+          "longName": "ObserveMarginLevelsRequest",
+          "fullName": "datanode.api.v2.ObserveMarginLevelsRequest",
+          "description": "Request to subscribe to a stream of MarginLevels data matching the given party identifier\nOptionally, the list can be additionally filtered by market",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "Party identifier, required field",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "market_id",
+              "description": "Market identifier",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_market_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveMarginLevelsResponse",
+          "longName": "ObserveMarginLevelsResponse",
+          "fullName": "datanode.api.v2.ObserveMarginLevelsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "margin_levels",
+              "description": "",
+              "label": "",
+              "type": "MarginLevels",
+              "longType": "vega.MarginLevels",
+              "fullType": "vega.MarginLevels",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ObserveMarketsDataRequest",
           "longName": "ObserveMarketsDataRequest",
           "fullName": "datanode.api.v2.ObserveMarketsDataRequest",
@@ -39551,6 +39803,186 @@
           ]
         },
         {
+          "name": "ObserveOrdersRequest",
+          "longName": "ObserveOrdersRequest",
+          "fullName": "datanode.api.v2.ObserveOrdersRequest",
+          "description": "Request to subscribe to a stream of (Orders)[#vega.Order]\n\nThe fields for market identifier and party identifier are optional filters:\nIf omitted all orders, for all parties on all markets will be returned on the stream\nIf market identifier is given, orders from that market will be returned on the stream\nIf party identifier is given, orders from that party will be returned on the stream\nBoth filters can be combined",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "market_id",
+              "description": "Market identifier",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_market_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "party_id",
+              "description": "Party identifier",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveOrdersResponse",
+          "longName": "ObserveOrdersResponse",
+          "fullName": "datanode.api.v2.ObserveOrdersResponse",
+          "description": "Response sent over an orders stream",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "orders",
+              "description": "A list of 0 or more orders",
+              "label": "repeated",
+              "type": "Order",
+              "longType": "vega.Order",
+              "fullType": "vega.Order",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObservePositionsRequest",
+          "longName": "ObservePositionsRequest",
+          "fullName": "datanode.api.v2.ObservePositionsRequest",
+          "description": "Request to subscribe to a stream of (Positions)[#vega.Position]",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "party_id",
+              "description": "Optional party identifier",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "market_id",
+              "description": "Optional market identifier",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_market_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObservePositionsResponse",
+          "longName": "ObservePositionsResponse",
+          "fullName": "datanode.api.v2.ObservePositionsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "position",
+              "description": "",
+              "label": "",
+              "type": "Position",
+              "longType": "vega.Position",
+              "fullType": "vega.Position",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveRewardsRequest",
+          "longName": "ObserveRewardsRequest",
+          "fullName": "datanode.api.v2.ObserveRewardsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "asset_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_asset_id",
+              "defaultValue": ""
+            },
+            {
+              "name": "party_id",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "_party_id",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveRewardsResponse",
+          "longName": "ObserveRewardsResponse",
+          "fullName": "datanode.api.v2.ObserveRewardsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "reward",
+              "description": "",
+              "label": "",
+              "type": "Reward",
+              "longType": "vega.Reward",
+              "fullType": "vega.Reward",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ObserveTradesRequest",
           "longName": "ObserveTradesRequest",
           "fullName": "datanode.api.v2.ObserveTradesRequest",
@@ -39603,6 +40035,41 @@
               "type": "Trade",
               "longType": "vega.Trade",
               "fullType": "vega.Trade",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ObserveTransferResponsesRequest",
+          "longName": "ObserveTransferResponsesRequest",
+          "fullName": "datanode.api.v2.ObserveTransferResponsesRequest",
+          "description": "-- Transfer Responses --",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ObserveTransferResponsesResponse",
+          "longName": "ObserveTransferResponsesResponse",
+          "fullName": "datanode.api.v2.ObserveTransferResponsesResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "response",
+              "description": "",
+              "label": "",
+              "type": "TransferResponse",
+              "longType": "vega.TransferResponse",
+              "fullType": "vega.TransferResponse",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -40723,6 +41190,18 @@
               "responseStreaming": false
             },
             {
+              "name": "ObserveOrders",
+              "description": "Subscribe to a stream of Orders",
+              "requestType": "ObserveOrdersRequest",
+              "requestLongType": "ObserveOrdersRequest",
+              "requestFullType": "datanode.api.v2.ObserveOrdersRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveOrdersResponse",
+              "responseLongType": "ObserveOrdersResponse",
+              "responseFullType": "datanode.api.v2.ObserveOrdersResponse",
+              "responseStreaming": true
+            },
+            {
               "name": "ListPositions",
               "description": "-- Positions --\nGet a list of Positions by Party using cursor based pagination",
               "requestType": "ListPositionsRequest",
@@ -40733,6 +41212,18 @@
               "responseLongType": "ListPositionsResponse",
               "responseFullType": "datanode.api.v2.ListPositionsResponse",
               "responseStreaming": false
+            },
+            {
+              "name": "ObservePositions",
+              "description": "Subscribe to a stream of Positions",
+              "requestType": "ObservePositionsRequest",
+              "requestLongType": "ObservePositionsRequest",
+              "requestFullType": "datanode.api.v2.ObservePositionsRequest",
+              "requestStreaming": false,
+              "responseType": "ObservePositionsResponse",
+              "responseLongType": "ObservePositionsResponse",
+              "responseFullType": "datanode.api.v2.ObservePositionsResponse",
+              "responseStreaming": true
             },
             {
               "name": "GetBalanceHistory",
@@ -41060,7 +41551,7 @@
             },
             {
               "name": "ListMarginLevels",
-              "description": "-- Margin Levels --\nGet Margin Levels using a cursor based pagination model\n\n-- Rewards --",
+              "description": "-- Margin Levels --\nGet Margin Levels using a cursor based pagination model",
               "requestType": "ListMarginLevelsRequest",
               "requestLongType": "ListMarginLevelsRequest",
               "requestFullType": "datanode.api.v2.ListMarginLevelsRequest",
@@ -41071,8 +41562,20 @@
               "responseStreaming": false
             },
             {
+              "name": "ObserveMarginLevels",
+              "description": "Subscribe to a stream of Margin Levels",
+              "requestType": "ObserveMarginLevelsRequest",
+              "requestLongType": "ObserveMarginLevelsRequest",
+              "requestFullType": "datanode.api.v2.ObserveMarginLevelsRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveMarginLevelsResponse",
+              "responseLongType": "ObserveMarginLevelsResponse",
+              "responseFullType": "datanode.api.v2.ObserveMarginLevelsResponse",
+              "responseStreaming": true
+            },
+            {
               "name": "ListRewards",
-              "description": "Get rewards",
+              "description": "-- Rewards --\nGet rewards",
               "requestType": "ListRewardsRequest",
               "requestLongType": "ListRewardsRequest",
               "requestFullType": "datanode.api.v2.ListRewardsRequest",
@@ -41093,6 +41596,18 @@
               "responseLongType": "ListRewardSummariesResponse",
               "responseFullType": "datanode.api.v2.ListRewardSummariesResponse",
               "responseStreaming": false
+            },
+            {
+              "name": "ObserveRewards",
+              "description": "subscribe to rewards",
+              "requestType": "ObserveRewardsRequest",
+              "requestLongType": "ObserveRewardsRequest",
+              "requestFullType": "datanode.api.v2.ObserveRewardsRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveRewardsResponse",
+              "responseLongType": "ObserveRewardsResponse",
+              "responseFullType": "datanode.api.v2.ObserveRewardsResponse",
+              "responseStreaming": true
             },
             {
               "name": "GetDeposit",
@@ -41191,6 +41706,18 @@
               "responseStreaming": false
             },
             {
+              "name": "ObserveGovernance",
+              "description": "",
+              "requestType": "ObserveGovernanceRequest",
+              "requestLongType": "ObserveGovernanceRequest",
+              "requestFullType": "datanode.api.v2.ObserveGovernanceRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveGovernanceResponse",
+              "responseLongType": "ObserveGovernanceResponse",
+              "responseFullType": "datanode.api.v2.ObserveGovernanceResponse",
+              "responseStreaming": true
+            },
+            {
               "name": "ListDelegations",
               "description": "-- Delegation --\nList delegations",
               "requestType": "ListDelegationsRequest",
@@ -41201,6 +41728,18 @@
               "responseLongType": "ListDelegationsResponse",
               "responseFullType": "datanode.api.v2.ListDelegationsResponse",
               "responseStreaming": false
+            },
+            {
+              "name": "ObserveDelegations",
+              "description": "subscribe to delegation events",
+              "requestType": "ObserveDelegationsRequest",
+              "requestLongType": "ObserveDelegationsRequest",
+              "requestFullType": "datanode.api.v2.ObserveDelegationsRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveDelegationsResponse",
+              "responseLongType": "ObserveDelegationsResponse",
+              "responseFullType": "datanode.api.v2.ObserveDelegationsResponse",
+              "responseStreaming": true
             },
             {
               "name": "GetNetworkData",
@@ -41321,6 +41860,30 @@
               "responseLongType": "GetRiskFactorsResponse",
               "responseFullType": "datanode.api.v2.GetRiskFactorsResponse",
               "responseStreaming": false
+            },
+            {
+              "name": "ObserveEventBus",
+              "description": "-- Event Bus --\nSubscribe to a stream of events from the core",
+              "requestType": "ObserveEventBusRequest",
+              "requestLongType": "ObserveEventBusRequest",
+              "requestFullType": "datanode.api.v2.ObserveEventBusRequest",
+              "requestStreaming": true,
+              "responseType": "ObserveEventBusResponse",
+              "responseLongType": "ObserveEventBusResponse",
+              "responseFullType": "datanode.api.v2.ObserveEventBusResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "ObserveTransferResponses",
+              "description": "-- Transfer Responses --\nSubscribe to a stream of Transfer Responses",
+              "requestType": "ObserveTransferResponsesRequest",
+              "requestLongType": "ObserveTransferResponsesRequest",
+              "requestFullType": "datanode.api.v2.ObserveTransferResponsesRequest",
+              "requestStreaming": false,
+              "responseType": "ObserveTransferResponsesResponse",
+              "responseLongType": "ObserveTransferResponsesResponse",
+              "responseFullType": "datanode.api.v2.ObserveTransferResponsesResponse",
+              "responseStreaming": true
             }
           ]
         }
