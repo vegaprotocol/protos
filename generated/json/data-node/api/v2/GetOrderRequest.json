@@ -15,7 +15,8 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "Get Order Request"
+            "title": "-- Orders --",
+            "description": "-- Orders --"
         }
     }
 }

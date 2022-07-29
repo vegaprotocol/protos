@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ObserveRewardsResponse",
+    "definitions": {
+        "ObserveRewardsResponse": {
+            "properties": {
+                "reward": {
+                    "$ref": "#/definitions/vega.Reward",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observe Rewards Response"
+        },
+        "vega.Reward": {
+            "properties": {
+                "asset_id": {
+                    "type": "string"
+                },
+                "party_id": {
+                    "type": "string"
+                },
+                "epoch": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "string"
+                },
+                "percentage_of_total": {
+                    "type": "string"
+                },
+                "received_at": {
+                    "type": "string"
+                },
+                "market_id": {
+                    "type": "string"
+                },
+                "reward_type": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Reward",
+            "description": "Details for a single reward payment"
+        }
+    }
+}

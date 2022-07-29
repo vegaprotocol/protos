@@ -16,8 +16,7 @@
             },
             "additionalProperties": true,
             "type": "object",
-            "title": "List Order Versions Request",
-            "description": "-- Orders --"
+            "title": "List Order Versions Request"
         },
         "datanode.api.v2.Pagination": {
             "properties": {
