@@ -2302,8 +2302,8 @@
               "defaultValue": ""
             },
             {
-              "name": "enactment_timestamp",
-              "description": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnact` and `maxEnact` network parameters",
+              "name": "validation_timestamp",
+              "description": "Validation timestamp (Unix time in seconds)",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -2314,15 +2314,27 @@
               "defaultValue": ""
             },
             {
-              "name": "validation_timestamp",
-              "description": "Validation timestamp (Unix time in seconds)",
+              "name": "enactment_timestamp",
+              "description": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnact` and `maxEnact` network parameters",
               "label": "",
               "type": "int64",
               "longType": "int64",
               "fullType": "int64",
               "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
+              "isoneof": true,
+              "oneofdecl": "enactment",
+              "defaultValue": ""
+            },
+            {
+              "name": "enactment_last_update",
+              "description": "Last Update is the time duratuon in int64 that was last added to the timestamp field",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "enactment",
               "defaultValue": ""
             },
             {

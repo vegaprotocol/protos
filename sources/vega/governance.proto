@@ -168,11 +168,17 @@ message ProposalTerms {
   // Timestamp (Unix time in seconds) when voting closes for this proposal,
   // constrained by `minClose` and `maxClose` network parameters
   int64 closing_timestamp = 1;
-  // Timestamp (Unix time in seconds) when proposal gets enacted (if passed),
-  // constrained by `minEnact` and `maxEnact` network parameters
-  int64 enactment_timestamp = 2;
   // Validation timestamp (Unix time in seconds)
-  int64 validation_timestamp = 3;
+  int64 validation_timestamp = 2;
+
+  oneof enactment {
+    // Timestamp (Unix time in seconds) when proposal gets enacted (if passed),
+    // constrained by `minEnact` and `maxEnact` network parameters
+    int64 enactment_timestamp = 107;
+    // Last Update is the time duratuon in int64 that was last added to the timestamp field
+    int64 enactment_last_update = 108;
+  }
+
   // Changes being proposed
   oneof change {
     // Proposal change for modifying an existing market on Vega

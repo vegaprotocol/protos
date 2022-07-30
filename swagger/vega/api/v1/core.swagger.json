@@ -4073,15 +4073,20 @@
           "format": "int64",
           "title": "Timestamp (Unix time in seconds) when voting closes for this proposal,\nconstrained by `minClose` and `maxClose` network parameters"
         },
+        "validationTimestamp": {
+          "type": "string",
+          "format": "int64",
+          "title": "Validation timestamp (Unix time in seconds)"
+        },
         "enactmentTimestamp": {
           "type": "string",
           "format": "int64",
           "title": "Timestamp (Unix time in seconds) when proposal gets enacted (if passed),\nconstrained by `minEnact` and `maxEnact` network parameters"
         },
-        "validationTimestamp": {
+        "enactmentLastUpdate": {
           "type": "string",
           "format": "int64",
-          "title": "Validation timestamp (Unix time in seconds)"
+          "title": "Last Update is the time duratuon in int64 that was last added to the timestamp field"
         },
         "updateMarket": {
           "$ref": "#/definitions/vegaUpdateMarket",

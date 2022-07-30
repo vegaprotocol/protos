@@ -107,11 +107,13 @@ func testProposalSubmissionWithNonPositiveEnactmentTimestampFails(t *testing.T) 
 		t.Run(tc.msg, func(t *testing.T) {
 			err := checkProposalSubmission(&commandspb.ProposalSubmission{
 				Terms: &types.ProposalTerms{
-					EnactmentTimestamp: tc.value,
+					Enactment: &types.ProposalTerms_EnactmentTimestamp{
+						EnactmentTimestamp: tc.value,
+					},
 				},
 			})
 
-			assert.Contains(t, err.Get("proposal_submission.terms.enactment_timestamp"), commands.ErrMustBePositive)
+			assert.Contains(t, err.Get("proposal_submission.terms.enactment.enactment_timestamp"), commands.ErrMustBePositive)
 		})
 	}
 }
@@ -119,11 +121,13 @@ func testProposalSubmissionWithNonPositiveEnactmentTimestampFails(t *testing.T) 
 func testProposalSubmissionWithPositiveEnactmentTimestampSucceeds(t *testing.T) {
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
-			EnactmentTimestamp: RandomPositiveI64(),
+			Enactment: &types.ProposalTerms_EnactmentTimestamp{
+				EnactmentTimestamp: RandomPositiveI64(),
+			},
 		},
 	})
 
-	assert.NotContains(t, err.Get("proposal_submission.terms.enactment_timestamp"), commands.ErrMustBePositive)
+	assert.NotContains(t, err.Get("proposal_submission.terms.enactment.enactment_timestamp"), commands.ErrMustBePositive)
 }
 
 func testProposalSubmissionWithNegativeValidationTimestampFails(t *testing.T) {
@@ -151,8 +155,10 @@ func testProposalSubmissionWithClosingTimestampAfterEnactmentTimestampFails(t *t
 	enactmentTime := RandomPositiveI64Before(closingTime)
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
-			ClosingTimestamp:   closingTime,
-			EnactmentTimestamp: enactmentTime,
+			ClosingTimestamp: closingTime,
+			Enactment: &types.ProposalTerms_EnactmentTimestamp{
+				EnactmentTimestamp: enactmentTime,
+			},
 		},
 	})
 
@@ -167,8 +173,10 @@ func testProposalSubmissionWithClosingTimestampBeforeEnactmentTimestampSucceeds(
 
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
-			ClosingTimestamp:   closingTime,
-			EnactmentTimestamp: enactmentTime,
+			ClosingTimestamp: closingTime,
+			Enactment: &types.ProposalTerms_EnactmentTimestamp{
+				EnactmentTimestamp: enactmentTime,
+			},
 		},
 	})
 
@@ -182,8 +190,10 @@ func testProposalSubmissionWithClosingTimestampAtEnactmentTimestampSucceeds(t *t
 
 	err := checkProposalSubmission(&commandspb.ProposalSubmission{
 		Terms: &types.ProposalTerms{
-			ClosingTimestamp:   enactmentTime,
-			EnactmentTimestamp: enactmentTime,
+			ClosingTimestamp: enactmentTime,
+			Enactment: &types.ProposalTerms_EnactmentTimestamp{
+				EnactmentTimestamp: enactmentTime,
+			},
 		},
 	})
 
